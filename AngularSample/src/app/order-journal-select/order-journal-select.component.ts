@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'order-journal-select',
     templateUrl: './order-journal-select.component.html',
-    styleUrls: ['./order-journal-select.component.css']
+    styleUrls: ['../common/common.component.css',
+                './order-journal-select.component.css']
   })
 
   export class OrderJournalSelectComponent implements OnInit {
