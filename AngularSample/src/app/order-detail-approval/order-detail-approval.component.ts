@@ -1,5 +1,5 @@
-import { Component, OnInit, NgModule, Input } from '@angular/core';
-import { OrderDetail } from './orderDetail';
+import { Component, OnInit} from '@angular/core';
+import { OrderDetail,OrderSearchInputment } from './orderDetail';
 import { testData} from './test-order-detail';
 
 @Component({
@@ -8,9 +8,12 @@ import { testData} from './test-order-detail';
   styleUrls: ['./order-detail-approval.component.css']
 })
 export class OrderDetailApprovalComponent implements OnInit {
-  title = "発注明細入力＿承認処理"
-  @Input() orderDetails :OrderDetail;
+
+  pageTitle = "発注明細入力＿承認処理";
+
   datas: OrderDetail [] = testData;
+
+  inputment: OrderSearchInputment[];
 
   constructor() { }
 

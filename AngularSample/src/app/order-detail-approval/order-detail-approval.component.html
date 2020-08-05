@@ -1,51 +1,139 @@
-<div style=" text-align: center;">{{title}}</div>
+<header>
+    <title>{{title}}</title>
+</header>
 
-<div>
-    <section id="search-input">
-        <form action="">
+<div class="container">
+    <div class="container-fluid">
+        <h1 style="text-align: center;">{{pageTitle}}</h1>
+    </div>
+</div>
 
-            <table>
+<div class="">
+    <section id="search-input" style="border:1px solid black; padding: 10px;">
+        <form action="" class="form-container">
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                    <span class="input-group-text" style="width: 80px;">契約番号</span>
+                </div>
+                <input id="contractNumFrom" type="text" style="width: 120px;">
+                <div style="width: 30px;">
+                    <span style="text-align: center;">~</span>
+                </div>
+                <input id="contractNumTo" type="text" style="width: 120px;">
+            </div>
 
-            </table>
+            <div class="input-group input-group-sm mb-1">
+                <div>
+                    <span class="input-group-text" style="width: 80px;">物件名</span>
+                </div>
+                <input id="contractNumFrom" type="text" style="width: 270px;">
+                <div style="width: 30px;"></div>
+                <div class="input-group-append">
+                    <label class="radio-container">
+                        <input type="radio" name="options" id="startFromName" autocomplete="off">で始まる</label>
+                    <div style="width: 20px;"></div>
+                    <label class="radio-container">
+                        <input type="radio" name="options" id="startFromName" autocomplete="off">を含む</label>
+                </div>
+            </div>
+            <div class="input-group mb-1" items-inline>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 80px;">明細作成</span>
+                </div>
+                <div style="width: 50px;"></div>
+                <div class="input-group-append">
+                    <label><input type="checkbox" id="detailNone" autocomplete="off">明細作成未</label>
+                    <div style="width: 20px;"></div>
+                    <label><input type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</label>
+                </div>
+            </div>
+
+            <div class="input-group mb-1" style="width: 100%;">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" style="width: 80px;">未承認</span>
+                </div>
+                <div style="width: 50px;"></div>
+                <div class=" checkbox-container checkbox-inline input-group-append">
+                    <label><input type="checkbox" id="detailNone" autocomplete="off">承認１</label>
+                    <div style="width: 20px;"></div>
+                    <label><input type="checkbox" id="detailCreated" autocomplete="off">承認２</label>
+                </div>
+
+                <div style="width: 50%;"></div>
+                <div class="input-group-prepend">
+                    <div>
+                        <span class="input-group-text" style="width: 80px;">表示順</span>
+                    </div>
+                    <div style="width: 30px;"></div>
+                    <div class="input-group-append">
+                        <label class=" radio-container "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</label>
+                        <div style="width: 20px;"></div>
+                        <label class="radio-container"> <input type="radio" name="options " id="startFromName " autocomplete="off ">降順</label>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: right; width: 100%; " aria-colspan="2">
+                <button type="button" class="btn-group-toggle border" style="width: 80px;" onclick="window.alert('clicked!')">検索</button>
+                <div style="width: 50px;"></div>
+            </div>
 
         </form>
     </section>
-    <section id="data-display" class="table-container">
-        <table id="tbl-order-detail" class="table table-hover table-striped">
+
+    <section id=" data-display " style="padding-top  :10px">
+        <table id="tbl-order-detail " class="table table-hover table-striped mb-3" border="1">
             <thead>
                 <tr>
-                    <th scope="col" class="table-id td-b text-center">契約番号</th>
-                    <th scope="col" class="table-str td-b text-center">物件名</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">発注予定金額合計</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">承認依頼金額合計</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">発注金額合計</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">受入金額合計</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">進捗率</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">明</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">承1</th>
-                    <th scope="col" class="table-landLotNum td-b text-center">承2</th>
-                    <th scope="col" class="table-btn text-center">詳細</th>
+                    <th scope=" col " class="table-str td-b text-center">契約番号</th>
+                    <th scope="col " class="table-str td-b text-center ">物件名</th>
+                    <th scope="col " class="table-str td-b text-center ">発注予定金額合計</th>
+                    <th scope="col " class="table-str td-b text-center ">承認依頼金額合計</th>
+                    <th scope="col " class="table-str td-b text-center ">発注金額合計</th>
+                    <th scope="col " class="table-str td-b text-center ">受入金額合計</th>
+                    <th scope="col " class="table-str td-b text-center ">進捗率</th>
+                    <th scope="col " class="table-str td-b text-center ">明</th>
+                    <th scope="col " class="table-str td-b text-center ">承1</th>
+                    <th scope="col " class="table-str td-b text-center ">承2</th>
+                    <th scope="col " class="table-str td-b text-center ">詳細</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of datas">
-                    <td style="text-align: center;">{{data.contactNum}}</td>
-                    <td>{{data.propertyName}}</td>
-                    <td>{{data.planOrderAmout}}</td>
-                    <td>{{data.approvalRequestAmount}}</td>
-                    <td>{{data.performanceOrderAmount}}</td>
-                    <td>{{data.receivedAmount}}</td>
-                    <td>{{data.progessRate}}</td>
-                    <td>{{data.createdDetail}}</td>
-                    <td>{{data.approval_1}}</td>
-                    <td>{{data.approval_2}}</td>
+                <tr *ngFor="let data of datas ">
+                    <td class="table-str td-b text-center">{{data.contractNum}}</td>
+                    <td class="table-str td-b text-center">{{data.propertyName}}</td>
+                    <td class="table-str td-b text-center">{{data.planOrderAmout}}</td>
+                    <td class="table-str td-b text-center">{{data.approvalRequestAmount}}</td>
+                    <td class="table-str td-b text-center">{{data.performanceOrderAmount}}</td>
+                    <td class="table-str td-b text-center">{{data.receivedAmount}}</td>
+                    <td class="table-str td-b text-center">{{data.progessRate}}</td>
+                    <td class="table-str td-b text-center">{{data.createdDetail}}</td>
+                    <td class="table-str td-b text-center">{{data.approval_1}}</td>
+                    <td class="table-str td-b text-center">{{data.approval_2}}</td>
                     <td>
-                        <button id="btnGvDetail" class="table-btn-d btn btn-info border">詳細</button>
+                        <button id="btnGvDetail " class="table-btn-d btn btn-info border " onclick="window.alert( 'grid Button clicked!') ">詳細</button>
                     </td>
                 </tr>
             </tbody>
-
         </table>
     </section>
-
+</div>
+<div class="text-center paginate-container ">
+    <button class="btn btn-info border mx-3 "><i
+            class="fas fa-angle-double-left fa-inverse "></i></button>
+    <button class="btn btn-info border mx-3 "><i
+            class="fas fa-angle-left fa-inverse "></i></button>
+    <div class="input-wrapper ">
+        <input class="paginateInput " type="text " />
+    </div>
+    <button class="btn btn-info border mx-3 "><i
+            class="fas fa-angle-right fa-inverse "></i></button>
+    <button class="btn btn-info border mx-3 "><i
+            class="fas fa-angle-double-right fa-inverse "></i></button>
+    <button class="btn btn-info border mx-3 ">JUMP</button>
+    <p class="m-3 fs-small ">0 - 50 件表示 / {{recordMax}} 件中</p>
+</div>
+<div class="footer-container ">
+    <div class="text-left footer ">
+        <button class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
+    </div>
 </div>

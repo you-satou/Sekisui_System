@@ -2,52 +2,54 @@
 <title>{{displayTitle}}</title>
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <div id="app">
-  <nav class="navbar text-white p-2" style="background-color:#305496;">
-    <ul class="navbar-nav mr-auto">　
-      <a class="navbar-brand text-white" href="#">
-        <img src="./assets/logo.png" class="d-inline-block align-top">
-        <span class="mx-3 fs-big">新本社システム</span>
-        <span class="mx-1 fs-small">v 1.0.0</span>
-      </a>
-    </ul>
-    <ul class="navbar-nav">　
-      <div class="text-right">
-        <div>
-          <span class="mx-2 fs-small">大阪北支店</span><span class="mx-2 fs-small">積水　次郎</span>
-          <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample"
-            style="font-weight:bold">︙
+    <nav class="navbar text-white p-2" style="background-color:#305496;">
+        <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand text-white" href="#">
+                <img src="./assets/logo.png" class="d-inline-block align-top">
+                <span class="mx-3 fs-big">新本社システム</span>
+                <span class="mx-1 fs-small">v 1.0.0</span>
+            </a>
+        </ul>
+        <ul class="navbar-nav">
+            <div class="text-right">
+                <div>
+                    <span class="mx-2 fs-small">大阪北支店</span><span class="mx-2 fs-small">積水　次郎</span>
+                    <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample" style="font-weight:bold">︙
           </a>
-        </div>
-        <div class="collapse fs-small" id="collapseExample">
-          304005　304005　19780351
-        </div>
-        <span class="mx-2 fs-small">{{getSystemDate()}}　</span>
-      </div>
-    </ul>
-  </nav>
-  <nav class="bg-light border">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#"
-      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                </div>
+                <div class="collapse fs-small" id="collapseExample">
+                    304005　304005　19780351
+                </div>
+                <span class="mx-2 fs-small">{{getSystemDate()}}　</span>
+            </div>
+        </ul>
+    </nav>
+    <nav class="bg-light border">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars hunbarger-icon"></i>
     </button>
-    <span [innerHTML]='rootPath' class="fs-small"></span>
-    <a class="header-title text-left fs-small">{{displayTitle}}</a>
-    <div class="px-5 pt-1">
-      <h4 class="header-title text-left fs-big">{{displayTitle}}</h4>
+        <span [innerHTML]='rootPath' class="fs-small"></span>
+        <a class="header-title text-left fs-small">{{displayTitle}}</a>
+        <div class="px-5 pt-1">
+            <h4 class="header-title text-left fs-big">{{displayTitle}}</h4>
+        </div>
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-light p-4">
+                <span class="text-muted">contents</span>
+            </div>
+        </div>
+    </nav>
+
+    <p class="text-center m-0">{{message_str}}</p>
+    <ul *ngIf="errorFlg" class="errorMessages">
+        <li *ngFor="let item of errorMessages">{{item}}</li>
+    </ul>
+
+
+    <div class="px-5 py-3">
+        <router-outlet></router-outlet>
     </div>
-    <div class="collapse" id="navbarToggleExternalContent">
-      <div class="bg-light p-4">
-        <span class="text-muted">contents</span>
-      </div>
-    </div>
-  </nav>
-  <p class="text-center m-0">{{message_str}}</p>
-  <ul *ngIf="errorFlg" class="errorMessages">
-    <li *ngFor="let item of errorMessages">{{item}}</li>
-  </ul>
-  <div class="px-5 py-3" style="height:490px;">
-    <router-outlet></router-outlet>
-  </div>
-  <footer class="footer">
-  </footer>
+
+    <footer class="footer">
+    </footer>
 </div>

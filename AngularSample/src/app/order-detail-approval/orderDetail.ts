@@ -1,25 +1,29 @@
 export class OrderDetail{
 
-    contactNum: string;
+    contractNum: string;
     propertyName: string;
-    planOrderAmout:number;
-    approvalRequestAmount:number;
-    performanceOrderAmount:number;
-    receivedAmount:number;
-    progessRate:number;
-    createdDetail:boolean;
-    approval_1:boolean;
-    approval_2:boolean;
+    planOrderAmout:string;
+    approvalRequestAmount:string;
+    performanceOrderAmount:string;
+    receivedAmount:string;
+    progessRate:string;
+    createdDetail:string;
+    approval_1:string;
+    approval_2:string;
 
 }
 
-export class OrderSearch{
-    contactNumFrom:string;
-    contactNumTo:string;
+export class OrderSearchInputment{
+    contractNumFrom:string;
+    contractNumTo:string;
     propertyName:string;
-    findBeginProName:boolean;
-    findIncludeProName: boolean;
-    detailCreateed:boolean;
+    startFromName:boolean;
+    includeProName: boolean;
+    detailCreated:boolean;
+    detailNone:boolean;
+    approval_1:boolean;
+    approval_2:boolean;
+    resultASC:boolean;
     
 
 }

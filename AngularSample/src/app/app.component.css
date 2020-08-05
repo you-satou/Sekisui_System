@@ -1,5 +1,4 @@
-
-@media screen and (min-width:865px){
+/* @media screen and (min-width:865px) {
     #app {
         max-width: 1024px;
         margin: 0px auto;
@@ -7,9 +6,10 @@
         box-shadow: 5px 5px 15px;
         box-sizing: border-box;
     }
-}
+} */
 
-@media screen and (max-width:864px){
+
+/* @media screen and (max-width:864px) {
     #app {
         max-width: 1024px;
         margin: 5px auto;
@@ -17,13 +17,36 @@
         border-radius: 5px;
         box-shadow: 5px 5px 15px;
         box-sizing: border-box;
-    }    
+    }
+} */
+
+@media screen and (max-width:100%) {
+    #app {
+        max-width: 1024px;
+        margin: 5px auto;
+        border: 1px solid rgb(131, 133, 136);
+        border-radius: 5px;
+        box-shadow: 5px 5px 15px;
+        box-sizing: border-box;
+    }
 }
-#app{
+
+@media screen and (min-width:1px) {
+    #app {
+        max-width: 1024px;
+        margin: 2px auto;
+        border-radius: 5px;
+        box-shadow: 5px 5px 15px;
+        box-sizing: border-box;
+    }
+}
+
+#app {
     position: relative;
 }
-.footer{
-    position: absolute;
+
+.footer {
+    position: inherit;
     display: inline-block;
     bottom: 0;
     width: 100%;
@@ -31,10 +54,12 @@
     background-color: #F5F5F5;
     border-top: 1px solid #CCD0D5;
 }
-#app::-webkit-scrollbar{
+
+#app::-webkit-scrollbar {
     display: none;
 }
-#overlay{
+
+#overlay {
     position: fixed;
     top: 0;
     height: 100%;
@@ -42,38 +67,46 @@
     background: rgba(0, 0, 0, 0.3);
     z-index: 9;
 }
-.errorMessages{
+
+.errorMessages {
     margin: 5px auto;
     padding-left: 20px;
     letter-spacing: 1px;
     color: red;
 }
-.menu-top{
+
+.menu-top {
     display: flex;
     justify-content: flex-start;
 }
+
 .fa-bars::before {
-	content:'\f0c9';
-	font-family:'Font Awesome 5 Free';
-    font-weight:900;
+    content: '\f0c9';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
     color: black;
     font-size: 20px;
 }
-.top-menu{
+
+.top-menu {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin: 5px 0;
 }
-.top-menu > p{
+
+.top-menu>p {
     padding: 7px;
 }
-.header-str-container > p{
+
+.header-str-container>p {
     margin: auto 0;
 }
-.system-date-container{
+
+.system-date-container {
     width: 20%;
 }
-.header-title{
+
+.header-title {
     width: 50%;
 }

@@ -36,10 +36,11 @@ export class AppComponent implements OnInit {
   rootPath: string;
 
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
-  constructor(
-    private router: Router,
-  ) {
-  }
+
+  constructor( 
+    private router: Router, 
+    ) {  }
+
   ngOnInit() {
     window.onpopstate = function (event) {
       history.pushState(null, null, null);
@@ -54,8 +55,7 @@ export class AppComponent implements OnInit {
         event.keyCode == 115 ||
         event.keyCode == 116 ||
         event.keyCode == 117 ||
-        event.keyCode == 122 //||
-        //event.keyCode == 123
+        event.keyCode == 122
       ) {
         return false;
       };
@@ -75,11 +75,11 @@ export class AppComponent implements OnInit {
     };
     this.init();
   }
+
+
   init() {
-    this.displayTitle = "V3A001 検索一覧";
+    this.displayTitle = "発注明細";
     this.rootPath = "<a href='#'>TOP<a> > <a href='#'>○○○○<a> > ";
-    //this.displayTitle = "V3A002 修正画面"
-    //this.rootPath = "<a href='#'>TOP<a> > <a href='#'>○○○○<a> > <a href='#'>V3A001 検索一覧<a> > ";
   }
 
   getSystemDate(): string {
