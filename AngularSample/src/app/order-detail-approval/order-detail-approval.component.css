@@ -1,58 +1,39 @@
-/* .label-control {
-    margin-right: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-} */
+/********* Text Box **********/
 
-
-/* 
-.input-container .form-input {
-    width: 15%;
-} */
-
-
-/* .align-content-center .checkbox-inline input {
-    vertical-align: middle;
-} */
-
-
-/* .search-form-s>span {
-    height: 30px;
-    line-height: 30px;
-} */
-
-.search-form-s>span>button {
-    height: 18px;
-    line-height: 18px;
-}
-
-.search-form-s>span>label,
 input {
-    height: 18px;
-    line-height: 18px;
+    height: 25px;
+    line-height: 25px;
 }
 
-.radio-container {
+
+/*********************************************/
+
+
+/********* Radio Button and CheckBox*************/
+
+
+/* .radio-container {
     margin-right: 20px;
     margin-top: 10px;
-    margin-bottom: 10px;
-}
+    margin-bottom: 0px;
+} */
 
-.checkbox-container {
+
+/* .checkbox-container {
     margin-right: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 10px;
-}
+} */
 
-.table-container {
-    display: inline-block;
-    margin-top: 10px;
-    width: 100%;
-    max-height: 300px;
-    border-radius: 5px;
-}
+
+/*********************************************/
+
+
+/* ***********Table Properties******************* */
 
 .table {
+    /* table-layout: fixed; */
+    /* width: 100%; */
     position: relative;
     margin: 0;
     border-collapse: collapse;
@@ -61,20 +42,27 @@ input {
     border-left: 0.5px solid #CCD0D5;
 }
 
+
+/* 
 .table>thead,
 tbody {
     display: block;
 }
+ */
 
 
-/* scroll bar */
+/**************** Scroll bar *************************/
 
 .table>tbody {
     height: 480px;
     overflow-y: scroll;
 }
 
+
+/* ************************************************ */
+
 .table>thead {
+    text-align: center;
     background-color: #E5E5E5;
 }
 
@@ -82,71 +70,46 @@ tbody {
     display: none;
 }
 
-
-/* .table>thead>tr,
-tbody>tr {
-    display: inline-block;
-    width: 100%;
-    max-height: 100%;
-} */
-
-
-/* .table-id {
-    display: inline-block;
-    height: 40px;
-    max-height: 100%;
-    width: 6%;
-    word-wrap: break-word;
-}*/
-
 .table-str {
     /* display: inline-block; */
     height: 40px;
-    width: 30%;
+    /* width: 30%; */
     word-wrap: break-word;
 }
+
+
+/***************** Table Border line *********************/
 
 .td-b {
     border-right: 0.5px solid #CCD0D5;
 }
 
-.table-btn {
+
+/* ********************************************* */
+
+.td-font {
+    font-size: 1rem;
+}
+
+.table-btn-d {
     display: inline-block;
-    height: 40px;
-    width: 22.8%;
+    width: 60px;
     word-wrap: break-word;
 }
 
-
-/* .table-btn-pad {
-    padding-top: 5px;
-} */
-
-.table-btn-d {
-    width: 60px;
-}
-
 .input-group-text {
+    color: black;
+    font-weight: bolder;
     background-color: transparent;
     border: none;
 }
 
 
-/* .form-container {
-    margin-bottom: 3px;
-} */
-
-
-/* .form-container {
-    margin-bottom: 10px;
-    display: inline-block;
-} */
-
-input,
+/* input,
 label,
 span {
     font-size: 1rem !important;
-}
+} */
 
 
 /******************* Page Index ****************************/

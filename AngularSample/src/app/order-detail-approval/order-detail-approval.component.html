@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="container-fluid">
-        <h1 style="text-align: center;">{{pageTitle}}</h1>
+        <h1 style="text-align: center; font-weight: bold;">{{pageTitle}}</h1>
     </div>
 </div>
 
@@ -28,12 +28,12 @@
                 </div>
                 <input id="contractNumFrom" type="text" style="width: 270px;">
                 <div style="width: 30px;"></div>
-                <div class="input-group-append">
-                    <label class="radio-container">
-                        <input type="radio" name="options" id="startFromName" autocomplete="off">で始まる</label>
+                <div class="input-group-append radio-container ">
+                    <input type="radio" name="options" id="startFromName" autocomplete="off">
+                    <label>で始まる</label>
                     <div style="width: 20px;"></div>
-                    <label class="radio-container">
-                        <input type="radio" name="options" id="startFromName" autocomplete="off">を含む</label>
+                    <input type="radio" name="options" id="startFromName" autocomplete="off">
+                    <label>を含む</label>
                 </div>
             </div>
             <div class="input-group mb-1" items-inline>
@@ -41,10 +41,12 @@
                     <span class="input-group-text" style="width: 80px;">明細作成</span>
                 </div>
                 <div style="width: 50px;"></div>
-                <div class="input-group-append">
-                    <label><input type="checkbox" id="detailNone" autocomplete="off">明細作成未</label>
+                <div class="input-group-append checkbox-container">
+                    <input type="checkbox" id="detailNone" autocomplete="off">
+                    <label>明細作成未</label>
                     <div style="width: 20px;"></div>
-                    <label><input type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</label>
+                    <input type="checkbox" id="detailCreated" autocomplete="off">
+                    <label>明細作成あり</label>
                 </div>
             </div>
 
@@ -53,22 +55,26 @@
                     <span class="input-group-text" style="width: 80px;">未承認</span>
                 </div>
                 <div style="width: 50px;"></div>
-                <div class=" checkbox-container checkbox-inline input-group-append">
-                    <label><input type="checkbox" id="detailNone" autocomplete="off">承認１</label>
+                <div class=" input-group-append">
+                    <input type="checkbox" id="detailNone" autocomplete="off">
+                    <label>承認１</label>
                     <div style="width: 20px;"></div>
-                    <label><input type="checkbox" id="detailCreated" autocomplete="off">承認２</label>
+                    <input type="checkbox" id="detailCreated" autocomplete="off">
+                    <label>承認２</label>
                 </div>
 
-                <div style="width: 50%;"></div>
+                <div style="width: 72%;"></div>
                 <div class="input-group-prepend">
                     <div>
                         <span class="input-group-text" style="width: 80px;">表示順</span>
                     </div>
                     <div style="width: 30px;"></div>
-                    <div class="input-group-append">
-                        <label class=" radio-container "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</label>
+                    <div class="input-group-append radio-container">
+                        <input type="radio" name="options " id="startFromName " autocomplete="off ">
+                        <label>昇順</label>
                         <div style="width: 20px;"></div>
-                        <label class="radio-container"> <input type="radio" name="options " id="startFromName " autocomplete="off ">降順</label>
+                        <input type="radio" name="options " id="startFromName " autocomplete="off ">
+                        <label> 降順</label>
                     </div>
                 </div>
             </div>
@@ -81,37 +87,37 @@
     </section>
 
     <section id=" data-display " style="padding-top  :10px">
-        <table id="tbl-order-detail " class="table table-hover table-striped mb-3" border="1">
+        <table id="tbl-order-detail " class=" table table-striped mb-3">
             <thead>
                 <tr>
-                    <th scope=" col " class="table-str td-b text-center">契約番号</th>
-                    <th scope="col " class="table-str td-b text-center ">物件名</th>
-                    <th scope="col " class="table-str td-b text-center ">発注予定金額合計</th>
-                    <th scope="col " class="table-str td-b text-center ">承認依頼金額合計</th>
-                    <th scope="col " class="table-str td-b text-center ">発注金額合計</th>
-                    <th scope="col " class="table-str td-b text-center ">受入金額合計</th>
-                    <th scope="col " class="table-str td-b text-center ">進捗率</th>
-                    <th scope="col " class="table-str td-b text-center ">明</th>
-                    <th scope="col " class="table-str td-b text-center ">承1</th>
-                    <th scope="col " class="table-str td-b text-center ">承2</th>
-                    <th scope="col " class="table-str td-b text-center ">詳細</th>
+                    <th class="td-b" style="width: 60px;">詳細</th>
+                    <th class="td-b" style="width: 110px;">契約番号</th>
+                    <th class="td-b" style="width: 200px;">物件名</th>
+                    <th class="td-b" style="width: 110px;">発注予定金額合計</th>
+                    <th class="td-b" style="width: 110px;">承認依頼金額合計</th>
+                    <th class="td-b" style="width: 110px;">発注金額合計</th>
+                    <th class="td-b" style="width: 110px;">受入金額合計</th>
+                    <th class="td-b" style="width: 60px;">進捗率</th>
+                    <th class="td-b" style="width: 50px;">明</th>
+                    <th class="td-b" style="width: 50px;">承1</th>
+                    <th class="td-b" style="width: 50px;">承2</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of datas ">
-                    <td class="table-str td-b text-center">{{data.contractNum}}</td>
-                    <td class="table-str td-b text-center">{{data.propertyName}}</td>
-                    <td class="table-str td-b text-center">{{data.planOrderAmout}}</td>
-                    <td class="table-str td-b text-center">{{data.approvalRequestAmount}}</td>
-                    <td class="table-str td-b text-center">{{data.performanceOrderAmount}}</td>
-                    <td class="table-str td-b text-center">{{data.receivedAmount}}</td>
-                    <td class="table-str td-b text-center">{{data.progessRate}}</td>
-                    <td class="table-str td-b text-center">{{data.createdDetail}}</td>
-                    <td class="table-str td-b text-center">{{data.approval_1}}</td>
-                    <td class="table-str td-b text-center">{{data.approval_2}}</td>
-                    <td>
-                        <button id="btnGvDetail " class="table-btn-d btn btn-info border " onclick="window.alert( 'grid Button clicked!') ">詳細</button>
+                <tr *ngFor=" let data of datas ">
+                    <td class="td-b td-font text-center">
+                        <button id="btnGvDetail " class="table-btn-d btn-info border" onclick="window.alert( 'grid Button clicked!')" href="./">詳細</button>
                     </td>
+                    <td class="td-b td-font">{{data.contractNum}}</td>
+                    <td class=" table-str td-b td-font">{{data.propertyName}}</td>
+                    <td class="td-b td-font">{{data.planOrderAmout}}</td>
+                    <td class="td-b td-font">{{data.approvalRequestAmount}}</td>
+                    <td class="td-b td-font">{{data.performanceOrderAmount}}</td>
+                    <td class="td-b td-font">{{data.receivedAmount}}</td>
+                    <td class="td-b td-font">{{data.progessRate}}</td>
+                    <td class="td-b td-font">{{data.createdDetail}}</td>
+                    <td class="td-b td-font">{{data.approval_1}}</td>
+                    <td class="td-b td-font">{{data.approval_2}}</td>
                 </tr>
             </tbody>
         </table>

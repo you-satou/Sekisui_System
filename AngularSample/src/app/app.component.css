@@ -20,7 +20,8 @@
     }
 } */
 
-@media screen and (max-width:100%) {
+
+/* @media screen and (max-width:100%) {
     #app {
         max-width: 1024px;
         margin: 5px auto;
@@ -39,7 +40,7 @@
         box-shadow: 5px 5px 15px;
         box-sizing: border-box;
     }
-}
+} */
 
 #app {
     position: relative;

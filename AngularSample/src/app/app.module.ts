@@ -12,12 +12,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailApprovalComponent } from './order-detail-approval/order-detail-approval.component';
 
+import { IndexComponent } from './index/index.component';
+import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
+import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.component';
+import { SplitDetailInputComponent } from './split-detail-input/split-detail-input.component';
+import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
 
 const appRoute: Routes = [
   { path: "", component: OrderDetailApprovalComponent },
   { path: "1", component: SearchFrameComponent },
   { path: "2", component: SearchFrameComponent2 },
-  { path: "3", component: RouteDetailComponent }
+  { path: "3", component: RouteDetailComponent },
+  { path: "4", component: IndexComponent },
+  { path: "searchFrame", component: SearchFrameComponent },
+  { path: "OrderJournalSelect", component: OrderJournalSelectComponent },
+  { path: "SupplierPattern", component: SupplierPatternComponent},
+  { path: "SplitDetailInput", component: SplitDetailInputComponent},
+  { path: "OrderDetailInput", component: OrderDetailInputComponent},
 ];
 
 @NgModule({
@@ -27,6 +38,11 @@ const appRoute: Routes = [
     SearchFrameComponent2,
     RouteDetailComponent,
     OrderDetailApprovalComponent,
+    IndexComponent,
+    OrderJournalSelectComponent,
+    SupplierPatternComponent,
+    SplitDetailInputComponent,
+    OrderDetailInputComponent,
   ],
   imports: [
     BrowserModule,
