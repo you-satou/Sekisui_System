@@ -1,0 +1,237 @@
+<section class="route-detail-container">
+    <section id="detail-form-container">
+        <form>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="str" class="col-sm-5 col-form-label">文字列
+                    <span style="color:red">＊</span></label>
+                </div>
+                <div class=" col-sm-7">
+                    <input type="text" class="form-control SHComAllChar" name="str" [(ngModel)]="data.str" id="str" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="multiLineStr" class="col-sm-8 col-form-label">複数行文字列</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComAllCharML" name="multiLineStr" [(ngModel)]="data.multiLineStr" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="date" class="col-sm-5 col-form-label">年月日
+                        <span style="color:red">＊</span></label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComDate" name="date" [(ngModel)]="data.date" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="time" class="col-sm-5 col-form-label">時間</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComTime" name="time" [(ngModel)]="data.time" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="postalCd" class="col-sm-5 col-form-label">郵便番号</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComZipNo" name="postalCd" [(ngModel)]="data.postalCd" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="num" class="col-sm-5 col-form-label">数値</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComNumber" name="num" [(ngModel)]="data.num" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label name="fullCharaStr" class="col-sm-5 col-form-label">全角文字列</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComWideChar" name="fullCharaStr" [(ngModel)]="data.fullCharaStr" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label name="" class="col-sm-5 col-form-label">契約種別</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="heel" class="col-sm-5 col-form-label">半角カナ</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComHalfKanaChar" name="heel" [(ngModel)]="data.heel" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="halfCharStr" class="col-sm-5 col-form-label">半角</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComHalfChar" name="halfCharStr" [(ngModel)]="data.halfCharStr" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="officeCd" class="col-sm-5 col-form-label">事業所</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComJigCode" name="officeCd" [(ngModel)]="data.officeCd" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="contactCd" class="col-sm-5 col-form-label">担当コード</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComTanCode" name="contactCd" [(ngModel)]="data.contactCd" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="landLotNum" class="col-sm-5 col-form-label">分譲地番号</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComBunjNo" name="landLotNum" [(ngModel)]="data.landLotNum" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="employeeCd" class="col-sm-8 col-form-label">従業員コード</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComJyuCode" name="employeeCd" [(ngModel)]="data.employeeCd" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="cntrctdPrprtyNo" class="col-sm-5 col-form-label">契約物件NO</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComSesyuCode" name="cntrctdPrprtyNo" [(ngModel)]="data.cntrctdPrprtyNo" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="phoneNum" class="col-sm-5 col-form-label">電話番号</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control ZcomTelNo" name="phoneNum" [(ngModel)]="data.phoneNum" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="contractNum" class="col-sm-5 col-form-label">契約書番号</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComTokuCode" name="contractNum" [(ngModel)]="contractNum" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="multiCharStr" class="col-sm-8 col-form-label">全角複数行文字列</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComWideCharML" name="multiCharStr" [(ngModel)]="data.multiCharStr" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="yearAndMonth" class="col-sm-5 col-form-label">年月</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control SHComYearMonth" name="yearAndMonth" [(ngModel)]="data.yearAndMonth" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="" class="col-sm-5 col-form-label">運搬方法</label>
+                </div>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" name="" />
+                </div>
+            </div>
+            <div class="radio-container">
+                <div class="col-sm-4 radio-wrapper">
+                    <label for="" class="col-sm-5 col-form-label">契約区分</label>
+                </div>
+                <div class="flex-radio">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="contractCategory" value="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            指定なし
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="contractCategory" value="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            新規契約
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="contractCategory" value="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            契約書再作成
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="contractCategory" value="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            再契約扱い
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="contractCategory" value="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            変更契約
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="" class="col-sm-5 col-form-label">積雪区分</label>
+                </div>
+                <div class="col-sm-7">
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label for="" class="col-sm-5 col-form-label">チェック</label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">有り</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+   
+</section>
+<div class="footer-container">
+    <div class="footer-flex">
+        <button class="btn btn-secondary border m-1 btn-cont" (click)="back()">戻る</button>
+        <div class="">
+            <button  class="btn btn-info m-1 border btn-cont" (click)="update()">更新</button>
+            <button class="btn btn-danger border m-1 btn-cont" (click)="back()">削除</button>
+        </div>
+    </div>
+</div>

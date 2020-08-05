@@ -1,0 +1,51 @@
+<div style=" text-align: center;">{{title}}</div>
+
+<div>
+    <section id="search-input">
+        <form action="">
+
+            <table>
+
+            </table>
+
+        </form>
+    </section>
+    <section id="data-display" class="table-container">
+        <table id="tbl-order-detail" class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="table-id td-b text-center">契約番号</th>
+                    <th scope="col" class="table-str td-b text-center">物件名</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">発注予定金額合計</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">承認依頼金額合計</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">発注金額合計</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">受入金額合計</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">進捗率</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">明</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">承1</th>
+                    <th scope="col" class="table-landLotNum td-b text-center">承2</th>
+                    <th scope="col" class="table-btn text-center">詳細</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of datas">
+                    <td>{{data.contactNum}}</td>
+                    <td>{{data.propertyName}}</td>
+                    <td>{{data.planOrderAmout}}</td>
+                    <td>{{data.approvalRequestAmount}}</td>
+                    <td>{{data.performanceOrderAmount}}</td>
+                    <td>{{data.receivedAmount}}</td>
+                    <td>{{data.progessRate}}</td>
+                    <td>{{data.createdDetail}}</td>
+                    <td>{{data.approval_1}}</td>
+                    <td>{{data.approval_2}}</td>
+                    <td>
+                        <button id="btnGvDetail" class="table-btn-d btn btn-info border">詳細</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+    </section>
+
+</div>

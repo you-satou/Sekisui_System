@@ -1,0 +1,407 @@
+<div id="search-form">
+    <section id="detail-form-container">
+        <form class="search-form-s">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">フォントサイズ</span>
+                </div>
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option1" autocomplete="off" onchange="document.getElementById('html').style.fontSize='16px';"> 大
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option2" autocomplete="off" onchange="document.getElementById('html').style.fontSize='14px';"> 中
+                    </label>
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option3" autocomplete="off" onchange="document.getElementById('html').style.fontSize='12px';"> 小
+                    </label>
+                </div>
+            </div>
+            <!--<input type="hidden" [(ngModel)]="id" name="id" />-->
+            <!-- 文字列 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">文字列</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.str" name="str" class="form-control SHComAllChar"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 複数行文字列 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">複数行文字列</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.multiLineStr" name="multiLineStr"
+                        class="form-control SHComAllCharML" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 年月日 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">年月日</span>
+                    </div>
+                    <input type="date" [(ngModel)]=" searchDatas.date" name="date" class="form-control SHComDate"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="far fa-calendar-alt bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            <!-- 時間 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">時間</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.time" name="time" class="form-control SHComTime"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <style>/*
+            <!-- 郵便番号 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">郵便番号</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.postalCd" name="postalCd"
+                        class="form-control SHComZipNo" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 数値 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">数値</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.num" name="num" class="form-control SHComNumber"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 全角文字列 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">全角文字列</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.fullCharaStr" name="fullCharaStr"
+                        class="form-control SHComWideChar" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <style>/*
+            <!-- 契約種別 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">契約種別</span>
+                    </div>
+                    <input type="text" [(ngModel)]="searchDatas.contractNum" name="contractNum" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" [(ngModel)]="searchDatas.contractNum" name="contractNumReadOnly"
+                        class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="fas fa-search bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            */</style>
+            <style>/*
+            <!-- 半角カナ -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">半角カナ</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.heel" name="heel"
+                        class="form-control SHComHalfKanaChar" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 半角 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">半角</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.halfCharStr" name="halfCharStr"
+                        class="form-control SHComHalfChar" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            */</style>
+            <!-- 事業所 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">事業所</span>
+                    </div>
+                    <input type="text" [(ngModel)]="searchDatas.officeCd" name="officeCd"
+                        class="form-control SHComJigCode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" [(ngModel)]="searchDatas.officeCd" name="officeCdReadOnly"
+                        class="form-control popup-label" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        disabled>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="fas fa-search bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            <style>/*
+            <!-- 担当コード -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">担当コード</span>
+                    </div>
+                    <input type="text" [(ngModel)]="searchDatas.contactCd" name="contactCd"
+                        class="form-control SHComTanCode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" [(ngModel)]="searchDatas.contactCd" name="contactCdReadOnly"
+                        class="form-control popup-label" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        disabled>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="fas fa-search bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            <!-- 分譲地番号 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">分譲地番号</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.landLotNum" name="landLotNum"
+                        class="form-control SHComBunjNo" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 従業員コード -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">従業員コード</span>
+                    </div>
+                    <input type="text" [(ngModel)]="searchDatas.employeeCd" name="employeeCd"
+                        class="form-control SHComJyuCode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" [(ngModel)]="searchDatas.employeeCd" name="employeeCdReadOnly"
+                        class="form-control popup-label" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                        disabled>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="fas fa-search bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            <!-- 契約物件NO -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">契約物件NO</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.cntrctdPrprtyNo" name="cntrctdPrprtyNo"
+                        class="form-control SHComSesyuCode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 電話番号 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">電話番号</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.phoneNum" name="phoneNum"
+                        class="form-control SHComTelNo" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 契約書番号 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">契約書番号</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.contractNum" name="contractNum"
+                        class="form-control SHComTokuCode" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 全角複数行文字列 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">全角複数行文字列</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.multiCharStr" name="multiCharStr"
+                        class="form-control SHComWideCharML" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 年月 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">年月</span>
+                    </div>
+                    <input type="text" [(ngModel)]=" searchDatas.yearAndMonth" name="yearAndMonth"
+                        class="form-control SHComYearMonth" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </span>
+            <!-- 運搬方法 -->
+            <span class="form-container">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">運搬方法</span>
+                    </div>
+                    <input type="text" [(ngModel)]="searchDatas.postalCd" name="postalCd" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input type="text" [(ngModel)]="searchDatas.postalCd" name="postalCdReadOnly" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled>
+                    <div class="input-group-prepend">
+                        <button class="btn btn-info" type="button" id="button-addon1"><i
+                                class="fas fa-search bg-info"></i></button>
+                    </div>
+                </div>
+            </span>
+            <!-- 契約区分 -->
+            <div class="form-container border">
+                <div class="input-group-prepend custom-control-inline">
+                    <span class="input-group-text " id="inputGroup-sizing-sm">契約区分</span>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline1"
+                        name="inlineDefaultRadiosExample">
+                    <label class="custom-control-label" for="defaultInline1">指定なし</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline2"
+                        name="inlineDefaultRadiosExample">
+                    <label class="custom-control-label" for="defaultInline2">新規契約</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline3"
+                        name="inlineDefaultRadiosExample">
+                    <label class="custom-control-label" for="defaultInline3">契約書再作成</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline4"
+                        name="inlineDefaultRadiosExample">
+                    <label class="custom-control-label" for="defaultInline4">再契約扱い</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input" id="defaultInline5"
+                        name="inlineDefaultRadiosExample">
+                    <label class="custom-control-label" for="defaultInline5">変更契約</label>
+                </div>
+            </div>
+            <!-- 積雪区分 -->
+            <div class="form-container">
+                <div class="input-group-prepend ">
+                    <span class="input-group-text" id="inputGroup-sizing-sm">積雪区分</span>
+                    <select class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+            <!-- 運搬方法 -->
+            <div class="form-container">
+                <span class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="custom-check-1">
+                    <label class="custom-control-label" for="custom-check-1">有り</label>
+                </span>
+            </div>
+            */</style>
+        </form>
+    </section>
+    <div class="curd-operation text-right">
+        <button class="btn btn-info border mx-1 search-frame-btn" (click)="search()">検索</button>
+        <button class="btn btn-info border mx-1 search-frame-btn" (click)="clear()">クリア</button>
+    </div>
+</div>
+<div class="table-container">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th class="table-id td-b text-center">ID</th>
+                <th class="table-str td-b text-center">文字列</th>
+                <th class="table-multiLineStr td-b text-center">複数行文字列</th>
+                <th class="table-landLotNum td-b text-center">分譲地番号</th>
+                <th class="table-date td-b text-center">年月日</th>
+                <th class="table-btn text-center">操作ボタン</th>
+            </tr>
+        </thead>
+        <tbody class="">
+            <!--
+            <tr *ngFor="let item of wkDataList | slice:pageIndex*pageSize:(pageIndex+1)*pageSize">
+                <a routerLink="/detail/{{item.id}}" >
+                    <td class="table-id td-b detail-link"  >{{ item.id }}</td>
+                </a>
+                <td class="table-str td-b">{{ item.str }}</td>
+                <td class="table-multiLineStr td-b">{{ item.multiLineStr }}</td>
+                <td class="table-landLotNum td-b">{{ item.landLotNum }}</td>
+                <td class="table-date td-b">{{ item.date }}</td>
+                <td class="text-center table-btn table-btn-pad">
+                    <button (click)="viewShow(item.id)" class="table-btn-d btn btn-info border mx-1">表示</button>
+                    <button (click)="viewEdit(item.id)" class="table-btn-d btn btn-info border mx-1">修正</button>
+                    <button (click)="viewDelete(item.id)" class="table-btn-d btn btn-danger border mx-1">削除</button>
+                </td>
+            </tr>
+        -->
+            <tr>
+                <a routerLink="/detail/1">
+                    <td class="table-id td-b detail-link">1</td>
+                </a>
+                <td class="table-str td-b">あいうえお</td>
+                <td class="table-multiLineStr td-b">かきくけこ</td>
+                <td class="table-landLotNum td-b">1234567890</td>
+                <td class="table-date td-b">2019-09-24</td>
+                <td class="text-center table-btn table-btn-pad">
+                    <button click="#" class="table-btn-d btn btn-info border">表示</button>
+                    <button click="#" class="table-btn-d btn btn-info border">修正</button>
+                    <button click="#" class="table-btn-d btn btn-danger border">削除</button>
+                </td>
+            </tr>
+            <tr>
+                <a routerLink="/detail/1">
+                    <td class="table-id td-b detail-link">1</td>
+                </a>
+                <td class="table-str td-b">あいうえお</td>
+                <td class="table-multiLineStr td-b">かきくけこ</td>
+                <td class="table-landLotNum td-b">1234567890</td>
+                <td class="table-date td-b">2019-09-24</td>
+                <td class="text-center table-btn table-btn-pad">
+                    <button click="#" class="table-btn-d btn btn-info border">表示</button>
+                    <button click="#" class="table-btn-d btn btn-info border">修正</button>
+                    <button click="#" class="table-btn-d btn btn-danger border">削除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="text-center paginate-container">
+    <button class="btn btn-info border mx-3" (click)="setPageIndex(0)" [disabled]="pageIndex <= 0"><i
+            class="fas fa-angle-double-left fa-inverse"></i></button>
+    <button class="btn btn-info border mx-3" (click)="setPageIndex(pageIndex - 1)" [disabled]="pageIndex <= 0"><i
+            class="fas fa-angle-left fa-inverse"></i></button>
+    <div class="input-wrapper">
+        <input class="paginateInput" type="text" value="{{pageIndex}}" #paginateInput />
+    </div>
+    <button class="btn btn-info border mx-3" (click)="setPageIndex(pageIndex + 1)" [disabled]="pageIndex >= pageMax"><i
+            class="fas fa-angle-right fa-inverse"></i></button>
+    <button class="btn btn-info border mx-3" (click)="setPageIndex(pageMax)" [disabled]="pageIndex >= pageMax"><i
+            class="fas fa-angle-double-right fa-inverse"></i></button>
+    <button class="btn btn-info border mx-3" (click)="pageJump(paginateInput)">JUMP</button>
+    <p class="m-3 fs-small">{{pageIndex*pageSize}} - {{(pageIndex+1)*pageSize}} 件表示 / {{recordMax}} 件中</p>
+</div>
+<div class="footer-container">
+    <div class="text-right footer">
+        <button class="btn btn-secondary border mx-1 back-btn">戻る</button>
+        <div>
+            <button (click)="viewCreate()" class="btn btn-info border mx-1">新規登録</button>
+            <button (click)="printPdf()" class="btn btn-info border mx-1">PDF印刷</button>
+        </div>
+    </div>
+</div>

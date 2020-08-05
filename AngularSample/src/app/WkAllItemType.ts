@@ -1,0 +1,30 @@
+export class WkAllItemType {
+    id: number;
+    str: String;
+    multiLineStr: String;
+    landLotNum: number;
+    date: Date;
+    halfCharStr: String;
+    officeCd: String;
+    employeeCd: String;
+    heel: String;
+    num: number;
+    cntrctdPrprtyNo: String;
+    contactCd: String;
+    phoneNum: String;
+    time: String;
+    contractNum: String;
+    fullCharaStr: String;
+    multiCharStr: String;
+    yearAndMonth: String;
+    postalCd: String;
+    mstPopUpNum: number;
+    mstPopUpChar: String;
+    mstRadioBtnNum: String;
+    mstRadioBtnChar: String;
+    mstCheckBtn: number;
+    creationDate: Date;
+    author: String;
+    updateDate: Date;
+    changer: String;
+}

@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+
+html{
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+/* big size*/
+.fs-big{
+    font-size: 1.5rem;
+}
+/* default size */
+.fs-default{
+    font-size: 1rem;
+}
+/* small size */
+.fs-small{
+    font-size: 0.8rem;
+}
+
+.input-group>.form-control{
+    width: 100px;
+}
+
+.input-group>.form-control[type="date"]{
+    width: 142px;
+}
