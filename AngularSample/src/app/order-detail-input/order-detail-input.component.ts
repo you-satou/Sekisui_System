@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 
   export class OrderDetailInputComponent implements OnInit {
     
+    title = "発注明細入力＿明細入力";
+
+
     ngOnInit() {
     }
   }

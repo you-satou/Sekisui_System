@@ -58,16 +58,16 @@ tbody {
     overflow-y: scroll !important;
 }
 
+.table>tbody::-webkit-scrollbar {
+    display: none !important;
+}
+
 
 /* ************************************************ */
 
 .table>thead {
     text-align: center !important;
     background-color: #E5E5E5 !important;
-}
-
-.table>tbody::-webkit-scrollbar {
-    display: none !important;
 }
 
 .table-str {

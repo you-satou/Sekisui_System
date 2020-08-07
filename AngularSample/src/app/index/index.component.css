@@ -1,0 +1,13 @@
+.footer>.back-btn {
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    margin-right: 20px;
+}
+
+.footer {
+    display: flex;
+    justify-content: start;
+    background-color: #F5F5F5;
+
+}

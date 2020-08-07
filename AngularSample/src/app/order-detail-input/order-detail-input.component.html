@@ -1,60 +1,105 @@
-<div class="table-container">
-    <table class="table table-hover table-striped">
-        <thead>
-            <tr>
-                <th class="table-str td-b text-center">仕訳コード</th>
-                <th class="table-str td-b text-center">経理コード</th>
-                <th class="table-str td-b text-center">仕訳名称</th>
-            </tr>
-        </thead>
-        <tbody class="">
-            <!--
-            <tr *ngFor="let item of indexDataList | slice:pageIndex*pageSize:(pageIndex+1)*pageSize">
-                <a routerLink="/detail/{{item.id}}" >
-                    <td class="table-id td-b detail-link"  >{{ item.id }}</td>
-                </a>
-                <td class="table-str td-b">{{ item.name }}</td>
-                <td class="table-str td-b">{{ item.email }}</td>
-            </tr>
-            -->
-            <tr>
-                <td class="table-str td-b">0200</td>
-                <td class="table-str td-b">020</td>
-                <td class="table-str td-b">基礎工事</td>
+<header>
+    <title>{{title}}</title>
+</header>
+
+<body>
+    <div>
+        <span style="text-align: center;">
+            <h1>{{title}}</h1>
+        </span>
+    </div>
+    <div id="orderInfomation" style="height: 720px;">
+        <table id="tblOrderInfo" border="1">
+            <tr class="text-center">
+                <th style="width: 120px;">発注番号</th>
+                <th style="width: 120px">事業コード</th>
+                <th style="width: 300px;">事業所名</th>
+                <th colspan="2" style="width: 200px;">営業担当者</th>
+                <th colspan="2" style="width: 200px;">建築担当者</th>
             </tr>
             <tr>
-                <td class="table-str td-b">0205</td>
-                <td class="table-str td-b">020</td>
-                <td class="table-str td-b">安全誘導員</td>
+                <td>70116997700</td>
+                <td>116009</td>
+                <td>IT業務部</td>
+                <td style="width: 70px;">990001</td>
+                <td style="width: 130px;"></td>
+                <td style="width: 70px;">990002</td>
+                <td style="width: 130px;"></td>
             </tr>
-            <tr>
-                <td class="table-str td-b">0210</td>
-                <td class="table-str td-b">020</td>
-                <td class="table-str td-b">特殊基礎工事</td>
-            </tr>
-            <tr>
-                <td class="table-str td-b">0230</td>
-                <td class="table-str td-b">023</td>
-                <td class="table-str td-b">基礎残土処理</td>
-            </tr>
-            <tr>
-                <td class="table-str td-b">0240</td>
-                <td class="table-str td-b">024</td>
-                <td class="table-str td-b">地耐力調査費</td>
-            </tr>
-            <tr>
-                <td class="table-str td-b">0260</td>
-                <td class="table-str td-b">026</td>
-                <td class="table-str td-b">基礎塗装工事</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<div class="footer-container">
-    <div class="text-left footer">
-        <button class="btn btn-secondary border mx-1 back-btn">閉じる</button>
-        <div>
-            <button class="btn btn-info border mx-1">選択(F12)</button>
+        </table>
+        <div style="width: 400px;height: 80px;float: left; background-color: antiquewhite;">
+            <div style="width: 400px; height: 59px; border: 1px solid; border-style:dotted;">
+                <div style="float: left; width: 69px; height: 59px; border: 1px solid">工事名</div>
+                <div style="float: left; width: 329px; height: 59px;border: 1px solid">
+                    <tr>ハナコ</tr>
+                    <tr>花子</tr>
+                </div>
+            </div>
+            <div style="width: 400px; height: 59px; border: 1px solid; border-style:dotted;">
+                <div style="float: left; width: 69px;border: 1px solid">契約番号</div>
+                <div style="float: left; width: 329px; height: 59px;border: 1px solid">
+                    <td style="width: 99px; border: 1px solid;">7013213123</td>
+                    <td style="width: 239px; border: 1px solid;">sksdfkhskdhf</td>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 700px;height: 80px;float: left; background-color: beige;">
+            <div>工事名</div>
+            <div>工事名</div>
         </div>
     </div>
-</div>
+    <!-- <div style="height: 10px;"></div>
+    <div>
+        <table class="table table-hover table-striped mb-3" style="padding-top: 10px;">
+            <thead>
+                <tr>
+                    <th class="table-str td-b text-center">仕訳コード</th>
+                    <th class="table-str td-b text-center">経理コード</th>
+                    <th class="table-str td-b text-center">仕訳名称</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                <tr>
+                    <td class="table-str td-b">0200</td>
+                    <td class="table-str td-b">020</td>
+                    <td class="table-str td-b">基礎工事</td>
+                </tr>
+                <tr>
+                    <td class="table-str td-b">0205</td>
+                    <td class="table-str td-b">020</td>
+                    <td class="table-str td-b">安全誘導員</td>
+                </tr>
+                <tr>
+                    <td class="table-str td-b">0210</td>
+                    <td class="table-str td-b">020</td>
+                    <td class="table-str td-b">特殊基礎工事</td>
+                </tr>
+                <tr>
+                    <td class="table-str td-b">0230</td>
+                    <td class="table-str td-b">023</td>
+                    <td class="table-str td-b">基礎残土処理</td>
+                </tr>
+                <tr>
+                    <td class="table-str td-b">0240</td>
+                    <td class="table-str td-b">024</td>
+                    <td class="table-str td-b">地耐力調査費</td>
+                </tr>
+                <tr>
+                    <td class="table-str td-b">0260</td>
+                    <td class="table-str td-b">026</td>
+                    <td class="table-str td-b">基礎塗装工事</td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    <div class="footer-container">
+        <div class="text-left footer">
+            <button class="btn btn-secondary border mx-1 back-btn">閉じる</button>
+            <div>
+                <button class="btn btn-info border mx-1">選択(F12)</button>
+            </div>
+        </div>
+    </div>
+
+</body>

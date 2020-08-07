@@ -27,7 +27,7 @@ const appRoute: Routes = [
   { path: "searchFrame", component: SearchFrameComponent },
   { path: "OrderJournalSelect", component: OrderJournalSelectComponent },
   { path: "SupplierPattern", component: SupplierPatternComponent},
-  { path: "SplitDetailInput", component: SplitDetailInputComponent},
+  { path: "6", component: SplitDetailInputComponent},
   { path: "OrderDetailInput", component: OrderDetailInputComponent},
 ];
 

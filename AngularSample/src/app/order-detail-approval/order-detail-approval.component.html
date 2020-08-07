@@ -8,9 +8,9 @@
     </div>
 </div>
 
-<div class="">
+<div id="orderDetailApproval" class="">
     <section id="search-input" style="border:1px solid black; padding: 10px;">
-        <form action="" class="form-container">
+        <form action="" class="form-container" style="width: 100%;">
             <div class="input-group input-group-sm mb-1">
                 <div>
                     <span class="input-group-text" style="width: 80px;">契約番号</span>
@@ -63,53 +63,55 @@
                     <label>承認２</label>
                 </div>
 
-                <div style="width: 72%;"></div>
-                <div class="input-group-prepend">
-                    <div>
-                        <span class="input-group-text" style="width: 80px;">表示順</span>
-                    </div>
-                    <div style="width: 30px;"></div>
-                    <div class="input-group-append radio-container">
-                        <input type="radio" name="options " id="startFromName " autocomplete="off ">
-                        <label>昇順</label>
-                        <div style="width: 20px;"></div>
-                        <input type="radio" name="options " id="startFromName " autocomplete="off ">
-                        <label> 降順</label>
+                <div style="width:auto; background-color: antiquewhite; text-align: left;">
+                    <div class=" input-group-prepend text-left " style="text-align: left;">
+                        <div>
+                            <span class="input-group-text " style="width: 80px; ">表示順</span>
+                        </div>
+                        <div style="width: 30px; "></div>
+                        <div class="input-group-append radio-container ">
+                            <input type="radio " name="options " id="startFromName " autocomplete="off ">
+                            <label>昇順</label>
+                            <div style="width: 20px; "></div>
+                            <input type="radio " name="options " id="startFromName " autocomplete="off ">
+                            <label> 降順</label>
+                        </div>
                     </div>
                 </div>
+
             </div>
-            <div style="text-align: right; width: 100%; " aria-colspan="2">
-                <button type="button" class="btn-group-toggle border" style="width: 80px;" onclick="window.alert('clicked!')">検索</button>
-                <div style="width: 50px;"></div>
+            <div style="text-align: right; width: 100%; " aria-colspan="2 ">
+                <button type="button " class="btn-group-toggle border " style="width: 80px; " onclick="window.alert( 'clicked!') ">検索</button>
+                <div style="width: 50px; "></div>
             </div>
 
         </form>
     </section>
 
-    <section id=" data-display " style="padding-top  :10px">
-        <table id="tbl-order-detail " class=" table table-striped mb-3">
+    <section id=" data-display " style="padding-top :10px ">
+        <table id="tbl-order-detail " class=" table table-striped mb-3 ">
             <thead>
                 <tr>
-                    <th class="td-b" style="width: 60px;">詳細</th>
-                    <th class="td-b" style="width: 110px;">契約番号</th>
-                    <th class="td-b" style="width: 200px;">物件名</th>
-                    <th class="td-b" style="width: 110px;">発注予定金額合計</th>
-                    <th class="td-b" style="width: 110px;">承認依頼金額合計</th>
-                    <th class="td-b" style="width: 110px;">発注金額合計</th>
-                    <th class="td-b" style="width: 110px;">受入金額合計</th>
-                    <th class="td-b" style="width: 60px;">進捗率</th>
-                    <th class="td-b" style="width: 50px;">明</th>
-                    <th class="td-b" style="width: 50px;">承1</th>
-                    <th class="td-b" style="width: 50px;">承2</th>
+                    <th class="td-b " style="width: 60px; ">詳細</th>
+                    <th class="td-b " style="width: 110px; ">契約番号</th>
+                    <th class="td-b " style="width: 200px; ">物件名</th>
+                    <th class="td-b " style="width: 110px; ">発注予定金額合計</th>
+                    <th class="td-b " style="width: 110px; ">承認依頼金額合計</th>
+                    <th class="td-b " style="width: 110px; ">発注金額合計</th>
+                    <th class="td-b " style="width: 110px; ">受入金額合計</th>
+                    <th class="td-b " style="width: 60px; ">進捗率</th>
+                    <th class="td-b " style="width: 50px; ">明</th>
+                    <th class="td-b " style="width: 50px; ">承1</th>
+                    <th class="td-b " style="width: 50px; ">承2</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor=" let data of datas ">
-                    <td class="td-b td-font text-center">
-                        <button id="btnGvDetail" class="border table-btn-d btn-info">詳細</button>
+                    <td class="td-b td-font text-center ">
+                        <button id="btnGvDetail " class="border table-btn-d btn-info ">詳細</button>
                     </td>
                     <td class="td-b td-font ">{{data.contractNum}}</td>
-                    <td class=" table-str td-b td-font ">{{data.propertyName}}</td>
+                    <td class="td-b td-font ">{{data.propertyName}}</td>
                     <td class="td-b td-font ">{{data.planOrderAmout}}</td>
                     <td class="td-b td-font ">{{data.approvalRequestAmount}}</td>
                     <td class="td-b td-font ">{{data.performanceOrderAmount}}</td>
@@ -140,6 +142,6 @@
 </div>
 <div class="footer-container ">
     <div class="text-left footer ">
-        <button class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
+        <button id="btnClose" class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
     </div>
 </div>

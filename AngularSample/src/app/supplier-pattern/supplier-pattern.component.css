@@ -1,0 +1,6 @@
+.table{
+    table-layout: fixed;
+    margin-left: auto;/*ポイント01*/
+    margin-right: auto;/*ポイント01*/
+    width: 50%;
+}

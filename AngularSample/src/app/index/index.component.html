@@ -4,7 +4,7 @@
         ・<a href="http://localhost:4200/OrderJournalSelect">発注仕訳</a><br>
         ・<a href="http://localhost:4200/SupplierPattern">発注先パターン選択</a><br>
         ・<a href="http://localhost:4200/SplitDetailInput">分割明細入力</a><br>
-        ・<a href="http://localhost:4200/SplitDetailInput">発注詳細入力</a><br>
+        ・<a href="http://localhost:4200/OrderDetailInput">発注詳細入力</a><br>
     </section>
     <!--
     <div class="table-container">
@@ -29,3 +29,9 @@
     </div>
     -->
 </div>
+
+<div class="footer">
+    <input id="footer_button" class="back-btn" type="button" value="発注仕訳（モーダル）" data-toggle="modal" data-target="#MODAL1" (click)="onClick($event);">
+    <input id="footer_button1" class="back-btn" type="button" value="発注先パターン（モーダル）" data-toggle="modal" data-target="#MODAL2" (click)="onClick($event);">
+ </div>
+ <ng-container *ngComponentOutlet="modal"></ng-container>
