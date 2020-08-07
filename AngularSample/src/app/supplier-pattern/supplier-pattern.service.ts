@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
   })
   
-  export class OrderJournalSelectService {
+  export class SupplierPatternService {
   
     // データの変更を通知するためのオブジェクト
     private closeEventSubject = new Subject<string>();
@@ -16,14 +16,14 @@ import { Subject } from 'rxjs';
     /**
      * コンストラクタ
      *
-     * @memberof OrderJournalSelectService
+     * @memberof SupplierPatternService
      */
     constructor() { }
 
     /**
      * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
      *
-     * @memberof OrderJournalSelectService
+     * @memberof SupplierPatternService
      */
     public requestCloseModal() {
       this.closeEventSubject.next();

@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'order-detail-input',
     templateUrl: './order-detail-input.component.html',
-    styleUrls: ['../common/common.component.css',
-                './order-detail-input.component.css']
+    styleUrls: ['./order-detail-input.component.css']
   })
 
   export class OrderDetailInputComponent implements OnInit {

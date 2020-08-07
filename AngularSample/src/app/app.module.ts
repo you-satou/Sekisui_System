@@ -19,11 +19,11 @@ import { SplitDetailInputComponent } from './split-detail-input/split-detail-inp
 import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
 
 const appRoute: Routes = [
-  { path: "", component: OrderDetailApprovalComponent },
+  { path: "", component: IndexComponent },
   { path: "1", component: SearchFrameComponent },
   { path: "2", component: SearchFrameComponent2 },
   { path: "3", component: RouteDetailComponent },
-  { path: "4", component: IndexComponent },
+  { path: "OrderDetailApproval", component: OrderDetailApprovalComponent },
   { path: "searchFrame", component: SearchFrameComponent },
   { path: "OrderJournalSelect", component: OrderJournalSelectComponent },
   { path: "SupplierPattern", component: SupplierPatternComponent},

@@ -2,94 +2,110 @@
     <title>{{title}}</title>
 </header>
 
-<div class="container">
-    <div class="container-fluid">
-        <h1 style="text-align: center; font-weight: bold;">{{pageTitle}}</h1>
-    </div>
-</div>
 
-<div id="orderDetailApproval" class="">
-    <section id="search-input" style="border:1px solid black; padding: 10px;">
-        <form action="" class="form-container" style="width: 100%;">
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class="input-group-text" style="width: 80px;">契約番号</span>
+
+<div id="orderDetailApproval">
+    <section id="search-input" class="search-area">
+        <div class="container">
+            <div class="container-fluid">
+                <h1 style="text-align: center; font-weight: bold;">{{pageTitle}}</h1>
+            </div>
+        </div>
+        <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px;">契約番号</p>
+            </div>
+            <input id="contractNumFrom" type="text" style="width: 120px;">
+            <div style="width: 30px; text-align: center;">
+                <b style="margin-top: 10px; margin-bottom: 10px;">~</b>
+            </div>
+            <input id="contractNumTo" type="text" style="width: 120px;">
+        </div>
+
+        <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px;">物件名</p>
+            </div>
+            <input id="contractNumFrom" type="text" style="width: 270px;">
+            <div style="width: 30px;"></div>
+            <div class="input-group-append radio-container ">
+                <p class="radioCheckbok"><input type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
+                <div style="width: 20px;"></div>
+                <p class="radioCheckbok"><input type="radio" name="options" id="startFromName" autocomplete="off">を含む</p>
+            </div>
+        </div>
+        <div class="input-group" style="border: 0.5px solid black;">
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px;">明細作成</p>
+            </div>
+            <div style="width: 50px; "></div>
+            <div class="input-group-append">
+                <p class="radioCheckbok"><input type="checkbox" id="detailNone" autocomplete="off">明細作成未</p>
+                <div style="width: 20px; "></div>
+                <p class="radioCheckbok"><input type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
+            </div>
+        </div>
+        <div style=" display:inline inline-block;border: 0.5px solid black;" class="input-group">
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px;">未承認</p>
+            </div>
+            <div style="width: 50px; "></div>
+            <div class="input-group-append">
+                <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認１</p>
+                <div style="width: 20px; "></div>
+                <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認２</p>
+            </div>
+        </div>
+        <div style="float: right; border: 0.5px solid black;" class="input-group">
+            <div class=" input-group-prepend">
+                <p class=" input-group-text" style="width: 80px; ">表示順</p>
+            </div>
+            <div style="width: 30px; "></div>
+            <div class="input-group-append">
+                <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
+                <div style="width: 20px; "></div>
+                <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
+            </div>
+        </div>
+        <br style="clear:both;" />
+
+        <!-- <div class="input-group mb-1 " style=" float: left; width: 100%; border: 0.5px solid black;">
+
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px; ">未承認</p>
+
+                <div style="width: 50px; "></div>
+                <div class=" input-group-append ">
+                <p class="radioCheckbok"><input type="checkbox" id="detailNone " autocomplete="off ">承認１</p>
+                <div style="width: 20px; "></div>
+                <p class="radioCheckbok"><input type="checkbox" id="detailCreated " autocomplete="off ">承認２</p>
                 </div>
-                <input id="contractNumFrom" type="text" style="width: 120px;">
-                <div style="width: 30px;">
-                    <span style="text-align: center;">~</span>
-                </div>
-                <input id="contractNumTo" type="text" style="width: 120px;">
             </div>
 
-            <div class="input-group input-group-sm mb-1">
-                <div>
-                    <span class="input-group-text" style="width: 80px;">物件名</span>
-                </div>
-                <input id="contractNumFrom" type="text" style="width: 270px;">
-                <div style="width: 30px;"></div>
-                <div class="input-group-append radio-container ">
-                    <input type="radio" name="options" id="startFromName" autocomplete="off">
-                    <label>で始まる</label>
-                    <div style="width: 20px;"></div>
-                    <input type="radio" name="options" id="startFromName" autocomplete="off">
-                    <label>を含む</label>
-                </div>
-            </div>
-            <div class="input-group mb-1" items-inline>
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 80px;">明細作成</span>
-                </div>
-                <div style="width: 50px;"></div>
-                <div class="input-group-append checkbox-container">
-                    <input type="checkbox" id="detailNone" autocomplete="off">
-                    <label>明細作成未</label>
-                    <div style="width: 20px;"></div>
-                    <input type="checkbox" id="detailCreated" autocomplete="off">
-                    <label>明細作成あり</label>
-                </div>
-            </div>
-
-            <div class="input-group mb-1" style="width: 100%;">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" style="width: 80px;">未承認</span>
-                </div>
-                <div style="width: 50px;"></div>
-                <div class=" input-group-append">
-                    <input type="checkbox" id="detailNone" autocomplete="off">
-                    <label>承認１</label>
-                    <div style="width: 20px;"></div>
-                    <input type="checkbox" id="detailCreated" autocomplete="off">
-                    <label>承認２</label>
-                </div>
-
-                <div style="width:auto; background-color: antiquewhite; text-align: left;">
-                    <div class=" input-group-prepend text-left " style="text-align: left;">
-                        <div>
-                            <span class="input-group-text " style="width: 80px; ">表示順</span>
-                        </div>
-                        <div style="width: 30px; "></div>
-                        <div class="input-group-append radio-container ">
-                            <input type="radio " name="options " id="startFromName " autocomplete="off ">
-                            <label>昇順</label>
-                            <div style="width: 20px; "></div>
-                            <input type="radio " name="options " id="startFromName " autocomplete="off ">
-                            <label> 降順</label>
-                        </div>
+            <div style="float: left; width:50%; "></div>
+            <div style="float: left; width:auto; text-align: left; ">
+                <div class=" input-group-prepend text-left " style=" float: right;">
+                    <div class=" input-group-prepend" style="margin-top:10px;">
+                        <p class=" input-group-text" style="width: 80px; ">表示順</p>
+                    </div>
+                    <div style="width: 30px; "></div>
+                    <div class="input-group-append " style="margin-top:10px;">
+                        <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
+                        <div style="width: 20px; "></div>
+                        <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
                     </div>
                 </div>
-
-            </div>
-            <div style="text-align: right; width: 100%; " aria-colspan="2 ">
-                <button type="button " class="btn-group-toggle border " style="width: 80px; " onclick="window.alert( 'clicked!') ">検索</button>
-                <div style="width: 50px; "></div>
             </div>
 
-        </form>
+        </div> -->
+        <div style="text-align: right; width: 100%; ">
+            <button type="button " class="btn-group-toggle border " style="width: 80px; " onclick="window.alert( 'clicked!') ">検索</button>
+            <div style="width: 50px; "></div>
+        </div>
     </section>
 
     <section id=" data-display " style="padding-top :10px ">
-        <table id="tbl-order-detail " class=" table table-striped mb-3 ">
+        <!-- <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
             <thead>
                 <tr>
                     <th class="td-b " style="width: 60px; ">詳細</th>
@@ -122,26 +138,35 @@
                     <td class="td-b td-font ">{{data.approval_2}}</td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
+
+        <mat-grid-list cols="4" rowHeight="100px">
+            <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+                {{tile.text}}
+            </mat-grid-tile>
+        </mat-grid-list>
+
+        <div class="text-center paginate-container ">
+            <button class="btn btn-info border mx-3 "><i
+                    class="fas fa-angle-double-left fa-inverse "></i></button>
+            <button class="btn btn-info border mx-3 "><i
+                    class="fas fa-angle-left fa-inverse "></i></button>
+            <div class="input-wrapper ">
+                <input class="paginateInput " type="text " />
+            </div>
+            <button class="btn btn-info border mx-3 "><i
+                    class="fas fa-angle-right fa-inverse "></i></button>
+            <button class="btn btn-info border mx-3 "><i
+                    class="fas fa-angle-double-right fa-inverse "></i></button>
+            <button class="btn btn-info border mx-3 ">JUMP</button>
+            <p class="m-3 fs-small ">0 - 50 件表示 / {{recordMax}} 件中</p>
+        </div>
+
     </section>
 </div>
-<div class="text-center paginate-container ">
-    <button class="btn btn-info border mx-3 "><i
-            class="fas fa-angle-double-left fa-inverse "></i></button>
-    <button class="btn btn-info border mx-3 "><i
-            class="fas fa-angle-left fa-inverse "></i></button>
-    <div class="input-wrapper ">
-        <input class="paginateInput " type="text " />
-    </div>
-    <button class="btn btn-info border mx-3 "><i
-            class="fas fa-angle-right fa-inverse "></i></button>
-    <button class="btn btn-info border mx-3 "><i
-            class="fas fa-angle-double-right fa-inverse "></i></button>
-    <button class="btn btn-info border mx-3 ">JUMP</button>
-    <p class="m-3 fs-small ">0 - 50 件表示 / {{recordMax}} 件中</p>
-</div>
+
 <div class="footer-container ">
     <div class="text-left footer ">
-        <button id="btnClose" class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
+        <button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
     </div>
 </div>

@@ -1,29 +1,36 @@
-/********* Text Box **********/
+/**************** Search Zone ************************/
 
-input {
-    height: 25px;
+.search-area {
+    width: 1200px;
+    background-color: transparent;
+    border-collapse: collapse;
+    border: #CCD0D5 0.5px solid;
+    padding: 10px;
+}
+
+.search-area>div>input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 20px;
     line-height: 25px;
 }
 
+.search-area>div {
+    border: 0.5px solid black;
+}
 
-/*********************************************/
+p {
+    font-size: 1rem !important;
+}
 
 
 /********* Radio Button and CheckBox*************/
 
-
-/* .radio-container {
+.radioCheckbok {
     margin-right: 20px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-} */
-
-
-/* .checkbox-container {
-    margin-right: 20px;
-    margin-top: 20px;
+    margin-top: 13px;
     margin-bottom: 10px;
-} */
+}
 
 
 /*********************************************/
@@ -32,23 +39,19 @@ input {
 /* ***********Table Properties******************* */
 
 .table {
-    /* table-layout: fixed; */
-    /* width: 100%; */
-    position: relative !important;
-    margin: 0 !important;
-    border-collapse: collapse!important;
-    border-right: 0.5px solid #CCD0D5 !important;
-    border-bottom: 0.5px solid #CCD0D5 !important;
-    border-left: 0.5px solid #CCD0D5 !important;
+    width: 1200px;
+    position: relative;
+    margin: 0;
+    border-collapse: collapse;
+    border-right: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
 }
 
-
-/* 
 .table>thead,
 tbody {
     display: block;
 }
- */
 
 
 /**************** Scroll bar *************************/
@@ -95,6 +98,8 @@ tbody {
     display: inline-block;
     width: 60px;
     word-wrap: break-word;
+    background-color: #CCD0D5;
+    color: black;
 }
 
 .input-group-text {
@@ -103,13 +108,6 @@ tbody {
     background-color: transparent;
     border: none;
 }
-
-
-/* input,
-label,
-span {
-    font-size: 1rem !important;
-} */
 
 
 /******************* Page Index ****************************/

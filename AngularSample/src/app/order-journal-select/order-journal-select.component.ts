@@ -8,8 +8,7 @@ import { OrderJournalSelectService } from './order-journal-select.service';
 @Component({
     selector: 'order-journal-select',
     templateUrl: './order-journal-select.component.html',
-    styleUrls: ['../common/common.component.css',
-                './order-journal-select.component.css']
+    styleUrls: ['./order-journal-select.component.css']
   })
 
   export class OrderJournalSelectComponent implements OnInit, OnDestroy  {

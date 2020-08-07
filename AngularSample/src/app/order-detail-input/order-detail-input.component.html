@@ -2,13 +2,14 @@
     <title>{{title}}</title>
 </header>
 
-<body>
+<div>
     <div>
         <span style="text-align: center;">
             <h1>{{title}}</h1>
         </span>
     </div>
-    <div id="orderInfomation" style="height: 720px;">
+
+    <section id="orderInfomation" style="height: 480px ; border: 0.5px solid green">
         <table id="tblOrderInfo" border="1">
             <tr class="text-center">
                 <th style="width: 120px;">発注番号</th>
@@ -27,73 +28,182 @@
                 <td style="width: 130px;"></td>
             </tr>
         </table>
-        <div style="width: 400px;height: 80px;float: left; background-color: antiquewhite;">
-            <div style="width: 400px; height: 59px; border: 1px solid; border-style:dotted;">
-                <div style="float: left; width: 69px; height: 59px; border: 1px solid">工事名</div>
-                <div style="float: left; width: 329px; height: 59px;border: 1px solid">
-                    <tr>ハナコ</tr>
-                    <tr>花子</tr>
-                </div>
-            </div>
-            <div style="width: 400px; height: 59px; border: 1px solid; border-style:dotted;">
-                <div style="float: left; width: 69px;border: 1px solid">契約番号</div>
-                <div style="float: left; width: 329px; height: 59px;border: 1px solid">
-                    <td style="width: 99px; border: 1px solid;">7013213123</td>
-                    <td style="width: 239px; border: 1px solid;">sksdfkhskdhf</td>
-                </div>
-            </div>
-        </div>
 
         <div style="width: 700px;height: 80px;float: left; background-color: beige;">
             <div>工事名</div>
             <div>工事名</div>
         </div>
-    </div>
-    <!-- <div style="height: 10px;"></div>
-    <div>
-        <table class="table table-hover table-striped mb-3" style="padding-top: 10px;">
+    </section>
+
+    <section>
+        <table class="table-hover table-striped table-Shiwake">
             <thead>
                 <tr>
-                    <th class="table-str td-b text-center">仕訳コード</th>
-                    <th class="table-str td-b text-center">経理コード</th>
-                    <th class="table-str td-b text-center">仕訳名称</th>
+                    <th style="width: 70px;" class="text-center" colspan="2">仕訳コード</th>
+                    <th class="shiwakeKeiri text-center">経理分類</th>
+                    <th class=" shiwakeName text-center">仕訳名称</th>
+                    <th style=" width: 170px;" class="text-center" colspan="2">発注先</th>
+                    <th class="shiwakeKingaku text-center">発注予定金額</th>
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody>
                 <tr>
-                    <td class="table-str td-b">0200</td>
-                    <td class="table-str td-b">020</td>
-                    <td class="table-str td-b">基礎工事</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
                 <tr>
-                    <td class="table-str td-b">0205</td>
-                    <td class="table-str td-b">020</td>
-                    <td class="table-str td-b">安全誘導員</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
                 <tr>
-                    <td class="table-str td-b">0210</td>
-                    <td class="table-str td-b">020</td>
-                    <td class="table-str td-b">特殊基礎工事</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
                 <tr>
-                    <td class="table-str td-b">0230</td>
-                    <td class="table-str td-b">023</td>
-                    <td class="table-str td-b">基礎残土処理</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
                 <tr>
-                    <td class="table-str td-b">0240</td>
-                    <td class="table-str td-b">024</td>
-                    <td class="table-str td-b">地耐力調査費</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
                 <tr>
-                    <td class="table-str td-b">0260</td>
-                    <td class="table-str td-b">026</td>
-                    <td class="table-str td-b">基礎塗装工事</td>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
+                </tr>
+                <tr>
+                    <td class="shiwakeKode-1">0200</td>
+                    <td class="shiwakeKode-2"></td>
+                    <td class="shiwakeKeiri">040</td>
+                    <td class="shiwakeName">本体工事</td>
+                    <td class="shiwakeHachu-1">803</td>
+                    <td class="shiwakeHachu-2">積水建設㈱</td>
+                    <td class="shiwakeKingaku">245,000,000</td>
                 </tr>
             </tbody>
         </table>
-    </div> -->
-    <div class="footer-container">
+    </section>
+    <div class="footer-container" style="border: 1px solid black;">
         <div class="text-left footer">
             <button class="btn btn-secondary border mx-1 back-btn">閉じる</button>
             <div>
@@ -102,4 +212,4 @@
         </div>
     </div>
 
-</body>
+</div>

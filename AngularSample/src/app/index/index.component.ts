@@ -3,7 +3,9 @@ import { WkAllItemTypesService } from '../wk-all-item-types.service';
 // import { IndexItemType } from '../IndexItemType';
 import { Router } from '@angular/router';
 import { OrderJournalSelectComponent } from '../order-journal-select/order-journal-select.component';
-import { OrderJournalSelectService  } from '../order-journal-select/order-journal-select.service';
+import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
+import { SupplierPatternComponent } from '../supplier-pattern/supplier-pattern.component';
+import { SupplierPatternService } from '../supplier-pattern/supplier-pattern.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -33,6 +35,7 @@ export class IndexComponent implements OnInit, OnDestroy   {
         private wkAllItemTypesService: WkAllItemTypesService,
         private changeDetectorRef: ChangeDetectorRef,
         private modalService: OrderJournalSelectService,
+        private modalService2: SupplierPatternService,
         private element: ElementRef,
         private router: Router
       ) { this._element = this.element.nativeElement }
@@ -47,6 +50,14 @@ export class IndexComponent implements OnInit, OnDestroy   {
         //   this.indexDataList = response;
         // });
         this.subscription = this.modalService.closeEventObservable$.subscribe(
+          () => {
+            // プロパティ modal に null をセットすることでコンポーネントを破棄する
+            // このタイミングで ModalComponent では ngOnDestroy が走る
+            this.modal = null;
+            location.reload();
+          }
+        );
+        this.subscription = this.modalService2.closeEventObservable$.subscribe(
           () => {
             // プロパティ modal に null をセットすることでコンポーネントを破棄する
             // このタイミングで ModalComponent では ngOnDestroy が走る
@@ -71,21 +82,16 @@ export class IndexComponent implements OnInit, OnDestroy   {
    * @memberof AppComponent
    */
   public onClick($event) {
-    this.setModal();
-  }
-
-  /**
-   * モーダルダイアログを表示する
-   *
-   * @private
-   * @memberof AppComponent
-   */
-  private setModal() {
     this.modal = OrderJournalSelectComponent;
   }
 
-
-
-
-
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+  public onClick2($event) {
+    this.modal = SupplierPatternComponent;
+  }
 }

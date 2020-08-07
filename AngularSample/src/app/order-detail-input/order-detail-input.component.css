@@ -1,0 +1,94 @@
+/********************* Page Footer *************************/
+
+.footer-container {
+    position: absolute !important;
+    display: inline-block !important;
+    bottom: 0 !important;
+    /* width: 93%; */
+    padding-bottom: 12.5px !important;
+    z-index: 2 !important;
+}
+
+.footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    background-color: #F5F5F5 !important;
+}
+
+.footer>.back-btn {
+    display: inline-block;
+    width: 120px !important;
+}
+
+
+/* .table-Shiwake {
+    height: 300px;
+    width: 480px;
+} */
+
+.table-Shiwake>thead>tr {
+    text-align: center;
+}
+
+th {
+    border-collapse: collapse;
+    border-right: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
+    font: 10px !important;
+}
+
+.table-Shiwake>tbody {
+    height: 250px !important;
+    overflow-y: scroll;
+}
+
+.table-Shiwakee {
+    height: 250px;
+    max-width: 640px;
+    position: relative;
+    margin: 0;
+    border-collapse: collapse;
+    border-right: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
+}
+
+.table-Shiwake>tbody>tr>td {
+    border: 0.5px solid #CCD0D5;
+}
+
+.shiwakeKode-1 {
+    width: 50px;
+    text-align: center;
+}
+
+.shiwakeKode-2 {
+    width: 20px;
+    text-align: center;
+}
+
+.shiwakeKeiri {
+    width: 50px;
+    text-align: center;
+}
+
+.shiwakeName {
+    width: 150px;
+    text-align: left;
+}
+
+.shiwakeHachu-1 {
+    width: 20px;
+    text-align: center;
+}
+
+.shiwakeHachu-2 {
+    width: 150px;
+    text-align: left;
+}
+
+.shiwakeKingaku {
+    width: 200px;
+    text-align: right;
+}

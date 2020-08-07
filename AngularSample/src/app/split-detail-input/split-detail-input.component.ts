@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'split-detail-input',
     templateUrl: './split-detail-input.component.html',
-    styleUrls: ['../common/common.component.css',
-                './split-detail-input.component.css']
+    styleUrls: ['./split-detail-input.component.css']
   })
 
   export class SplitDetailInputComponent implements OnInit {

@@ -1,6 +1,117 @@
+.modal {
+    overflow: hidden;
+    height: 500px;
+    width: 60%;
+    background-color: rgb(229, 241, 247);
+    border-radius: 15px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.4);
+    border: solid 1px rgb(0, 0, 0);
+    z-index: 1050;
+}
+.header {
+    height: 10%;
+    width: 100%;
+    font-size: 1.2em;
+    border-bottom: solid 1px rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.header > #header_label {
+    display: block;
+}
+.contents {
+    height: 80%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.8em;
+}
+.footer {
+    height: 10%;
+}  
+
+.footer > #close_button {
+    display: block;
+    height: 10%;
+    width: 100%;
+    font-size: 1.2em;
+}
+
+.box {
+    display: flex;
+    width: 100%;
+    overflow: scroll;
+    border-radius: 5px;
+    overflow-x: hidden;
+}
+
+.table-small {
+    overflow: scroll;
+    width: 20%;
+    margin-right: 30px;
+}
+.table-small>thead {
+    background-color: #E5E5E5;
+}
+.table-small>tbody {
+    height: 130px;
+    overflow-y: scroll;
+}
+/* .table-small>thead>tr, tbody>tr {
+    display: inline-block;
+    width: 100%;
+    max-height: 100%;
+}
+.table-small>thead, tbody {
+    display: block;
+} */
+
 .table{
-    table-layout: fixed;
-    margin-left: auto;/*ポイント01*/
-    margin-right: auto;/*ポイント01*/
-    width: 50%;
+    width: 60%;
+}
+.table>thead {
+    background-color: #E5E5E5;
+}
+.table>tbody {
+    height: 130px;
+    overflow-y: scroll;
+}
+
+.td-b {
+    border-right: 0.5px solid #CCD0D5;
+}
+
+/* 
+.table>thead, tbody {
+    display: block;
+}
+.table>thead>tr, tbody>tr {
+    display: inline-block;
+    width: 100%;
+    max-height: 100%;
+}
+
+
+
+.table-th-str{
+    display: inline-block;
+    height: 40px;
+    width: 17.8%;
+    word-wrap: break-word;
+}
+
+*/
+
+.table-str{
+    height: 40px;
+    width: 17.8%;
+    word-wrap: break-word;
+}
+
+.table-str-large{
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    word-wrap: break-word;
 }
