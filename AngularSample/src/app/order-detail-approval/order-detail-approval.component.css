@@ -1,7 +1,7 @@
 /**************** Search Zone ************************/
 
 .search-area {
-    max-width: 1200px;
+    width: 100%px;
     min-width: 1200px;
     background-color: transparent;
     border-collapse: collapse;
@@ -36,7 +36,7 @@ p {
 /* ***********Table Properties******************* */
 
 .table {
-    width: 1200px;
+    width: 100%;
     min-width: 1200px;
     position: relative;
     margin: 0;
@@ -46,22 +46,16 @@ p {
     border-left: 0.5px solid #CCD0D5;
 }
 
-thead {
+.table>thead {
     display: table;
-    /* width: 100%; */
-}
-
-tbody {
     width: 100%;
-    display: block;
 }
 
-th {
-    width: 1px;
-}
-
-td {
-    width: fit-content;
+.table>tbody {
+    width: 100%;
+    /* display: block; */
+    display: inherit;
+    /* display: */
 }
 
 

@@ -1,7 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { OrderDetail,OrderSearchInputment } from './orderDetail';
 import { testData} from './test-order-detail';
 import { ActivatedRoute} from '@angular/router';
+import { Console } from 'console';
 
 
 
@@ -12,132 +13,94 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class OrderDetailApprovalComponent implements OnInit {
 
+  recordMax: number = 0;
+  pageIndex: number = 0;
+  pageMax: number = 0;
+  pageSize: number = 20;
+
   pageTitle = "発注明細入力＿承認処理";
 
   datas: OrderDetail [] = testData;
 
   inputment: OrderSearchInputment[];
 
-  constructor( private router : ActivatedRoute) { }
 
-  ngOnInit() { 
 
+  constructor(
+    private router : ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef
+    ) { }
+
+
+  ngOnInit() {
+    this.countRecord(this.datas);
+    //TODO: Display result
+    console.log(this.pageIndex+ "  " + this.pageMax + "  " + this.recordMax);
+    }
+
+
+  
+  countRecord(datas: OrderDetail[]){
+    if (datas.length == 0){
+      alert("該当データがありません。");
+      return;
+    }
+    if (datas.length > 1000){
+      alert("検索結果が1000件を超えています。絞り込んでください。");
+      return;
+    }
+
+    this.recordMax = datas.length;
+    this.pageMax = Math.floor(datas.length/this.pageSize);
+    this.changeDetectorRef.detectChanges();
   }
 
-  private goToInputmentPage(){
+  setPageIndex (pageIndex){
+    this.pageIndex = pageIndex;
+  }
 
+pageJump(input: any){
+  if (!Number(input.value)){
+    alert("入力ページは数字のみです。");
+    return;
+  }
+  if (Number(input.value)> this.pageMax || Number(input.value) <0){
+    alert("不明なページです。選択可能なページ：" + "0 ~ "+this.pageMax);
+    return;
+  }
 
+  this.pageIndex = Number(input.value);
+}
 
+pageNext(){
+  if(this.pageIndex < this.pageMax){
+    this.pageIndex = this.pageIndex++;
+  }
+  if (this.pageIndex = this.pageMax){
+    alert("最大のページです。");
+    return;
   }
 
 }
-// export interface Tile {
-//   color: string;
-//   cols: number;
-//   rows: number;
-//   text: string;
-// }
 
 
-// export class gridView{
-//   gvTitle: Tile[]=[
-//     {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-//     {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-//     {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-//     {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-//   ];
-// }
+pagePrevious(){
+  if(this.pageIndex < this.pageMax ){
+    this.pageIndex = this.pageIndex --;
+  }
+  if (this.pageIndex = 1){
+    alert("最初のページです。");
+    return;
+  }
+}
+
+displayResult(pageNumber: any){
+
+}
 
 
-// export class orderDetailGrid{
-//   columns:any[]= [
-//     {
-//         display: '契約番号',
-//         variable: 'contractNum',
-//         filter: 'text',
-//     },
-//     {
-//       display: '物件名',
-//       variable: 'propertyName',
-//       filter: 'text',
-//   },
-//   {
-//     display: '発注予定金額',
-//     variable: 'planOrderAmout',
-//     filter: 'text',
-// },
-// {
-//   display: '承認依頼金額合計',
-//   variable: 'approvalRequestAmount',
-//   filter: 'text',
-// },
-// {
-//   display: '発注金額合計',
-//   variable: 'performanceOrderAmount',
-//   filter: 'text',
-// },
-// {
-//   display: '受入金額合計',
-//   variable: 'receivedAmount',
-//   filter: 'text',
-// },
-// {
-//   display: '進捗率',
-//   variable: 'progessRate',
-//   filter: 'text',
-// },
-// {
-//   display: '明',
-//   variable: 'createdDetail',
-//   filter: 'text',
-// },
-// {
-//   display: '承１',
-//   variable: 'approval_1',
-//   filter: 'text',
-// },
-// {
-//   display: '承２',
-//   variable: 'approval_2',
-//   filter: 'text',
-// }
-//   ];
 
-// sorting: any ={
-//     column: '契約番号',
-//     descending: false
-// }
-
-//   hdrbtns: any[] = [];
-//   gridbtns: any[] = [];
-
-//   initGridBtn(){
-
-//     this.hdrbtns = [
-//       {
-//           title: 'Add',
-//           keys: [''],
-//           action: DBOperation.create,
-//           ishide: this.isREADONLY
-
-//       }];
-//   this.gridbtns = [
-//       {
-//           title: 'Edit',
-//           keys: ['Id'],
-//           action: DBOperation.update,
-//           ishide: this.isREADONLY
-//       },
-//       {
-//           title: 'X',
-//           keys: ["Id"],
-//           action: DBOperation.delete,
-//           ishide: this.isREADONLY
-//       }
-//   ];
-
-//   }
-
+}
 
 
 

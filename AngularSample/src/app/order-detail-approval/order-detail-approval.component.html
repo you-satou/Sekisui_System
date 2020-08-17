@@ -80,7 +80,7 @@
     <section id=" data-display " style="padding-top :10px ">
         <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
             <thead>
-                <tr>
+                <!-- <tr>
                     <th class="td-b " style="width: 90px; ">詳細</th>
                     <th class="td-b " style="width: 120px; ">契約番号</th>
                     <th class="td-b " style="width: 200px; ">物件名</th>
@@ -92,54 +92,54 @@
                     <th class="td-b " style="width: 45px; ">明</th>
                     <th class="td-b " style="width: 45px; ">承1</th>
                     <th class="td-b " style="width: 45px; ">承2</th>
-                </tr>
-
-                <!-- <tr>
-                    <th class="td-b ">詳細</th>
-                    <th class="td-b ">契約番号</th>
-                    <th class="td-b ">物件名</th>
-                    <th class="td-b ">発注予定金額合計</th>
-                    <th class="td-b ">承認依頼金額合計</th>
-                    <th class="td-b ">発注金額合計</th>
-                    <th class="td-b ">受入金額合計</th>
-                    <th class="td-b ">進捗率</th>
-                    <th class="td-b ">明</th>
-                    <th class="td-b ">承1</th>
-                    <th class="td-b ">承2</th>
                 </tr> -->
+                <tr>
+                    <th class="td-b " style="width: 10%; ">詳細</th>
+                    <th class="td-b " style="width: 13%; ">契約番号</th>
+                    <th class="td-b " style="width: 18%; ">物件名</th>
+                    <th class="td-b " style="width: 10%; ">発注予定金額合計</th>
+                    <th class="td-b " style="width: 10%; ">承認依頼金額合計</th>
+                    <th class="td-b " style="width: 10%; ">発注金額合計</th>
+                    <th class="td-b " style="width: 10%; ">受入金額合計</th>
+                    <th class="td-b " style="width: 10%; ">進捗率</th>
+                    <th class="td-b " style="width: 3%; ">明</th>
+                    <th class="td-b " style="width: 3%; ">承1</th>
+                    <th class="td-b " style="width: 3%; ">承2</th>
+                </tr>
             </thead>
             <tbody>
                 <tr *ngFor=" let data of datas ">
-                    <td class="td-b td-font text-center ">
+                    <td class="td-b td-font text-center " style="width: 10%; ">
                         <button id="btnGvDetail " class="border table-btn-d btn-info ">詳細</button>
                     </td>
-                    <td class="td-b td-font ">{{data.contractNum}}</td>
-                    <td class="td-b td-font ">{{data.propertyName}}</td>
-                    <td class="td-b td-font ">{{data.planOrderAmout}}</td>
-                    <td class="td-b td-font ">{{data.approvalRequestAmount}}</td>
-                    <td class="td-b td-font ">{{data.performanceOrderAmount}}</td>
-                    <td class="td-b td-font ">{{data.receivedAmount}}</td>
-                    <td class="td-b td-font ">{{data.progessRate}}</td>
-                    <td class="td-b td-font ">{{data.createdDetail}}</td>
-                    <td class="td-b td-font ">{{data.approval_1}}</td>
-                    <td class="td-b td-font ">{{data.approval_2}}</td>
+                    <td class="td-b td-font " style="width: 13%; ">{{data.contractNum}}</td>
+                    <td class="td-b td-font " style="width: 18%; ">{{data.propertyName}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.planOrderAmout}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.approvalRequestAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.performanceOrderAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.receivedAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.progessRate}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.createdDetail}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_1}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_2}}</td>
                 </tr>
             </tbody>
         </table>
+
         <div class="text-center paginate-container ">
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-double-left fa-inverse "></i></button>
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-left fa-inverse "></i></button>
             <div class="input-wrapper ">
-                <input class="paginateInput " type="text " />
+                <input class="paginateInput " type="text " value="{{pageIndex}}" #paginateInput />
             </div>
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-right fa-inverse "></i></button>
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-double-right fa-inverse "></i></button>
-            <button class="btn btn-info border mx-3 ">JUMP</button>
-            <p class="m-3 fs-small ">0 - 50 件表示 / {{recordMax}} 件中</p>
+            <button class="btn btn-info border mx-3 " (click)="pageJump(paginateInput)">JUMP</button>
+            <p class="m-3 fs-small ">{{pageIndex*pageSize}} - {{(pageIndex+1)*pageSize}} 件表示 / {{recordMax}} 件中</p>
         </div>
 
     </section>

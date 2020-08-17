@@ -25,5 +25,5 @@ export class OrderSearchInputment{
     approval_2:boolean;
     resultASC:boolean;
     
-
 }
+
