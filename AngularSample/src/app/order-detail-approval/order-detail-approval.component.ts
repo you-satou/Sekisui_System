@@ -1,9 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { OrderDetail,OrderSearchInputment } from './orderDetail';
 import { testData} from './test-order-detail';
-import { Router, ActivatedRoute,ParamMap} from '@angular/router';
-import { lstatSync } from 'fs';
-
+import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -29,8 +27,6 @@ export class OrderDetailApprovalComponent implements OnInit {
 
 
   }
-
-
 
 }
 // export interface Tile {
