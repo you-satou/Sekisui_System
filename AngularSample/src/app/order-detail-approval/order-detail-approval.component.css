@@ -15,9 +15,10 @@
     line-height: 25px;
 }
 
-.search-area>div {
+
+/* .search-area>div {
     border: 0.5px solid black;
-}
+} */
 
 p {
     font-size: 1rem !important;
