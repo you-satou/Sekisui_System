@@ -1,7 +1,9 @@
 import { Component, OnInit} from '@angular/core';
 import { OrderDetail,OrderSearchInputment } from './orderDetail';
 import { testData} from './test-order-detail';
-import { Router, ActivatedRoute} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
+
+
 
 @Component({
   selector: 'app-order-detail-approval',
