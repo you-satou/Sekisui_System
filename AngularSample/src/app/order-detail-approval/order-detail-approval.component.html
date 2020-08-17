@@ -13,18 +13,18 @@
         </div>
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px;">契約番号</p>
+                <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
             <input id="contractNumFrom" type="text" style="width: 120px;">
             <div style="width: 30px; text-align: center;">
-                <b style="margin-top: 10px; margin-bottom: 10px;">~</b>
+                <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
             <input id="contractNumTo" type="text" style="width: 120px;">
         </div>
 
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px;">物件名</p>
+                <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
             <input id="contractNumFrom" type="text" style="width: 270px;">
             <div style="width: 30px;"></div>
@@ -36,7 +36,7 @@
         </div>
         <div class="input-group">
             <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px;">明細作成</p>
+                <p class="input-group-text" style="width: 80px;text-align: right;">明細作成</p>
             </div>
             <div style="width: 50px; "></div>
             <div class="input-group-append">
@@ -45,59 +45,32 @@
                 <p class="radioCheckbok"><input type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
             </div>
         </div>
-        <div style=" display:inline inline-block;" class="input-group">
-            <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px;">未承認</p>
-            </div>
-            <div style="width: 50px; "></div>
-            <div class="input-group-append">
-                <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認１</p>
-                <div style="width: 20px; "></div>
-                <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認２</p>
-            </div>
-        </div>
-        <div style="float: right;" class="input-group">
-            <div class=" input-group-prepend">
-                <p class=" input-group-text" style="width: 80px; ">表示順</p>
-            </div>
-            <div style="width: 30px; "></div>
-            <div class="input-group-append">
-                <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
-                <div style="width: 20px; "></div>
-                <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
-            </div>
-        </div>
-        <br style="clear:both;" />
-
-        <!-- <div class="input-group mb-1 " style=" float: left; width: 100%; border: 0.5px solid black;">
-
-            <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px; ">未承認</p>
-
+        <div>
+            <div style=" float: left; width: 50%;" class="input-group">
+                <div class="input-group-prepend">
+                    <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
+                </div>
                 <div style="width: 50px; "></div>
-                <div class=" input-group-append ">
-                <p class="radioCheckbok"><input type="checkbox" id="detailNone " autocomplete="off ">承認１</p>
-                <div style="width: 20px; "></div>
-                <p class="radioCheckbok"><input type="checkbox" id="detailCreated " autocomplete="off ">承認２</p>
+                <div class="input-group-append">
+                    <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認１</p>
+                    <div style="width: 20px; "></div>
+                    <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認２</p>
                 </div>
             </div>
-
-            <div style="float: left; width:50%; "></div>
-            <div style="float: left; width:auto; text-align: left; ">
-                <div class=" input-group-prepend text-left " style=" float: right;">
-                    <div class=" input-group-prepend" style="margin-top:10px;">
-                        <p class=" input-group-text" style="width: 80px; ">表示順</p>
-                    </div>
-                    <div style="width: 30px; "></div>
-                    <div class="input-group-append " style="margin-top:10px;">
-                        <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
-                        <div style="width: 20px; "></div>
-                        <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
-                    </div>
+            <div style="margin-left: 50%; width:auto;" class="input-group">
+                <div style="width: 50%;"></div>
+                <div class=" input-group-prepend">
+                    <p class=" input-group-text" style="width: 80px;">表示順</p>
+                </div>
+                <div style="width: 30px;"></div>
+                <div class="input-group-append">
+                    <p class=" radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
+                    <div style="width: 20px;"></div>
+                    <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
                 </div>
             </div>
-
-        </div> -->
+        </div>
+        <br>
         <div style="text-align: right; width: 100%; ">
             <button type="button " class="btn-group-toggle border " style="width: 80px; " onclick="window.alert( 'clicked!') ">検索</button>
             <div style="width: 50px; "></div>
@@ -108,18 +81,32 @@
         <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
             <thead>
                 <tr>
-                    <th class="td-b " style="width: 60px; ">詳細</th>
-                    <th class="td-b " style="width: 110px; ">契約番号</th>
+                    <th class="td-b " style="width: 90px; ">詳細</th>
+                    <th class="td-b " style="width: 120px; ">契約番号</th>
                     <th class="td-b " style="width: 200px; ">物件名</th>
-                    <th class="td-b " style="width: 110px; ">発注予定金額合計</th>
-                    <th class="td-b " style="width: 110px; ">承認依頼金額合計</th>
-                    <th class="td-b " style="width: 110px; ">発注金額合計</th>
-                    <th class="td-b " style="width: 110px; ">受入金額合計</th>
-                    <th class="td-b " style="width: 60px; ">進捗率</th>
-                    <th class="td-b " style="width: 50px; ">明</th>
-                    <th class="td-b " style="width: 50px; ">承1</th>
-                    <th class="td-b " style="width: 50px; ">承2</th>
+                    <th class="td-b " style="width: 100px; ">発注予定金額合計</th>
+                    <th class="td-b " style="width: 100px; ">承認依頼金額合計</th>
+                    <th class="td-b " style="width: 100px; ">発注金額合計</th>
+                    <th class="td-b " style="width: 100px; ">受入金額合計</th>
+                    <th class="td-b " style="width: 65px; ">進捗率</th>
+                    <th class="td-b " style="width: 45px; ">明</th>
+                    <th class="td-b " style="width: 45px; ">承1</th>
+                    <th class="td-b " style="width: 45px; ">承2</th>
                 </tr>
+
+                <!-- <tr>
+                    <th class="td-b ">詳細</th>
+                    <th class="td-b ">契約番号</th>
+                    <th class="td-b ">物件名</th>
+                    <th class="td-b ">発注予定金額合計</th>
+                    <th class="td-b ">承認依頼金額合計</th>
+                    <th class="td-b ">発注金額合計</th>
+                    <th class="td-b ">受入金額合計</th>
+                    <th class="td-b ">進捗率</th>
+                    <th class="td-b ">明</th>
+                    <th class="td-b ">承1</th>
+                    <th class="td-b ">承2</th>
+                </tr> -->
             </thead>
             <tbody>
                 <tr *ngFor=" let data of datas ">

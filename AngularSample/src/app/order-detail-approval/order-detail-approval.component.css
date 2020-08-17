@@ -1,7 +1,8 @@
 /**************** Search Zone ************************/
 
 .search-area {
-    width: 1200px;
+    max-width: 1200px;
+    min-width: 1200px;
     background-color: transparent;
     border-collapse: collapse;
     border: #CCD0D5 0.5px solid;
@@ -14,11 +15,6 @@
     height: 20px;
     line-height: 25px;
 }
-
-
-/* .search-area>div {
-    border: 0.5px solid black;
-} */
 
 p {
     font-size: 1rem !important;
@@ -41,6 +37,7 @@ p {
 
 .table {
     width: 1200px;
+    min-width: 1200px;
     position: relative;
     margin: 0;
     border-collapse: collapse;
@@ -49,9 +46,22 @@ p {
     border-left: 0.5px solid #CCD0D5;
 }
 
-.table>thead,
+thead {
+    display: table;
+    /* width: 100%; */
+}
+
 tbody {
+    width: 100%;
     display: block;
+}
+
+th {
+    width: 1px;
+}
+
+td {
+    width: fit-content;
 }
 
 
@@ -60,11 +70,13 @@ tbody {
 .table>tbody {
     height: 480px !important;
     overflow-y: scroll !important;
+    overflow: auto;
 }
 
-.table>tbody::-webkit-scrollbar {
+
+/* .table>tbody::-webkit-scrollbar {
     display: none !important;
-}
+} */
 
 
 /* ************************************************ */
@@ -108,6 +120,11 @@ tbody {
     font-weight: bolder;
     background-color: transparent;
     border: none;
+}
+
+th,
+td {
+    padding: 15px;
 }
 
 
