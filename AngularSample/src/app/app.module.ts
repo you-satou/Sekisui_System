@@ -17,6 +17,7 @@ import { OrderJournalSelectComponent } from './order-journal-select/order-journa
 import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.component';
 import { SplitDetailInputComponent } from './split-detail-input/split-detail-input.component';
 import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
+import { TestComponent } from './test/test.component';
 
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
@@ -29,6 +30,7 @@ const appRoute: Routes = [
   { path: "SupplierPattern", component: SupplierPatternComponent},
   { path: "6", component: SplitDetailInputComponent},
   { path: "OrderDetailInput", component: OrderDetailInputComponent},
+  { path: "test", component: TestComponent},
 ];
 
 @NgModule({
@@ -43,6 +45,7 @@ const appRoute: Routes = [
     SupplierPatternComponent,
     SplitDetailInputComponent,
     OrderDetailInputComponent,
+    TestComponent,
   ],
   imports: [
     BrowserModule,
