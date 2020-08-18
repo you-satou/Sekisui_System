@@ -22,13 +22,13 @@
 .section-left {
     float: left;
     width: 40%;
-    border: 0.5px solid black;
+    border: 0.5px solid #CCD0D5;
 }
 
 .section-right {
     margin-left: 45%;
     width: 55%;
-    border: 0.5px solid black;
+    border: 0.5px solid #CCD0D5;
 }
 
 
@@ -114,4 +114,13 @@ th {
     border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
+}
+
+.orderInfo2 {
+    position: relative;
+    top: -1px;
+}
+
+table {
+    border: 1px solid #CCD0D5;
 }

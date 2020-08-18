@@ -1,3 +1,5 @@
+import { ClassField } from '@angular/compiler';
+
 export class OrderDetail{
 
     contractNum: string;
@@ -25,5 +27,5 @@ export class OrderSearchInputment{
     approval_2:boolean;
     resultASC:boolean;
     
-
 }
+
