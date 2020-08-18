@@ -2,7 +2,7 @@ import { OrderDetail } from './orderDetail';
 
 export var testData : OrderDetail[] = [
     {
-        contractNum :"701169977-00",
+        contractNum :"1",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60914675",
@@ -16,7 +16,7 @@ export var testData : OrderDetail[] = [
     },
 
     {
-        contractNum :"701169977-00",
+        contractNum :"4",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -30,7 +30,7 @@ export var testData : OrderDetail[] = [
     },
 
     {
-        contractNum :"701169977-00",
+        contractNum :"7",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -43,7 +43,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"6",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -56,7 +56,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -69,7 +69,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"716",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -82,7 +82,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"1699",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -95,7 +95,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"7011699",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -108,7 +108,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"70116",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -121,7 +121,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -134,7 +134,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"99",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -147,7 +147,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -160,7 +160,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"70116",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -173,7 +173,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"79977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -186,7 +186,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701177",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -199,7 +199,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -212,7 +212,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"79977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -225,7 +225,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"97",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -238,7 +238,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"19",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -251,7 +251,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -264,7 +264,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -277,7 +277,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -290,7 +290,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -303,7 +303,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -316,7 +316,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -329,7 +329,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -342,7 +342,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -355,7 +355,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -368,7 +368,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -381,7 +381,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -394,7 +394,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -407,7 +407,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60,914,675",
         approvalRequestAmount: "60,914,675",
@@ -420,7 +420,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",
@@ -433,7 +433,7 @@ export var testData : OrderDetail[] = [
 
     },
     {
-        contractNum :"701169977-00",
+        contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
         planOrderAmout: "60914675",
         approvalRequestAmount: "60,914,675",

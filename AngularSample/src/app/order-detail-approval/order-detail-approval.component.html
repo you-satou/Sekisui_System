@@ -14,23 +14,23 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="test" id="contractNumFrom" type="text" style="width: 120px;">
+            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text" style="width: 120px;">
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input id="contractNumTo" type="text" style="width: 120px;">
+            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text" style="width: 120px;">
         </div>
 
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input id="propertyName" type="text" style="width: 270px;">
+            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text" style="width: 270px;">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
-                <p class="radioCheckbok"><input type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
+                <p class="radioCheckbok"><input [checked]="inputment.startFromName" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
                 <div style="width: 20px;"></div>
-                <p class="radioCheckbok"><input type="radio" name="options" id="includeProName" autocomplete="off">を含む</p>
+                <p class="radioCheckbok"><input [checked]="inputment.includeProName" type="radio" name="options" id="includeProName" autocomplete="off">を含む</p>
             </div>
         </div>
         <div class="input-group">
@@ -39,9 +39,9 @@
             </div>
             <div style="width: 50px; "></div>
             <div class="input-group-append">
-                <p class="radioCheckbok"><input type="checkbox" id="detailNone" autocomplete="off">明細作成未</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailNone" type="checkbox" id="detailNone" autocomplete="off">明細作成未</p>
                 <div style="width: 20px; "></div>
-                <p class="radioCheckbok"><input type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailCreated" type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
             </div>
         </div>
         <div>
@@ -51,9 +51,9 @@
                 </div>
                 <div style="width: 50px; "></div>
                 <div class="input-group-append">
-                    <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認１</p>
+                    <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" id="" autocomplete="off">承認１</p>
                     <div style="width: 20px; "></div>
-                    <p class="radioCheckbok"><input type="checkbox" id="" autocomplete="off">承認２</p>
+                    <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
                 </div>
             </div>
             <div style="margin-left: 50%; width:auto;" class="input-group">
@@ -63,9 +63,9 @@
                 </div>
                 <div style="width: 30px;"></div>
                 <div class="input-group-append">
-                    <p class=" radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
+                    <p class=" radioCheckbok "><input [checked]="inputment.resultASC" type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
                     <div style="width: 20px;"></div>
-                    <p class="radioCheckbok "><input type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
+                    <p class="radioCheckbok "><input [checked]="inputment.resultDESC" type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
                 </div>
             </div>
         </div>
@@ -78,42 +78,38 @@
 
     <section id=" data-display " style="padding-top :10px ">
         <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
-            <div>
-                <thead>
-                    <tr>
-                        <th class="td-b " style="width: 10%; ">詳細</th>
-                        <th class="td-b " style="width: 13%; ">契約番号</th>
-                        <th class="td-b " style="width: 18%; ">物件名</th>
-                        <th class="td-b " style="width: 10%; ">発注予定金額合計</th>
-                        <th class="td-b " style="width: 10%; ">承認依頼金額合計</th>
-                        <th class="td-b " style="width: 10%; ">発注金額合計</th>
-                        <th class="td-b " style="width: 10%; ">受入金額合計</th>
-                        <th class="td-b " style="width: 10%; ">進捗率</th>
-                        <th class="td-b " style="width: 3%; ">明</th>
-                        <th class="td-b " style="width: 3%; ">承1</th>
-                        <th class="td-b " style="width: 3%; ">承2</th>
-                    </tr>
-                </thead>
-            </div>
-            <div>
-                <tbody>
-                    <tr *ngFor=" let data of datas ">
-                        <td class="td-b td-font text-center " style="width: 10%; ">
-                            <button id="btnGvDetail " class="border table-btn-d btn-info ">詳細</button>
-                        </td>
-                        <td class="td-b td-font " style="width: 13%; ">{{data.contractNum}}</td>
-                        <td class="td-b td-font " style="width: 18%; ">{{data.propertyName}}</td>
-                        <td class="td-b td-font " style="width: 10%; ">{{data.planOrderAmout}}</td>
-                        <td class="td-b td-font " style="width: 10%; ">{{data.approvalRequestAmount}}</td>
-                        <td class="td-b td-font " style="width: 10%; ">{{data.performanceOrderAmount}}</td>
-                        <td class="td-b td-font " style="width: 10%; ">{{data.receivedAmount}}</td>
-                        <td class="td-b td-font " style="width: 10%; ">{{data.progessRate}}</td>
-                        <td class="td-b td-font " style="width: 3%; ">{{data.createdDetail}}</td>
-                        <td class="td-b td-font " style="width: 3%; ">{{data.approval_1}}</td>
-                        <td class="td-b td-font " style="width: 3%; ">{{data.approval_2}}</td>
-                    </tr>
-                </tbody>
-            </div>
+            <thead>
+                <tr>
+                    <th class="td-b " style="width: 10%; ">詳細</th>
+                    <th class="td-b " style="width: 13%; ">契約番号</th>
+                    <th class="td-b " style="width: 18%; ">物件名</th>
+                    <th class="td-b " style="width: 10%; ">発注予定金額合計</th>
+                    <th class="td-b " style="width: 10%; ">承認依頼金額合計</th>
+                    <th class="td-b " style="width: 10%; ">発注金額合計</th>
+                    <th class="td-b " style="width: 10%; ">受入金額合計</th>
+                    <th class="td-b " style="width: 10%; ">進捗率</th>
+                    <th class="td-b " style="width: 3%; ">明</th>
+                    <th class="td-b " style="width: 3%; ">承1</th>
+                    <th class="td-b " style="width: 3%; ">承2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor=" let data of datas ">
+                    <td class="td-b td-font text-center " style="width: 10%; ">
+                        <button (click)="getOrderDetail($event)" id="btnGvDetail " class="border table-btn-d btn-info ">詳細</button>
+                    </td>
+                    <td class="td-b td-font " style="width: 13%; ">{{data.contractNum}}</td>
+                    <td class="td-b td-font " style="width: 18%; ">{{data.propertyName}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.planOrderAmout}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.approvalRequestAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.performanceOrderAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.receivedAmount}}</td>
+                    <td class="td-b td-font " style="width: 10%; ">{{data.progessRate}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.createdDetail}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_1}}</td>
+                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_2}}</td>
+                </tr>
+            </tbody>
         </table>
 
         <div class="text-center paginate-container ">
