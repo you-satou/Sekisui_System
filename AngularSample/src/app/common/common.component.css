@@ -1,4 +1,4 @@
-/************************** TABLE LAYOUT STYLE IS HERE ****************************/
+/* ************************* TABLE LAYOUT STYLE IS HERE ***************************
 
 .table-layout {
     position: relative;
@@ -8,11 +8,6 @@
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
 }
-
-
-/* .table-layout>tbody::-webkit-scrollbar {
-    display: none;
-} */
 
 .table-layout>thead>tbody {
     display: block;
@@ -30,13 +25,9 @@
 }
 
 
-/* .td-b {
-    border-right: 0.5px solid #a8cefb;
-} */
-
 .table-layout>thead>tr,
 tbody>tr {
     float: left;
     display: inline-flex;
     width: 100%;
-}
+} */
