@@ -18,6 +18,8 @@ import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.co
 import { SplitDetailInputComponent } from './split-detail-input/split-detail-input.component';
 import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
 import { TestComponent } from './test/test.component';
+import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
+import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
 
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
@@ -31,6 +33,7 @@ const appRoute: Routes = [
   { path: "6", component: SplitDetailInputComponent},
   { path: "OrderDetailInput", component: OrderDetailInputComponent},
   { path: "test", component: TestComponent},
+  { path: "OrderSupplierSelect", component: OrderSupplierSelectComponent},
 ];
 
 @NgModule({
@@ -46,6 +49,8 @@ const appRoute: Routes = [
     SplitDetailInputComponent,
     OrderDetailInputComponent,
     TestComponent,
+    OrderSupplierSelectComponent,
+    OrderDetailSelectComponent,
   ],
   imports: [
     BrowserModule,

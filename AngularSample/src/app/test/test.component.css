@@ -1,82 +1,109 @@
 /********************* Page Footer *************************/
 
-.testFooter-container {
-    position: absolute !important;
-    display: inline-block !important;
-    bottom: 0 !important;
-    /* width: 93%; */
-    padding-bottom: 12.5px !important;
-    z-index: 2 !important;
-}
+    .testFooter-container {
+        position: absolute !important;
+        display: inline-block !important;
+        left: 0px;
+        right: 0px;
+        bottom: 0 !important;
+        /* width: 93%; */
+        padding: 0px 42px 16px 42px !important;
+        z-index: 2 !important;
+    }
 
-.testFooter {
-    display: flex !important;
-    justify-content: space-between !important;
-    background-color: #F5F5F5 !important;
-}
+    .testFooter {
+        display: flex !important;
+        justify-content: space-between !important;
+        background-color: #F5F5F5 !important;
+        width: 290px;
+        margin: auto;
+    }
 
-.testFooter>.back-btn {
-    display: inline-block;
-    width: 120px !important;
-}
+    .testFooter>.back-btn {
+        display: inline-block;
+        width: 120px !important;
+    }
 
-.testTable-Shiwake>thead>tr {
-    text-align: center;
-}
 
-th {
-    border-collapse: collapse;
-    border-top: 0.5px solid #CCD0D5;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-    font: 10px !important;
-}
+    /* .testTable-Shiwake {
+        height: 300px;
+        width: 480px;
+    } */
 
-.testTable-Shiwake>testTbody {
-    height: 250px !important;
-    overflow-y: scroll;
-}
+    .testTable-Shiwake>thead>tr {
+        text-align: center;
+    }
 
-.testTable-Shiwakee {
-    height: 250px;
-    max-width: 640px;
-    position: relative;
-    margin: 0;
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-}
+    th {
+        border-collapse: collapse;
+        border-top: 0.5px solid #CCD0D5;
+        border-right: 0.5px solid #CCD0D5;
+        border-bottom: 0.5px solid #CCD0D5;
+        border-left: 0.5px solid #CCD0D5;
+        font: 10px !important;
+    }
 
-.testTable-Shiwake>tbody>tr>td {
-    border: 0.5px solid #CCD0D5;
-}
+    .testTable-Shiwake>testTbody {
+        height: 250px !important;
+        overflow-y: scroll;
+    }
 
-.testShiwakeCode-1 {
-    width: 50px;
-    text-align: center;
-}
+    .testTable-Shiwakee {
+        height: 250px;
+        max-width: 640px;
+        position: relative;
+        margin: 0;
+        border-collapse: collapse;
+        border-right: 0.5px solid #CCD0D5;
+        border-bottom: 0.5px solid #CCD0D5;
+        border-left: 0.5px solid #CCD0D5;
+    }
 
-.testShiwakeCode-2 {
-    width: 20px;
-    text-align: center;
-}
+    .testTable-Shiwake>tbody>tr>td {
+        border: 0.5px solid #CCD0D5;
+    }
 
-.testShiwakeKeiri {
-    width: 60px;
-    text-align: center;
-}
+    .testShiwakeKode {
+        width: 60px; 
+        text-align: center;
+    }
 
-.testShiwakeName {
-    width: 150px;
-    text-align: left;
-}
+    .testShiwakeKeiri {
+        width: 60px;
+        text-align: center;
+    }
 
-#tableHeader {
-    position: relative;
-}
+    .testShiwakeName {
+        width: 150px;
+        text-align: left;
+    }
 
-#tableBody {
-    position: relative;
-}
+    .testShiwakeHachu-1 {
+        width: 20px;
+        text-align: center;
+    }
+
+    .testShiwakeHachu-2 {
+        width: 150px;
+        text-align: left;
+    }
+
+    .testShiwakeKingaku {
+        width: 200px;
+        text-align: right;
+    }
+
+    .tableBody {
+        overflow-y:scroll; height: 300px; position:inherit;
+    }
+
+    .testsection {
+        width: 307px;
+        margin: auto;
+    }
+
+    .checkBox {
+        width: 20px;
+        text-align: center; 
+        vertical-align: middle;
+    }
