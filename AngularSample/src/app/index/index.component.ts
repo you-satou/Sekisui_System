@@ -17,55 +17,58 @@ import { Subscription } from 'rxjs';
 
 export class IndexComponent implements OnInit, OnDestroy   {
     
-    _element: HTMLElement;
+  _element: HTMLElement;
+  
+  // indexDataList: IndexItemType[]
 
-    // indexDataList: IndexItemType[]
+  // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
+  private subscription: Subscription;
+　// ngComponentOutlet にセットするためのプロパティ
+  public modal: any = null;
 
-    // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
-    private subscription: Subscription;
-    // ngComponentOutlet にセットするためのプロパティ
-    public modal: any = null;
+  pageIndex: number = 0;
+  recordMax: number = 0;
+  pageMax: number = 0;
+  pageSize: number = 50;
 
-    pageIndex: number = 0;
-    recordMax: number = 0;
-    pageMax: number = 0;
-    pageSize: number = 50;
+  str:String="";
 
-    constructor(
-        private wkAllItemTypesService: WkAllItemTypesService,
-        private changeDetectorRef: ChangeDetectorRef,
-        private modalService: OrderJournalSelectService,
-        private modalService2: SupplierPatternService,
-        private element: ElementRef,
-        private router: Router
-      ) { this._element = this.element.nativeElement }
+  constructor(
+      private wkAllItemTypesService: WkAllItemTypesService,
+      private changeDetectorRef: ChangeDetectorRef,
+      private modalService: OrderJournalSelectService,
+      private modalService2: SupplierPatternService,
+      private element: ElementRef,
+      private router: Router
+  ) { this._element = this.element.nativeElement }
 
-    ngOnInit() {
-        // // データ取得
-        // this.wkAllItemTypesService.indexJson()
-        // .subscribe(response => {
-        //   let datas: IndexItemType[] = response;
-        //   this.recordMax = datas.length;
-        //   this.pageMax = Math.floor(this.recordMax / this.pageSize);
-        //   this.indexDataList = response;
-        // });
-        this.subscription = this.modalService.closeEventObservable$.subscribe(
-          () => {
-            // プロパティ modal に null をセットすることでコンポーネントを破棄する
-            // このタイミングで ModalComponent では ngOnDestroy が走る
-            this.modal = null;
-            location.reload();
-          }
-        );
-        this.subscription = this.modalService2.closeEventObservable$.subscribe(
-          () => {
-            // プロパティ modal に null をセットすることでコンポーネントを破棄する
-            // このタイミングで ModalComponent では ngOnDestroy が走る
-            this.modal = null;
-            location.reload();
-          }
-        );
-    }
+  ngOnInit() {
+      // // データ取得
+      // this.wkAllItemTypesService.indexJson()
+      // .subscribe(response => {
+      //   let datas: IndexItemType[] = response;
+      //   this.recordMax = datas.length;
+      //   this.pageMax = Math.floor(this.recordMax / this.pageSize);
+      //   this.indexDataList = response;
+      // });
+      this.subscription = this.modalService.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          
+          this.modal = null;
+          // データ設定
+          this.str = this.modalService.getVal().journalName
+        }
+      );
+      this.subscription = this.modalService2.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          this.modal = null;
+        }
+      );
+  }
   /**
    * 終了処理
    *

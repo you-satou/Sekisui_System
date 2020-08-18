@@ -45,7 +45,7 @@ export class OrderJournalSelectComponent implements OnInit, OnDestroy  {
   }
   
   private notifyCloseModal() {
-    this.modalService.requestCloseModal();
+    this.modalService.requestCloseModal(this.resVal);
   }
 
    /**
@@ -55,6 +55,9 @@ export class OrderJournalSelectComponent implements OnInit, OnDestroy  {
    * @param selectedItem 行選択 値取得
    */
   public onSelHighLight($event, selectedItem){
+    // TODO
+    this.resVal = selectedItem;
+
     // テーブル 背景色 クリア
     var wTbody = $event.target.parentElement.parentElement;
     for(var i=0; i<wTbody.rows.length; i++){
