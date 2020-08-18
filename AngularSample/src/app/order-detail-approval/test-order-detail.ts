@@ -4,11 +4,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"1",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60914675",
         performanceOrderAmount :"60914675",
         receivedAmount: "60914675",
-        progessRate: "100",
+        progressRate: "100",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -18,11 +18,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"4",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -32,11 +32,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"7",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount : "60,914,675",
         receivedAmount: "14,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -45,11 +45,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"6",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount : "60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"",
         approval_1:"",
         approval_2:""
@@ -58,11 +58,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -71,11 +71,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"716",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -84,11 +84,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"1699",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -97,11 +97,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"7011699",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -110,11 +110,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"70116",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -123,11 +123,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -136,11 +136,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"99",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -149,11 +149,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -162,11 +162,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"70116",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -175,11 +175,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"79977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -188,11 +188,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701177",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -201,11 +201,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"7011",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -214,11 +214,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"79977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -227,11 +227,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"97",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -240,11 +240,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"19",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -253,11 +253,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -266,11 +266,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -279,11 +279,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -292,11 +292,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -305,11 +305,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -318,11 +318,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -331,11 +331,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -344,11 +344,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -357,11 +357,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -370,11 +370,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -383,11 +383,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -396,11 +396,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""
@@ -409,11 +409,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60,914,675",
+        planOrderAmount: "60,914,675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -422,11 +422,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"済",
         approval_2:""
@@ -435,11 +435,11 @@ export var testData : OrderDetail[] = [
     {
         contractNum :"701169977",
         propertyName: "株式会社積水花子　社員寮",
-        planOrderAmout: "60914675",
+        planOrderAmount: "60914675",
         approvalRequestAmount: "60,914,675",
         performanceOrderAmount :"60,914,675",
         receivedAmount: "60,914,675",
-        progessRate: "100%",
+        progressRate: "100%",
         createdDetail:"済",
         approval_1:"",
         approval_2:""

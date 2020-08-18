@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef, NgModule } from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './orderDetail';
 import { testData } from './test-order-detail';
 import { ActivatedRoute } from '@angular/router';
+import { OrderDetailApprovalService } from './order-detail-service'
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -34,13 +36,16 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   // datas: OrderDetail[] = testData;
 
+  result = [];
   datas: OrderDetail[];
 
   inputment: OrderSearchInputment;
 
   constructor(
     private router: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,) {
+    private changeDetectorRef: ChangeDetectorRef,
+    private orderDetailService : OrderDetailApprovalService,
+    ) {
 
     this.setBlankInputment();
 
@@ -48,6 +53,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   ngOnInit() { }
 
+  //Shokika
   setBlankInputment() {
     this.inputment = new OrderSearchInputment();
 
@@ -65,15 +71,23 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     //TODO: Send a request to DB with inputmentValue inside
 
-    var result = Array<OrderDetail>();
-    testData.forEach(element => {
-      if (Number(element.contractNum) >= Number(this.inputment.contractNumFrom)) {
-        result.push(element)
-      }
+    // var result = Array<OrderDetail>();
+    // testData.forEach(element => {
+    //   if (Number(element.contractNum) >= Number(this.inputment.contractNumFrom)) {
+    //     result.push(element)
+    //   }
 
-    });
-    this.datas = result;
+    // });
+
+    this.orderDetailService.getOrderDetail()
+    .subscribe(
+      data => this.result = data
+      );
+    this.datas = this.result;
+    // alert(this.result.length);
+
     this.countRecord(this.datas);
+
   }
 
   countRecord(datas: OrderDetail[]) {
@@ -132,9 +146,9 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
 
-  //   getOrderDetail($event){
+    getOrderDetail($event){
 
-  //   var wTbody = $event.target.parentElement.parentElement;
+    var wTbody = $event.target.parentElement.parentElement;
   //   // for(var i=0; i < wTbody.rows.length; i++){
   //   //   var rIndex = wTbody.rows[i];
   //   // //   // for(var j = 0; j< rIndex.cells.length; j++){
@@ -151,14 +165,14 @@ export class OrderDetailApprovalComponent implements OnInit {
   //   // }
 
   //     // alert(rIndex);
-  //     var rowIndex = wTbody.rowIndex;
+      var rowIndex = wTbody.rowIndex;
   //     // var rowDatas = wTbody.rows[rowIndex];
 
 
-  //     alert(rowIndex.cells.length);
+      alert(rowIndex);
   //     return;
 
-  // }
+  }
 
 
 }

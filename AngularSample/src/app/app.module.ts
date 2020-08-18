@@ -1,3 +1,4 @@
+import { OrderDetailApprovalService } from './order-detail-approval/order-detail-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -60,7 +61,9 @@ const appRoute: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoute)
   ],
-  providers: [WkAllItemTypesService],
+  providers: [WkAllItemTypesService, 
+              OrderDetailApprovalService
+              ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

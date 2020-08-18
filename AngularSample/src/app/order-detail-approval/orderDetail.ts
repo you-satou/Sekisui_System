@@ -1,17 +1,17 @@
-export class OrderDetail{
+export interface OrderDetail{
 
-    public contractNum: string;
-    public propertyName: string;
-    public planOrderAmout:string;
-    public approvalRequestAmount:string;
-    public performanceOrderAmount:string;
-    public receivedAmount:string;
-    public progessRate:string;
-    public createdDetail:string;
-    public approval_1:string;
-    public approval_2:string;
+    contractNum: string,
+    propertyName: string,
+    planOrderAmount:string,
+    approvalRequestAmount:string,
+    performanceOrderAmount:string,
+    receivedAmount:string,
+    progressRate:string,
+    createdDetail:string,
+    approval_1:string,
+    approval_2:string,
 
-    constructor(){}
+    // constructor(){}
 }
 
 export class OrderSearchInputment{
