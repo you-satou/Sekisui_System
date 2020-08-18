@@ -1,16 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
 import { OrderDetail,OrderSearchInputment } from './orderDetail';
 import { testData} from './test-order-detail';
 import { ActivatedRoute} from '@angular/router';
-import { Console } from 'console';
-
-
 
 @Component({
   selector: 'app-order-detail-approval',
   templateUrl: './order-detail-approval.component.html',
   styleUrls: ['./order-detail-approval.component.css']
 })
+
 export class OrderDetailApprovalComponent implements OnInit {
 
   recordMax: number = 0;
@@ -18,26 +16,41 @@ export class OrderDetailApprovalComponent implements OnInit {
   pageMax: number = 0;
   pageSize: number = 20;
 
+
   pageTitle = "発注明細入力＿承認処理";
 
-  datas: OrderDetail [] = testData;
+  datas: OrderDetail[] = testData;
 
-  inputment: OrderSearchInputment[];
-
-
+  inputment: OrderSearchInputment
+  test:string = "quan";
 
   constructor(
     private router : ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef
-    ) { }
+      ) { }
 
 
   ngOnInit() {
     this.countRecord(this.datas);
     //TODO: Display result
-    console.log(this.pageIndex+ "  " + this.pageMax + "  " + this.recordMax);
     }
 
+    getSearchRequest(){
+
+      //TODO: Input Checked
+
+      alert("Clicked!!!");
+      return;
+    }
+
+    checkInputment(input: OrderSearchInputment ){
+
+
+      if (input.contractNumFrom.length == 0){
+
+      }
+
+    }
 
   
   countRecord(datas: OrderDetail[]){

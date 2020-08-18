@@ -46,22 +46,22 @@ p {
     border-left: 0.5px solid #CCD0D5;
 }
 
-.table>thead {
+.table>div>thead {
     display: table;
     width: 100%;
 }
 
-.table>tbody {
+.table>div>tbody {
     width: 100%;
-    /* display: block; */
-    display: inherit;
+    display: block;
+    /* display: inherit; */
     /* display: */
 }
 
 
 /**************** Scroll bar *************************/
 
-.table>tbody {
+.table>div>tbody {
     height: 480px !important;
     overflow-y: scroll !important;
     overflow: auto;
@@ -75,7 +75,7 @@ p {
 
 /* ************************************************ */
 
-.table>thead {
+.table>div>thead {
     text-align: center !important;
     background-color: #E5E5E5 !important;
 }
