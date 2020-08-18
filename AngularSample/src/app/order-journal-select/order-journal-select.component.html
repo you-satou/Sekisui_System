@@ -1,62 +1,33 @@
 <div id="MODAL1" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="header">
-        <label id="header_label">発注仕訳マスタ選択</label>
-    </div>
-    <div class="modal-content">
-        <div class="table-container">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th class="table-str td-b text-center">仕訳コード</th>
-                        <th class="table-str td-b text-center">経理コード</th>
-                        <th class="table-str td-b text-center">仕訳名称</th>
-                    </tr>
-                </thead>
-                <tbody class="">
-                    <!--
-                    <tr *ngFor="let item of indexDataList | slice:pageIndex*pageSize:(pageIndex+1)*pageSize">
-                        <a routerLink="/detail/{{item.id}}" >
-                            <td class="table-id td-b detail-link"  >{{ item.id }}</td>
-                        </a>
-                        <td class="table-str td-b">{{ item.name }}</td>
-                        <td class="table-str td-b">{{ item.email }}</td>
-                    </tr>
-                    -->
-                    <tr>
-                        <td class="table-str td-b">0200</td>
-                        <td class="table-str td-b">020</td>
-                        <td class="table-str td-b">基礎工事</td>
-                    </tr>
-                    <tr>
-                        <td class="table-str td-b">0205</td>
-                        <td class="table-str td-b">020</td>
-                        <td class="table-str td-b">安全誘導員</td>
-                    </tr>
-                    <tr>
-                        <td class="table-str td-b">0210</td>
-                        <td class="table-str td-b">020</td>
-                        <td class="table-str td-b">特殊基礎工事</td>
-                    </tr>
-                    <tr>
-                        <td class="table-str td-b">0230</td>
-                        <td class="table-str td-b">023</td>
-                        <td class="table-str td-b">基礎残土処理</td>
-                    </tr>
-                    <tr>
-                        <td class="table-str td-b">0240</td>
-                        <td class="table-str td-b">024</td>
-                        <td class="table-str td-b">地耐力調査費</td>
-                    </tr>
-                    <tr>
-                        <td class="table-str td-b">0260</td>
-                        <td class="table-str td-b">026</td>
-                        <td class="table-str td-b">基礎塗装工事</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label id="header_label">発注仕訳マスタ選択</label>
+            </div>
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-str td-b text-center">仕訳コード</th>
+                                <th class="table-str td-b text-center">経理コード</th>
+                                <th class="table-str td-b text-center">仕訳名称</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <td class="table-str td-b">{{ data.journalCode }}</td>
+                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
+                                <td class="table-str td-b">{{ data.journalName }}</td>
+                            </tr>                 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">選択</button>
+            </div>
         </div>
-    </div>
-    <div class="modal-footer footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
     </div>
 </div>

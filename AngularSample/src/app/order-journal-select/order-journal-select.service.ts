@@ -5,27 +5,27 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
   })
   
-  export class OrderJournalSelectService {
-  
-    // データの変更を通知するためのオブジェクト
-    private closeEventSubject = new Subject<string>();
-  
-    // Subscribe するためのプロパティ( これでイベント通知をキャッチする )
-    public closeEventObservable$ = this.closeEventSubject.asObservable();
-  
-    /**
-     * コンストラクタ
-     *
-     * @memberof OrderJournalSelectService
-     */
-    constructor() { }
+export class OrderJournalSelectService {
 
-    /**
-     * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
-     *
-     * @memberof OrderJournalSelectService
-     */
-    public requestCloseModal() {
-      this.closeEventSubject.next();
-    }
+  
+  // データの変更を通知するためのオブジェクト
+  private closeEventSubject = new Subject<string>();
+  
+  // Subscribe するためのプロパティ( これでイベント通知をキャッチする )
+  public closeEventObservable$ = this.closeEventSubject.asObservable();
+  /**
+   * コンストラクタ
+   *
+   * @memberof OrderJournalSelectService
+   */
+  constructor() { }
+
+  /**
+   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
+   *
+   * @memberof OrderJournalSelectService
+   */
+  public requestCloseModal() {
+    this.closeEventSubject.next();
   }
+}
