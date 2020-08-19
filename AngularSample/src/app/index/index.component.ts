@@ -6,6 +6,12 @@ import { OrderJournalSelectComponent } from '../order-journal-select/order-journ
 import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
 import { SupplierPatternComponent } from '../supplier-pattern/supplier-pattern.component';
 import { SupplierPatternService } from '../supplier-pattern/supplier-pattern.service';
+import { OrderSupplierSelectComponent } from '../order-supplier-select/order-supplier-select.component';
+import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
+import { OrderDetailAddInputComponent } from '../order-detail-add-input/order-detail-add-input.component';
+import { OrderDetailAddInputService } from '../order-detail-add-input/order-detail-add-input.service';
+
+
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -38,6 +44,8 @@ export class IndexComponent implements OnInit, OnDestroy   {
       private changeDetectorRef: ChangeDetectorRef,
       private modalService: OrderJournalSelectService,
       private modalService2: SupplierPatternService,
+      private modalService3: OrderSupplierSelectService,
+      private modalService4: OrderDetailAddInputService,
       private element: ElementRef,
       private router: Router
   ) { this._element = this.element.nativeElement }
@@ -62,6 +70,22 @@ export class IndexComponent implements OnInit, OnDestroy   {
         }
       );
       this.subscription = this.modalService2.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          this.modal = null;
+        }
+      );
+
+      this.subscription = this.modalService3.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          this.modal = null;
+        }
+      );
+
+      this.subscription = this.modalService4.closeEventObservable$.subscribe(
         () => {
           // プロパティ modal に null をセットすることでコンポーネントを破棄する
           // このタイミングで ModalComponent では ngOnDestroy が走る
@@ -96,5 +120,25 @@ export class IndexComponent implements OnInit, OnDestroy   {
    */
   public onClick2($event) {
     this.modal = SupplierPatternComponent;
+  }
+
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+  public onClick3($event) {
+    this.modal = OrderSupplierSelectComponent;
+  }
+
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+  public onClick4($event) {
+    this.modal = OrderDetailAddInputComponent;
   }
 }

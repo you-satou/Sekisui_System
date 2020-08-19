@@ -20,6 +20,7 @@ import { OrderDetailInputComponent } from './order-detail-input/order-detail-inp
 import { TestComponent } from './test/test.component';
 import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
 import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
+import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component'
 
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
@@ -34,6 +35,7 @@ const appRoute: Routes = [
   { path: "OrderDetailInput", component: OrderDetailInputComponent},
   { path: "test", component: TestComponent},
   { path: "OrderSupplierSelect", component: OrderSupplierSelectComponent},
+  { path: "OrderDetailAddInput", component: OrderDetailAddInputComponent},
 ];
 
 @NgModule({
@@ -51,6 +53,7 @@ const appRoute: Routes = [
     TestComponent,
     OrderSupplierSelectComponent,
     OrderDetailSelectComponent,
+    OrderDetailAddInputComponent
   ],
   imports: [
     BrowserModule,

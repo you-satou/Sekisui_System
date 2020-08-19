@@ -1,0 +1,38 @@
+<div id="MODAL4" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label id="header_label">発注明細入力_明細入力</label>
+            </div>
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-str td-b text-center">仕訳コード</th>
+                                <th class="table-str td-b text-center">経理コード</th>
+                                <th class="table-str td-b text-center">仕訳名称</th>
+                                <th colspan="2" class="table-str td-b text-center" >発注先</th>
+                                <th class="table-str td-b text-center" >発注予定金額</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of datas">
+                                <td class="table-str td-b">{{ sdata.journalCode }}</td>
+                                <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
+                                <td class="table-str td-b">{{ sdata.journalName }}</td>
+                                <td class="table-str td-b">{{ sdata.supplierCode }}</td>
+                                <td class="table-str td-b">{{ sdata.supplierName }}</td>
+                                <td class="table-str td-b">{{ sdata.orderPlansKin }}</td>
+                            </tr>                 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">選択</button>
+            </div>
+        </div>
+    </div>
+</div>

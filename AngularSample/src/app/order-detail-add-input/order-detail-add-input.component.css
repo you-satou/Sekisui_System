@@ -1,9 +1,9 @@
 .modal {
     position: fixed;
     top: 20%;
-    left: 30%;
+    left: 5%;
     height: 600px;
-    width: 40%;
+    width: 80%;
     border-radius: 15px;
   }
   
