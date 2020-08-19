@@ -46,7 +46,17 @@ th {
     border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
-    font: 10px !important;
+    font: bold 12px "メイリオ" !important;
+    text-align: center;
+    padding: 5px;
+}
+
+td {
+    border-collapse: collapse;
+    border-right: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
+    padding-left: 5px;
 }
 
 .table-Shiwake>tbody {
@@ -119,8 +129,51 @@ th {
 .orderInfo2 {
     position: relative;
     top: -1px;
+    height: 84px;
+}
+
+.orderInfo2Table1 {
+    float: left; height: 84px; width: 30%;
+}
+
+.orderInfo2Table2 {
+    position: relative;
+    left: -1px;
+    height: 84px; 
+    width: 70%;
 }
 
 table {
     border: 1px solid #CCD0D5;
+}
+
+.tdcenter {
+    text-align: center;
+    padding: 0px 10px;
+    min-width: 35px;
+    min-height: 23px;
+}
+
+.tddate {
+    text-align: center;
+    width: 83px;
+    min-height: 23px;
+}
+
+.tdprice {
+    text-align: right;
+    min-width: 100px;
+    padding: 0px 5px 0px 20px;
+    height: 23px;
+}
+
+#orderInfomation {
+    min-width: 1287px;
+}
+
+#scrollTableDiv {
+    overflow-y:scroll; 
+    height: 150px;
+    width: 589px;
+    position:inherit;
 }

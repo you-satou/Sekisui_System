@@ -1,21 +1,21 @@
-import { ClassField } from '@angular/compiler';
+export interface OrderDetail{
 
-export class OrderDetail{
+    contractNum: string,
+    propertyName: string,
+    planOrderAmount:string,
+    approvalRequestAmount:string,
+    performanceOrderAmount:string,
+    receivedAmount:string,
+    progressRate:string,
+    createdDetail:string,
+    approval_1:string,
+    approval_2:string,
 
-    contractNum: string;
-    propertyName: string;
-    planOrderAmout:string;
-    approvalRequestAmount:string;
-    performanceOrderAmount:string;
-    receivedAmount:string;
-    progessRate:string;
-    createdDetail:string;
-    approval_1:string;
-    approval_2:string;
-
+    // constructor(){}
 }
 
 export class OrderSearchInputment{
+
     contractNumFrom:string;
     contractNumTo:string;
     propertyName:string;
@@ -26,6 +26,9 @@ export class OrderSearchInputment{
     approval_1:boolean;
     approval_2:boolean;
     resultASC:boolean;
+    resultDESC:boolean;
+
+    constructor(){}
     
 }
 
