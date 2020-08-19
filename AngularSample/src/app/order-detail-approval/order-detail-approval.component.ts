@@ -1,10 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef, NgModule } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgModule, ViewChild} from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './orderDetail';
 import { testData } from './test-order-detail';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetailApprovalService } from './order-detail-service';
 
 // import { Sort } from '@angular/material/sort';
+
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {DataSource} from '@angular/cdk/table';
+
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -13,29 +18,13 @@ import { OrderDetailApprovalService } from './order-detail-service';
 })
 
 export class OrderDetailApprovalComponent implements OnInit {
+  pageTitle = "発注明細入力＿承認処理";
 
   recordMax: number = 0;
   pageIndex: number = 0;
   pageMax: number = 0;
   pageSize: number = 20;
 
-  contractNumFrom: string = "";
-  contractNumTo: string = "";
-  propertyName: string = "";
-  startFromName: boolean;
-  includeProName: boolean;
-  detailCreated: boolean;
-  detailNone: boolean;
-  approval_1: boolean;
-  approval_2: boolean;
-  resultASC: boolean;
-  resultDESC: boolean;
-
-
-
-  pageTitle = "発注明細入力＿承認処理";
-
-  // datas: OrderDetail[] = testData;
 
   result = [];
   datas: OrderDetail[];
@@ -51,6 +40,23 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.setBlankInputment();
 
   }
+
+  displayedColumns: string[] = [
+    'contractNum', 
+    'propertyName', 
+    'planOrderAmount', 
+    'approvalRequestAmount',
+    'performanceOrderAmount',
+    'receivedAmount',
+    'progressRate',
+    'createdDetail',
+    'approval_1',
+    'approval_2'
+  ];
+
+  dataSource = new MatTableDataSource<OrderDetail>();
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   ngOnInit() { }
 
@@ -69,8 +75,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   getSearchRequest() {
-
-    //TODO: Send a request to DB with inputmentValue inside
 
     this.orderDetailService.getOrderDetail()
     .subscribe(

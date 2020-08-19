@@ -21,7 +21,13 @@ import { OrderDetailInputComponent } from './order-detail-input/order-detail-inp
 import { TestComponent } from './test/test.component';
 import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
 import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
-import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component'
+import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component';
+
+//発注明細入力＿承認処理テーブル
+import {OrderDetailApprovalTable} from './order-detail-approval/oder-detail-approval-table';
+import { MatTableModule } from '@angular/material';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
@@ -54,7 +60,11 @@ const appRoute: Routes = [
     TestComponent,
     OrderSupplierSelectComponent,
     OrderDetailSelectComponent,
-    OrderDetailAddInputComponent
+    OrderDetailAddInputComponent,
+
+    //発注明細入力＿承認処理テーブル
+    OrderDetailApprovalTable,
+
   ],
   imports: [
     BrowserModule,
@@ -62,10 +72,16 @@ const appRoute: Routes = [
     HttpClientModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot(appRoute)
+    RouterModule.forRoot(appRoute),
+
+    //発注明細入力＿承認処理テーブル
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [WkAllItemTypesService, 
-              OrderDetailApprovalService
+              OrderDetailApprovalService,
               ],
   bootstrap: [AppComponent]
 })
