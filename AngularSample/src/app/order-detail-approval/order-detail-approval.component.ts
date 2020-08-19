@@ -4,7 +4,7 @@ import { testData } from './test-order-detail';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetailApprovalService } from './order-detail-service';
 
-import { Sort } from '@angular/material/sort';
+// import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-order-detail-approval',
