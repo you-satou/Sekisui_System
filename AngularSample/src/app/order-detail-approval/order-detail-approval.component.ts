@@ -1,15 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, NgModule, ViewChild} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './orderDetail';
-import { testData } from './test-order-detail';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetailApprovalService } from './order-detail-service';
-
-// import { Sort } from '@angular/material/sort';
-
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {DataSource} from '@angular/cdk/table';
-
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -32,12 +24,10 @@ export class OrderDetailApprovalComponent implements OnInit {
   inputment: OrderSearchInputment;
 
   constructor(
-    private router: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
     private orderDetailService : OrderDetailApprovalService,
     ) {
 
-    this.setBlankInputment();
 
   }
 
@@ -54,14 +44,11 @@ export class OrderDetailApprovalComponent implements OnInit {
     'approval_2'
   ];
 
-  dataSource = new MatTableDataSource<OrderDetail>();
+  ngOnInit() { 
+    this.setStartPage();
+  }
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  ngOnInit() { }
-
-  //Shokika
-  setBlankInputment() {
+  setStartPage() {
     this.inputment = new OrderSearchInputment();
 
     this.inputment.startFromName = true;
@@ -78,9 +65,8 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     this.orderDetailService.getOrderDetail()
     .subscribe(
-      data => this.result = data
+      data => this.datas = data
       );
-    this.datas = this.result;
     this.countRecord(this.datas);
   }
 
@@ -98,7 +84,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.pageMax = Math.floor(datas.length / this.pageSize);
     this.changeDetectorRef.detectChanges();
     this.pageIndex = 1;
-
   }
 
   setPageIndex(pageIndex) {
@@ -149,7 +134,3 @@ export class OrderDetailApprovalComponent implements OnInit {
 
 
 }
-
-
-
-
