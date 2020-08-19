@@ -193,4 +193,9 @@ td {
     height: 116px;
     border: 0.5px solid #CCD0D5;
     position: absolute;
+    text-align: center;
+    padding-top: 20px;
+    font: bold 12px "メイリオ" !important;
+    background-color: white;
+    z-index: 1;
 }
