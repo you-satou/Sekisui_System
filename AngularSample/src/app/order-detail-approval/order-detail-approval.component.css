@@ -46,12 +46,12 @@ p {
     border-left: 0.5px solid #CCD0D5;
 }
 
-.table>div>thead {
+.table>thead {
     display: table;
     width: 100%;
 }
 
-.table>div>tbody {
+.table>tbody {
     width: 100%;
     display: block;
     /* display: inherit; */
@@ -61,8 +61,8 @@ p {
 
 /**************** Scroll bar *************************/
 
-.table>div>tbody {
-    height: 480px !important;
+.table>tbody {
+    max-height: 480px !important;
     overflow-y: scroll !important;
     overflow: auto;
 }

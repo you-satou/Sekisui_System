@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectorRef, NgModule } from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './orderDetail';
 import { testData } from './test-order-detail';
 import { ActivatedRoute } from '@angular/router';
-import { OrderDetailApprovalService } from './order-detail-service'
-import { HttpClient } from '@angular/common/http';
+import { OrderDetailApprovalService } from './order-detail-service';
+
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -71,23 +72,12 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     //TODO: Send a request to DB with inputmentValue inside
 
-    // var result = Array<OrderDetail>();
-    // testData.forEach(element => {
-    //   if (Number(element.contractNum) >= Number(this.inputment.contractNumFrom)) {
-    //     result.push(element)
-    //   }
-
-    // });
-
     this.orderDetailService.getOrderDetail()
     .subscribe(
       data => this.result = data
       );
     this.datas = this.result;
-    // alert(this.result.length);
-
     this.countRecord(this.datas);
-
   }
 
   countRecord(datas: OrderDetail[]) {
@@ -144,33 +134,12 @@ export class OrderDetailApprovalComponent implements OnInit {
       return;
     }
   }
-
-
-    getOrderDetail($event){
+  getOrderDetail($event, data){
 
     var wTbody = $event.target.parentElement.parentElement;
-  //   // for(var i=0; i < wTbody.rows.length; i++){
-  //   //   var rIndex = wTbody.rows[i];
-  //   // //   // for(var j = 0; j< rIndex.cells.length; j++){
-  //   // //   //   if(j == 0){
-  //   // //   //     continue;
-  //   // //   //   }
+    var rowIndex = wTbody.rowIndex;
 
-  //   // //   //   this.orderDetail.contractNum = rIndex.cell[j].value;
-
-  //   // //   // }
-
-  //   // //   // rIndex.cell
-
-  //   // }
-
-  //     // alert(rIndex);
-      var rowIndex = wTbody.rowIndex;
-  //     // var rowDatas = wTbody.rows[rowIndex];
-
-
-      alert(rowIndex);
-  //     return;
+    alert(data.contractNum);
 
   }
 
