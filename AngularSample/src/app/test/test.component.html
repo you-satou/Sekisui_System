@@ -1,37 +1,37 @@
 <header>
-    <title>発注仕訳マスタ選択</title>
+    <title>{{title}}</title>
 </header>
 
 <div>
     <div>
         <span style="text-align: center;">
-            <h1>発注仕訳マスタ選択</h1>
+            <h1>{{title}}</h1>
         </span>
     </div>
-    <div class="testsection">
+    <div [style.width.px] = "testWidth" class="testsection">
     <section>
-        <table class="table-hover table-striped testTable-Shiwake">
+        <table class="table-hover table-striped testTable-Shiwake" id="testTable">
             <div>
                 <thead>
                     <tr>
-                        <td style="width: 20px;"></td>
-                        <th class="testShiwakeKode">仕訳<br>コード</th>
-                        <th class="testShiwakeKeiri">経理<br>分類</th>
-                        <th class="testShiwakeName text-center">仕訳名称</th>
+                        <td style="width: 20px;" class="checkBox"></td>
+                        <th [style.width.px] = "testShiwakeKodeWidth" class="testShiwakeKode">仕訳<br>コード</th>
+                        <th [style.width.px] = "testShiwakeKeiriWidth" class="testShiwakeKeiri">経理<br>分類</th>
+                        <th [style.width.px] = "testShiwakeNameWidth" class="testShiwakeName text-center">仕訳名称</th>
                     </tr>
                 </thead>
             </div>
             <div class="tableBody">
                 <tbody>
                     <tr>
-                        <td class="checkBox"><input type="checkbox" id="testcheck" value="test"></td>
-                        <td class="testShiwakeKode">0200</td>
-                        <td class="testShiwakeKeiri">040</td>
-                        <td class="testShiwakeName">本体工事</td>
+                        <td style="width: 20px;" class="checkBox"><input type="checkbox" id="testcheck" value="test"></td>
+                        <td class="testShiwakeKode" id="testShiwakeKode">0200</td>
+                        <td class="testShiwakeKeiri" id="testShiwakeKeiri">040</td>
+                        <td class="testShiwakeName" id="testShiwakeName">本体工事</td>
                     </tr>
                     <tr>
-                        <td class="checkBox"><input type="checkbox" id="testcheck" value="test"></td>
-                        <td class="testShiwakeKode">0200</td>
+                        <td class="checkBox" id="checkBoxWidth"><input type="checkbox" id="testcheck" value="test"></td>
+                        <td class="testShiwakeKode">0200000000</td>
                         <td class="testShiwakeKeiri">040</td>
                         <td class="testShiwakeName">本体工事</td>
                     </tr>

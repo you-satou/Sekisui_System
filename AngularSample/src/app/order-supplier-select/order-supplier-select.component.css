@@ -67,21 +67,25 @@ th {
 .ossShiwakeKode-1 {
     width: 50px;
     text-align: center;
+    padding: 0 5px;
 }
 
 .ossShiwakeKode-2 {
     width: 20px;
     text-align: center;
+    padding: 0 5px;
 }
 
 .ossShiwakeKeiri {
     width: 60px;
     text-align: center;
+    padding: 0 5px;
 }
 
 .ossShiwakeName {
     width: 150px;
     text-align: left;
+    padding: 0 5px;
 }
 
 .ossShiwakeHachu-1 {
@@ -106,9 +110,4 @@ th {
 
 .firstSection {
     position: absolute;
-}
-
-.secondSection {
-    margin-left: 220px; 
-    width: 460px;
 }

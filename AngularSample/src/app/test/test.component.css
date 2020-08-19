@@ -48,15 +48,10 @@
         overflow-y: scroll;
     }
 
-    .testTable-Shiwakee {
+    .testTable-Shiwake {
         height: 250px;
-        max-width: 640px;
         position: relative;
-        margin: 0;
-        border-collapse: collapse;
-        border-right: 0.5px solid #CCD0D5;
-        border-bottom: 0.5px solid #CCD0D5;
-        border-left: 0.5px solid #CCD0D5;
+
     }
 
     .testTable-Shiwake>tbody>tr>td {
@@ -66,16 +61,19 @@
     .testShiwakeKode {
         width: 60px; 
         text-align: center;
+        padding: 0 5px;
     }
 
     .testShiwakeKeiri {
         width: 60px;
         text-align: center;
+        padding: 0 5px;
     }
 
     .testShiwakeName {
         width: 150px;
         text-align: left;
+        padding: 0 5px;
     }
 
     .testShiwakeHachu-1 {
@@ -94,11 +92,12 @@
     }
 
     .tableBody {
-        overflow-y:scroll; height: 300px; position:inherit;
+        overflow-y:scroll; 
+        height: 300px; 
+        position:inherit;
     }
 
     .testsection {
-        width: 307px;
         margin: auto;
     }
 

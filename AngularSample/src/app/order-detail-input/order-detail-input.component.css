@@ -44,6 +44,7 @@
 th {
     border-collapse: collapse;
     border-right: 0.5px solid #CCD0D5;
+    border-top: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
     font: bold 12px "メイリオ" !important;
@@ -54,9 +55,10 @@ th {
 td {
     border-collapse: collapse;
     border-right: 0.5px solid #CCD0D5;
+    border-top: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
-    padding-left: 5px;
+    padding: 0px 5px;
 }
 
 .table-Shiwake>tbody {
@@ -143,9 +145,9 @@ td {
     width: 70%;
 }
 
-table {
-    border: 1px solid #CCD0D5;
-}
+/* table {
+    border-top: 1px solid #CCD0D5;
+} */
 
 .tdcenter {
     text-align: center;
@@ -162,7 +164,7 @@ table {
 
 .tdprice {
     text-align: right;
-    min-width: 100px;
+    width: 100px;
     padding: 0px 5px 0px 20px;
     height: 23px;
 }
@@ -173,7 +175,22 @@ table {
 
 #scrollTableDiv {
     overflow-y:scroll; 
-    height: 150px;
-    width: 589px;
-    position:inherit;
+    height: 116px;
+    position:relative;
+    top: -1px;
+}
+
+#orderInfoCount {
+    position: relative;
+}
+
+#orderInfo3Table1 {
+    position: absolute;
+}
+
+#addConstr {
+    width: 25px;
+    height: 116px;
+    border: 0.5px solid #CCD0D5;
+    position: absolute;
 }

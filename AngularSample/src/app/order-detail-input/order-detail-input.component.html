@@ -79,7 +79,7 @@
             </table>
         </section>
         <section style="margin-top: 10px;">
-            <table style="float: left;">
+            <table id="orderInfo3Table1">
                 <thead>
                     <tr>
                         <th>契　約</th>
@@ -149,165 +149,107 @@
                     </tr>
                 </tbody>
             </table>
-            <div style="width: 30px; float: left;">
-                <p></p>
-            </div>
-            <div id="scrollTableDiv">
-            <table id="orderInfoCount" style="margin: left;">
-                    <tr>
-                        <th colspan="2">契　約</th>
-                        <th>受注形態</th>
-                        <th colspan="2">枝番</th>
-                        <th>年月日</th>
-                        <th>金額</th>
-                        <th>発注</th>
-                        <th colspan="2">売上</th>
-                    </tr>
-                    <tr>
-                        <th [attr.rowspan]="test" teststyle="width: 10px;">追<br>加<br>工<br>事</th>
-                        <td class="tdcenter" style="min-width: 89px;">設計</td>
-                        <td class="tdcenter" style="min-width: 89px;">C</td>
-                        <td class="tdcenter">36</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter">*</td>
-                        <td class="tdcenter">未</td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">設計</td>
-                        <td class="tdcenter">C</td>
-                        <td class="tdcenter">37</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">未</td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">設計</td>
-                        <td class="tdcenter">C</td>
-                        <td class="tdcenter">38</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter">20/06</td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">建物</td>
-                        <td class="tdcenter">B</td>
-                        <td class="tdcenter">39</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">58610000</td>
-                        <td class="tdcenter">*</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter">20/04</td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">建物</td>
-                        <td class="tdcenter">B</td>
-                        <td class="tdcenter">40</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">5861000</td>
-                        <td class="tdcenter">*</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter">20/04</td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">41</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">42</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">43</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">44</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">45</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">46</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">47</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">48</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate"></td>
-                        <td class="tdprice"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-            </table>
+            <div [style.width.px]="orderInfoCountWidth" [style.margin-left.px]="orderInfo3Table1Width">
+                <table id="orderInfoCount" style="margin: left;">
+                    <div>
+                        <thead id="theadHeight">
+                            <tr>
+                                <th [style.width.px]="contractWidth">契　約</th>
+                                <th [style.width.px]="orderTypeWidth">受注形態</th>
+                                <th [style.width.px]="codeWidth">枝番</th>
+                                <th [style.width.px]="dateWidth">年月日</th>
+                                <th [style.width.px]="priceWidth">金額</th>
+                                <th [style.width.px]="sendWidth">発注</th>
+                                <th [style.width.px]="salesWidth">売上</th>
+                            </tr>
+                        </thead>
+                    </div>
+
+                    <div id="addConstr" [style.top.px] = "theadHeight"></div>
+
+                    <div [style.width.px]="orderInfoCountWidth" id="scrollTableDiv">
+                        <tbody>
+                            <tr>
+                                <!-- <th [attr.rowspan]="test" teststyle="width: 10px;">追<br>加<br>工<br>事</th> -->
+                                <td id="contractWidth" class="tdcenter" style="min-width: 89px; padding-left: 35px;">設計</td>
+                                <td id="orderTypeWidth" class="tdcenter" style="min-width: 89px;">C</td>
+                                <td id="code1Width" class="tdcenter">36</td>
+                                <td id="code2Width" class="tdcenter"></td>
+                                <td id="dateWidth" class="tddate">2019/6/18</td>
+                                <td id="priceWidth" class="tdprice">586100000</td>
+                                <td id="sendWidth" class="tdcenter">*</td>
+                                <td id="sales1Width" class="tdcenter">未</td>
+                                <td id="sales2Width" class="tdcenter"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter">設計</td>
+                                <td class="tdcenter">C</td>
+                                <td class="tdcenter">37</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate">2019/6/18</td>
+                                <td class="tdprice">586100000</td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter">未</td>
+                                <td class="tdcenter"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter">設計</td>
+                                <td class="tdcenter">C</td>
+                                <td class="tdcenter">38</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate">2019/6/18</td>
+                                <td class="tdprice">586100000</td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter">済</td>
+                                <td class="tdcenter">20/06</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter">建物</td>
+                                <td class="tdcenter">B</td>
+                                <td class="tdcenter">39</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate">2019/6/18</td>
+                                <td class="tdprice">58610000</td>
+                                <td class="tdcenter">*</td>
+                                <td class="tdcenter">済</td>
+                                <td class="tdcenter">20/04</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter">建物</td>
+                                <td class="tdcenter">B</td>
+                                <td class="tdcenter">40</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate">2019/6/18</td>
+                                <td class="tdprice">5861000</td>
+                                <td class="tdcenter">*</td>
+                                <td class="tdcenter">済</td>
+                                <td class="tdcenter">20/04</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter"></td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter">41</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate"></td>
+                                <td class="tdprice"></td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 35px;" class="tdcenter"></td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter">42</td>
+                                <td class="tdcenter"></td>
+                                <td class="tddate"></td>
+                                <td class="tdprice"></td>
+                                <td class="tdcenter"></td>
+                                <td class="tdcenter"></td>
+                                <td style="padding-left: 35px;" class="tdcenter"></td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
             </div>
         </section>
     </div>
