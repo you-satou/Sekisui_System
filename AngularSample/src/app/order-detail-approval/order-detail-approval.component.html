@@ -77,7 +77,7 @@
     </section>
 
     <section id=" data-display " style="padding-top :10px ">
-        <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
+        <!-- <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
             <thead>
                 <tr>
                     <th class="td-b " style="width: 10%; ">詳細</th>
@@ -110,28 +110,11 @@
                     <td class="td-b td-font " style="width: 3%; ">{{data.approval_2}}</td>
                 </tr>
             </tbody>
-        </table>
-
-        <!-- Thu material table  -->
-        <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-            <ng-container *matHeaderCellDef mat-sort-header>
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>詳細</th>
-                <td mat-cell>
-                    <a href="http://localhost:4200/OrderDetailInput" (click)="getOrderDetail($event, data)">詳細</a>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
         </table> -->
 
-        <div class="text-center paginate-container ">
+        <order-detail-approval-table></order-detail-approval-table>
+
+        <!-- <div class="text-center paginate-container ">
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-double-left fa-inverse "></i></button>
             <button class="btn btn-info border mx-3 "><i
@@ -143,13 +126,12 @@
                 <i class="fas fa-angle-right fa-inverse "></i></button>
             <button class="btn btn-info border mx-3 "><i
                     class="fas fa-angle-double-right fa-inverse "></i></button>
-            <!-- <button class="btn btn-info border mx-3 " (click)="pageJump(paginateInput)">JUMP</button> -->
             <p class="m-3 fs-small ">{{pageIndex*pageSize}} - {{(pageIndex+1)*pageSize}} 件表示 / {{recordMax}} 件中</p>
-        </div>
+        </div> -->
 
     </section>
 </div>
-
+<br>
 <div class="footer-container ">
     <div class="text-left footer ">
         <button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>

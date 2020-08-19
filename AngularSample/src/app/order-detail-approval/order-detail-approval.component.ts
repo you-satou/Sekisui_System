@@ -10,6 +10,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {DataSource} from '@angular/cdk/table';
 
+
 @Component({
   selector: 'app-order-detail-approval',
   templateUrl: './order-detail-approval.component.html',
@@ -24,7 +25,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   pageMax: number = 0;
   pageSize: number = 20;
 
-  // datas: OrderDetail[] = testData;
 
   result = [];
   datas: OrderDetail[];
@@ -81,7 +81,6 @@ export class OrderDetailApprovalComponent implements OnInit {
       data => this.result = data
       );
     this.datas = this.result;
-    // this.dataSource = new MatTableDataSource(this.result);
     this.countRecord(this.datas);
   }
 
