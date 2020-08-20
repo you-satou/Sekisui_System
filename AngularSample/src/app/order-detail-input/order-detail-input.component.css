@@ -128,21 +128,42 @@ td {
     border-left: 0.5px solid #CCD0D5;
 }
 
-.orderInfo2 {
+#orderInfomation {
+    width: 1287px;
+}
+
+#firstPart {
     position: relative;
-    top: -1px;
-    height: 84px;
+    height: 150px;
+}
+
+.orderInfo1 {
+    position: absolute;
+    height: 40%;
+}
+
+.orderInfo1Table {
+    height: 100%
+}
+
+.orderInfo2 {
+    position: absolute;
+    width: 100%;
+    height: 60%;
+    bottom: 0%;
+    overflow: hidden;
 }
 
 .orderInfo2Table1 {
-    float: left; height: 84px; width: 30%;
+    float: left;
+    height: 99%;
+    width: 35%;
 }
 
 .orderInfo2Table2 {
-    position: relative;
-    left: -1px;
-    height: 84px; 
-    width: 70%;
+    float: left;
+    height: 99%;
+    width: 65%;
 }
 
 /* table {
@@ -152,7 +173,7 @@ td {
 .tdcenter {
     text-align: center;
     padding: 0px 10px;
-    min-width: 35px;
+    min-width: 40px;
     min-height: 23px;
 }
 
@@ -169,33 +190,64 @@ td {
     height: 23px;
 }
 
-#orderInfomation {
-    min-width: 1287px;
-}
-
 #scrollTableDiv {
+    position:relative;
     overflow-y:scroll; 
     height: 116px;
-    position:relative;
     top: -1px;
 }
 
-#orderInfoCount {
+#secondPart {
     position: relative;
+    margin-top: 10px;
+    overflow: hidden;
 }
 
 #orderInfo3Table1 {
+    float: left;
+}
+
+#orderInfo3Table2 {
     position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#orderInfoCount {
+    position: absolute;
+
+}
+
+
+#i3t2head {
+    position: relative;
+    height: 20%;
+}
+
+#theadHeight {
+position: relative;
 }
 
 #addConstr {
-    width: 25px;
-    height: 116px;
-    border: 0.5px solid #CCD0D5;
     position: absolute;
+    top: 20%;
+    bottom: 1px;
+    width: 25px;
+    border: 0.5px solid #CCD0D5;
     text-align: center;
-    padding-top: 20px;
     font: bold 12px "メイリオ" !important;
     background-color: white;
     z-index: 1;
+    padding-top: 3.5%;
+}
+
+#i3t2body {
+    position: relative;
+    top: 20%;
+    bottom: 0;
+    width: 100%;
+}
+
+#thisOne {
+    position: relative;
 }
