@@ -30,6 +30,7 @@ import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator'
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 
+
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
   { path: "1", component: SearchFrameComponent },
