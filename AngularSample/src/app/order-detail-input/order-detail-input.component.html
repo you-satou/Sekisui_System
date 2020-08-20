@@ -260,87 +260,12 @@
 
     <section style="margin-top: 50px;">
         <section class="section-left">
-            <table class="table-hover table-striped table-Shiwake">
-                <thead>
-                    <tr>
-                        <th style="width: 70px;" class="text-center" colspan="2">仕訳コード</th>
-                        <th class="shiwakeKeiri text-center">経理分類</th>
-                        <th class=" shiwakeName text-center">仕訳名称</th>
-                        <th style=" width: 170px;" class="text-center" colspan="2">発注先</th>
-                        <th class="shiwakeKingaku text-center">発注予定金額</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="shiwakeCode-1">0200</td>
-                        <td class="shiwakeCode-2"></td>
-                        <td class="shiwakeKeiri">040</td>
-                        <td class="shiwakeName">本体工事</td>
-                        <td class="shiwakeHachu-1">803</td>
-                        <td class="shiwakeHachu-2">積水建設㈱</td>
-                        <td class="shiwakeKingaku">245,000,000</td>
-                    </tr>
-                    <tr>
-                        <td class="shiwakeKode-1">0200</td>
-                        <td class="shiwakeKode-2"></td>
-                        <td class="shiwakeKeiri">040</td>
-                        <td class="shiwakeName">本体工事</td>
-                        <td class="shiwakeHachu-1">803</td>
-                        <td class="shiwakeHachu-2">積水建設㈱</td>
-                        <td class="shiwakeKingaku">245,000,000</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr></tr>
-                </tfoot>
-            </table>
+            <shiwake-table [shiwakeData]="shiwakeData"></shiwake-table>
         </section>
         <section class="section-right">
-            <table class="table-hover table-striped table-Detail">
-                <thead>
-                    <tr>
-                        <th style="word-wrap: break-word;" class="text-center" rowspan="2">分割</th>
-                        <th class="text-center" rowspan="2">発注予定金額</th>
-                        <th class="text-center" colspan="2">依頼</th>
-                        <th class="text-center" colspan="2">承認１</th>
-                        <th class="text-center" colspan="2">承認２</th>
-                        <th class="text-center" rowspan="2" colspan="2">発注</th>
-                        <th class="text-center" rowspan="2" colspan="2">受入</th>
-                        <th class="text-center" rowspan="2" colspan="2">支払</th>
-                    </tr>
-                    <tr>
-                        <th>依頼日</th>
-                        <th>依頼者</th>
-                        <th>承認日</th>
-                        <th>承認者</th>
-                        <th>承認日</th>
-                        <th>承認者</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="td-b td-font text-center ">
-                            <button id="btnGvDetail " class="border table-btn-d btn-info ">分</button>
-                        </td>
-                        <td>245,000,000</td>
-                        <td>19/07/04</td>
-                        <td>積水</td>
-                        <td></td>
-                        <td>承認</td>
-                        <td></td>
-                        <td>承認</td>
-                        <td>2019/7/4</td>
-                        <td>245,000,000</td>
-                        <td>19/07/05</td>
-                        <td>245,000,000</td>
-                        <td>19/07/06</td>
-                        <td>245,000,000</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
     </section>
-    <div class="footer-container">
+    <!-- <div class="footer-container">
         <div class="text-left footer">
             <button class="btn">発注先パターン選択</button>
             <button class="btn">得意先元帳</button>
@@ -348,6 +273,6 @@
             <button class="btn">明細一覧</button>
             <button class="btn">更新終了</button>
         </div>
-    </div>
+    </div> -->
 
 </div>

@@ -1,8 +1,7 @@
+import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
+import { OrderDetailShiwake } from './../order-detail-input-interface';
 import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource,MatTableModule} from '@angular/material/table';
-import {MatSort} from '@angular/material';
-import {OrderDetailShiwake} from '.../order-detail-input/order-detail-input-interface';
+
 
 @Component({
   selector: 'shiwake-table',
@@ -10,9 +9,9 @@ import {OrderDetailShiwake} from '.../order-detail-input/order-detail-input-inte
   templateUrl: './table-shiwake.html',
 })
 
-export class OrderDetailShiwakeTable implements OnChanges {
+export class OrderDetailShiwakeTable {
 
-   @Input() shiwakeData: any[];
+   @Input() shiwakeData: OrderDetailShiwake[];
 
   displayedColumns: string[] = [
       'journalCode',
@@ -24,28 +23,6 @@ export class OrderDetailShiwakeTable implements OnChanges {
 
     dataSource :any;
   
-//   @ViewChild(MatSort, {static: true})  sort:MatSort;
-
-
-//   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
-// //   datas:OrderDetail[]
-
   constructor(){}
-
-  ngOnChanges(
-  ) {
-
-    // this.dataSource = new MatTableDataSource<OrderDetail>(this.resultData);
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
-  }
-
-  getOrderDetail($event, data){
-
-    var wTbody = $event.target.parentElement.parentElement;
-    var rowIndex = wTbody.rowIndex;
-
-  }
 
 }

@@ -8,7 +8,6 @@ export interface OrderDetailShiwake{
 
 }
 
-
 export interface OrderDetailSplit{
     orderPlanAmount:string,
     requestDate:string,
@@ -23,4 +22,5 @@ export interface OrderDetailSplit{
     recievedAmount:string,
     paymentDate:string,
     paymentAmount:string,
+    
 }

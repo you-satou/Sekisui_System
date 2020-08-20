@@ -1,3 +1,4 @@
+import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/table-shiwake';
 import { OrderDetailApprovalService } from './order-detail-approval/order-detail-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -66,6 +67,7 @@ const appRoute: Routes = [
 
     //発注明細入力＿承認処理テーブル
     OrderDetailApprovalTable,
+    OrderDetailShiwakeTable,
 
   ],
   imports: [

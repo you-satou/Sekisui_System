@@ -1,3 +1,4 @@
+import { OrderDetailApprovalService } from './../order-detail-approval/order-detail-service';
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
@@ -24,6 +25,9 @@ import { title } from 'process';
     orderInfo3Table1Width: number;
     theadHeight: number;
     
+    shiwakeData:any;
+
+
     ngOnInit() {
       // this.rowNumber = document.getElementById("rowNumber").childElementCount;
       // this.rowNumberWidth = document.getElementById("rowNumber").clientWidth;
@@ -40,5 +44,19 @@ import { title } from 'process';
 
       document.getElementById("try").setAttribute("width", this.contractWidth.toString());
 
+    }
+
+    constructor(
+      private service: OrderDetailApprovalService
+    ){
+      this.getShiwakeData();
+    }
+
+    getShiwakeData(){
+
+      this.service.getOderDetailShiwake()
+      .subscribe(
+        data => this.shiwakeData = data
+      );
     }
   }
