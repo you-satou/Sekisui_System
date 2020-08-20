@@ -25,7 +25,7 @@ export interface OrderDetailSplit{
     
 }
 
-export interface OrderDetailInput{
+export class OrderDetailInput{
     contractNum: string;
     officeCode: string;
     officeName: string;
@@ -56,6 +56,8 @@ export interface OrderDetailInput{
     perforInspectionDate: string;
     perforCompletionInspection: string;
     perforHandingOver: string;
+
+    constructor() {}
 
 }
 

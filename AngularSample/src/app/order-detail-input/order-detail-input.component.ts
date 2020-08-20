@@ -15,9 +15,9 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
 
   export class OrderDetailInputComponent implements OnInit {
 
-    @Input() contracNum: string;
+    // @Input() contracNum: string;
     
-    title = '発注明細入力＿明細入力';
+    title = '発注明細入力＿詳細入力';
     thisOneWidth: number;
     contractWidth: number;
     orderTypeWidth: number;
@@ -33,7 +33,7 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
 
     bunkatsuData: any;
 
-    orderInputData: OrderDetailInput;
+    orderInputDatas : OrderDetailInput[];
 
     ngOnInit() {
       // this.rowNumber = document.getElementById('rowNumber').childElementCount;
@@ -50,14 +50,17 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
       this.theadHeight = document.getElementById('theadHeight').clientHeight;
 
       document.getElementById('try').setAttribute('width', this.contractWidth.toString());
+      this.getOrderInputData();
+      this.getShiwakeData();
 
     }
 
     constructor(
-      private service: OrderDetailApprovalService
+      private service: OrderDetailApprovalService,
+      // private input : OrderDetailInput
     ){
-      this.getOrderInputData();
-      this.getShiwakeData();
+      // this.getOrderInputData();
+      // this.getShiwakeData();
     }
 
     getShiwakeData(){
@@ -71,15 +74,15 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
     }
 
     getOrderInputData(){
-      var dt : any;
+      // var dt : OrderDetailInput;
       this.service.getOrderInputData()
       .subscribe(
-        data => dt = data
+        data => this.orderInputDatas = data
       );
 
       // if(this.contracNum.localeCompare(dt.contracNum)){
       //   this.orderInputData = dt;
       // }
-        this.orderInputData =dt;
+        // this.orderInputData =dt;
     }
   }

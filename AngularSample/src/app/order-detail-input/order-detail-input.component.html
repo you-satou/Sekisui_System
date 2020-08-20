@@ -12,7 +12,7 @@
     <div id="orderInfomation">
         <div id="firstPart">
             <section class="orderInfo1">
-                <table class="orderInfo1Table">
+                <table class="orderInfo1Table"  *ngFor ="let orderInputData of orderInputDatas ">
                     <tr class="text-center">
                         <th style="width: 120px;">発注番号</th>
                         <th style="width: 120px">事業コード</th>
@@ -22,113 +22,113 @@
                     </tr>
                     <tr>
                         <td>
-                            <p>{{orderInputData.contractNum}}</p>
+                            <p>{{orderInputData?.contractNum}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.officeCode}}</p>
+                            <p>{{orderInputData?.officeCode}}</p>
                         </td>
                         <td>
-                            <p>{{orderInputData.officeName}}</p>
+                            <p>{{orderInputData?.officeName}}</p>
                         </td>
                         <td class="tdcenter" style="width: 70px;">
-                            <p>{{orderInputData.salesStaffCode}}</p>
+                            <p>{{orderInputData?.salesStaffCode}}</p>
                         </td>
                         <td style="width: 130px;">
-                            <p>{{orderInputData.salesStaffName}}</p>
+                            <p>{{orderInputData?.salesStaffName}}</p>
                         </td>
                         <td class="tdcenter" style="width: 70px;">
-                            <p>{{orderInputData.architectCode}}</p>
+                            <p>{{orderInputData?.architectCode}}</p>
                         </td>
                         <td style="width: 130px;">
-                            <p>{{orderInputData.architectName}}</p>
+                            <p>{{orderInputData?.architectName}}</p>
                         </td>
                     </tr>
                 </table>
             </section>
             <section class="orderInfo2">
-                <table class="orderInfo2Table1">
+                <table class="orderInfo2Table1"  *ngFor ="let orderInputData of orderInputDatas ">
                     <tr>
                         <th rowspan="2" style="width: 80px;">工事名</th>
                         <td colspan="2" style="word-wrap: break-word;">
-                            <p>{{orderInputData.constructionKata}}</p>
+                            <p>{{orderInputData?.constructionKata}}</p>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" style="width: 50px;">
-                            <p>{{orderInputData.constructionHira}}</p>
+                            <p>{{orderInputData?.constructionHira}}</p>
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 80px;">契約者名</th>
                         <td>
-                            <p>{{orderInputData.contractorCode}}</p>
+                            <p>{{orderInputData?.contractorCode}}</p>
                         </td>
                         <td>
-                            <p>{{orderInputData.contractorName}}</p>
+                            <p>{{orderInputData?.contractorName}}</p>
                         </td>
                     </tr>
                 </table>
-                <table class="orderInfo2Table2">
+                <table class="orderInfo2Table2" *ngFor ="let orderInputData of orderInputDatas ">
                     <tr>
                         <th style="width: 10%; border-left: 0;">予定年月日</th>
                         <th rowspan="2">契<br>約</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planContractDate}}</p>
+                            <p>{{orderInputData?.planContractDate}}</p>
                         </td>
                         <th rowspan="2">D<br>/<br>O</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planDODate}}</p>
+                            <p>{{orderInputData?.planDODate}}</p>
                         </td>
                         <th rowspan="2">着<br>工</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planStartDate}}</p>
+                            <p>{{orderInputData?.planStartDate}}</p>
                         </td>
                         <th rowspan="2">入<br>荷</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planArrivalDate}}</p>
+                            <p>{{orderInputData?.planArrivalDate}}</p>
                         </td>
                         <th rowspan="2">木<br>工<br>事</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planWoodWorkDate}}</p>
+                            <p>{{orderInputData?.planWoodWorkDate}}</p>
                         </td>
                         <th rowspan="2">総<br>合<br>検<br>査</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planInspectionDate}}</p>
+                            <p>{{orderInputData?.planInspectionDate}}</p>
                         </td>
                         <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planCompletionInspection}}</p>
+                            <p>{{orderInputData?.planCompletionInspection}}</p>
                         </td>
                         <th rowspan="2">引<br>渡</th>
                         <td class="tddate">
-                            <p>{{orderInputData.planHandingOver}}</p>
+                            <p>{{orderInputData?.planHandingOver}}</p>
                         </td>
                     </tr>
                     <tr>
                         <th style="width: 10%; border-left: 0;">実績年月日</th>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforContractDate}}</p>
+                            <p>{{orderInputData?.perforContractDate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforDODate}}</p>
+                            <p>{{orderInputData?.perforDODate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforStartDate}}</p>
+                            <p>{{orderInputData?.perforStartDate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforArrivalDate}}</p>
+                            <p>{{orderInputData?.perforArrivalDate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforWoodWorkDate}}</p>
+                            <p>{{orderInputData?.perforWoodWorkDate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforInspectionDate}}</p>
+                            <p>{{orderInputData?.perforInspectionDate}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforCompletionInspection}}</p>
+                            <p>{{orderInputData?.perforCompletionInspection}}</p>
                         </td>
                         <td class="tdcenter">
-                            <p>{{orderInputData.perforHandingOver}}</p>
+                            <p>{{orderInputData?.perforHandingOver}}</p>
                         </td>
                     </tr>
                 </table>

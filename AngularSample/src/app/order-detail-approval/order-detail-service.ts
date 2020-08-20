@@ -30,8 +30,8 @@ export class OrderDetailApprovalService{
         return this.http.get<OrderDetailShiwake[]>(this._urlShiwake);
     }
 
-    getOrderInputData(): Observable<OrderDetailInput>{
-        return this.http.get<OrderDetailInput>(this._urlOrderInput);
+    getOrderInputData(): Observable<OrderDetailInput[]>{
+        return this.http.get<OrderDetailInput[]>(this._urlOrderInput);
     }
 
 }
