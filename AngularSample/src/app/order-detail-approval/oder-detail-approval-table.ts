@@ -1,10 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource,MatTableModule} from '@angular/material/table';
 import {MatSort} from '@angular/material';
 
 import {OrderDetail} from './orderDetail';
-import {testData} from './test-order-detail'
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,9 @@ import { Router } from '@angular/router';
   templateUrl: './oder-detail-approval-table.html',
 })
 
-export class OrderDetailApprovalTable implements OnInit {
+export class OrderDetailApprovalTable implements OnChanges {
+
+  @Input() resultData: OrderDetail[];
 
   displayedColumns: string[] = [
       'detail',
@@ -27,14 +28,10 @@ export class OrderDetailApprovalTable implements OnInit {
       'createdDetail',
       'approval_1',
       'approval_2',
-
     ];
 
-    _orderInputURL: string = "/OrderDetailInput";
-    result =  new MatTableDataSource<OrderDetail>(testData);
     dataSource :any;
   
-    //Table sort but not work yet!!
   @ViewChild(MatSort, {static: true})  sort:MatSort;
 
 
@@ -44,17 +41,12 @@ export class OrderDetailApprovalTable implements OnInit {
 
   constructor(){}
 
-  ngOnInit() {
+  ngOnChanges(
+  ) {
 
-    this.dataSource = new MatTableDataSource<OrderDetail>(testData);
-    setTimeout(()=>{
-      // this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
-
-  }
-  ngAfterViewInit (){
+    this.dataSource = new MatTableDataSource<OrderDetail>(this.resultData);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   getOrderDetail($event, data){

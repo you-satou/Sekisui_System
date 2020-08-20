@@ -19,7 +19,7 @@ th .mat-sort-header-sorted {
 }
 
 th {
-    text-align: center !important;
+    /* text-align: left !important; */
     background-color: #FFFFFF !important;
     border-top: 0.5px solid #CCD0D5;
 }
@@ -27,17 +27,17 @@ th {
 th,
 td {
     border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
+    /* border-right: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5; */
 }
 
 td {
-    text-align: center;
+    /* text-align: center; */
 }
 
 a {
-    text-align: center;
+    /* text-align: center; */
 }
 
 .color-1 {

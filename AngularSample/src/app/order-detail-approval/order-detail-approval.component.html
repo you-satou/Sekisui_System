@@ -71,48 +71,14 @@
         </div>
         <br>
         <div style="text-align: right; width: 100%; ">
-            <button type="button " class="btn-group-toggle border " style="width: 80px; " (click)="getSearchRequest()">検索</button>
+            <button mat-button class="btn-group-toggle border " style="width: 80px; " (click)="getSearchRequest()">検索</button>
+            <!-- <button mat-raised-button style="width: 80px; " (click)="getSearchRequest()">検索</button> -->
             <div style="width: 50px; "></div>
         </div>
     </section>
 
     <section id=" data-display " style="padding-top :10px ">
-        <!-- <table id="tbl-order-detail " class=" table table-hover table-striped mb-3 ">
-            <thead>
-                <tr>
-                    <th class="td-b " style="width: 10%; ">詳細</th>
-                    <th class="td-b " style="width: 13%; ">契約番号</th>
-                    <th class="td-b " style="width: 18%; ">物件名</th>
-                    <th class="td-b " style="width: 10%; ">発注予定金額合計</th>
-                    <th class="td-b " style="width: 10%; ">承認依頼金額合計</th>
-                    <th class="td-b " style="width: 10%; ">発注金額合計</th>
-                    <th class="td-b " style="width: 10%; ">受入金額合計</th>
-                    <th class="td-b " style="width: 10%; ">進捗率</th>
-                    <th class="td-b " style="width: 3%; ">明</th>
-                    <th class="td-b " style="width: 3%; ">承1</th>
-                    <th class="td-b " style="width: 3%; ">承2</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor=" let data of datas">
-                    <td class="td-b td-font text-center " style="width: 10%; ">
-                        <a href="http://localhost:4200/OrderDetailInput" (click)="getOrderDetail($event, data)">詳細</a>
-                    </td>
-                    <td class="td-b td-font " style="width: 13%; ">{{data.contractNum}}</td>
-                    <td class="td-b td-font " style="width: 18%; ">{{data.propertyName}}</td>
-                    <td class="td-b td-font " style="width: 10%; ">{{data.planOrderAmount}}</td>
-                    <td class="td-b td-font " style="width: 10%; ">{{data.approvalRequestAmount}}</td>
-                    <td class="td-b td-font " style="width: 10%; ">{{data.performanceOrderAmount}}</td>
-                    <td class="td-b td-font " style="width: 10%; ">{{data.receivedAmount}}</td>
-                    <td class="td-b td-font " style="width: 10%; ">{{data.progressRate}}</td>
-                    <td class="td-b td-font " style="width: 3%; ">{{data.createdDetail}}</td>
-                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_1}}</td>
-                    <td class="td-b td-font " style="width: 3%; ">{{data.approval_2}}</td>
-                </tr>
-            </tbody>
-        </table> -->
-
-        <order-detail-approval-table></order-detail-approval-table>
+        <order-detail-approval-table [resultData]="datas"></order-detail-approval-table>
 
         <!-- <div class="text-center paginate-container ">
             <button class="btn btn-info border mx-3 "><i
@@ -134,6 +100,6 @@
 <br>
 <div class="footer-container ">
     <div class="text-left footer ">
-        <button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
+        <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">閉じる(F9)</button>
     </div>
 </div>

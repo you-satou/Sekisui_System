@@ -13,7 +13,7 @@ import { title } from 'process';
   export class OrderDetailInputComponent implements OnInit {
     
     title = "発注明細入力＿明細入力";
-    orderInfoCountWidth: number;
+    thisOneWidth: number;
     contractWidth: number;
     orderTypeWidth: number;
     codeWidth: number;
@@ -27,15 +27,18 @@ import { title } from 'process';
     ngOnInit() {
       // this.rowNumber = document.getElementById("rowNumber").childElementCount;
       // this.rowNumberWidth = document.getElementById("rowNumber").clientWidth;
-      this.contractWidth = document.getElementById("contractWidth").clientWidth + 1;
+      this.contractWidth = document.getElementById("contractWidth").clientWidth;
       this.orderTypeWidth = document.getElementById("orderTypeWidth").clientWidth + 1;
       this.codeWidth = document.getElementById("code1Width").clientWidth + document.getElementById("code2Width").clientWidth + 2;
       this.dateWidth = document.getElementById("dateWidth").clientWidth + 1;
       this.priceWidth = document.getElementById("priceWidth").clientWidth + 1;
       this.sendWidth = document.getElementById("sendWidth").clientWidth + 1;
       this.salesWidth = document.getElementById("sales1Width").clientWidth + document.getElementById("sales2Width").clientWidth + 2;
-      this.orderInfoCountWidth = document.getElementById("orderInfoCount").clientWidth;
+      this.thisOneWidth = document.getElementById("thisOne").clientWidth + 1;
       this.orderInfo3Table1Width = document.getElementById("orderInfo3Table1").clientWidth + 30;
       this.theadHeight = document.getElementById("theadHeight").clientHeight;
+
+      document.getElementById("try").setAttribute("width", this.contractWidth.toString());
+
     }
   }
