@@ -1,41 +1,93 @@
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="shiwakeData" class="shiwake-table">
+<div>
+    <div class="mat-elevation-z8" style="float: left;; width: 40%">
+        <table mat-table [dataSource]="shiwakeData" class="shiwake-table">
 
-        <ng-container matColumnDef="journalCode">
-            <th style="width: 10%;" class="color-1" mat-header-cell *matHeaderCellDef>仕訳コード</th>
-            <td style="width: 10%;" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
-        </ng-container>
+            <ng-container matColumnDef="journalCode">
+                <th style="width: 15%;" class="color-1" mat-header-cell *matHeaderCellDef>仕訳コード</th>
+                <td style="width: 15%;" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="accountCode">
-            <th style="width: 18%; " class="color-1" mat-header-cell *matHeaderCellDef>経理分類</th>
-            <td style="width: 18%; " mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
-        </ng-container>
+            <ng-container matColumnDef="accountCode">
+                <th style="width: 15%; " class="color-1" mat-header-cell *matHeaderCellDef>経理分類</th>
+                <td style="width: 15%; " mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="journalName">
-            <th style="width: 10%; " class="color-2" mat-header-cell *matHeaderCellDef>仕訳名称</th>
-            <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.journalName}} </td>
-        </ng-container>
+            <ng-container matColumnDef="journalName">
+                <th style="width: 20%; " class="color-2" mat-header-cell *matHeaderCellDef>仕訳名称</th>
+                <td style="width: 20%; " mat-cell *matCellDef="let element"> {{element.journalName}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="orderSupplier">
-            <th style="width: 10%; " class="" mat-header-cell *matHeaderCellDef>発注先</th>
-            <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
-            <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderSuplierName}} </td>
-        </ng-container>
+            <ng-container matColumnDef="orderSupplier">
+                <th style="width: 30%; " class="" mat-header-cell *matHeaderCellDef>発注先</th>
+                <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
+                <td style="width: 20%; " mat-cell *matCellDef="let element"> {{element.orderSuplierName}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="orderPlanAmount">
-            <th style="width: 10%; " class="color-3" mat-header-cell *matHeaderCellDef>発注予定金額</th>
-            <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
-            <!-- <td mat-footer-cell *matFooterCellDef> {{totalCost}} </td> -->
-        </ng-container>
-        <!-- <ng-container matColumnDef="cost">
-            <th mat-header-cell *matHeaderCellDef> Cost </th>
-            <td mat-cell *matCellDef="let data"> {{data.cost}} </td>
-            <td mat-footer-cell *matFooterCellDef> {{totalCost}} </td>
-          </ng-container> -->
+            <ng-container matColumnDef="orderPlanAmount">
+                <th style="width: 20%; " class="color-3" mat-header-cell *matHeaderCellDef>発注予定金額</th>
+                <td style="width: 20%; " mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
+                <td mat-footer-cell *matFooterCellDef>20000</td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+            <tr mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: shiwakeColumns;"></tr>
+        </table>
 
-    <!-- <mat-paginator hidePageSize [pageSize]="[20]" showFirstLastButtons></mat-paginator> -->
+    </div>
+    <div class="mat-elevation-z8" style="margin-left: 45%; width: auto;">
+        <table mat-table [dataSource]="bunkatsuData" class="split-table">
+
+            <ng-container matColumnDef="bunkatsu">
+                <th style="width: 6%;" class="color-1" mat-header-cell *matHeaderCellDef>分割</th>
+                <td style="width: 6%;" mat-cell *matCellDef="let element">
+                    <a href="">分</a>
+                </td>
+                <td mat-footer-cell *matFooterCellDef>20000</td>
+            </ng-container>
+
+            <ng-container matColumnDef="orderPlanAmount">
+                <th style="width: 10%; " class="color-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
+                <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="requested">
+                <th style="width: 12%; " class="color-2" mat-header-cell *matHeaderCellDef>依頼</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.requestDate}} </td>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.requester}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="approval_lv1">
+                <th style="width: 12%; " class="" mat-header-cell *matHeaderCellDef>承認１</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.approvalDate_lv1}} </td>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.approvalPerson_lv1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="approval_lv2">
+                <th style="width: 12%; " class="" mat-header-cell *matHeaderCellDef>承認２</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.approvalDate_lv2}} </td>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.approvalPerson_lv2}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="orderSupplier">
+                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef>発注</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
+                <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="recieved">
+                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef>受入</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.recievedDate}} </td>
+                <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.recievedAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="payment">
+                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef>支払</th>
+                <td style="width: 6%; " mat-cell *matCellDef="let element"> {{element.paymentDate}} </td>
+                <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.paymentAmount}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="bunkatsuColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: bunkatsuColumns;"></tr>
+        </table>
+    </div>
 </div>

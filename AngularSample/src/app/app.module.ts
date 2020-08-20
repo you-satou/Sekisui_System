@@ -24,28 +24,28 @@ import { OrderSupplierSelectComponent } from './order-supplier-select/order-supp
 import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
 import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component';
 
-//発注明細入力＿承認処理テーブル
+// 発注明細入力＿承認処理テーブル
 import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule, MatTabsModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 
 
 const appRoute: Routes = [
-  { path: "", component: IndexComponent },
-  { path: "1", component: SearchFrameComponent },
-  { path: "2", component: SearchFrameComponent2 },
-  { path: "3", component: RouteDetailComponent },
-  { path: "OrderDetailApproval", component: OrderDetailApprovalComponent },
-  { path: "searchFrame", component: SearchFrameComponent },
-  { path: "OrderJournalSelect", component: OrderJournalSelectComponent },
-  { path: "SupplierPattern", component: SupplierPatternComponent},
-  { path: "6", component: SplitDetailInputComponent},
-  { path: "OrderDetailInput", component: OrderDetailInputComponent},
-  { path: "test", component: TestComponent},
-  { path: "OrderSupplierSelect", component: OrderSupplierSelectComponent},
-  { path: "OrderDetailAddInput", component: OrderDetailAddInputComponent},
+  { path: '', component: IndexComponent },
+  { path: '1', component: SearchFrameComponent },
+  { path: '2', component: SearchFrameComponent2 },
+  { path: '3', component: RouteDetailComponent },
+  { path: 'OrderDetailApproval', component: OrderDetailApprovalComponent },
+  { path: 'searchFrame', component: SearchFrameComponent },
+  { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
+  { path: 'SupplierPattern', component: SupplierPatternComponent},
+  { path: '6', component: SplitDetailInputComponent},
+  { path: 'OrderDetailInput', component: OrderDetailInputComponent},
+  { path: 'test', component: TestComponent},
+  { path: 'OrderSupplierSelect', component: OrderSupplierSelectComponent},
+  { path: 'OrderDetailAddInput', component: OrderDetailAddInputComponent},
 ];
 
 @NgModule({
@@ -65,7 +65,7 @@ const appRoute: Routes = [
     OrderDetailSelectComponent,
     OrderDetailAddInputComponent,
 
-    //発注明細入力＿承認処理テーブル
+    // 発注明細入力＿承認処理テーブル
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
 
@@ -78,11 +78,12 @@ const appRoute: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoute),
 
-    //発注明細入力＿承認処理テーブル
+    // 発注明細入力＿承認処理テーブル
     MatSortModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatTabsModule,
   ],
   providers: [WkAllItemTypesService, 
               OrderDetailApprovalService,

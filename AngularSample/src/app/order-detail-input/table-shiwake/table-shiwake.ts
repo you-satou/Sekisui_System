@@ -1,7 +1,6 @@
 import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
-import { OrderDetailShiwake } from './../order-detail-input-interface';
+import { OrderDetailShiwake,OrderDetailSplit } from './../order-detail-input-interface';
 import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
-
 
 @Component({
   selector: 'shiwake-table',
@@ -12,17 +11,29 @@ import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
 export class OrderDetailShiwakeTable {
 
    @Input() shiwakeData: OrderDetailShiwake[];
+   @Input() bunkatsuData: OrderDetailSplit[];
 
-  displayedColumns: string[] = [
+  shiwakeColumns: string[] = [
       'journalCode',
-      'accountCode', 
+      'accountCode',
       'journalName',
-      'orderSupplier', 
+      'orderSupplier',
       'orderPlanAmount',
     ];
 
+    bunkatsuColumns: string[] = [
+      'bunkatsu',
+      'orderPlanAmount',
+      'requested',
+      'approval_lv1',
+      'approval_lv2',
+      'orderSupplier',
+      'recieved',
+      'payment',
+    ];
+
     dataSource :any;
-  
-  constructor(){}
+
+  constructor() {}
 
 }

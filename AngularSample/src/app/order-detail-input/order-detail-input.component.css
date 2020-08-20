@@ -1,22 +1,25 @@
 /********************* Page Footer *************************/
 
 .footer-container {
-    position: absolute;
+    /* position: fixed; */
+    /* position: relative; */
     display: inline-block;
     bottom: 0;
     padding-bottom: 12.5px;
     z-index: 2;
+    width: 100%;
 }
 
 .footer {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
+    /* display: fixed; */
     background-color: #F5F5F5;
 }
 
 .footer>.back-btn {
     display: inline-block;
     width: 120px;
+    float: left;
 }
 
 .section-left {
@@ -30,12 +33,6 @@
     width: 55%;
     border: 0.5px solid #CCD0D5;
 }
-
-
-/* .table-Shiwake {
-    height: 300px;
-    width: 480px;
-} */
 
 .table-Shiwake>thead>tr {
     text-align: center;
@@ -166,6 +163,7 @@ td {
     width: 65%;
 }
 
+
 /* table {
     border-top: 1px solid #CCD0D5;
 } */
@@ -191,8 +189,8 @@ td {
 }
 
 #scrollTableDiv {
-    position:relative;
-    overflow-y:scroll; 
+    position: relative;
+    overflow-y: scroll;
     height: 116px;
     top: -1px;
 }
@@ -215,9 +213,7 @@ td {
 
 #orderInfoCount {
     position: absolute;
-
 }
-
 
 #i3t2head {
     position: relative;
@@ -225,7 +221,7 @@ td {
 }
 
 #theadHeight {
-position: relative;
+    position: relative;
 }
 
 #addConstr {
@@ -251,3 +247,33 @@ position: relative;
 #thisOne {
     position: relative;
 }
+
+
+/*  -----------------タブのスタイル---------------------------  */
+
+.mat-tab-label {
+    min-width: 25px !important;
+    max-width: 50px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+}
+
+.mat-tab-label.mat-tab-label-active {
+    min-width: 25px !important;
+    max-width: 60px !important;
+    padding: 5px;
+    background-color: #305496;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+}
+
+.mat-ink-bar {
+    background-color: transparent;
+}
+
+
+/*  ----------------------------------------------------------------  */

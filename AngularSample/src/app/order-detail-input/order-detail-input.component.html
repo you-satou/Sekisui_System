@@ -21,61 +21,115 @@
                         <th colspan="2" style="width: 200px;">建築担当者</th>
                     </tr>
                     <tr>
-                        <td>70116997700</td>
-                        <td class="tdcenter">116009</td>
-                        <td>IT業務部</td>
-                        <td class="tdcenter" style="width: 70px;">990001</td>
-                        <td style="width: 130px;"></td>
-                        <td class="tdcenter" style="width: 70px;">990002</td>
-                        <td style="width: 130px;"></td>
+                        <td>
+                            <p>{{orderInputData.contractNum}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.officeCode}}</p>
+                        </td>
+                        <td>
+                            <p>{{orderInputData.officeName}}</p>
+                        </td>
+                        <td class="tdcenter" style="width: 70px;">
+                            <p>{{orderInputData.salesStaffCode}}</p>
+                        </td>
+                        <td style="width: 130px;">
+                            <p>{{orderInputData.salesStaffName}}</p>
+                        </td>
+                        <td class="tdcenter" style="width: 70px;">
+                            <p>{{orderInputData.architectCode}}</p>
+                        </td>
+                        <td style="width: 130px;">
+                            <p>{{orderInputData.architectName}}</p>
+                        </td>
                     </tr>
                 </table>
             </section>
             <section class="orderInfo2">
                 <table class="orderInfo2Table1">
                     <tr>
-                        <th rowspan="2">工事名</th>
-                        <td colspan="2" style="word-wrap: break-word;">aaaaaaaaaaaaaaaaaaaaaa</td>
+                        <th rowspan="2" style="width: 80px;">工事名</th>
+                        <td colspan="2" style="word-wrap: break-word;">
+                            <p>{{orderInputData.constructionKata}}</p>
+                        </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="width: 50px;">aooooo</td>
+                        <td colspan="2" style="width: 50px;">
+                            <p>{{orderInputData.constructionHira}}</p>
+                        </td>
                     </tr>
                     <tr>
-                        <th>契約者名</th>
-                        <td>70116997700</td>
-                        <td>testasdddddddd</td>
+                        <th style="width: 80px;">契約者名</th>
+                        <td>
+                            <p>{{orderInputData.contractorCode}}</p>
+                        </td>
+                        <td>
+                            <p>{{orderInputData.contractorName}}</p>
+                        </td>
                     </tr>
                 </table>
                 <table class="orderInfo2Table2">
                     <tr>
                         <th style="width: 10%; border-left: 0;">予定年月日</th>
                         <th rowspan="2">契<br>約</th>
-                        <td class="tddate">asaa</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planContractDate}}</p>
+                        </td>
                         <th rowspan="2">D<br>/<br>O</th>
-                        <td class="tddate">bb</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planDODate}}</p>
+                        </td>
                         <th rowspan="2">着<br>工</th>
-                        <td class="tddate">2019/7/12</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planStartDate}}</p>
+                        </td>
                         <th rowspan="2">入<br>荷</th>
-                        <td class="tddate">ddd</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planArrivalDate}}</p>
+                        </td>
                         <th rowspan="2">木<br>工<br>事</th>
-                        <td class="tddate">ddd</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planWoodWorkDate}}</p>
+                        </td>
                         <th rowspan="2">総<br>合<br>検<br>査</th>
-                        <td class="tddate">2020/4/17</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planInspectionDate}}</p>
+                        </td>
                         <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
-                        <td class="tddate">2020/4/22</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planCompletionInspection}}</p>
+                        </td>
                         <th rowspan="2">引<br>渡</th>
-                        <td class="tddate">2020/4/24</td>
+                        <td class="tddate">
+                            <p>{{orderInputData.planHandingOver}}</p>
+                        </td>
                     </tr>
                     <tr>
                         <th style="width: 10%; border-left: 0;">実績年月日</th>
-                        <td class="tdcenter">AAAd</td>
-                        <td class="tdcenter">AA</td>
-                        <td class="tdcenter">2019/7/12</td>
-                        <td class="tdcenter">AA</td>
-                        <td class="tdcenter">AA</td>
-                        <td class="tdcenter">2020/4/17</td>
-                        <td class="tdcenter">2020/4/22</td>
-                        <td class="tdcenter">2020/4/24</td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforContractDate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforDODate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforStartDate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforArrivalDate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforWoodWorkDate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforInspectionDate}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforCompletionInspection}}</p>
+                        </td>
+                        <td class="tdcenter">
+                            <p>{{orderInputData.perforHandingOver}}</p>
+                        </td>
                     </tr>
                 </table>
             </section>
@@ -258,21 +312,45 @@
         </div>
     </div>
 
-    <section style="margin-top: 50px;">
-        <section class="section-left">
-            <shiwake-table [shiwakeData]="shiwakeData"></shiwake-table>
-        </section>
-        <section class="section-right">
-        </section>
-    </section>
-    <!-- <div class="footer-container">
-        <div class="text-left footer">
-            <button class="btn">発注先パターン選択</button>
-            <button class="btn">得意先元帳</button>
-            <button class="btn">工事台帳</button>
-            <button class="btn">明細一覧</button>
-            <button class="btn">更新終了</button>
+    <div style="margin-top: 50px;">
+        <mat-tab-group style="float: left; width: 100%">
+            <mat-tab class="sekkei" label="設計">
+                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+            </mat-tab>
+            <mat-tab class="hontai" label="本体">
+                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+            </mat-tab>
+            <mat-tab class="tsuika" label="追加">
+                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <footer>
+        <div class="footer-container" style="background-color: aqua;">
+            <div>
+                <div style="margin-bottom: 10px;">
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
+                </div>
+            </div>
+            <div class="text-left footer">
+                <div class="text-left footer ">
+                    <button mat-button id="btnClose " style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
+                </div>
+                <div class="text-left footer ">
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
+                </div>
+                <div class="text-left footer ">
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
+                </div>
+                <div class="text-left footer ">
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
+                </div>
+                <div class="text-left footer ">
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
+                </div>
+            </div>
         </div>
-    </div> -->
+    </footer>
+
 
 </div>

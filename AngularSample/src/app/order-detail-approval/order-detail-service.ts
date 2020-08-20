@@ -1,4 +1,4 @@
-import { OrderDetailShiwake, OrderDetailSplit} from './../order-detail-input/order-detail-input-interface';
+import { OrderDetailShiwake, OrderDetailSplit, OrderDetailInput} from './../order-detail-input/order-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderDetail } from './orderDetail';
@@ -13,7 +13,7 @@ export class OrderDetailApprovalService{
     private _url: string = "assets/data/data.json";
     private _urlShiwake: string = "assets/data/dataShiwake.json";
     private _urlSplit: string = "assets/data/dataSplit.json";
-
+    private _urlOrderInput: string = "assets/data/dataOrderInput.json";
     constructor (
         private http: HttpClient
     ){}
@@ -30,5 +30,8 @@ export class OrderDetailApprovalService{
         return this.http.get<OrderDetailShiwake[]>(this._urlShiwake);
     }
 
+    getOrderInputData(): Observable<OrderDetailInput>{
+        return this.http.get<OrderDetailInput>(this._urlOrderInput);
+    }
 
 }
