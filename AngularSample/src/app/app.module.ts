@@ -24,10 +24,11 @@ import { OrderDetailSelectComponent } from './order-detail-select/order-detail-s
 import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component';
 
 //発注明細入力＿承認処理テーブル
-import {OrderDetailApprovalTable} from './order-detail-approval/oder-detail-approval-table';
+import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
 import { MatTableModule } from '@angular/material';
-import { MatPaginatorModule} from '@angular/material/paginator';
-import {MatSortModule} from '@angular/material/sort';
+import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
+import { MatSortModule} from '@angular/material/sort';
+import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 
 const appRoute: Routes = [
   { path: "", component: IndexComponent },
@@ -82,6 +83,7 @@ const appRoute: Routes = [
   ],
   providers: [WkAllItemTypesService, 
               OrderDetailApprovalService,
+              {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]
 })
