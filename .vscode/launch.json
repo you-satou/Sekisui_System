@@ -9,8 +9,8 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            // "url": "http://localhost:8080",
-            "url": "http://localhost:4200/OrderDetailApproval",
+            "url": "http://localhost:8080",
+            // "url": "http://localhost:4200/OrderDetailApproval",
             "webRoot": "${workspaceFolder}"
         }
     ]
