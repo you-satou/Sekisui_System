@@ -4,7 +4,9 @@ import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
 import { OrderDetailAddInputService } from './order-detail-add-input.service';
 import { OrderDetailAddInputType } from './orderDetailAddInputType'
-
+import { OrderJournalSelectComponent } from '../order-journal-select/order-journal-select.component';
+import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'order-detail-add-input',
@@ -19,6 +21,11 @@ export class OrderDetailAddInputComponent implements OnInit {
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
   
+  // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
+  private subscription: Subscription;
+  // ngComponentOutlet にセットするためのプロパティ
+  public modal: any = null;
+
   /**
    * コンストラクタ
    *
@@ -26,10 +33,19 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @memberof ModalComponent
    */
   constructor(
-    private modalService: OrderDetailAddInputService
+    private modalService: OrderDetailAddInputService,
+    private modalService2: OrderJournalSelectService
   ) { }
 
   ngOnInit() {
+    this.subscription = this.modalService.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        
+        this.modal = null;
+      }
+    );
   }
 
   public onClick($event) {
@@ -38,6 +54,11 @@ export class OrderDetailAddInputComponent implements OnInit {
   
   private notifyCloseModal() {
     this.modalService.requestCloseModal(this.resVal);
+  }
+
+  public onDialog($event){
+    this.modal = OrderJournalSelectComponent;
+
   }
 
 }

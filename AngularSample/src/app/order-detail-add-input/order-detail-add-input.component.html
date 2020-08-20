@@ -1,5 +1,5 @@
 <div id="MODAL4" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <label id="header_label">発注明細入力_明細入力</label>
@@ -9,7 +9,9 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th class="table-str td-b text-center">仕訳コード</th>
+                                <th class="table-str td-b text-center">
+                                   <a class="btn btn-primary" data-toggle="modal" data-target="#MODAL1" (click)="onDialog($event);">仕訳コード</a>
+                                </th>
                                 <th class="table-str td-b text-center">経理コード</th>
                                 <th class="table-str td-b text-center">仕訳名称</th>
                                 <th colspan="2" class="table-str td-b text-center" >発注先</th>
