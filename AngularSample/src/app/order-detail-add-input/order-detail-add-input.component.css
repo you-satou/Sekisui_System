@@ -3,7 +3,7 @@
     top: 20%;
     left: 5%;
     height: 600px;
-    width: 80%;
+    width: 90%;
     border-radius: 15px;
   }
   
@@ -21,9 +21,9 @@
   }
   
   .table{
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
   .table>thead {
     background-color: #E5E5E5;
@@ -38,7 +38,7 @@
   }
   
   .table-str{
-  height: 40px;
+  height: 30px;
   width: 17.8%;
   word-wrap: break-word;
   }

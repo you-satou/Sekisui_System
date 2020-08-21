@@ -26,7 +26,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">年月日</span>
 </div>
-<input type="text" [(ngModel)]="model" name="date" class="form-control SHComDate" aria-label="Small" aria-describedby="inputGroup-sizing-sm" ngbDatepicker #d="ngbDatepicker" placeholder="yyyy-mm-dd" [displayMonths]="displayMonths" [navigation]="navigation"
+<input type="text" [(ngModel)]="searchDatas.model" name="date" class="form-control SHComDate" aria-label="Small" aria-describedby="inputGroup-sizing-sm" ngbDatepicker #d="ngbDatepicker" placeholder="yyyy-mm-dd" [displayMonths]="displayMonths" [navigation]="navigation"
     [outsideDays]="outsideDays" [showWeekNumbers]="showWeekNumbers">
 <div class="input-group-prepend">
     <button class="btn btn-info calendar" type="button" id="button-addon1" (click)="d.toggle()"><i class="far fa-calendar-alt bg-info"></i></button>
