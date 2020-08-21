@@ -62,69 +62,15 @@ export class OrderDetailInput{
 }
 
 export interface OrderTABLE1{
-    contractNum: string;
-    officeCode: string;
-    officeName: string;
-    salesStaffCode: string;
-    salesStaffName: string;
-    architectCode: string;
-    architectName: string;
-    constructionKata: string;
-    constructionHira: string;
-    contractorCode: string;
-    contractorName: string;
-    // 予定年月日
-    planContractDate: string;
-    planDODate: string;
-    planStartDate: string;
-    planArrivalDate: string;
-    planWoodWorkDate: string;
-    planInspectionDate: string;
-    planCompletionInspection: string;
-    planHandingOver: string;
-
-    //実績年月日
-    perforContractDate: string;
-    perforDODate: string;
-    perforStartDate: string;
-    perforArrivalDate: string;
-    perforWoodWorkDate: string;
-    perforInspectionDate: string;
-    perforCompletionInspection: string;
-    perforHandingOver: string;
+    contractModel: string;
+    orderModel: string;
+    branchNum1: string;
+    branchNum2: string;
+    date: string;
+    contractAmount: string;
+    completeStatus: string;
+    salesStatus: string;
+    salesUpdateDate: string;
 
 }
 
-export interface OrderTABLE2{
-    contractNum: string;
-    officeCode: string;
-    officeName: string;
-    salesStaffCode: string;
-    salesStaffName: string;
-    architectCode: string;
-    architectName: string;
-    constructionKata: string;
-    constructionHira: string;
-    contractorCode: string;
-    contractorName: string;
-    // 予定年月日
-    planContractDate: string;
-    planDODate: string;
-    planStartDate: string;
-    planArrivalDate: string;
-    planWoodWorkDate: string;
-    planInspectionDate: string;
-    planCompletionInspection: string;
-    planHandingOver: string;
-
-    //実績年月日
-    perforContractDate: string;
-    perforDODate: string;
-    perforStartDate: string;
-    perforArrivalDate: string;
-    perforWoodWorkDate: string;
-    perforInspectionDate: string;
-    perforCompletionInspection: string;
-    perforHandingOver: string;
-
-}

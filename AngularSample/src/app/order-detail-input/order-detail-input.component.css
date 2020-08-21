@@ -164,7 +164,11 @@ td {
     border-top: 1px solid #CCD0D5;
 } */
 
-.tdcenter {
+
+/* -------------------------------------- */
+
+
+/* .tdcenter {
     text-align: center;
     padding: 0px 10px;
     min-width: 40px;
@@ -182,7 +186,10 @@ td {
     width: 100px;
     padding: 0px 5px 0px 20px;
     height: 23px;
-}
+} */
+
+
+/* -------------------------------------- */
 
 #scrollTableDiv {
     position: relative;
@@ -191,11 +198,12 @@ td {
     top: -1px;
 }
 
-#secondPart {
+
+/* #secondPart {
     position: relative;
     margin-top: 10px;
     overflow: hidden;
-}
+} */
 
 #orderInfo3Table1 {
     float: left;
@@ -207,9 +215,10 @@ td {
     width: 100%;
 }
 
-#orderInfoCount {
+
+/* #orderInfoCount {
     position: absolute;
-}
+} */
 
 #i3t2head {
     position: relative;
@@ -240,9 +249,10 @@ td {
     width: 100%;
 }
 
-#thisOne {
+
+/* #thisOne {
     position: relative;
-}
+} */
 
 
 /*  -----------------タブのスタイル---------------------------  */

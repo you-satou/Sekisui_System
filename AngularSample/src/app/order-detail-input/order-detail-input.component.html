@@ -134,185 +134,71 @@
                 </table>
             </section>
         </div>
-        <div id="secondPart">
-            <table id="orderInfo3Table1">
-                <thead>
-                    <tr>
-                        <th>契　約</th>
-                        <th>受注形態</th>
-                        <th colspan="2">枝番</th>
-                        <th>年月日</th>
-                        <th>金額</th>
-                        <th>発注</th>
-                        <th colspan="2">売上</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="tdcenter">ハ　ウ　ス</td>
-                        <td class="tdcenter" style="min-width: 89px;"></td>
-                        <td class="tdcenter">00</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">解　体</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">00</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">造園外構①</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">00</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">586100000</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">造園外構②</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">00</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">58610000</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                    <tr>
-                        <td class="tdcenter">土　地</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter">00</td>
-                        <td class="tdcenter"></td>
-                        <td class="tddate">2019/6/18</td>
-                        <td class="tdprice">5861000</td>
-                        <td class="tdcenter">済</td>
-                        <td class="tdcenter"></td>
-                        <td class="tdcenter"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="orderInfo3Table2" [style.margin-left.px]="orderInfo3Table1Width">
+        <div style="margin-top:10px; width:inherit; overflow: auto; height: 200px;">
+            <div id="secondPart" style="float:left;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>契　約</th>
+                            <th>受注形態</th>
+                            <th colspan="2">枝番</th>
+                            <th>年月日</th>
+                            <th>金額</th>
+                            <th>発注</th>
+                            <th colspan="2">売上</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of TBL1">
+                            <td class="tdcenter">{{data.contractModel}}</td>
+                            <td class="tdcenter" style="min-width: 89px;">{{data.orderModel}}</td>
+                            <td class="tdcenter">{{data.branchNum1}}</td>
+                            <td class="tdcenter">{{data.branchNum2}}</td>
+                            <td class="tddate">{{data.date}}</td>
+                            <td class="tdprice">{{data.contractAmount}}</td>
+                            <td class="tdcenter">{{data.completeStatus}}</td>
+                            <td class="tdcenter">{{data.salesStatus}}</td>
+                            <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="testDiv">
                 <table id="orderInfoCount">
-                    <div id="i3t2head">
-                        <thead id="theadHeight">
-                            <tr>
-                                <th id="try">契　約</th>
-                                <th [style.width.px]="orderTypeWidth">受注形態</th>
-                                <th [style.width.px]="codeWidth">枝番</th>
-                                <th [style.width.px]="dateWidth">年月日</th>
-                                <th [style.width.px]="priceWidth">金額</th>
-                                <th [style.width.px]="sendWidth">発注</th>
-                                <th [style.width.px]="salesWidth">売上</th>
-                            </tr>
-                        </thead>
-                    </div>
-                    <div id="addConstr">追加工事</div>
-                    <div id="i3t2body">
-                        <div id="scrollTableDiv">
-                            <tbody id="thisOne">
-                                <tr>
-                                    <!-- <th [attr.rowspan]="test" teststyle="width: 10px;">追<br>加<br>工<br>事</th> -->
-                                    <td id="contractWidth" class="tdcenter" style="min-width: 89px; padding-left: 35px;  border-top: 0;">設計
-                                    </td>
-                                    <td id="orderTypeWidth" class="tdcenter" style="min-width: 89px;  border-top: 0;">C
-                                    </td>
-                                    <td id="code1Width" class="tdcenter" style=" border-top: 0;">36</td>
-                                    <td id="code2Width" class="tdcenter" style=" border-top: 0;"></td>
-                                    <td id="dateWidth" class="tddate" style=" border-top: 0;">2019/6/18</td>
-                                    <td id="priceWidth" class="tdprice" style=" border-top: 0;">586100000</td>
-                                    <td id="sendWidth" class="tdcenter" style=" border-top: 0;">*</td>
-                                    <td id="sales1Width" class="tdcenter" style=" border-top: 0;">未</td>
-                                    <td id="sales2Width" class="tdcenter" style=" border-top: 0;"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter">設計</td>
-                                    <td class="tdcenter">C</td>
-                                    <td class="tdcenter">37</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate">2019/6/18</td>
-                                    <td class="tdprice">586100000</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter">未</td>
-                                    <td class="tdcenter"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter">設計</td>
-                                    <td class="tdcenter">C</td>
-                                    <td class="tdcenter">38</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate">2019/6/18</td>
-                                    <td class="tdprice">586100000</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter">済</td>
-                                    <td class="tdcenter">20/06</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter">建物</td>
-                                    <td class="tdcenter">B</td>
-                                    <td class="tdcenter">39</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate">2019/6/18</td>
-                                    <td class="tdprice">58610000</td>
-                                    <td class="tdcenter">*</td>
-                                    <td class="tdcenter">済</td>
-                                    <td class="tdcenter">20/04</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter">建物</td>
-                                    <td class="tdcenter">B</td>
-                                    <td class="tdcenter">40</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate">2019/6/18</td>
-                                    <td class="tdprice">5861000</td>
-                                    <td class="tdcenter">*</td>
-                                    <td class="tdcenter">済</td>
-                                    <td class="tdcenter">20/04</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter"></td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter">41</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate"></td>
-                                    <td class="tdprice"></td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter"></td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 35px;" class="tdcenter"></td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter">42</td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tddate"></td>
-                                    <td class="tdprice"></td>
-                                    <td class="tdcenter"></td>
-                                    <td class="tdcenter"></td>
-                                    <td style="padding-left: 35px;" class="tdcenter"></td>
-                                </tr>
-                            </tbody>
-                        </div>
-                    </div>
+                    <thead id="theadHeight">
+                        <tr>
+                            <th colspan="2">契　約</th>
+                            <th>受注形態</th>
+                            <th colspan="2">枝番</th>
+                            <th>年月日</th>
+                            <th>金額</th>
+                            <th>発注</th>
+                            <th colspan="2">売上</th>
+                        </tr>
+                    </thead>
+                    <tbody id="thisOne">
+                        <tr *ngFor="let data of TBL2; let i = index">
+                            <th [attr.rowspan]="TBL2.length" style="width: 10px;" *ngIf="i===0">
+                                追<br>加<br>工<br>事
+                            </th>
+                            <td id="contractWidth" class="tdcenter" style="min-width: 89px; padding-left: 35px;  border-top: 0;">{{data.contractModel}}
+                            </td>
+                            <td id="orderTypeWidth" class="tdcenter" style="min-width: 89px;  border-top: 0;">{{data.orderModel}}
+                            </td>
+                            <td id="code1Width" class="tdcenter" style=" border-top: 0;">{{data.branchNum1}}</td>
+                            <td id="code2Width" class="tdcenter" style=" border-top: 0;">{{data.branchNum2}}</td>
+                            <td id="dateWidth" class="tddate" style=" border-top: 0;">{{data.date}}</td>
+                            <td id="priceWidth" class="tdprice" style=" border-top: 0;">{{data.contractAmount}}</td>
+                            <td id="sendWidth" class="tdcenter" style=" border-top: 0;">{{data.completeStatus}}</td>
+                            <td id="sales1Width" class="tdcenter" style=" border-top: 0;">{{data.salesStatus}}</td>
+                            <td id="sales2Width" class="tdcenter" style=" border-top: 0;">{{data.salesUpdateDate}}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <div style="margin-top: 50px;">
+    <div style="margin-top: 10px;">
         <mat-tab-group style="float: left; width: 100%">
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
@@ -325,32 +211,30 @@
             </mat-tab>
         </mat-tab-group>
     </div>
-    <footer>
-        <div class="footer-container" style="position: inherit;">
-            <div>
-                <div style="margin-bottom: 10px;">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
-                </div>
-            </div>
-            <div class="text-left footer">
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
-                </div>
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
-                </div>
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
-                </div>
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
-                </div>
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
-                </div>
+</div>
+<footer>
+    <div class="footer-container">
+        <div>
+            <div style="margin-bottom: 10px;">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
             </div>
         </div>
-    </footer>
-
-
-</div>
+        <div class="text-left footer">
+            <div class="text-left footer ">
+                <button mat-button id="btnClose " style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
+            </div>
+            <div class="text-left footer ">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
+            </div>
+            <div class="text-left footer ">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
+            </div>
+            <div class="text-left footer ">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
+            </div>
+            <div class="text-left footer ">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
+            </div>
+        </div>
+    </div>
+</footer>
