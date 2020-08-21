@@ -1,5 +1,5 @@
 <div>
-    <div class="mat-elevation-z8" style="float: left;; width: 40%">
+    <div class="mat-elevation-z8" style="float: left; width: 40%">
         <table mat-table [dataSource]="shiwakeData" class="shiwake-table">
 
             <ng-container matColumnDef="journalCode">
@@ -22,7 +22,6 @@
                 <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
                 <td style="width: 20%; " mat-cell *matCellDef="let element"> {{element.orderSuplierName}} </td>
             </ng-container>
-
             <ng-container matColumnDef="orderPlanAmount">
                 <th style="width: 20%; " class="color-3" mat-header-cell *matHeaderCellDef>発注予定金額</th>
                 <td style="width: 20%; " mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>

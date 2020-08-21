@@ -12,7 +12,7 @@
     <div id="orderInfomation">
         <div id="firstPart">
             <section class="orderInfo1">
-                <table class="orderInfo1Table"  *ngFor ="let orderInputData of orderInputDatas ">
+                <table class="orderInfo1Table" *ngFor="let orderInputData of orderInputDatas ">
                     <tr class="text-center">
                         <th style="width: 120px;">発注番号</th>
                         <th style="width: 120px">事業コード</th>
@@ -46,7 +46,7 @@
                 </table>
             </section>
             <section class="orderInfo2">
-                <table class="orderInfo2Table1"  *ngFor ="let orderInputData of orderInputDatas ">
+                <table class="orderInfo2Table1" *ngFor="let orderInputData of orderInputDatas ">
                     <tr>
                         <th rowspan="2" style="width: 80px;">工事名</th>
                         <td colspan="2" style="word-wrap: break-word;">
@@ -68,7 +68,7 @@
                         </td>
                     </tr>
                 </table>
-                <table class="orderInfo2Table2" *ngFor ="let orderInputData of orderInputDatas ">
+                <table class="orderInfo2Table2" *ngFor="let orderInputData of orderInputDatas ">
                     <tr>
                         <th style="width: 10%; border-left: 0;">予定年月日</th>
                         <th rowspan="2">契<br>約</th>
@@ -326,7 +326,7 @@
         </mat-tab-group>
     </div>
     <footer>
-        <div class="footer-container" style="background-color: aqua;">
+        <div class="footer-container" style="position: inherit;">
             <div>
                 <div style="margin-bottom: 10px;">
                     <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>

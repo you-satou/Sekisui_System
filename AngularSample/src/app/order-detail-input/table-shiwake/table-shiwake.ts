@@ -19,6 +19,7 @@ export class OrderDetailShiwakeTable {
       'journalName',
       'orderSupplier',
       'orderPlanAmount',
+
     ];
 
     bunkatsuColumns: string[] = [

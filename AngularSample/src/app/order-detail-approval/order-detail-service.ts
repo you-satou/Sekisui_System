@@ -21,7 +21,6 @@ export class OrderDetailApprovalService{
 
     getOrderDetail(): Observable<OrderDetail[]>{
         
-        
         return this.http.get<OrderDetail[]>(this._url);
     }
 
@@ -31,6 +30,7 @@ export class OrderDetailApprovalService{
     }
 
     getOrderInputData(): Observable<OrderDetailInput[]>{
+        
         return this.http.get<OrderDetailInput[]>(this._urlOrderInput);
     }
 

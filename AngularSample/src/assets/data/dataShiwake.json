@@ -1,0 +1,28 @@
+[{
+        "journalCode": "0400",
+        "accountCode": "040",
+        "journalName": "本体工事",
+        "orderSuplierCode": "803",
+        "orderSuplierName": "積水建設㈱",
+        "orderPlanAmount": "245,000,000"
+
+    },
+    {
+        "journalCode": "",
+        "accountCode": "",
+        "journalName": "",
+        "orderSuplierCode": "",
+        "orderSuplierName": "",
+        "orderPlanAmount": ""
+
+    },
+    {
+        "journalCode": "",
+        "accountCode": "",
+        "journalName": "",
+        "orderSuplierCode": "",
+        "orderSuplierName": "",
+        "orderPlanAmount": ""
+
+    }
+]
