@@ -10,22 +10,26 @@
                         <thead>
                             <tr>
                                 <th class="table-str td-b text-center">
-                                   <a class="btn btn-primary" data-toggle="modal" data-target="#MODAL1" (click)="onDialog($event);">仕訳コード</a>
+                                   <span style="border-bottom: solid 1px rgb(0, 110, 255);">
+                                   <a href="AngularSample\src\app\order-journal-select\order-journal-select.component.html">仕訳コード</a></span>
                                 </th>
                                 <th class="table-str td-b text-center">経理コード</th>
                                 <th class="table-str td-b text-center">仕訳名称</th>
-                                <th colspan="2" class="table-str td-b text-center" >発注先</th>
+                                <th class="table-str td-b text-center">
+                                    <span style="border-bottom: solid 1px rgb(0, 110, 255);">
+                                    <a href="AngularSample\src\app\order-journal-select\order-journal-select.component.html">発注先</a></span>
+                                 </th>
                                 <th class="table-str td-b text-center" >発注予定金額</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of datas">
-                                <td class="table-str td-b">{{ sdata.journalCode }}</td>
-                                <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
-                                <td class="table-str td-b">{{ sdata.journalName }}</td>
-                                <td class="table-str td-b">{{ sdata.supplierCode }}</td>
-                                <td class="table-str td-b">{{ sdata.supplierName }}</td>
-                                <td class="table-str td-b">{{ sdata.orderPlansKin }}</td>
+                                <td class="table-str td-b">{{ data.journalCode }}</td>
+                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
+                                <td class="table-str td-b">{{ data.journalName }}</td>
+                                <td class="table-str td-b">{{ data.supplierCode }}</td>
+                                <td class="table-str td-b">{{ data.supplierName }}</td>
+                                <td class="table-str td-b">{{ data.orderPlansKin }}</td>
                             </tr>                 
                         </tbody>
                     </table>
@@ -33,7 +37,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">選択</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">更新</button>
             </div>
         </div>
     </div>
