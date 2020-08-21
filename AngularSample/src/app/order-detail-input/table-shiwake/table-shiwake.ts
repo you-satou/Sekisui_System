@@ -45,10 +45,10 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
     marginleftPx:number;
 
 
-    OnInit(){
-    this.marginleftPx = document.getElementById('shiwakeTbl').clientWidth + 20;
+    // OnInit(){
+    // this.marginleftPx = document.getElementById('shiwakeTbl').clientWidth + 20;
 
-     }
+    //  }
 
     getTotalPlanAmount() {
 

@@ -125,10 +125,11 @@ td {
     border-left: 0.5px solid #CCD0D5;
 }
 
-#orderInfomation {
+
+/* #orderInfomation {
     position: relative;
     width: 1287px;
-}
+} */
 
 #firstPart {
     position: relative;
