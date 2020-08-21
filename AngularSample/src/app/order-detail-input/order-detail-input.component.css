@@ -126,41 +126,37 @@ td {
 }
 
 #orderInfomation {
+    position: relative;
     width: 1287px;
 }
 
 #firstPart {
     position: relative;
-    height: 150px;
 }
 
 .orderInfo1 {
-    position: absolute;
+    position: relative;
     height: 40%;
 }
 
 .orderInfo1Table {
+    position: relative;
     height: 100%
 }
 
 .orderInfo2 {
-    position: absolute;
-    width: 100%;
-    height: 60%;
-    bottom: 0%;
+    position: relative;
+    top: -0.5px;
     overflow: hidden;
 }
 
 .orderInfo2Table1 {
+    position: relative;
     float: left;
-    height: 99%;
-    width: 35%;
 }
 
 .orderInfo2Table2 {
-    float: left;
-    height: 99%;
-    width: 65%;
+    position: relative;
 }
 
 
