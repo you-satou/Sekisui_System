@@ -6,12 +6,14 @@
     bottom: 0;
     padding-bottom: 12.5px;
     z-index: 2;
+    justify-content: space-between;
 }
 
 .footer {
     position: initial;
     display: fixed;
     background-color: #F5F5F5;
+
 }
 
 .footer>.back-btn {

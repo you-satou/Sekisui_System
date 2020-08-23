@@ -132,8 +132,8 @@
                 </section>
             </div>
 
-            <div style="margin-top:10px; width:auto; overflow: auto; height: 200px;">
-                <div id="secondPart" style="float:left; width: 40%;">
+            <div style="margin-top:10px; width:auto; overflow:auto; height: 200px;">
+                <div id="secondPart" style="float:left; width: max-content;">
                     <table>
                         <thead>
                             <tr>
@@ -161,7 +161,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="testDiv" style="margin-left: 55%;">
+                <div id="testDiv" style="margin-left: auto;">
                     <table id="orderInfoCount">
                         <thead id="theadHeight">
                             <tr>
@@ -199,7 +199,7 @@
     </section>
 
     <section style="margin-top: 10px;">
-        <mat-tab-group style="float: left; width: 100%">
+        <mat-tab-group style="position: relative;">
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
