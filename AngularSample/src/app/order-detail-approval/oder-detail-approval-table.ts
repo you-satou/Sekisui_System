@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource,MatTableModule} from '@angular/material/table';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort} from '@angular/material';
 
-import {OrderDetail} from './orderDetail';
+import {OrderDetail} from './order-detail-approval-interface';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,9 +18,9 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   displayedColumns: string[] = [
       'detail',
-      'contractNum', 
+      'contractNum',
       'propertyName',
-      'planOrderAmount', 
+      'planOrderAmount',
       'approvalRequestAmount',
       'performanceOrderAmount',
       'receivedAmount',
@@ -30,16 +30,13 @@ export class OrderDetailApprovalTable implements OnChanges {
       'approval_2',
     ];
 
-    dataSource :any;
-  
-  @ViewChild(MatSort, {static: true})  sort:MatSort;
-
-
+    dataSource: any;
+  @ViewChild(MatSort, {static: true})  sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  datas:OrderDetail[]
+  datas: OrderDetail[];
 
-  constructor(){}
+  constructor() {}
 
   ngOnChanges(
   ) {
@@ -49,10 +46,7 @@ export class OrderDetailApprovalTable implements OnChanges {
     this.dataSource.paginator = this.paginator;
   }
 
-  getOrderDetail($event, data){
-
-    var wTbody = $event.target.parentElement.parentElement;
-    var rowIndex = wTbody.rowIndex;
+  getOrderDetail($event, data) {
 
   }
 

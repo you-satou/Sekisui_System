@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
-import { OrderDetail, OrderSearchInputment } from './orderDetail';
+import { OrderDetail, OrderSearchInputment } from './order-detail-approval-interface';
 import { ActivatedRoute } from '@angular/router';
 import { OrderDetailApprovalService } from './order-detail-service';
 
@@ -10,31 +10,25 @@ import { OrderDetailApprovalService } from './order-detail-service';
 })
 
 export class OrderDetailApprovalComponent implements OnInit {
-  pageTitle = "発注明細入力＿承認処理";
+  pageTitle = '発注明細入力＿承認処理';
 
-  recordMax: number = 0;
-  pageIndex: number = 0;
-  pageMax: number = 0;
-  pageSize: number = 20;
-
-
-  result = [];
+  recordMax: number;
+  pageIndex: number;
+  pageMax: number;
+  pageSize = 20;
   datas: OrderDetail[];
 
   inputment: OrderSearchInputment;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private orderDetailService : OrderDetailApprovalService,
-    ) {
-
-
-  }
+    private orderDetailService: OrderDetailApprovalService,
+    ) {}
 
   displayedColumns: string[] = [
-    'contractNum', 
-    'propertyName', 
-    'planOrderAmount', 
+    'contractNum',
+    'propertyName',
+    'planOrderAmount',
     'approvalRequestAmount',
     'performanceOrderAmount',
     'receivedAmount',
@@ -44,7 +38,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     'approval_2'
   ];
 
-  ngOnInit() { 
+  ngOnInit() {
     this.setStartPage();
   }
 
@@ -57,8 +51,8 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
     this.inputment.approval_2 = false;
-    this.inputment.resultASC = true;
-    this.inputment.resultDESC = false;
+    // this.inputment.resultASC = true;
+    // this.inputment.resultDESC = false;
   }
 
   getSearchRequest() {
@@ -67,24 +61,24 @@ export class OrderDetailApprovalComponent implements OnInit {
     .subscribe(
       data => this.datas = data
       );
-    this.countRecord(this.datas);
+    // this.countRecord(this.datas);
   }
 
-  countRecord(datas: OrderDetail[]) {
-    if (datas.length == 0) {
-      alert("該当データがありません。");
-      return;
-    }
-    if (datas.length > 1000) {
-      alert("検索結果が1000件を超えています。絞り込んでください。");
-      return;
-    }
+  // countRecord(datas: OrderDetail[]) {
+  //   if (datas.length === 0) {
+  //     alert('該当データがありません。');
+  //     return;
+  //   }
+  //   if (datas.length > 1000) {
+  //     alert('検索結果が1000件を超えています。絞り込んでください。');
+  //     return;
+  //   }
 
-    this.recordMax = datas.length;
-    this.pageMax = Math.floor(datas.length / this.pageSize);
-    this.changeDetectorRef.detectChanges();
-    this.pageIndex = 1;
-  }
+  //   this.recordMax = datas.length;
+  //   this.pageMax = Math.floor(datas.length / this.pageSize);
+  //   this.changeDetectorRef.detectChanges();
+  //   this.pageIndex = 1;
+  // }
 
   setPageIndex(pageIndex) {
     this.pageIndex = pageIndex;
@@ -92,11 +86,11 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   pageJump(input: any) {
     if (!Number(input.value)) {
-      alert("入力ページは数字のみです。");
+      alert('入力ページは数字のみです。');
       return;
     }
     if (Number(input.value) > this.pageMax || Number(input.value) < 0) {
-      alert("不明なページです。選択可能なページ：" + "0 ~ " + this.pageMax);
+      alert('不明なページです。選択可能なページ：' + '0 ~ ' + this.pageMax);
       return;
     }
 
@@ -107,8 +101,8 @@ export class OrderDetailApprovalComponent implements OnInit {
     if (this.pageIndex < this.pageMax) {
       this.pageIndex = this.pageIndex++;
     }
-    if (this.pageIndex = this.pageMax) {
-      alert("最大のページです。");
+    if (this.pageIndex === this.pageMax) {
+      alert('最大のページです。');
       return;
     }
 
@@ -118,19 +112,15 @@ export class OrderDetailApprovalComponent implements OnInit {
     if (this.pageIndex < this.pageMax) {
       this.pageIndex = this.pageIndex--;
     }
-    if (this.pageIndex = 1) {
-      alert("最初のページです。");
+    if (this.pageIndex === 1) {
+      alert('最初のページです。');
       return;
     }
   }
-  getOrderDetail($event, data){
-
-    var wTbody = $event.target.parentElement.parentElement;
-    var rowIndex = wTbody.rowIndex;
+  getOrderDetail($event, data) {
 
     alert(data.contractNum);
 
   }
-
 
 }

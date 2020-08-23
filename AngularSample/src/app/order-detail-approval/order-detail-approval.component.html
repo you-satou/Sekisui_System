@@ -45,7 +45,7 @@
             </div>
         </div>
         <div>
-            <div style=" float: left; width: 50%;" class="input-group">
+            <div style=" float: left; width: auto;" class="input-group">
                 <div class="input-group-prepend">
                     <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
                 </div>
@@ -56,7 +56,7 @@
                     <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
                 </div>
             </div>
-            <div style="margin-left: 50%; width:auto;" class="input-group">
+            <!-- <div style="margin-left: 50%; width:auto;" class="input-group">
                 <div style="width: 50%;"></div>
                 <div class=" input-group-prepend">
                     <p class=" input-group-text" style="width: 80px;">表示順</p>
@@ -67,17 +67,18 @@
                     <div style="width: 20px;"></div>
                     <p class="radioCheckbok "><input [checked]="inputment.resultDESC" type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
                 </div>
-            </div>
+            </div> -->
         </div>
         <br>
         <div style="text-align: right; width: 100%; ">
             <button mat-button class="btn-group-toggle border " style="width: 80px; " (click)="getSearchRequest()">検索</button>
-            <!-- <button mat-raised-button style="width: 80px; " (click)="getSearchRequest()">検索</button> -->
             <div style="width: 50px; "></div>
         </div>
     </section>
-
-    <section id=" data-display " style="padding-top :10px ">
+    <div style="margin-top:10px">
+        <p >結果件数：{{datas?.length}}件</p>
+    </div>
+    <section id=" data-display">
         <order-detail-approval-table [resultData]="datas"></order-detail-approval-table>
     </section>
 </div>

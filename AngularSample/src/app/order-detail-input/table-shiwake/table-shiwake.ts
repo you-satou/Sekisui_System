@@ -1,8 +1,5 @@
-import { OrderDetailInputComponent } from './../order-detail-input.component';
-import { element } from 'protractor';
-import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
-import { OrderDetailShiwake,OrderDetailSplit } from './../order-detail-input-interface';
-import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
+import { OrderDetailShiwake, OrderDetailSplit } from './../order-detail-input-interface';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'shiwake-table',
@@ -11,7 +8,7 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, Elem
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailShiwakeTable extends OrderDetailInputComponent implements OnInit {
+export class OrderDetailShiwakeTable implements OnInit {
 
    @Input() shiwakeData: OrderDetailShiwake[];
    @Input() bunkatsuData: OrderDetailSplit[];
@@ -36,24 +33,17 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
       'payment',
     ];
 
-    displayColumn: string[]=[
-      'display',
-    ]
+    displayColumn: string[] = ['display'];
 
-    dataSource :any;
+    dataSource: any;
 
-    marginleftPx:number;
-
-
-    // OnInit(){
-    // this.marginleftPx = document.getElementById('shiwakeTbl').clientWidth + 20;
-
-    //  }
+    marginleftPx: number;
 
     getTotalPlanAmount() {
 
       return this.shiwakeData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
     }
 
+    ngOnInit() {}
 
 }

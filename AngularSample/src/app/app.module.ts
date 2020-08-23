@@ -9,7 +9,7 @@ import { SearchFrameComponent2 } from './search-frame2/search-frame2.component';
 import { RouteDetailComponent } from './route-detail/route-detail.component';
 import { WkAllItemTypesService } from './wk-all-item-types.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailApprovalComponent } from './order-detail-approval/order-detail-approval.component';
@@ -26,8 +26,8 @@ import { OrderDetailAddInputComponent } from './order-detail-add-input/order-det
 
 // 発注明細入力＿承認処理テーブル
 import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
-import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule } from '@angular/material';
-import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
+import { MatTableModule, MatTabsModule, MatButtonModule, MatButtonToggleModule } from '@angular/material';
+import { MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 
@@ -85,11 +85,11 @@ const appRoute: Routes = [
     MatSortModule,
     MatTabsModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
   providers: [WkAllItemTypesService, 
               OrderDetailApprovalService,
-              {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
+              {provide: MatPaginatorIntl, useValue: OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]
 })

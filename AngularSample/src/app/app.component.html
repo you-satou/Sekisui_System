@@ -14,7 +14,7 @@
                 <div>
                     <span class="mx-2 fs-small">大阪北支店</span><span class="mx-2 fs-small">積水　次郎</span>
                     <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample" style="font-weight:bold">
-                        <mat-button-toggle onclick="window.alert()">︙</mat-button-toggle>
+                        <mat-button-toggle-group mat-icon="expand" mat-button mat-icon onclick="window.alert()">︙</mat-button-toggle-group>
                     </a>
                 </div>
                 <div class="collapse fs-small" id="collapseExample">
@@ -48,9 +48,7 @@
     <div class="px-5 py-3">
         <router-outlet></router-outlet>
     </div>
+    
     <footer class="footer"></footer>
 
 </div>
-<!-- <div>
-    <footer class="footer"></footer>
-</div> -->
