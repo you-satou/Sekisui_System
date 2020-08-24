@@ -67,8 +67,13 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @memberof AppComponent
    */
   public onClick1($event){
-    this.modal = close
-    this.modal2 =  OrderJournalSelectComponent;
+    changeModal('modal','modal2')
+
+    function changeModal(beforeModal, afterModal) {
+      /**#('#'+beforeModal).modal( 'hide' );
+      #('#'+afterModal).modal('show');
+      */
+  }
 
   }
   public onClick2($event) {
