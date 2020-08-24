@@ -9,6 +9,8 @@ import { OrderJournalSelectService } from '../order-journal-select/order-journal
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectComponent } from '../order-supplier-select/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
+import { runInThisContext } from 'vm';
+
 
 @Component({
     selector: 'order-detail-add-input',
@@ -34,6 +36,7 @@ export class OrderDetailAddInputComponent implements OnInit {
    *
    * @param {ModalService} modalService
    * @memberof ModalComponent
+   * 
    */
   constructor(
     private modalService: OrderDetailAddInputService,
@@ -48,7 +51,22 @@ export class OrderDetailAddInputComponent implements OnInit {
         // このタイミングで ModalComponent では ngOnDestroy が走る
         
         this.modal = null;
-        this.modal2 = null;
+      }
+    );
+    this.subscription = this.modalService2.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        
+        this.modal = null;
+      }
+    );
+    this.subscription = this.modalService3.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        
+        this.modal = null;
       }
     );
   }
@@ -67,17 +85,51 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @memberof AppComponent
    */
   public onClick1($event){
-    changeModal('modal','modal2')
 
-    function changeModal(beforeModal, afterModal) {
-      /**#('#'+beforeModal).modal( 'hide' );
-      #('#'+afterModal).modal('show');
-      */
-  }
+    this.modal2 = OrderJournalSelectService;
 
   }
+
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
   public onClick2($event) {
-    this.modal2 = OrderSupplierSelectComponent;
+    this.modal = OrderSupplierSelectComponent;
+  }
+
+     /**
+   * テーブル クリック 選択背景 設定
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
+  public onSelHighLight($event, selectedItem){
+    // TODO
+    this.resVal = selectedItem;
+
+    // テーブル 背景色 クリア
+    var wTbody = $event.target.parentElement.parentElement;
+    for(var i=0; i<wTbody.rows.length; i++){
+      // 行 取得
+      var wTr = wTbody.rows[i];
+      for(var j=0; j<wTr.cells.length; j++){
+        // セル クリア
+        var wTd = wTr.cells[j];
+        wTd.style.backgroundColor = '';
+      }
+    }
+
+    // 要素取得
+    var wTr = $event.target.parentElement;
+
+    // 背景色 変更
+    for(var i=0; i<wTr.cells.length; i++){
+      var wTd = wTr.cells[i];
+      wTd.style.backgroundColor = '#CCFFFF';
+    }
   }
 
 }
