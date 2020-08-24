@@ -77,15 +77,22 @@ td {
 }
 
 .label {
-    width: 80px;
+    width: 80px !important;
     text-align: right;
     padding: 10px;
 }
 
 .name {
-    width: 100%;
+    width: inherit;
     border-collapse: collapse;
     border: 1px dotted black;
+}
+
+.grid-column {
+    display: grid;
+    height: inherit;
+    /* grid-template-columns: repeat(17, 50px); */
+    grid-template-rows: repeat(2, 50%);
 }
 
 
