@@ -7,6 +7,8 @@ import { OrderDetailAddInputType } from './orderDetailAddInputType'
 import { OrderJournalSelectComponent } from '../order-journal-select/order-journal-select.component';
 import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
 import { Subscription } from 'rxjs';
+import { OrderSupplierSelectComponent } from '../order-supplier-select/order-supplier-select.component';
+import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
 
 @Component({
     selector: 'order-detail-add-input',
@@ -25,6 +27,7 @@ export class OrderDetailAddInputComponent implements OnInit {
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
   public modal: any = null;
+  public modal2: any = null;
 
   /**
    * コンストラクタ
@@ -34,7 +37,8 @@ export class OrderDetailAddInputComponent implements OnInit {
    */
   constructor(
     private modalService: OrderDetailAddInputService,
-    private modalService2: OrderJournalSelectService
+    private modalService2: OrderJournalSelectService,
+    private modalService3: OrderSupplierSelectService
   ) { }
 
   ngOnInit() {
@@ -44,6 +48,7 @@ export class OrderDetailAddInputComponent implements OnInit {
         // このタイミングで ModalComponent では ngOnDestroy が走る
         
         this.modal = null;
+        this.modal2 = null;
       }
     );
   }
@@ -55,10 +60,19 @@ export class OrderDetailAddInputComponent implements OnInit {
   private notifyCloseModal() {
     this.modalService.requestCloseModal(this.resVal);
   }
+   /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+  public onClick1($event){
+    this.modal = close
+    this.modal2 =  OrderJournalSelectComponent;
 
-  public onDialog($event){
-    this.modal = OrderJournalSelectComponent;
-
+  }
+  public onClick2($event) {
+    this.modal2 = OrderSupplierSelectComponent;
   }
 
 }

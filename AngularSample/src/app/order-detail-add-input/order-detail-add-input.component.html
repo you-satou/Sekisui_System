@@ -10,14 +10,20 @@
                         <thead>
                             <tr>
                                 <th class="table-str td-b text-center">
-                                   <span style="border-bottom: solid 1px rgb(0, 110, 255);">
+                                    <input id="footer_button" class="back-btn" type="button" value="発注仕訳（モーダル）" data-toggle="modal2" data-target="#MODAL1" (click)="onClick1($event);">
+                                    <!--
+                                     <span style="border-bottom: solid 1px rgb(0, 110, 255);">
                                    <a href="AngularSample\src\app\order-journal-select\order-journal-select.component.html">仕訳コード</a></span>
+                                   -->
                                 </th>
                                 <th class="table-str td-b text-center">経理コード</th>
                                 <th class="table-str td-b text-center">仕訳名称</th>
                                 <th class="table-str td-b text-center">
+                                    <input id="footer_button1" class="back-btn" type="button" value="発注先マスタ選択（モーダル）" data-toggle="modal2" data-target="#MODAL3" (click)="onClick2($event);">
+                                    <!--
                                     <span style="border-bottom: solid 1px rgb(0, 110, 255);">
                                     <a href="AngularSample\src\app\order-journal-select\order-journal-select.component.html">発注先</a></span>
+                                     -->
                                  </th>
                                 <th class="table-str td-b text-center" >発注予定金額</th>
                             </tr>
@@ -37,6 +43,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <input id="footer_button1" class="back-btn" type="button" value="発注先マスタ選択（モーダル）" data-toggle="modal" data-target="#MODAL3" (click)="onClick2($event);">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">更新</button>
             </div>
         </div>
