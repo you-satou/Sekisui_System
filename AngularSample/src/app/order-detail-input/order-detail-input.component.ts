@@ -1,5 +1,5 @@
 import { OrderDetailApprovalService } from './../order-detail-approval/order-detail-service';
-import { Component, OnInit,  ViewEncapsulation} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnChanges } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
@@ -75,6 +75,16 @@ import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detai
       // this.marginleftPx = document.getElementById('secondPart').clientWidth + 30;
       // var secondDiv = document.getElementById('testDiv');
       // secondDiv.setAttribute("style.margin-left.px",this.marginleftPx.toString());
+    }
+
+    setDefaultHeight(){
+      var height: number;
+
+      height = document.getElementById('koujimei').clientHeight;
+
+      var planPerformanceTBL = document.getElementById('planPerformance');
+      planPerformanceTBL.setAttribute('style.height.px',height.toString());
+
     }
 
   }

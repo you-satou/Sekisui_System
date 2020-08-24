@@ -13,7 +13,6 @@
     position: initial;
     display: fixed;
     background-color: #F5F5F5;
-
 }
 
 .footer>.back-btn {
@@ -63,6 +62,31 @@ td {
 
 
 /****************************************************/
+
+.flexbox {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.flexBoxLeft {
+    float: left;
+}
+
+.flexBoxRight {
+    float: right;
+}
+
+.label {
+    width: 80px;
+    text-align: right;
+    padding: 10px;
+}
+
+.name {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px dotted black;
+}
 
 
 /*  -----------------タブのスタイル---------------------------  */

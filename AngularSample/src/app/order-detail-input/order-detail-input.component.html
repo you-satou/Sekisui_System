@@ -42,8 +42,9 @@
                         </tr>
                     </table>
                 </section>
-                <section class="orderInfo2">
-                    <table class="orderInfo2Table1" *ngFor="let orderInputData of orderInputDatas ">
+
+                <!-- <section class="orderInfo2">
+                    <table id="koujimei" class="orderInfo2Table1" *ngFor="let orderInputData of orderInputDatas " onchange="setDefaultHeight()">
                         <tr>
                             <th rowspan="2" style="width: 80px;">工事名</th>
                             <td colspan="2" style="word-wrap: break-word;">
@@ -65,7 +66,7 @@
                             </td>
                         </tr>
                     </table>
-                    <table class="orderInfo2Table2" *ngFor="let orderInputData of orderInputDatas ">
+                    <table id="planPerformance" class="orderInfo2Table2" *ngFor="let orderInputData of orderInputDatas ">
                         <tr>
                             <th style="width: 10%; border-left: 0;">予定年月日</th>
                             <th rowspan="2">契<br>約</th>
@@ -129,6 +130,27 @@
                             </td>
                         </tr>
                     </table>
+                </section> -->
+
+                <section class="flexbox">
+                    <div class="flexBoxLeft" style="border: 1px black solid; width: 30%;">
+                        <div class="  input-group input-group-s">
+                            <div class="input-group-prepend" style="width: 100%;">
+                                <label class="label" style="border: 1px black solid; ">工事名</label>
+                                <div style="width: 100%;  border: 1px black solid; padding: 0; margin: 0; ">
+                                    <div class="name">ｶﾌﾞｼｷｶﾞｲｼｬｾｷｽｲﾊﾅｺ　ｼｬｲﾝﾘｮｳ</div>
+                                    <div class="name">株式会社積水花子　社員寮</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group input-group-s">
+                            <label class="label">契約者名</label>
+                            <p>aaaaaaaaaaaaaaaaaaaa</p>
+                            <p class="">ssssssssssssssss</p>
+                        </div>
+                    </div>
+
+                    <div class="flexBoxRight">Right</div>
                 </section>
             </div>
 
@@ -199,7 +221,7 @@
     </section>
 
     <section style="margin-top: 10px;">
-        <mat-tab-group style="position: relative;">
+        <mat-tab-group style="">
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
