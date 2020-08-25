@@ -1,4 +1,4 @@
-import { OrderDetailShiwake, OrderDetailSplit, OrderDetailInput} from './../order-detail-input/order-detail-input-interface';
+import { OrderDetailShiwake, OrderDetailSplit, OrderDetailInput,OrderTABLE1} from './../order-detail-input/order-detail-input-interface';
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit, SplitOrderDetailInput} from './../split-detail-input/split-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -17,6 +17,9 @@ export class OrderDetailApprovalService{
     private _urlSplit: string = "assets/data/dataSplit.json";
     private _urlSplitOrder: string = "assets/data/dataSplitOrder.json";
     private _urlOrderInput: string = "assets/data/dataOrderInput.json";
+    private _urlOrderTBL1: string = "assets/data/dataInputTBL1.json";
+    private _urlOrderTBL2: string = "assets/data/dataInputTBL2.json";
+
     constructor (
         private http: HttpClient
     ){}
@@ -43,6 +46,18 @@ export class OrderDetailApprovalService{
         return this.http.get<SplitOrderDetail[]>(this._url);
     }
 
+
+    getOrderInputTBL1():  Observable<OrderTABLE1[]>{
+        
+        return this.http.get<OrderTABLE1[]>(this._urlOrderTBL1);
+    }
+
+    getOrderInputTBL2():  Observable<OrderTABLE1[]>{
+        
+        return this.http.get<OrderTABLE1[]>(this._urlOrderTBL2);
+
+    }
+    
     getSplitOderDetailShiwake():Observable<SplitOrderDetailShiwake[]>{
         
         return this.http.get<SplitOrderDetailShiwake[]>(this._urlShiwake);
