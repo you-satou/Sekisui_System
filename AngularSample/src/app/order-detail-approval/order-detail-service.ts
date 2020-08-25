@@ -40,6 +40,11 @@ export class OrderDetailApprovalService{
         return this.http.get<OrderDetailInput[]>(this._urlOrderInput);
     }
 
+    getOderDetailSplit(): Observable<OrderDetailSplit[]>{
+        
+        return this.http.get<OrderDetailSplit[]>(this._urlSplit);
+    }
+
 
     getSplitOrderDetail(): Observable<SplitOrderDetail[]>{
         
