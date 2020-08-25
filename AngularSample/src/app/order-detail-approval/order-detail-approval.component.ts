@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
-import { OrderDetail, OrderSearchInputment } from './orderDetail';
+import { OrderDetail, OrderSearchInputment } from './order-detail-approval-interface';
+import { OrderDetailApprovalService } from './order-detail-approval-service';
 import { ActivatedRoute } from '@angular/router';
-import { OrderDetailApprovalService } from './order-detail-service';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -57,8 +57,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
     this.inputment.approval_2 = false;
-    this.inputment.resultASC = true;
-    this.inputment.resultDESC = false;
   }
 
   getSearchRequest() {

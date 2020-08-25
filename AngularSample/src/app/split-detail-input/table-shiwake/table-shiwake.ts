@@ -1,4 +1,4 @@
-import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
+import { SplitOrderDetailService } from './../split-detail-input-service';
 import { SplitOrderDetailShiwake,SplitOrderDetailSplit } from './../split-detail-input-interface';
 import {Component, OnInit, ViewChild, Input, OnChanges} from '@angular/core';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';

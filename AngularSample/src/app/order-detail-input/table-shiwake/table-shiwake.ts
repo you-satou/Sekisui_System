@@ -1,6 +1,6 @@
 import { OrderDetailInputComponent } from './../order-detail-input.component';
 import { element } from 'protractor';
-import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
+import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-approval-service';
 import { OrderDetailShiwake,OrderDetailSplit } from './../order-detail-input-interface';
 import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
 
@@ -13,47 +13,98 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, Elem
 
 export class OrderDetailShiwakeTable extends OrderDetailInputComponent implements OnInit {
 
-   @Input() shiwakeData: OrderDetailShiwake[];
-   @Input() bunkatsuData: OrderDetailSplit[];
-
-  shiwakeColumns: string[] = [
-      'journalCode',
-      'accountCode',
-      'journalName',
-      'orderSupplier',
-      'orderPlanAmount',
-
-    ];
-
-    bunkatsuColumns: string[] = [
-      'bunkatsu',
-      'orderPlanAmount',
-      'requested',
-      'approval_lv1',
-      'approval_lv2',
-      'orderSupplier',
-      'recieved',
-      'payment',
-    ];
-
-    displayColumn: string[]=[
-      'display',
-    ]
-
-    dataSource :any;
-
-    marginleftPx:number;
+  @Input() shiwakeData: OrderDetailShiwake[];
+  @Input() bunkatsuData: OrderDetailSplit[];
 
 
-    // OnInit(){
-    // this.marginleftPx = document.getElementById('shiwakeTbl').clientWidth + 20;
+  totalOrderAmount: number;
+  totalRecievedAmount: number;
+  totalPaymentAmount: number;
+  totalOrderPlanAmount: Number;
+   
+  columnsSpan: string[] = [
+    'requestDate',
+    'requester',
+    'approvalDate_lv1',
+    'approvalPerson_lv1',
+    'approvalDate_lv2',
+    'approvalPerson_lv2',
+  ];
 
-    //  }
+  detailColumns: string[] = [
+    'journalCode',
+    'accountCode',
+    'journalName',
+    'orderSupplierCode',
+    'orderSupplierName',
+    'orderPlanAmount1',
+    'display',
+    'split',
+    'orderPlanAmount2',
+    'requestDate',
+    'requester',
+    'approvalDate_lv1',
+    'approvalPerson_lv1',
+    'approvalDate_lv2',
+    'approvalPerson_lv2',
+    'orderSupplierDate',
+    'orderSupplierAmount',
+    'recievedDate',
+    'recievedAmount',
+    'paymentDate',
+    'paymentAmount',
+  ];
+
+  headerColumns: string[] = [
+    'shiwakeCode',
+    'keiriCode',
+    'shiwakeName',
+    'hacchuSaki',
+    'hacchuKingaku',
+    'hanei',
+    'bunkatsu',
+    'yoteiKigaku',
+    'irai',
+    'shounin_lv1',
+    'shounin_lv2',
+    'hacChu',
+    'ukeIre',
+    'shiHarai',
+
+  ];
+
+  dataSource: any;
+  marginleftPx: number;
+
 
     getTotalPlanAmount() {
 
       return this.shiwakeData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
     }
 
+    getTotalAmount(){
+
+      this.shiwakeData.forEach( data =>{
+          this.totalRecievedAmount += Number(data.recievedAmount);
+          this.totalOrderAmount += Number(data.orderAmount); 
+          this.totalPaymentAmount += Number(data.paymentAmount); 
+        }
+  
+      )
+    }
+  
+  
+    ngOnInit() {
+      this.getTotalAmount();
+    }
+  
+    getDetail($event, dataDetail){
+  
+      let shiwakeCode = dataDetail.journalCode;
+  
+      
+      alert(dataDetail.journalCode);
+  
+    }
 
 }

@@ -6,6 +6,22 @@ export interface OrderDetailShiwake{
     orderSuplierName: string;
     orderPlanAmount: string;
 
+    // Test
+    // orderPlanAmount: string;
+    requestDate: string;
+    requester: string;
+    approvalDate_lv1: string;
+    approvalPerson_lv1: string;
+    approvalDate_lv2: string;
+    approvalPerson_lv2: string;
+    orderDate: string;
+    orderAmount: string;
+    recievedDate: string;
+    recievedAmount: string;
+    paymentDate: string;
+    paymentAmount: string;
+    
+
 }
 
 export interface OrderDetailSplit{

@@ -1,5 +1,7 @@
 import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/table-shiwake';
-import { OrderDetailApprovalService } from './order-detail-approval/order-detail-service';
+import { OrderDetailApprovalService } from './order-detail-approval/order-detail-approval-service';
+import { OrderDetailInputService } from './order-detail-input/order-detail-input-service';
+import { SplitOrderDetailService } from './split-detail-input/split-detail-input-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -27,7 +29,7 @@ import { OrderDetailAddInputComponent } from './order-detail-add-input/order-det
 
 // 発注明細入力＿承認処理テーブル
 import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
-import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule } from '@angular/material';
+import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule, MatIconModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
@@ -90,9 +92,12 @@ const appRoute: Routes = [
     MatSortModule,
     MatTabsModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatIconModule
   ],
-  providers: [WkAllItemTypesService, 
+  providers: [WkAllItemTypesService,
+              OrderDetailInputService,
+              SplitOrderDetailService,
               OrderDetailApprovalService,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
