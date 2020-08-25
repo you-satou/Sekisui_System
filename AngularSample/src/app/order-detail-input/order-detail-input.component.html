@@ -19,56 +19,56 @@
                         </tr>
                         <tr>
                             <td>
-                                <p>{{orderInputData?.contractNum}}</p>
+                                {{orderInputData?.contractNum}}
                             </td>
                             <td class="tdcenter">
-                                <p>{{orderInputData?.officeCode}}</p>
+                                {{orderInputData?.officeCode}}
                             </td>
                             <td>
-                                <p>{{orderInputData?.officeName}}</p>
+                                {{orderInputData?.officeName}}
                             </td>
                             <td class="tdcenter" style="width: 70px;">
-                                <p>{{orderInputData?.salesStaffCode}}</p>
+                                {{orderInputData?.salesStaffCode}}
                             </td>
                             <td style="width: 130px;">
-                                <p>{{orderInputData?.salesStaffName}}</p>
+                                {{orderInputData?.salesStaffName}}
                             </td>
                             <td class="tdcenter" style="width: 70px;">
-                                <p>{{orderInputData?.architectCode}}</p>
+                                {{orderInputData?.architectCode}}
                             </td>
                             <td style="width: 130px;">
-                                <p>{{orderInputData?.architectName}}</p>
+                                {{orderInputData?.architectName}}
                             </td>
                         </tr>
                     </table>
                 </section>
 
-                <!-- <section class="orderInfo2">
-                    <table id="koujimei" class="orderInfo2Table1" *ngFor="let orderInputData of orderInputDatas " onchange="setDefaultHeight()">
+                <section class="orderInfo2">
+                    <table class="orderInfo2Table1" *ngFor="let orderInputData of orderInputDatas ">
                         <tr>
                             <th rowspan="2" style="width: 80px;">工事名</th>
-                            <td colspan="2" style="word-wrap: break-word;">
-                                <p>{{orderInputData?.constructionKata}}</p>
+                            <td class="tdContract" colspan="2" style="word-wrap: break-word;">
+                                {{orderInputData?.constructionKata}}
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="width: 50px;">
-                                <p>{{orderInputData?.constructionHira}}</p>
+                            <td class="tdContract" colspan="2" style="width: 50px;">
+                                {{orderInputData?.constructionHira}}
                             </td>
                         </tr>
                         <tr>
                             <th style="width: 80px;">契約者名</th>
-                            <td>
-                                <p>{{orderInputData?.contractorCode}}</p>
+                            <td class="tdCode">
+                                {{orderInputData?.contractorCode}}
                             </td>
-                            <td>
-                                <p>{{orderInputData?.contractorName}}</p>
+                            <td class="tdCode">
+                                {{orderInputData?.contractorName}}
                             </td>
                         </tr>
                     </table>
-                    <table id="planPerformance" class="orderInfo2Table2" *ngFor="let orderInputData of orderInputDatas ">
+                    <table class="orderInfo2Table2" *ngFor="let orderInputData of orderInputDatas ">
                         <tr>
-                            <th style="width: 10%; border-left: 0;">予定年月日</th>
+                            <th style="border-left: none !important;">予定年月日</th>
                             <th rowspan="2">契<br>約</th>
                             <td class="tddate">
                                 <p>{{orderInputData?.planContractDate}}</p>
@@ -130,39 +130,13 @@
                             </td>
                         </tr>
                     </table>
-                </section> -->
-
-                <section class="flexbox">
-                    <div class="flexBoxLeft" style="border: 1px black solid; width: 30%;">
-                        <div class="  input-group input-group-s">
-                            <div style="width: 100%;">
-                                <label class="label" style="width:80px; float: left;">工事名</label>
-                                <div style=" margin-left: 81px; ">
-                                    <div class="name">ｶﾌﾞｼｷｶﾞｲｼｬｾｷｽｲﾊﾅｺ　ｼｬｲﾝﾘｮｳ</div>
-                                    <div class="name">株式会社積水花子　社員寮</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-group input-group-s">
-                            <div style="width: 100%;">
-                                <label class="label" style="width: 80px; float: left;">契約者名</label>
-                                <div class="input-group-prepend" style="margin-left: 81px; width: auto; border : 1px black dotted">
-                                    <div style="padding: 1rem; width: 50%; border : 1px black dotted; border-collapse: collapse">ｶﾌﾞｼｷｶﾞｲｼｬｾｷｽｲﾊﾅｺ　ｼｬｲﾝﾘｮｳ</div>
-                                    <div style="padding: 1rem; width: 50%; border : 1px black dotted; border-collapse: collapse;">株式会社積水花子　社員寮</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flexBoxRight grid-column" style="width: 70%; border: 1px solid black;">
-                        <div>予定年月日</div>
-                        <div>実績年月日</div>
-                    </div>
                 </section>
             </div>
 
+            <div></div>
             <div style="margin-top:10px; width:auto; overflow:auto; height: 200px;">
-                <div id="secondPart" style="float:left; width: max-content;">
-                    <table>
+                <div class="tbl1" style="float:left;">
+                    <table style="table-layout: fixed;">
                         <thead>
                             <tr>
                                 <th>契　約</th>
@@ -175,22 +149,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of TBL1">
-                                <td class="tdcenter">{{data.contractModel}}</td>
-                                <td class="tdcenter" style="min-width: 89px;">{{data.orderModel}}</td>
-                                <td class="tdcenter">{{data.branchNum1}}</td>
-                                <td class="tdcenter">{{data.branchNum2}}</td>
-                                <td class="tddate">{{data.date}}</td>
-                                <td class="tdprice">{{data.contractAmount}}</td>
-                                <td class="tdcenter">{{data.completeStatus}}</td>
-                                <td class="tdcenter">{{data.salesStatus}}</td>
-                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                            <tr *ngFor="let data of TBL1;">
+                                <td style="min-width: 25px;" class="tdcenter">{{data.contractModel}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.orderModel}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.branchNum1}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.branchNum2}}</td>
+                                <td style="min-width: 25px;" class="tddate">{{data.date}}</td>
+                                <td style="min-width: 25px;" class="tdprice">{{data.contractAmount}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.completeStatus}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.salesStatus}}</td>
+                                <td style="min-width: 25px;" class="tdcenter">{{data.salesUpdateDate}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div id="testDiv" style="margin-left: auto;">
-                    <table id="orderInfoCount">
+                <div style="width: 30px; float: left;">
+                    <p></p>
+                </div>
+                <div class="tbl2" style="width: auto;">
+                    <table>
                         <thead id="theadHeight">
                             <tr>
                                 <th colspan="2">契　約</th>
@@ -204,20 +181,16 @@
                         </thead>
                         <tbody id="thisOne">
                             <tr *ngFor="let data of TBL2; let i = index">
-                                <th [attr.rowspan]="TBL2.length" style="width: 10px;" *ngIf="i===0">
-                                    追<br>加<br>工<br>事
-                                </th>
-                                <td id="contractWidth" class="tdcenter" style="min-width: 89px; padding-left: 35px;  border-top: 0;">{{data.contractModel}}
-                                </td>
-                                <td id="orderTypeWidth" class="tdcenter" style="min-width: 89px;  border-top: 0;">{{data.orderModel}}
-                                </td>
-                                <td id="code1Width" class="tdcenter" style=" border-top: 0;">{{data.branchNum1}}</td>
-                                <td id="code2Width" class="tdcenter" style=" border-top: 0;">{{data.branchNum2}}</td>
-                                <td id="dateWidth" class="tddate" style=" border-top: 0;">{{data.date}}</td>
-                                <td id="priceWidth" class="tdprice" style=" border-top: 0;">{{data.contractAmount}}</td>
-                                <td id="sendWidth" class="tdcenter" style=" border-top: 0;">{{data.completeStatus}}</td>
-                                <td id="sales1Width" class="tdcenter" style=" border-top: 0;">{{data.salesStatus}}</td>
-                                <td id="sales2Width" class="tdcenter" style=" border-top: 0;">{{data.salesUpdateDate}}</td>
+                                <th [attr.rowspan]="TBL2.length" style="min-width:25px;" *ngIf="i===0">追<br>加<br>工<br>事</th>
+                                <td style=" min-width: 25px">{{data.contractModel}}</td>
+                                <td style=" min-width: 25px;">{{data.orderModel}}</td>
+                                <td style=" min-width: 25px;">{{data.branchNum1}}</td>
+                                <td style=" min-width: 25px;">{{data.branchNum2}}</td>
+                                <td style=" min-width: 25px;">{{data.date}}</td>
+                                <td style=" min-width: 25px;">{{data.contractAmount}}</td>
+                                <td style=" min-width: 25px;">{{data.completeStatus}}</td>
+                                <td style=" min-width: 25px;">{{data.salesStatus}}</td>
+                                <td style=" min-width: 25px;">{{data.salesUpdateDate}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -227,7 +200,7 @@
     </section>
 
     <section style="margin-top: 10px;">
-        <mat-tab-group style="">
+        <mat-tab-group class="tabGroup">
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
@@ -265,17 +238,6 @@
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
             </div>
         </div>
-        <!-- <div class="text-left footer ">
-            <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
-        </div>
-        <div class="text-left footer ">
-            <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
-        </div>
-        <div class="text-left footer ">
-            <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
-        </div>
-        <div class="text-left footer ">
-            <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
-        </div> -->
+
     </div>
 </div>

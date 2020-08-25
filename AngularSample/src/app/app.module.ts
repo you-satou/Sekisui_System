@@ -68,6 +68,7 @@ const appRoute: Routes = [
     // 発注明細入力＿承認処理テーブル
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
+    
 
   ],
   imports: [

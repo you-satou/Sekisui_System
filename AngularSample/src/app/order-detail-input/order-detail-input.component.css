@@ -91,7 +91,7 @@ td {
 .grid-column {
     display: grid;
     height: inherit;
-    /* grid-template-columns: repeat(17, 50px); */
+    grid-template-columns: repeat(17, 50px);
     grid-template-rows: repeat(2, 50%);
 }
 
@@ -121,6 +121,10 @@ td {
 .mat-ink-bar {
     background-color: #305496;
     width: auto !important;
+}
+
+.tabGroup {
+    min-height: 300px;
 }
 
 
@@ -210,41 +214,47 @@ td {
 } */
 
 .orderInfo1 {
+    max-width: 100%;
+    min-width: 960px;
     position: relative;
-    height: 40%;
+    max-height: 120px;
 }
 
 .orderInfo1Table {
     position: relative;
-    height: 100%
+    height: 100px;
+    max-height: 100px;
+}
+
+.orderInfo1Table>td {
+    min-height: 21px !important;
 }
 
 .orderInfo2 {
+    max-width: 100%;
+    min-width: 1340px;
+    margin-top: 10px;
     position: relative;
-    top: -0.5px;
-    overflow: hidden;
 }
 
 .orderInfo2Table1 {
-    /* position: relative; */
     position: relative;
     float: left;
+    height: 120px;
+    max-height: 120px;
+    width: auto;
 }
 
 .orderInfo2Table2 {
     position: relative;
+    height: 120px;
+    max-height: 120px;
 }
-
-
-/* table {
-    border-top: 1px solid #CCD0D5;
-} */
 
 
 /* -------------------------------------- */
 
-
-/* .tdcenter {
+.tdcenter {
     text-align: center;
     padding: 0px 10px;
     min-width: 40px;
@@ -262,7 +272,16 @@ td {
     width: 100px;
     padding: 0px 5px 0px 20px;
     height: 23px;
-} */
+}
+
+.tdContract {
+    min-width: 300px !important;
+    max-height: 20px !important;
+}
+
+.tdCode {
+    min-width: 60px !important;
+}
 
 
 /* -------------------------------------- */
@@ -332,4 +351,15 @@ td {
 
 /* #thisOne {
     position: relative;
+} */
+
+
+/* #tbl1 {
+    border: 1px solid black !important;
+    border-collapse: collapse;
+}
+
+#tbl2 {
+    position: relative;
+    border: 1px solid black !important;
 } */

@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { OrderDetailApprovalService } from './../order-detail-approval/order-detail-service';
 import { Component, OnInit, ViewEncapsulation, OnChanges } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
@@ -24,20 +25,20 @@ import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detai
     bunkatsuData: any;
 
     orderInputDatas: OrderDetailInput[];
+    marginPixel: number;
 
     TBL1: OrderTABLE1[];
     TBL2: OrderTABLE1[];
-
-    tbl2Colspan: number;
-
 
     ngOnInit() {
 
       this.getOrderInputData();
       this.getShiwakeData();
 
-
+      
     }
+
+    
 
     constructor(
       private service: OrderDetailApprovalService,
@@ -84,6 +85,11 @@ import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detai
 
       var planPerformanceTBL = document.getElementById('planPerformance');
       planPerformanceTBL.setAttribute('style.height.px',height.toString());
+
+    }
+    getTBL1Pixel(){
+      var tbl1Width = document.getElementById('tbl1').clientWidth;
+      this.marginPixel = tbl1Width + 30;
 
     }
 

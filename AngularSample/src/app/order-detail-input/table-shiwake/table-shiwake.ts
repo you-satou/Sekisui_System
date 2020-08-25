@@ -81,10 +81,10 @@ export class OrderDetailShiwakeTable implements OnInit {
   getTotalAmount(){
 
     this.shiwakeData.forEach( data =>{
-      this.totalRecievedAmount += Number(data.recievedAmount);
-      this.totalOrderAmount += Number(data.orderAmount); 
-      this.totalPaymentAmount += Number(data.paymentAmount); 
-    }
+        this.totalRecievedAmount += Number(data.recievedAmount);
+        this.totalOrderAmount += Number(data.orderAmount); 
+        this.totalPaymentAmount += Number(data.paymentAmount); 
+      }
 
     )
   }
