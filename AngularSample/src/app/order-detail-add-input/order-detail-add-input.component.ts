@@ -6,6 +6,7 @@ import { OrderDetailAddInputService } from './order-detail-add-input.service';
 import { OrderDetailAddInputType } from './orderDetailAddInputType'
 import { OrderJournalSelectComponent } from '../order-journal-select/order-journal-select.component';
 import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
+import { OrderJournalSelectType } from '../order-journal-select/orderJournalSelectType';
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectComponent } from '../order-supplier-select/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
@@ -24,12 +25,15 @@ export class OrderDetailAddInputComponent implements OnInit {
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
+  datas2: OrderJournalSelectType[];
+  resVal2:OrderJournalSelectType;
   
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
   public modal: any = null;
   public modal2: any = null;
+  public modal3: any = null;
 
   /**
    * コンストラクタ
@@ -58,7 +62,7 @@ export class OrderDetailAddInputComponent implements OnInit {
         // プロパティ modal に null をセットすることでコンポーネントを破棄する
         // このタイミングで ModalComponent では ngOnDestroy が走る
         
-        this.modal = null;
+        this.modal2 = null;
       }
     );
     this.subscription = this.modalService3.closeEventObservable$.subscribe(
@@ -66,7 +70,7 @@ export class OrderDetailAddInputComponent implements OnInit {
         // プロパティ modal に null をセットすることでコンポーネントを破棄する
         // このタイミングで ModalComponent では ngOnDestroy が走る
         
-        this.modal = null;
+        this.modal3 = null;
       }
     );
   }
@@ -107,6 +111,48 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @param selectedItem 行選択 値取得
    */
   public onSelHighLight($event, selectedItem){
+    // TODO
+    this.resVal = selectedItem;
+
+    // テーブル 背景色 クリア
+    var wTbody = $event.target.parentElement.parentElement;
+    for(var i=0; i<wTbody.rows.length; i++){
+      // 行 取得
+      var wTr = wTbody.rows[i];
+      for(var j=0; j<wTr.cells.length; j++){
+        // セル クリア
+        var wTd = wTr.cells[j];
+        wTd.style.backgroundColor = '';
+      }
+    }
+
+    // 要素取得
+    var wTr = $event.target.parentElement;
+
+    // 背景色 変更
+    for(var i=0; i<wTr.cells.length; i++){
+      var wTd = wTr.cells[i];
+      wTd.style.backgroundColor = '#CCFFFF';
+    }
+  }
+
+  public onSubClick ($event){
+
+    this.notifyCloseModal2();
+
+  }
+
+  private notifyCloseModal2() {
+    this.modalService2.requestCloseModal(this.resVal2);
+  }
+
+       /**
+   * テーブル クリック 選択背景 設定
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
+  public onSelHighLight2($event, selectedItem){
     // TODO
     this.resVal = selectedItem;
 
