@@ -17,6 +17,7 @@ import { OrderDetailApprovalComponent } from './order-detail-approval/order-deta
 import { IndexComponent } from './index/index.component';
 import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
 import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.component';
+import { AddOrderDetailComponent } from './add-order-detail/add-order-detail.component';
 import { SplitOrderDetailInputComponent } from './split-detail-input/split-detail-input.component';
 import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
 import { TestComponent } from './test/test.component';
@@ -43,6 +44,7 @@ const appRoute: Routes = [
   { path: 'searchFrame', component: SearchFrameComponent },
   { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
   { path: 'SupplierPattern', component: SupplierPatternComponent},
+  { path: 'AddOrderDetail', component: AddOrderDetailComponent},
   { path: 'SplitDetailInput', component: SplitOrderDetailInputComponent},
   { path: 'OrderDetailInput', component: OrderDetailInputComponent},
   { path: 'test', component: TestComponent},
@@ -60,6 +62,7 @@ const appRoute: Routes = [
     IndexComponent,
     OrderJournalSelectComponent,
     SupplierPatternComponent,
+    AddOrderDetailComponent,
     SplitOrderDetailInputComponent,
     OrderDetailInputComponent,
     TestComponent,
@@ -71,7 +74,6 @@ const appRoute: Routes = [
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
     SplitOrderDetailShiwakeTable,
-
   ],
   imports: [
     BrowserModule,

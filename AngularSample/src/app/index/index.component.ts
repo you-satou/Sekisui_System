@@ -10,7 +10,8 @@ import { OrderSupplierSelectComponent } from '../order-supplier-select/order-sup
 import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
 import { OrderDetailAddInputComponent } from '../order-detail-add-input/order-detail-add-input.component';
 import { OrderDetailAddInputService } from '../order-detail-add-input/order-detail-add-input.service';
-
+import { AddOrderDetailComponent } from 'app/add-order-detail/add-order-detail.component';
+import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pattern.service';
 
 import { Subscription } from 'rxjs';
 
@@ -46,6 +47,7 @@ export class IndexComponent implements OnInit, OnDestroy   {
       private modalService2: SupplierPatternService,
       private modalService3: OrderSupplierSelectService,
       private modalService4: OrderDetailAddInputService,
+      private modalService5: AddSupplierPatternService,
       private element: ElementRef,
       private router: Router
   ) { this._element = this.element.nativeElement }
@@ -86,6 +88,14 @@ export class IndexComponent implements OnInit, OnDestroy   {
       );
 
       this.subscription = this.modalService4.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          this.modal = null;
+        }
+      );
+
+      this.subscription = this.modalService5.closeEventObservable$.subscribe(
         () => {
           // プロパティ modal に null をセットすることでコンポーネントを破棄する
           // このタイミングで ModalComponent では ngOnDestroy が走る
@@ -140,5 +150,15 @@ export class IndexComponent implements OnInit, OnDestroy   {
    */
   public onClick4($event) {
     this.modal = OrderDetailAddInputComponent;
+  }
+
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+  public onClick5($event) {
+    this.modal = AddOrderDetailComponent;
   }
 }
