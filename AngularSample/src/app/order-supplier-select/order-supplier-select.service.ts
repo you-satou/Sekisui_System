@@ -35,7 +35,7 @@ export class OrderSupplierSelectService {
   /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *
-   * @memberof OrderJournalSelectService
+   * @memberof OrderSupplierSelectService
    */
   public requestCloseModal(resVal:OrderSupplierSelectType) {
     this.setVal(resVal)

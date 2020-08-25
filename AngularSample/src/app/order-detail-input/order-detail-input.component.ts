@@ -1,10 +1,10 @@
 import { OrderDetailApprovalService } from './../order-detail-approval/order-detail-service';
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
 import { title } from 'process';
-import { OrderDetailInput } from '../order-detail-input/order-detail-input-interface';
+import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detail-input-interface';
 
 @Component({
     selector: 'order-detail-input',
@@ -29,29 +29,48 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
     orderInfo3Table1Width: number;
     theadHeight: number;
     
+    marginleftPx: number;
+
     shiwakeData:any;
 
     bunkatsuData: any;
 
     orderInputDatas : OrderDetailInput[];
 
-    ngOnInit() {
-      // this.rowNumber = document.getElementById('rowNumber').childElementCount;
-      // this.rowNumberWidth = document.getElementById('rowNumber').clientWidth;
-      this.contractWidth = document.getElementById('contractWidth').clientWidth;
-      this.orderTypeWidth = document.getElementById('orderTypeWidth').clientWidth + 1;
-      this.codeWidth = document.getElementById('code1Width').clientWidth + document.getElementById('code2Width').clientWidth + 2;
-      this.dateWidth = document.getElementById('dateWidth').clientWidth + 1;
-      this.priceWidth = document.getElementById('priceWidth').clientWidth + 1;
-      this.sendWidth = document.getElementById('sendWidth').clientWidth + 1;
-      this.salesWidth = document.getElementById('sales1Width').clientWidth + document.getElementById('sales2Width').clientWidth + 2;
-      this.thisOneWidth = document.getElementById('thisOne').clientWidth + 1;
-      this.orderInfo3Table1Width = document.getElementById('orderInfo3Table1').clientWidth + 30;
-      this.theadHeight = document.getElementById('theadHeight').clientHeight;
+    TBL1: OrderTABLE1[];
+    TBL2: OrderTABLE1[];
 
-      document.getElementById('try').setAttribute('width', this.contractWidth.toString());
+    tbl2Colspan: number;
+
+
+    ngOnInit() {
+      // this.contractWidth = document.getElementById('contractWidth').clientWidth;
+      // this.orderTypeWidth = document.getElementById('orderTypeWidth').clientWidth + 1;
+      // this.codeWidth = document.getElementById('code1Width').clientWidth + document.getElementById('code2Width').clientWidth + 2;
+      // this.dateWidth = document.getElementById('dateWidth').clientWidth + 1;
+      // this.priceWidth = document.getElementById('priceWidth').clientWidth + 1;
+      // this.sendWidth = document.getElementById('sendWidth').clientWidth + 1;
+      // this.salesWidth = document.getElementById('sales1Width').clientWidth + document.getElementById('sales2Width').clientWidth + 2;
+      // this.thisOneWidth = document.getElementById('thisOne').clientWidth + 1;
+      // this.orderInfo3Table1Width = document.getElementById('orderInfo3Table1').clientWidth + 30;
+      // this.theadHeight = document.getElementById('theadHeight').clientHeight;
+
+      // document.getElementById('try').setAttribute('width', this.contractWidth.toString());
+
+    
+
+      
+      
+
+      // let thNode = document.createElement('th');
+      // thNode.colSpan = this.tbl2Colspan;
+      // thNode.textContent = "追加工事";
+      // let rows = document.getElementById('rowstest');
+      // rows.appendChild(thNode);
+
       this.getOrderInputData();
       this.getShiwakeData();
+
 
     }
 
@@ -61,6 +80,7 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
     ){
       // this.getOrderInputData();
       // this.getShiwakeData();
+      
     }
 
     getShiwakeData(){
@@ -70,19 +90,35 @@ import { OrderDetailInput } from '../order-detail-input/order-detail-input-inter
         data => this.shiwakeData = data
       );
       
+      this.service.getOderDetailSplit()
+      .subscribe(
+        data => this.bunkatsuData = data
+      );
 
     }
 
     getOrderInputData(){
-      // var dt : OrderDetailInput;
       this.service.getOrderInputData()
       .subscribe(
         data => this.orderInputDatas = data
       );
 
-      // if(this.contracNum.localeCompare(dt.contracNum)){
-      //   this.orderInputData = dt;
-      // }
-        // this.orderInputData =dt;
+      this.service.getOrderInputTBL1()
+      .subscribe(
+        data =>this.TBL1 = data
+      );
+
+      this.service.getOrderInputTBL2()
+      .subscribe(
+        data =>this.TBL2 = data
+      );
+      this.marginleftPx = document.getElementById('secondPart').clientWidth + 30;
+      var secondDiv = document.getElementById('testDiv');
+      secondDiv.setAttribute("style.margin-left.px",this.marginleftPx.toString());
     }
+
+    // getWidth(){
+    //   var secondDiv = document.getElementById('testDiv');
+    //   secondDiv.style.marginLeft = this.marginleftPx.toString();
+    // }
   }

@@ -1,28 +1,26 @@
 /********************* Page Footer *************************/
 
 .footer-container {
-    /* position: fixed; */
-    /* position: relative; */
+    position: flex;
     display: inline-block;
     bottom: 0;
     padding-bottom: 12.5px;
     z-index: 2;
-    width: 100%;
 }
 
 .footer {
-    position: relative;
-    /* display: fixed; */
+    position: initial;
+    display: fixed;
     background-color: #F5F5F5;
 }
 
 .footer>.back-btn {
     display: inline-block;
-    width: 120px;
-    float: left;
+    width: 120px !important;
 }
 
-.section-left {
+
+/* .section-left {
     float: left;
     width: 40%;
     border: 0.5px solid #CCD0D5;
@@ -36,7 +34,10 @@
 
 .table-Shiwake>thead>tr {
     text-align: center;
-}
+} */
+
+
+/*********************TABLE****************************/
 
 th {
     border-collapse: collapse;
@@ -58,6 +59,42 @@ td {
     padding: 0px 5px;
 }
 
+
+/****************************************************/
+
+
+/*  -----------------タブのスタイル---------------------------  */
+
+.mat-tab-label {
+    min-width: 25px !important;
+    max-width: 50px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+}
+
+.mat-tab-label.mat-tab-label-active {
+    min-width: 25px !important;
+    max-width: 60px !important;
+    padding: 5px;
+    background-color: #305496;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+}
+
+.mat-ink-bar {
+    background-color: #305496;
+    width: auto !important;
+}
+
+
+/*  ----------------------------------------------------------------  */
+
+
+/* 
 .table-Shiwake>tbody {
     height: 250px !important;
     overflow-y: scroll;
@@ -78,8 +115,10 @@ td {
 .table-Shiwake>tbody>tr>td,
 .table-Detail>tbody>tr>td {
     border: 0.5px solid #CCD0D5;
-}
+} */
 
+
+/* 
 .shiwakeCode-1 {
     width: 50px;
     text-align: center;
@@ -113,9 +152,10 @@ td {
 .shiwakeKingaku {
     width: 200px;
     text-align: right;
-}
+} */
 
-.table-Detail {
+
+/* .table-Detail {
     height: 250px;
     max-width: 50%;
     margin: 0;
@@ -123,16 +163,18 @@ td {
     border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
-}
+} */
 
-#orderInfomation {
+
+/* #orderInfomation {
     position: relative;
     width: 1287px;
-}
+} */
 
-#firstPart {
+
+/* #firstPart {
     position: relative;
-}
+} */
 
 .orderInfo1 {
     position: relative;
@@ -151,6 +193,7 @@ td {
 }
 
 .orderInfo2Table1 {
+    /* position: relative; */
     position: relative;
     float: left;
 }
@@ -164,7 +207,11 @@ td {
     border-top: 1px solid #CCD0D5;
 } */
 
-.tdcenter {
+
+/* -------------------------------------- */
+
+
+/* .tdcenter {
     text-align: center;
     padding: 0px 10px;
     min-width: 40px;
@@ -182,21 +229,28 @@ td {
     width: 100px;
     padding: 0px 5px 0px 20px;
     height: 23px;
-}
+} */
 
-#scrollTableDiv {
+
+/* -------------------------------------- */
+
+
+/* #scrollTableDiv {
     position: relative;
     overflow-y: scroll;
     height: 116px;
     top: -1px;
-}
+} */
 
-#secondPart {
+
+/* #secondPart {
     position: relative;
     margin-top: 10px;
     overflow: hidden;
-}
+} */
 
+
+/* 
 #orderInfo3Table1 {
     float: left;
 }
@@ -205,13 +259,15 @@ td {
     position: absolute;
     height: 100%;
     width: 100%;
-}
+} */
 
-#orderInfoCount {
+
+/* #orderInfoCount {
     position: absolute;
-}
+} */
 
-#i3t2head {
+
+/* #i3t2head {
     position: relative;
     height: 20%;
 }
@@ -238,38 +294,9 @@ td {
     top: 20%;
     bottom: 0;
     width: 100%;
-}
+} */
 
-#thisOne {
+
+/* #thisOne {
     position: relative;
-}
-
-
-/*  -----------------タブのスタイル---------------------------  */
-
-.mat-tab-label {
-    min-width: 25px !important;
-    max-width: 50px !important;
-    padding: 5px;
-    background-color: transparent;
-    color: black;
-    font-weight: 700;
-    text-align: center;
-}
-
-.mat-tab-label.mat-tab-label-active {
-    min-width: 25px !important;
-    max-width: 60px !important;
-    padding: 5px;
-    background-color: #305496;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-}
-
-.mat-ink-bar {
-    background-color: transparent;
-}
-
-
-/*  ----------------------------------------------------------------  */
+} */

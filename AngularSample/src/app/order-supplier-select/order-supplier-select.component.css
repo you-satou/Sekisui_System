@@ -1,113 +1,44 @@
-/********************* Page Footer *************************/
-
-.ossFooter-container {
-    position: absolute !important;
-    display: inline-block !important;
-    left: 0;
-    right: 0;
-    bottom: 0 !important;
-    /* width: 93%; */
-    padding: 0px 42px 16px 42px !important;
-    z-index: 2 !important;
-    width:inherit;
-}
-
-.ossFooter {
-    display: flex !important;
-    justify-content: space-between !important;
-    background-color: #F5F5F5 !important;
-    max-width: 660px;
-    margin: auto;
-}
-
-.ossFooter>.back-btn {
-    display: inline-block;
-    width: 120px !important;
-}
-
-
-/* .ossTable-Shiwake {
-    height: 300px;
-    width: 480px;
-} */
-
-.ossTable-Shiwake>thead>tr {
-    text-align: center;
-}
-
-th {
-    border-collapse: collapse;
-    border-top: 0.5px solid #CCD0D5;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-    font: 10px !important;
-}
-
-.ossTable-Shiwake>testTbody {
-    height: 250px !important;
+.modal {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    height: 600px;
+    width: 40%;
+    border-radius: 15px;
+  }
+  
+  .modal-header{
+    font-size: 1.2em;
+    font-weight:bold;
+    background-color: rgb(229, 241, 247);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-footer{
+    background-color: rgb(229, 241, 247);
+    justify-content: space-between;
+  }
+  
+  .table{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+  .table>thead {
+    background-color: #E5E5E5;
+  }
+  .table>tbody {
+    height: 130px;
     overflow-y: scroll;
-}
-
-.ossTable-Shiwakee {
-    height: 250px;
-    max-width: 640px;
-    position: relative;
-    margin: 0;
-    border-collapse: collapse;
+  }
+  
+  .td-b {
     border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-}
-
-.ossTable-Shiwake>tbody>tr>td {
-    border: 0.5px solid #CCD0D5;
-}
-
-.ossShiwakeKode-1 {
-    width: 50px;
-    text-align: center;
-    padding: 0 5px;
-}
-
-.ossShiwakeKode-2 {
-    width: 20px;
-    text-align: center;
-    padding: 0 5px;
-}
-
-.ossShiwakeKeiri {
-    width: 60px;
-    text-align: center;
-    padding: 0 5px;
-}
-
-.ossShiwakeName {
-    width: 150px;
-    text-align: left;
-    padding: 0 5px;
-}
-
-.ossShiwakeHachu-1 {
-    width: 20px;
-    text-align: center;
-}
-
-.ossShiwakeHachu-2 {
-    width: 150px;
-    text-align: left;
-}
-
-.ossShiwakeKingaku {
-    width: 200px;
-    text-align: right;
-}
-
-.tableBody {
-    overflow-y:scroll; 
-    position:inherit;
-}
-
-.firstSection {
-    position: absolute;
-}
+  }
+  
+  .table-str{
+  height: 40px;
+  width: 17.8%;
+  word-wrap: break-word;
+  }

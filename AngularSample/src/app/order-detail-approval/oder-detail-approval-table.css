@@ -28,8 +28,8 @@ th,
 td {
     border-collapse: collapse;
     border-bottom: 0.5px solid #CCD0D5;
-    /* border-right: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5; */
+    border-right: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
 }
 
 td {

@@ -1,7 +1,7 @@
 /**************** Search Zone ************************/
 
 .search-area {
-    width: 100%px;
+    width: 100%;
     min-width: 1200px;
     background-color: transparent;
     border-collapse: collapse;
@@ -37,113 +37,26 @@
 /*********************************************/
 
 
-/* ***********Table Properties******************* */
+/********************* Page Footer *************************/
 
-
-/* .table {
-    width: 100%;
-    min-width: 1200px;
-    position: relative;
-    margin: 0;
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-} */
-
-
-/* .table>thead {
-    display: table;
-    width: 100%;
-} */
-
-
-/* .table>tbody { */
-
-
-/* width: 100%; */
-
-
-/* display: block; */
-
-
-/* display: inherit; */
-
-
-/* display: */
-
-
-/* } */
-
-
-/**************** Scroll bar *************************/
-
-
-/* .table>tbody {
-    max-height: 480px !important;
-    overflow-y: scroll !important;
-    overflow: auto;
-} */
-
-
-/* ************************************************ */
-
-
-/* .table>div>thead {
-    text-align: center !important;
-    background-color: #E5E5E5 !important;
-} */
-
-
-/* .table-str { */
-
-
-/* display: inline-block; */
-
-
-/* height: 40px !important; */
-
-
-/* width: 30%; */
-
-
-/* word-wrap: break-word !important; */
-
-
-/* } */
-
-
-/***************** Table Border line *********************/
-
-
-/* .td-b { */
-
-
-/* border-right: 0.5px solid #CCD0D5; */
-
-
-/* } */
-
-
-/* ********************************************* */
-
-
-/* .td-font {
-    font-size: 1rem !important;
-}
-
-.table-btn-d {
+.footer-container {
+    position: fixed;
     display: inline-block;
-    width: 60px;
-    word-wrap: break-word;
-    background-color: #CCD0D5;
-    color: black;
+    bottom: 0;
+    padding-bottom: 12.5px;
+    z-index: 2;
 }
 
-th,
-td {
-    padding: 15px;
-} */
+.footer {
+    display: fixed;
+    /* justify-content: space-between !important; */
+    background-color: #F5F5F5;
+}
+
+.footer>.back-btn {
+    display: inline-block;
+    width: 120px !important;
+}
 
 
 /******************* Page Index ****************************/
@@ -178,25 +91,3 @@ td {
     height: 40px !important;
     width: 35px !important;
 } */
-
-
-/********************* Page Footer *************************/
-
-.footer-container {
-    position: fixed;
-    display: inline-block;
-    bottom: 0;
-    padding-bottom: 12.5px;
-    z-index: 2;
-}
-
-.footer {
-    display: fixed;
-    /* justify-content: space-between !important; */
-    background-color: #F5F5F5;
-}
-
-.footer>.back-btn {
-    display: inline-block;
-    width: 120px !important;
-}

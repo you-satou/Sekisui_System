@@ -1,34 +1,83 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
-import { title } from 'process';
+import { OrderSupplierSelectService } from './order-supplier-select.service';
+import { OrderSupplierSelectType } from './orderSupplierSelectType'
+import { testData } from './test_deta'
 
 @Component({
-  selector: 'app-order-supplier-select',
-  templateUrl: './order-supplier-select.component.html',
-  styleUrls: ['./order-supplier-select.component.css']
+    selector: 'order-Supplier-select',
+    templateUrl: './order-Supplier-select.component.html',
+    styleUrls: ['../common/common.component.css',
+                './order-supplier-select.component.css']
 })
-export class OrderSupplierSelectComponent implements OnInit {
 
-  ossShiwakeNameWidth: number;
-  secondTableMargin: number;
-  tablesWidth: number;
-  tdossShiwakeKode: number;
-  tdossShiwakeKeiri: number;
-  tdossShiwakeName: number;
-  ossSendAddressWidth: number;
+export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
+
+  // TODO
+  datas: OrderSupplierSelectType[] = testData;
+  resVal:OrderSupplierSelectType;
+
+  /**
+   * コンストラクタ
+   *
+   * @param {ModalService} modalService
+   * @memberof ModalComponent
+   */
+  constructor(
+    private modalService: OrderSupplierSelectService,
+    private wkAllItemTypesService: WkAllItemTypesService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private element: ElementRef,
+    private router: Router
+  ) {}
   
-  ngOnInit() {
+  ngOnInit() {}
+  
+  ngOnDestroy() {
+    // モーダルダイアログが閉じたタイミングで出力される
+    
+  }
+  
+  public onClick($event) {
+    this.notifyCloseModal();
+  }
+  
+  private notifyCloseModal() {
+    this.modalService.requestCloseModal(this.resVal);
+  }
 
-    this.ossShiwakeNameWidth = document.getElementById("ossShiwakeName").clientWidth;
-    this.secondTableMargin = this.ossShiwakeNameWidth + 80;
-    this.tablesWidth = this.secondTableMargin + document.getElementById("ossTable-Shiwake").clientWidth;
-    this.tdossShiwakeKode = document.getElementById("tdossShiwakeKode").clientWidth;
-    this.tdossShiwakeKeiri = document.getElementById("tdossShiwakeKeiri").clientWidth;
-    this.tdossShiwakeName = document.getElementById("tdossShiwakeName").clientWidth;
-    this.ossSendAddressWidth = document.getElementById("ossSendAddressCode").clientWidth + document.getElementById("ossSendAddressName").clientWidth;;
+   /**
+   * テーブル クリック 選択背景 設定
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
+  public onSelHighLight($event, selectedItem){
+    // TODO
+    this.resVal = selectedItem;
 
+    // テーブル 背景色 クリア
+    var wTbody = $event.target.parentElement.parentElement;
+    for(var i=0; i<wTbody.rows.length; i++){
+      // 行 取得
+      var wTr = wTbody.rows[i];
+      for(var j=0; j<wTr.cells.length; j++){
+        // セル クリア
+        var wTd = wTr.cells[j];
+        wTd.style.backgroundColor = '';
+      }
+    }
+
+    // 要素取得
+    var wTr = $event.target.parentElement;
+
+    // 背景色 変更
+    for(var i=0; i<wTr.cells.length; i++){
+      var wTd = wTr.cells[i];
+      wTd.style.backgroundColor = '#CCFFFF';
+    }
   }
 
 }
