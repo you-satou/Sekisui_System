@@ -6,3 +6,16 @@ export class OrderDetailAddInputType{
     supplierName: String;
     orderPlansKin:String;
 }
+
+export class OrderJournalSelectType {
+    journalCode: String;
+    accountingCategory: String;
+    journalName: String;
+}
+
+export class OrderSupplierSelectType {
+    supplierCode: String;
+    journalName: String;
+    delivery: String;
+}
+
