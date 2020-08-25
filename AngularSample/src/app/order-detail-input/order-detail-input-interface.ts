@@ -5,9 +5,6 @@ export interface OrderDetailShiwake{
     orderSuplierCode: string;
     orderSuplierName: string;
     orderPlanAmount: string;
-
-    // Test
-    // orderPlanAmount: string;
     requestDate: string;
     requester: string;
     approvalDate_lv1: string;
@@ -41,7 +38,7 @@ export interface OrderDetailSplit{
     
 }
 
-export class OrderDetailInput{
+export interface OrderDetailInput{
     contractNum: string;
     officeCode: string;
     officeName: string;
@@ -73,11 +70,10 @@ export class OrderDetailInput{
     perforCompletionInspection: string;
     perforHandingOver: string;
 
-    constructor() {}
 
 }
 
-export interface OrderTABLE1{
+export interface OrderInfo{
     contractModel: string;
     orderModel: string;
     branchNum1: string;
@@ -90,3 +86,16 @@ export interface OrderTABLE1{
 
 }
 
+export interface OrderDetailInputGeneral{
+
+    orderDetail: OrderDetailInput[];
+
+    orderInfoTable_1: OrderInfo[];
+
+    orderInfoTable_2: OrderInfo[];
+
+    orderShiwakeTable: OrderDetailShiwake[];
+
+    orderSliptTable: OrderDetailSplit[];
+
+} 

@@ -1,11 +1,12 @@
-import { OrderDetailInput, OrderTABLE1, OrderDetailShiwake, OrderDetailSplit } from '../order-detail-input/order-detail-input-interface';
+import { map } from 'rxjs/operators';
+import { OrderDetailInputGeneral,OrderDetailInput, OrderInfo, OrderDetailShiwake, OrderDetailSplit } from '../order-detail-input/order-detail-input-interface';
 import { OrderDetailInputService } from './order-detail-input-service';
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
 import { title } from 'process';
-import { OrderService } from '../common/order.service';
+import { CommonService } from '../common/common.service';
 
 @Component({
     selector: 'order-detail-input',
@@ -20,13 +21,17 @@ import { OrderService } from '../common/order.service';
     
     title = '発注明細入力＿詳細入力';
 
-    shiwakeData: OrderDetailShiwake[];;
+    orderGeneral: OrderDetailInputGeneral;
+
+    shiwakeData: OrderDetailShiwake[];
     bunkatsuData: OrderDetailSplit[];
 
     orderInputDatas : OrderDetailInput[];
 
-    TBL1: OrderTABLE1[];
-    TBL2: OrderTABLE1[];
+    datas: any[];
+
+    TBL1: OrderInfo[];
+    TBL2: OrderInfo[];
 
     // url
     _urlShiwake: string = "assets/data/dataShiwake.json";
@@ -41,38 +46,22 @@ import { OrderService } from '../common/order.service';
     }
 
     constructor(
-      private orderService: OrderService,
-
+      private orderService: CommonService,
     ){ }
     
-
     getOrderInputData(){
 
-      this.orderService.getMultipileDataFromServer(this._urlOrderInput)
+      this.orderService.getSingleData(this._urlOrderInput)
       .subscribe(
-        data => this.orderInputDatas = data
-      );
+        data => {if(data !== undefined){
+          this.orderGeneral = data;
+          this.orderInputDatas = this.orderGeneral.orderDetail;
+          this.TBL1 = this.orderGeneral.orderInfoTable_1;
+          this.TBL2 = this.orderGeneral.orderInfoTable_2;
+          this.shiwakeData = this.orderGeneral.orderShiwakeTable;
+          this.bunkatsuData = this.orderGeneral.orderSliptTable;
 
-
-      this.orderService.getMultipileDataFromServer(this._urlOrderTBL1)
-      .subscribe(
-        data =>this.TBL1 = data
-      );
-
-      this.orderService.getMultipileDataFromServer(this._urlOrderTBL1)
-      .subscribe(
-        data =>this.TBL2 = data
-      );
-
-      this.orderService.getMultipileDataFromServer(this._urlShiwake)
-      .subscribe(
-        data => this.shiwakeData = data
-      );
-
-      this.orderService.getMultipileDataFromServer(this._urlSplit)
-      .subscribe(
-        data => this.bunkatsuData = data
-      );     
+        }});
     }
 
   }

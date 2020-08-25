@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './order-detail-approval-interface';
 import { OrderDetailApprovalService } from './order-detail-approval-service';
 import { ActivatedRoute } from '@angular/router';
-import { OrderService } from 'app/common/order.service';
+import { CommonService } from 'app/common/common.service';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -28,7 +28,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private orderDetailService : OrderDetailApprovalService,
-    private orderService : OrderService,
+    private orderService : CommonService,
 
     ) { }
 
@@ -69,7 +69,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     //   );
     // this.countRecord(this.datas);
 
-    this.orderService.getMultipileDataFromServer(this._url)
+    this.orderService.getMultipileData(this._url)
     .subscribe(
       data => this.datas = data
       );

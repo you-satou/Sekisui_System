@@ -2,11 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { OrderDetailInputGeneral } from 'app/order-detail-input/order-detail-input-interface';
 
 
 @Injectable()
-export class OrderService{
+export class CommonService{
+
     
+    private baseUrl: string = "http://localhost:8080/";
 
     constructor(
         private http: HttpClient,
@@ -15,14 +18,14 @@ export class OrderService{
 
     // サーバよりデータを取得するのに、URLを渡すのが必要です。
     //　Any[]を列として返す。
-    getMultipileDataFromServer(url: string) : Observable<any[]>{
+    getMultipileData(url: string) : Observable<any[]>{
         return this.http.get<any[]>(url)
         .pipe(
             catchError(this.handleError<any[]>("Can't get Data from serve",[]))
         );
     }
 
-    getSingleDataFromServer(url: string): Observable<any>{
+    getSingleData(url: string): Observable<any>{
         return this.http.get<any>(url)
         .pipe(
             catchError(this.handleError<any>("Error excepted while getting data from server",[]))
