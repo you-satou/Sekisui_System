@@ -112,13 +112,7 @@ import { title } from 'process';
       .subscribe(
         data =>this.TBL2 = data
       );
-      this.marginleftPx = document.getElementById('secondPart').clientWidth + 30;
-      var secondDiv = document.getElementById('testDiv');
-      secondDiv.setAttribute("style.margin-left.px",this.marginleftPx.toString());
+
     }
 
-    // getWidth(){
-    //   var secondDiv = document.getElementById('testDiv');
-    //   secondDiv.style.marginLeft = this.marginleftPx.toString();
-    // }
   }

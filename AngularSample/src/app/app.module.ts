@@ -29,7 +29,7 @@ import { OrderDetailAddInputComponent } from './order-detail-add-input/order-det
 
 // 発注明細入力＿承認処理テーブル
 import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
-import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule } from '@angular/material';
+import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule, MatIconModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
@@ -92,7 +92,8 @@ const appRoute: Routes = [
     MatSortModule,
     MatTabsModule,
     MatButtonModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatIconModule
   ],
   providers: [WkAllItemTypesService,
               OrderDetailInputService,

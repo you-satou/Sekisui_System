@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OrderDetail } from './orderDetail';
+import { OrderDetail } from './order-detail-approval-interface';
 import { Observable } from 'rxjs';
 
 @Injectable()
