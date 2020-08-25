@@ -1,6 +1,6 @@
 import { OrderDetailInputComponent } from './../order-detail-input.component';
 import { element } from 'protractor';
-import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-service';
+import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-approval-service';
 import { OrderDetailShiwake,OrderDetailSplit } from './../order-detail-input-interface';
 import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
 

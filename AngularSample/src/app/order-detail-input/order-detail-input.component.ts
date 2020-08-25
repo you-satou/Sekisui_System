@@ -1,10 +1,10 @@
-import { OrderDetailApprovalService } from './../order-detail-approval/order-detail-service';
+import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detail-input-interface';
+import { OrderDetailInputService } from './order-detail-input-service';
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
 import { title } from 'process';
-import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detail-input-interface';
 
 @Component({
     selector: 'order-detail-input',
@@ -75,7 +75,7 @@ import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detai
     }
 
     constructor(
-      private service: OrderDetailApprovalService,
+      private service: OrderDetailInputService,
       // private input : OrderDetailInput
     ){
       // this.getOrderInputData();

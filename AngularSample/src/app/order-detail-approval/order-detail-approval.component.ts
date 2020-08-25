@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './orderDetail';
+import { OrderDetailApprovalService } from './order-detail-approval-service';
 import { ActivatedRoute } from '@angular/router';
-import { OrderDetailApprovalService } from './order-detail-service';
 
 @Component({
   selector: 'app-order-detail-approval',
