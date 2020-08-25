@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Input, Output  } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
@@ -10,7 +10,9 @@ import { OrderJournalSelectType } from '../order-journal-select/orderJournalSele
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectComponent } from '../order-supplier-select/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
+import { OrderSupplierSelectType } from '../order-supplier-select/orderSupplierSelectType';
 import { runInThisContext } from 'vm';
+import { testData2, testData3 } from './test-data';
 
 
 @Component({
@@ -20,13 +22,16 @@ import { runInThisContext } from 'vm';
                 './order-detail-add-input.component.css']
 })
 
-export class OrderDetailAddInputComponent implements OnInit {
+export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
 
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
-  datas2: OrderJournalSelectType[];
+  datas2: OrderJournalSelectType[] = testData2; 
   resVal2:OrderJournalSelectType;
+  datas3: OrderSupplierSelectType[] = testData3;
+  resVal3:OrderSupplierSelectType;
+
   
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
@@ -42,37 +47,19 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @memberof ModalComponent
    * 
    */
+
   constructor(
     private modalService: OrderDetailAddInputService,
     private modalService2: OrderJournalSelectService,
-    private modalService3: OrderSupplierSelectService
+    private modalService3: OrderSupplierSelectService,
+    private router: Router
   ) { }
 
-  ngOnInit() {
-    this.subscription = this.modalService.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        
-        this.modal = null;
-      }
-    );
-    this.subscription = this.modalService2.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        
-        this.modal2 = null;
-      }
-    );
-    this.subscription = this.modalService3.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        
-        this.modal3 = null;
-      }
-    );
+  ngOnInit() {}
+  
+  ngOnDestroy() {
+    // モーダルダイアログが閉じたタイミングで出力される
+    
   }
 
   public onClick($event) {
@@ -101,7 +88,7 @@ export class OrderDetailAddInputComponent implements OnInit {
    * @memberof AppComponent
    */
   public onClick2($event) {
-    this.modal = OrderSupplierSelectComponent;
+    this.modal3 = OrderSupplierSelectComponent;
   }
 
      /**
@@ -138,7 +125,7 @@ export class OrderDetailAddInputComponent implements OnInit {
 
   public onSubClick ($event){
 
-    this.notifyCloseModal2();
+    this.modal2.notifyCloseModal2();
 
   }
 
@@ -178,4 +165,16 @@ export class OrderDetailAddInputComponent implements OnInit {
     }
   }
 
+  
+  public onSubClick2 ($event){
+
+    this.modal3.notifyCloseModal3();
+
+  }
+
+  private notifyCloseModal3() {
+    this.modalService3.requestCloseModal(this.resVal3);
+  }
+
 }
+
