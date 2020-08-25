@@ -1,3 +1,4 @@
+import { OrderService } from './common/order.service';
 import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/table-shiwake';
 import { OrderDetailApprovalService } from './order-detail-approval/order-detail-approval-service';
 import { OrderDetailInputService } from './order-detail-input/order-detail-input-service';
@@ -76,6 +77,8 @@ const appRoute: Routes = [
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
     SplitOrderDetailShiwakeTable,
+
+
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,8 @@ const appRoute: Routes = [
               OrderDetailInputService,
               SplitOrderDetailService,
               OrderDetailApprovalService,
+                  // Order Services
+              OrderService,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]

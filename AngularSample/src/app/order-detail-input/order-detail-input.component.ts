@@ -1,10 +1,11 @@
-import { OrderDetailInput, OrderTABLE1 } from '../order-detail-input/order-detail-input-interface';
+import { OrderDetailInput, OrderTABLE1, OrderDetailShiwake, OrderDetailSplit } from '../order-detail-input/order-detail-input-interface';
 import { OrderDetailInputService } from './order-detail-input-service';
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
 import { title } from 'process';
+import { OrderService } from '../common/order.service';
 
 @Component({
     selector: 'order-detail-input',
@@ -15,104 +16,63 @@ import { title } from 'process';
 
   export class OrderDetailInputComponent implements OnInit {
 
-    // @Input() contracNum: string;
+    @Input() contracNum: string;
     
     title = '発注明細入力＿詳細入力';
-    thisOneWidth: number;
-    contractWidth: number;
-    orderTypeWidth: number;
-    codeWidth: number;
-    dateWidth: number;
-    priceWidth: number;
-    sendWidth: number;
-    salesWidth: number;
-    orderInfo3Table1Width: number;
-    theadHeight: number;
-    
-    marginleftPx: number;
 
-    shiwakeData:any;
-
-    bunkatsuData: any;
+    shiwakeData: OrderDetailShiwake[];;
+    bunkatsuData: OrderDetailSplit[];
 
     orderInputDatas : OrderDetailInput[];
 
     TBL1: OrderTABLE1[];
     TBL2: OrderTABLE1[];
 
-    tbl2Colspan: number;
-
+    // url
+    _urlShiwake: string = "assets/data/dataShiwake.json";
+    _urlSplit: string = "assets/data/dataSplit.json";
+    _urlOrderInput: string = "assets/data/dataOrderInput.json";
+    _urlOrderTBL1: string = "assets/data/dataInputTBL1.json";
+    _urlOrderTBL2: string = "assets/data/dataInputTBL2.json";
 
     ngOnInit() {
-      // this.contractWidth = document.getElementById('contractWidth').clientWidth;
-      // this.orderTypeWidth = document.getElementById('orderTypeWidth').clientWidth + 1;
-      // this.codeWidth = document.getElementById('code1Width').clientWidth + document.getElementById('code2Width').clientWidth + 2;
-      // this.dateWidth = document.getElementById('dateWidth').clientWidth + 1;
-      // this.priceWidth = document.getElementById('priceWidth').clientWidth + 1;
-      // this.sendWidth = document.getElementById('sendWidth').clientWidth + 1;
-      // this.salesWidth = document.getElementById('sales1Width').clientWidth + document.getElementById('sales2Width').clientWidth + 2;
-      // this.thisOneWidth = document.getElementById('thisOne').clientWidth + 1;
-      // this.orderInfo3Table1Width = document.getElementById('orderInfo3Table1').clientWidth + 30;
-      // this.theadHeight = document.getElementById('theadHeight').clientHeight;
-
-      // document.getElementById('try').setAttribute('width', this.contractWidth.toString());
-
-    
-
-      
-      
-
-      // let thNode = document.createElement('th');
-      // thNode.colSpan = this.tbl2Colspan;
-      // thNode.textContent = "追加工事";
-      // let rows = document.getElementById('rowstest');
-      // rows.appendChild(thNode);
 
       this.getOrderInputData();
-      this.getShiwakeData();
-
-
     }
 
     constructor(
-      private service: OrderDetailInputService,
-      // private input : OrderDetailInput
-    ){
-      // this.getOrderInputData();
-      // this.getShiwakeData();
-      
-    }
+      private orderService: OrderService,
 
-    getShiwakeData(){
-
-      this.service.getOderDetailShiwake()
-      .subscribe(
-        data => this.shiwakeData = data
-      );
-      
-      this.service.getOderDetailSplit()
-      .subscribe(
-        data => this.bunkatsuData = data
-      );
-
-    }
+    ){ }
+    
 
     getOrderInputData(){
-      this.service.getOrderInputData()
+
+      this.orderService.getMultipileDataFromServer(this._urlOrderInput)
       .subscribe(
         data => this.orderInputDatas = data
       );
 
-      this.service.getOrderInputTBL1()
+
+      this.orderService.getMultipileDataFromServer(this._urlOrderTBL1)
       .subscribe(
         data =>this.TBL1 = data
       );
 
-      this.service.getOrderInputTBL2()
+      this.orderService.getMultipileDataFromServer(this._urlOrderTBL1)
       .subscribe(
         data =>this.TBL2 = data
       );
 
+      this.orderService.getMultipileDataFromServer(this._urlShiwake)
+      .subscribe(
+        data => this.shiwakeData = data
+      );
+
+      this.orderService.getMultipileDataFromServer(this._urlSplit)
+      .subscribe(
+        data => this.bunkatsuData = data
+      );     
     }
 
   }

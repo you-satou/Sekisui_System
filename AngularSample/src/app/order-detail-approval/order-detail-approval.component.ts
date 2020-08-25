@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './order-detail-approval-interface';
 import { OrderDetailApprovalService } from './order-detail-approval-service';
 import { ActivatedRoute } from '@angular/router';
+import { OrderService } from 'app/common/order.service';
 
 @Component({
   selector: 'app-order-detail-approval',
@@ -17,19 +18,19 @@ export class OrderDetailApprovalComponent implements OnInit {
   pageMax: number = 0;
   pageSize: number = 20;
 
-
   result = [];
   datas: OrderDetail[];
 
   inputment: OrderSearchInputment;
 
+  _url: string = "assets/data/data.json";
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private orderDetailService : OrderDetailApprovalService,
-    ) {
+    private orderService : OrderService,
 
-
-  }
+    ) { }
 
   displayedColumns: string[] = [
     'contractNum', 
@@ -61,7 +62,14 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   getSearchRequest() {
 
-    this.orderDetailService.getOrderDetail()
+
+    // this.orderDetailService.getOrderDetail()
+    // .subscribe(
+    //   data => this.datas = data
+    //   );
+    // this.countRecord(this.datas);
+
+    this.orderService.getMultipileDataFromServer(this._url)
     .subscribe(
       data => this.datas = data
       );
