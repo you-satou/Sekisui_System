@@ -17,14 +17,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                            <td class = "table-str td-b text-center" [(ngModel)]="journalCode" name="journalCode"></td>
+                            <td class = "table-str td-b text-center" input type="text" name="orderPlansKin"></td>
+                            </tr>
+                            <!--
                             <tr *ngFor="let data of datas">
                                 <td class="table-str td-b">{{ data.journalCode }}</td>
                                 <td class="table-str td-b">{{ data.accountingCategory }}</td>
                                 <td class="table-str td-b">{{ data.journalName }}</td>
                                 <td class="table-str td-b">{{ data.supplierName }}</td>
-                                <input id="orderPlansKin" name="orderPlansKin" type="text" ng-model="orderPlansKin" />
-                                <!--<td class="table-str td-b">{{ data.orderPlansKin }}</td>-->                
-                            </tr>                 
+                                <td class="table-str td-b">{{ data.orderPlansKin }}</td> 
+                            </tr>   
+                            -->                 
                         </tbody>
                     </table>
                 </div>
@@ -42,7 +47,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <label id="header1_label">発注仕訳マスタ選択</label>
+                <label id="header_label">発注仕訳マスタ選択</label>
             </div>
             <div class="modal-body">
                 <div class="table-container">
@@ -55,7 +60,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of datas2" (click)=onSelHighLight2($event,data)>
+                            <tr *ngFor="let data of datas2" (click)=onSelHighLight($event,data)>
                                 <td class="table-str td-b">{{ data.journalCode }}</td>
                                 <td class="table-str td-b">{{ data.accountingCategory }}</td>
                                 <td class="table-str td-b">{{ data.journalName }}</td>

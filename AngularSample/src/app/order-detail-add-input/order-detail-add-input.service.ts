@@ -25,13 +25,45 @@ export class OrderDetailAddInputService {
 
   private _val
 
-
   public getVal() {
     return this._val;
   }
   public setVal(val:OrderDetailAddInputType) {
     this._val = val;
   }
+      /**
+   * コンストラクタ
+   *
+   * @memberof OrderSupplierSelectService
+   */
+
+  private _val2
+
+
+  public getVal2() {
+    return this._val2;
+  }
+  public setVal2(val:OrderJournalSelectType) {
+    this._val = val;
+  }
+
+    /**
+   * コンストラクタ
+   *
+   * @memberof OrderSupplierSelectService
+   */
+
+  private _val3
+
+
+  public getVal3() {
+    return this._val3;
+  }
+  public setVal3(val:OrderSupplierSelectType) {
+    this._val = val;
+  }
+
+
 
 
   /**
@@ -43,78 +75,24 @@ export class OrderDetailAddInputService {
     this.setVal(resVal)
     this.closeEventSubject.next();
   }
-}
 
-export class OrderJournalSelectService {
-
-  
-  // データの変更を通知するためのオブジェクト
-  private closeEventSubject = new Subject<string>();
-  
-  // Subscribe するためのプロパティ( これでイベント通知をキャッチする )
-  public closeEventObservable$ = this.closeEventSubject.asObservable();
-  /**
-   * コンストラクタ
-   *
-   * @memberof OrderJournalSelectService
-   */
-  constructor() { }
-
-  private _val
-
-
-  public getVal() {
-    return this._val;
-  }
-  public setVal(val:OrderJournalSelectType) {
-    this._val = val;
-  }
-
-
-  /**
+      /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *
    * @memberof OrderJournalSelectService
    */
-  public requestCloseModal(resVal:OrderJournalSelectType) {
-    this.setVal(resVal)
+  public requestCloseModal2(resVal2:OrderJournalSelectType) {
+    this.setVal2(resVal2)
     this.closeEventSubject.next();
   }
-}
 
-export class OrderSupplierSelectService {
-
-  
-  // データの変更を通知するためのオブジェクト
-  private closeEventSubject = new Subject<string>();
-  
-  // Subscribe するためのプロパティ( これでイベント通知をキャッチする )
-  public closeEventObservable$ = this.closeEventSubject.asObservable();
-  /**
-   * コンストラクタ
-   *
-   * @memberof OrderSupplierSelectService
-   */
-  constructor() { }
-
-  private _val
-
-
-  public getVal() {
-    return this._val;
-  }
-  public setVal(val:OrderSupplierSelectType) {
-    this._val = val;
-  }
-
-
-  /**
+    /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *
    * @memberof OrderSupplierSelectService
    */
-  public requestCloseModal(resVal:OrderSupplierSelectType) {
-    this.setVal(resVal)
+  public requestCloseModal3(resVal3:OrderSupplierSelectType) {
+    this.setVal3(resVal3)
     this.closeEventSubject.next();
   }
 }

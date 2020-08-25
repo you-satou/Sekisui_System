@@ -19,18 +19,6 @@
     background-color: rgb(229, 241, 247);
     justify-content: space-between;
   }
-  
-  .modal1 {
-    position: relative;
-    top: 20%;
-    left: 5%;
-    height: 600px;
-    width: 90%;
-    border-radius: 15px;
-    background-color: rgb(229, 241, 247);
-  }
-  
-  
   .table{
     width: 80%;
     margin-left: 10%;
