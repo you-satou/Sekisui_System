@@ -14,6 +14,7 @@ import { AddOrderDetailComponent } from 'app/add-order-detail/add-order-detail.c
 import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pattern.service';
 
 import { Subscription } from 'rxjs';
+import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'app-index',
@@ -39,6 +40,10 @@ export class IndexComponent implements OnInit, OnDestroy   {
   pageSize: number = 50;
 
   str:String="";
+  journalCode:String="";
+  accountingCategory:String="";
+  journalName:String="";
+  supplierName:String="";
 
   constructor(
       private wkAllItemTypesService: WkAllItemTypesService,
@@ -92,6 +97,8 @@ export class IndexComponent implements OnInit, OnDestroy   {
           // プロパティ modal に null をセットすることでコンポーネントを破棄する
           // このタイミングで ModalComponent では ngOnDestroy が走る
           this.modal = null;
+          this.journalCode = this.modalService.getVal().journalCode
+          this.accountingCategory = this.modalService.getVal().accountingCategory
         }
       );
 

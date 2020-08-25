@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Input, Output  } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Input, Output,ElementRef  } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
@@ -24,6 +24,12 @@ import { testData2, testData3 } from './test-data';
 
 export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
 
+  _element: HTMLElement;
+
+  journalCode:String="";
+  accountingCategory:String="";
+  journalName:String="";
+  supplierName:String="";
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
@@ -52,10 +58,39 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
     private modalService: OrderDetailAddInputService,
     private modalService2: OrderJournalSelectService,
     private modalService3: OrderSupplierSelectService,
+    private element: ElementRef,
     private router: Router
-  ) { }
+  ) { this._element = this.element.nativeElement }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription = this.modalService.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        
+        this.modal = null;
+        // データ設定
+        this.journalCode = this.modalService.getVal().journalCode
+      }
+    );
+    this.subscription = this.modalService2.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        this.modal2 = null;
+      }
+    );
+
+    this.subscription = this.modalService3.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
+        this.modal3 = null;
+      }
+    );
+
+
+  }
   
   ngOnDestroy() {
     // モーダルダイアログが閉じたタイミングで出力される
@@ -99,7 +134,7 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
    */
   public onSelHighLight($event, selectedItem){
     // TODO
-    this.resVal = selectedItem;
+    this.resVal2 = selectedItem;
 
     // テーブル 背景色 クリア
     var wTbody = $event.target.parentElement.parentElement;
@@ -125,12 +160,12 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
 
   public onSubClick ($event){
 
-    this.modal2.notifyCloseModal2();
+    this.notifyCloseModal2();
 
   }
 
   private notifyCloseModal2() {
-    this.modalService2.requestCloseModal(this.resVal2);
+    this.modalService.requestCloseModal2(this.resVal2)
   }
 
        /**
@@ -141,7 +176,7 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
    */
   public onSelHighLight2($event, selectedItem){
     // TODO
-    this.resVal = selectedItem;
+    this.resVal3 = selectedItem;
 
     // テーブル 背景色 クリア
     var wTbody = $event.target.parentElement.parentElement;
@@ -168,12 +203,12 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
   
   public onSubClick2 ($event){
 
-    this.modal3.notifyCloseModal3();
+    this.notifyCloseModal3();
 
   }
 
   private notifyCloseModal3() {
-    this.modalService3.requestCloseModal(this.resVal3);
+    this.modalService.requestCloseModal3(this.resVal3);
   }
 
 }
