@@ -12,45 +12,45 @@
         </ng-container>
 
         <ng-container matColumnDef="propertyName">
-            <th style="width: 18%; " class="color-1" mat-header-cell *matHeaderCellDef > 物件名 </th>
+            <th style="width: 18%; " class="color-1" mat-header-cell *matHeaderCellDef> 物件名 </th>
             <td style="width: 18%; " mat-cell *matCellDef="let element"> {{element.propertyName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="planOrderAmount">
-            <th style="width: 10%; " class="color-2" mat-header-cell *matHeaderCellDef > 発注予定金額合計 </th>
+            <th style="width: 10%; " class="color-2" mat-header-cell *matHeaderCellDef> 発注予定金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.planOrderAmount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="approvalRequestAmount">
-            <th style="width: 10%; " class="" mat-header-cell *matHeaderCellDef > 承認依頼金額合計 </th>
+            <th style="width: 10%; " class="" mat-header-cell *matHeaderCellDef> 承認依頼金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.approvalRequestAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="performanceOrderAmount">
-            <th style="width: 10%; " class="color-3" mat-header-cell *matHeaderCellDef > 発注金額合計 </th>
+            <th style="width: 10%; " class="color-3" mat-header-cell *matHeaderCellDef> 発注金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.performanceOrderAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="receivedAmount">
-            <th style="width: 10%; " class="color-1" mat-header-cell *matHeaderCellDef > 受入金額合計 </th>
+            <th style="width: 10%; " class="color-1" mat-header-cell *matHeaderCellDef> 受入金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.receivedAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="progressRate">
-            <th style="width: 10%; " mat-header-cell *matHeaderCellDef > 進捗率 </th>
+            <th style="width: 10%; " mat-header-cell *matHeaderCellDef> 進捗率 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.progressRate}} </td>
         </ng-container>
         <ng-container matColumnDef="createdDetail">
-            <th style="width: 4%; " mat-header-cell *matHeaderCellDef > 明 </th>
+            <th style="width: 4%; " mat-header-cell *matHeaderCellDef> 明 </th>
             <td style="width: 4%; " mat-cell *matCellDef="let element"> {{element.createdDetail}} </td>
         </ng-container>
         <ng-container matColumnDef="approval_1">
-            <th style="width: 4%; " mat-header-cell *matHeaderCellDef >承1</th>
+            <th style="width: 4%; " mat-header-cell *matHeaderCellDef>承1</th>
             <td style="width: 4%; " mat-cell *matCellDef="let element"> {{element.approval_1}} </td>
         </ng-container>
         <ng-container matColumnDef="approval_2">
-            <th style="width: 4%; " mat-header-cell *matHeaderCellDef >承2</th>
+            <th style="width: 4%; " mat-header-cell *matHeaderCellDef>承2</th>
             <td style="width: 4%; " mat-cell *matCellDef="let element"> {{element.approval_2}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns;" ></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 

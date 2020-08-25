@@ -56,18 +56,6 @@
                     <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
                 </div>
             </div>
-            <!-- <div style="margin-left: 50%; width:auto;" class="input-group">
-                <div style="width: 50%;"></div>
-                <div class=" input-group-prepend">
-                    <p class=" input-group-text" style="width: 80px;">表示順</p>
-                </div>
-                <div style="width: 30px;"></div>
-                <div class="input-group-append">
-                    <p class=" radioCheckbok "><input [checked]="inputment.resultASC" type="radio" name="options " id="startFromName " autocomplete="off ">昇順</p>
-                    <div style="width: 20px;"></div>
-                    <p class="radioCheckbok "><input [checked]="inputment.resultDESC" type="radio" name="options " id="startFromName " autocomplete="off ">降順</p>
-                </div>
-            </div> -->
         </div>
         <br>
         <div style="text-align: right; width: 100%; ">
@@ -76,9 +64,9 @@
         </div>
     </section>
     <div style="margin-top:10px">
-        <p >結果件数：{{datas?.length}}件</p>
+        <p>結果件数：{{datas?.length|number}}件</p>
     </div>
-    <section id=" data-display">
+    <section id="data-display">
         <order-detail-approval-table [resultData]="datas"></order-detail-approval-table>
     </section>
 </div>
