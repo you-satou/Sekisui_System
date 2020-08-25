@@ -17,7 +17,7 @@ import { OrderDetailApprovalComponent } from './order-detail-approval/order-deta
 import { IndexComponent } from './index/index.component';
 import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
 import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.component';
-import { SplitDetailInputComponent } from './split-detail-input/split-detail-input.component';
+import { SplitOrderDetailInputComponent } from './split-detail-input/split-detail-input.component';
 import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
 import { TestComponent } from './test/test.component';
 import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
@@ -30,6 +30,8 @@ import { MatTableModule, MatTabsModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
+import { SplitOrderDetailShiwakeTable } from './split-detail-input/table-shiwake/table-shiwake';
+
 
 
 const appRoute: Routes = [
@@ -41,7 +43,7 @@ const appRoute: Routes = [
   { path: 'searchFrame', component: SearchFrameComponent },
   { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
   { path: 'SupplierPattern', component: SupplierPatternComponent},
-  { path: '6', component: SplitDetailInputComponent},
+  { path: 'SplitDetailInput', component: SplitOrderDetailInputComponent},
   { path: 'OrderDetailInput', component: OrderDetailInputComponent},
   { path: 'test', component: TestComponent},
   { path: 'OrderSupplierSelect', component: OrderSupplierSelectComponent},
@@ -58,7 +60,7 @@ const appRoute: Routes = [
     IndexComponent,
     OrderJournalSelectComponent,
     SupplierPatternComponent,
-    SplitDetailInputComponent,
+    SplitOrderDetailInputComponent,
     OrderDetailInputComponent,
     TestComponent,
     OrderSupplierSelectComponent,
@@ -68,6 +70,7 @@ const appRoute: Routes = [
     // 発注明細入力＿承認処理テーブル
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
+    SplitOrderDetailShiwakeTable,
 
   ],
   imports: [
