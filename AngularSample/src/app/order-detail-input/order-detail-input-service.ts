@@ -1,4 +1,4 @@
-import { OrderDetailShiwake, OrderDetailSplit, OrderDetailInput,OrderTABLE1} from './../order-detail-input/order-detail-input-interface';
+import { OrderDetailShiwake, OrderDetailSplit, OrderDetailInput,OrderInfo} from './../order-detail-input/order-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

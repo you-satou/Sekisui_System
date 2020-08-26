@@ -9,7 +9,7 @@ export class OrderDetailApprovalService{
     //TODO: add URL to Server
     // private _url: string = "/order-detail-approval/data/data.json";
 
-    private _url: string = "assets/data/data.json";
+    private _url: string = "assets/data/dataApproval.json";
 
     constructor (
         private http: HttpClient
