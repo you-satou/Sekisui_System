@@ -1,14 +1,25 @@
 <div id="MODAL5" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <label id="header_label">分割明細入力</label>
             </div>
             <div class="modal-body">
                 <div class="box">
-                    <table class="table table-hover table-striped">
+
+
+
+                    <mat-tab-group class="tabGroup">
+                        <mat-tab class="hontai" label="本体">
+                            <add-order-detail-table [shiwakeData]="shiwakeData"></add-order-detail-table>
+                        </mat-tab>
+                    </mat-tab-group>
+
+
+
+                    <!-- <table class="table table-hover table-striped">
                         <thead>
-                            <tr>
+                            <tr style="position: relative;">
                                 <th class="table-str td-b text-center">仕訳コード</th>
                                 <th class="table-str td-b text-center">経理コード</th>
                                 <th class="table-str td-b text-center">仕訳名称</th>
@@ -17,40 +28,36 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>4400</td>
-                                <td>440</td>
-                                <td>杭残土処分費（８）</td>
-                                <td>803</td>
-                                <td>積水建設㈱</td>
-                                <td>3300000</td>
+                            <tr style="position: relative;">
+                                <td class="table-str td-b td-center">4400</td>
+                                <td class="table-str td-b td-center">440</td>
+                                <td class="table-str td-b td-left">杭残土処分費（８）</td>
+                                <td class="table-str td-b td-center">803</td>
+                                <td class="table-str td-b td-left">積水建設㈱</td>
+                                <td class="table-str td-b td-right">3300000</td>
                             </tr>
-                            <!-- <tr *ngFor="let sdata of sDatas">
-                                <td class="table-str td-b">{{ sdata.journalCode }}</td>
-                                <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
-                                <td class="table-str td-b">{{ sdata.journalName }}</td>
-                                <td class="table-str td-b">{{ sdata.supplierCode }}</td>
-                                <td class="table-str td-b">{{ sdata.supplierName }}</td>
-                            </tr> -->
                         </tbody>
-                    </table>
+                    </table> -->
 
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped" style="margin-top: 10px;">
                         <thead>
-                            <tr>
-                                <th rowspan="2" class="table-str td-b text-center">発注予定金額</th>
-                                <th rowspan="2" class="table-str td-b text-center">コメント</th>
-                                <th colspan="2" class="table-str td-b text-center">依頼</th>
+                            <tr style="position: relative;">
+                                <th id="headCenter" rowspan="2" class="table-str-second td-b text-center">発注予定金額</th>
+                                <th id="headCenter" rowspan="2" class="table-str-second td-b text-center">コメント</th>
+                                <th colspan="2" class="table-str-second td-b text-center">依頼</th>
                             </tr>
-                            <tr>
-                                <th class="table-str td-b text-center">依頼日</th>
-                                <th class="table-str td-b text-center">依頼者</th>
+                            <tr style="position: relative;">
+                                <th class="table-str-second td-b text-center">依頼日</th>
+                                <th class="table-str-second td-b text-center">依頼者</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr *ngFor="let pdata of pDatas" (click)=onSelHighLight($event)>
-                                <td class="table-str td-b">{{ pdata.pattern }}</td>
-                            </tr> -->
+                            <tr style="position: relative;">
+                                <td class="table-str td-b td-right">48,555</td>
+                                <td class="table-str td-b td-left">III期</td>
+                                <td class="table-str td-b td-center"></td>
+                                <td id="iraiColor" class="td-center">依頼</td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -58,7 +65,8 @@
             </div>
             
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <button style="position: absolute; left: 15px" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <button style="position: relative;" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">更新</button>
             </div>
         </div>
     </div>

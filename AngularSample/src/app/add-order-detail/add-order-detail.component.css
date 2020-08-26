@@ -1,47 +1,51 @@
-.modal {
-    position: fixed;
-    top: 10%;
-    left: 10%;
-    height: 600px;
-    width: 80%;
-    border-radius: 15px;
+.modal-dialog {
+    top: 20%;
+    display: table;
+    margin: auto;
 }
+
+.modal-content {
+    position: relative;
+}
+
 .modal-header{
+    position: relative;
     font-size: 1.2em;
     font-weight:bold;
     background-color: rgb(229, 241, 247);
     justify-content: center;
     align-items: center;
 }
+.modal-body{
+    position: relative;
+}
 .modal-footer{
+    position: relative;
     background-color: rgb(229, 241, 247);
 }
 
 .box {
-    width: 100%;
+    position: relative;
     border-radius: 5px;
-    overflow-x: hidden;
+    overflow: auto;
 }
 
 .table-small {
-    width: 30%;
+    position: relative;
     margin-right: 30px;
 }
 .table-small>thead {
     background-color: #E5E5E5;
 }
-.table-small>tbody {
-    height: 130px;
-}
-
 .table{
-    width: 80%;
+    position: relative;
 }
 .table>thead {
+    position: relative;
     background-color: #E5E5E5;
 }
 .table>tbody {
-    height: 130px;
+    position: relative;
 }
 
 .td-b {
@@ -49,14 +53,42 @@
 }
 
 .table-str{
-    height: 40px;
-    width: 17.8%;
-    word-wrap: break-word;
+    word-break: keep-all;
+}
+
+.table-str-second{
+    padding: 3px;
+    height: 10px;
+    word-break: keep-all;
 }
 
 .table-str-large{
     display: inline-block;
-    height: 40px;
-    width: 100%;
     word-wrap: break-word;
+}
+
+.td-center {
+    text-align: center;
+    word-break: keep-all;
+    white-space:nowrap;
+}
+
+.td-left {
+    text-align: left;
+    word-break: keep-all;
+    white-space:nowrap;
+}
+
+.td-right {
+    text-align: right;
+    word-break: keep-all;
+    white-space:nowrap;
+}
+
+#iraiColor {
+    background-color: rgb(141, 180, 226);
+}
+
+#headCenter {
+    vertical-align: middle;
 }

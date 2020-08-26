@@ -9,7 +9,7 @@ export class SplitOrderDetailService{
     //TODO: add URL to Server
     // private _url: string = "/order-detail-approval/data/data.json";
 
-    private _urlShiwake: string = "assets/data/dataShiwake.json";
+    private _urlShiwake: string = "assets/data/splitDataShiwake.json";
     private _urlSplitOrder: string = "assets/data/dataSplitOrder.json";
     private _urlOrderInput: string = "assets/data/dataOrderInput.json";
 

@@ -26,7 +26,7 @@
         <div class="footer-container" style="position: inherit;">
             <div>
                 <div style="margin-bottom: 10px;">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn" data-toggle="modal" data-target="#MODAL5" (click)="onClick($event);">明細追加</button>
                 </div>
             </div>
             <div class="text-left footer">
@@ -40,5 +40,9 @@
         </div>
     </footer>
 
+    <label>ラベル</label>
+    <input type="text" [(ngModel)]="str" name="str">
 
 </div>
+
+<ng-container *ngComponentOutlet="modal"></ng-container>

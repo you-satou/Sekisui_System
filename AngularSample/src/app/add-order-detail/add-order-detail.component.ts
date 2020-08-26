@@ -1,12 +1,9 @@
+import { SplitOrderDetailShiwake } from './../split-detail-input/split-detail-input-interface';
+import { AddSupplierPatternService } from './add-supplier-pattern.service';
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
-import { AddSupplierPatternService } from './add-supplier-pattern.service';
-import { AddPatternType } from './supplierPatternType';
-import { AddSupplierType } from './supplierPatternType';
-import { pTestdata } from './test-data'
-import { sTestdata } from './test-data'
 
 @Component({
     selector: 'supplier-pattern',
@@ -18,13 +15,27 @@ import { sTestdata } from './test-data'
 export class AddOrderDetailComponent implements OnInit {
 
 
-  // Todo
-  pDatas: AddPatternType[] = pTestdata;
-  sDatas: AddSupplierType[] = sTestdata;
+  shiwakeData: SplitOrderDetailShiwake[];
+  resVal:SplitOrderDetailShiwake;
+
+  ngOnInit() {
+    this.getSplitOderDetailShiwake();
+  }
+
   constructor(
     private modalService: AddSupplierPatternService
   ){}
-  ngOnInit() {}
+
+  getSplitOderDetailShiwake(){
+
+    this.modalService.getSplitOderDetailShiwake()
+    .subscribe(
+      data => this.shiwakeData = data
+    );
+    
+
+  }
+
   ngOnDestroy() {
     // モーダルダイアログが閉じたタイミングで出力される
     console.log('destroyed');
@@ -35,7 +46,7 @@ export class AddOrderDetailComponent implements OnInit {
   }
 
   private notifyCloseModal() {
-    this.modalService.requestCloseModal();
+    this.modalService.requestCloseModal(this.resVal);
   }
 
   /**
@@ -65,16 +76,6 @@ export class AddOrderDetailComponent implements OnInit {
       var wTd = wTr.cells[i];
       wTd.style.backgroundColor = '#CCFFFF';
     }
-    var wData: AddSupplierType[] =[
-      {
-        journalCode: "0200"
-        ,accountingCategory:"020"
-        ,journalName: "基礎工事"
-        ,supplierCode: "803"
-        ,supplierName: "積水建設㈱"
-      }
-    ]
-    this.sDatas = wData;
 
   }
 }
