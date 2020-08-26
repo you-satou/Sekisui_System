@@ -13,8 +13,7 @@ import { OrderSupplierSelectService } from '../order-supplier-select/order-suppl
 import { OrderSupplierSelectType } from '../order-supplier-select/orderSupplierSelectType';
 import { runInThisContext } from 'vm';
 import { testData2, testData3 } from './test-data';
-import { CommonComponent } from '../common/common.component'
-
+import { CommonComponent } from '../common/common.component';
 
 @Component({
     selector: 'order-detail-add-input',
@@ -38,9 +37,6 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
   resVal2:OrderJournalSelectType;
   datas3: OrderSupplierSelectType[] = testData3;
   resVal3:OrderSupplierSelectType;
-
-  commonConponent:CommonComponent;
-
   
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
@@ -62,7 +58,8 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
     private modalService2: OrderJournalSelectService,
     private modalService3: OrderSupplierSelectService,
     private element: ElementRef,
-    private router: Router
+    private router: Router,
+    private commonComponent: CommonComponent,
   ) { this._element = this.element.nativeElement }
 
   ngOnInit() {
@@ -139,28 +136,8 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
     // TODO
     this.resVal2 = selectedItem;
 
-    this.commonConponent.commonOnSelHighLight($event);
+    this.commonComponent.CommonOnSelHight($event);
 
-    // // テーブル 背景色 クリア
-    // var wTbody = $event.target.parentElement.parentElement;
-    // for(var i=0; i<wTbody.rows.length; i++){
-    //   // 行 取得
-    //   var wTr = wTbody.rows[i];
-    //   for(var j=0; j<wTr.cells.length; j++){
-    //     // セル クリア
-    //     var wTd = wTr.cells[j];
-    //     wTd.style.backgroundColor = '';
-    //   }
-    // }
-
-    // // 要素取得
-    // var wTr = $event.target.parentElement;
-
-    // // 背景色 変更
-    // for(var i=0; i<wTr.cells.length; i++){
-    //   var wTd = wTr.cells[i];
-    //   wTd.style.backgroundColor = '#CCFFFF';
-    // }
   }
 
   public onSubClick ($event){
@@ -183,26 +160,8 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
     // TODO
     this.resVal3 = selectedItem;
 
-    // テーブル 背景色 クリア
-    var wTbody = $event.target.parentElement.parentElement;
-    for(var i=0; i<wTbody.rows.length; i++){
-      // 行 取得
-      var wTr = wTbody.rows[i];
-      for(var j=0; j<wTr.cells.length; j++){
-        // セル クリア
-        var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = '';
-      }
-    }
+    this.commonComponent.CommonOnSelHight($event);
 
-    // 要素取得
-    var wTr = $event.target.parentElement;
-
-    // 背景色 変更
-    for(var i=0; i<wTr.cells.length; i++){
-      var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = '#CCFFFF';
-    }
   }
 
   

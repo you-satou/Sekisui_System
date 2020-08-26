@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailApprovalComponent } from './order-detail-approval/order-detail-approval.component';
+import { CommonComponent } from './common/common.component';
 
 import { IndexComponent } from './index/index.component';
 import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
@@ -37,9 +38,6 @@ import { OrderDetailPaginator } from './order-detail-approval/order-detail-pagin
 import { SplitOrderDetailShiwakeTable } from './split-detail-input/table-shiwake/table-shiwake';
 import { AddOrderDetailShiwakeTable } from './add-order-detail/add-order-detail-table/add-order-detail-table';
 import { OrderApprovalPaginator } from './order-detail-approval/order-paginator.directive';
-import { CommonComponent } from './common/common.component';
-
-
 
 
 const appRoute: Routes = [
