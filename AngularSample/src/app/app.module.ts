@@ -36,6 +36,9 @@ import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 import { SplitOrderDetailShiwakeTable } from './split-detail-input/table-shiwake/table-shiwake';
 import { AddOrderDetailShiwakeTable } from './add-order-detail/add-order-detail-table/add-order-detail-table';
+import { OrderApprovalPaginator } from './order-detail-approval/order-paginator.directive';
+import { CommonComponent } from './common/common.component';
+
 
 
 
@@ -79,6 +82,7 @@ const appRoute: Routes = [
     OrderDetailShiwakeTable,
     SplitOrderDetailShiwakeTable,
     AddOrderDetailShiwakeTable,
+    OrderApprovalPaginator
 
   ],
   imports: [
@@ -103,8 +107,9 @@ const appRoute: Routes = [
               OrderDetailInputService,
               SplitOrderDetailService,
               OrderDetailApprovalService,
-                  // Order Services
+              // Order Services
               CommonService,
+              CommonComponent,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]

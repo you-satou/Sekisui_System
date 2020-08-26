@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 export class CommonComponent{
 
-public commonOnSelHighLight(event: any){ 
+  public commonOnSelHighLight(event: any){ 
 
     // テーブル 背景色 クリア
     var wTbody = event.target.parentElement.parentElement;
@@ -25,5 +25,5 @@ public commonOnSelHighLight(event: any){
       wTd.style.backgroundColor = '#CCFFFF';
     }
 
-}
+  }
 }
