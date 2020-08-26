@@ -165,7 +165,7 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
   }
 
   private notifyCloseModal2() {
-    this.modalService.requestCloseModal2(this.resVal2)
+    this.modalService.requestCloseModal2(this.resVal2);
   }
 
        /**
