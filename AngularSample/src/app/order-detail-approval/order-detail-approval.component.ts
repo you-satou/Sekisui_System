@@ -23,7 +23,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   inputment: OrderSearchInputment;
 
-  _url: string = "assets/data/data.json";
+  _url: string = "assets/data/dataApproval.json";
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,

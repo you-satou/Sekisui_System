@@ -35,14 +35,14 @@ export class OrderDetailInputService{
     }
 
 
-    getOrderInputTBL1():  Observable<OrderTABLE1[]>{
+    getOrderInputTBL1():  Observable<OrderInfo[]>{
         
-        return this.http.get<OrderTABLE1[]>(this._urlOrderTBL1);
+        return this.http.get<OrderInfo[]>(this._urlOrderTBL1);
     }
 
-    getOrderInputTBL2():  Observable<OrderTABLE1[]>{
+    getOrderInputTBL2():  Observable<OrderInfo[]>{
         
-        return this.http.get<OrderTABLE1[]>(this._urlOrderTBL2);
+        return this.http.get<OrderInfo[]>(this._urlOrderTBL2);
 
     }
 
