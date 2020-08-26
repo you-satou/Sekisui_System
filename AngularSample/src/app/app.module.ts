@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderDetailApprovalComponent } from './order-detail-approval/order-detail-approval.component';
+import { CommonComponent } from './common/common.component';
 
 import { IndexComponent } from './index/index.component';
 import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
@@ -36,6 +37,7 @@ import { MatSortModule} from '@angular/material/sort';
 import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
 import { SplitOrderDetailShiwakeTable } from './split-detail-input/table-shiwake/table-shiwake';
 import { AddOrderDetailShiwakeTable } from './add-order-detail/add-order-detail-table/add-order-detail-table';
+import { from } from 'rxjs';
 
 
 
@@ -105,6 +107,7 @@ const appRoute: Routes = [
               OrderDetailApprovalService,
                   // Order Services
               CommonService,
+              CommonComponent,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]
