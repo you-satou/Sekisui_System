@@ -19,7 +19,6 @@ export class OrderSearchInputment {
     contractNumTo: string;
     propertyName: string;
     startFromName: boolean;
-    includeProName: boolean;
     detailCreated: boolean;
     detailNone: boolean;
     approval_1: boolean;

@@ -1,4 +1,4 @@
-export interface OrderDetailShiwake{
+export class OrderDetailShiwake{
     journalCode: string;
     accountCode: string;
     journalName: string;
@@ -17,6 +17,8 @@ export interface OrderDetailShiwake{
     recievedAmount: string;
     paymentDate: string;
     paymentAmount: string;
+
+    constructor() {}
     
 
 }

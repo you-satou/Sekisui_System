@@ -150,22 +150,19 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of TBL1;">
-                                <td style="min-width: 25px;" class="tdcenter">{{data.contractModel}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.orderModel}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.branchNum1}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.branchNum2}}</td>
-                                <td style="min-width: 25px;" class="tddate">{{data.date}}</td>
-                                <td style="min-width: 25px;" class="tdprice">{{data.contractAmount}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.completeStatus}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.salesStatus}}</td>
-                                <td style="min-width: 25px;" class="tdcenter">{{data.salesUpdateDate}}</td>
+                                <td class="tdcenter">{{data.contractModel}}</td>
+                                <td class="tdcenter">{{data.orderModel}}</td>
+                                <td class="tdcenter">{{data.branchNum1}}</td>
+                                <td class="tdcenter">{{data.branchNum2}}</td>
+                                <td class="tddate">{{data.date}}</td>
+                                <td class="tdprice">{{data.contractAmount}}</td>
+                                <td class="tdcenter">{{data.completeStatus}}</td>
+                                <td class="tdcenter">{{data.salesStatus}}</td>
+                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <!-- <div class="spacing">
-                    <p></p>
-                </div> -->
                 <div class="tbl2">
                     <table>
                         <thead id="theadHeight">
@@ -181,16 +178,16 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of TBL2; let i = index">
-                                <th [attr.rowspan]="TBL2.length" style="min-width:25px;" *ngIf="i===0">追<br>加<br>工<br>事</th>
-                                <td style=" min-width: 25px">{{data.contractModel}}</td>
-                                <td style=" min-width: 25px;">{{data.orderModel}}</td>
-                                <td style=" min-width: 25px;">{{data.branchNum1}}</td>
-                                <td style=" min-width: 25px;">{{data.branchNum2}}</td>
-                                <td style=" min-width: 25px;">{{data.date}}</td>
-                                <td style=" min-width: 25px;">{{data.contractAmount}}</td>
-                                <td style=" min-width: 25px;">{{data.completeStatus}}</td>
-                                <td style=" min-width: 25px;">{{data.salesStatus}}</td>
-                                <td style=" min-width: 25px;">{{data.salesUpdateDate}}</td>
+                                <th [attr.rowspan]="TBL2.length" *ngIf="i===0">追<br>加<br>工<br>事</th>
+                                <td class="tdcenter">{{data.contractModel}}</td>
+                                <td class="tdcenter">{{data.orderModel}}</td>
+                                <td class="tdcenter">{{data.branchNum1}}</td>
+                                <td class="tdcenter">{{data.branchNum2}}</td>
+                                <td class="tddate">{{data.date}}</td>
+                                <td class="tdprice">{{data.contractAmount}}</td>
+                                <td class="tdcenter">{{data.completeStatus}}</td>
+                                <td class="tdcenter">{{data.salesStatus}}</td>
+                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -202,13 +199,13 @@
     <section style="margin-top: 10px;" class="tabGroup">
         <mat-tab-group>
             <mat-tab class="sekkei" label="設計">
-                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+                <shiwake-table [shiwakeData]="sekkeiData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
             <mat-tab class="hontai" label="本体">
-                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+                <shiwake-table [shiwakeData]="sekkeiData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
             <mat-tab class="tsuika" label="追加">
-                <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
+                <shiwake-table [shiwakeData]="sekkeiData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
         </mat-tab-group>
     </section>

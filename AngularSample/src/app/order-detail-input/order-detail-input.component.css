@@ -146,13 +146,17 @@ td {
     max-width: 600px;
 }
 
+.tbl1>table>tbody>tr>td {
+    min-width: 25px;
+}
+
 .tbl2 {
     float: left;
     margin-left: 30px;
     width: fit-content;
 }
 
-.tbl2>table>body>tr>td {
+.tbl2>table>tbody>tr>td {
     min-width: 25px;
 }
 

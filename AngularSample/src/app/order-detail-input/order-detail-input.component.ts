@@ -23,7 +23,10 @@ import { CommonService } from '../common/common.service';
 
     orderGeneral: OrderDetailInputGeneral;
 
-    shiwakeData: OrderDetailShiwake[];
+    sekkeiData: OrderDetailShiwake[];
+    hontaiData: OrderDetailShiwake[];
+    tsuikaData: OrderDetailShiwake[];
+
     bunkatsuData: OrderDetailSplit[];
 
     orderInputDatas : OrderDetailInput[];
@@ -58,7 +61,9 @@ import { CommonService } from '../common/common.service';
           this.orderInputDatas = this.orderGeneral.orderDetail;
           this.TBL1 = this.orderGeneral.orderInfoTable_1;
           this.TBL2 = this.orderGeneral.orderInfoTable_2;
-          this.shiwakeData = this.orderGeneral.orderShiwakeTable;
+          this.sekkeiData = this.orderGeneral.orderShiwakeTable;
+          this.hontaiData = OrderDetailShiwake[0];
+          this.tsuikaData = OrderDetailShiwake[0];
           this.bunkatsuData = this.orderGeneral.orderSliptTable;
 
         }});

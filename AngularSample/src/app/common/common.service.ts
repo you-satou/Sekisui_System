@@ -11,6 +11,8 @@ export class CommonService{
     
     private baseUrl: string = "http://localhost:8080/";
 
+    private searchUrl: string;
+
     constructor(
         private http: HttpClient,
         
@@ -30,6 +32,41 @@ export class CommonService{
         .pipe(
             catchError(this.handleError<any>("Error excepted while getting data from server",[]))
         );
+    }
+
+
+    //　検索ボタンを押下する時、検索リンクを作成する。
+    createSearchUrl(dataList: Object): string{
+
+        this.searchUrl = this.baseUrl + '?';
+
+        for (let key of Object.keys(dataList)){
+
+            if(dataList[key] != '' && dataList[key] != null){
+                this.searchUrl += `${key}=${dataList[key]}&`;
+            }
+        }
+        return this.searchUrl.slice(0,-1);
+    }
+
+    // POST通信。
+    getSearchRequest(urlName: string, data: any): any[]{
+        let result: any[];
+        this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
+        .subscribe(
+            response => {
+                if (response != null) {
+                     
+                    console.log(JSON.stringify(response));
+                    return response;
+                }
+                else{
+                    catchError(this.handleError<any>("Error excepted while getting data from server",[]));
+                };
+            }
+        );
+        
+        return result;
     }
 
 

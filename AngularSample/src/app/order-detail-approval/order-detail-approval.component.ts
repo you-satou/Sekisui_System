@@ -27,9 +27,11 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   datas: OrderDetail[];
   inputment: OrderSearchInputment;
+  
+  startFromName: boolean;
 
   _url: string = "assets/data/dataApproval.json";
-
+  _urlSearchName: string = "OrderDetailApproval/Search";
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private orderDetailService: OrderDetailApprovalService,
@@ -59,7 +61,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   setStartPage() {
     this.inputment = new OrderSearchInputment();
     this.inputment.startFromName = true;
-    this.inputment.includeProName = false;
     this.inputment.detailCreated = false;
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
@@ -67,16 +68,23 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   getSearchRequest() {
-    setTimeout(() => {
-      this.orderService
-        .getMultipileData(this._url)
-        .subscribe((data) => (this.datas = data));
-    });
+
+    // this.inputment.startFromName = this.startFromName === true? "1":"0";
+
+    // console.log(JSON.stringify(this.inputment));
+    this.datas  = this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment);
+
+    // this.orderService.
+
+
+    // this.datas = test;
 
     setTimeout(() => {
+      if(this.datas != null){
       let pageInput = document.getElementById("pageIndex");
       pageInput.setAttribute("value", "1");
       pageInput.removeAttribute("disabled");
+    }
     });
   }
 
