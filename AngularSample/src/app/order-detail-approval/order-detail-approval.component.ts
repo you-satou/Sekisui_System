@@ -74,28 +74,17 @@ export class OrderDetailApprovalComponent implements OnInit {
       .then(
         (response) => {
           this.datas = response;
+          if(this.datas != null){
+            let pageInput = document.getElementById("pageIndex");
+            pageInput.setAttribute("value", "1");
+            pageInput.removeAttribute("disabled");
+          }
         }
       );
 
     });
-    console.log(JSON.stringify(this.datas));
 
-    setTimeout(() => {
-      if(this.datas != null){
-      let pageInput = document.getElementById("pageIndex");
-      pageInput.setAttribute("value", "1");
-      pageInput.removeAttribute("disabled");
-    }
-    });
-
-    
   }
   
-
-  getOrderDetail($event, data) {
-    var wTbody = $event.target.parentElement.parentElement;
-    var rowIndex = wTbody.rowIndex;
-
-    alert(data.contractNum);
-  }
 }
+

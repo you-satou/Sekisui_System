@@ -51,7 +51,7 @@ export class CommonService{
     }
 
     // POST通信。
-    getSearchRequest(urlName: string, data: any) :Promise<any[]>{
+    getSearchRequest(urlName: string, data: any): Promise<any[]>{
         return this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
         .toPromise()
         .then((res) => {

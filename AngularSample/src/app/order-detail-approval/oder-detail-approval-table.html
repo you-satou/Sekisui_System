@@ -3,7 +3,7 @@
         <ng-container matColumnDef="detail">
             <th style="width: 5%;" mat-header-cell *matHeaderCellDef>詳細</th>
             <td style="width: 5%;" mat-cell *matCellDef="let element">
-                <a href="" routerLink="/OrderDetailInput" (click)="getOrderDetail($event, element)" style="text-align: center;">詳細</a>
+                <a href="" [routerLink]="['/OrderDetailInput']" style="text-align: center;">詳細</a>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">

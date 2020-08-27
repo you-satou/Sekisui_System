@@ -36,7 +36,7 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   datas: OrderDetail[];
 
-  constructor(  ) {  }
+  constructor( ) {  }
 
   ngOnChanges( ) {
 
@@ -45,9 +45,9 @@ export class OrderDetailApprovalTable implements OnChanges {
     this.dataSource.sort = this.sort;
   }
 
-  getOrderDetail($event, data) {
+  // getOrderDetail($event, data) {
+  //   alert(data.contractNum);
 
-
-  }
+  // }
 }
 
