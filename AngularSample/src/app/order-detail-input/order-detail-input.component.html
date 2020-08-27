@@ -1,4 +1,4 @@
-<div>
+<div class="body-order-input">
     <section>
         <div class="container">
             <div class="container-fluid">
@@ -6,9 +6,9 @@
             </div>
         </div>
 
-        <div id="orderInfomation" style="margin-top:10px">
+        <div class="orderInfomation" style="margin-top:10px">
             <div id="firstPart" *ngFor="let orderInputData of orderInputDatas ">
-                <section class="orderInfo1">
+                <section class="orderInfo">
                     <table class="orderInfo1Table">
                         <tr class="text-center">
                             <th style="width: 120px;">発注番号</th>
@@ -134,9 +134,9 @@
             </div>
 
             <div></div>
-            <div class="infoTable" style="margin-top:10px; width:auto; overflow:auto; height: 200px;">
-                <div class="tbl1" style="float:left;">
-                    <table style="table-layout: fixed;">
+            <div class="infoTable">
+                <div class="tbl1">
+                    <table>
                         <thead>
                             <tr>
                                 <th>契　約</th>
@@ -163,10 +163,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div style="width: 30px; float: left;">
+                <!-- <div class="spacing">
                     <p></p>
-                </div>
-                <div class="tbl2" style="width: auto;">
+                </div> -->
+                <div class="tbl2">
                     <table>
                         <thead id="theadHeight">
                             <tr>
@@ -179,7 +179,7 @@
                                 <th colspan="2">売上</th>
                             </tr>
                         </thead>
-                        <tbody id="thisOne">
+                        <tbody>
                             <tr *ngFor="let data of TBL2; let i = index">
                                 <th [attr.rowspan]="TBL2.length" style="min-width:25px;" *ngIf="i===0">追<br>加<br>工<br>事</th>
                                 <td style=" min-width: 25px">{{data.contractModel}}</td>

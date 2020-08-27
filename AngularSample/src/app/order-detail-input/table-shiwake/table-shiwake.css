@@ -3,7 +3,7 @@
 }
 
 .mat-header-cell {
-    background-color: #C5D9F1 !important;
+    /* background-color: #C5D9F1 !important; */
     text-align: center !important;
 }
 
@@ -35,27 +35,27 @@ td {
     border-bottom: none !important;
 }
 
-.color-1 {
+.color-input-1 {
     background-color: #C5D9F1 !important;
     text-align: center;
 }
 
-.color-2 {
+.color-input-2 {
     background-color: #95B3D7 !important;
     text-align: center;
 }
 
-.color-3 {
+.color-input-3 {
     background-color: #FABF8F !important;
     text-align: center;
 }
 
-.color-4 {
+.color-input-4 {
     background-color: #FDE9D9 !important;
     text-align: center;
 }
 
-.color-5 {
+.color-input-5 {
     background-color: #C4D79B !important;
     text-align: center;
 }
