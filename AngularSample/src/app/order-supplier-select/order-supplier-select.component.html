@@ -28,8 +28,8 @@
 </div>
 <div class='page-footer'>
     <footer>
-        <button type="button" class="btn btn-secondary" onClick="location.href='http://localhost:4200/'">閉じる</button>
-        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" routerLink="/" >選択</button>
+        <button type="button" class="btn btn-secondary" (click)="onBackClick($event);" >閉じる</button>
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" >選択</button>
     </footer>
 </div>
 

@@ -7,6 +7,9 @@ import { PatternType } from './supplierPatternType';
 import { SupplierType } from './supplierPatternType';
 import { pTestdata } from './test-data'
 import { sTestdata } from './test-data'
+import { CommonComponent } from '../common/common.component'
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
 
 @Component({
     selector: 'supplier-pattern',
@@ -23,9 +26,16 @@ export class SupplierPatternComponent implements OnInit {
   pDatas: PatternType[] = pTestdata;
   sDatas: SupplierType[] = sTestdata;
   constructor(
-    private modalService: SupplierPatternService
+    private modalService: SupplierPatternService,
+    private appComponent: AppComponent,
   ){}
-  ngOnInit() {}
+
+
+  ngOnInit() {
+
+    this.appComponent.setHeader(Const.ScreenName.S0003,Const.LinKSetting.L0003);
+
+  }
   ngOnDestroy() {
     // モーダルダイアログが閉じたタイミングで出力される
     console.log('destroyed');

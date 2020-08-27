@@ -6,6 +6,9 @@ import { OrderSupplierSelectService } from './order-supplier-select.service';
 import { OrderSupplierSelectType } from './orderSupplierSelectType'
 import { testData } from './test_deta'
 import { CommonComponent } from '../common/common.component'
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'order-Supplier-select',
@@ -29,27 +32,41 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    * @memberof ModalComponent
    */
   constructor(
+    private appComponent: AppComponent,
     private modalService: OrderSupplierSelectService,
     private wkAllItemTypesService: WkAllItemTypesService,
     private changeDetectorRef: ChangeDetectorRef,
     private element: ElementRef,
     private router: Router,
     private commonComponent: CommonComponent,
+    private _location: Location
   ) {}
   
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.appComponent.setHeader(Const.ScreenName.S0006,Const.LinKSetting.L0006);
+  }
   
   ngOnDestroy() {
     // モーダルダイアログが閉じたタイミングで出力される
     
   }
-  
-  public onClick($event) {
-    this.notifyCloseModal();
+   /**
+   * テーブル クリック 選択背景 設定
+   *
+   * @param $event イベント
+   */
+  public onBackClick($event) {
+    
+    this._location.back();
+
   }
   
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
+  public onClick($event) {
+    
+    this.modalService.setVal(this.resVal);
+    this._location.back();
+
   }
 
    /**

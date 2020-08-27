@@ -13,8 +13,10 @@ import { OrderSupplierSelectService } from '../order-supplier-select/order-suppl
 import { OrderSupplierSelectType } from '../order-supplier-select/orderSupplierSelectType';
 import { runInThisContext } from 'vm';
 import { testData2, testData3 } from './test-data';
-import { CommonComponent } from '../common/common.component';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
+
 
 @Component({
     selector: 'order-detail-add-input',
@@ -23,7 +25,7 @@ import {Location} from '@angular/common';
                 './order-detail-add-input.component.css']
 })
 
-export class OrderDetailAddInputComponent implements OnInit{
+export class OrderDetailAddInputComponent implements OnInit {
 
   title = '発注明細入力_明細入力';
 
@@ -55,28 +57,26 @@ export class OrderDetailAddInputComponent implements OnInit{
    */
 
   constructor(
-    private modalService: OrderDetailAddInputService,
-    private modalService2: OrderJournalSelectService,
-    private modalService3: OrderSupplierSelectService,
+    private appComponent: AppComponent,
+    private orderDetailAddInputService: OrderDetailAddInputService,
+    private orderJournalSelectService: OrderJournalSelectService,
+    private orderSupplierSelectService: OrderSupplierSelectService,
     private element: ElementRef,
     private router: Router,
     private _location: Location,
   ) { this._element = this.element.nativeElement }
 
   ngOnInit() {
-        this.journalCode = this.modalService2.getVal().journalCode;
-        this.accountingCategory = this.modalService2.getVal().accountingCategory;
-        this.orderJournaljournalName = this.modalService2.getVal().orderJournaljournalName;
-        this.supplierCode = this.modalService3.getVal().supplierCode;
-        this.orderSupplierjournalName = this.modalService3.getVal().orderSupplierjournalName;
+        this.appComponent.setHeader(Const.ScreenName.S0004,Const.LinKSetting.L0004);
       }
 
   public onClick($event) {
-    this.modalService.setVal(this.resVal);
+    this.orderDetailAddInputService.setVal(this.resVal);
     this._location.back();
   }
 
   public onClick2($event) {
+    this.orderDetailAddInputService.setVal(this.resVal);
     this._location.back();
   }
 

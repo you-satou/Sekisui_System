@@ -32,6 +32,7 @@ export class OrderSupplierSelectService {
   }
 
 
+
   /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *

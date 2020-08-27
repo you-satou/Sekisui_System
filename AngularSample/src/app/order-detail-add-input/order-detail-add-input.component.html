@@ -1,14 +1,12 @@
-<header>
-    <title>{{title}}</title>
-</header>
+
     <div>
         <span style="text-align: center;">
-            <h1>{{title}}</h1>
+            <h1>発注明細入力_明細入力</h1>
         </span>
     </div>
+
 <div class="table-body">
-        <div class="table-container">
-            <form>
+    <div class="table-container">
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
@@ -30,18 +28,17 @@
                     </tr>                
                 </tbody>
             </table>
-        </form>
     </div>
 </div>
 <div class='page-footer'>
     <footer>
-        <button type="button" class="btn btn-secondary" (Click)="onClick2($event);" >閉じる</button>
+        <button type="button" class="btn btn-secondary" onClick="location.href='http://localhost:4200/'" >閉じる</button>
         <span style="margin-left:10px">
         <button type="button" class="btn btn-primary" onClick="location.href='http://localhost:4200/OrderJournalSelect'">発注仕訳選択</button>
         </span>
         <span style="margin-left:10px">
         <button type="button" class="btn btn-primary" onClick="location.href='http://localhost:4200/OrderSupplierSelect'">発注先選択</button>
         </span>
-        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" >選択</button>
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" location.href="/" >選択</button>
     </footer>
 </div>

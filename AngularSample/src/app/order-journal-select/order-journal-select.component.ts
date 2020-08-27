@@ -7,6 +7,9 @@ import { OrderJournalSelectType } from './orderJournalSelectType'
 import { testData } from './test-data'
 import { CommonComponent } from '../common/common.component'
 import { AppModule } from '../app.module'
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'order-journal-select',
@@ -29,24 +32,30 @@ export class OrderJournalSelectComponent implements OnInit {
    * @memberof ModalComponent
    */
   constructor(
+    private appComponent: AppComponent,
     private modalService: OrderJournalSelectService,
     private wkAllItemTypesService: WkAllItemTypesService,
     private changeDetectorRef: ChangeDetectorRef,
     private element: ElementRef,
     private router: Router,
     private commonComponent: CommonComponent,
+    private _location: Location,
   ) {}
   
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.appComponent.setHeader(Const.ScreenName.S0005,Const.LinKSetting.L0005);
+  }
 
   
   public onClick($event) {
-    this.notifyClosePage();
+    this.modalService.setVal(this.resVal);
+    this._location.back();
   }
   
-  private notifyClosePage() {
-    this.modalService.setVal(this.resVal);
-    
+  public onBackClick($event) {
+    this._location.back();
+
   }
 
    /**
