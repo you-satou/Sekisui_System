@@ -13,6 +13,8 @@ import {
 import { OrderDetailApprovalService } from "./order-detail-approval-service";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "app/common/common.service";
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
 
 @Component({
   selector: "app-order-detail-approval",
@@ -31,6 +33,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private orderDetailService: OrderDetailApprovalService,
+    private appComponent: AppComponent,
     private orderService: CommonService
   ) {}
 
@@ -48,6 +51,8 @@ export class OrderDetailApprovalComponent implements OnInit {
   ];
 
   ngOnInit() {
+    // ヘッダー 設定
+    this.appComponent.setHeader(Const.ScreenName.S0001, Const.LinKSetting.L0000)
     this.setStartPage();
   }
 

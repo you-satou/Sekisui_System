@@ -15,6 +15,8 @@ import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pat
 
 import { Subscription } from 'rxjs';
 import { runInThisContext } from 'vm';
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
 
 @Component({
   selector: 'app-index',
@@ -54,10 +56,16 @@ export class IndexComponent implements OnInit, OnDestroy   {
       private modalService4: OrderDetailAddInputService,
       private modalService5: AddSupplierPatternService,
       private element: ElementRef,
+      private appComponent: AppComponent,
       private router: Router
   ) { this._element = this.element.nativeElement }
 
   ngOnInit() {
+
+      // ヘッダー 設定
+      this.appComponent.setHeader(Const.ScreenName.S0000);
+    
+
       // // データ取得
       // this.wkAllItemTypesService.indexJson()
       // .subscribe(response => {
