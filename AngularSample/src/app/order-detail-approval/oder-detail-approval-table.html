@@ -53,6 +53,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+    <mat-paginator order-paginator hidePageSize [length]="dataSource.data.length" showTotalPages="3" [pageSize]="[20]" showFirstLastButtons sticky="always"></mat-paginator>
+    <!-- <mat-paginator hidePageSize [pageSize]="[20]" showFirstLastButtons sticky="always"></mat-paginator> -->
 
-    <mat-paginator hidePageSize [pageSize]="[20]" showFirstLastButtons sticky="always"></mat-paginator>
 </div>

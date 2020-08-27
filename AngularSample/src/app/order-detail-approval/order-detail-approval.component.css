@@ -58,6 +58,44 @@
     width: 120px !important;
 }
 
+.mat-button,
+.mat-flat-button,
+.mat-icon-button,
+.mat-stroked-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0 !important;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+}
+
+
+/* tr.mat-row,
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: 0;
+    max-height: 48px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+} */
+
 
 /******************* Page Index ****************************/
 

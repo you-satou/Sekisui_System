@@ -1,13 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef, NgModule} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgModule, ViewEncapsulation, ViewChild } from '@angular/core';
 import { OrderDetail, OrderSearchInputment } from './order-detail-approval-interface';
 import { OrderDetailApprovalService } from './order-detail-approval-service';
 import { ActivatedRoute } from '@angular/router';
 import { CommonService } from 'app/common/common.service';
+import { MatPaginator } from '@angular/material';
 
 @Component({
   selector: 'app-order-detail-approval',
   templateUrl: './order-detail-approval.component.html',
   styleUrls: ['./order-detail-approval.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class OrderDetailApprovalComponent implements OnInit {
@@ -51,7 +53,6 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   setStartPage() {
     this.inputment = new OrderSearchInputment();
-
     this.inputment.startFromName = true;
     this.inputment.includeProName = false;
     this.inputment.detailCreated = false;
@@ -61,19 +62,12 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   getSearchRequest() {
-
-
-    // this.orderDetailService.getOrderDetail()
-    // .subscribe(
-    //   data => this.datas = data
-    //   );
-    // this.countRecord(this.datas);
-
     this.orderService.getMultipileData(this._url)
     .subscribe(
       data => this.datas = data
       );
-    this.countRecord(this.datas);
+    
+    // this.countRecord(this.datas);
   }
 
   countRecord(datas: OrderDetail[]) {

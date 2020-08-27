@@ -7,7 +7,7 @@ import { eventNames } from 'process';
 
 export class CommonComponent{
 
-    public CommonOnSelHight(event:any){
+  public CommonOnSelHight(event:any){
 
         // テーブル 背景色 クリア
         var wTbody = event.target.parentElement.parentElement;
@@ -29,6 +29,5 @@ export class CommonComponent{
           var wTd = wTr.cells[i];
           wTd.style.backgroundColor = '#CCFFFF';
         }
-    }
-
+  }
 }
