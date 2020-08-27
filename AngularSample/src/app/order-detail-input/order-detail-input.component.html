@@ -199,8 +199,8 @@
         </div>
     </section>
 
-    <section style="margin-top: 10px;">
-        <mat-tab-group class="tabGroup">
+    <section style="margin-top: 10px;" class="tabGroup">
+        <mat-tab-group>
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table [shiwakeData]="shiwakeData" [bunkatsuData]="bunkatsuData"></shiwake-table>
             </mat-tab>
@@ -216,29 +216,24 @@
 </div>
 <br>
 <div class="footer-container" style="margin-top: 20px;">
-    <div class="text-left footer ">
-        <div style="margin-bottom: 10px;">
+        <div class="bottomButton">
             <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
         </div>
-    </div>
-    <div class="text-left footer">
-        <div class="text-left footer ">
-            <div style="float: left;">
+
+            <div style="right: 440px;" class="bottomButton">
                 <button mat-button id="btnClose " style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
             </div>
-            <div style="float:left">
+            <div style="right: 328px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
             </div>
-            <div style="float:left">
+            <div style="right: 234px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
             </div>
-            <div style="float:left">
+            <div style="right: 140px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
             </div>
-            <div style="margin-left: auto;">
+            <div style="right: 46px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
             </div>
-        </div>
 
-    </div>
 </div>

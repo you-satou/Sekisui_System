@@ -19,9 +19,11 @@ section {
 }
 
 .footer {
-    position: initial !important;
+    position: fixed !important;
     display: fixed !important;
     background-color: #F5F5F5 !important;
+    z-index: 1;
+    height: 50px !important;
 }
 
 .footer>.back-btn {
@@ -84,7 +86,7 @@ td {
 }
 
 .tabGroup {
-    min-height: 300px !important;
+    min-height: 370px !important;
 }
 
 
@@ -184,4 +186,10 @@ td {
 
 .tdCode {
     min-width: 150px !important;
+}
+
+.bottomButton {
+    position: fixed; 
+    z-index: 2; 
+    bottom: 5px;
 }

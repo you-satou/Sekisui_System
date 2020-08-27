@@ -85,6 +85,12 @@
     overflow: visible;
 }
 
+.bottomButton {
+    position: fixed; 
+    z-index: 2; 
+    bottom: 5px;
+}
+
 
 /* tr.mat-row,
 td.mat-cell,
