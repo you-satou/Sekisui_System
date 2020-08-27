@@ -3,7 +3,6 @@ import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/tabl
 import { OrderDetailApprovalService } from './order-detail-approval/order-detail-approval-service';
 import { OrderDetailInputService } from './order-detail-input/order-detail-input-service';
 import { SplitOrderDetailService } from './split-detail-input/split-detail-input-service';
-import { ModalService } from './modal/modal.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -29,7 +28,6 @@ import { TestComponent } from './test/test.component';
 import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
 import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
 import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component';
-import { ModalComponent } from'./modal/modal.component';
 
 // 発注明細入力＿承認処理テーブル
 import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
@@ -110,8 +108,6 @@ const appRoute: Routes = [
               // Order Services
               CommonService,
               CommonComponent,
-              ModalComponent,
-              ModalService,
               SplitOrderDetailShiwakeTable,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
