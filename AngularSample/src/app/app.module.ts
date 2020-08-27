@@ -112,6 +112,7 @@ const appRoute: Routes = [
               CommonComponent,
               ModalComponent,
               ModalService,
+              SplitOrderDetailShiwakeTable,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { SplitOrderDetailShiwake } from './../split-detail-input/split-detail-input-interface';
+import { SplitOrderDetailInputComponent } from './../split-detail-input/split-detail-input.component';
 import { AddSupplierPatternService } from './add-supplier-pattern.service';
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
@@ -12,8 +13,12 @@ import { Router } from '@angular/router';
                 './add-order-detail.component.css']
   })
 
-export class AddOrderDetailComponent implements OnInit {
+export class AddOrderDetailComponent implements OnInit, OnChanges {
 
+  orderPlanAmountTest: String="test1";
+  comment: String="";
+  requestDate: String="";
+  requester: String="";
 
   shiwakeData: SplitOrderDetailShiwake[];
   resVal:SplitOrderDetailShiwake;
@@ -23,7 +28,8 @@ export class AddOrderDetailComponent implements OnInit {
   }
 
   constructor(
-    private modalService: AddSupplierPatternService
+    private modalService: AddSupplierPatternService,
+    public oktest: SplitOrderDetailInputComponent
   ){}
 
   getSplitOderDetailShiwake(){
@@ -41,7 +47,14 @@ export class AddOrderDetailComponent implements OnInit {
     console.log('destroyed');
   }
 
-  public onClick($event) {
+  public onClickSelect($event) {
+    this.orderPlanAmountTest = document.getElementById("addAmount").innerText;
+    this.oktest.testChangeLabel(this.orderPlanAmountTest);
+    // this.orderPlanAmountTest = 'test3'
+    // this.notifyCloseModal();
+  }
+
+  public onClickClose($event) {
     this.notifyCloseModal();
   }
 
@@ -55,7 +68,7 @@ export class AddOrderDetailComponent implements OnInit {
    * @param $event イベント
    * @param selectedItem 行選択 値取得
    */
-  public onSelHighLight($event, selectedItem){
+  public onSelHighLight($event){
     // テーブル 背景色 クリア
     var wTbody = $event.target.parentElement.parentElement;
     for(var i=0; i<wTbody.rows.length; i++){
@@ -78,4 +91,11 @@ export class AddOrderDetailComponent implements OnInit {
     }
 
   }
+
+  ngOnChanges(changes: any): void {
+    
+    // this.orderPlanAmountTest = document.getElementById("addAmount").nodeValue;
+    
+  }
+
 }

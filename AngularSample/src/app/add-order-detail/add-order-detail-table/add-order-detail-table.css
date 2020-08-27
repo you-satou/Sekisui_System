@@ -1,4 +1,4 @@
-/* .mat-footer-cell {
+.mat-footer-cell {
     background-color: #e0e0e0;
 }
 
@@ -19,10 +19,15 @@ tr.mat-footer-row {
 th {
     font-size: 1rem !important;
     text-align: center !important;
+    word-break: keep-all;
+    white-space:nowrap;
 }
 
 td {
     padding: 5px !important;
+    word-break: keep-all;
+    white-space:nowrap;
+
 }
 
 .mat-table-sticky {
@@ -58,4 +63,4 @@ td {
 .color-5 {
     background-color: #C4D79B !important;
     text-align: center;
-} */
+}

@@ -26,6 +26,13 @@ export interface SplitOrderDetailSplit{
     
 }
 
+export class AddOrderDetail{
+    orderPlanAmount: string;
+    comment: string;
+    requestDate: string;
+    requester: string;
+}
+
 export class SplitOrderDetailInput{
     contractNum: string;
     officeCode: string;

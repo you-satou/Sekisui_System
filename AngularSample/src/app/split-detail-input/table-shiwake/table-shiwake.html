@@ -1,9 +1,9 @@
 <div>
-    <div class="mat-elevation-z8" style="width: 60%">
+    <div class="mat-elevation-z8">
         <table mat-table [dataSource]="shiwakeData" class="split-shiwake-table">
 
             <ng-container matColumnDef="journalCode">
-                <th style="width: 15%; padding: 0 5px;" class="splitcolor-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
+                <th style="width: 15%; padding: 3px 5px;" class="splitcolor-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
                 <td style="padding: 0 5px; text-align: center;" class="splitCell" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
             </ng-container>
 
@@ -33,7 +33,7 @@
                 <td mat-footer-cell *matFooterCellDef>20000</td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
+            <tr class="tableHeader" mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: shiwakeColumns;"></tr>
         </table>
     </div>
@@ -51,7 +51,7 @@
             <ng-container matColumnDef="orderPlanAmount1">
                 <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
                 <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element; let i = index"> {{element.orderPlanAmount}} </td>
-                <td class="splitCell" mat-footer-cell *matFooterCellDef style="text-align: center;">{{getTotalsAmount()|number}}</td>
+                <td class="splitCell" mat-footer-cell *matFooterCellDef style="text-align: center;">{{sum|number}}</td>
             </ng-container>
             <ng-container matColumnDef="comment1">
                 <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
@@ -60,7 +60,7 @@
             </ng-container>
 
             <ng-container matColumnDef="requestDate">
-                <th class="splitcolor-1" mat-header-cell *matHeaderCellDef>依頼日</th>
+                <th class="splitcolor-1" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>依頼日</th>
                 <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.requestDate}} </td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
@@ -85,7 +85,7 @@
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
             <ng-container matColumnDef="approvalPerson_lv2">
-                <th class="splitcolor-1" mat-header-cell *matHeaderCellDef>承認者</th>
+                <th class="splitcolor-1" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>承認者</th>
                 <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.approvalPerson_lv2}} </td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
@@ -147,15 +147,17 @@
                 <th class="splitcolor-1" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">受入</th>
             </ng-container>
             <ng-container matColumnDef="payment">
-                <th class="splitcolor-1" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">支払</th>
+                <th class="splitcolor-1" style="padding: 0 5px" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">支払</th>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="headerColspan"></tr>
-            <tr mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+            <tr class="tableHeader" mat-header-row *matHeaderRowDef="headerColspan"></tr>
+            <tr class="tableHeader" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
             <tr mat-footer-row *matFooterRowDef="rows"></tr>
 
             <tr mat-row *matRowDef="let row; columns: rows;"></tr>
 
         </table>
     </div>
+    <label id="ehhh">ラベル</label>
+<input type="number" [(ngModel)]="testichok" name="orderPlanAmount">
 </div>

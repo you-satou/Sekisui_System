@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { title } from 'process';
 import { AddOrderDetailComponent } from 'app/add-order-detail/add-order-detail.component';
 import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pattern.service';
+import { SplitOrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -23,8 +24,11 @@ import { Subscription } from 'rxjs';
     private subscription: Subscription;
 
     public modal: any = null;
-
-    str:String="";
+    
+    orderPlanAmount:String="test";
+    comment:String="";
+    requestDate:String="";
+    requester:String="";
 
     title = '発注明細入力＿分割明細入力';
     
@@ -34,10 +38,15 @@ import { Subscription } from 'rxjs';
 
     orderInputDatas : SplitOrderDetailInput[];
 
+    resVal: SplitOrderDetailShiwake;
+
+    testich: String="";
+
     constructor(
       private service: SplitOrderDetailService,
       private modalService: AddSupplierPatternService,
       private element: ElementRef,
+      public newRowTest: SplitOrderDetailShiwakeTable,
     ){
       this._element = this.element.nativeElement
     }
@@ -55,7 +64,10 @@ import { Subscription } from 'rxjs';
           
           this.modal = null;
           // データ設定
-          this.str = this.modalService.getVal().journalName
+          this.orderPlanAmount = this.modalService.getVal().orderPlanAmount
+          this.comment = this.modalService.getVal().comment
+          this.requestDate = this.modalService.getVal().requestDate
+          this.requester = this.modalService.getVal().requester
         }
       );
 
@@ -76,7 +88,9 @@ import { Subscription } from 'rxjs';
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-  public onClick($event) {
+
+  public onClick($event, orderPlanAmountTest) {
+    this.testich = orderPlanAmountTest
     this.modal = AddOrderDetailComponent;
   }
 
@@ -102,5 +116,13 @@ import { Subscription } from 'rxjs';
       .subscribe(
         data => this.bunkatsuData = data
       );
+    }
+
+    testChangeLabel(value:String){
+      this.testich = value;
+    }
+
+    public onClickNewRow($event){
+      this.newRowTest.addNewRow();
     }
   }

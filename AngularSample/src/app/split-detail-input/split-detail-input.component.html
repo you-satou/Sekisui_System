@@ -34,14 +34,14 @@
                     <button mat-button id="btnClose "  class="btn btn-secondary border mx-1 back-btn ">閉じる</button>
                 </div>
                 <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">更新</button>
+                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn " (click)="onClickNewRow($event);">更新(New Row)</button>
                 </div>
             </div>
         </div>
     </footer>
 
     <label>ラベル</label>
-    <input type="text" [(ngModel)]="str" name="str">
+    <input type="text" [(ngModel)]="testich" name="orderPlanAmount">
 
 </div>
 
