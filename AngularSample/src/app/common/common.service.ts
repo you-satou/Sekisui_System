@@ -1,7 +1,8 @@
+import { OrderDetail } from './../order-detail-approval/order-detail-approval-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, takeUntil } from 'rxjs/operators';
 import { OrderDetailInputGeneral } from 'app/order-detail-input/order-detail-input-interface';
 
 
@@ -50,23 +51,14 @@ export class CommonService{
     }
 
     // POST通信。
-    getSearchRequest(urlName: string, data: any): any[]{
-        let result: any[];
-        this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
-        .subscribe(
-            response => {
-                if (response != null) {
-                     
-                    console.log(JSON.stringify(response));
-                    return response;
-                }
-                else{
-                    catchError(this.handleError<any>("Error excepted while getting data from server",[]));
-                };
-            }
+    getSearchRequest(urlName: string, data: any, res:any){
+        let result: OrderDetail[];
+        this.http.post<OrderDetail[]>(this.baseUrl + `/${urlName}/`, data)
+        .subscribe( response =>{res = response,
+                        console.log('1 -  '+ JSON.stringify(res))}
         );
         
-        return result;
+        console.log('2 -  ' + JSON.stringify(result));
     }
 
 

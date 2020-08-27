@@ -69,15 +69,11 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   getSearchRequest() {
 
-    // this.inputment.startFromName = this.startFromName === true? "1":"0";
+    setTimeout(()=> {
+      this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment, this.datas);
 
-    // console.log(JSON.stringify(this.inputment));
-    this.datas  = this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment);
-
-    // this.orderService.
-
-
-    // this.datas = test;
+    } ) ;
+    console.log(JSON.stringify(this.datas));
 
     setTimeout(() => {
       if(this.datas != null){
@@ -86,7 +82,10 @@ export class OrderDetailApprovalComponent implements OnInit {
       pageInput.removeAttribute("disabled");
     }
     });
+
+    
   }
+  
 
   getOrderDetail($event, data) {
     var wTbody = $event.target.parentElement.parentElement;
