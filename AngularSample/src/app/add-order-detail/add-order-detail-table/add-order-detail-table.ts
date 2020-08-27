@@ -90,22 +90,6 @@ export class AddOrderDetailShiwakeTable extends AddOrderDetailComponent implemen
 
       return this.bunkatsuData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
     }
-
-    getTotalAmount(){
-
-      this.bunkatsuData.forEach( data =>{
-          this.totalRecievedAmount += Number(data.recievedAmount);
-          this.totalOrderAmount += Number(data.orderAmount); 
-          this.totalPaymentAmount += Number(data.paymentAmount); 
-        }
-  
-      )
-    }
-  
-  
-    ngOnInit() {
-      this.getTotalAmount();
-    }
   
     getDetail($event, dataDetail){
   

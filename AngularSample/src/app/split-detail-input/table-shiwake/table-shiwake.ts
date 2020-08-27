@@ -14,6 +14,8 @@ export class SplitOrderDetailShiwakeTable {
    @Input() shiwakeData: SplitOrderDetailShiwake[];
    @Input() bunkatsuData: SplitOrderDetailSplit[];
 
+  testichok: number = 10;
+
   shiwakeColumns: string[] = [
       'journalCode',
       'accountCode',
@@ -70,8 +72,16 @@ export class SplitOrderDetailShiwakeTable {
 
   constructor() {}
 
-  getTotalsAmount(){
-    return this.bunkatsuData.map(data =>Number(data.orderPlanAmount)).reduce((acc, value)=> (acc+value));
-  }
+ngOnChanges(changes: any): void {
+  //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+  //Add '${implements OnChanges}' to the class.
+  this.sum = this.bunkatsuData.map(data =>Number(data.orderPlanAmount)).reduce((acc, value)=> (acc+value));
+  this.testichok = this.testichok;
+}
+
+addNewRow(){
+  this.testichok = 20;
+  alert(this.testichok);
+}
 
 }

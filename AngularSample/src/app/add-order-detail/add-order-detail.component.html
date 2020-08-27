@@ -6,16 +6,11 @@
             </div>
             <div class="modal-body">
                 <div class="box">
-
-
-
                     <mat-tab-group class="tabGroup">
                         <mat-tab class="hontai" label="本体">
                             <add-order-detail-table [shiwakeData]="shiwakeData"></add-order-detail-table>
                         </mat-tab>
                     </mat-tab-group>
-
-
 
                     <!-- <table class="table table-hover table-striped">
                         <thead>
@@ -53,10 +48,10 @@
                         </thead>
                         <tbody>
                             <tr style="position: relative;">
-                                <td class="table-str td-b td-right">48,555</td>
-                                <td class="table-str td-b td-left">III期</td>
-                                <td class="table-str td-b td-center"></td>
-                                <td id="iraiColor" class="td-center">依頼</td>
+                                <td id="addAmount" class="table-str td-b td-right" contenteditable='true'></td>
+                                <td id="addComment" class="table-str td-b td-left" contenteditable='true'></td>
+                                <td id="addOrderDate" class="table-str td-b td-center" contenteditable='true'></td>
+                                <td id="addOrderPerson" class="td-center" contenteditable='true'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -65,8 +60,8 @@
             </div>
             
             <div class="modal-footer">
-                <button style="position: absolute; left: 15px" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
-                <button style="position: relative;" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">更新</button>
+                <button style="position: absolute; left: 15px" type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClickClose($event);">閉じる</button>
+                <button style="position: relative;" type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClickSelect($event,orderPlanAmountTest);">更新</button>
             </div>
         </div>
     </div>

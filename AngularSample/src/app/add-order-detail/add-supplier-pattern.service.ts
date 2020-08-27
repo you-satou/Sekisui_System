@@ -1,4 +1,4 @@
-import { SplitOrderDetailShiwake, SplitOrderDetailSplit, SplitOrderDetailInput } from './../split-detail-input/split-detail-input-interface';
+import { SplitOrderDetailShiwake } from './../split-detail-input/split-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
