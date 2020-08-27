@@ -1,11 +1,9 @@
-import { CommonComponent } from './../common/common.component';
-import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import {MatSort} from '@angular/material';
+import { Component, ViewChild, Input, OnChanges, ViewEncapsulation, ViewContainerRef, Renderer2 } from '@angular/core';
+import { MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material';
 
 import {OrderDetail} from './order-detail-approval-interface';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'order-detail-approval-table',
@@ -38,30 +36,18 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   datas: OrderDetail[];
 
-  constructor( ) {}
+  constructor(  ) {  }
 
-  ngOnChanges(
-  ) {
+  ngOnChanges( ) {
 
     this.dataSource = new MatTableDataSource<OrderDetail>(this.resultData);
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    // if(this.dataSource.data.length != 0){
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-    
-    // }
   }
-
-  
-  // ngOnInit(){
-  //   this.dataSource.paginator = this.paginator;
-
-  // }
 
   getOrderDetail($event, data) {
 
-  }
 
+  }
 }
+

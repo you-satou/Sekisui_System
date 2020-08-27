@@ -34,15 +34,15 @@ td {
     border-left: 0.5px solid #CCD0D5;
 }
 
-.color-1 {
+.color-approval-1 {
     background-color: #FDE9D9 !important;
 }
 
-.color-2 {
+.color-approval-2 {
     background-color: #C5D9F1 !important;
 }
 
-.color-3 {
+.color-approval-3 {
     background-color: #EBF1DE !important;
 }
 
@@ -98,10 +98,10 @@ mat-paginator {
     order: 6 !important;
 }
 
-.mat-button,
-.mat-flat-button,
-.mat-icon-button,
-.mat-stroked-button {
+mat-paginator.mat-button,
+mat-paginator.mat-flat-button,
+mat-paginator.mat-icon-button,
+mat-paginator.mat-stroked-button {
     box-sizing: border-box;
     position: relative;
     -webkit-user-select: none;

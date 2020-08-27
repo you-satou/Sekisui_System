@@ -7,30 +7,30 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
-            <th style="width: 10%;" class="color-1" mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
+            <th style="width: 10%;" class="color-approval-1" mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
             <td style="width: 10%;" mat-cell *matCellDef="let element"> {{element.contractNum}} </td>
         </ng-container>
 
         <ng-container matColumnDef="propertyName">
-            <th style="width: 18%; " class="color-1" mat-header-cell *matHeaderCellDef> 物件名 </th>
+            <th style="width: 18%; " class="color-approval-1" mat-header-cell *matHeaderCellDef> 物件名 </th>
             <td style="width: 18%; " mat-cell *matCellDef="let element"> {{element.propertyName}} </td>
         </ng-container>
 
         <ng-container matColumnDef="planOrderAmount">
-            <th style="width: 10%; " class="color-2" mat-header-cell *matHeaderCellDef> 発注予定金額合計 </th>
+            <th style="width: 10%; " class="color-approval-2" mat-header-cell *matHeaderCellDef> 発注予定金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.planOrderAmount}} </td>
         </ng-container>
 
         <ng-container matColumnDef="approvalRequestAmount">
-            <th style="width: 10%; " class="" mat-header-cell *matHeaderCellDef> 承認依頼金額合計 </th>
+            <th style="width: 10%; " mat-header-cell *matHeaderCellDef> 承認依頼金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.approvalRequestAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="performanceOrderAmount">
-            <th style="width: 10%; " class="color-3" mat-header-cell *matHeaderCellDef> 発注金額合計 </th>
+            <th style="width: 10%; " class="color-approval-3" mat-header-cell *matHeaderCellDef> 発注金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.performanceOrderAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="receivedAmount">
-            <th style="width: 10%; " class="color-1" mat-header-cell *matHeaderCellDef> 受入金額合計 </th>
+            <th style="width: 10%; " class="color-approval-1" mat-header-cell *matHeaderCellDef> 受入金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.receivedAmount}} </td>
         </ng-container>
         <ng-container matColumnDef="progressRate">
@@ -53,7 +53,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator order-paginator hidePageSize [length]="dataSource.data.length" showTotalPages="3" [pageSize]="[20]" showFirstLastButtons sticky="always"></mat-paginator>
+    <mat-paginator order-paginator hidePageSize [length]="dataSource.data.length" showTotalPages="3" [pageSize]="[20]" showFirstLastButtons sticky="always">
+    </mat-paginator>
     <!-- <mat-paginator hidePageSize [pageSize]="[20]" showFirstLastButtons sticky="always"></mat-paginator> -->
 
 </div>

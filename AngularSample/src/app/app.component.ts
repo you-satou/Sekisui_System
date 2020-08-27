@@ -26,14 +26,18 @@ const openClose = trigger('openClose', [
 })
 export class AppComponent implements OnInit {
 
+  // 初期化
+  // public static displayTitle: string = "";
+  // public static rootPath: string = "";
   displayTitle: string = "";
+  rootPath: string = "";
   show: boolean = false;
   message_str: String = "";
   errorMessages: String[];
   errorFlg: boolean;
   mode: number;
   systemDate: Date = new Date();
-  rootPath: string;
+  
 
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
@@ -73,13 +77,18 @@ export class AppComponent implements OnInit {
         return false;
       }
     };
-    this.init();
+    // this.init();
   }
 
 
-  init() {
-    this.displayTitle = "発注明細";
-    this.rootPath = "<a href='#'>TOP<a> > <a href='#'>○○○○<a> > ";
+  /**
+   * ヘッダー 設定
+   * @param strTitle 
+   * @param strPath 
+   */
+  setHeader(strTitle:string, strPath:string = "") {
+    this.displayTitle = strTitle;
+    this.rootPath = strPath;
   }
 
   getSystemDate(): string {

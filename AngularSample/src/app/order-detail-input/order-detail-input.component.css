@@ -1,5 +1,13 @@
 /********************* Page Footer *************************/
 
+section {
+    display: block;
+}
+
+.body-order-input {
+    position: relative !important;
+}
+
 .footer-container {
     position: flex;
     display: inline-block;
@@ -22,79 +30,30 @@
 }
 
 
-/* .section-left {
-    float: left;
-    width: 40%;
-    border: 0.5px solid #CCD0D5;
-}
-
-.section-right {
-    margin-left: 45%;
-    width: 55%;
-    border: 0.5px solid #CCD0D5;
-}
-
-.table-Shiwake>thead>tr {
-    text-align: center;
-} */
-
-
 /*********************TABLE****************************/
 
 th {
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-top: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
+    border-collapse: collapse !important;
+    border-right: 0.5px solid #CCD0D5 !important;
+    border-top: 0.5px solid #CCD0D5 !important;
+    border-bottom: 0.5px solid #CCD0D5 !important;
+    border-left: 0.5px solid #CCD0D5 !important;
     font: bold 12px "メイリオ" !important;
-    text-align: center;
-    padding: 5px;
+    text-align: center !important;
+    padding: 5px !important;
 }
 
 td {
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-top: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
+    border-collapse: collapse !important;
+    border-right: 0.5px solid #CCD0D5 !important;
+    border-top: 0.5px solid #CCD0D5 !important;
+    border-bottom: 0.5px solid #CCD0D5 !important;
+    border-left: 0.5px solid #CCD0D5 !important;
     padding: 0px 5px;
 }
 
 
 /****************************************************/
-
-.flexbox {
-    display: flex;
-    flex-flow: row wrap;
-}
-
-.flexBoxLeft {
-    float: left;
-}
-
-.flexBoxRight {
-    float: right;
-}
-
-.label {
-    width: 80px !important;
-    text-align: right;
-    padding: 10px;
-}
-
-.name {
-    width: inherit;
-    border-collapse: collapse;
-    border: 1px dotted black;
-}
-
-.grid-column {
-    display: grid;
-    height: inherit;
-    grid-template-columns: repeat(17, 50px);
-    grid-template-rows: repeat(2, 50%);
-}
 
 
 /*  -----------------タブのスタイル---------------------------  */
@@ -102,129 +61,46 @@ td {
 .mat-tab-label {
     min-width: 25px !important;
     max-width: 50px !important;
-    padding: 5px;
-    background-color: transparent;
-    color: black;
-    font-weight: 700;
-    text-align: center;
+    padding: 5px !important;
+    background-color: transparent !important;
+    color: black !important;
+    font-weight: 700 !important;
+    text-align: center !important;
 }
 
 .mat-tab-label.mat-tab-label-active {
     min-width: 25px !important;
     max-width: 60px !important;
-    padding: 5px;
-    background-color: #305496;
-    color: white;
-    font-weight: 700;
-    text-align: center;
+    padding: 5px !important;
+    background-color: #305496 !important;
+    color: white !important;
+    font-weight: 700 !important;
+    text-align: center !important;
 }
 
 .mat-ink-bar {
-    background-color: #305496;
+    background-color: #305496 !important;
     width: auto !important;
 }
 
 .tabGroup {
-    min-height: 300px;
+    min-height: 300px !important;
 }
 
 
 /*  ----------------------------------------------------------------  */
 
-
-/* 
-.table-Shiwake>tbody {
-    height: 250px !important;
-    overflow-y: scroll;
-    overflow: auto;
-}
-
-.table-Shiwake {
-    height: 250px;
-    max-width: 40%px;
-    position: relative;
-    margin: 0;
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-}
-
-.table-Shiwake>tbody>tr>td,
-.table-Detail>tbody>tr>td {
-    border: 0.5px solid #CCD0D5;
-} */
-
-
-/* 
-.shiwakeCode-1 {
-    width: 50px;
-    text-align: center;
-}
-
-.shiwakeCode-2 {
-    width: 20px;
-    text-align: center;
-}
-
-.shiwakeKeiri {
-    width: 50px;
-    text-align: center;
-}
-
-.shiwakeName {
-    width: 150px;
-    text-align: left;
-}
-
-.shiwakeHachu-1 {
-    width: 20px;
-    text-align: center;
-}
-
-.shiwakeHachu-2 {
-    width: 150px;
-    text-align: left;
-}
-
-.shiwakeKingaku {
-    width: 200px;
-    text-align: right;
-} */
-
-
-/* .table-Detail {
-    height: 250px;
-    max-width: 50%;
-    margin: 0;
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-} */
-
-
-/* #orderInfomation {
-    position: relative;
-    width: 1287px;
-} */
-
-
-/* #firstPart {
-    position: relative;
-} */
-
-.orderInfo1 {
-    max-width: 100%;
-    min-width: 960px;
-    position: relative;
-    max-height: 120px;
+.orderInfo {
+    min-width: 960px !important;
+    position: relative !important;
+    max-height: 120px !important;
 }
 
 .orderInfo1Table {
-    position: relative;
-    height: 100px;
-    max-height: 100px;
+    position: relative !important;
+    height: 100px !important;
+    max-height: 100px !important;
+    max-width: 960px !important;
 }
 
 .orderInfo1Table>td {
@@ -232,47 +108,73 @@ td {
 }
 
 .orderInfo2 {
-    max-width: 100%;
-    min-width: 1340px;
-    margin-top: 10px;
-    position: relative;
+    max-width: 100% !important;
+    min-width: 1340px !important;
+    margin-top: 10px !important;
+    position: relative !important;
 }
 
 .orderInfo2Table1 {
-    position: relative;
-    float: left;
-    height: 120px;
-    max-height: 120px;
-    width: auto;
+    position: relative !important;
+    float: left !important;
+    height: 120px !important;
+    max-height: 120px !important;
+    max-width: 380px !important;
 }
 
 .orderInfo2Table2 {
+    position: relative !important;
+    height: 120px !important;
+    max-height: 120px !important;
+    width: auto;
+}
+
+.infoTable {
+    min-width: 1050px !important;
+    margin-top: 10px;
+    width: auto;
+    overflow: auto;
+    height: 200px;
     position: relative;
-    height: 120px;
-    max-height: 120px;
+}
+
+.tbl1 {
+    width: fit-content;
+    float: left !important;
+    max-width: 600px;
+}
+
+.tbl2 {
+    float: left;
+    margin-left: 30px;
+    width: fit-content;
+}
+
+.tbl2>table>body>tr>td {
+    min-width: 25px;
 }
 
 
 /* -------------------------------------- */
 
 .tdcenter {
-    text-align: center;
-    padding: 0px 10px;
-    min-width: 40px;
-    min-height: 23px;
+    text-align: center !important;
+    padding: 0px 10px !important;
+    min-width: 40px !important;
+    min-height: 23px !important;
 }
 
 .tddate {
-    text-align: center;
-    width: 83px;
-    min-height: 23px;
+    text-align: center !important;
+    width: 83px !important;
+    min-height: 23px !important;
 }
 
 .tdprice {
-    text-align: right;
-    width: 100px;
-    padding: 0px 5px 0px 20px;
-    height: 23px;
+    text-align: right !important;
+    width: 100px !important;
+    padding: 0px 5px 0px 20px !important;
+    height: 23px !important;
 }
 
 .tdContract {
@@ -283,88 +185,3 @@ td {
 .tdCode {
     min-width: 150px !important;
 }
-
-.infoTable {
-    min-width: 1050px;
-}
-
-
-/* -------------------------------------- */
-
-
-/* #scrollTableDiv {
-    position: relative;
-    overflow-y: scroll;
-    height: 116px;
-    top: -1px;
-} */
-
-
-/* #secondPart {
-    position: relative;
-    margin-top: 10px;
-    overflow: hidden;
-} */
-
-
-/* 
-#orderInfo3Table1 {
-    float: left;
-}
-
-#orderInfo3Table2 {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-} */
-
-
-/* #orderInfoCount {
-    position: absolute;
-} */
-
-
-/* #i3t2head {
-    position: relative;
-    height: 20%;
-}
-
-#theadHeight {
-    position: relative;
-}
-
-#addConstr {
-    position: absolute;
-    top: 20%;
-    bottom: 1px;
-    width: 25px;
-    border: 0.5px solid #CCD0D5;
-    text-align: center;
-    font: bold 12px "メイリオ" !important;
-    background-color: white;
-    z-index: 1;
-    padding-top: 3.5%;
-}
-
-#i3t2body {
-    position: relative;
-    top: 20%;
-    bottom: 0;
-    width: 100%;
-} */
-
-
-/* #thisOne {
-    position: relative;
-} */
-
-
-/* #tbl1 {
-    border: 1px solid black !important;
-    border-collapse: collapse;
-}
-
-#tbl2 {
-    position: relative;
-    border: 1px solid black !important;
-} */
