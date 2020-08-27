@@ -51,14 +51,14 @@ export class CommonService{
     }
 
     // POST通信。
-    getSearchRequest(urlName: string, data: any, res:any){
-        let result: OrderDetail[];
-        this.http.post<OrderDetail[]>(this.baseUrl + `/${urlName}/`, data)
-        .subscribe( response =>{res = response,
-                        console.log('1 -  '+ JSON.stringify(res))}
-        );
-        
-        console.log('2 -  ' + JSON.stringify(result));
+    getSearchRequest(urlName: string, data: any) :Promise<any[]>{
+        return this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
+        .toPromise()
+        .then((res) => {
+            const response: any = res;
+            return response;
+        })
+        .catch(this.handleError);        
     }
 
 

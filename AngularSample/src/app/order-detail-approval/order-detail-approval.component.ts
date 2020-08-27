@@ -70,9 +70,14 @@ export class OrderDetailApprovalComponent implements OnInit {
   getSearchRequest() {
 
     setTimeout(()=> {
-      this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment, this.datas);
+      this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
+      .then(
+        (response) => {
+          this.datas = response;
+        }
+      );
 
-    } ) ;
+    });
     console.log(JSON.stringify(this.datas));
 
     setTimeout(() => {
