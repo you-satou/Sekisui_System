@@ -63,36 +63,4 @@ export class OrderDetailAddInputService {
     this._val = val;
   }
 
-
-
-
-  /**
-   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
-   *
-   * @memberof orderDetailAddInputService
-   */
-  public requestCloseModal(resVal:OrderDetailAddInputType) {
-    this.setVal(resVal)
-    this.closeEventSubject.next();
-  }
-
-      /**
-   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
-   *
-   * @memberof OrderJournalSelectService
-   */
-  public requestCloseModal2(resVal2:OrderJournalSelectType) {
-    this.setVal2(resVal2)
-    this.closeEventSubject.next();
-  }
-
-    /**
-   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
-   *
-   * @memberof OrderSupplierSelectService
-   */
-  public requestCloseModal3(resVal3:OrderSupplierSelectType) {
-    this.setVal3(resVal3)
-    this.closeEventSubject.next();
-  }
 }

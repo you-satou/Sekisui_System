@@ -14,6 +14,7 @@ import { OrderSupplierSelectType } from '../order-supplier-select/orderSupplierS
 import { runInThisContext } from 'vm';
 import { testData2, testData3 } from './test-data';
 import { CommonComponent } from '../common/common.component';
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'order-detail-add-input',
@@ -22,14 +23,17 @@ import { CommonComponent } from '../common/common.component';
                 './order-detail-add-input.component.css']
 })
 
-export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
+export class OrderDetailAddInputComponent implements OnInit{
+
+  title = '発注明細入力_明細入力';
 
   _element: HTMLElement;
 
   journalCode:String="";
   accountingCategory:String="";
-  journalName:String="";
-  supplierName:String="";
+  orderJournaljournalName:String="";
+  supplierCode:String="";
+  orderSupplierjournalName:String="";
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
@@ -41,9 +45,6 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
-  public modal: any = null;
-  public modal2: any = null;
-  public modal3: any = null;
 
   /**
    * コンストラクタ
@@ -59,120 +60,24 @@ export class OrderDetailAddInputComponent implements OnInit,OnDestroy{
     private modalService3: OrderSupplierSelectService,
     private element: ElementRef,
     private router: Router,
-    private commonComponent: CommonComponent,
+    private _location: Location,
   ) { this._element = this.element.nativeElement }
 
   ngOnInit() {
-    this.subscription = this.modalService.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        
-        this.modal = null;
-        // データ設定
-        this.journalCode = this.modalService.getVal().journalCode
+        this.journalCode = this.modalService2.getVal().journalCode;
+        this.accountingCategory = this.modalService2.getVal().accountingCategory;
+        this.orderJournaljournalName = this.modalService2.getVal().orderJournaljournalName;
+        this.supplierCode = this.modalService3.getVal().supplierCode;
+        this.orderSupplierjournalName = this.modalService3.getVal().orderSupplierjournalName;
       }
-    );
-    this.subscription = this.modalService2.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        this.modal2 = null;
-      }
-    );
-
-    this.subscription = this.modalService3.closeEventObservable$.subscribe(
-      () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
-        this.modal3 = null;
-      }
-    );
-
-
-  }
-  
-  ngOnDestroy() {
-    // モーダルダイアログが閉じたタイミングで出力される
-    
-  }
 
   public onClick($event) {
-    this.notifyCloseModal();
-  }
-  
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
-  }
-   /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick1($event){
-
-    this.modal2 = OrderJournalSelectService;
-
+    this.modalService.setVal(this.resVal);
+    this._location.back();
   }
 
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
   public onClick2($event) {
-    this.modal3 = OrderSupplierSelectComponent;
-  }
-
-     /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
-  public onSelHighLight($event, selectedItem){
-    // TODO
-    this.resVal2 = selectedItem;
-
-    this.commonComponent.CommonOnSelHight($event);
-
-  }
-
-  public onSubClick ($event){
-
-    this.notifyCloseModal2();
-
-  }
-
-  private notifyCloseModal2() {
-    this.modalService.requestCloseModal2(this.resVal2);
-  }
-
-       /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
-  public onSelHighLight2($event, selectedItem){
-    // TODO
-    this.resVal3 = selectedItem;
-
-    this.commonComponent.CommonOnSelHight($event);
-
-  }
-
-  
-  public onSubClick2 ($event){
-
-    this.notifyCloseModal3();
-
-  }
-
-  private notifyCloseModal3() {
-    this.modalService.requestCloseModal3(this.resVal3);
+    this._location.back();
   }
 
 }

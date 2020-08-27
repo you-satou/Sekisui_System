@@ -17,8 +17,9 @@ import { sTestdata } from './test-data'
 
 export class SupplierPatternComponent implements OnInit {
 
+  title = "発注先パターン選択";
 
-  // Todo
+   // Todo
   pDatas: PatternType[] = pTestdata;
   sDatas: SupplierType[] = sTestdata;
   constructor(

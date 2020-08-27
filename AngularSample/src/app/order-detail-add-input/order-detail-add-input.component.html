@@ -1,111 +1,47 @@
-<div id="MODAL4" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <label id="header_label">発注明細入力_明細入力</label>
-            </div>
-            <div class="modal-body">
-                <div class="table-container">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="table-str td-b text-center">仕訳コード</th>
-                                <th class="table-str td-b text-center">経理コード</th>
-                                <th class="table-str td-b text-center">仕訳名称</th>
-                                <th class="table-str td-b text-center">発注先</th>
-                                <th class="table-str td-b text-center">発注予定金額</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            <td class = "table-str td-b text-center" [(ngModel)]="journalCode" name="journalCode"></td>
-                            <td class = "table-str td-b text-center" input type="text" name="orderPlansKin"></td>
-                            </tr>
-                            <!--
-                            <tr *ngFor="let data of datas">
-                                <td class="table-str td-b">{{ data.journalCode }}</td>
-                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
-                                <td class="table-str td-b">{{ data.journalName }}</td>
-                                <td class="table-str td-b">{{ data.supplierName }}</td>
-                                <td class="table-str td-b">{{ data.orderPlansKin }}</td> 
-                            </tr>   
-                            -->                 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MODAL1" (click)="onClick1($event);">発注仕訳選択</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MODAL3" (click)="onClick2($event);">発注先選択</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">更新</button>
-            </div>
-        </div>
+<header>
+    <title>{{title}}</title>
+</header>
+    <div>
+        <span style="text-align: center;">
+            <h1>{{title}}</h1>
+        </span>
+    </div>
+<div class="table-body">
+        <div class="table-container">
+            <form>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th class="table-str td-b text-center">仕訳コード</th>
+                        <th class="table-str td-b text-center">経理コード</th>
+                        <th class="table-str td-b text-center">仕訳名称</th>
+                        <th class="table-str td-b text-center" colspan="2">発注先</th>
+                        <th class="table-str td-b text-center">発注予定金額</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class = "table-str td-b text-center" [(ngModel)]="journalCode" name="journalCode"></td>
+                        <td class = "table-str td-b text-center" [(ngModel)]="accountingCategory" name="accountingCategory"></td>
+                        <td class = "table-str td-b text-center" [(ngModel)]="orderJournaljournalName" name="orderJournaljournalName"></td>
+                        <td class = "table-str td-b text-center" [(ngModel)]="supplierCode" name="supplierCode"></td>
+                        <td class = "table-str td-b text-center" [(ngModel)]="orderSupplierjournalName" name="orderSupplierjournalName"></td>
+                        <input type="text" name="orderPlansKin">
+                    </tr>                
+                </tbody>
+            </table>
+        </form>
     </div>
 </div>
-<div id="MODAL1" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <label id="header_label">発注仕訳マスタ選択</label>
-            </div>
-            <div class="modal-body">
-                <div class="table-container">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="table-str td-b text-center">仕訳コード</th>
-                                <th class="table-str td-b text-center">経理コード</th>
-                                <th class="table-str td-b text-center">仕訳名称</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of datas2" (click)=onSelHighLight($event,data)>
-                                <td class="table-str td-b">{{ data.journalCode }}</td>
-                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
-                                <td class="table-str td-b">{{ data.journalName }}</td>
-                            </tr>                 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal2" (click)="onSubClick($event);">閉じる</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal2" (click)="onSubClick($event);">選択</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="MODAL3" class="modal fade" tabindex="-1" role="dialog" data-backdrop="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <label id="header_label">発注先マスタ選択</label>
-            </div>
-            <div class="modal-body">
-                <div class="table-container">
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="table-str td-b text-center">発注</th>
-                                <th class="table-str td-b text-center">仕訳名称</th>
-                                <th class="table-str td-b text-center">納品</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of datas3" (click)=onSelHighLight2($event,data)>
-                                <td class="table-str td-b">{{ data.supplierCode }}</td>
-                                <td class="table-str td-b">{{ data.journalName }}</td>
-                                <td class="table-str td-b">{{ data.delivery }}</td>
-                            </tr>                   
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal3" (click)="onSubClick2($event);">閉じる</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal3" (click)="onSubClick2($event);">選択</button>
-            </div>
-        </div>
-    </div>
+<div class='page-footer'>
+    <footer>
+        <button type="button" class="btn btn-secondary" (Click)="onClick2($event);" >閉じる</button>
+        <span style="margin-left:10px">
+        <button type="button" class="btn btn-primary" onClick="location.href='http://localhost:4200/OrderJournalSelect'">発注仕訳選択</button>
+        </span>
+        <span style="margin-left:10px">
+        <button type="button" class="btn btn-primary" onClick="location.href='http://localhost:4200/OrderSupplierSelect'">発注先選択</button>
+        </span>
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" >選択</button>
+    </footer>
 </div>

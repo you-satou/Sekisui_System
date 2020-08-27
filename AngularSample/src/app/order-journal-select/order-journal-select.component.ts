@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { OrderJournalSelectService } from './order-journal-select.service';
 import { OrderJournalSelectType } from './orderJournalSelectType'
 import { testData } from './test-data'
+import { CommonComponent } from '../common/common.component'
+import { AppModule } from '../app.module'
 
 @Component({
     selector: 'order-journal-select',
@@ -13,8 +15,9 @@ import { testData } from './test-data'
                 './order-journal-select.component.css']
 })
 
-export class OrderJournalSelectComponent implements OnInit, OnDestroy  {
+export class OrderJournalSelectComponent implements OnInit {
 
+  title = '発注仕訳マスタ選択';
   // TODO
   datas: OrderJournalSelectType[] = testData;
   resVal:OrderJournalSelectType;
@@ -30,22 +33,20 @@ export class OrderJournalSelectComponent implements OnInit, OnDestroy  {
     private wkAllItemTypesService: WkAllItemTypesService,
     private changeDetectorRef: ChangeDetectorRef,
     private element: ElementRef,
-    private router: Router
+    private router: Router,
+    private commonComponent: CommonComponent,
   ) {}
   
   ngOnInit() {}
-  
-  ngOnDestroy() {
-    // モーダルダイアログが閉じたタイミングで出力される
-    
-  }
+
   
   public onClick($event) {
-    this.notifyCloseModal();
+    this.notifyClosePage();
   }
   
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
+  private notifyClosePage() {
+    this.modalService.setVal(this.resVal);
+    
   }
 
    /**
@@ -58,26 +59,7 @@ export class OrderJournalSelectComponent implements OnInit, OnDestroy  {
     // TODO
     this.resVal = selectedItem;
 
-    // テーブル 背景色 クリア
-    var wTbody = $event.target.parentElement.parentElement;
-    for(var i=0; i<wTbody.rows.length; i++){
-      // 行 取得
-      var wTr = wTbody.rows[i];
-      for(var j=0; j<wTr.cells.length; j++){
-        // セル クリア
-        var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = '';
-      }
-    }
-
-    // 要素取得
-    var wTr = $event.target.parentElement;
-
-    // 背景色 変更
-    for(var i=0; i<wTr.cells.length; i++){
-      var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = '#CCFFFF';
-    }
+    this.commonComponent.CommonOnSelHight($event);
   }
 
 }
