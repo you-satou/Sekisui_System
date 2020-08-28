@@ -1,11 +1,6 @@
-import { map } from 'rxjs/operators';
 import { OrderDetailInputGeneral,OrderDetailInput, OrderInfo, OrderDetailShiwake, OrderDetailSplit } from '../order-detail-input/order-detail-input-interface';
-import { OrderDetailInputService } from './order-detail-input-service';
-import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
-import { WkAllItemTypesService } from '../wk-all-item-types.service';
-import { WkAllItemType } from '../WkAllItemType';
+import { Component, OnInit, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { title } from 'process';
 import { CommonService } from '../common/common.service';
 
 @Component({
@@ -50,6 +45,7 @@ import { CommonService } from '../common/common.service';
 
     constructor(
       private orderService: CommonService,
+      public router: Router,
     ){ }
     
     getOrderInputData(){
@@ -67,6 +63,20 @@ import { CommonService } from '../common/common.service';
           this.bunkatsuData = this.orderGeneral.orderSliptTable;
 
         }});
+    }
+
+    swichPage(order: string){
+
+      switch (order) {
+        case 'meisai':
+          this.router.navigate(['./OrderDetailAddInput']);
+          break;
+      
+        case 'supplier':
+          this.router.navigate(['./SupplierPattern']);
+          break;
+      }
+
     }
 
   }

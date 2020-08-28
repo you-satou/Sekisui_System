@@ -151,7 +151,7 @@
         <ng-container matColumnDef="orderSupplierAmount">
             <th style="width: 6%; " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 6%; " mat-cell *matCellDef="let element "> {{element.orderAmount}} </td>
-            <td mat-footer-cell *matFooterCellDef>{{totalOrderAmount|number}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{getOrderAmount()|number}}</td>
         </ng-container>
 
         <ng-container matColumnDef="recievedDate">
@@ -162,7 +162,7 @@
         <ng-container matColumnDef="recievedAmount">
             <th style="width: 4%; " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 6%; " mat-cell *matCellDef="let element "> {{element.recievedAmount}} </td>
-            <td mat-footer-cell *matFooterCellDef>{{totalRecievedAmount|number}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{getRecievedAmount()|number}}</td>
         </ng-container>
 
         <ng-container matColumnDef="paymentDate">
@@ -173,7 +173,7 @@
         <ng-container matColumnDef="paymentAmount">
             <th style="width: 6%; " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 6%; " mat-cell *matCellDef="let element "> {{element.paymentAmount}} </td>
-            <td mat-footer-cell *matFooterCellDef>{{totalPaymentAmount|number}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{getPaymentAmount()|number}}</td>
         </ng-container>
 
 

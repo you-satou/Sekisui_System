@@ -1,6 +1,4 @@
 import { OrderDetailInputComponent } from './../order-detail-input.component';
-import { element } from 'protractor';
-import { OrderDetailApprovalService } from './../../order-detail-approval/order-detail-approval-service';
 import { OrderDetailShiwake,OrderDetailSplit } from './../order-detail-input-interface';
 import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
 
@@ -14,7 +12,7 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, Elem
 export class OrderDetailShiwakeTable extends OrderDetailInputComponent implements OnInit {
 
   @Input() shiwakeData: OrderDetailShiwake[];
-  @Input() bunkatsuData: OrderDetailSplit[];
+  // @Input() bunkatsuData: OrderDetailSplit[];
 
 
   totalOrderAmount: number;
@@ -78,33 +76,62 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
 
 
     getTotalPlanAmount() {
+    
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
 
-      return this.shiwakeData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
+        return this.shiwakeData.map(t =>{
+          if(t.orderPlanAmount != null || t.orderPlanAmount != ''){
+            return Number(t.orderPlanAmount);
+          }
+        }).reduce((acc, value) => acc + value, 0);
+      }
+    }
+    getOrderAmount() {
+    
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
+
+        return this.shiwakeData.map(t =>{
+          if(t.orderAmount != null || t.orderAmount != ''){
+            return Number(t.orderAmount);
+          }
+        }).reduce((acc, value) => acc + value, 0);
+      }
+    }
+    getRecievedAmount() {
+    
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
+
+        return this.shiwakeData.map(
+          t =>{if(t.recievedAmount != null || t.recievedAmount != ''){
+              return Number(t.recievedAmount);
+            }
+          }).reduce((acc, value) => acc + value, 0);
+      }
     }
 
-    getTotalAmount(){
+  getPaymentAmount() {
 
-      this.shiwakeData.forEach( data =>{
-          this.totalRecievedAmount += Number(data.recievedAmount);
-          this.totalOrderAmount += Number(data.orderAmount); 
-          this.totalPaymentAmount += Number(data.paymentAmount); 
-        }
-  
-      )
+    if (this.shiwakeData != undefined || this.shiwakeData != null) {
+
+      return this.shiwakeData.map(t => {
+        if (t.paymentAmount != null || t.paymentAmount != '') { return Number(t.paymentAmount) }
+      }).reduce((acc, value) => acc + value, 0);
     }
-  
+  }
+
   
     ngOnInit() {
-      this.getTotalAmount();
     }
   
     getDetail($event, dataDetail){
   
       let shiwakeCode = dataDetail.journalCode;
   
-      
-      alert(dataDetail.journalCode);
-  
+    }
+
+
+    moveToSliptDetailInput(){
+      this.router.navigate(['./SliptDetailInput']);
     }
 
 }

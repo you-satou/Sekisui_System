@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, ViewChild, Input, OnChanges, ViewEncapsulation, ViewContainerRef, Renderer2 } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,12 +32,13 @@ export class OrderDetailApprovalTable implements OnChanges {
     ];
 
   dataSource: any;
+
   @ViewChild(MatSort, {static: true})  sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  datas: OrderDetail[];
-
-  constructor( ) {  }
+  constructor(
+    private router: Router,
+   ) {  }
 
   ngOnChanges( ) {
 
@@ -44,10 +46,11 @@ export class OrderDetailApprovalTable implements OnChanges {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
+  
+  switchPage(data: OrderDetail){
 
-  // getOrderDetail($event, data) {
-  //   alert(data.contractNum);
+    this.router.navigate(['./OrderDetailInput']);
 
-  // }
+  }
 }
 

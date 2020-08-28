@@ -25,7 +25,7 @@ import { Const } from '../common/const'
 export class OrderDetailApprovalComponent implements OnInit {
   pageTitle = "発注明細入力＿承認処理";
 
-  datas: OrderDetail[];
+  orderDetailData: OrderDetail[];
   inputment: OrderSearchInputment;
   
   startFromName: boolean;
@@ -73,8 +73,8 @@ export class OrderDetailApprovalComponent implements OnInit {
       this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
       .then(
         (response) => {
-          this.datas = response;
-          if(this.datas != null){
+          this.orderDetailData = response;
+          if(this.orderDetailData != null){
             let pageInput = document.getElementById("pageIndex");
             pageInput.setAttribute("value", "1");
             pageInput.removeAttribute("disabled");

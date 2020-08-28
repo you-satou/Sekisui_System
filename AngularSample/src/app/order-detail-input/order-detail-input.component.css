@@ -111,9 +111,9 @@ td {
 
 .orderInfo2 {
     max-width: 100% !important;
-    min-width: 1340px !important;
     margin-top: 10px !important;
     position: relative !important;
+    min-width: 1120px !important;
 }
 
 .orderInfo2Table1 {
@@ -135,9 +135,15 @@ td {
     min-width: 1050px !important;
     margin-top: 10px;
     width: auto;
-    overflow: auto;
+    overflow-y: auto;
     height: 200px;
     position: relative;
+}
+
+.infoTable>div>table>thead>tr>th {
+    position: sticky !important;
+    top: 0;
+    background-color: white;
 }
 
 .tbl1 {
@@ -193,7 +199,7 @@ td {
 }
 
 .bottomButton {
-    position: fixed; 
-    z-index: 2; 
+    position: fixed;
+    z-index: 2;
     bottom: 5px;
 }
