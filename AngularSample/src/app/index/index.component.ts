@@ -76,7 +76,6 @@ export class IndexComponent implements OnInit{
 
     this.indexService.setVal(Const.UrlSetting.U0000.toString());
 
-
   }
 
 }
