@@ -1,14 +1,13 @@
-import { SplitOrderDetailShiwake, SplitOrderDetailSplit, SplitOrderDetailInput} from './split-detail-input-interface';
+import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from './split-detail-input-interface';
 import { SplitOrderDetailService } from './split-detail-input-service';
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
-import { Router } from '@angular/router';
-import { title } from 'process';
-import { AddOrderDetailComponent } from 'app/add-order-detail/add-order-detail.component';
-import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pattern.service';
+import { AddSupplierPatternService } from '../add-order-detail/add-supplier-pattern.service';
 import { SplitOrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
-import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
 
 @Component({
     selector: 'order-detail-input',
@@ -17,15 +16,10 @@ import { Subscription } from 'rxjs';
     encapsulation: ViewEncapsulation.None
   })
 
-  export class SplitOrderDetailInputComponent implements OnInit, OnDestroy {
-    
-    _element: HTMLElement;
+  export class SplitOrderDetailInputComponent implements OnInit {
 
-    private subscription: Subscription;
+    orderPlanAmountTest:string="test";
 
-    public modal: any = null;
-    
-    orderPlanAmount:String="test";
     comment:String="";
     requestDate:String="";
     requester:String="";
@@ -36,78 +30,27 @@ import { Subscription } from 'rxjs';
 
     bunkatsuData: SplitOrderDetailSplit[];
 
-    orderInputDatas : SplitOrderDetailInput[];
-
-    resVal: SplitOrderDetailShiwake;
-
     testich: String="";
 
     constructor(
+      private appComponent: AppComponent,
       private service: SplitOrderDetailService,
       private modalService: AddSupplierPatternService,
-      private element: ElementRef,
       public newRowTest: SplitOrderDetailShiwakeTable,
-    ){
-      this._element = this.element.nativeElement
-    }
+      private _location: Location,
+    ){}
 
     ngOnInit() {
-
-      this.getSplitOrderInputData();
       this.getSplitOderDetailShiwake();
       this.getSplitOrderDetailSplit()
-
-      this.subscription = this.modalService.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          
-          this.modal = null;
-          // データ設定
-          this.orderPlanAmount = this.modalService.getVal().orderPlanAmount
-          this.comment = this.modalService.getVal().comment
-          this.requestDate = this.modalService.getVal().requestDate
-          this.requester = this.modalService.getVal().requester
-        }
-      );
-
+      this.appComponent.setHeader(Const.ScreenName.S0007,Const.LinKSetting.L0004);
     }
-
-    /**
-   * 終了処理
-   *
-   * @memberof AppComponent
-   */
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-
-  public onClick($event, orderPlanAmountTest) {
-    this.testich = orderPlanAmountTest
-    this.modal = AddOrderDetailComponent;
-  }
 
     getSplitOderDetailShiwake(){
 
       this.service.getSplitOderDetailShiwake()
       .subscribe(
         data => this.shiwakeData = data
-      );
-      
-
-    }
-
-    getSplitOrderInputData(){
-      this.service.getSplitOrderInputData()
-      .subscribe(
-        data => this.orderInputDatas = data
       );
     }
 
@@ -118,11 +61,7 @@ import { Subscription } from 'rxjs';
       );
     }
 
-    testChangeLabel(value:String){
-      this.testich = value;
-    }
-
-    public onClickNewRow($event){
-      this.newRowTest.addNewRow();
+    public onBackClick($event) {
+      this._location.back();
     }
   }

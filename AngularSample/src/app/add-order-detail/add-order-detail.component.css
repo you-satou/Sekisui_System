@@ -1,94 +1,29 @@
-.modal-dialog {
-    top: 20%;
-    display: table;
-    margin: auto;
-}
-
-.modal-content {
-    position: relative;
-}
-
-.modal-header{
-    position: relative;
-    font-size: 1.2em;
-    font-weight:bold;
-    background-color: rgb(229, 241, 247);
-    justify-content: center;
-    align-items: center;
-}
-.modal-body{
-    position: relative;
-}
-.modal-footer{
-    position: relative;
-    background-color: rgb(229, 241, 247);
-}
-
-.box {
-    position: relative;
-    border-radius: 5px;
-    overflow: auto;
-}
-
-.table-small {
-    position: relative;
-    margin-right: 30px;
-}
-.table-small>thead {
-    background-color: #E5E5E5;
-}
-.table{
-    position: relative;
-}
-.table>thead {
-    position: relative;
-    background-color: #E5E5E5;
-}
-.table>tbody {
-    position: relative;
-}
-
-.td-b {
+th {
+    border-collapse: collapse;
     border-right: 0.5px solid #CCD0D5;
-}
-
-.table-str{
-    word-break: keep-all;
-}
-
-.table-str-second{
-    padding: 3px;
-    height: 10px;
-    word-break: keep-all;
-}
-
-.table-str-large{
-    display: inline-block;
-    word-wrap: break-word;
-}
-
-.td-center {
+    border-top: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
+    font: bold 12px "メイリオ" !important;
     text-align: center;
-    word-break: keep-all;
-    white-space:nowrap;
+    padding: 5px;
 }
 
-.td-left {
-    text-align: left;
-    word-break: keep-all;
-    white-space:nowrap;
+td {
+    border-collapse: collapse;
+    border-right: 0.5px solid #CCD0D5;
+    border-top: 0.5px solid #CCD0D5;
+    border-bottom: 0.5px solid #CCD0D5;
+    border-left: 0.5px solid #CCD0D5;
+    padding: 5px;
 }
 
-.td-right {
-    text-align: right;
-    word-break: keep-all;
-    white-space:nowrap;
+.footer {
+    z-index: 1;
 }
 
-#addOrderPerson {
-    background-color: rgb(141, 180, 226);
-}
-
-#headCenter {
-    vertical-align: middle;
+.bottomButton {
+    position: fixed; 
+    z-index: 2; 
+    bottom: 5px;
 }

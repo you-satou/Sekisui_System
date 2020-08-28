@@ -1,155 +1,61 @@
 <div>
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="shiwakeData" class="add-order-detail-table table-hover table-striped">
+        <table mat-table [dataSource]="shiwakeData" class="split-shiwake-table">
 
             <ng-container matColumnDef="journalCode">
-                <th style="width: 15%; padding: 0 5px;" class="headCenter" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
-                <td style="padding: 0 5px; text-align: center;" class="splitCell" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
+                <th style="padding: 3px 5px; text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
+                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="accountCode">
-                <th style="width: 15%;" class="headCenter" mat-header-cell *matHeaderCellDef>経理<br>分類</th>
-                <td style="padding: 0 5px;" class="splitCell" mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
+                <th style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>経理<br>分類</th>
+                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="journalName">
-                <th style="width: 20%;" class="headCenter" mat-header-cell *matHeaderCellDef>仕訳名称</th>
-                <td style="width: 20%; padding: 0 5px;" class="splitCell" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
+                <th style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
+                <td class="tdLeft" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierCode">
-                <th colspan="2" style="width: 30%;" class="headCenter" mat-header-cell *matHeaderCellDef>発注先</th>
-                <td style="width: 10%; padding: 0 5px;" class="splitCell" class="splitCell" mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
+                <th colspan="2" style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
+                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierName">
                 <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
-                <td style="padding: 0 30px 0 5px; word-break: keep-all;" class="splitCell" mat-cell *matCellDef="let element">{{element.orderSuplierName}}</td>
+                <td class="tdLeft" mat-cell *matCellDef="let element">{{element.orderSuplierName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="orderPlanAmount">
-                <th style="width: 20%; padding: 0 5px;" class="headCenter" mat-header-cell *matHeaderCellDef>発注予定金額</th>
-                <td style="width: 20%; padding: 0 5px 0 50px;" class="splitCell" mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
+                <th style="padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
+                <td class="tdRight" mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
                 <td mat-footer-cell *matFooterCellDef>20000</td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
+            <tr class="tableHeader" mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: shiwakeColumns;"></tr>
         </table>
     </div>
 
-    <!-- <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
-
-        <table mat-table [dataSource]="bunkatsuData" class="split-shiwake-table" id="bunkatsuTable">
-
-            <ng-container matColumnDef="orderPlanAmount1">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element; let i = index"> {{element.orderPlanAmount}} </td>
-                <td class="splitCell" mat-footer-cell *matFooterCellDef style="text-align: center;">{{getTotalsAmount()|number}}</td>
-            </ng-container>
-            <ng-container matColumnDef="comment1">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.comment}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-            <ng-container matColumnDef="requestDate">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>依頼日</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.requestDate}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="requester">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>依頼者</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.requester}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="approvalDate_lv1">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>承認日</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.approvalDate_lv1}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="approvalPerson_lv1">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>承認者</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.approvalPerson_lv1}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="approvalDate_lv2">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>承認日</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.approvalDate_lv2}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="approvalPerson_lv2">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef>承認者</th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.approvalPerson_lv2}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-                        
-            <ng-container matColumnDef="orderDate">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.orderDate}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="orderAmount">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.orderAmount}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="recievedDate">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.recievedDate}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="recievedAmount">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.recievedAmount}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="paymentDate">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.paymentDate}}</td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-            <ng-container matColumnDef="paymentAmount">
-                <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
-                <td style="width: 6%; " class="splitCell" mat-cell *matCellDef="let element"> {{element.paymentAmount}} </td>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="no">
-                <th style="padding: 0;" class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2"></th>
-            </ng-container>
-            <ng-container matColumnDef="orderPlanAmount">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2">発注予定金額</th>
-            </ng-container>
-            <ng-container matColumnDef="comment">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2">コメント</th>
-            </ng-container>
-            <ng-container matColumnDef="irai">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.colSpan] = "2">依頼</th>
-            </ng-container>
-            <ng-container matColumnDef="shounin_1">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.colSpan] = "2">承認１</th>
-            </ng-container>
-            <ng-container matColumnDef="shounin_2">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.colSpan] = "2">承認２</th>
-            </ng-container>
-            <ng-container matColumnDef="order">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">発注</th>
-            </ng-container>
-            <ng-container matColumnDef="recieved">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">受入</th>
-            </ng-container>
-            <ng-container matColumnDef="payment">
-                <th class="headCenter" mat-header-cell *matHeaderCellDef [attr.rowSpan] ="2" [attr.colSpan] = "2">支払</th>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="headerColspan"></tr>
-            <tr mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
-            <tr mat-footer-row *matFooterRowDef="rows"></tr>
-
-            <tr mat-row *matRowDef="let row; columns: rows;"></tr>
-
+    <div class="add-div" style="margin-top: 20px;">
+        <table class="add-table">
+            <tr>
+                <th class="color-input-1" style="width: 25%;" rowspan="2">発注予定金額</th>
+                <th class="color-input-1" style="width: 25%;" rowspan="2">コメント</th>
+                <th class="color-input-2" style="width: 50%;" colspan="2">依頼</th>
+            </tr>
+            <tr>
+                <th class="color-input-1">依頼日</th>
+                <th class="color-input-1">依頼者</th>
+            </tr>
+            <tr>
+                <td id="tdInput"><input type="text"></td>
+                <td id="tdInput"><input type="text"></td>
+                <td id="tdInput"><input type="text"></td>
+                <td class="color-input-1" id="tdInput"><input class="color-input-1" type="text"></td>
+            </tr>
         </table>
-    </div> -->
+    </div>
+
 </div>

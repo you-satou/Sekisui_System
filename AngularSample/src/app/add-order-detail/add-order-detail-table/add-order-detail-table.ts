@@ -21,7 +21,7 @@ export class AddOrderDetailShiwakeTable extends AddOrderDetailComponent implemen
   totalRecievedAmount: number;
   totalPaymentAmount: number;
   totalOrderPlanAmount: Number;
-   
+
   shiwakeColumns: string[] = [
     'journalCode',
     'accountCode',
@@ -86,18 +86,17 @@ export class AddOrderDetailShiwakeTable extends AddOrderDetailComponent implemen
   marginleftPx: number;
 
 
-    getTotalPlanAmount() {
+  getTotalPlanAmount() {
 
-      return this.bunkatsuData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
-    }
-  
-    getDetail($event, dataDetail){
-  
-      let shiwakeCode = dataDetail.journalCode;
-  
-      
-      alert(dataDetail.journalCode);
-  
-    }
+    return this.bunkatsuData.map(t => Number(t.orderPlanAmount)).reduce((acc, value) => acc + value, 0);
+  }
 
+  getDetail($event, dataDetail) {
+
+    let shiwakeCode = dataDetail.journalCode;
+
+
+    alert(dataDetail.journalCode);
+
+  }
 }

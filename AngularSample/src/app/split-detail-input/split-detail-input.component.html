@@ -24,25 +24,17 @@
     </div>
     <footer>
         <div class="footer-container" style="position: inherit;">
-            <div>
-                <div style="margin-bottom: 10px;">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn" data-toggle="modal" data-target="#MODAL5" (click)="onClick($event);">明細追加</button>
-                </div>
+            <div class="bottomButton">
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn" data-toggle="modal"
+                    data-target="#MODAL5" onClick="location.href='http://localhost:4200/AddOrderDetail'">明細追加</button>
             </div>
-            <div class="text-left footer">
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose "  class="btn btn-secondary border mx-1 back-btn ">閉じる</button>
-                </div>
-                <div class="text-left footer ">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn " (click)="onClickNewRow($event);">更新(New Row)</button>
-                </div>
+            <div style="right: 115px;" class="bottomButton">
+                <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
+                    (click)="onBackClick($event)">閉じる</button>
+            </div>
+            <div style="right: 46px;" class="bottomButton">
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn ">更新</button>
             </div>
         </div>
     </footer>
-
-    <label>ラベル</label>
-    <input type="text" [(ngModel)]="testich" name="orderPlanAmount">
-
 </div>
-
-<ng-container *ngComponentOutlet="modal"></ng-container>

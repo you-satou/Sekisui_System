@@ -1,3 +1,3 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SplitDetailInputComponent } from './split-detail-input.component';
+import { SplitOrderDetailInputComponent } from './split-detail-input.component';

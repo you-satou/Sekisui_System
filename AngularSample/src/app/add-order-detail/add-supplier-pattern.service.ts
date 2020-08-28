@@ -1,4 +1,4 @@
-import { SplitOrderDetailShiwake } from './../split-detail-input/split-detail-input-interface';
+import { SplitOrderDetailShiwake, AddOrderDetail } from '../split-detail-input/split-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
@@ -9,6 +9,11 @@ import { Subject, Observable } from 'rxjs';
 
 export class AddSupplierPatternService {
 
+  constructor(
+    private http: HttpClient
+  ) { }
+
+
   // データの変更を通知するためのオブジェクト
   private closeEventSubject = new Subject<string>();
 
@@ -17,37 +22,18 @@ export class AddSupplierPatternService {
 
   private _urlShiwake: string = "assets/data/splitDataShiwake.json";
 
-  /**
-   * コンストラクタ
-   *
-   * @memberof AddSupplierPatternService
-   */
-  constructor(
-    private http: HttpClient
-  ) { }
-
   private _val
 
 
   public getVal() {
     return this._val;
   }
-  public setVal(val:SplitOrderDetailShiwake) {
+  public setVal(val:AddOrderDetail) {
     this._val = val;
   }
 
   getSplitOderDetailShiwake(): Observable<SplitOrderDetailShiwake[]> {
 
     return this.http.get<SplitOrderDetailShiwake[]>(this._urlShiwake);
-  }
-
-  /**
-   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
-   *
-   * @memberof AddSupplierPatternService
-   */
-  public requestCloseModal(resVal:SplitOrderDetailShiwake) {
-    this.setVal(resVal)
-    this.closeEventSubject.next();
   }
 }

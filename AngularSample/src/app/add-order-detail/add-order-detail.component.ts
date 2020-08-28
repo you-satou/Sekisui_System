@@ -1,36 +1,43 @@
-import { SplitOrderDetailShiwake } from './../split-detail-input/split-detail-input-interface';
-import { SplitOrderDetailInputComponent } from './../split-detail-input/split-detail-input.component';
-import { AddSupplierPatternService } from './add-supplier-pattern.service';
-import { Component, OnInit, OnChanges, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { SplitOrderDetailShiwake, AddOrderDetail } from './../split-detail-input/split-detail-input-interface';
+import { SplitOrderDetailService } from '../split-detail-input/split-detail-input-service';
+import { Component, OnInit, OnChanges, Output, EventEmitter, ChangeDetectorRef, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
-import { Router } from '@angular/router';
+import { testData } from './test-data';
+import { Location } from '@angular/common';
+import { AppComponent } from '../app.component'
+import { Const } from '../common/const'
 
 @Component({
     selector: 'supplier-pattern',
     templateUrl: './add-order-detail.component.html',
     styleUrls: ['../common/common.component.css',
-                './add-order-detail.component.css']
+                './add-order-detail.component.css'],
+    encapsulation: ViewEncapsulation.None
   })
 
-export class AddOrderDetailComponent implements OnInit, OnChanges {
+export class AddOrderDetailComponent implements OnInit {
 
-  orderPlanAmountTest: String="test1";
-  comment: String="";
-  requestDate: String="";
-  requester: String="";
+  title: String = "発注明細入力＿分割明細入力";
+
+  path:any;
+
+  datas: AddOrderDetail[] = testData;
+  resVal: AddOrderDetail;
 
   shiwakeData: SplitOrderDetailShiwake[];
-  resVal:SplitOrderDetailShiwake;
+
+
+  constructor(
+    private appComponent: AppComponent,
+    private modalService: SplitOrderDetailService,
+    private _location: Location,
+  ){}
 
   ngOnInit() {
     this.getSplitOderDetailShiwake();
+    this.appComponent.setHeader(Const.ScreenName.S0008,Const.LinKSetting.L0004);
   }
-
-  constructor(
-    private modalService: AddSupplierPatternService,
-    public oktest: SplitOrderDetailInputComponent
-  ){}
 
   getSplitOderDetailShiwake(){
 
@@ -38,64 +45,16 @@ export class AddOrderDetailComponent implements OnInit, OnChanges {
     .subscribe(
       data => this.shiwakeData = data
     );
-    
-
   }
 
-  ngOnDestroy() {
-    // モーダルダイアログが閉じたタイミングで出力される
-    console.log('destroyed');
+  public onBackClick($event) {
+    this._location.back();
   }
 
-  public onClickSelect($event) {
-    this.orderPlanAmountTest = document.getElementById("addAmount").innerText;
-    this.oktest.testChangeLabel(this.orderPlanAmountTest);
-    // this.orderPlanAmountTest = 'test3'
-    // this.notifyCloseModal();
-  }
-
-  public onClickClose($event) {
-    this.notifyCloseModal();
-  }
-
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
-  }
-
-  /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
-  public onSelHighLight($event){
-    // テーブル 背景色 クリア
-    var wTbody = $event.target.parentElement.parentElement;
-    for(var i=0; i<wTbody.rows.length; i++){
-      // 行 取得
-      var wTr = wTbody.rows[i];
-      for(var j=0; j<wTr.cells.length; j++){
-        // セル クリア
-        var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = '';
-      }
-    }
-
-    // 要素取得
-    var wTr = $event.target.parentElement;
-
-    // 背景色 変更
-    for(var i=0; i<wTr.cells.length; i++){
-      var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = '#CCFFFF';
-    }
-
-  }
-
-  ngOnChanges(changes: any): void {
-    
-    // this.orderPlanAmountTest = document.getElementById("addAmount").nodeValue;
-    
+  public onSelectClick($event) {
+    this.modalService.setVal(this.resVal);
+    this.path = this._location.back();
+    this._location.go(this.path);
   }
 
 }
