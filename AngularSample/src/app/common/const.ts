@@ -45,11 +45,11 @@ export namespace Const{
         export const U0001 = "/OrderDetailApproval";//発注明細入力_明細入力
         export const U0002 = "/OrderDetailInput";//発注明細入力_明細入力
         export const U0003 = "/SupplierPattern";//発注明細入力_発注先パターン選択
-        export const U0004 = "/OrderDetailAddInput>";//発注明細入力_明細入力
+        export const U0004 = "/OrderDetailAddInput";//発注明細入力_明細入力
         export const U0005 = "/OrderJournalSelect";//発注仕訳マスタ選択
         export const U0006 = "/OrderSupplierSelect";//発注先マスタ選択
-        export const U0007 = "/SplitDetailInput"//発注明細入力_分割明細入力
-        export const U0008 = "/AddOrderDetail"//発注明細入力_分割明細入力明細追加
+        export const U0007 = "/SplitDetailInput";//発注明細入力_分割明細入力
+        export const U0008 = "/AddOrderDetail";//発注明細入力_分割明細入力明細追加
 
 
     }
