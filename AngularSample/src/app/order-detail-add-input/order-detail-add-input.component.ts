@@ -34,9 +34,10 @@ export class OrderDetailAddInputComponent implements OnInit {
 
   journalCode:String="";
   accountingCategory:String="";
-  orderJournaljournalName:String="";
+  orderJournalName:String="";
   supplierCode:String="";
-  orderSupplierjournalName:String="";
+  supplierJournalName:String="";
+
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;

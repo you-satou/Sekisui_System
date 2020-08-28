@@ -20,7 +20,7 @@
                 <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
                     <td class="table-str td-b">{{ data.journalCode }}</td>
                     <td class="table-str td-b">{{ data.accountingCategory }}</td>
-                    <td class="table-str td-b">{{ data.journalName }}</td>
+                    <td class="table-str td-b">{{ data.orderJournalName }}</td>
                 </tr>                 
             </tbody>
         </table>
@@ -29,6 +29,6 @@
 <div class='page-footer'>
     <footer>
         <button type="button" class="btn btn-secondary" (click)="onBackClick($event);">閉じる</button>
-        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);">選択</button>
+        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" routerLink="/">選択</button>
     </footer>
 </div>

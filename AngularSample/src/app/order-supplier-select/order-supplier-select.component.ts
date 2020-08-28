@@ -45,6 +45,7 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   ngOnInit() {
 
     this.appComponent.setHeader(Const.ScreenName.S0006,Const.LinKSetting.L0006);
+
   }
   
   ngOnDestroy() {

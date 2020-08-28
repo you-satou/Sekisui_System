@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
-// import { IndexItemType } from '../IndexItemType';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { OrderJournalSelectComponent } from '../order-journal-select/order-journal-select.component';
 import { OrderJournalSelectService } from '../order-journal-select/order-journal-select.service';
 import { SupplierPatternComponent } from '../supplier-pattern/supplier-pattern.component';
@@ -12,8 +11,10 @@ import { OrderDetailAddInputComponent } from '../order-detail-add-input/order-de
 import { OrderDetailAddInputService } from '../order-detail-add-input/order-detail-add-input.service';
 import { AddOrderDetailComponent } from 'app/add-order-detail/add-order-detail.component';
 import { AddSupplierPatternService } from 'app/add-order-detail/add-supplier-pattern.service';
+import {map} from 'rxjs/operators';
+import { IndexService } from './index.service'
 
-import { Subscription } from 'rxjs';
+import { Subscription,Observable } from 'rxjs';
 import { runInThisContext } from 'vm';
 import { AppComponent } from '../app.component'
 import { Const } from '../common/const'
@@ -24,17 +25,15 @@ import { Const } from '../common/const'
   styleUrls: ['../common/common.component.css',
               './index.component.css']
 })
-
-export class IndexComponent implements OnInit, OnDestroy   {
+  /**
+   * コンストラクタ
+   *
+   * @param {ModalService} modalService
+   * @memberof ModalComponent
+   */
+export class IndexComponent implements OnInit{
     
   _element: HTMLElement;
-  
-  // indexDataList: IndexItemType[]
-
-  // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
-  private subscription: Subscription;
-　// ngComponentOutlet にセットするためのプロパティ
-  public modal: any = null;
 
   pageIndex: number = 0;
   recordMax: number = 0;
@@ -44,8 +43,10 @@ export class IndexComponent implements OnInit, OnDestroy   {
   str:String="";
   journalCode:String="";
   accountingCategory:String="";
-  journalName:String="";
+  orderJournalName:String="";
   supplierName:String="";
+
+  frmPath:String= Const.UrlSetting.U0005.toString(); 
 
   constructor(
       private wkAllItemTypesService: WkAllItemTypesService,
@@ -57,123 +58,25 @@ export class IndexComponent implements OnInit, OnDestroy   {
       private modalService5: AddSupplierPatternService,
       private element: ElementRef,
       private appComponent: AppComponent,
-      private router: Router
-  ) { this._element = this.element.nativeElement }
+      private router: Router,
+      private indexService: IndexService, 
+  ) { this._element = this.element.nativeElement
+  }
 
   ngOnInit() {
 
       // ヘッダー 設定
       this.appComponent.setHeader(Const.ScreenName.S0000);
-    
-
-      // // データ取得
-      // this.wkAllItemTypesService.indexJson()
-      // .subscribe(response => {
-      //   let datas: IndexItemType[] = response;
-      //   this.recordMax = datas.length;
-      //   this.pageMax = Math.floor(this.recordMax / this.pageSize);
-      //   this.indexDataList = response;
-      // });
-      this.subscription = this.modalService.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          
-          this.modal = null;
-          // データ設定
-          this.str = this.modalService.getVal().journalName
-        }
-      );
-      this.subscription = this.modalService2.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          this.modal = null;
-        }
-      );
-
-      this.subscription = this.modalService3.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          this.modal = null;
-        }
-      );
-
-      this.subscription = this.modalService4.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          this.modal = null;
-          this.journalCode = this.modalService.getVal().journalCode
-          this.accountingCategory = this.modalService.getVal().accountingCategory
-        }
-      );
-
-      this.subscription = this.modalService5.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          this.modal = null;
-        }
-      );
-  }
-  /**
-   * 終了処理
-   *
-   * @memberof AppComponent
-   */
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+      //this.appComponent.setfrmUrl(Const.UrlSetting.U0000.toString());
+      this.str = this.modalService.getVal().orderJournalName;
+      
   }
 
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick($event) {
-    this.modal = OrderJournalSelectComponent;
+  public setfrmUrl(){
+
+    this.indexService.setVal(Const.UrlSetting.U0000.toString());
+
+
   }
 
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick2($event) {
-    this.modal = SupplierPatternComponent;
-  }
-
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick3($event) {
-    this.modal = OrderSupplierSelectComponent;
-  }
-
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick4($event) {
-    this.modal = OrderDetailAddInputComponent;
-  }
-
-  /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
-  public onClick5($event) {
-    this.modal = AddOrderDetailComponent;
-  }
 }

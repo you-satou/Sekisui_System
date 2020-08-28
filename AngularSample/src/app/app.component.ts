@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
   // public static rootPath: string = "";
   displayTitle: string = "";
   rootPath: string = "";
+  frmPath: string = "";
   show: boolean = false;
   message_str: String = "";
   errorMessages: String[];
@@ -94,4 +95,5 @@ export class AppComponent implements OnInit {
   getSystemDate(): string {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
   }
+
 }

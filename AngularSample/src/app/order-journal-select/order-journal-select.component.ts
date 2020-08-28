@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef, Inject } from '@angular/core';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { Router } from '@angular/router';
@@ -21,6 +21,7 @@ import { Location } from '@angular/common';
 export class OrderJournalSelectComponent implements OnInit {
 
   title = '発注仕訳マスタ選択';
+
   // TODO
   datas: OrderJournalSelectType[] = testData;
   resVal:OrderJournalSelectType;
@@ -45,12 +46,12 @@ export class OrderJournalSelectComponent implements OnInit {
   ngOnInit() {
 
     this.appComponent.setHeader(Const.ScreenName.S0005,Const.LinKSetting.L0005);
+    
   }
 
   
   public onClick($event) {
     this.modalService.setVal(this.resVal);
-    this._location.back();
   }
   
   public onBackClick($event) {

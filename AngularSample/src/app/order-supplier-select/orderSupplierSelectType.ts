@@ -1,5 +1,5 @@
 export class OrderSupplierSelectType {
     supplierCode: String;
-    journalName: String;
+    supplierJournalName: String;
     delivery: String;
 }
