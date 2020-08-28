@@ -28,7 +28,7 @@
             <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text" style="width: 270px;">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
-                <p class="radioCheckbok"><input [checked]="startFromName" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
+                <p class="radioCheckbok"><input [(ngModel)]="checked.startFromName" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
                 <div style="width: 20px;"></div>
                 <p class="radioCheckbok"><input type="radio" name="options" id="includeProName" autocomplete="off">を含む</p>
             </div>

@@ -18,7 +18,7 @@ export class OrderSearchInputment {
     contractNumFrom: string;
     contractNumTo: string;
     propertyName: string;
-    startFromName: boolean;
+    searchByName: string; // １： 名称から始まる　２：名称を含めて検索
     detailCreated: boolean;
     detailNone: boolean;
     approval_1: boolean;

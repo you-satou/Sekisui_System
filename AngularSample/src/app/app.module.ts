@@ -1,6 +1,5 @@
 import { CommonService } from './common/common.service';
 import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/table-shiwake';
-import { OrderDetailApprovalService } from './order-detail-approval/order-detail-approval-service';
 import { SplitOrderDetailService } from './split-detail-input/split-detail-input-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -102,7 +101,6 @@ const appRoute: Routes = [
   ],
   providers: [WkAllItemTypesService,
               SplitOrderDetailService,
-              OrderDetailApprovalService,
               // Order Services
               CommonService,
               CommonComponent,

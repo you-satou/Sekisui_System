@@ -10,11 +10,13 @@ import {
   OrderDetail,
   OrderSearchInputment,
 } from "./order-detail-approval-interface";
-import { OrderDetailApprovalService } from "./order-detail-approval-service";
-import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from '../app.component'
 import { Const } from '../common/const'
+
+interface RadioButton{
+  startFromName: boolean;
+}
 
 @Component({
   selector: "app-order-detail-approval",
@@ -22,19 +24,23 @@ import { Const } from '../common/const'
   styleUrls: ["./order-detail-approval.component.css"],
   encapsulation: ViewEncapsulation.None,
 })
+
+
+
 export class OrderDetailApprovalComponent implements OnInit {
   pageTitle = "発注明細入力＿承認処理";
 
   orderDetailData: OrderDetail[];
   inputment: OrderSearchInputment;
   
-  startFromName: boolean;
+  checked: RadioButton = {
+    startFromName: true,
+  };
 
   _url: string = "assets/data/dataApproval.json";
   _urlSearchName: string = "OrderDetailApproval/Search";
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private orderDetailService: OrderDetailApprovalService,
     private appComponent: AppComponent,
     private orderService: CommonService
   ) {}
@@ -60,7 +66,6 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   setStartPage() {
     this.inputment = new OrderSearchInputment();
-    this.inputment.startFromName = true;
     this.inputment.detailCreated = false;
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
@@ -69,21 +74,39 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   getSearchRequest() {
 
-    setTimeout(()=> {
-      this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-      .then(
-        (response) => {
-          this.orderDetailData = response;
-          if(this.orderDetailData != null){
-            let pageInput = document.getElementById("pageIndex");
-            pageInput.setAttribute("value", "1");
-            pageInput.removeAttribute("disabled");
+    if(this.checkInput(this.inputment)){
+
+      setTimeout(()=> {
+        this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
+        .then(
+          (response) => {
+            this.orderDetailData = response;
+            if(this.orderDetailData != null){
+              let pageInput = document.getElementById("pageIndex");
+              pageInput.setAttribute("value", "1");
+              pageInput.removeAttribute("disabled");
+            }
           }
-        }
-      );
+        );
+      });
 
-    });
+    }
 
+
+
+  }
+
+  checkInput(input: OrderSearchInputment):boolean{
+
+    // if(this.checked.startFromName){
+    //   input.searchByName = "1"
+    // }
+
+    input.searchByName = this.checked.startFromName === true? "1":"2";
+
+    alert(input.searchByName);
+
+    return false;
   }
   
 }
