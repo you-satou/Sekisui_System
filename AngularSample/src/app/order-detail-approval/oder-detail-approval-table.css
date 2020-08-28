@@ -1,6 +1,5 @@
 table {
     width: 100%;
-    height: 400px;
     overflow: auto;
 }
 
@@ -17,7 +16,6 @@ th .mat-sort-header-sorted {
     border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
-    /* overflow: hidden; */
 }
 
 th {
