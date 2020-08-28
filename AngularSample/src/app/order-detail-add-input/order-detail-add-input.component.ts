@@ -30,6 +30,7 @@ export class OrderDetailAddInputComponent implements OnInit {
   title = '発注明細入力_明細入力';
 
   _element: HTMLElement;
+  path:any;
 
   journalCode:String="";
   accountingCategory:String="";
@@ -43,18 +44,6 @@ export class OrderDetailAddInputComponent implements OnInit {
   resVal2:OrderJournalSelectType;
   datas3: OrderSupplierSelectType[] = testData3;
   resVal3:OrderSupplierSelectType;
-  
-  // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
-  private subscription: Subscription;
-  // ngComponentOutlet にセットするためのプロパティ
-
-  /**
-   * コンストラクタ
-   *
-   * @param {ModalService} modalService
-   * @memberof ModalComponent
-   * 
-   */
 
   constructor(
     private appComponent: AppComponent,
@@ -70,14 +59,14 @@ export class OrderDetailAddInputComponent implements OnInit {
         this.appComponent.setHeader(Const.ScreenName.S0004,Const.LinKSetting.L0004);
       }
 
-  public onClick($event) {
-    this.orderDetailAddInputService.setVal(this.resVal);
+  public onBackClick($event) {
     this._location.back();
   }
 
-  public onClick2($event) {
+  public onClick($event) {
     this.orderDetailAddInputService.setVal(this.resVal);
-    this._location.back();
+    this.path = this._location.back();
+    this._location.go(this.path);
   }
 
 }

@@ -2,6 +2,7 @@
     <div>
         <span style="text-align: center;">
             <h1>発注明細入力_明細入力</h1>
+            
         </span>
     </div>
 
@@ -32,7 +33,7 @@
 </div>
 <div class='page-footer'>
     <footer>
-        <button type="button" class="btn btn-secondary" onClick="location.href='http://localhost:4200/'" >閉じる</button>
+        <button type="button" class="btn btn-secondary" (click)="onBackClick($event);" >閉じる</button>
         <span style="margin-left:10px">
         <button type="button" class="btn btn-primary" onClick="location.href='http://localhost:4200/OrderJournalSelect'">発注仕訳選択</button>
         </span>
