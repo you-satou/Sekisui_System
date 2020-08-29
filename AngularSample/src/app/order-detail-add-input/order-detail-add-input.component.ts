@@ -12,7 +12,6 @@ import { OrderSupplierSelectComponent } from '../order-supplier-select/order-sup
 import { OrderSupplierSelectService } from '../order-supplier-select/order-supplier-select.service';
 import { OrderSupplierSelectType } from '../order-supplier-select/orderSupplierSelectType';
 import { runInThisContext } from 'vm';
-import { testData2, testData3 } from './test-data';
 import { Location } from '@angular/common';
 import { AppComponent } from '../app.component'
 import { Const } from '../common/const'
@@ -41,11 +40,13 @@ export class OrderDetailAddInputComponent implements OnInit {
   //TODO
   datas: OrderDetailAddInputType[];
   resVal:OrderDetailAddInputType;
-  datas2: OrderJournalSelectType[] = testData2; 
-  resVal2:OrderJournalSelectType;
-  datas3: OrderSupplierSelectType[] = testData3;
-  resVal3:OrderSupplierSelectType;
 
+    /**
+   * コンストラクタ
+   *
+   * @param {ModalService} modalService
+   * @memberof ModalComponent
+   */
   constructor(
     private appComponent: AppComponent,
     private orderDetailAddInputService: OrderDetailAddInputService,
@@ -58,6 +59,11 @@ export class OrderDetailAddInputComponent implements OnInit {
 
   ngOnInit() {
         this.appComponent.setHeader(Const.ScreenName.S0004,Const.LinKSetting.L0004);
+        this.journalCode = this.orderJournalSelectService.getVal().journalCode;
+        this.accountingCategory = this.orderJournalSelectService.getVal().accountingCategory;
+        this.orderJournalName = this.orderJournalSelectService.getVal().orderJournalName;
+        this.supplierCode = this.orderSupplierSelectService.getVal().supplierCode;
+        this.supplierJournalName = this.orderSupplierSelectService.getVal().supplierJournalName;
       }
 
   public onBackClick($event) {
