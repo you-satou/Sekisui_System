@@ -18,6 +18,7 @@ import { Subscription,Observable } from 'rxjs';
 import { runInThisContext } from 'vm';
 import { AppComponent } from '../app.component'
 import { Const } from '../common/const'
+//import { countReset } from 'console';
 
 @Component({
   selector: 'app-index',
@@ -46,7 +47,11 @@ export class IndexComponent implements OnInit{
   orderJournalName:String="";
   supplierName:String="";
 
-  frmPath:String= Const.UrlSetting.U0005.toString(); 
+  orderJournalSelectPath:String= Const.UrlSetting.U0005.toString();
+  supplierPatternPath:String= Const.UrlSetting.U0003.toString();
+  orderSupplierSelectPath:String = Const.UrlSetting.U0006.toString();
+  orderDetailAddInput:String = Const.UrlSetting.U0004.toString();
+  addOrderDetail:String = Const.UrlSetting.U0008.toString();
 
   constructor(
       private wkAllItemTypesService: WkAllItemTypesService,
