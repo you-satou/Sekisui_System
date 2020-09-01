@@ -12,7 +12,70 @@
     <div style="margin-top: 20px;">
         <mat-tab-group>
             <mat-tab class="hontai" label="本体">
-                <add-order-detail-table [shiwakeData]="shiwakeData"></add-order-detail-table>
+                <div>
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="shiwakeData" class="split-shiwake-table">
+                
+                            <ng-container matColumnDef="journalCode">
+                                <th style="padding: 3px 5px; text-align: center;" class="color-input-1" mat-header-cell
+                                    *matHeaderCellDef>仕訳<br>コード</th>
+                                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
+                            </ng-container>
+                
+                            <ng-container matColumnDef="accountCode">
+                                <th style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>経理<br>分類</th>
+                                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
+                            </ng-container>
+                
+                            <ng-container matColumnDef="journalName">
+                                <th style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
+                                <td class="tdLeft" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
+                            </ng-container>
+                
+                            <ng-container matColumnDef="orderSupplierCode">
+                                <th colspan="2" style="text-align: center;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先
+                                </th>
+                                <td class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
+                            </ng-container>
+                
+                            <ng-container matColumnDef="orderSupplierName">
+                                <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
+                                <td class="tdLeft" mat-cell *matCellDef="let element">{{element.orderSuplierName}}</td>
+                            </ng-container>
+                
+                            <ng-container matColumnDef="orderPlanAmount">
+                                <th style="padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
+                                <td class="tdRight" mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
+                                <td mat-footer-cell *matFooterCellDef>20000</td>
+                            </ng-container>
+                
+                            <tr class="tableHeader" mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: shiwakeColumns;"></tr>
+                        </table>
+                    </div>
+                
+                    <div class="add-div" style="margin-top: 20px;">
+                        <table class="add-table">
+                            <tr>
+                                <th class="color-input-1" style="width: 25%;" rowspan="2">発注予定金額</th>
+                                <th class="color-input-1" style="width: 25%;" rowspan="2">コメント</th>
+                                <th class="color-input-2" style="width: 50%;" colspan="2">依頼</th>
+                            </tr>
+                            <tr>
+                                <th class="color-input-1">依頼日</th>
+                                <th class="color-input-1">依頼者</th>
+                            </tr>
+                            <tr>
+                                <td id="tdInput"><input [(ngModel)]="orderPlanAmount" type="text"></td>
+                                <td id="tdInput"><input [(ngModel)]="comment" type="text"></td>
+                                <td id="tdInput"><input [(ngModel)]="requestDate" type="text"></td>
+                                <td class="color-input-1" id="tdInput"><input [(ngModel)]="requester" class="color-input-1" type="text">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>
@@ -24,8 +87,7 @@
                     (click)="onBackClick($event)">閉じる</button>
             </div>
             <div style="right: 46px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn "
-                    (click)="onSelectClick($event)">更新</button>
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onSelectClick($event);" routerLink="/SplitDetailInput">更新</button>
             </div>
         </div>
     </footer>

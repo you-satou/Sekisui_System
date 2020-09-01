@@ -18,19 +18,15 @@ import { Const } from '../common/const'
 
   export class SplitOrderDetailInputComponent implements OnInit {
 
-    orderPlanAmountTest:string="test";
+    
 
-    comment:String="";
-    requestDate:String="";
-    requester:String="";
+    testich: string = "nichego";
 
     title = '発注明細入力＿分割明細入力';
     
     shiwakeData:SplitOrderDetailShiwake[];
 
     bunkatsuData: SplitOrderDetailSplit[];
-
-    testich: String="";
 
     constructor(
       private appComponent: AppComponent,

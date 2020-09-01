@@ -1,8 +1,8 @@
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit, SplitOrderDetailInput } from './split-detail-input-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { AddOrderDetail } from './split-detail-input-interface'
+import { Observable, Subject, BehaviorSubject  } from 'rxjs';
+import { AddOrderDetail } from './split-detail-input-interface';
 
 @Injectable()
 export class SplitOrderDetailService {
@@ -53,4 +53,8 @@ export class SplitOrderDetailService {
 
         return this.http.get<SplitOrderDetailSplit[]>(this._urlSplitOrder);
     }
+
+    private message = new BehaviorSubject(String);
+    sharedMessage = this.message.asObservable();
+
 }
