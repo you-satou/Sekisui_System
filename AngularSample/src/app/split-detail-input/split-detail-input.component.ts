@@ -28,10 +28,16 @@ import { Const } from '../common/const'
 
     bunkatsuData: SplitOrderDetailSplit[];
 
+    orderPlanAmount: string = "test";
+    comment: string;
+    requestDate: string;
+    requester: string;
+
+
     constructor(
       private appComponent: AppComponent,
       private service: SplitOrderDetailService,
-      private modalService: AddSupplierPatternService,
+      // private modalService: SplitOrderDetailService,
       public newRowTest: SplitOrderDetailShiwakeTable,
       private _location: Location,
     ){}
@@ -59,5 +65,19 @@ import { Const } from '../common/const'
 
     public onBackClick($event) {
       this._location.back();
+    }
+
+    public onSelectClick($event) {
+      // this.modalService.setVal1(this.orderPlanAmount);
+      // this.modalService.setVal2(this.comment);
+      // this.modalService.setVal3(this.requestDate);
+      // this.modalService.setVal4(this.requester);
+  
+      // if(this.orderPlanAmount || this.comment || this.requestDate || this.requester) {
+        
+      // }
+
+      this.newRowTest.bunkatsuData.push(this.bunkatsuData[this.bunkatsuData.length - 1]);
+
     }
   }

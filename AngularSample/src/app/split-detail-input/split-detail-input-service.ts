@@ -29,15 +29,45 @@ export class SplitOrderDetailService {
         private http: HttpClient
     ) { }
 
-    private _val
+    private _val1
 
-    public getVal() {
-        return this._val;
+    public getVal1() {
+        return this._val1;
     }
-    public setVal(val: AddOrderDetail) {
-        this._val = val;
+    public setVal1(val1: string) {
+        this._val1 = val1;
 
     }
+
+    private _val2
+
+
+  public getVal2() {
+    return this._val2;
+  }
+  public setVal2(val2:string) {
+    this._val2 = val2;
+  }
+
+  private _val3
+
+
+  public getVal3() {
+    return this._val3;
+  }
+  public setVal3(val3:string) {
+    this._val3 = val3;
+  }
+
+  private _val4
+
+
+  public getVal4() {
+    return this._val4;
+  }
+  public setVal4(val4:string) {
+    this._val4 = val4;
+  }
 
     getSplitOderDetailShiwake(): Observable<SplitOrderDetailShiwake[]> {
 
