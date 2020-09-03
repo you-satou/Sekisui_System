@@ -156,7 +156,7 @@
                             <tr mat-footer-row *matFooterRowDef="rows"></tr>
 
                             <tr mat-row *matRowDef="let row; columns: rows;"
-                                (click)=onSelHighLight($event,bunkatsuData)></tr>
+                                (click)=onSelHighLight($event,row)></tr>
                         </table>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                     (click)="onBackClick($event)">閉じる</button>
             </div>
             <div style="right: 46px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn ">更新</button>
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onUpdateClick($event);">更新</button>
             </div>
         </div>
     </footer>

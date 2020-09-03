@@ -1,11 +1,10 @@
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from './split-detail-input-interface';
 import { SplitOrderDetailService } from './split-detail-input-service';
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef, ɵɵresolveBody, ViewEncapsulation, Input, ViewChild, assertPlatform } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { WkAllItemTypesService } from '../wk-all-item-types.service';
 import { WkAllItemType } from '../WkAllItemType';
 import { AddSupplierPatternService } from '../add-order-detail/add-supplier-pattern.service';
-// import { SplitOrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
 import { Location } from '@angular/common';
 import { AppComponent } from '../app.component'
 import { Const } from '../common/const'
@@ -78,9 +77,6 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   sum: number = 0;
 
-
-  testich: string = "nichego";
-
   title = '発注明細入力＿分割明細入力';
 
   shiwakeData: SplitOrderDetailShiwake[];
@@ -91,6 +87,10 @@ export class SplitOrderDetailInputComponent implements OnInit {
   comment: string;
   requestDate: string;
   requester: string;
+
+  selected: boolean;
+
+  index: number;
 
 
   constructor(
@@ -105,7 +105,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
   ngOnInit() {
     this.getSplitOderDetailShiwake();
     this.getSplitOrderDetailSplit()
-    this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0004);
+    this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0004); this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
+
   }
 
   getSplitOderDetailShiwake() {
@@ -123,13 +124,17 @@ export class SplitOrderDetailInputComponent implements OnInit {
       );
   }
 
+  ngOnChanges() {
+    this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
+  }
+
   public onBackClick($event) {
     this._location.back();
   }
 
   public onSelectClick($event) {
 
-    if(this.orderPlanAmount || this.comment || this.requestDate || this.requester) {
+    if (this.orderPlanAmount || this.comment || this.requestDate || this.requester) {
       var temp: SplitOrderDetailSplit = {
         orderPlanAmount: this.orderPlanAmount,
         comment: this.comment,
@@ -146,21 +151,31 @@ export class SplitOrderDetailInputComponent implements OnInit {
         paymentDate: "",
         paymentAmount: "",
       }
-  
+
       this.bunkatsuData.push(temp);
       this.table.renderRows();
     }
   }
 
-  ngOnChanges() {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
-    this.bunkatsuData.push(this.bunkatsuData[this.bunkatsuData.length - 1])
+  public onSelHighLight($event, selectedItem) {
+    this.selected = true
+    this.commonComponent.CommonOnSelHight($event);
+    this.orderPlanAmount = selectedItem.orderPlanAmount;
+    this.comment = selectedItem.comment;
+    this.requestDate = selectedItem.requestDate;
+    this.requester = selectedItem.requester;
+    this.index = this.bunkatsuData.indexOf(selectedItem);
   }
 
-  public onSelHighLight($event, selectedItem) {
-
-    this.commonComponent.CommonOnSelHight($event);
+  onUpdateClick($event) {
+    if(this.selected) {
+      this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount
+      this.bunkatsuData[this.index].comment = this.comment
+      this.bunkatsuData[this.index].requestDate = this.requestDate
+      this.bunkatsuData[this.index].requester = this.requester
+      this.table.renderRows();
+    } else {
+      alert("行を選択してください。");
+    }
   }
 }
