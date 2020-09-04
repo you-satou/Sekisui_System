@@ -1,50 +1,49 @@
-<header>
-    <title>{{title}}</title>
-</header>
-    <div>
-        <span style="text-align: center;">
-            <h1>{{title}}</h1>
-        </span>
-    </div>
-    <div class="table-body">
-        <div class="box">
-            <table class="table-small table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th class="table-str-large td-b text-center">パターン名</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let pdata of pDatas" (click)=onSelHighLight($event)>
-                        <td class="table-str td-b">{{ pdata.pattern }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th class="table-str td-b text-center">仕訳コード</th>
-                        <th class="table-str td-b text-center">経理コード</th>
-                        <th class="table-str td-b text-center">仕訳名称</th>
-                        <th colspan="2" class="table-str td-b text-center" >発注先</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let sdata of sDatas">
-                        <td class="table-str td-b">{{ sdata.journalCode }}</td>
-                        <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
-                        <td class="table-str td-b">{{ sdata.journalName }}</td>
-                        <td class="table-str td-b">{{ sdata.supplierCode }}</td>
-                        <td class="table-str td-b">{{ sdata.supplierName }}</td>
-                    </tr>
-                </tbody>
-            </table>
+<div id="MODAL2" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-backdrop="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label id="header_label">{{title}}</label>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <table class="table-small table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-str-large td-b text-center">パターン名</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pdata of pDatas" (click)=onSelHighLight($event)>
+                                <td class="table-str td-b">{{ pdata.pattern }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-str td-b text-center">仕訳コード</th>
+                                <th class="table-str td-b text-center">経理コード</th>
+                                <th class="table-str td-b text-center">仕訳名称</th>
+                                <th colspan="2" class="table-str td-b text-center" >発注先</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sdata of sDatas">
+                                <td class="table-str td-b">{{ sdata.journalCode }}</td>
+                                <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
+                                <td class="table-str td-b">{{ sdata.journalName }}</td>
+                                <td class="table-str td-b">{{ sdata.supplierCode }}</td>
+                                <td class="table-str td-b">{{ sdata.supplierName }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+            </div>
         </div>
     </div>
-<div class='page-footer'>
-    <footer>
-        <button type="button" class="btn btn-secondary" onClick="location.href='http://localhost:4200/'">閉じる</button>
-        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" routerLink="/" >選択</button>
-    </footer>
 </div>
