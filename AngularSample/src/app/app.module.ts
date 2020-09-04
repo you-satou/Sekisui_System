@@ -5,8 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { SearchFrameComponent } from './search-frame/search-frame.component';
-import { SearchFrameComponent2 } from './search-frame2/search-frame2.component';
 import { RouteDetailComponent } from './route-detail/route-detail.component';
 import { WkAllItemTypesService } from './wk-all-item-types.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,11 +33,8 @@ import { OrderApprovalPaginator } from './ODIS0010/component/order-paginator.dir
 
 const appRoute: Routes = [
   { path: '', component: IndexComponent },
-  { path: '1', component: SearchFrameComponent },
-  { path: '2', component: SearchFrameComponent2 },
   { path: '3', component: RouteDetailComponent },
   { path: 'OrderDetailApproval', component: OrderDetailApprovalComponent },
-  { path: 'searchFrame', component: SearchFrameComponent },
   { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
   { path: 'SupplierPattern', component: SupplierPatternComponent},
   { path: 'SplitDetailInput', component: SplitOrderDetailInputComponent},
@@ -50,8 +45,6 @@ const appRoute: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    SearchFrameComponent,
-    SearchFrameComponent2,
     RouteDetailComponent,
     OrderDetailApprovalComponent,
     IndexComponent,

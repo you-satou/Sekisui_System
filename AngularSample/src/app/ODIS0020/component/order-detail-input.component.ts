@@ -69,7 +69,7 @@ import { CommonService } from '../../common/common.service';
 
       switch (order) {
         case 'meisai':
-          this.router.navigate(['./OrderDetailAddInput']);
+          this.router.navigate(['/OrderDetailAddInput']);
           break;
       
         case 'supplier':
