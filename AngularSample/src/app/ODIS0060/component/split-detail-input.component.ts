@@ -154,6 +154,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
       this.bunkatsuData.push(temp);
       this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
       this.table.renderRows();
+    } else {
+      alert("明細情報を入力して下さい。");
     }
   }
 
@@ -175,7 +177,19 @@ export class SplitOrderDetailInputComponent implements OnInit {
       this.bunkatsuData[this.index].requester = this.requester
       this.table.renderRows();
     } else {
-      alert("行を選択してください。");
+      alert("行を選択して下さい。");
+    }
+  }
+
+  onDeleteClick($event) {
+    if (this.selected) {
+      this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount
+      this.bunkatsuData[this.index].comment = this.comment
+      this.bunkatsuData[this.index].requestDate = this.requestDate
+      this.bunkatsuData[this.index].requester = this.requester
+      this.table.renderRows();
+    } else {
+      alert("行を選択して下さい。");
     }
   }
 }
