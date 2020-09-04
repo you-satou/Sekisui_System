@@ -24,7 +24,7 @@
                                 <th style="width: 1%; padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
                                 <td style="width: 1%; padding: 0 5px" class="tdRight" mat-cell
                                     *matCellDef="let element"> {{bunkatsuData.indexOf(element) + 1}} </td>
-                                <td mat-footer-cell *matFooterCellDef style="width: 1%;">合計</td>
+                                <td mat-footer-cell *matFooterCellDef class="tdCenter" style="width: 1%;">合計</td>
                             </ng-container>
 
                             <ng-container matColumnDef="orderPlanAmount1">
@@ -41,7 +41,7 @@
                             </ng-container>
 
                             <ng-container matColumnDef="requestDate">
-                                <th class="splitcolor-1" style="padding: 0 5px" class="color-input-1" mat-header-cell
+                                <th style="padding: 0 5px" class="color-input-1" mat-header-cell
                                     *matHeaderCellDef>依頼日</th>
                                 <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
                                     {{element.requestDate}} </td>
@@ -151,8 +151,8 @@
                                     [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
                             </ng-container>
 
-                            <tr class="tableHeader" mat-header-row *matHeaderRowDef="headerColspan"></tr>
-                            <tr class="tableHeader" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+                            <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
+                            <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
                             <tr mat-footer-row *matFooterRowDef="rows"></tr>
 
                             <tr mat-row *matRowDef="let row; columns: rows;"
@@ -163,9 +163,297 @@
             </mat-tab>
             <mat-tab class="hontai" label="本体">
                 <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
+                <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
+
+                    <table mat-table [dataSource]="bunkatsuData"
+                        class="split-shiwake-table table-hover table-stripped" id="bunkatsuTable">
+
+                        <ng-container matColumnDef="index">
+                            <th style="width: 1%; padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 1%; padding: 0 5px" class="tdRight" mat-cell
+                                *matCellDef="let element"> {{bunkatsuData.indexOf(element) + 1}} </td>
+                            <td mat-footer-cell *matFooterCellDef class="tdCenter" style="width: 1%;">合計</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="orderPlanAmount1">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell
+                                *matCellDef="let element; let i = index"> {{element.orderPlanAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef class="tdRight">{{sum|number}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="comment1">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdLeft" mat-cell *matCellDef="let element">
+                                {{element.comment}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="requestDate">
+                            <th style="padding: 0 5px" class="color-input-1" mat-header-cell
+                                *matHeaderCellDef>依頼日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.requestDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="requester">
+                            <th class="splitcolor-1" class="color-input-1" mat-header-cell *matHeaderCellDef>依頼者
+                            </th>
+                            <td style="width: 6%; " class="color-input-2" mat-cell *matCellDef="let element">
+                                {{element.requester}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalDate_lv1">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalDate_lv1}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalPerson_lv1">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認者</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalPerson_lv1}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalDate_lv2">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalDate_lv2}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalPerson_lv2">
+                            <th class="color-input-4" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>承認者
+                            </th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalPerson_lv2}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="orderDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.orderDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="orderAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.orderAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="recievedDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.recievedDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="recievedAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.recievedAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="paymentDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.paymentDate}}</td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="paymentAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.paymentAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="no">
+                            <th style="padding: 0;" class="color-input-1" mat-header-cell *matHeaderCellDef
+                                [attr.rowSpan]="2"></th>
+                        </ng-container>
+                        <ng-container matColumnDef="orderPlanAmount">
+                            <th class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">発注予定金額
+                            </th>
+                        </ng-container>
+                        <ng-container matColumnDef="comment">
+                            <th class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">コメント</th>
+                        </ng-container>
+                        <ng-container matColumnDef="irai">
+                            <th class="color-input-2" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">依頼</th>
+                        </ng-container>
+                        <ng-container matColumnDef="shounin_1">
+                            <th class="color-input-3" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">承認１</th>
+                        </ng-container>
+                        <ng-container matColumnDef="shounin_2">
+                            <th class="color-input-3" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">承認２</th>
+                        </ng-container>
+                        <ng-container matColumnDef="order">
+                            <th class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2"
+                                [attr.colSpan]="2">発注</th>
+                        </ng-container>
+                        <ng-container matColumnDef="recieved">
+                            <th class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2"
+                                [attr.colSpan]="2">受入</th>
+                        </ng-container>
+                        <ng-container matColumnDef="payment">
+                            <th class="color-input-5" style="padding: 0 5px" mat-header-cell *matHeaderCellDef
+                                [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
+                        </ng-container>
+
+                        <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
+                        <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+                        <tr mat-footer-row *matFooterRowDef="rows"></tr>
+
+                        <tr mat-row *matRowDef="let row; columns: rows;"
+                            (click)=onSelHighLight($event,row)></tr>
+                    </table>
+                </div>
             </mat-tab>
             <mat-tab class="tsuika" label="追加">
                 <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
+                <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
+
+                    <table mat-table [dataSource]="bunkatsuData"
+                        class="split-shiwake-table table-hover table-stripped" id="bunkatsuTable">
+
+                        <ng-container matColumnDef="index">
+                            <th style="width: 1%; padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 1%; padding: 0 5px" class="tdRight" mat-cell
+                                *matCellDef="let element"> {{bunkatsuData.indexOf(element) + 1}} </td>
+                            <td mat-footer-cell *matFooterCellDef class="tdCenter" style="width: 1%;">合計</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="orderPlanAmount1">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell
+                                *matCellDef="let element; let i = index"> {{element.orderPlanAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef class="tdRight">{{sum|number}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="comment1">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdLeft" mat-cell *matCellDef="let element">
+                                {{element.comment}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="requestDate">
+                            <th style="padding: 0 5px" class="color-input-1" mat-header-cell
+                                *matHeaderCellDef>依頼日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.requestDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="requester">
+                            <th class="splitcolor-1" class="color-input-1" mat-header-cell *matHeaderCellDef>依頼者
+                            </th>
+                            <td style="width: 6%; " class="color-input-2" mat-cell *matCellDef="let element">
+                                {{element.requester}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalDate_lv1">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalDate_lv1}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalPerson_lv1">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認者</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalPerson_lv1}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalDate_lv2">
+                            <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalDate_lv2}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="approvalPerson_lv2">
+                            <th class="color-input-4" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>承認者
+                            </th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.approvalPerson_lv2}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="orderDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.orderDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="orderAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.orderAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="recievedDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.recievedDate}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="recievedAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.recievedAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="paymentDate">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdCenter" mat-cell *matCellDef="let element">
+                                {{element.paymentDate}}</td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+                        <ng-container matColumnDef="paymentAmount">
+                            <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
+                            <td style="width: 6%; " class="tdRight" mat-cell *matCellDef="let element">
+                                {{element.paymentAmount}} </td>
+                            <td mat-footer-cell *matFooterCellDef></td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="no">
+                            <th style="padding: 0;" class="color-input-1" mat-header-cell *matHeaderCellDef
+                                [attr.rowSpan]="2"></th>
+                        </ng-container>
+                        <ng-container matColumnDef="orderPlanAmount">
+                            <th class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">発注予定金額
+                            </th>
+                        </ng-container>
+                        <ng-container matColumnDef="comment">
+                            <th class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">コメント</th>
+                        </ng-container>
+                        <ng-container matColumnDef="irai">
+                            <th class="color-input-2" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">依頼</th>
+                        </ng-container>
+                        <ng-container matColumnDef="shounin_1">
+                            <th class="color-input-3" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">承認１</th>
+                        </ng-container>
+                        <ng-container matColumnDef="shounin_2">
+                            <th class="color-input-3" mat-header-cell *matHeaderCellDef [attr.colSpan]="2">承認２</th>
+                        </ng-container>
+                        <ng-container matColumnDef="order">
+                            <th class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2"
+                                [attr.colSpan]="2">発注</th>
+                        </ng-container>
+                        <ng-container matColumnDef="recieved">
+                            <th class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2"
+                                [attr.colSpan]="2">受入</th>
+                        </ng-container>
+                        <ng-container matColumnDef="payment">
+                            <th class="color-input-5" style="padding: 0 5px" mat-header-cell *matHeaderCellDef
+                                [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
+                        </ng-container>
+
+                        <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
+                        <tr class="tableHeader" style="height: 25px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+                        <tr mat-footer-row *matFooterRowDef="rows"></tr>
+
+                        <tr mat-row *matRowDef="let row; columns: rows;"
+                            (click)=onSelHighLight($event,row)></tr>
+                    </table>
+                </div>
             </mat-tab>
         </mat-tab-group>
     </div>

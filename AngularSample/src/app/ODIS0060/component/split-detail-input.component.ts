@@ -74,7 +74,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-  sum: number = 0;
+  sum: number = 93555;
 
   title = '発注明細入力＿分割明細入力';
 
@@ -152,6 +152,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
       }
 
       this.bunkatsuData.push(temp);
+      this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
       this.table.renderRows();
     }
   }
@@ -167,7 +168,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   }
 
   onUpdateClick($event) {
-    if(this.selected) {
+    if (this.selected) {
       this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount
       this.bunkatsuData[this.index].comment = this.comment
       this.bunkatsuData[this.index].requestDate = this.requestDate

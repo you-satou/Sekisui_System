@@ -23,16 +23,13 @@
     float: left;
 }
 
-.section-left {
-    float: left;
-    width: 40%;
-    border: 0.5px solid #CCD0D5;
+.mat-footer-cell {
+    background-color: #e0e0e0;
 }
 
-.section-right {
-    margin-left: 45%;
-    width: 55%;
-    border: 0.5px solid #CCD0D5;
+tr.mat-footer-row {
+    font-weight: bold;
+    word-break: keep-all;
 }
 
 .table-Shiwake>thead>tr {
@@ -81,41 +78,6 @@ td {
     border: 0.5px solid #CCD0D5;
 }
 
-.shiwakeCode-1 {
-    width: 50px;
-    text-align: center;
-}
-
-.shiwakeCode-2 {
-    width: 20px;
-    text-align: center;
-}
-
-.shiwakeKeiri {
-    width: 50px;
-    text-align: center;
-}
-
-.shiwakeName {
-    width: 150px;
-    text-align: left;
-}
-
-.shiwakeHachu-1 {
-    width: 20px;
-    text-align: center;
-}
-
-.shiwakeHachu-2 {
-    width: 150px;
-    text-align: left;
-}
-
-.shiwakeKingaku {
-    width: 200px;
-    text-align: right;
-}
-
 .table-Detail {
     height: 250px;
     max-width: 50%;
@@ -124,125 +86,6 @@ td {
     border-right: 0.5px solid #CCD0D5;
     border-bottom: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
-}
-
-#orderInfomation {
-    position: relative;
-    width: 1287px;
-}
-
-#firstPart {
-    position: relative;
-}
-
-.orderInfo1 {
-    position: relative;
-    height: 40%;
-}
-
-.orderInfo1Table {
-    position: relative;
-    height: 100%
-}
-
-.orderInfo2 {
-    position: relative;
-    top: -0.5px;
-    overflow: hidden;
-}
-
-.orderInfo2Table1 {
-    position: relative;
-    float: left;
-}
-
-.orderInfo2Table2 {
-    position: relative;
-}
-
-
-/* table {
-    border-top: 1px solid #CCD0D5;
-} */
-
-.tdcenter {
-    text-align: center;
-    padding: 0px 10px;
-    min-width: 40px;
-    min-height: 23px;
-}
-
-.tddate {
-    text-align: center;
-    width: 83px;
-    min-height: 23px;
-}
-
-.tdprice {
-    text-align: right;
-    width: 100px;
-    padding: 0px 5px 0px 20px;
-    height: 23px;
-}
-
-#scrollTableDiv {
-    position: relative;
-    overflow-y: scroll;
-    height: 116px;
-    top: -1px;
-}
-
-#secondPart {
-    position: relative;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-#orderInfo3Table1 {
-    float: left;
-}
-
-#orderInfo3Table2 {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-#orderInfoCount {
-    position: absolute;
-}
-
-#i3t2head {
-    position: relative;
-    height: 20%;
-}
-
-#theadHeight {
-    position: relative;
-}
-
-#addConstr {
-    position: absolute;
-    top: 20%;
-    bottom: 1px;
-    width: 25px;
-    border: 0.5px solid #CCD0D5;
-    text-align: center;
-    font: bold 12px "メイリオ" !important;
-    background-color: white;
-    z-index: 1;
-    padding-top: 3.5%;
-}
-
-#i3t2body {
-    position: relative;
-    top: 20%;
-    bottom: 0;
-    width: 100%;
-}
-
-#thisOne {
-    position: relative;
 }
 
 
@@ -282,6 +125,7 @@ td {
     background-color: #C5D9F1 !important;
     word-break: keep-all;
     white-space: nowrap;
+    text-align: center !important;
 }
 .color-input-2 {
     background-color: #95B3D7 !important;
@@ -292,21 +136,21 @@ td {
 
 .color-input-3 {
     background-color: #FABF8F !important;
-    text-align: center;
+    text-align: center !important;
     word-break: keep-all;
     white-space: nowrap;
 }
 
 .color-input-4 {
     background-color: #FDE9D9 !important;
-    text-align: center;
+    text-align: center !important;
     word-break: keep-all;
     white-space: nowrap;
 }
 
 .color-input-5 {
     background-color: #C4D79B !important;
-    text-align: center;
+    text-align: center !important;
     word-break: keep-all;
     white-space: nowrap;
 }
@@ -340,12 +184,11 @@ td {
 
 .split-shiwake-table {
     position: relative;
-    margin: auto;
 }
 
 .add-div {
     position: relative;
-    padding-left: 54px;
+    padding-left: 40px;
 }
 
 .add-table {
