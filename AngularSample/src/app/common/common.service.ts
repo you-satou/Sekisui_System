@@ -1,9 +1,7 @@
-import { OrderDetail } from './../order-detail-approval/order-detail-approval-interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, takeUntil } from 'rxjs/operators';
-import { OrderDetailInputGeneral } from 'app/order-detail-input/order-detail-input-interface';
 
 
 @Injectable()

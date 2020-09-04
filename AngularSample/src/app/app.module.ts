@@ -1,6 +1,6 @@
 import { CommonService } from './common/common.service';
-import { OrderDetailShiwakeTable } from './order-detail-input/table-shiwake/table-shiwake';
-import { SplitOrderDetailService } from './split-detail-input/split-detail-input-service';
+import { OrderDetailShiwakeTable } from './ODIS0020/component/table-shiwake/table-shiwake';
+import { SplitOrderDetailService } from './ODIS0060/services/split-detail-input-service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,28 +13,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms'
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OrderDetailApprovalComponent } from './order-detail-approval/order-detail-approval.component';
+import { OrderDetailApprovalComponent } from './ODIS0010/component/order-detail-approval.component';
 import { CommonComponent } from './common/common.component';
 
-import { IndexComponent } from './index/index.component';
-import { OrderJournalSelectComponent } from './order-journal-select/order-journal-select.component';
-import { SupplierPatternComponent } from './supplier-pattern/supplier-pattern.component';
-import { AddOrderDetailComponent } from './add-order-detail/add-order-detail.component';
-import { SplitOrderDetailInputComponent } from './split-detail-input/split-detail-input.component';
-import { OrderDetailInputComponent } from './order-detail-input/order-detail-input.component';
-import { TestComponent } from './test/test.component';
-import { OrderSupplierSelectComponent } from './order-supplier-select/order-supplier-select.component';
-import { OrderDetailSelectComponent } from './order-detail-select/order-detail-select.component';
-import { OrderDetailAddInputComponent } from './order-detail-add-input/order-detail-add-input.component';
+import { IndexComponent } from './ODIS0000/component/index.component';
+import { OrderJournalSelectComponent } from './ODIS0030/component/order-journal-select.component';
+import { SupplierPatternComponent } from './ODIS0050/component/supplier-pattern.component';
+import { SplitOrderDetailInputComponent } from './ODIS0060/component/split-detail-input.component';
+import { OrderDetailInputComponent } from './ODIS0020/component/order-detail-input.component';
+import { OrderSupplierSelectComponent } from './ODIS0040/component/order-supplier-select.component';
 
 // 発注明細入力＿承認処理テーブル
-import { OrderDetailApprovalTable } from './order-detail-approval/oder-detail-approval-table';
+import { OrderDetailApprovalTable } from './ODIS0010/component/oder-detail-approval-table';
 import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule, MatIconModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
-import { OrderDetailPaginator } from './order-detail-approval/order-detail-paginator';
-import { SplitOrderDetailShiwakeTable } from './split-detail-input/table-shiwake/table-shiwake';
-import { OrderApprovalPaginator } from './order-detail-approval/order-paginator.directive';
+import { OrderDetailPaginator } from './ODIS0010/component/order-detail-paginator';
+import { SplitOrderDetailShiwakeTable } from './ODIS0060/component/table-shiwake/table-shiwake';
+import { OrderApprovalPaginator } from './ODIS0010/component/order-paginator.directive';
 
 
 const appRoute: Routes = [
@@ -46,12 +42,9 @@ const appRoute: Routes = [
   { path: 'searchFrame', component: SearchFrameComponent },
   { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
   { path: 'SupplierPattern', component: SupplierPatternComponent},
-  { path: 'AddOrderDetail', component: AddOrderDetailComponent},
   { path: 'SplitDetailInput', component: SplitOrderDetailInputComponent},
   { path: 'OrderDetailInput', component: OrderDetailInputComponent},
-  { path: 'test', component: TestComponent},
   { path: 'OrderSupplierSelect', component: OrderSupplierSelectComponent},
-  { path: 'OrderDetailAddInput', component: OrderDetailAddInputComponent},
 ];
 
 @NgModule({
@@ -64,13 +57,9 @@ const appRoute: Routes = [
     IndexComponent,
     OrderJournalSelectComponent,
     SupplierPatternComponent,
-    AddOrderDetailComponent,
     SplitOrderDetailInputComponent,
     OrderDetailInputComponent,
-    TestComponent,
     OrderSupplierSelectComponent,
-    OrderDetailSelectComponent,
-    OrderDetailAddInputComponent,
 
     // 発注明細入力＿承認処理テーブル
     OrderDetailApprovalTable,
