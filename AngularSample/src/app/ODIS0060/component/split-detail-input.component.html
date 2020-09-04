@@ -485,12 +485,18 @@
                 <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn" data-toggle="modal"
                     data-target="#MODAL5" (click)="onSelectClick($event);">明細追加</button>
             </div>
-            <div style="right: 115px;" class="bottomButton">
+
+            <div style="left: 135px;" class="bottomButton">
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onUpdateClick($event);">更新</button>
+            </div>
+
+            <div style="left: 202px;" class="bottomButton">
+                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onDeleteClick($event);">削除</button>
+            </div>
+            
+            <div style="right: 46px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
                     (click)="onBackClick($event)">閉じる</button>
-            </div>
-            <div style="right: 46px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onUpdateClick($event);">更新</button>
             </div>
         </div>
     </footer>
