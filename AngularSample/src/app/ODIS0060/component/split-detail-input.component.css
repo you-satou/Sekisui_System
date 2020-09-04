@@ -129,7 +129,7 @@ td {
 }
 .color-input-2 {
     background-color: #95B3D7 !important;
-    text-align: center;
+    text-align: center !important;
     word-break: keep-all;
     white-space: nowrap;
 }
