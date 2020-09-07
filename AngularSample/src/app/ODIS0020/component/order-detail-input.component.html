@@ -1,233 +1,261 @@
-<div class="body-order-input">
-    <section>
-        <div class="container">
-            <div class="container-fluid">
-                <h1 style="text-align: center; font-weight: bold;">{{title}}</h1>
-            </div>
-        </div>
-
-        <div class="orderInfomation" style="margin-top:10px">
-            <div id="firstPart" *ngFor="let orderInputData of orderInputDatas ">
-                <section class="orderInfo">
-                    <table class="orderInfo1Table">
-                        <tr class="text-center">
-                            <th style="width: 120px;">発注番号</th>
-                            <th style="width: 120px">事業コード</th>
-                            <th style="width: 300px;">事業所名</th>
-                            <th colspan="2" style="width: 200px;">営業担当者</th>
-                            <th colspan="2" style="width: 200px;">建築担当者</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{orderInputData.contractNum}}
-                            </td>
-                            <td class="tdcenter">
-                                {{orderInputData.officeCode}}
-                            </td>
-                            <td>
-                                {{orderInputData.officeName}}
-                            </td>
-                            <td class="tdcenter" style="width: 70px;">
-                                {{orderInputData.salesStaffCode}}
-                            </td>
-                            <td style="width: 130px;">
-                                {{orderInputData.salesStaffName}}
-                            </td>
-                            <td class="tdcenter" style="width: 70px;">
-                                {{orderInputData.architectCode}}
-                            </td>
-                            <td style="width: 130px;">
-                                {{orderInputData.architectName}}
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-
-                <section class="orderInfo2">
-                    <table class="orderInfo2Table1">
-                        <tr>
-                            <th rowspan="2" style="width: 80px;">工事名</th>
-                            <td class="tdContract" colspan="2" style="word-wrap: break-word;">
-                                {{orderInputData.constructionKata}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdContract" colspan="2" style="width: 50px;">
-                                {{orderInputData.constructionHira}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="width: 80px;">契約者名</th>
-                            <td class="tdCode">
-                                {{orderInputData.contractorCode}}
-                            </td>
-                            <td class="tdCode">
-                                {{orderInputData.contractorName}}
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="orderInfo2Table2">
-                        <tr>
-                            <th style="border-left: none !important;">予定年月日</th>
-                            <th rowspan="2">契<br>約</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planContractDate}}</p>
-                            </td>
-                            <th rowspan="2">D<br>/<br>O</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planDODate}}</p>
-                            </td>
-                            <th rowspan="2">着<br>工</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planStartDate}}</p>
-                            </td>
-                            <th rowspan="2">入<br>荷</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planArrivalDate}}</p>
-                            </td>
-                            <th rowspan="2">木<br>工<br>事</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planWoodWorkDate}}</p>
-                            </td>
-                            <th rowspan="2">総<br>合<br>検<br>査</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planInspectionDate}}</p>
-                            </td>
-                            <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planCompletionInspection}}</p>
-                            </td>
-                            <th rowspan="2">引<br>渡</th>
-                            <td class="tddate">
-                                <p>{{orderInputData.planHandingOver}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="width: 10%; border-left: 0;">実績年月日</th>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforContractDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforDODate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforStartDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforArrivalDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforWoodWorkDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforInspectionDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforCompletionInspection}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInputData.perforHandingOver}}</p>
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-            </div>
-            <div class="infoTable">
-                <div class="tbl1">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>契　約</th>
-                                <th>受注形態</th>
-                                <th colspan="2">枝番</th>
-                                <th>年月日</th>
-                                <th>金額</th>
-                                <th>発注</th>
-                                <th colspan="2">売上</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of TBL1;">
-                                <td class="tdcenter">{{data.contractModel}}</td>
-                                <td class="tdcenter">{{data.orderModel}}</td>
-                                <td class="tdcenter">{{data.branchNum1}}</td>
-                                <td class="tdcenter">{{data.branchNum2}}</td>
-                                <td class="tddate">{{data.date}}</td>
-                                <td class="tdprice">{{data.contractAmount}}</td>
-                                <td class="tdcenter">{{data.completeStatus}}</td>
-                                <td class="tdcenter">{{data.salesStatus}}</td>
-                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tbl2">
-                    <table>
-                        <thead id="theadHeight">
-                            <tr>
-                                <th colspan="2">契　約</th>
-                                <th>受注形態</th>
-                                <th colspan="2">枝番</th>
-                                <th>年月日</th>
-                                <th>金額</th>
-                                <th>発注</th>
-                                <th colspan="2">売上</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of TBL2; let i = index">
-                                <th [attr.rowspan]="TBL2.length" *ngIf="i===0">追<br>加<br>工<br>事</th>
-                                <td class="tdcenter">{{data.contractModel}}</td>
-                                <td class="tdcenter">{{data.orderModel}}</td>
-                                <td class="tdcenter">{{data.branchNum1}}</td>
-                                <td class="tdcenter">{{data.branchNum2}}</td>
-                                <td class="tddate">{{data.date}}</td>
-                                <td class="tdprice">{{data.contractAmount}}</td>
-                                <td class="tdcenter">{{data.completeStatus}}</td>
-                                <td class="tdcenter">{{data.salesStatus}}</td>
-                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <div class="body-order-input">
+        <section>
+            <div class="container">
+                <div class="container-fluid">
+                    <h1 style="text-align: center; font-weight: bold;">{{title}}</h1>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section style="margin-top: 10px;" class="tabGroup">
-        <mat-tab-group>
-            <mat-tab class="sekkei" label="設計">
-                <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
-            </mat-tab>
-            <mat-tab class="hontai" label="本体">
-                <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
-            </mat-tab>
-            <mat-tab class="tsuika" label="追加">
-                <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
-            </mat-tab>
-        </mat-tab-group>
-    </section>
+            <div class="orderInfomation" style="margin-top:10px">
+                <div id="firstPart" *ngFor="let orderInputData of orderInputDatas ">
+                    <section class="orderInfo">
+                        <table class="orderInfo1Table">
+                            <tr class="text-center">
+                                <th style="width: 120px;">発注番号</th>
+                                <th style="width: 120px">事業コード</th>
+                                <th style="width: 300px;">事業所名</th>
+                                <th colspan="2" style="width: 200px;">営業担当者</th>
+                                <th colspan="2" style="width: 200px;">建築担当者</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{orderInputData.contractNum}}
+                                </td>
+                                <td class="tdcenter">
+                                    {{orderInputData.officeCode}}
+                                </td>
+                                <td>
+                                    {{orderInputData.officeName}}
+                                </td>
+                                <td class="tdcenter" style="width: 70px;">
+                                    {{orderInputData.salesStaffCode}}
+                                </td>
+                                <td style="width: 130px;">
+                                    {{orderInputData.salesStaffName}}
+                                </td>
+                                <td class="tdcenter" style="width: 70px;">
+                                    {{orderInputData.architectCode}}
+                                </td>
+                                <td style="width: 130px;">
+                                    {{orderInputData.architectName}}
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
 
-</div>
+                    <section class="orderInfo2">
+                        <table class="orderInfo2Table1">
+                            <tr>
+                                <th rowspan="2" style="width: 80px;">工事名</th>
+                                <td class="tdContract" colspan="2" style="word-wrap: break-word;">
+                                    {{orderInputData.constructionKata}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tdContract" colspan="2" style="width: 50px;">
+                                    {{orderInputData.constructionHira}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 80px;">契約者名</th>
+                                <td class="tdCode">
+                                    {{orderInputData.contractorCode}}
+                                </td>
+                                <td class="tdCode">
+                                    {{orderInputData.contractorName}}
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="orderInfo2Table2">
+                            <tr>
+                                <th style="border-left: none !important;">予定年月日</th>
+                                <th rowspan="2">契<br>約</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planContractDate}}</p>
+                                </td>
+                                <th rowspan="2">D<br>/<br>O</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planDODate}}</p>
+                                </td>
+                                <th rowspan="2">着<br>工</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planStartDate}}</p>
+                                </td>
+                                <th rowspan="2">入<br>荷</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planArrivalDate}}</p>
+                                </td>
+                                <th rowspan="2">木<br>工<br>事</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planWoodWorkDate}}</p>
+                                </td>
+                                <th rowspan="2">総<br>合<br>検<br>査</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planInspectionDate}}</p>
+                                </td>
+                                <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planCompletionInspection}}</p>
+                                </td>
+                                <th rowspan="2">引<br>渡</th>
+                                <td class="tddate">
+                                    <p>{{orderInputData.planHandingOver}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 10%; border-left: 0;">実績年月日</th>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforContractDate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforDODate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforStartDate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforArrivalDate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforWoodWorkDate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforInspectionDate}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforCompletionInspection}}</p>
+                                </td>
+                                <td class="tdcenter">
+                                    <p>{{orderInputData.perforHandingOver}}</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </section>
+                </div>
+                <div class="infoTable">
+                    <div class="tbl1">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>契　約</th>
+                                    <th>受注形態</th>
+                                    <th colspan="2">枝番</th>
+                                    <th>年月日</th>
+                                    <th>金額</th>
+                                    <th>発注</th>
+                                    <th colspan="2">売上</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of TBL1;">
+                                    <td class="tdcenter">{{data.contractModel}}</td>
+                                    <td class="tdcenter">{{data.orderModel}}</td>
+                                    <td class="tdcenter">{{data.branchNum1}}</td>
+                                    <td class="tdcenter">{{data.branchNum2}}</td>
+                                    <td class="tddate">{{data.date}}</td>
+                                    <td class="tdprice">{{data.contractAmount}}</td>
+                                    <td class="tdcenter">{{data.completeStatus}}</td>
+                                    <td class="tdcenter">{{data.salesStatus}}</td>
+                                    <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tbl2">
+                        <table>
+                            <thead id="theadHeight">
+                                <tr>
+                                    <th colspan="2">契　約</th>
+                                    <th>受注形態</th>
+                                    <th colspan="2">枝番</th>
+                                    <th>年月日</th>
+                                    <th>金額</th>
+                                    <th>発注</th>
+                                    <th colspan="2">売上</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of TBL2; let i = index">
+                                    <th [attr.rowspan]="TBL2.length" *ngIf="i===0">追<br>加<br>工<br>事</th>
+                                    <td class="tdcenter">{{data.contractModel}}</td>
+                                    <td class="tdcenter">{{data.orderModel}}</td>
+                                    <td class="tdcenter">{{data.branchNum1}}</td>
+                                    <td class="tdcenter">{{data.branchNum2}}</td>
+                                    <td class="tddate">{{data.date}}</td>
+                                    <td class="tdprice">{{data.contractAmount}}</td>
+                                    <td class="tdcenter">{{data.completeStatus}}</td>
+                                    <td class="tdcenter">{{data.salesStatus}}</td>
+                                    <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 10px;" class="tabGroup">
+            <mat-tab-group>
+                <mat-tab class="sekkei" label="設計">
+                    <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
+                </mat-tab>
+                <mat-tab class="hontai" label="本体">
+                    <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
+                </mat-tab>
+                <mat-tab class="tsuika" label="追加">
+                    <shiwake-table [shiwakeData]="sekkeiData"></shiwake-table>
+                </mat-tab>
+            </mat-tab-group>
+        </section>
+        
+        <section style="margin-top: 10px;">
+            <table class="orderdetailaddinput">
+                    <tr>
+                        <th class="table-str td-b text-center"><a href="javascript:void(0);" onclick="orderJournalSelect()">仕訳コード</a></th>
+                        <th class="table-str td-b text-center">経理コード</th>
+                        <th class="table-str td-b text-center">仕訳名称</th>
+                        <th class="table-str td-b text-center" colspan="2"><a href= "/OrderSupplierSelect">発注先</a></th>
+                        <th class="table-str td-b text-center">発注予定金額</th>
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td class="table-str td-b text-left"><input type="text" name="journalCode"></td>
+                        <td class="table-str td-b text-left"><input type="text" name="accountingCategory"></td>
+                        <td class="table-str td-b text-left"><input type="text" name="orderJournalName"></td>
+                        <td class="table-str td-b text-left"><input type="text" name="supplierCode"></td>
+                        <td class="table-str td-b text-left"><input type="text" name="supplierJournalName"></td>
+                        <td class="table-str td-b text-left"><input type="text" name="orderPlansKin"></td>
+                    </tr>
+                </tbody>                
+            </table>
+        </section>
+        
+        <section style="margin-top: 10px;">
+            <div class = "button-container">
+            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
+            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細更新</button>
+            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">中止</button>
+            <button mat-button id="btnMeisai" style="float: right;" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細削除</button>
+            </div>
+        </section>
+    </div>
 <br>
 <div class="footer-container" style=" margin-top: 20px;">
-    <div class="bottomButton" style="float: left;">
-        <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
+    <div class = "_footer-container">
+        <div style="float: left;"class="bottomButton">
+            <button mat-button id="btnHacchuPatern" (click)="swichPage('supplier')" style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
+        </div>
+        <div style="margin-left: 850px;" class="bottomButton">
+            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
+        </div>
+        <div style="margin-left: 990px;" class="bottomButton">
+            <button mat-button id="btnKoujiDaichou" class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
+        </div>
+        <div style="margin-left: 1117px;" class="bottomButton">
+            <button mat-button id="btnMeisaiIchiran" class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
+        </div>
+        <div style="right: 46px;" class="bottomButton">
+            <button mat-button id="btnKoushin" class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
+        </div>
     </div>
-    <div style="margin-left: 500px;" class="bottomButton">
-        <button mat-button id="btnHacchuPatern" (click)="swichPage('supplier')" style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
-    </div>
-    <div style="margin-left: 850px;" class="bottomButton">
-        <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
-    </div>
-    <div style="margin-left: 990px;" class="bottomButton">
-        <button mat-button id="btnKoujiDaichou" class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
-    </div>
-    <div style="margin-left: 1117px;" class="bottomButton">
-        <button mat-button id="btnMeisaiIchiran" class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
-    </div>
-    <div style="right: 46px;" class="bottomButton">
-        <button mat-button id="btnKoushin" class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
-    </div>
-
 </div>

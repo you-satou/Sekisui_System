@@ -8,6 +8,16 @@ section {
     position: relative !important;
 }
 
+.body-order-detail-input{
+    position: relative !important;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
 .footer-container {
     position: flex;
     display: inline-block;
@@ -202,4 +212,15 @@ td {
     position: fixed;
     z-index: 2;
     bottom: 5px;
+}
+
+.orderdetailaddinput{
+    width: 50%;
+    margin-left: 0;
+  
+  }
+
+.button-container{
+    width: 50%;
+    margin-left: 0;
 }

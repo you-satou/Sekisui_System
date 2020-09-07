@@ -2,6 +2,9 @@ import { OrderDetailInputGeneral,OrderDetailInput, OrderInfo, OrderDetailShiwake
 import { Component, OnInit, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
+import { Subscription } from 'rxjs';
+import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
+import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
 
 @Component({
     selector: 'order-detail-input',
@@ -38,14 +41,34 @@ import { CommonService } from '../../common/common.service';
     _urlOrderTBL1: string = "assets/data/dataInputTBL1.json";
     _urlOrderTBL2: string = "assets/data/dataInputTBL2.json";
 
+    journalCode:String="";
+    accountingCategory:String="";
+    orderJournalName:String="";
+    supplierCode:String="";
+    supplierJournalName:String="";
+
+      // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
+    private subscription: Subscription;
+  　// ngComponentOutlet にセットするためのプロパティ
+    public modal: any = null;
+
     ngOnInit() {
 
       this.getOrderInputData();
+      this.subscription = this.modalService.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          
+          this.modal = null;
+        }
+      );
     }
 
     constructor(
       private orderService: CommonService,
       public router: Router,
+      private modalService: SupplierPatternService,
     ){ }
     
     getOrderInputData(){
@@ -77,6 +100,10 @@ import { CommonService } from '../../common/common.service';
           break;
       }
 
+    }
+
+    orderJournalSelect(){
+      this.modal = SupplierPatternComponent;
     }
 
   }
