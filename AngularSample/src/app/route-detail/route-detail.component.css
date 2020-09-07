@@ -1,0 +1,161 @@
+.route-detail-container{
+    height: 480px;
+}
+label, input{
+    font-size: 1rem;
+}
+#detail-container{
+    position: absolute;
+    display: inline-block;
+    width: 600px;
+    top: 50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #CCD0D5;
+    border-radius: 5px;
+    z-index: 2px;
+}
+#detail-form-container{
+    width: 100%;
+    height: 413px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 5px;
+}
+
+
+
+.curd-operation{
+    position: absolute;
+    bottom: 0;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid #CCD0D5;
+    border-radius: 5px;
+}
+.curd-operation > button{
+    margin: 5px 10px;
+    width: 75px;
+    height: 35px;
+    
+}
+
+
+.form-container{
+    display: flex;
+    justify-content: left;
+    padding: 10px;
+    width: 100%;
+}
+.label-control{
+    margin: 10px;
+    height: 30px;
+    width: 25%;
+    line-height: 30px;
+}
+.input-container{
+    display: inline-block;
+    width: 65%;
+    margin: 10px;
+    
+}
+.form-input{
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    padding: 5px 10px; 
+    border: 1px solid #CCD0D5;
+    border-radius: 5px;
+}
+
+.radio-container{
+    padding: 10px;
+    padding-left: 15px;
+    margin: 0 auto 50px 0;
+    width: 95%;
+    height: 60px;
+}
+.radio-container > p{
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+.radio-wrapper{
+    padding-left: 0;
+}
+.radio-wrapper > label{
+    padding-left: 0;
+}
+.flex-radio{
+    display: flex;
+    justify-content: space-around;
+}
+.radio-wrp{
+    width: 40%;
+    vertical-align: middle;
+}
+.radio-wrp > label{
+    font-size: 0.7rem;
+    width: 100%;
+}
+
+
+#side-menu{
+    position: absolute;
+    text-align: center;
+    top: 50px;
+    width: 150px;
+    height: 500px;
+    right: 400px;
+    overflow: scroll;
+}
+#side-menu::-webkit-scrollbar{
+    display: none;
+}
+.side-operation{
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 50%;
+    font-size: 1px;
+    text-decoration: none;
+    color: white;
+    background-color: aqua;
+}
+
+.side-operation:hover{
+    color: white;
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    font-size: 0.7rem;
+    background-color: #FDC44F;
+}
+
+
+
+.footer-flex{
+    display:flex;
+    justify-content: space-between;
+}
+.form-check{
+    padding-top: 7px;
+}
+
+.footer-container{
+    position: absolute;
+    display: inline-block;
+    bottom: 0;
+    width: 93%;
+    padding-bottom: 5px;
+    z-index: 2;
+}
+.btn-cont{
+    width: 70px;
+}
