@@ -1,0 +1,106 @@
+[
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "20060213",
+        "employeeName": "積水　太郎",
+        "approval1": "可",
+        "approval2": "可",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "19990156",
+        "employeeName": "積水　二郎",
+        "approval1": "可",
+        "approval2": "可",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "20020458",
+        "employeeName": "積水　花子",
+        "approval1": "可",
+        "approval2": "可",
+        "deleteFlag": "削"
+    },
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "19860203",
+        "employeeName": "積水　華絵",
+        "approval1": "可",
+        "approval2": "可",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "20200101",
+        "employeeName": "積水　圭一",
+        "approval1": "",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "sekisui001",
+        "employeeCode": "20090875",
+        "employeeName": "積水　翼",
+        "approval1": "可",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "hyougo001",
+        "employeeCode": "19950117",
+        "employeeName": "兵庫　保",
+        "approval1": "可",
+        "approval2": "可",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "wakayama001",
+        "employeeCode": "20150603",
+        "employeeName": "和歌山　治夫",
+        "approval1": "",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "wakayama002",
+        "employeeCode": "20031004",
+        "employeeName": "和歌山　美代子",
+        "approval1": "可",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "siga001",
+        "employeeCode": "20150609",
+        "employeeName": "志賀　克己",
+        "approval1": "可",
+        "approval2": "",
+        "deleteFlag": "削"
+    },
+    {
+        "personalID": "siga002",
+        "employeeCode": "20140780",
+        "employeeName": "志賀　光代",
+        "approval1": "",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "kakohgawa001",
+        "employeeCode": "",
+        "employeeName": "加古川　順子",
+        "approval1": "",
+        "approval2": "",
+        "deleteFlag": ""
+    },
+    {
+        "personalID": "oosaka001",
+        "employeeCode": "",
+        "employeeName": "大阪　慎",
+        "approval1": "",
+        "approval2": "",
+        "deleteFlag": ""
+    }
+]

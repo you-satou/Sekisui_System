@@ -1,0 +1,37 @@
+.table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    overflow-y:scroll;
+  
+  }
+  .table>thead {
+    background-color: #E5E5E5;
+  }
+  .table>tbody {
+    height: 50px;
+    overflow-y: scroll;
+  }
+  
+  .td-b {
+    border-right: 0.5px solid #CCD0D5;
+  }
+  
+  .table-str{
+  height: 40px;
+  width: 17.8%;
+  white-space: nowrap;
+  word-wrap: keep-all;
+  }
+  
+  .page-footer{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bottomButton {
+    position: fixed; 
+    z-index: 2; 
+    bottom: 5px;
+}
