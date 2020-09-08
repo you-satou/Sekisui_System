@@ -48,6 +48,10 @@ export class OrderJournalSelectComponent implements OnInit {
     this.appComponent.setHeader(Const.ScreenName.S0005,Const.LinKSetting.L0005);
     
   }
+  ngOnDestroy() {
+    // モーダルダイアログが閉じたタイミングで出力される
+    
+  }
 
   
   public onClick($event) {

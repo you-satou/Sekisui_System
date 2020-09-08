@@ -1,34 +1,33 @@
-<header>
-    <title>{{title}}</title>
-</header>
-    <div>
-        <span style="text-align: center;">
-            <h1>{{title}}</h1>
-        </span>
+<div id="MODAL2" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-backdrop="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label id="header_label">{{title}}</label>
+            </div>
+            <div class="modal-body">
+                <div class="table-container">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-str td-b text-center">仕訳コード</th>
+                                <th class="table-str td-b text-center">経理コード</th>
+                                <th class="table-str td-b text-center">仕訳名称</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <td class="table-str td-b">{{ data.journalCode }}</td>
+                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
+                                <td class="table-str td-b">{{ data.orderJournalName }}</td>
+                            </tr>                 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">選択</button>
+            </div>
+        </div>
     </div>
-<div class="table-body">
-    <div class="table-container">
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th class="table-str td-b text-center">仕訳コード</th>
-                    <th class="table-str td-b text-center">経理コード</th>
-                    <th class="table-str td-b text-center">仕訳名称</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                    <td class="table-str td-b">{{ data.journalCode }}</td>
-                    <td class="table-str td-b">{{ data.accountingCategory }}</td>
-                    <td class="table-str td-b">{{ data.orderJournalName }}</td>
-                </tr>                 
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class='page-footer'>
-    <footer>
-        <button type="button" class="btn btn-secondary" (click)="onBackClick($event);">閉じる</button>
-        <button type="button" class="btn btn-primary" style="float: right;" (click)="onClick($event);" routerLink="/">選択</button>
-    </footer>
 </div>

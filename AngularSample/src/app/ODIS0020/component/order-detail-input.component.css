@@ -215,7 +215,8 @@ td {
 }
 
 .orderdetailaddinput{
-    width: 50%;
+    width : 50% !important;
+    max-height: 120px !important;
     margin-left: 0;
   
   }
@@ -224,3 +225,17 @@ td {
     width: 50%;
     margin-left: 0;
 }
+
+.btn-flat-dashed-border {
+    height: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: #1170ff;
+    transition: .4s;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+  }

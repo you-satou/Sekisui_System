@@ -1,10 +1,8 @@
     <div class="body-order-input">
         <section>
-            <div class="container">
-                <div class="container-fluid">
-                    <h1 style="text-align: center; font-weight: bold;">{{title}}</h1>
-                </div>
-            </div>
+            <header>
+                <title>{{title}}</title>
+            </header>
 
             <div class="orderInfomation" style="margin-top:10px">
                 <div id="firstPart" *ngFor="let orderInputData of orderInputDatas ">
@@ -211,20 +209,20 @@
         <section style="margin-top: 10px;">
             <table class="orderdetailaddinput">
                     <tr>
-                        <th class="table-str td-b text-center"><a href="javascript:void(0);" onclick="orderJournalSelect()">仕訳コード</a></th>
-                        <th class="table-str td-b text-center">経理コード</th>
-                        <th class="table-str td-b text-center">仕訳名称</th>
-                        <th class="table-str td-b text-center" colspan="2"><a href= "/OrderSupplierSelect">発注先</a></th>
-                        <th class="table-str td-b text-center">発注予定金額</th>
+                        <th><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL2" (click)="orderJournalSelect($event);" span style="border-bottom: solid 1px#1170ff;;">仕訳コード</button></th>
+                        <th class = "text-center">経理コード</th>
+                        <th class = "text-center">仕訳名称</th>
+                        <th colspan="2"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL3" (click)="orderSupplierSelect($event);" span style="border-bottom: solid 1px#1170ff;;">発注先</button></th>
+                        <th class = "text-center">発注予定金額</th>
                     </tr>
                 <tbody>
                     <tr>
-                        <td class="table-str td-b text-left"><input type="text" name="journalCode"></td>
-                        <td class="table-str td-b text-left"><input type="text" name="accountingCategory"></td>
-                        <td class="table-str td-b text-left"><input type="text" name="orderJournalName"></td>
-                        <td class="table-str td-b text-left"><input type="text" name="supplierCode"></td>
-                        <td class="table-str td-b text-left"><input type="text" name="supplierJournalName"></td>
-                        <td class="table-str td-b text-left"><input type="text" name="orderPlansKin"></td>
+                        <td class="text-left"><input type="text" name="journalCode"></td>
+                        <td class="text-left"><input type="text" name="accountingCategory"></td>
+                        <td class="text-left"><input type="text" name="orderJournalName"></td>
+                        <td class="text-left"><input type="text" name="supplierCode"></td>
+                        <td class="text-left"><input type="text" name="supplierJournalName"></td>
+                        <td class="text-left"><input type="text" name="orderPlansKin"></td>
                     </tr>
                 </tbody>                
             </table>
@@ -243,19 +241,21 @@
 <div class="footer-container" style=" margin-top: 20px;">
     <div class = "_footer-container">
         <div style="float: left;"class="bottomButton">
-            <button mat-button id="btnHacchuPatern" (click)="swichPage('supplier')" style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>
+            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal" data-target="#MODAL1" (click)="supplierPattern($event);">発注先パターン選択</button>
+            <!--<button mat-button id="btnHacchuPatern" (click)="supplierPattern()" style="width: 180px;" class="btn btn-secondary border mx-1 back-btn ">発注先パターン選択</button>-->
         </div>
-        <div style="margin-left: 850px;" class="bottomButton">
+        <div style="margin-left: 200px;" class="bottomButton">
             <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>
         </div>
-        <div style="margin-left: 990px;" class="bottomButton">
+        <div style="margin-left: 330px;" class="bottomButton">
             <button mat-button id="btnKoujiDaichou" class="btn btn-secondary border mx-1 back-btn ">工事台帳</button>
         </div>
-        <div style="margin-left: 1117px;" class="bottomButton">
+        <div style="margin-left: 450px;" class="bottomButton">
             <button mat-button id="btnMeisaiIchiran" class="btn btn-secondary border mx-1 back-btn ">明細一覧</button>
         </div>
         <div style="right: 46px;" class="bottomButton">
             <button mat-button id="btnKoushin" class="btn btn-secondary border mx-1 back-btn ">更新終了</button>
         </div>
     </div>
+    <ng-container *ngComponentOutlet="modal"></ng-container>
 </div>

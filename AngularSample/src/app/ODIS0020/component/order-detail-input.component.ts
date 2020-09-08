@@ -1,10 +1,16 @@
 import { OrderDetailInputGeneral,OrderDetailInput, OrderInfo, OrderDetailShiwake, OrderDetailSplit } from '../entities/odis0020.entity';
-import { Component, OnInit, ViewEncapsulation, Input, OnChanges, HostListener } from '@angular/core';
+import { Component, OnInit,OnDestroy, ViewEncapsulation, Input, OnChanges, HostListener,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { Subscription } from 'rxjs';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
+import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
+import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
+import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
+import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
+import { Const } from '../../common/const'
+import { AppComponent } from '../../app.component'
 
 @Component({
     selector: 'order-detail-input',
@@ -13,11 +19,13 @@ import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-patt
     encapsulation: ViewEncapsulation.None
   })
 
-  export class OrderDetailInputComponent implements OnInit {
+  export class OrderDetailInputComponent implements OnInit,OnDestroy {
 
     @Input() contracNum: string;
     
     title = '発注明細入力＿詳細入力';
+
+    _element: HTMLElement;
 
     orderGeneral: OrderDetailInputGeneral;
 
@@ -55,7 +63,10 @@ import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-patt
     ngOnInit() {
 
       this.getOrderInputData();
-      this.subscription = this.modalService.closeEventObservable$.subscribe(
+
+      this.appComponent.setHeader(Const.ScreenName.S0002,Const.LinKSetting.L0002);
+
+      this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
         () => {
           // プロパティ modal に null をセットすることでコンポーネントを破棄する
           // このタイミングで ModalComponent では ngOnDestroy が走る
@@ -63,12 +74,25 @@ import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-patt
           this.modal = null;
         }
       );
+      this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
+        () => {
+          // プロパティ modal に null をセットすることでコンポーネントを破棄する
+          // このタイミングで ModalComponent では ngOnDestroy が走る
+          
+          this.modal = null;
+        }
+      )
+
     }
 
     constructor(
+      private appComponent: AppComponent,
       private orderService: CommonService,
       public router: Router,
-      private modalService: SupplierPatternService,
+      private SupplierPatternService: SupplierPatternService,
+      private OrderJournalSelectService: OrderSupplierSelectService,
+      private OrderSupplierSelectService: OrderSupplierSelectService,
+
     ){ }
     
     getOrderInputData(){
@@ -96,14 +120,51 @@ import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-patt
           break;
       
         case 'supplier':
-          this.router.navigate(['./SupplierPattern']);
+          this.router.navigate(['/SupplierPattern']);
           break;
       }
 
     }
+  
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
 
-    orderJournalSelect(){
+    orderJournalSelect($event){
+      this.modal = OrderJournalSelectComponent;
+    }
+
+      /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+
+    orderSupplierSelect($event){
+      this.modal = OrderSupplierSelectComponent;
+    }
+
+
+  /**
+   * クリックイベント
+   *
+   * @param {*} $event イベント情報
+   * @memberof AppComponent
+   */
+    supplierPattern($event){
       this.modal = SupplierPatternComponent;
     }
 
+  /**
+   * 終了処理
+   *
+   * @memberof AppComponent
+   */
+   ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   }

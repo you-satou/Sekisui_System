@@ -25,11 +25,12 @@
 }
 
 .table-small {
-    width: 30%;
+    width: 20%;
     margin-right: 30px;
 }
 .table-small>thead {
     background-color: #E5E5E5;
+    height: 130px;
 }
 .table-small>tbody {
     height: 130px;
@@ -57,7 +58,6 @@
 
 .table-str-large{
     display: inline-block;
-    height: 20px;
     width: 100%;
     word-wrap: break-word;
 }
