@@ -184,12 +184,14 @@ td {
     padding: 0px 10px !important;
     min-width: 40px !important;
     min-height: 23px !important;
+    font-size: small;
 }
 
 .tddate {
     text-align: center !important;
     width: 83px !important;
     min-height: 23px !important;
+    font-size: small;
 }
 
 .tdprice {

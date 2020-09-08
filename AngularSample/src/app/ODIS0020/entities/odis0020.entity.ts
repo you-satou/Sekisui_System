@@ -5,6 +5,7 @@ export class OrderDetailShiwake{
     orderSuplierCode: string;
     orderSuplierName: string;
     orderPlanAmount: string;
+    comment: string;
     requestDate: string;
     requester: string;
     approvalDate_lv1: string;
@@ -25,6 +26,7 @@ export class OrderDetailShiwake{
 
 export interface OrderDetailSplit{
     orderPlanAmount: string;
+    comment:string;
     requestDate: string;
     requester: string;
     approvalDate_lv1: string;

@@ -9,7 +9,7 @@
 
 .tableContent-container {
     width: inherit;
-    height: 300px !important;
+    height: 100px !important;
 }
 
 tr.mat-footer-row {
@@ -22,7 +22,7 @@ th {
 }
 
 td {
-    padding: 5px !important;
+    padding: 3px !important;
 }
 
 .mat-table-sticky {
@@ -58,4 +58,22 @@ td {
 .color-input-5 {
     background-color: #C4D79B !important;
     text-align: center;
+}
+
+.font-s{
+    font-size: x-small;
+    font-weight: 5px;
+}
+
+.font-s-right{
+    font-size: x-small;
+    text-align: right;
+    font-weight: 5px;
+}
+
+.font-s-center{
+    font-size: x-small;
+    text-align: center;
+    font-weight: 5px;
+
 }
