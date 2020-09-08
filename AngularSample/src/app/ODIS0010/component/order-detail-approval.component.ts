@@ -76,19 +76,30 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     if(this.checkInput(this.inputment)){
 
-      setTimeout(()=> {
-        this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-        .then(
-          (response) => {
-            this.orderDetailData = response;
-            if(this.orderDetailData != null){
-              let pageInput = document.getElementById("pageIndex");
-              pageInput.setAttribute("value", "1");
-              pageInput.removeAttribute("disabled");
-            }
+      // setTimeout(()=> {
+      //   this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
+      //   .then(
+      //     (response) => {
+      //       this.orderDetailData = response;
+      //       if(this.orderDetailData != null){
+      //         let pageInput = document.getElementById("pageIndex");
+      //         pageInput.setAttribute("value", "1");
+      //         pageInput.removeAttribute("disabled");
+      //       }
+      //     }
+      //   );
+      // });
+
+      this.orderService.getMultipileData(this._url).subscribe(
+        data => {
+          this.orderDetailData = data;
+          if (this.orderDetailData != null) {
+            let pageInput = document.getElementById("pageIndex");
+            pageInput.setAttribute("value", "1");
+            pageInput.removeAttribute("disabled");
           }
-        );
-      });
+        }
+      );
 
     }
 
@@ -98,15 +109,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   checkInput(input: OrderSearchInputment):boolean{
 
-    // if(this.checked.startFromName){
-    //   input.searchByName = "1"
-    // }
-
-    input.searchByName = this.checked.startFromName === true? "1":"2";
-
-    alert(input.searchByName);
-
-    return false;
+    return true;
   }
   
 }
