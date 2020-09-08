@@ -88,90 +88,6 @@
             "salesStatus": "",
             "salesUpdateDate": ""
 
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "TEST",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": "2020/08/21"
-
         }
     ],
     "orderInfoTable_2": [{
@@ -486,35 +402,175 @@
 
         },
         {
-            "journalCode": "0400",
-            "accountCode": "040",
-            "journalName": "本体工事",
-            "orderSuplierCode": "803",
-            "orderSuplierName": "積水建設㈱",
-            "orderPlanAmount": "245000000",
-            "requestDate": "2019/7/4",
-            "requester": "積水潤一",
+            "journalCode": "0880",
+            "accountCode": "080",
+            "journalName": "内装工事（8）",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "14000000",
+            "requestDate": "",
+            "requester": "",
             "approvalDate_lv1": "",
-            "approvalPerson_lv1": "承認",
+            "approvalPerson_lv1": "",
             "approvalDate_lv2": "",
-            "approvalPerson_lv2": "承認",
-            "orderDate": "2019/7/4",
-            "orderAmount": "245000000",
-            "recievedDate": "2019/7/5",
-            "recievedAmount": "245000000",
-            "paymentDate": "2019/7/6",
-            "paymentAmount": "245000000"
+            "approvalPerson_lv2": "",
+            "orderDate": "",
+            "orderAmount": "",
+            "recievedDate": "",
+            "recievedAmount": "",
+            "paymentDate": "",
+            "paymentAmount": ""
 
         },
         {
-            "journalCode": "0400",
-            "accountCode": "040",
-            "journalName": "本体工事",
+            "journalCode": "1000",
+            "accountCode": "100",
+            "journalName": "防水工事（８）",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "9200000"
+
+        },
+        {
+            "journalCode": "1400",
+            "accountCode": "140",
+            "journalName": "仮囲いシート（８）",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "90000"
+
+        },
+        {
+            "journalCode": "1900",
+            "accountCode": "190",
+            "journalName": "電気設備工事（８）",
             "orderSuplierCode": "803",
             "orderSuplierName": "積水建設㈱",
-            "orderPlanAmount": "245000000"
+            "orderPlanAmount": "43000000"
+
+        },
+        {
+            "journalCode": "2100",
+            "accountCode": "210",
+            "journalName": "給排水衛生設備工事（８）",
+            "orderSuplierCode": "803",
+            "orderSuplierName": "積水建設㈱",
+            "orderPlanAmount": "44500000"
+
+        },
+        {
+            "journalCode": "2290",
+            "accountCode": "220",
+            "journalName": "シャワーユニット（８）",
+            "orderSuplierCode": "803",
+            "orderSuplierName": "積水建設㈱",
+            "orderPlanAmount": "330000"
+
+        },
+        {
+            "journalCode": "2605",
+            "accountCode": "260",
+            "journalName": "キッチンセット（８）",
+            "orderPlanAmount": "1500000"
+
+        },
+        {
+            "journalCode": "2880",
+            "accountCode": "280",
+            "journalName": "エレベーター工事（８）",
+            "orderPlanAmount": "5300000"
+
+        },
+        {
+            "journalCode": "3230",
+            "accountCode": "320",
+            "journalName": "避難器具・消火器（８）",
+            "orderSuplierCode": "803",
+            "orderSuplierName": "積水建設㈱",
+            "orderPlanAmount": "880000",
+            "requestDate": "2019/9/17",
+            "requester": "積水潤一",
+            "approvalDate_lv1": "2019/9/17",
+            "approvalPerson_lv1": "積水綾子",
+            "approvalDate_lv2": "",
+            "approvalPerson_lv2": "承認"
+
+
+        },
+        {
+            "journalCode": "3230",
+            "accountCode": "320",
+            "journalName": "アルミ金物工事（８）",
+            "orderPlanAmount": "1880000"
+
+        },
+        {
+            "journalCode": "3940",
+            "accountCode": "394",
+            "journalName": "植栽工事（８）",
+            "orderPlanAmount": "1292000"
+
+        },
+        {
+            "journalCode": "4220",
+            "accountCode": "422",
+            "journalName": "家具工事（８）",
+            "orderPlanAmount": "13300000"
+
+        },
+        {
+            "journalCode": "4400",
+            "accountCode": "440",
+            "journalName": "杭打工事",
+            "orderPlanAmount": "20000000"
+
+        },
+        {
+            "journalCode": "4400",
+            "accountCode": "440",
+            "journalName": "杭残土処分費（８）",
+            "orderSuplierCode": "803",
+            "orderSuplierName": "積水建設㈱",
+            "orderPlanAmount": "3300000",
+            "requester": "依頼"
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "48555",
+            "requester": "依頼"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険（８）",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "0100",
+            "accountCode": "010",
+            "journalName": "ハウス材"
+
+        },
+        {
+            "journalCode": "9100",
+            "accountCode": "910",
+            "journalName": "運賃・荷造・保管料"
+
+        },
+        {
+            "journalCode": "9300",
+            "accountCode": "930",
+            "journalName": "労災"
 
         }
+
     ],
     "orderSliptTable": [{
             "orderPlanAmount": "245000000",
