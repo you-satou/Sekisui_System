@@ -64,7 +64,7 @@ import { AppComponent } from '../../app.component'
 
       this.getOrderInputData();
 
-      this.appComponent.setHeader(Const.ScreenName.S0002,Const.LinKSetting.L0002);
+      this.appComponent.setHeader(Const.ScreenName.S0002,Const.LinKSetting.L0000);
 
       this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
         () => {

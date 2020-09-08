@@ -132,8 +132,8 @@ td {
 .orderInfo2Table1 {
     position: relative !important;
     float: left !important;
-    height: 100px !important;
-    max-height: 80px !important;
+    height: 90px !important;
+    max-height: 90px !important;
     max-width: 380px !important;
 }
 
