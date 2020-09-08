@@ -86,8 +86,8 @@
 }
 
 .bottomButton {
-    position: fixed; 
-    z-index: 2; 
+    position: fixed;
+    z-index: 2;
     bottom: 5px;
 }
 
@@ -100,38 +100,4 @@ th.mat-header-cell {
     max-height: 48px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-} */
-
-
-/******************* Page Index ****************************/
-
-
-/* .paginate-container {
-    display: flexbox;
-    padding-bottom: 41.75px;
-}
-
-.paginateInput {
-    position: fixed;
-    top: 23px;
-    right: 1.5px;
-    display: inline-block;
-    width: 33px;
-    height: 29px;
-    line-height: 33px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    text-align: center;
-} */
-
-
-/* .fas {
-    font-size: 1rem;
-}
-
-.input-wrapper {
-    position: relative !important;
-    display: inline-block !important;
-    height: 40px !important;
-    width: 35px !important;
 } */

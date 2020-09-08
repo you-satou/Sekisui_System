@@ -7,7 +7,7 @@ import {
   ViewContainerRef,
   Input,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
 interface PageObject {
   length: number;
@@ -19,7 +19,18 @@ interface PageObject {
 @Directive({
   selector: '[order-paginator]',
 })
-export class OrderApprovalPaginator {
+export class OrderApprovalPaginator extends MatPaginatorIntl {
+
+	itemsPerPageLabel	= '表示件数';
+	
+	nextPageLabel		= '次へ';
+
+	previousPageLabel	= '戻る';
+	
+	firstPageLabel		= '最初へ';
+	
+	lastPageLabel		= '最後へ';
+
   private _curPageObj: PageObject = {
     length: 0,
     pageIndex: 0,
@@ -47,6 +58,9 @@ export class OrderApprovalPaginator {
     private viewRef: ViewContainerRef,
     private rend: Renderer2
   ) {
+    // Needed method in order to extend by another class
+    super();
+
     this.pagi.page.subscribe((e: PageObject) => {
       if (
         this._curPageObj.pageSize != e.pageSize &&
