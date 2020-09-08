@@ -498,9 +498,10 @@
             "approvalPerson_lv1": "積水綾子",
             "approvalDate_lv2": "",
             "approvalPerson_lv2": "承認"
-
-
-        },
+        }
+    ],
+    "orderShiwakeTable_________________________":[
+    
         {
             "journalCode": "3230",
             "accountCode": "320",
