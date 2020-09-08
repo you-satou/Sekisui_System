@@ -129,7 +129,7 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
 
 
     moveToSliptDetailInput(){
-      this.router.navigate(['./SliptDetailInput']);
+      this.router.navigate(['/SplitDetailInput']);
     }
 
 }
