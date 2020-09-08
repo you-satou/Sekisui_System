@@ -15,6 +15,7 @@
 }
 .modal-footer{
     background-color: rgb(229, 241, 247);
+    justify-content: space-between;
 }
 
 .box {
@@ -60,4 +61,8 @@
     display: inline-block;
     width: 100%;
     word-wrap: break-word;
+}
+
+.btn-secondary>modal-footer{
+    position: left;
 }

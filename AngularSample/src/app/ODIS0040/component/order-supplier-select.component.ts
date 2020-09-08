@@ -57,17 +57,14 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    *
    * @param $event イベント
    */
-  public onBackClick($event) {
-    
-    this._location.back();
-
-  }
   
   public onClick($event) {
-    
-    this.modalService.setVal(this.resVal);
-    this._location.back();
+    this.notifyCloseModal();
 
+  }
+
+  private notifyCloseModal() {
+    this.modalService.requestCloseModal(this.resVal);
   }
 
    /**

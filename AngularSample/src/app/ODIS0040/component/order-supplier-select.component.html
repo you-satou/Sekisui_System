@@ -9,16 +9,16 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th class="table-str td-b text-center">発注</th>
-                                <th class="table-str td-b text-center">仕訳名称</th>
-                                <th class="table-str td-b text-center">納品</th>
+                                <th class="table-s td-b text-center">発注</th>
+                                <th class="table-m td-b text-center">仕訳名称</th>
+                                <th class="table-s td-b text-center">納品</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                                <td class="table-str td-b">{{ data.supplierCode }}</td>
-                                <td class="table-str td-b">{{ data.supplierJournalName }}</td>
-                                <td class="table-str td-b">{{ data.delivery }}</td>
+                                <td class="table-s td-b">{{ data.supplierCode }}</td>
+                                <td class="table-m td-b">{{ data.supplierJournalName }}</td>
+                                <td class="table-s td-b">{{ data.delivery }}</td>
                             </tr>                 
                         </tbody>
                     </table>

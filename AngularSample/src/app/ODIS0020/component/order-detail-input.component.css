@@ -6,6 +6,8 @@ section {
 
 .body-order-input {
     position: relative !important;
+
+
 }
 
 .body-order-detail-input{
@@ -106,6 +108,7 @@ td {
     min-width: 960px !important;
     position: relative !important;
     max-height: 120px !important;
+
 }
 
 .orderInfo1Table {
@@ -216,13 +219,6 @@ td {
     bottom: 5px;
 }
 
-.orderdetailaddinput{
-    width : 50% !important;
-    max-height: 120px !important;
-    margin-left: 0;
-  
-  }
-
 .button-container{
     width: 50%;
     margin-left: 0;
@@ -240,4 +236,11 @@ td {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+  }
+
+  .orderdetailaddinputBody{
+    width:auto;
+    background-color: Transparent;
+    border: none;
+    text-align: left !important;
   }

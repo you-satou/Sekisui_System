@@ -61,18 +61,18 @@ td {
 }
 
 .font-s{
-    font-size: x-small;
+    font-size: 12px; 
     font-weight: 5px;
 }
 
 .font-s-right{
-    font-size: x-small;
+    font-size: 12px; 
     text-align: right;
     font-weight: 5px;
 }
 
 .font-s-center{
-    font-size: x-small;
+    font-size: 12px; 
     text-align: center;
     font-weight: 5px;
 

@@ -32,4 +32,14 @@ export class OrderJournalSelectService {
 
   }
 
+    /**
+   * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
+   *
+   * @memberof OrderJournalSelectService
+   */
+  public requestCloseModal(resVal:OrderJournalSelectType) {
+    this.setVal(resVal)
+    this.closeEventSubject.next();
+  }
+
 }

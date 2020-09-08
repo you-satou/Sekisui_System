@@ -209,20 +209,20 @@
         <section style="margin-top: 10px;">
             <table class="orderdetailaddinput">
                     <tr>
-                        <th><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL2" (click)="orderJournalSelect($event);" span style="border-bottom: solid 1px#1170ff;;">仕訳コード</button></th>
-                        <th class = "text-center">経理コード</th>
-                        <th class = "text-center">仕訳名称</th>
-                        <th colspan="2"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL3" (click)="orderSupplierSelect($event);" span style="border-bottom: solid 1px#1170ff;;">発注先</button></th>
-                        <th class = "text-center">発注予定金額</th>
+                        <th style="width: 20px; border-left: 0;"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL2" (click)="orderJournalSelect($event);" span style="border-bottom: solid 1px#1170ff;;">仕訳コード</button></th>
+                        <th style="width: 20px;">経理コード</th>
+                        <th style="width: 20px;">仕訳名称</th>
+                        <th style="width: 40px;" colspan="2"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL3" (click)="orderSupplierSelect($event);" span style="border-bottom: solid 1px#1170ff;;">発注先</button></th>
+                        <th style="width: 20px;">発注予定金額</th>
                     </tr>
                 <tbody>
                     <tr>
-                        <td class="text-left"><input type="text" name="journalCode"></td>
-                        <td class="text-left"><input type="text" name="accountingCategory"></td>
-                        <td class="text-left"><input type="text" name="orderJournalName"></td>
-                        <td class="text-left"><input type="text" name="supplierCode"></td>
-                        <td class="text-left"><input type="text" name="supplierJournalName"></td>
-                        <td class="text-left"><input type="text" name="orderPlansKin"></td>
+                        <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="journalCode"></td>
+                        <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="accountingCategory"></td>
+                        <td style="width: 20px;"><input type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
+                        <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
+                        <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="supplierJournalName"></td>
+                        <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
                     </tr>
                 </tbody>                
             </table>

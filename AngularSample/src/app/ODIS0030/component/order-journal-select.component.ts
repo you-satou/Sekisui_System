@@ -52,15 +52,14 @@ export class OrderJournalSelectComponent implements OnInit {
     // モーダルダイアログが閉じたタイミングで出力される
     
   }
-
   
   public onClick($event) {
-    this.modalService.setVal(this.resVal);
-  }
-  
-  public onBackClick($event) {
-    this._location.back();
+    this.notifyCloseModal();
 
+  }
+
+  private notifyCloseModal() {
+    this.modalService.requestCloseModal(this.resVal);
   }
 
    /**

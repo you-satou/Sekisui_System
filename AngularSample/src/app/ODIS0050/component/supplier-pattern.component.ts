@@ -3,10 +3,8 @@ import { WkAllItemTypesService } from './../../wk-all-item-types.service'
 import { WkAllItemType } from './../../WkAllItemType';
 import { Router } from '@angular/router';
 import { SupplierPatternService } from '../services/supplier-pattern.service';
-import { PatternType } from '../entities/odis0050.entity';
-import { SupplierType } from '../entities/odis0050.entity';
-import { pTestdata } from '../test-data'
-import { sTestdata } from '../test-data'
+import { PatternType,SupplierPatternType,SupplierType } from '../entities/odis0050.entity';
+import { pTestdata,sTestdata } from '../test-data'
 import { CommonComponent } from '../../common/common.component'
 
 @Component({
@@ -23,6 +21,8 @@ export class SupplierPatternComponent implements OnInit {
   // Todo
   pDatas: PatternType[] = pTestdata;
   sDatas: SupplierType[] = sTestdata;
+  resVal: SupplierPatternType;
+  
   constructor(
     private modalService: SupplierPatternService,
     private commonComponent: CommonComponent,
@@ -39,7 +39,7 @@ export class SupplierPatternComponent implements OnInit {
   }
 
   private notifyCloseModal() {
-    this.modalService.requestCloseModal();
+    this.modalService.requestCloseModal(this.resVal);
   }
 
   /**
