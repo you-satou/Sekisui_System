@@ -104,8 +104,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   ngOnInit() {
     this.getSplitOderDetailShiwake();
     this.getSplitOrderDetailSplit()
-    this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0004); this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
-
+    this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
   }
 
   getSplitOderDetailShiwake() {

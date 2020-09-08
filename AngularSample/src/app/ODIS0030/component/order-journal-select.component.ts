@@ -45,7 +45,7 @@ export class OrderJournalSelectComponent implements OnInit {
   
   ngOnInit() {
 
-    this.appComponent.setHeader(Const.ScreenName.S0005,Const.LinKSetting.L0005);
+    this.appComponent.setHeader(Const.ScreenName.S0004,Const.LinKSetting.L0004);
     
   }
   ngOnDestroy() {
