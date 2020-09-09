@@ -3,7 +3,6 @@
 }
 
 .mat-header-cell {
-    /* background-color: #C5D9F1 !important; */
     text-align: center !important;
 }
 
@@ -60,20 +59,43 @@ td {
     text-align: center;
 }
 
-.font-s{
-    font-size: 12px; 
+.font-s {
+    font-size: 12px;
     font-weight: 5px;
 }
 
-.font-s-right{
-    font-size: 12px; 
+.font-s-right {
+    font-size: 12px;
     text-align: right;
     font-weight: 5px;
 }
 
-.font-s-center{
-    font-size: 12px; 
+.font-s-center {
+    font-size: 12px;
     text-align: center;
     font-weight: 5px;
+}
 
+.mat-icon-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0 !important;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
 }

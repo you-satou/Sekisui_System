@@ -6,11 +6,9 @@ section {
 
 .body-order-input {
     position: relative !important;
-
-
 }
 
-.body-order-detail-input{
+.body-order-detail-input {
     position: relative !important;
 }
 
@@ -108,7 +106,6 @@ td {
     min-width: 960px !important;
     position: relative !important;
     max-height: 80px !important;
-
 }
 
 .orderInfo1Table {
@@ -148,7 +145,7 @@ td {
     min-width: 1050px !important;
     margin-top: 10px;
     width: auto;
-    height: 150px;
+    height: 170px;
     position: relative;
 }
 
@@ -170,7 +167,7 @@ td {
 
 .tbl2 {
     overflow-y: auto;
-    height: 150px;
+    height: 161px;
     float: left;
     margin-left: 30px;
     width: fit-content;
@@ -220,7 +217,7 @@ td {
     bottom: 5px;
 }
 
-.button-container{
+.button-container {
     width: 50%;
     margin-left: 0;
 }
@@ -232,16 +229,16 @@ td {
     color: #1170ff;
     transition: .4s;
     background-color: Transparent;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     border: none;
-    cursor:pointer;
+    cursor: pointer;
     overflow: hidden;
-    outline:none;
-  }
+    outline: none;
+}
 
-  .orderdetailaddinputBody{
-    width:auto;
+.orderdetailaddinputBody {
+    width: auto;
     background-color: Transparent;
     border: none;
     text-align: left !important;
-  }
+}
