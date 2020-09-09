@@ -65,6 +65,29 @@ td {
 }
 
 
+/**
+* tbl2 draw top and bottom border while scrolling
+*/
+
+th:after,
+th:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+th:before {
+    top: -1px;
+    border-top: 0.5px solid #CCD0D5 !important;
+}
+
+th:after {
+    bottom: -1px;
+    border-bottom: 0.5px solid #CCD0D5 !important;
+}
+
+
 /****************************************************/
 
 
