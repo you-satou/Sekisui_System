@@ -1,9 +1,16 @@
 .mat-footer-cell {
     background-color: #e0e0e0;
+    position: sticky;
+}
+
+.mat-header-row {
+    display: table-row;
+    height: 30px;
 }
 
 .mat-header-cell {
     text-align: center !important;
+    position: sticky;
 }
 
 .tableContent-container {
@@ -26,12 +33,6 @@ td {
 
 .mat-table-sticky {
     border-top: 1px solid #e0e0e0;
-}
-
-.col-display {
-    background-color: transparent !important;
-    border-top: none !important;
-    border-bottom: none !important;
 }
 
 .color-input-1 {
@@ -98,4 +99,112 @@ td {
     padding: 0 16px;
     border-radius: 4px;
     overflow: visible;
+}
+
+.table-responsive {
+    display: block;
+    width: fit-content;
+    min-width: 1900px;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 960px;
+}
+
+
+/*.table-responsive .mat-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+    height: 960px;
+    background-color: azure;
+}*/
+
+
+/*.table-responsive .mat-table>tbody {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px; 
+    overflow: hidden;
+}*/
+
+.table-responsive .mat-row,
+.table-responsive .mat-header-row {
+    display: table-row;
+    height: 30px;
+}
+
+.table-responsive .mat-cell,
+.table-responsive .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    /* line-break: unset;*/
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+
+/**
+* Table's scroll
+*
+**/
+
+.table-responsive>table>thead>tr>th {
+    top: 0px;
+    position: sticky;
+    z-index: 100;
+}
+
+
+/* .table-responsive>table>thead>tr>th ::after,
+.table-responsive>table>thead>tr>th ::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.table-responsive>table>thead>tr>th:before {
+    top: -1px;
+    border-top: 0.5px solid #CCD0D5;
+}
+
+.table-responsive>table>thead>tr>th:after {
+    bottom: -1px;
+    border-bottom: 0.5px solid #CCD0D5;
+} */
+
+.sticky {
+    top: 30px !important;
+}
+
+
+/* .dis-play {
+    background-color: aqua !important;
+} */
+
+.col-display {
+    background-color: white !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.col-display-footer {
+    background-color: white !important;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+
+.dis-play ::after,
+.dis-play ::before {
+    background-color: transparent !important;
+    content: '';
 }

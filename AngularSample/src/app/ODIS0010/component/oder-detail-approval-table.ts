@@ -45,6 +45,10 @@ export class OrderDetailApprovalTable implements OnChanges {
     this.dataSource = new MatTableDataSource<OrderDetail>(this.resultData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
+    // ソートした状態が前の状態に戻らない,　降順ー昇順だけ
+    this.sort.disableClear = true;
+
   }
   
   switchPage(data: OrderDetail){

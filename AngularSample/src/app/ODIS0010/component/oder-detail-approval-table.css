@@ -4,7 +4,7 @@ table {
 }
 
 th .mat-sort-header-sorted {
-    color: black;
+    color: blue;
 }
 
 .detail-table {
