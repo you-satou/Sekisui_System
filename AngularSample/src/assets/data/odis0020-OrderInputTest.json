@@ -1,6 +1,6 @@
 {
 
-    "orderDetail": [{
+    "ContractInfo": [{
         "contractNum": "70116997700",
         "officeCode": "116009",
         "officeName": "ＩＴ業務部",
@@ -29,7 +29,7 @@
         "planHandingOver": "2020/04/24",
         "perforHandingOver": "2020/04/24"
     }],
-    "orderInfoTable_1": [{
+    "MainOrderInfo": [{
             "contractModel": "ハ　ウ　ス",
             "orderModel": "",
             "branchNum1": "00",
@@ -90,7 +90,7 @@
 
         }
     ],
-    "orderInfoTable_2": [{
+    "InsertedOrderInfo": [{
             "contractModel": "設計",
             "orderModel": "C",
             "branchNum1": "36",
@@ -381,7 +381,7 @@
 
     ],
 
-    "tsuikaData": [{
+    "SekkeiData": [{
             "journalCode": "0400",
             "accountCode": "040",
             "journalName": "本体工事",
@@ -502,7 +502,7 @@
         }
     ],
 
-    "hontaiData": [{
+    "HontaiData": [{
             "journalCode": "0400",
             "accountCode": "040",
             "journalName": "本体工事",
@@ -624,7 +624,7 @@
     ],
 
 
-    "sekkeiData": [
+    "TsuikaData": [
 
         {
             "journalCode": "3230",
@@ -827,4 +827,5 @@
 
         }
     ]
+
 }
