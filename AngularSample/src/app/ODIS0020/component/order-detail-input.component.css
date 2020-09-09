@@ -1,8 +1,9 @@
 /********************* Page Footer *************************/
 
-section {
+
+/* section {
     display: block;
-}
+} */
 
 .body-order-input {
     position: relative !important;
@@ -42,7 +43,7 @@ section {
 }
 
 
-/*********************TABLE****************************/
+/*********************TABLE'S General properties****************************/
 
 th {
     border-collapse: collapse !important;
@@ -62,29 +63,6 @@ td {
     border-bottom: 0.5px solid #CCD0D5 !important;
     border-left: 0.5px solid #CCD0D5 !important;
     padding: 0px 3px;
-}
-
-
-/**
-* tbl2 draw top and bottom border while scrolling
-*/
-
-th:after,
-th:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-}
-
-th:before {
-    top: -1px;
-    border-top: 0.5px solid #CCD0D5 !important;
-}
-
-th:after {
-    bottom: -1px;
-    border-bottom: 0.5px solid #CCD0D5 !important;
 }
 
 
@@ -201,6 +179,29 @@ th:after {
 }
 
 
+/**
+* tbl2 will draw the top and bottom border while scrolling
+*/
+
+.tbl2>table>thead>tr>th:after,
+.tbl2>table>thead>tr>th:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.tbl2>table>thead>tr>th:before {
+    top: -1px;
+    border-top: 0.5px solid #CCD0D5;
+}
+
+.tbl2>table>thead>tr>th:after {
+    bottom: -1px;
+    border-bottom: 0.5px solid #CCD0D5;
+}
+
+
 /* -------------------------------------- */
 
 .tdcenter {
@@ -264,4 +265,9 @@ th:after {
     background-color: Transparent;
     border: none;
     text-align: left !important;
+}
+
+.orderdetailaddinput>tr>th {
+    background-color: #C5D9F1;
+    text-align: center;
 }

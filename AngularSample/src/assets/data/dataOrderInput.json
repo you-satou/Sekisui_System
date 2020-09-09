@@ -387,7 +387,7 @@
             "orderSuplierCode": "803",
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "245000000",
-            "comment":"",
+            "comment": "",
             "requestDate": "2019/7/4",
             "requester": "積水潤一",
             "approvalDate_lv1": "",
@@ -409,7 +409,7 @@
             "orderSuplierCode": "",
             "orderSuplierName": "",
             "orderPlanAmount": "14000000",
-            "comment":"",
+            "comment": "",
             "requestDate": "",
             "requester": "",
             "approvalDate_lv1": "",
@@ -431,7 +431,7 @@
             "orderSuplierCode": "",
             "orderSuplierName": "",
             "orderPlanAmount": "9200000",
-            "comment":""
+            "comment": ""
 
 
         },
@@ -500,8 +500,8 @@
             "approvalPerson_lv2": "承認"
         }
     ],
-    "orderShiwakeTable_________________________":[
-    
+    "orderShiwakeTable": [
+
         {
             "journalCode": "3230",
             "accountCode": "320",
@@ -538,7 +538,7 @@
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "3300000",
             "requester": "依頼",
-            "comment":"一期"
+            "comment": "一期"
 
         },
         {
@@ -575,7 +575,134 @@
             "accountCode": "930",
             "journalName": "労災"
 
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderPlanAmount": "367167"
+
         }
+
 
     ],
     "orderSliptTable": [{
