@@ -1,6 +1,5 @@
-import { OrderDetailApprovalTable } from './../../../ODIS0010/component/oder-detail-approval-table';
-import { ODIS0020OrderDetailList } from './../../entities/odis0020-OrderDetailList.entity';
 import { OrderDetailInputComponent } from './../order-detail-input.component';
+import { OrderDetailShiwake } from '../../entities/odis0020.entity';
 import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
 
 @Component({
@@ -12,7 +11,7 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, Elem
 
 export class OrderDetailShiwakeTable extends OrderDetailInputComponent implements OnInit {
 
-  @Input() orderData: ODIS0020OrderDetailList[];
+  @Input() shiwakeData: OrderDetailShiwake[];
 
   totalOrderAmount: number;
   totalRecievedAmount: number;
@@ -78,9 +77,9 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
 
     getTotalPlanAmount() {
     
-      if(this.orderData != undefined || this.orderData != null){
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
 
-        return this.orderData.map(t =>{
+        return this.shiwakeData.map(t =>{
           if(t.orderPlanAmount != null || t.orderPlanAmount != ''){
             return Number(t.orderPlanAmount);
           }
@@ -89,9 +88,9 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
     }
     getOrderAmount() {
     
-      if(this.orderData != undefined || this.orderData != null){
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
 
-        return this.orderData.map(t =>{
+        return this.shiwakeData.map(t =>{
           if(t.orderAmount != null || t.orderAmount != ''){
             return Number(t.orderAmount);
           }
@@ -100,9 +99,9 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
     }
     getRecievedAmount() {
     
-      if(this.orderData != undefined || this.orderData != null){
+      if(this.shiwakeData != undefined || this.shiwakeData != null){
 
-        return this.orderData.map(
+        return this.shiwakeData.map(
           t =>{if(t.recievedAmount != null || t.recievedAmount != ''){
               return Number(t.recievedAmount);
             }
@@ -112,9 +111,9 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
 
   getPaymentAmount() {
 
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.shiwakeData != undefined || this.shiwakeData != null) {
 
-      return this.orderData.map(t => {
+      return this.shiwakeData.map(t => {
         if (t.paymentAmount != null || t.paymentAmount != '') { return Number(t.paymentAmount) }
       }).reduce((acc, value) => acc + value, 0);
     }
