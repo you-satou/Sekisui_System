@@ -8,7 +8,6 @@ import { OrderJournalSelectType } from '../entities/odis0030.entity'
   
 export class OrderJournalSelectService {
 
-  
   // データの変更を通知するためのオブジェクト
   private closeEventSubject = new Subject<string>();
   

@@ -49,12 +49,6 @@ import { AppComponent } from '../../app.component'
     _urlOrderTBL1: string = "assets/data/dataInputTBL1.json";
     _urlOrderTBL2: string = "assets/data/dataInputTBL2.json";
 
-    journalCode:String="";
-    accountingCategory:String="";
-    orderJournalName:String="";
-    supplierCode:String="";
-    supplierJournalName:String="";
-
       // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
     private subscription: Subscription;
   　// ngComponentOutlet にセットするためのプロパティ
