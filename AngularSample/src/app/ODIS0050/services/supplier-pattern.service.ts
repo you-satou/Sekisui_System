@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { PatternType,SupplierPatternType,SupplierType } from '../entities/odis0050.entity';
+import { PatternList } from '../entities/odis0050-PatternList.entity'
+import { SupplierPatternList } from'../entities/odis0050-SuppierPattern.entity'
+import { SupplierList } from '../entities/odis0050-SupplierList.entity'
 
 @Injectable({
     providedIn: 'root'
@@ -27,18 +29,16 @@ export class SupplierPatternService {
   public getVal() {
     return this._val;
   }
-  public setVal(val:SupplierPatternType) {
+  public setVal(val:SupplierPatternList) {
     this._val = val;
   }
-
-
 
   /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *
    * @memberof SupplierPatternService
    */
-  public requestCloseModal(resVal: SupplierPatternType) {
+  public requestCloseModal(resVal: SupplierPatternList) {
     this.setVal(resVal);
     this.closeEventSubject.next();
   }

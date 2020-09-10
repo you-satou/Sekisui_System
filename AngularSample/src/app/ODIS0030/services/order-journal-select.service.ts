@@ -28,7 +28,6 @@ export class OrderJournalSelectService {
   }
   public setVal(val:OrderJournalSelectType) {
     this._val = val;
-
   }
 
     /**

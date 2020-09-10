@@ -4,12 +4,12 @@ import { WkAllItemType } from '../../WkAllItemType';
 import { Router } from '@angular/router';
 import { OrderJournalSelectService } from '../services/order-journal-select.service';
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
-import { testData } from '../test-data'
 import { CommonComponent } from '../../common/common.component'
 import { AppModule } from '../../app.module'
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { Location } from '@angular/common';
+import { CommonService } from '../../common/common.service';
 
 @Component({
     selector: 'order-journal-select',
@@ -20,11 +20,16 @@ import { Location } from '@angular/common';
 
 export class OrderJournalSelectComponent implements OnInit {
 
+  @Output() returnVal:OrderJournalSelectType;
+
   title = '発注仕訳マスタ選択';
 
   // TODO
-  datas: OrderJournalSelectType[] = testData;
+  datas: OrderJournalSelectType[];
   resVal:OrderJournalSelectType;
+
+   // url
+   _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
 
   /**
    * コンストラクタ
@@ -41,17 +46,19 @@ export class OrderJournalSelectComponent implements OnInit {
     private router: Router,
     private commonComponent: CommonComponent,
     private _location: Location,
+    private orderService: CommonService,
   ) {}
   
   ngOnInit() {
 
-    this.appComponent.setHeader(Const.ScreenName.S0004,Const.LinKSetting.L0004);
+    this.getOrderInputData();
     
   }
   ngOnDestroy() {
     // モーダルダイアログが閉じたタイミングで出力される
-    
+    this.returnVal = this.resVal;
   }
+    
   
   public onClick($event) {
     this.notifyCloseModal();
@@ -75,4 +82,16 @@ export class OrderJournalSelectComponent implements OnInit {
     this.commonComponent.CommonOnSelHight($event);
   }
 
+  getOrderInputData(){
+
+    this.orderService.getSingleData(this._journalSelect)
+    .subscribe(
+      data => {
+        if (data !== undefined) {
+          this.datas = data;
+
+      }
+    });
+  }
 }
+

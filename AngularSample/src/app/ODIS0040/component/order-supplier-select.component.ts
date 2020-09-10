@@ -4,11 +4,11 @@ import { WkAllItemType } from '../../WkAllItemType';
 import { Router } from '@angular/router';
 import { OrderSupplierSelectService } from '../services/order-supplier-select.service';
 import { OrderSupplierSelectType } from '../entities/odis0040.entity'
-import { testData } from '../test_deta'
 import { CommonComponent } from '../../common/common.component'
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { Location } from '@angular/common';
+import { CommonService } from '../../common/common.service';
 
 @Component({
     selector: 'order-Supplier-select',
@@ -22,8 +22,11 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   title = '発注先マスタ選択';
 
   // TODO
-  datas: OrderSupplierSelectType[] = testData;
+  datas: OrderSupplierSelectType[];
   resVal:OrderSupplierSelectType;
+
+  // url
+  _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
 
   /**
    * コンストラクタ
@@ -39,13 +42,12 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
     private element: ElementRef,
     private router: Router,
     private commonComponent: CommonComponent,
-    private _location: Location
+    private _location: Location,
+    private orderService: CommonService,
   ) {}
   
   ngOnInit() {
-
-    this.appComponent.setHeader(Const.ScreenName.S0005,Const.LinKSetting.L0005);
-
+    this.getOrderInputData();
   }
   
   ngOnDestroy() {
@@ -79,6 +81,18 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
     this.commonComponent.CommonOnSelHight($event);
 
+  }
+
+  getOrderInputData(){
+
+    this.orderService.getSingleData(this._suppierSelect)
+    .subscribe(
+      data => {
+        if (data !== undefined) {
+          this.datas = data;
+
+      }
+    });
   }
 
 }
