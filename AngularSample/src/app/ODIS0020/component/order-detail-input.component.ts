@@ -1,9 +1,9 @@
 import { CommonComponent } from 'app/common/common.component';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, OnChanges, HostListener, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 //サービスの追加
 import { CommonService } from '../../common/common.service';
@@ -22,6 +22,7 @@ import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { MatTable } from '@angular/material/table';
 import { OrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
+import { OrderSupplierSelectService } from 'app/ODIS0040/services/order-supplier-select.service';
 
 @Component({
   selector: 'order-detail-input',
@@ -32,7 +33,10 @@ import { OrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
 
 export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
-  @ViewChild(OrderDetailShiwakeTable, { static: true }) table: MatTable<ODIS0020OrderDetailList[]>;
+  @ViewChild('tabSekkei', {static: false }) childSekkei: any
+  @ViewChild('tabHontai', {static: false }) childHontai: any
+  @ViewChild('tabTsuika', {static: false }) childTsuika: any
+
   
   selectedTab: string = "設計";
 
@@ -98,11 +102,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
-    public router: Router,
+    private router: Router,
     private SupplierPatternService: SupplierPatternService,
-    // private OrderJournalSelectService: OrderSupplierSelectService,
+    private OrderJournalSelectService: OrderSupplierSelectService,
     // private OrderSupplierSelectService: OrderSupplierSelectService,
-    public comCompnt: CommonComponent,
 
   ) { }
 
@@ -181,11 +184,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-
+  /**
+   * 
+   */
   setOrderDetail(){
-    if(this.addInput.accountCode === null){
-      alert("追加明細が未入力です。")
-    }
+
     let temp: ODIS0020OrderDetailList = {
       journalCode: this.addInput.journalCode,
       accountCode: this.addInput.accountCode,
@@ -208,15 +211,66 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       paymentDate: '',
       paymentAmount: '',
     }
-    this.tblSekki.push(temp);
-    this.table.renderRows();
+
+    switch (this.selectedTab) {
+      case '設計':
+        this.childSekkei.orderData.push(temp);
+        this.childSekkei.tableShiwake.renderRows();
+        break;
+      case '本体':
+        this.childHontai.orderData.push(temp);
+        this.childHontai.tableShiwake.renderRows();
+        break;
+      case '追加':
+        this.childTsuika.orderData.push(temp);
+        this.childTsuika.tableShiwake.renderRows();
+        break;
+    }
 
   }
 
+  /**
+   * 明細テーブルにて、選択された明細を更新する
+   */
   updateOrderDetail(){
 
+    var i = this.rIndex;
+    switch (this.selectedTab) {
+      case '設計':
+        this.childSekkei.orderData[i].journalCode = this.addInput.journalCode;
+        this.childSekkei.orderData[i].accountCode = this.addInput.accountCode;
+        this.childSekkei.orderData[i].journalName = this.addInput.journalName;
+        this.childSekkei.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
+        this.childSekkei.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childSekkei.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
+
+        this.childSekkei.tableShiwake.renderRows();
+        break;
+      case '本体':
+        this.childHontai.orderData[i].journalCode = this.addInput.journalCode;
+        this.childHontai.orderData[i].accountCode = this.addInput.accountCode;
+        this.childHontai.orderData[i].journalName = this.addInput.journalName;
+        this.childHontai.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
+        this.childHontai.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childHontai.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
+        this.childHontai.tableShiwake.renderRows();
+        break;
+      case '追加':
+        this.childTsuika.orderData[i].journalCode = this.addInput.journalCode;
+        this.childTsuika.orderData[i].accountCode = this.addInput.accountCode;
+        this.childTsuika.orderData[i].journalName = this.addInput.journalName;
+        this.childTsuika.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
+        this.childTsuika.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childTsuika.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
+        this.childTsuika.tableShiwake.renderRows();
+        break;
+    }
+
   }
 
+  /**
+   * 明細追加をクリアする
+   */
   clearOrderDetail(){
     this.addInput.accountCode = '';
     this.addInput.journalCode = '';
@@ -226,23 +280,69 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.orderPlanAmount = '';
   }
 
-  stopUpdateOrderDetail(){
+  /**
+   * 明細テーブルにて、選択された明細を削除する
+   */
+  deleteOrderDetail(){
+
+    var i = this.rIndex;
+    switch (this.selectedTab) {
+      case '設計':
+        this.childSekkei.orderData.splice(i,1);        
+        this.childSekkei.tableShiwake.renderRows();
+        break;
+      case '本体':
+        this.childHontai.orderData.splice(i,1);
+        this.childHontai.tableShiwake.renderRows();
+        break;
+      case '追加':
+        this.childTsuika.orderData.splice(i,1);
+        this.childTsuika.tableShiwake.renderRows();
+        break;
+    }
 
   }
 
+  /**
+   * タブを変わった時、デフォルト値を変える。
+   * @param event 
+   */
   setSelectTabChanged(event: any){
-
     this.selectedTab = event.tab.textLabel;
   }
 
-  getEmitter(emitterData: ODIS0020OrderDetailList){
+  getEmitter(emitterData: DataEmitter){
 
-    this.addInput.accountCode = emitterData.accountCode;
-    this.addInput.journalCode = emitterData.journalCode;
-    this.addInput.journalName = emitterData.journalName;
-    this.addInput.orderSuplierCode = emitterData.orderSuplierCode;
-    this.addInput.orderSuplierName = emitterData.orderSuplierName;
-    this.addInput.orderPlanAmount = emitterData.orderPlanAmount;
+    this.rIndex = emitterData.id;
+    this.isSelected = emitterData.selected;
+    this.addInput.accountCode = emitterData.data.accountCode;
+    this.addInput.journalCode = emitterData.data.journalCode;
+    this.addInput.journalName = emitterData.data.journalName;
+    this.addInput.orderSuplierCode = emitterData.data.orderSuplierCode;
+    this.addInput.orderSuplierName = emitterData.data.orderSuplierName;
+    this.addInput.orderPlanAmount = emitterData.data.orderPlanAmount;
+
   }
+
+  /**
+   * 追加した明細に自動選択する
+   */
+  setAutoScroll(){
+
+
+  }
+
+}
+
+/**
+ * 親に渡すデータの定義
+ */
+export class DataEmitter {
+
+  id: number;
+  selected: boolean;
+  data: ODIS0020OrderDetailList;
+
+  constructor () {}
 }
 

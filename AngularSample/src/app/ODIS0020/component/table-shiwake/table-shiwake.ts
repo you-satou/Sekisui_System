@@ -1,11 +1,7 @@
-import { OrderDetailApprovalTable } from './../../../ODIS0010/component/oder-detail-approval-table';
 import { ODIS0020OrderDetailList } from './../../entities/odis0020-OrderDetailList.entity';
-import { OrderDetailInputComponent } from './../order-detail-input.component';
-import { SupplierPatternService } from '../../../ODIS0050/services/supplier-pattern.service';
-import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { DataEmitter } from './../order-detail-input.component';
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { MatTable } from '@angular/material';
-import { AppComponent } from 'app/app.component';
-import { CommonService } from 'app/common/common.service';
 import { Router } from '@angular/router';
 import { CommonComponent } from 'app/common/common.component';
 
@@ -16,10 +12,12 @@ import { CommonComponent } from 'app/common/common.component';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
+export class OrderDetailShiwakeTable{
 
   @Input() orderData: ODIS0020OrderDetailList[];
-  @Output() sendOrderData = new EventEmitter<ODIS0020OrderDetailList>();
+  @Output() sendOrderData = new EventEmitter<DataEmitter>();
+  @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
+  @ViewChild('test', { static: false }) test: any;
 
   columnsSpan: string[] = [
     'requestDate',
@@ -73,6 +71,8 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
     'shiHarai',
 
   ];
+
+  dataEmitter = new DataEmitter();
 
   getTotalPlanAmount() {
 
@@ -129,8 +129,10 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
     }
   }
 
-
-
+  constructor(
+    private router: Router,
+    private comCompnt: CommonComponent,
+  ){  }
   /**
    * 
    * @param $event 
@@ -140,9 +142,12 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
     
     this.setRowHightlight($event);
 
-    if (dataDetail.orderSplitAmount === null || dataDetail.orderSplitAmount == undefined) {
+    if (dataDetail.orderSplitAmount === null || 
+        dataDetail.orderSplitAmount === undefined ||
+        dataDetail.orderSplitAmount === "") {
       dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
     };
+
   }
 
   setRowHightlight(event: any){
@@ -178,8 +183,16 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
    * 
    */
   onSelectHighLight($event, data: ODIS0020OrderDetailList) {
+
     this.comCompnt.CommonOnSelHight($event);
-    this.sendOrderData.emit(data);
+    // rowIndex in table body begin from 2
+    // let rowIndex = $event.target.parentElement.rowIndex;
+    
+    let rowIndex = this.orderData.indexOf(data);
+    this.dataEmitter.id = rowIndex;
+    this.dataEmitter.selected = true;
+    this.dataEmitter.data = data;
+    this.sendOrderData.emit(this.dataEmitter);
   }
 
 
