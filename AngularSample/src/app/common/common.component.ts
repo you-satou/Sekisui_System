@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { OrderDetailInputGeneral } from 'app/ODIS0020/entities/odis0020.entity';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { eventNames } from 'process';
 import { AppComponent } from '../app.component'
