@@ -189,15 +189,15 @@
     </section>
 
     <section style="margin-top: 10px;" class="tabGroup">
-        <mat-tab-group animationDuration="700ms">
+        <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)">
             <mat-tab class="sekkei" label="設計">
-                <shiwake-table [orderData]="tblSekki"></shiwake-table>
+                <shiwake-table [orderData]="tblSekki" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="hontai" label="本体">
-                <shiwake-table [orderData]="tblHontai"></shiwake-table>
+                <shiwake-table [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="tsuika" label="追加">
-                <shiwake-table [orderData]="tblTsuika"></shiwake-table>
+                <shiwake-table [orderData]="tblTsuika" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
         </mat-tab-group>
     </section>
@@ -214,12 +214,12 @@
             </tr>
             <tbody>
                 <tr>
-                    <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="journalCode"></td>
-                    <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="accountingCategory"></td>
-                    <td style="width: 20px;"><input type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
-                    <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
-                    <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="supplierJournalName"></td>
-                    <td style="width: 20px;"><input type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.journalCode" type="text" class="orderdetailaddinputBody" name="journalCode"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.accountCode" type="text" class="orderdetailaddinputBody" name="accountingCategory"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.journalName" type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderSuplierCode" type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderSuplierName" type="text" class="orderdetailaddinputBody" name="supplierJournalName"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
                 </tr>
             </tbody>
         </table>
@@ -227,10 +227,10 @@
 
     <section style="margin-top: 10px;">
         <div class="button-container">
-            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
-            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細更新</button>
-            <button mat-button id="btnMeisai" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">中止</button>
-            <button mat-button id="btnMeisai" style="float: right;" (click)="swichPage('meisai')" class="btn btn-secondary border mx-1 back-btn ">明細削除</button>
+            <button mat-button id="btnMeisai" (click)="setOrderDetail()" class="btn btn-secondary border mx-1 back-btn ">明細追加</button>
+            <button mat-button id="btnMeisai" (click)="updateOrderDetail()" class="btn btn-secondary border mx-1 back-btn ">明細更新</button>
+            <button mat-button id="btnMeisai" (click)="clearOrderDetail()" class="btn btn-secondary border mx-1 back-btn ">中止</button>
+            <button mat-button id="btnMeisai" style="float: right;" (click)="stopUpdateOrderDetail()" class="btn btn-secondary border mx-1 back-btn ">明細削除</button>
         </div>
     </section>
 </div>

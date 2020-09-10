@@ -1,7 +1,13 @@
 import { OrderDetailApprovalTable } from './../../../ODIS0010/component/oder-detail-approval-table';
 import { ODIS0020OrderDetailList } from './../../entities/odis0020-OrderDetailList.entity';
 import { OrderDetailInputComponent } from './../order-detail-input.component';
-import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef } from '@angular/core';
+import { SupplierPatternService } from '../../../ODIS0050/services/supplier-pattern.service';
+import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
+import { MatTable } from '@angular/material';
+import { AppComponent } from 'app/app.component';
+import { CommonService } from 'app/common/common.service';
+import { Router } from '@angular/router';
+import { CommonComponent } from 'app/common/common.component';
 
 @Component({
   selector: 'shiwake-table',
@@ -10,15 +16,11 @@ import { Component, OnInit, ViewChild, Input, OnChanges, ViewEncapsulation, Elem
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailShiwakeTable extends OrderDetailInputComponent implements OnInit {
+export class OrderDetailShiwakeTable extends OrderDetailInputComponent {
 
   @Input() orderData: ODIS0020OrderDetailList[];
+  @Output() sendOrderData = new EventEmitter<ODIS0020OrderDetailList>();
 
-  totalOrderAmount: number;
-  totalRecievedAmount: number;
-  totalPaymentAmount: number;
-  totalOrderPlanAmount: Number;
-   
   columnsSpan: string[] = [
     'requestDate',
     'requester',
@@ -34,10 +36,10 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
     'journalName',
     'orderSupplierCode',
     'orderSupplierName',
-    'orderPlanAmount1',
+    'orderPlanAmount',
     'display',
     'split',
-    'orderPlanAmount2',
+    'orderSplitAmount',
     'comment',
     'requestDate',
     'requester',
@@ -72,46 +74,53 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
 
   ];
 
-  dataSource: any;
-  marginleftPx: number;
+  getTotalPlanAmount() {
 
+    if (this.orderData != undefined || this.orderData != null) {
 
-    getTotalPlanAmount() {
-    
-      if(this.orderData != undefined || this.orderData != null){
+      return this.orderData.map(t => {
+        if (t.orderPlanAmount != null || t.orderPlanAmount != '') {
+          return Number(t.orderPlanAmount);
+        }
+      }).reduce((acc, value) => acc + value, 0);
+    }
+  }
 
-        return this.orderData.map(t =>{
-          if(t.orderPlanAmount != null || t.orderPlanAmount != ''){
-            return Number(t.orderPlanAmount);
+  getOrderSplitAmount() {
+    if (this.orderData != undefined || this.orderData != null) {
+
+      return this.orderData.map(t => {
+        if (t.orderSplitAmount != null || t.orderSplitAmount != '') {
+          return Number(t.orderSplitAmount);
+        }
+      }).reduce((acc, value) => acc + value);
+    }
+
+  }
+
+  getOrderAmount() {
+    if (this.orderData != undefined || this.orderData != null) {
+
+      return this.orderData.map(t => {
+        if (t.orderAmount != null || t.orderAmount != '') {
+          return Number(t.orderAmount);
+        }
+      }).reduce((acc, value) => acc + value, 0);
+    }
+  }
+  getRecievedAmount() {
+    if (this.orderData != undefined || this.orderData != null) {
+
+      return this.orderData.map(
+        t => {
+          if (t.recievedAmount != null || t.recievedAmount != '') {
+            return Number(t.recievedAmount);
           }
         }).reduce((acc, value) => acc + value, 0);
-      }
     }
-    getOrderAmount() {
-    
-      if(this.orderData != undefined || this.orderData != null){
-
-        return this.orderData.map(t =>{
-          if(t.orderAmount != null || t.orderAmount != ''){
-            return Number(t.orderAmount);
-          }
-        }).reduce((acc, value) => acc + value, 0);
-      }
-    }
-    getRecievedAmount() {
-    
-      if(this.orderData != undefined || this.orderData != null){
-
-        return this.orderData.map(
-          t =>{if(t.recievedAmount != null || t.recievedAmount != ''){
-              return Number(t.recievedAmount);
-            }
-          }).reduce((acc, value) => acc + value, 0);
-      }
-    }
+  }
 
   getPaymentAmount() {
-
     if (this.orderData != undefined || this.orderData != null) {
 
       return this.orderData.map(t => {
@@ -120,19 +129,58 @@ export class OrderDetailShiwakeTable extends OrderDetailInputComponent implement
     }
   }
 
-  
-    ngOnInit() {
-    }
-  
-    getDetail($event, dataDetail){
-  
-      let shiwakeCode = dataDetail.journalCode;
-  
-    }
 
 
-    moveToSliptDetailInput(){
-      this.router.navigate(['/SplitDetailInput']);
-    }
+  /**
+   * 
+   * @param $event 
+   * @param dataDetail 
+   */
+  getDetail($event, dataDetail) {
+    
+    this.setRowHightlight($event);
+
+    if (dataDetail.orderSplitAmount === null || dataDetail.orderSplitAmount == undefined) {
+      dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
+    };
+  }
+
+  setRowHightlight(event: any){
+        // テーブル 背景色 クリア
+        var wTbody = event.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+        for (var i = 0; i < wTbody.rows.length; i++) {
+          // 行 取得
+          var wTr = wTbody.rows[i];
+          for (var j = 0; j < wTr.cells.length; j++) {
+            // セル クリア
+            var wTd = wTr.cells[j];
+            wTd.style.backgroundColor = '';
+          }
+        }
+        // 要素取得
+        var wTr = event.target.parentElement.parentElement.parentElement.parentElement;
+        // 背景色 変更
+        for (var i = 0; i < wTr.cells.length; i++) {
+          var wTd = wTr.cells[i];
+          wTd.style.backgroundColor = '#CCFFFF';
+        }
+
+  }
+
+
+  moveToSliptDetailInput() {
+    this.router.navigate(['/SplitDetailInput']);
+  }
+
+  /**
+   * 
+   * @param $event 
+   * 
+   */
+  onSelectHighLight($event, data: ODIS0020OrderDetailList) {
+    this.comCompnt.CommonOnSelHight($event);
+    this.sendOrderData.emit(data);
+  }
+
 
 }

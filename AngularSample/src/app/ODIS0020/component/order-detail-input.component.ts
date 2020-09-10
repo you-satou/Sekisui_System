@@ -1,3 +1,4 @@
+import { CommonComponent } from 'app/common/common.component';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, OnChanges, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Const } from '../../common/const'
@@ -10,7 +11,6 @@ import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
 import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
-import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
 
 // テーブルの定義
@@ -19,7 +19,9 @@ import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderE
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
-
+import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { MatTable } from '@angular/material/table';
+import { OrderDetailShiwakeTable } from './table-shiwake/table-shiwake';
 
 @Component({
   selector: 'order-detail-input',
@@ -29,7 +31,10 @@ import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 })
 
 export class OrderDetailInputComponent implements OnInit, OnDestroy {
-  @Input() contracNum: string;
+
+  @ViewChild(OrderDetailShiwakeTable, { static: true }) table: MatTable<ODIS0020OrderDetailList[]>;
+  
+  selectedTab: string = "設計";
 
   _element: HTMLElement;
 
@@ -59,6 +64,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
   public modal: any = null;
+
+  addInput = new ODIS0020AddOrderDetail();
+  
+  public isSelected = false;
+  public rIndex: number;
 
   ngOnInit() {
 
@@ -90,8 +100,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private orderService: CommonService,
     public router: Router,
     private SupplierPatternService: SupplierPatternService,
-    private OrderJournalSelectService: OrderSupplierSelectService,
-    private OrderSupplierSelectService: OrderSupplierSelectService,
+    // private OrderJournalSelectService: OrderSupplierSelectService,
+    // private OrderSupplierSelectService: OrderSupplierSelectService,
+    public comCompnt: CommonComponent,
 
   ) { }
 
@@ -110,7 +121,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblTsuika = this.pageTotalInfo.TsuikaData;
 
           }
-        });
+        }
+      );
   }
 
   swichPage(order: string) {
@@ -168,4 +180,69 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+
+  setOrderDetail(){
+    if(this.addInput.accountCode === null){
+      alert("追加明細が未入力です。")
+    }
+    let temp: ODIS0020OrderDetailList = {
+      journalCode: this.addInput.journalCode,
+      accountCode: this.addInput.accountCode,
+      journalName: this.addInput.journalName,
+      orderSuplierCode: this.addInput.orderSuplierCode,
+      orderSuplierName: this.addInput.orderSuplierName,
+      orderPlanAmount: this.addInput.orderPlanAmount,
+      comment: '',
+      orderSplitAmount: '',
+      requestDate: '',
+      requester: '',
+      approvalDate_lv1: '',
+      approvalPerson_lv1: '',
+      approvalDate_lv2: '',
+      approvalPerson_lv2: '',
+      orderDate: '',
+      orderAmount: '',
+      recievedDate: '',
+      recievedAmount: '',
+      paymentDate: '',
+      paymentAmount: '',
+    }
+    this.tblSekki.push(temp);
+    this.table.renderRows();
+
+  }
+
+  updateOrderDetail(){
+
+  }
+
+  clearOrderDetail(){
+    this.addInput.accountCode = '';
+    this.addInput.journalCode = '';
+    this.addInput.journalName = '';
+    this.addInput.orderSuplierCode = '';
+    this.addInput.orderSuplierName = '';
+    this.addInput.orderPlanAmount = '';
+  }
+
+  stopUpdateOrderDetail(){
+
+  }
+
+  setSelectTabChanged(event: any){
+
+    this.selectedTab = event.tab.textLabel;
+  }
+
+  getEmitter(emitterData: ODIS0020OrderDetailList){
+
+    this.addInput.accountCode = emitterData.accountCode;
+    this.addInput.journalCode = emitterData.journalCode;
+    this.addInput.journalName = emitterData.journalName;
+    this.addInput.orderSuplierCode = emitterData.orderSuplierCode;
+    this.addInput.orderSuplierName = emitterData.orderSuplierName;
+    this.addInput.orderPlanAmount = emitterData.orderPlanAmount;
+  }
 }
+
