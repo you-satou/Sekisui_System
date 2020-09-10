@@ -1,125 +1,132 @@
-import { OrderDetailInputGeneral,OrderDetailInput, OrderInfo, OrderDetailShiwake, OrderDetailSplit } from '../entities/odis0020.entity';
-import { Component, OnInit,OnDestroy, ViewEncapsulation, Input, OnChanges, HostListener,ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, Input, OnChanges, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from '../../common/common.service';
+import { Const } from '../../common/const'
+import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
+
+//サービスの追加
+import { CommonService } from '../../common/common.service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
 import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
-import { Const } from '../../common/const'
-import { AppComponent } from '../../app.component'
+
+// テーブルの定義
+import { ODIS0020OrderDetailList } from '../entities/odis0020-OrderDetailList.entity'
+import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
+import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
+import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
+import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
+
 
 @Component({
-    selector: 'order-detail-input',
-    templateUrl: './order-detail-input.component.html',
-    styleUrls: ['./order-detail-input.component.css'],
-    encapsulation: ViewEncapsulation.None
-  })
+  selector: 'order-detail-input',
+  templateUrl: './order-detail-input.component.html',
+  styleUrls: ['./order-detail-input.component.css'],
+  encapsulation: ViewEncapsulation.None
+})
 
-  export class OrderDetailInputComponent implements OnInit,OnDestroy {
+export class OrderDetailInputComponent implements OnInit, OnDestroy {
+  @Input() contracNum: string;
 
-    @Input() contracNum: string;
-    
-    title = '発注明細入力＿詳細入力';
+  _element: HTMLElement;
 
-    _element: HTMLElement;
+  // レスポンスから取得する
+  pageTotalInfo: ODIS0020OrderDetailTotalInfo;
 
-    orderGeneral: OrderDetailInputGeneral;
+  // 発注データ
+  orderInformation: ODIS0020OrderDetailInputInformation[];
+  tblMainOrder: ODIS0020MainOrderEdaBan[];
+  tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
 
-    sekkeiData: OrderDetailShiwake[];
-    hontaiData: OrderDetailShiwake[];
-    tsuikaData: OrderDetailShiwake[];
+  // 明細テーブルにデータを渡す引数
+  tblSekki: ODIS0020OrderDetailList[];
+  tblHontai: ODIS0020OrderDetailList[];
+  tblTsuika: ODIS0020OrderDetailList[];
 
-    bunkatsuData: OrderDetailSplit[];
+  // url
+  _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
 
-    orderInputDatas : OrderDetailInput[];
+  journalCode: String = "";
+  accountingCategory: String = "";
+  orderJournalName: String = "";
+  supplierCode: String = "";
+  supplierJournalName: String = "";
 
-    datas: any[];
+  // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
+  private subscription: Subscription;
+  // ngComponentOutlet にセットするためのプロパティ
+  public modal: any = null;
 
-    TBL1: OrderInfo[];
-    TBL2: OrderInfo[];
+  ngOnInit() {
 
-    // url
-    _urlShiwake: string = "assets/data/dataShiwake.json";
-    _urlSplit: string = "assets/data/dataSplit.json";
-    _urlOrderInput: string = "assets/data/dataOrderInput.json";
-    _urlOrderTBL1: string = "assets/data/dataInputTBL1.json";
-    _urlOrderTBL2: string = "assets/data/dataInputTBL2.json";
+    this.getOrderInputData();
 
-      // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
-    private subscription: Subscription;
-  　// ngComponentOutlet にセットするためのプロパティ
-    public modal: any = null;
+    this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
 
-    ngOnInit() {
+    this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
 
-      this.getOrderInputData();
-
-      this.appComponent.setHeader(Const.ScreenName.S0002,Const.LinKSetting.L0000);
-
-      this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          
-          this.modal = null;
-        }
-      );
-      this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
-        () => {
-          // プロパティ modal に null をセットすることでコンポーネントを破棄する
-          // このタイミングで ModalComponent では ngOnDestroy が走る
-          
-          this.modal = null;
-        }
-      )
-
-    }
-
-    constructor(
-      private appComponent: AppComponent,
-      private orderService: CommonService,
-      public router: Router,
-      private SupplierPatternService: SupplierPatternService,
-      private OrderJournalSelectService: OrderSupplierSelectService,
-      private OrderSupplierSelectService: OrderSupplierSelectService,
-
-    ){ }
-    
-    getOrderInputData(){
-
-      this.orderService.getSingleData(this._urlOrderInput)
-      .subscribe(
-        data => {if(data !== undefined){
-          this.orderGeneral = data;
-          this.orderInputDatas = this.orderGeneral.orderDetail;
-          this.TBL1 = this.orderGeneral.orderInfoTable_1;
-          this.TBL2 = this.orderGeneral.orderInfoTable_2;
-          this.sekkeiData = this.orderGeneral.orderShiwakeTable;
-          this.hontaiData = OrderDetailShiwake[0];
-          this.tsuikaData = OrderDetailShiwake[0];
-          this.bunkatsuData = this.orderGeneral.orderSliptTable;
-
-        }});
-    }
-
-    swichPage(order: string){
-
-      switch (order) {
-        case 'meisai':
-          this.router.navigate(['/OrderDetailAddInput']);
-          break;
-      
-        case 'supplier':
-          this.router.navigate(['/SupplierPattern']);
-          break;
+        this.modal = null;
       }
+    );
+    this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
+      () => {
+        // プロパティ modal に null をセットすることでコンポーネントを破棄する
+        // このタイミングで ModalComponent では ngOnDestroy が走る
 
+        this.modal = null;
+      }
+    )
+
+  }
+
+  constructor(
+    private appComponent: AppComponent,
+    private orderService: CommonService,
+    public router: Router,
+    private SupplierPatternService: SupplierPatternService,
+    private OrderJournalSelectService: OrderSupplierSelectService,
+    private OrderSupplierSelectService: OrderSupplierSelectService,
+
+  ) { }
+
+  getOrderInputData() {
+
+    this.orderService.getSingleData(this._urlOrderInput)
+      .subscribe(
+        data => {
+          if (data !== undefined) {
+            this.pageTotalInfo = data;
+            this.orderInformation = this.pageTotalInfo.ContractInfo;
+            this.tblMainOrder = this.pageTotalInfo.MainOrderInfo;
+            this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
+            this.tblSekki = this.pageTotalInfo.SekkeiData;
+            this.tblHontai = this.pageTotalInfo.HontaiData;
+            this.tblTsuika = this.pageTotalInfo.TsuikaData;
+
+          }
+        });
+  }
+
+  swichPage(order: string) {
+
+    switch (order) {
+      case 'meisai':
+        this.router.navigate(['/OrderDetailAddInput']);
+        break;
+
+      case 'supplier':
+        this.router.navigate(['/SupplierPattern']);
+        break;
     }
-  
+
+  }
+
   /**
    * クリックイベント
    *
@@ -127,20 +134,20 @@ import { AppComponent } from '../../app.component'
    * @memberof AppComponent
    */
 
-    orderJournalSelect($event){
-      this.modal = OrderJournalSelectComponent;
-    }
+  orderJournalSelect($event) {
+    this.modal = OrderJournalSelectComponent;
+  }
 
-      /**
-   * クリックイベント
-   *
-   * @param {*} $event イベント情報
-   * @memberof AppComponent
-   */
+  /**
+* クリックイベント
+*
+* @param {*} $event イベント情報
+* @memberof AppComponent
+*/
 
-    orderSupplierSelect($event){
-      this.modal = OrderSupplierSelectComponent;
-    }
+  orderSupplierSelect($event) {
+    this.modal = OrderSupplierSelectComponent;
+  }
 
 
   /**
@@ -149,16 +156,16 @@ import { AppComponent } from '../../app.component'
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-    supplierPattern($event){
-      this.modal = SupplierPatternComponent;
-    }
+  supplierPattern($event) {
+    this.modal = SupplierPatternComponent;
+  }
 
   /**
    * 終了処理
    *
    * @memberof AppComponent
    */
-   ngOnDestroy() {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  }
+}
