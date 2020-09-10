@@ -49,4 +49,24 @@ export namespace Const{
 
 
     }
+
+    export namespace Action{
+
+        export const A0001 = 'RowInsert';
+        export const A0002 = 'RowModified';
+        export const A0003 = 'RowDelete';
+
+        export const T0001 = 'RowSelect';
+        export const T0002 = 'DisplaySplitAmout';
+
+    }
+
+    export namespace HighLightColour{
+
+        export const None = '';
+        export const Selected = '#CCFFFF';
+        export const Modified = '#ffbb91';
+        export const Inserted = '#40a8c4';
+
+    }
 }

@@ -1,9 +1,10 @@
 import { ODIS0020OrderDetailList } from './../../entities/odis0020-OrderDetailList.entity';
 import { DataEmitter } from './../order-detail-input.component';
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { Router } from '@angular/router';
 import { CommonComponent } from 'app/common/common.component';
+import { Const } from 'app/common/const';
 
 @Component({
   selector: 'shiwake-table',
@@ -12,12 +13,12 @@ import { CommonComponent } from 'app/common/common.component';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailShiwakeTable{
+export class OrderDetailShiwakeTable implements OnInit{
 
   @Input() orderData: ODIS0020OrderDetailList[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
-  @ViewChild('test', { static: false }) test: any;
+  dataEmitter = new DataEmitter();
 
   columnsSpan: string[] = [
     'requestDate',
@@ -72,7 +73,19 @@ export class OrderDetailShiwakeTable{
 
   ];
 
-  dataEmitter = new DataEmitter();
+  constructor(
+    private router: Router,
+    private comCompnt: CommonComponent,
+    private viewRef: ViewContainerRef,
+  ){  }
+
+  ngOnInit(){
+
+
+  }
+
+/***************************イベントハンドル***********************************/
+
 
   getTotalPlanAmount() {
 
@@ -129,10 +142,6 @@ export class OrderDetailShiwakeTable{
     }
   }
 
-  constructor(
-    private router: Router,
-    private comCompnt: CommonComponent,
-  ){  }
   /**
    * 
    * @param $event 
@@ -144,22 +153,28 @@ export class OrderDetailShiwakeTable{
 
     if (dataDetail.orderSplitAmount === null || 
         dataDetail.orderSplitAmount === undefined ||
-        dataDetail.orderSplitAmount === "") {
-      dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
-    };
-
+        dataDetail.orderSplitAmount === '') 
+        {
+        dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
+        let rowIndex = this.orderData.indexOf(dataDetail);
+        this.dataEmitter.id = rowIndex;
+        this.dataEmitter.action = Const.Action.T0002;
+        this.dataEmitter.selected = true;
+        this.dataEmitter.data = dataDetail;
+        this.sendOrderData.emit(this.dataEmitter);
+        };
   }
 
   setRowHightlight(event: any){
         // テーブル 背景色 クリア
-        var wTbody = event.target.parentElement.parentElement.parentElement.parentElement.parentElement;
+        var wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
         for (var i = 0; i < wTbody.rows.length; i++) {
           // 行 取得
           var wTr = wTbody.rows[i];
           for (var j = 0; j < wTr.cells.length; j++) {
             // セル クリア
             var wTd = wTr.cells[j];
-            wTd.style.backgroundColor = '';
+            wTd.style.backgroundColor = Const.HighLightColour.None;
           }
         }
         // 要素取得
@@ -167,7 +182,7 @@ export class OrderDetailShiwakeTable{
         // 背景色 変更
         for (var i = 0; i < wTr.cells.length; i++) {
           var wTd = wTr.cells[i];
-          wTd.style.backgroundColor = '#CCFFFF';
+          wTd.style.backgroundColor = Const.HighLightColour.Selected;
         }
 
   }
@@ -180,16 +195,14 @@ export class OrderDetailShiwakeTable{
   /**
    * 
    * @param $event 
-   * 
    */
   onSelectHighLight($event, data: ODIS0020OrderDetailList) {
 
     this.comCompnt.CommonOnSelHight($event);
-    // rowIndex in table body begin from 2
-    // let rowIndex = $event.target.parentElement.rowIndex;
     
     let rowIndex = this.orderData.indexOf(data);
     this.dataEmitter.id = rowIndex;
+    this.dataEmitter.action = Const.Action.T0001;
     this.dataEmitter.selected = true;
     this.dataEmitter.data = data;
     this.sendOrderData.emit(this.dataEmitter);
@@ -197,3 +210,4 @@ export class OrderDetailShiwakeTable{
 
 
 }
+

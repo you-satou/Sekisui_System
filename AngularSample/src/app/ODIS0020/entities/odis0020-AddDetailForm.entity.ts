@@ -63,6 +63,36 @@ export class ODIS0020AddOrderDetail {
     // /** 支払金額 */
     // paymentAmount: string;
 
+
+    get isBlank (): boolean {
+        if(this.journalCode == ''&&
+        this.accountCode == '' &&
+        this.journalName == '' &&
+        this.orderSuplierCode == '' &&
+        this.orderSuplierName == '' &&
+        this.orderPlanAmount == ''
+        ){
+            return true;
+        }else{
+            return false;
+        }
+        
+    } 
+
+    
+
+
     constructor() {}
+
+    Clear(){
+
+        this.journalCode = '';
+        this.accountCode = '';
+        this.journalName = '';
+        this.orderSuplierCode = '';
+        this.orderSuplierName = '';
+        this.orderPlanAmount = '';
+        // this._isBlank = true;
+    }
 
 }
