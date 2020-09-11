@@ -77,9 +77,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // プロパティ modal に null をセットすることでコンポーネントを破棄する
         // このタイミングで ModalComponent では ngOnDestroy が走る
 
-        this.modal = null;
-        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+        
+      this.addInput.orderSuplierCode = this.OrderJournalSelectService.getVal().supplierCode;
+      this.addInput.orderSuplierName = this.OrderJournalSelectService.getVal().supplierJournalName;
+      // this.addInput.journalCode = this.OrderJournalSelectService.getVal().supplierCode;
 
+      this.modal = null;
       }
     );
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
