@@ -3,12 +3,12 @@ import { WkAllItemTypesService } from './../../wk-all-item-types.service'
 import { WkAllItemType } from './../../WkAllItemType';
 import { Router } from '@angular/router';
 import { SupplierPatternService } from '../services/supplier-pattern.service';
-import { PatternList } from '../entities/odis0050-PatternList.entity'
-import { SupplierPatternList } from'../entities/odis0050-SuppierPattern.entity'
-import { SupplierList } from '../entities/odis0050-SupplierList.entity'
+import { PatternList } from '.././entities/odis0050-PatternList.entity'
+import { SupplierPatternList } from'.././entities/odis0050-SuppierPattern.entity'
+import { SupplierList } from '.././entities/odis0050-SupplierList.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
-import { ODIS0050SupplierPatternTotalInfo } from'../entities/odis0050-Form.entity'
+import { ODIS0050SupplierPatternTotalInfo } from'.././entities/odis0050-Form.entity'
 
 @Component({
     selector: 'supplier-pattern',
