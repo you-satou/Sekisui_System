@@ -21,8 +21,8 @@
 }
 
 .table{
-  width: 70%;
-  margin-left: 15%;
+  width: 80%;
+  margin-left: 10%;
   margin-right: 15%;
 }
 .table>thead {
@@ -41,5 +41,12 @@
   height: 40px;
   width: 17.8%;
   word-wrap: break-word;
-  }
+}
+
+.table-l{
+  height: 40px;
+  width: 30%;
+  word-wrap: break-word;
+}
+  
   

@@ -1,14 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef, Inject } from '@angular/core';
-import { WkAllItemTypesService } from '../../wk-all-item-types.service';
-import { WkAllItemType } from '../../WkAllItemType';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { OrderJournalSelectService } from '../services/order-journal-select.service';
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
 import { CommonComponent } from '../../common/common.component'
-import { AppModule } from '../../app.module'
-import { AppComponent } from '../../app.component'
-import { Const } from '../../common/const'
-import { Location } from '@angular/common';
 import { CommonService } from '../../common/common.service';
 
 @Component({
@@ -18,17 +11,20 @@ import { CommonService } from '../../common/common.service';
                 './order-journal-select.component.css']
 })
 
+/**
+ * 発注仕訳マスタ選択コンポーネント
+ */
 export class OrderJournalSelectComponent implements OnInit {
 
-  @Output() returnVal:OrderJournalSelectType;
-
+  //タイトル
   title = '発注仕訳マスタ選択';
 
-  // TODO
+  //画面表示データ
   datas: OrderJournalSelectType[];
+  //戻り値
   resVal:OrderJournalSelectType;
 
-   // url
+   // JSONファイル
    _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
 
   /**
@@ -38,28 +34,35 @@ export class OrderJournalSelectComponent implements OnInit {
    * @memberof ModalComponent
    */
   constructor(
-    private appComponent: AppComponent,
-    private modalService: OrderJournalSelectService,
-    private wkAllItemTypesService: WkAllItemTypesService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private element: ElementRef,
-    private router: Router,
     private commonComponent: CommonComponent,
-    private _location: Location,
+    private modalService: OrderJournalSelectService,
     private orderService: CommonService,
   ) {}
   
+  //初期処理
   ngOnInit() {
 
     this.getOrderInputData();
     
   }
-  ngOnDestroy() {
-    // モーダルダイアログが閉じたタイミングで出力される
-    this.returnVal = this.resVal;
-  }
+
+  //モーダルを閉じた時
+  ngOnDestroy() {}
+
+   /**
+   * テーブル クリック 選択背景 設定
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
+  public onSelHighLight($event, selectedItem){
     
-  
+    this.resVal = selectedItem;
+
+    this.commonComponent.CommonOnSelHight($event);
+  }
+
+  //閉じるボタン
   public onClick($event) {
     this.notifyCloseModal();
 
@@ -69,19 +72,7 @@ export class OrderJournalSelectComponent implements OnInit {
     this.modalService.requestCloseModal(this.resVal);
   }
 
-   /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
-  public onSelHighLight($event, selectedItem){
-    // TODO
-    this.resVal = selectedItem;
-
-    this.commonComponent.CommonOnSelHight($event);
-  }
-
+  //JSONファイルをdatasに格納
   getOrderInputData(){
 
     this.orderService.getSingleData(this._journalSelect)
@@ -89,7 +80,6 @@ export class OrderJournalSelectComponent implements OnInit {
       data => {
         if (data !== undefined) {
           this.datas = data;
-
       }
     });
   }
