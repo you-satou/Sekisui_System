@@ -218,6 +218,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0001,skBody, skIndex)
         this.setAutoScroll();
+        this.addInput.Clear();
         break;
 
       case '本体':
@@ -228,6 +229,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0001,hntBody, hntIndex)
         this.setAutoScroll();
+        this.addInput.Clear();
         break;
 
       case '追加':
@@ -238,6 +240,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0001,tsuikaBody, tskIndex)
         this.setAutoScroll();
+        this.addInput.Clear();
         break;
     }
 
@@ -295,8 +298,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
         this.childSekkei.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childSekkei.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
+        
         this.childSekkei.tableShiwake.renderRows();
-
+        this.addInput.Clear();
         break;
       case '本体':
         this.childHontai.orderData[i].journalCode = this.addInput.journalCode;
@@ -305,8 +309,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
         this.childHontai.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childHontai.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
-        this.childHontai.tableShiwake.renderRows();
         
+        this.childHontai.tableShiwake.renderRows();
+        this.addInput.Clear();
         break;
       case '追加':
         this.childTsuika.orderData[i].journalCode = this.addInput.journalCode;
@@ -315,7 +320,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
         this.childTsuika.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childTsuika.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
+        
         this.childTsuika.tableShiwake.renderRows();
+        this.addInput.Clear();
         break;
     }
 
