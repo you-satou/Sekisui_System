@@ -12,6 +12,7 @@ import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-patt
 import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
+import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 
 // テーブルの定義
 import { ODIS0020OrderDetailList } from '../entities/odis0020-OrderDetailList.entity'
@@ -20,7 +21,6 @@ import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.en
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
-import { OrderSupplierSelectService } from 'app/ODIS0040/services/order-supplier-select.service';
 import { throwMatDuplicatedDrawerError } from '@angular/material';
 
 @Component({
@@ -72,19 +72,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
 
+    //ODIS0030発注仕訳マスタ選択
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
 
-        
-      this.addInput.orderSuplierCode = this.OrderJournalSelectService.getVal().supplierCode;
-      this.addInput.orderSuplierName = this.OrderJournalSelectService.getVal().supplierJournalName;
-      // this.addInput.journalCode = this.OrderJournalSelectService.getVal().supplierCode;
+        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
+        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
 
-      this.modal = null;
+        this.modal = null;
+
       }
     );
+    //ODIS0040発注先マスタ選択
+    this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
+      () => {
+
+        this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
+        this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+
+        this.modal = null;
+      }
+    );
+    //ODIS0050発注明細入力_発注先パターン選択
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
         // プロパティ modal に null をセットすることでコンポーネントを破棄する
@@ -92,7 +102,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
         this.modal = null;
       }
-    )
+    );
+
 
   }
 
@@ -101,8 +112,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private orderService: CommonService,
     private router: Router,
     private SupplierPatternService: SupplierPatternService,
-    private OrderJournalSelectService: OrderSupplierSelectService,
-
+    private OrderJournalSelectService: OrderJournalSelectService,
+    private OrderSupplierSelectService: OrderSupplierSelectService,
+  
   ) { }
 
   getOrderInputData() {
