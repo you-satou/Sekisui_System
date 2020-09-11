@@ -155,13 +155,13 @@ export class OrderDetailShiwakeTable implements OnInit{
         dataDetail.orderSplitAmount === undefined ||
         dataDetail.orderSplitAmount === '') 
         {
-        dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
-        let rowIndex = this.orderData.indexOf(dataDetail);
-        this.dataEmitter.id = rowIndex;
-        this.dataEmitter.action = Const.Action.T0002;
-        this.dataEmitter.selected = true;
-        this.dataEmitter.data = dataDetail;
-        this.sendOrderData.emit(this.dataEmitter);
+          dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
+          let rowIndex = this.orderData.indexOf(dataDetail);
+          this.dataEmitter.id = rowIndex;
+          this.dataEmitter.action = Const.Action.T0002;
+          this.dataEmitter.selected = true;
+          this.dataEmitter.data = dataDetail;
+          this.sendOrderData.emit(this.dataEmitter);
         };
   }
 
@@ -207,7 +207,6 @@ export class OrderDetailShiwakeTable implements OnInit{
     this.dataEmitter.data = data;
     this.sendOrderData.emit(this.dataEmitter);
   }
-
 
 }
 

@@ -65,9 +65,11 @@ export namespace Const{
     export namespace HighLightColour{
 
         export const None = '';
+        export const Black = 'Black';
         export const Selected = '#CCFFFF';
-        export const Modified = '#ffbb91';
+        export const Modified = '#FFC93C';
         export const Inserted = '#40a8c4';
+        
 
     }
 }
