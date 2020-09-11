@@ -57,12 +57,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // url
   _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
 
-  journalCode: String = "";
-  accountingCategory: String = "";
-  orderJournalName: String = "";
-  supplierCode: String = "";
-  supplierJournalName: String = "";
-
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
@@ -78,12 +72,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
 
-    this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
+    this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
         // プロパティ modal に null をセットすることでコンポーネントを破棄する
         // このタイミングで ModalComponent では ngOnDestroy が走る
 
         this.modal = null;
+        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+
       }
     );
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
