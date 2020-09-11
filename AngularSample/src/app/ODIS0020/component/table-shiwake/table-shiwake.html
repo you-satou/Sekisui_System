@@ -30,7 +30,7 @@
         </ng-container>
         <!--発注予定金額-->
         <ng-container matColumnDef="yoteiKigaku">
-            <th style="width: 40px; " class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">発注予定金額</th>
+            <th style="width: 40px; " class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">発注金額</th>
         </ng-container>
         <!--コメント-->
         <ng-container matColumnDef="comment1">
@@ -92,7 +92,7 @@
             <td mat-footer-cell *matFooterCellDef>合計</td>
         </ng-container>
         <!--発注予定金額-->
-        <ng-container matColumnDef="orderPlanAmount1">
+        <ng-container matColumnDef="orderPlanAmount">
             <th style="width: 40px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 40px; " class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderPlanAmount|number}} </td>
             <td mat-footer-cell *matFooterCellDef>{{getTotalPlanAmount()|number}}</td>
@@ -114,10 +114,10 @@
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--発注金額-->
-        <ng-container matColumnDef="orderPlanAmount2">
+        <ng-container matColumnDef="orderSplitAmount">
             <th style="width: 40px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderPlanAmount}} </td>
-            <td mat-footer-cell *matFooterCellDef>{{getTotalPlanAmount()|number}}</td>
+            <td style="width: 40px; " class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderSplitAmount|number}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{getOrderSplitAmount()|number}}</td>
         </ng-container>
         <!--コメント-->
         <ng-container matColumnDef="comment">
@@ -198,12 +198,9 @@
             <td mat-footer-cell *matFooterCellDef>{{getPaymentAmount()|number}}</td>
         </ng-container>
 
-
-
         <tr mat-header-row *matHeaderRowDef="headerColumns;"></tr>
         <tr mat-header-row *matHeaderRowDef="columnsSpan;"></tr>
-
-        <tr mat-row *matRowDef="let row; columns: detailColumns; "></tr>
+        <tr mat-row *matRowDef="let row; columns: detailColumns; " (click)="onSelectHighLight($event,row)"></tr>
         <tr mat-footer-row *matFooterRowDef="detailColumns; sticky: true"></tr>
     </table>
 </div>

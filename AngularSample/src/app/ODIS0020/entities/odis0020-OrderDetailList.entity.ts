@@ -23,6 +23,9 @@ export interface ODIS0020OrderDetailList {
     /** コメント */
     comment: string;
 
+    /** 発注予定分割金額 */
+    orderSplitAmount: string;
+
     /** 依頼日 */
     requestDate: string;
 

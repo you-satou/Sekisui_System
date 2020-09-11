@@ -1,3 +1,4 @@
+import { ODIS0020AddOrderDetail } from './odis0020-AddDetailForm.entity';
 import { ODIS0020OrderDetailList } from './odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'

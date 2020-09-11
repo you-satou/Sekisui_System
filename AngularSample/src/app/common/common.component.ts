@@ -4,6 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { eventNames } from 'process';
 import { AppComponent } from '../app.component'
+import { Const } from './const';
 
 export class CommonComponent{
 
@@ -25,7 +26,7 @@ export class CommonComponent{
       for(var j=0; j<wTr.cells.length; j++){
         // セル クリア
         var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = '';
+        wTd.style.backgroundColor = Const.HighLightColour.None;
       }
     }
 
@@ -35,7 +36,7 @@ export class CommonComponent{
     // 背景色 変更
     for(var i=0; i<wTr.cells.length; i++){
       var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = '#CCFFFF';
+      wTd.style.backgroundColor = Const.HighLightColour.Selected;
     }
   }
 }
