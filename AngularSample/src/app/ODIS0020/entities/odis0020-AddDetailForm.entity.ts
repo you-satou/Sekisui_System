@@ -79,9 +79,6 @@ export class ODIS0020AddOrderDetail {
         
     } 
 
-    
-
-
     constructor() {}
 
     Clear(){
@@ -92,7 +89,6 @@ export class ODIS0020AddOrderDetail {
         this.orderSuplierCode = '';
         this.orderSuplierName = '';
         this.orderPlanAmount = '';
-        // this._isBlank = true;
     }
 
 }

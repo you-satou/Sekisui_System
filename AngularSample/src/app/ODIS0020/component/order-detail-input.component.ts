@@ -271,7 +271,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus.rowIndex = newIndex;
         break;
 
-      case Const.Action.A0002:
+      case Const.Action.T0003:
+        for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
+          var tr = body.rows[rIndex];
+          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+            var td = tr.cells[cIndex];
+              td.style.backgroundColor = Const.HighLightColour.None;
+          }
+        }
         break;
 
     }
@@ -332,7 +339,31 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 明細追加をクリアする
    */
   clearOrderDetail() {
-    this.addInput.Clear();
+    switch (this.selectedTab) {
+      case '設計':
+        let skIndex = this.rowStatus.rowIndex;
+        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
+        this.setNewRowHighLight(Const.Action.T0003,skBody, skIndex)
+        this.addInput.Clear();
+        this.rowStatus.Reset();
+        break;
+
+      case '本体':
+        let hntIndex = this.rowStatus.rowIndex;
+        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
+        this.setNewRowHighLight(Const.Action.T0003,hntBody, hntIndex)
+        this.addInput.Clear();
+        this.rowStatus.Reset();
+        break;
+
+      case '追加':
+        let tskIndex = this.rowStatus.rowIndex;
+        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
+        this.setNewRowHighLight(Const.Action.T0003,tsuikaBody, tskIndex)
+        this.addInput.Clear();
+        this.rowStatus.Reset();
+        break;
+    }
   }
 
   /**

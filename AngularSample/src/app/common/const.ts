@@ -58,6 +58,7 @@ export namespace Const{
 
         export const T0001 = 'RowSelect';
         export const T0002 = 'DisplaySplitAmout';
+        export const T0003 = 'UnSelected';
 
     }
 
