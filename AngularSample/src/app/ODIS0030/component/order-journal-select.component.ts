@@ -24,8 +24,8 @@ export class OrderJournalSelectComponent implements OnInit {
   //戻り値
   resVal:OrderJournalSelectType;
 
-   // JSONファイル
-   _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
+  // JSONファイル
+  _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
 
   /**
    * コンストラクタ
@@ -43,7 +43,7 @@ export class OrderJournalSelectComponent implements OnInit {
   ngOnInit() {
 
     this.getOrderInputData();
-    
+
   }
 
   //モーダルを閉じた時

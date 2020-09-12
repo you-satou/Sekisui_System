@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { PatternList } from '../entities/odis0050-PatternList.entity'
+import { Subject } from 'rxjs';
 import { SupplierPatternList } from'../entities/odis0050-SuppierPattern.entity'
-import { SupplierList } from '../entities/odis0050-SupplierList.entity'
 
 @Injectable({
     providedIn: 'root'
   })
-  
+
+/**
+ * 発注明細入力_発注先パターン選択サービス
+ */
 export class SupplierPatternService {
   
   // データの変更を通知するためのオブジェクト
@@ -29,7 +30,8 @@ export class SupplierPatternService {
   public getVal() {
     return this._val;
   }
-  public setVal(val:SupplierPatternList) {
+  //戻り値をセット
+  public setVal(val:SupplierPatternList[]) {
     this._val = val;
   }
 
@@ -38,7 +40,7 @@ export class SupplierPatternService {
    *
    * @memberof SupplierPatternService
    */
-  public requestCloseModal(resVal: SupplierPatternList) {
+  public requestCloseModal(resVal: SupplierPatternList[]) {
     this.setVal(resVal);
     this.closeEventSubject.next();
   }

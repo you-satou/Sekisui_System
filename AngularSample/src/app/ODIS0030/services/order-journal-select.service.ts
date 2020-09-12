@@ -30,6 +30,7 @@ export class OrderJournalSelectService {
     return this._val;
   }
 
+  //戻り値をセット
   public setVal(val:OrderJournalSelectType) {
     this._val = val;
   }

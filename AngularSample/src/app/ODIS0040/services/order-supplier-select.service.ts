@@ -5,7 +5,10 @@ import { OrderSupplierSelectType } from '../entities/odis0040.entity'
 @Injectable({
     providedIn: 'root'
   })
-  
+ 
+/**
+ * 発注先マスタ選択サービス
+ */
 export class OrderSupplierSelectService {
 
   
@@ -27,11 +30,11 @@ export class OrderSupplierSelectService {
   public getVal() {
     return this._val;
   }
+
+  //戻り値をセット
   public setVal(val:OrderSupplierSelectType) {
     this._val = val;
   }
-
-
 
   /**
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )

@@ -29,7 +29,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let sdata of sDatas" (click)=onSelSelect($event)>
+                            <tr *ngFor="let sdata of sDatas">
                                 <td class="table-str td-b">{{ sdata.journalCode }}</td>
                                 <td class="table-str td-b">{{ sdata.accountingCategory }}</td>
                                 <td class="table-str td-b">{{ sdata.journalName }}</td>

@@ -1,13 +1,7 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { WkAllItemTypesService } from '../../wk-all-item-types.service';
-import { WkAllItemType } from '../../WkAllItemType';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderSupplierSelectService } from '../services/order-supplier-select.service';
 import { OrderSupplierSelectType } from '../entities/odis0040.entity'
 import { CommonComponent } from '../../common/common.component'
-import { AppComponent } from '../../app.component'
-import { Const } from '../../common/const'
-import { Location } from '@angular/common';
 import { CommonService } from '../../common/common.service';
 
 @Component({
@@ -17,15 +11,20 @@ import { CommonService } from '../../common/common.service';
                 './order-supplier-select.component.css']
 })
 
+/**
+ * 発注先マスタ選択コンポーネント
+ */
 export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
+  //タイトル
   title = '発注先マスタ選択';
 
-  // TODO
+  //画面表示データ
   datas: OrderSupplierSelectType[];
+  //戻り値
   resVal:OrderSupplierSelectType;
 
-  // url
+  // JSONファイル
   _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
 
   /**
@@ -35,31 +34,35 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    * @memberof ModalComponent
    */
   constructor(
-    private appComponent: AppComponent,
     private modalService: OrderSupplierSelectService,
-    private wkAllItemTypesService: WkAllItemTypesService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private element: ElementRef,
-    private router: Router,
     private commonComponent: CommonComponent,
-    private _location: Location,
     private orderService: CommonService,
   ) {}
   
+  //初期処理
   ngOnInit() {
+
     this.getOrderInputData();
+
   }
   
-  ngOnDestroy() {
-    // モーダルダイアログが閉じたタイミングで出力される
-    
-  }
+  ngOnDestroy() {}
+
    /**
    * テーブル クリック 選択背景 設定
    *
    * @param $event イベント
+   * @param selectedItem 行選択 値取得
    */
+  public onSelHighLight($event, selectedItem){
   
+    this.resVal = selectedItem;
+
+    this.commonComponent.CommonOnSelHight($event);
+
+  }
+
+  //閉じるボタン
   public onClick($event) {
     this.notifyCloseModal();
 
@@ -69,20 +72,7 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
     this.modalService.requestCloseModal(this.resVal);
   }
 
-   /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
-  public onSelHighLight($event, selectedItem){
-    // TODO
-    this.resVal = selectedItem;
-
-    this.commonComponent.CommonOnSelHight($event);
-
-  }
-
+  //JSONファイルをdatasに格納
   getOrderInputData(){
 
     this.orderService.getSingleData(this._suppierSelect)

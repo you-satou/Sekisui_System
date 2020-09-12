@@ -1,3 +1,7 @@
+/**
+ * パターン名エンティティ
+ */
 export class PatternList{
-    pattern: String;
+    /** パターン名 */
+    pattern: string;
 }
