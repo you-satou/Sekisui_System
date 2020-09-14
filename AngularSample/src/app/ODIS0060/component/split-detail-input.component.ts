@@ -9,6 +9,7 @@ import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'order-detail-input',
@@ -91,6 +92,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   index: number;
 
+  currentDate = Date.now();
+
 
   constructor(
     private appComponent: AppComponent,
@@ -99,6 +102,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     private _location: Location,
     private commonComponent: CommonComponent,
     private router: Router,
+    public datePipe: DatePipe,
   ) { }
 
   ngOnInit() {
@@ -182,10 +186,10 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   onDeleteClick($event) {
     if (this.selected) {
-      this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount
-      this.bunkatsuData[this.index].comment = this.comment
-      this.bunkatsuData[this.index].requestDate = this.requestDate
-      this.bunkatsuData[this.index].requester = this.requester
+      if (this.index > -1) {
+        this.bunkatsuData.splice(this.index, 1);
+      }
+      this.selected = false;
       this.table.renderRows();
     } else {
       alert("行を選択して下さい。");
@@ -198,5 +202,10 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.comment = "";
     this.requestDate = "";
     this.requester = "";
+  }
+
+  onAddOrderClick($event) {
+    this.requester = "test";
+    this.requestDate = this.datePipe.transform(this.currentDate, "yyyy/MM/dd").toString();
   }
 }
