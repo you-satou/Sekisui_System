@@ -191,4 +191,12 @@ export class SplitOrderDetailInputComponent implements OnInit {
       alert("行を選択して下さい。");
     }
   }
+
+  onClearClick($event) {
+    this.selected = false;
+    this.orderPlanAmount = "";
+    this.comment = "";
+    this.requestDate = "";
+    this.requester = "";
+  }
 }
