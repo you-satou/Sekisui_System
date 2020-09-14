@@ -109,7 +109,7 @@ export class SupplierPatternComponent implements OnInit {
     .subscribe(
       data => {
         if (data !== undefined) {
-          this.sDatas = data;
+
           this.fDatas = data;
       }
     });
