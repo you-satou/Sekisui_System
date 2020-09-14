@@ -134,10 +134,6 @@ mat-paginator.mat-stroked-button {
 }
 
 
-/* .keiyaku-bango {
-    color: blue !important;
-}
-
-.keiyaku-bango ::after {
+.keiyaku-bango {
     color: blue;
-} */
+}

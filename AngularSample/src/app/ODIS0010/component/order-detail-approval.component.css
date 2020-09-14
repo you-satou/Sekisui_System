@@ -49,7 +49,6 @@
 
 .footer {
     display: fixed;
-    /* justify-content: space-between !important; */
     background-color: #F5F5F5;
 }
 
@@ -91,13 +90,10 @@
     bottom: 5px;
 }
 
+#contractNumFrom, #contractNumTo{
+    width: 150px;
+}
 
-/* tr.mat-row,
-td.mat-cell,
-td.mat-footer-cell,
-th.mat-header-cell {
-    padding: 0;
-    max-height: 48px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-} */
+#propertyName{
+    width: 330px;
+}

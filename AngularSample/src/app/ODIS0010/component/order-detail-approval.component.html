@@ -1,35 +1,29 @@
-<!-- <header>
-    <title>{{pageTitle}}</title>
-</header> -->
-
-<div id="orderDetailApproval">
+<div id="orderDetailApproval" class="container-fluid p-0">
     <section id="search-input" class="search-area">
-        <!-- <div class="container">
-            <div class="container-fluid">
-                <h1 style="text-align: center; font-weight: bold;">{{pageTitle}}</h1>
-            </div>
-        </div> -->
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text" style="width: 120px;">
+            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text">
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text" style="width: 120px;">
+            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text">
         </div>
 
         <div class="input-group input-group-sm">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text" style="width: 270px;">
+            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
-                <p class="radioCheckbok"><input [(ngModel)]="checked.startFromName" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
+                <p class="radioCheckbok">
+                    <input [value]="true" [(ngModel)] ="inputment._checked" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
                 <div style="width: 20px;"></div>
-                <p class="radioCheckbok"><input type="radio" name="options" id="includeProName" autocomplete="off">を含む</p>
+                <p class="radioCheckbok">
+                    <input [value]="false" [(ngModel)] ="inputment._checked
+                    " type="radio" name="options" id="includeProName" autocomplete="off">を含む</p>
             </div>
         </div>
         <div class="input-group">

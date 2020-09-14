@@ -67,7 +67,7 @@ export namespace Const{
         export const None = '';
         export const Black = 'Black';
         export const Selected = '#CCFFFF';
-        export const Modified = '#FFC93C';
+        export const Modified = '#F57C00';
         export const Inserted = '#40a8c4';
         
 
