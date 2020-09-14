@@ -1,6 +1,6 @@
-<div id="orderDetailApproval" class="container-fluid p-0">
+<div id="orderDetailApproval">
     <section id="search-input" class="search-area">
-        <div class="input-group input-group-sm">
+        <div class="input-group">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
@@ -11,7 +11,7 @@
             <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text">
         </div>
 
-        <div class="input-group input-group-sm">
+        <div class="input-group">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
@@ -37,22 +37,20 @@
                 <p class="radioCheckbok"><input [(ngModel)]="inputment.detailCreated" type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
             </div>
         </div>
-        <div>
-            <div style=" float: left; width: auto;" class="input-group">
-                <div class="input-group-prepend">
-                    <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
-                </div>
-                <div style="width: 50px; "></div>
-                <div class="input-group-append">
-                    <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" id="" autocomplete="off">承認１</p>
-                    <div style="width: 20px; "></div>
-                    <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
-                </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
+            </div>
+            <div style="width: 50px; "></div>
+            <div class="input-group-append">
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" id="" autocomplete="off">承認１</p>
+                <div style="width: 20px; "></div>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
             </div>
         </div>
         <br>
         <div style="text-align: right; width: 100%; ">
-            <button mat-button class="btn-group-toggle border " style="width: 80px; " (click)="getSearchRequest()">検索</button>
+            <button mat-button class="btn btn-primary" type="submit" (click)="getSearchRequest()">検索</button>
             <div style="width: 50px; "></div>
         </div>
     </section>

@@ -1,6 +1,6 @@
 table {
     width: 100%;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 th .mat-sort-header-sorted {
@@ -31,6 +31,10 @@ td {
     border-right: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
 }
+.mat-table>tbody>tr {
+    height: 30px !important;
+}
+
 
 .color-approval-1 {
     background-color: #FDE9D9 !important;

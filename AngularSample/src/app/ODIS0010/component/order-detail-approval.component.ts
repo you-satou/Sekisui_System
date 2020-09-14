@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef,ViewEncapsulation } from "@angular/core";
-import { OrderDetail, OrderSearchInputment } from "../entities/odis0010.entity";
+import { ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
+import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.entity";
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
@@ -16,8 +17,8 @@ interface RadioButton {
 })
 export class OrderDetailApprovalComponent implements OnInit {
 
-  orderDetailData: OrderDetail[];
-  inputment= new OrderSearchInputment();
+  orderDetailData: ODIS0010OrderDetail[];
+  inputment= new ODIS0010OrderSearchInputment();
 
   checked: RadioButton = {
     startFromName: true,
@@ -59,7 +60,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   getSearchRequest() {
-    console.log(this.inputment);
     if (this.checkInput(this.inputment)) {
       // setTimeout(()=> {
       //   this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
@@ -86,7 +86,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     }
   }
 
-  checkInput(input: OrderSearchInputment): boolean {
+  checkInput(input: ODIS0010OrderSearchInputment): boolean {
     return true;
   }
 }

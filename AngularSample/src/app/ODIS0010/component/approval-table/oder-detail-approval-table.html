@@ -3,24 +3,21 @@
         <ng-container matColumnDef="detail">
             <th style="width: 5%;" mat-header-cell *matHeaderCellDef>詳細</th>
             <td style="width: 5%;" mat-cell *matCellDef="let element">
-                <a href="" (click)="switchPage(element)" style="text-align: center;">詳細</a>
+                <a href="/OrderDetailInput" style="text-align: center;">詳細</a>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
             <th style="width: 10%;" class="color-approval-1 keiyaku-bango" mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
             <td style="width: 10%;" mat-cell *matCellDef="let element"> {{element.contractNum}} </td>
         </ng-container>
-
         <ng-container matColumnDef="propertyName">
             <th style="width: 18%; " class="color-approval-1" mat-header-cell *matHeaderCellDef> 物件名 </th>
             <td style="width: 18%; " mat-cell *matCellDef="let element"> {{element.propertyName}} </td>
         </ng-container>
-
         <ng-container matColumnDef="planOrderAmount">
             <th style="width: 10%; " class="color-approval-2" mat-header-cell *matHeaderCellDef> 発注予定金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.planOrderAmount}} </td>
         </ng-container>
-
         <ng-container matColumnDef="approvalRequestAmount">
             <th style="width: 10%; " mat-header-cell *matHeaderCellDef> 承認依頼金額合計 </th>
             <td style="width: 10%; " mat-cell *matCellDef="let element"> {{element.approvalRequestAmount}} </td>

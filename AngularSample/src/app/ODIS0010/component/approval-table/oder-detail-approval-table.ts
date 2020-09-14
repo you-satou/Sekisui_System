@@ -4,7 +4,7 @@ import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
 
-import { OrderDetail } from '../entities/ODIS0010.entity';
+import { ODIS0010OrderDetail } from '../../entities/odis0010-Form.entity';
 
 @Component({
   selector: 'order-detail-approval-table',
@@ -15,7 +15,7 @@ import { OrderDetail } from '../entities/ODIS0010.entity';
 
 export class OrderDetailApprovalTable implements OnChanges {
 
-  @Input() resultData: OrderDetail[];
+  @Input() resultData: ODIS0010OrderDetail[];
 
   displayedColumns: string[] = [
       'detail',
@@ -42,7 +42,7 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   ngOnChanges( ) {
 
-    this.dataSource = new MatTableDataSource<OrderDetail>(this.resultData);
+    this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
@@ -51,9 +51,10 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   }
   
-  switchPage(data: OrderDetail){
+  switchPage(data: ODIS0010OrderDetail){
 
-    this.router.navigate(['./OrderDetailInput']);
+    // console.log(this.router);
+    this.router.navigate(['/OrderDetailInput']);
 
   }
 }

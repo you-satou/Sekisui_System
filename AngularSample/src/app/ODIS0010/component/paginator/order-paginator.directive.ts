@@ -8,6 +8,7 @@ import {
   Input,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
 
 interface PageObject {
   length: number;

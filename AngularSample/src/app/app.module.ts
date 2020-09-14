@@ -22,13 +22,13 @@ import { OrderDetailInputComponent } from './ODIS0020/component/order-detail-inp
 import { OrderSupplierSelectComponent } from './ODIS0040/component/order-supplier-select.component';
 
 // 発注明細入力＿承認処理テーブル
-import { OrderDetailApprovalTable } from './ODIS0010/component/oder-detail-approval-table';
+import { OrderDetailApprovalTable } from './ODIS0010/component/approval-table/oder-detail-approval-table';
 import { MatTableModule, MatTabsModule, MatButtonModule,MatButtonToggleModule, MatIconModule } from '@angular/material';
 import { MatPaginatorModule,MatPaginatorIntl} from '@angular/material/paginator';
 import { MatSortModule} from '@angular/material/sort';
-import { OrderDetailPaginator } from './ODIS0010/component/order-detail-paginator';
+import { OrderDetailPaginator } from './ODIS0010/component/paginator/order-detail-paginator';
 import { SplitOrderDetailShiwakeTable } from './ODIS0060/component/table-shiwake/table-shiwake';
-import { OrderApprovalPaginator } from './ODIS0010/component/order-paginator.directive';
+import { OrderApprovalPaginator } from './ODIS0010/component/paginator/order-paginator.directive';
 import { OrderSplitApprovalMasterComponent } from './ODIS0070/component/order-split-approval-master.component';
 import { OrderSplitApprovalMasterService } from './ODIS0070/services/order-split-approval-master-service'
 import { DatePipe } from '@angular/common';
