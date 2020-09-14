@@ -96,8 +96,35 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //ODIS0050発注明細入力_発注先パターン選択
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
-        // プロパティ modal に null をセットすることでコンポーネントを破棄する
-        // このタイミングで ModalComponent では ngOnDestroy が走る
+
+        let returnValues = this.SupplierPatternService.getVal();
+
+        returnValues.forEach(element => {
+          
+          let temp: ODIS0020OrderDetailList ={
+            journalCode: element.journalCode,
+            accountCode: element.accountingCategory,
+            journalName: element.journalName,
+            orderSuplierCode: element.supplierCode,
+            orderSuplierName: element.supplierName,
+            orderPlanAmount: '',
+            comment: '',
+            orderSplitAmount: '',
+            requestDate: '',
+            requester: '',
+            approvalDate_lv1: '',
+            approvalPerson_lv1: '',
+            approvalDate_lv2: '',
+            approvalPerson_lv2: '',
+            orderDate: '',
+            orderAmount: '',
+            recievedDate: '',
+            recievedAmount: '',
+            paymentDate: '',
+            paymentAmount: '',
+          }
+          this.insertToDataTable(temp);
+        });
 
         this.modal = null;
       }
@@ -194,8 +221,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 
    */
-  setOrderDetail() {
-    if(this.addInput.isBlank){
+  insertOrderDetail() {
+    if (this.addInput.isBlank) {
       return;
     }
     let temp: ODIS0020OrderDetailList = {
@@ -221,6 +248,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       paymentAmount: '',
     }
 
+    this.insertToDataTable(temp);
+
+  }
+
+  insertToDataTable(temp: ODIS0020OrderDetailList){
     switch (this.selectedTab) {
       case '設計':
         this.childSekkei.orderData.push(temp);
@@ -255,7 +287,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.addInput.Clear();
         break;
     }
-
   }
 
   /**
@@ -278,9 +309,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childSekkei.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
-        // this.childSekkei.tableShiwake.renderRows();
-        let sekkeiBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
+        let sekkeiBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0002, sekkeiBody, i);
+
+        this.childSekkei.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
       case '本体':
@@ -291,10 +323,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childHontai.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
-        // this.childHontai.tableShiwake.renderRows();
-
-        let hontaiBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
+        let hontaiBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0002, hontaiBody, i);
+        
+        this.childHontai.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
       case '追加':
@@ -305,10 +337,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
         this.childTsuika.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
-        // this.childTsuika.tableShiwake.renderRows();
-
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0002, tsuikaBody, i);
+
+        this.childTsuika.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
     }
@@ -354,7 +386,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (!this.rowStatus.isSelected) {
       return;
     }
-
     // Display request box
     var request = window.confirm('選択している明細を削除してよろしいでしょうか？');
     if (request) {
@@ -378,14 +409,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-    /**
-   * 行の背景色 変更する
-   * @param body 
-   * @param newIndex 
-   */
+  /**
+ * 行の背景色 変更する
+ * @param body 
+ * @param newIndex 
+ */
   setNewRowHighLight(action: string, body: any, newIndex: number) {
 
-    if(!action.match(Const.Action.T0003)){
+    if (!action.match(Const.Action.T0003)) {
       for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
         if (rIndex == newIndex) {
           var tr = body.rows[rIndex];
@@ -396,7 +427,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         }
       }
     }
-    else{
+    else {
       for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
         if (rIndex == newIndex) {
           var tr = body.rows[rIndex];
@@ -411,8 +442,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-
-  getColor(action: string): string{
+  getColor(action: string): string {
 
     switch (action) {
       case Const.Action.A0001:
@@ -422,10 +452,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case Const.Action.T0003:
         return Const.HighLightColour.None;
     }
-    
+
   }
 
-  updateColor(body: any){
+  updateColor(body: any) {
 
   }
   /**

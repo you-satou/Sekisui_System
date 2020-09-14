@@ -31,6 +31,7 @@ import { SplitOrderDetailShiwakeTable } from './ODIS0060/component/table-shiwake
 import { OrderApprovalPaginator } from './ODIS0010/component/order-paginator.directive';
 import { OrderSplitApprovalMasterComponent } from './ODIS0070/component/order-split-approval-master.component';
 import { OrderSplitApprovalMasterService } from './ODIS0070/services/order-split-approval-master-service'
+import { DatePipe } from '@angular/common';
 
 
 const appRoute: Routes = [
@@ -90,6 +91,7 @@ const appRoute: Routes = [
               CommonComponent,
               SplitOrderDetailShiwakeTable,
               OrderSplitApprovalMasterService,
+              DatePipe,
               {provide:MatPaginatorIntl, useValue:OrderDetailPaginator()}
               ],
   bootstrap: [AppComponent]
