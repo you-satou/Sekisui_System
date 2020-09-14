@@ -98,8 +98,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       () => {
 
         let returnValues = this.SupplierPatternService.getVal();
-        console.log(returnValues);
-
         returnValues.forEach(element => {
           
           let temp: ODIS0020OrderDetailList ={

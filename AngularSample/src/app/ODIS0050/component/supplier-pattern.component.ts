@@ -112,9 +112,6 @@ export class SupplierPatternComponent implements OnInit {
 
           this.fDatas = data;
       }
-      else{
-        this.fDatas = null;
-      }
     });
 
   }
