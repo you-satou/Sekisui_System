@@ -1,13 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef,ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.entity";
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
-
-interface RadioButton {
-  startFromName: boolean;
-}
 
 @Component({
   selector: "app-order-detail-approval",
@@ -20,30 +16,13 @@ export class OrderDetailApprovalComponent implements OnInit {
   orderDetailData: ODIS0010OrderDetail[];
   inputment= new ODIS0010OrderSearchInputment();
 
-  checked: RadioButton = {
-    startFromName: true,
-  };
-
+  // Mocking data用、削除予定
   _url: string = "assets/data/dataApproval.json";
-  _urlSearchName: string = "OrderDetailApproval/Search";
+  
   constructor(
-    private changeDetectorRef: ChangeDetectorRef,
     private appComponent: AppComponent,
     private orderService: CommonService
   ) {}
-
-  displayedColumns: string[] = [
-    "contractNum",
-    "propertyName",
-    "planOrderAmount",
-    "approvalRequestAmount",
-    "performanceOrderAmount",
-    "receivedAmount",
-    "progressRate",
-    "createdDetail",
-    "approval_1",
-    "approval_2",
-  ];
 
   ngOnInit() {
     // ヘッダー 設定
@@ -54,6 +33,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.setStartPage();
   }
 
+  /** ページ初期化 */
   setStartPage() {
     this.inputment.Clear();
 
@@ -61,32 +41,40 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   getSearchRequest() {
     if (this.checkInput(this.inputment)) {
+
+      //// Get data from server
       // setTimeout(()=> {
       //   this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
       //   .then(
       //     (response) => {
       //       this.orderDetailData = response;
       //       if(this.orderDetailData != null){
-      //         let pageInput = document.getElementById("pageIndex");
-      //         pageInput.setAttribute("value", "1");
-      //         pageInput.removeAttribute("disabled");
+      //           this.setPaginator();
       //       }
       //     }
       //   );
       // });
 
+      // Mocking data from JSON file
       this.orderService.getMultipileData(this._url).subscribe((data) => {
         this.orderDetailData = data;
         if (this.orderDetailData != null) {
-          let pageInput = document.getElementById("pageIndex");
-          pageInput.setAttribute("value", "1");
-          pageInput.removeAttribute("disabled");
+          this.setPaginator();
         }
       });
     }
   }
 
+  /**  入力検証 */
   checkInput(input: ODIS0010OrderSearchInputment): boolean {
     return true;
   }
+
+  /** パージネタを解除する */
+  setPaginator(){
+    let pageInput = document.getElementById("pageIndex");
+    pageInput.setAttribute("value", "1");
+    pageInput.removeAttribute("disabled");
+  }
+
 }

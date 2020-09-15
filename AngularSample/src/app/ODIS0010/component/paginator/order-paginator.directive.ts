@@ -1,27 +1,13 @@
-import {
-  Directive,
-  Host,
-  Optional,
-  Renderer2,
-  Self,
-  ViewContainerRef,
-  Input,
-} from '@angular/core';
+import { Directive, Renderer2, ViewContainerRef, Input } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
-
-interface PageObject {
-  length: number;
-  pageIndex: number;
-  pageSize: number;
-  previousPageIndex: number;
-}
 
 @Directive({
   selector: '[order-paginator]',
 })
+
 export class OrderApprovalPaginator extends MatPaginatorIntl {
 
+  // ラベルを設定する
 	itemsPerPageLabel	= '表示件数';
 	
 	nextPageLabel		= '次へ';
@@ -32,49 +18,27 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 	
 	lastPageLabel		= '最後へ';
 
-  private _curPageObj: PageObject = {
-    length: 0,
-    pageIndex: 0,
-    pageSize: 0,
-    previousPageIndex: 0,
-  };
-
-  _inputText: string = '';
-
-  @Input()
-
+  // ページ総数を習得する
   get numberOfPages(): number {
     return this.pagi.getNumberOfPages();
   }
 
-  get lastPageIndex(): number {
-    return this.pagi.getNumberOfPages() - 1;
-  }
-
   constructor(
-    @Host()
-    @Self()
-    @Optional()
     private readonly pagi: MatPaginator,
     private viewRef: ViewContainerRef,
     private rend: Renderer2
   ) {
-    // Needed method in order to extend by another class
+    
     super();
 
-    this.pagi.page.subscribe((e: PageObject) => {
-      if (
-        this._curPageObj.pageSize != e.pageSize &&
-        this._curPageObj.pageIndex != 0
-      ) {
-        e.pageIndex = 0;
-      }
-      this._curPageObj = e;
+    this.pagi.page.subscribe(() => {
       this.initPageRange();
     });
   }
 
   private initPageRange(): void {
+
+    //　テキストボックスを作成する
     this.buildInputPageNumber();
   }
 
@@ -90,7 +54,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     setTimeout(() => {
       if (inputNode === null) {
         const inputIndex: Input = this.rend.createElement('input');
-
+        // クラスを追加する。
         this.rend.addClass(inputIndex, 'input-group');
         this.rend.addClass(inputIndex, 'input-group-sm');
         this.rend.setStyle(inputIndex, 'order', '3');
@@ -104,17 +68,23 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
         this.rend.listen(inputIndex, 'keypress', ($event) => {
           this.switchPage($event);
         });
+
+        // テキストボックスを作成する
         this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
-      } else {
+      } 
+      else {
+        // ボタンを押下毎、ページインデックスを加算する。
         this.rend.setProperty(inputNode, 'value', (this.pagi.pageIndex + 1).toString());
 
       }
     });
   }
 
+  /** ページをジャップ */
   private switchPage(e: any): void {
     var key = e.keyCode || e.which;
     if (key == 13) {
+      // 入力値を取得
       let txtInput = e.target.value;
       if (Number(txtInput) > 0 &&
         Number(txtInput) <= this.numberOfPages) {
@@ -126,9 +96,23 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     }
   }
 
-  public ngAfterViewInit() {
+ngAfterViewInit() {
     this.initPageRange();
   }
 
 }
 
+/** 取得結果ラベルを返す */
+export function PaginatorResultLabel() {
+
+  const paginator = new MatPaginatorIntl();
+  paginator.getRangeLabel = function(page: number, pageSize: number, length: number) {
+      if (length === 0 || pageSize === 0) {
+          return '';
+      }
+      length = Math.max(length, 0);
+      return '/ ' + (length % pageSize === 0 ? length / pageSize : (Math.floor(length / pageSize) +1));
+  };
+  return paginator;
+
+}

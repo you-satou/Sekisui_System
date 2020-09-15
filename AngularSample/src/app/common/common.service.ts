@@ -1,20 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap, takeUntil } from 'rxjs/operators';
-
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class CommonService{
 
-    
     private baseUrl: string = "http://localhost:8080/api";
 
     private searchUrl: string;
 
     constructor(
         private http: HttpClient,
-        
     ){}
 
     // サーバよりデータを取得するのに、URLを渡すのが必要です。

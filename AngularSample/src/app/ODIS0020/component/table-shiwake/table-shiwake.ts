@@ -13,14 +13,41 @@ import { Const } from 'app/common/const';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailShiwakeTable implements OnInit{
+export class OrderDetailShiwakeTable implements OnInit {
 
   @Input() orderData: ODIS0020OrderDetailList[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
+
+  
   dataEmitter = new DataEmitter();
 
-  columnsSpan: string[] = [
+  /**
+   * テーブルヘッダーのカラムを定義する。
+   */
+  mainHeaderColumns: string[] = [
+    'shiwakeCode',
+    'keiriCode',
+    'shiwakeName',
+    'hacchuSaki',
+    'hacchuKingaku',
+    'hanei',
+    'bunkatsu',
+    'yoteiKigaku',
+    'comment1',
+    'irai',
+    'shounin_lv1',
+    'shounin_lv2',
+    'hacChu',
+    'ukeIre',
+    'shiHarai',
+
+  ];
+
+  /**
+   * ヘッダーサーブの定義
+   */
+  subHeaderColumns: string[] = [
     'requestDate',
     'requester',
     'approvalDate_lv1',
@@ -29,7 +56,10 @@ export class OrderDetailShiwakeTable implements OnInit{
     'approvalPerson_lv2',
   ];
 
-  detailColumns: string[] = [
+  /**
+   * 行のカラムの定義
+   */
+  bodyColumns: string[] = [
     'journalCode',
     'accountCode',
     'journalName',
@@ -54,43 +84,21 @@ export class OrderDetailShiwakeTable implements OnInit{
     'paymentAmount',
   ];
 
-  headerColumns: string[] = [
-    'shiwakeCode',
-    'keiriCode',
-    'shiwakeName',
-    'hacchuSaki',
-    'hacchuKingaku',
-    'hanei',
-    'bunkatsu',
-    'yoteiKigaku',
-    'comment1',
-    'irai',
-    'shounin_lv1',
-    'shounin_lv2',
-    'hacChu',
-    'ukeIre',
-    'shiHarai',
-
-  ];
 
   constructor(
     private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
-  ){  }
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() { }
 
-
-  }
-
-/***************************イベントハンドル***********************************/
-
-
+  /**
+   * 発注予定金額の合計
+   */ 
   getTotalPlanAmount() {
 
     if (this.orderData != undefined || this.orderData != null) {
-
       return this.orderData.map(t => {
         if (t.orderPlanAmount != null || t.orderPlanAmount != '') {
           return Number(t.orderPlanAmount);
@@ -98,7 +106,9 @@ export class OrderDetailShiwakeTable implements OnInit{
       }).reduce((acc, value) => acc + value, 0);
     }
   }
-
+  /**
+   * 発注分割金額の合計
+   */
   getOrderSplitAmount() {
     if (this.orderData != undefined || this.orderData != null) {
 
@@ -108,9 +118,11 @@ export class OrderDetailShiwakeTable implements OnInit{
         }
       }).reduce((acc, value) => acc + value);
     }
-
   }
 
+  /**
+  *  発注金額の合計
+  */
   getOrderAmount() {
     if (this.orderData != undefined || this.orderData != null) {
 
@@ -121,6 +133,10 @@ export class OrderDetailShiwakeTable implements OnInit{
       }).reduce((acc, value) => acc + value, 0);
     }
   }
+
+  /**
+  *  受入金額の合計
+  */
   getRecievedAmount() {
     if (this.orderData != undefined || this.orderData != null) {
 
@@ -133,6 +149,9 @@ export class OrderDetailShiwakeTable implements OnInit{
     }
   }
 
+  /**
+  *  支払金額の合計
+  */
   getPaymentAmount() {
     if (this.orderData != undefined || this.orderData != null) {
 
@@ -143,68 +162,76 @@ export class OrderDetailShiwakeTable implements OnInit{
   }
 
   /**
-   * 
+   * 発注金額を設定する
    * @param $event 
    * @param dataDetail 
    */
-  getDetail($event, dataDetail) {
-    
+  getDisplayData($event, dataDetail) {
+
     this.setRowHightlight($event);
 
-    if (dataDetail.orderSplitAmount === null || 
-        dataDetail.orderSplitAmount === undefined ||
-        dataDetail.orderSplitAmount === '') 
-        {
-          dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
-          let rowIndex = this.orderData.indexOf(dataDetail);
-          this.dataEmitter.id = rowIndex;
-          this.dataEmitter.action = Const.Action.T0002;
-          this.dataEmitter.selected = true;
-          this.dataEmitter.data = dataDetail;
-          this.sendOrderData.emit(this.dataEmitter);
-        };
-  }
-
-  setRowHightlight(event: any){
-        // テーブル 背景色 クリア
-        var wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
-        for (var i = 0; i < wTbody.rows.length; i++) {
-          // 行 取得
-          var wTr = wTbody.rows[i];
-          for (var j = 0; j < wTr.cells.length; j++) {
-            // セル クリア
-            var wTd = wTr.cells[j];
-            wTd.style.backgroundColor = Const.HighLightColour.None;
-          }
-        }
-        // 要素取得
-        var wTr = event.target.parentElement.parentElement.parentElement.parentElement;
-        // 背景色 変更
-        for (var i = 0; i < wTr.cells.length; i++) {
-          var wTd = wTr.cells[i];
-          wTd.style.backgroundColor = Const.HighLightColour.Selected;
-        }
-
-  }
-
-
-  moveToSliptDetailInput() {
-    this.router.navigate(['/SplitDetailInput']);
+    if (dataDetail.orderSplitAmount === null ||
+      dataDetail.orderSplitAmount === undefined ||
+      dataDetail.orderSplitAmount === '') {
+      dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
+      let rowIndex = this.orderData.indexOf(dataDetail);
+      this.dataEmitter.id = rowIndex;
+      this.dataEmitter.action = Const.Action.T0002;
+      this.dataEmitter.selected = true;
+      this.dataEmitter.data = dataDetail;
+      this.sendOrderData.emit(this.dataEmitter);
+    };
   }
 
   /**
-   * 
+   * 反映ボタンを押下する時行の背景色を変える。
+   * @param event 
+   */
+  setRowHightlight(event: any) {
+    // テーブル 背景色 クリア
+    var wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
+    for (var i = 0; i < wTbody.rows.length; i++) {
+      // 行 取得
+      var wTr = wTbody.rows[i];
+      for (var j = 0; j < wTr.cells.length; j++) {
+        // セル クリア
+        var wTd = wTr.cells[j];
+        wTd.style.backgroundColor = Const.HighLightColour.None;
+      }
+    }
+    // 要素取得
+    var wTr = event.target.parentElement.parentElement.parentElement.parentElement;
+    // 背景色 変更
+    for (var i = 0; i < wTr.cells.length; i++) {
+      var wTd = wTr.cells[i];
+      wTd.style.backgroundColor = Const.HighLightColour.Selected;
+    }
+
+  }
+
+  /**
+   * 分割明細画面に移動する
+   */
+  moveToSliptDetailInput() {
+    this.router.navigate([Const.UrlSetting.U0006]);
+  }
+
+  /**
+   * 選択された行の背景色を変える。
    * @param $event 
    */
   onSelectHighLight($event, data: ODIS0020OrderDetailList) {
 
     this.comCompnt.CommonOnSelHight($event);
-    
+
+    // パラメータを設定。
     let rowIndex = this.orderData.indexOf(data);
     this.dataEmitter.id = rowIndex;
     this.dataEmitter.action = Const.Action.T0001;
     this.dataEmitter.selected = true;
     this.dataEmitter.data = data;
+
+    //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
 

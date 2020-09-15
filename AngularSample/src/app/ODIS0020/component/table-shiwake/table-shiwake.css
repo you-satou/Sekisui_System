@@ -204,3 +204,17 @@ td {
     background-color: transparent !important;
     content: '';
 }
+
+.btn-flat-dashed-border {
+    height: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: #1170ff;
+    transition: .4s;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}

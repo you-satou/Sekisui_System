@@ -101,7 +101,7 @@
         <ng-container matColumnDef="display">
             <th style="width: 20px; " class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; " class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button mat-icon-button (click)=getDetail($event,element)><mat-icon>→</mat-icon></button>
+                <button mat-icon-button (click)=getDisplayData($event,element)><mat-icon>→</mat-icon></button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
         </ng-container>
@@ -109,7 +109,7 @@
         <ng-container matColumnDef="split">
             <th style="width: 20px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; text-align: center;" mat-cell *matCellDef="let element ">
-                <a href="/SplitDetailInput">分</a>
+                <button class="btn-flat-dashed-border" span style = "border-bottom: solid 1px #1170ff;">分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -198,9 +198,9 @@
             <td mat-footer-cell *matFooterCellDef>{{getPaymentAmount()|number}}</td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="headerColumns;"></tr>
-        <tr mat-header-row *matHeaderRowDef="columnsSpan;"></tr>
-        <tr mat-row *matRowDef="let row; columns: detailColumns; " (click)="onSelectHighLight($event,row)"></tr>
-        <tr mat-footer-row *matFooterRowDef="detailColumns; sticky: true"></tr>
+        <tr mat-header-row *matHeaderRowDef="mainHeaderColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="subHeaderColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: bodyColumns; " (click)="onSelectHighLight($event,row)"></tr>
+        <tr mat-footer-row *matFooterRowDef="bodyColumns; sticky: true"></tr>
     </table>
 </div>

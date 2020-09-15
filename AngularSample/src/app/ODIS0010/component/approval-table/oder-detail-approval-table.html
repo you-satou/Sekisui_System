@@ -3,7 +3,7 @@
         <ng-container matColumnDef="detail">
             <th style="width: 5%;" mat-header-cell *matHeaderCellDef>詳細</th>
             <td style="width: 5%;" mat-cell *matCellDef="let element">
-                <a href="/OrderDetailInput" style="text-align: center;">詳細</a>
+                <button class="btn-flat-dashed-border" (click) = "switchPage(element)" span style="text-align: center; border-bottom: solid 1px#1170ff;">詳細</button>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
