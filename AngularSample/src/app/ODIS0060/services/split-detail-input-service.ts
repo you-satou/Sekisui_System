@@ -67,23 +67,13 @@ export class SplitOrderDetailService {
     this._val4 = val4;
   }
 
-  private _splitTable;
+    getSplitOderDetailShiwake(): Observable<SplitOrderDetailShiwake[]> {
 
-  public getSplitTable() {
-    return this._splitTable;
-  }
+        return this.http.get<SplitOrderDetailShiwake[]>(this._urlShiwake);
+    }
 
-  public setSplitTable(splitTable: SplitOrderDetailShiwake[]) {
-    this._splitTable = splitTable;
-  }
+    getSplitOrderDetailSplit(): Observable<SplitOrderDetailSplit[]> {
 
-  private _detailTable;
-
-  public getDetailTable() {
-    return this._detailTable;
-  }
-
-  public setDetailTable(detailTable: SplitOrderDetailSplit[]) {
-    this._detailTable = detailTable;
-  }
+        return this.http.get<SplitOrderDetailSplit[]>(this._urlSplitOrder);
+    }
 }

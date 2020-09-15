@@ -108,12 +108,18 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   //仕訳テーブルのデータの取得のメソッド
   getSplitOderDetailShiwake() {
-    this.shiwakeData = this.service.getSplitTable();
+    this.service.getSplitOderDetailShiwake()
+      .subscribe(
+        data => this.shiwakeData = data
+      );
   }
 
   //分割テーブルのデータの取得のメソッド
   getSplitOrderDetailSplit() {
-    this.bunkatsuData = this.service.getDetailTable();
+    this.service.getSplitOrderDetailSplit()
+      .subscribe(
+        data => this.bunkatsuData = data
+      );
   }
 
   //分割テーブルの合計金額の再計算
