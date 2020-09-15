@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table mat-table [dataSource]="orderData" class="shiwake-table">
+    <table mat-table [dataSource]="orderData" class="shiwake-table table table-hover table-sm table-bordered">
         <!--仕訳コード-->
         <ng-container matColumnDef="shiwakeCode">
             <th style="width: 60px; " class="color-input-1 " style="padding: 0 !important;" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">仕訳<br>コード</th>
@@ -101,7 +101,7 @@
         <ng-container matColumnDef="display">
             <th style="width: 20px; " class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; " class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button mat-icon-button (click)=getDisplayData($event,element)><mat-icon>→</mat-icon></button>
+                <button class="btn btn-link" (click)=getDisplayData($event,element)><mat-icon>➡</mat-icon></button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
         </ng-container>
@@ -109,7 +109,7 @@
         <ng-container matColumnDef="split">
             <th style="width: 20px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; text-align: center;" mat-cell *matCellDef="let element ">
-                <button class="btn-flat-dashed-border" span style = "border-bottom: solid 1px #1170ff;">分</button>
+                <button class="btn btn-link" >分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

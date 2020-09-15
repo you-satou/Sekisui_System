@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
@@ -16,6 +15,7 @@ import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.en
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { Odis0020Service } from '../services/odis0020-service';
 
 @Component({
   selector: 'order-detail-input',
@@ -66,10 +66,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
-    private router: Router,
     private SupplierPatternService: SupplierPatternService,
     private OrderJournalSelectService: OrderJournalSelectService,
     private OrderSupplierSelectService: OrderSupplierSelectService,
+    private ODIS0020Service: Odis0020Service,
 
   ) { }
 
@@ -84,20 +84,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
 
-        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
-        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+        if(!(this.OrderJournalSelectService.getVal() == undefined)){
+          this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+          this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
+          this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+        }
 
         this.modal = null;
-
       }
     );
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
 
-        this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
-        this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+        if(!(this.OrderSupplierSelectService.getVal() == undefined)){
+          this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
+          this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+        }
 
         this.modal = null;
       }
@@ -106,38 +109,40 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
 
-        let returnValues = this.SupplierPatternService.getVal();
-        returnValues.forEach(element => {
-          
-          let temp: ODIS0020OrderDetailList ={
-            journalCode: element.journalCode,
-            accountCode: element.accountingCategory,
-            journalName: element.journalName,
-            orderSuplierCode: element.supplierCode,
-            orderSuplierName: element.supplierName,
-            orderPlanAmount: '',
-            comment: '',
-            orderSplitAmount: '',
-            requestDate: '',
-            requester: '',
-            approvalDate_lv1: '',
-            approvalPerson_lv1: '',
-            approvalDate_lv2: '',
-            approvalPerson_lv2: '',
-            orderDate: '',
-            orderAmount: '',
-            recievedDate: '',
-            recievedAmount: '',
-            paymentDate: '',
-            paymentAmount: '',
-          }
-          this.insertToDataTable(temp);
-        });
+        if(!(this.SupplierPatternService.getVal() == undefined)){
+
+          let returnValues = this.SupplierPatternService.getVal();
+          returnValues.forEach(element => {
+            
+            let temp: ODIS0020OrderDetailList ={
+              journalCode: element.journalCode,
+              accountCode: element.accountingCategory,
+              journalName: element.journalName,
+              orderSuplierCode: element.supplierCode,
+              orderSuplierName: element.supplierName,
+              orderPlanAmount: '',
+              comment: '',
+              orderSplitAmount: '',
+              requestDate: '',
+              requester: '',
+              approvalDate_lv1: '',
+              approvalPerson_lv1: '',
+              approvalDate_lv2: '',
+              approvalPerson_lv2: '',
+              orderDate: '',
+              orderAmount: '',
+              recievedDate: '',
+              recievedAmount: '',
+              paymentDate: '',
+              paymentAmount: '',
+            }
+            this.insertToDataTable(temp);
+          });
+        }
 
         this.modal = null;
       }
     );
-
 
   }
 
@@ -165,7 +170,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
 
-  orderJournalSelect($event) {
+  orderJournalSelect($event,selectVal) {
+    this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
 
@@ -176,7 +182,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @memberof AppComponent
   */
 
-  orderSupplierSelect($event) {
+  orderSupplierSelect($event,selectVal) {
+    this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
 

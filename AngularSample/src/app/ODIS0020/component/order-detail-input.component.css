@@ -1,24 +1,5 @@
 /********************* Page Footer *************************/
 
-
-/* section {
-    display: block;
-} */
-
-.body-order-input {
-    position: relative !important;
-}
-
-.body-order-detail-input {
-    position: relative !important;
-}
-
-.clearfix::after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
 .footer-container {
     position: flex;
     display: inline-block;
@@ -30,120 +11,95 @@
 }
 
 .footer {
-    position: fixed !important;
-    display: fixed !important;
-    background-color: #F5F5F5 !important;
+    position: fixed ;
+    display: fixed ;
+    background-color: #F5F5F5 ;
     z-index: 1;
-    height: 50px !important;
+    height: 50px ;
 }
 
 .footer>.back-btn {
-    display: inline-block !important;
-    width: 120px !important;
+    display: inline-block ;
+    width: 120px ;
 }
-
-
-/*********************TABLE'S General properties****************************/
-
-th {
-    border-collapse: collapse !important;
-    border-right: 0.5px solid #CCD0D5 !important;
-    border-top: 0.5px solid #CCD0D5 !important;
-    border-bottom: 0.5px solid #CCD0D5 !important;
-    border-left: 0.5px solid #CCD0D5 !important;
-    font: bold 12px "メイリオ" !important;
-    text-align: center !important;
-    padding: 3px !important;
-}
-
-td {
-    border-collapse: collapse !important;
-    border-right: 0.5px solid #CCD0D5 !important;
-    border-top: 0.5px solid #CCD0D5 !important;
-    border-bottom: 0.5px solid #CCD0D5 !important;
-    border-left: 0.5px solid #CCD0D5 !important;
-    padding: 0px 3px;
-}
-
-
-/****************************************************/
-
 
 /*  -----------------タブのスタイル---------------------------  */
 
 .mat-tab-label {
     min-width: 25px !important;
     max-width: 50px !important;
-    padding: 3px !important;
-    background-color: transparent !important;
-    color: black !important;
-    font-weight: 700 !important;
-    text-align: center !important;
+    padding: 3px ;
+    background-color: #cccccc ;
+    color: black ;
+    font-weight: 700 ;
+    text-align: center ;
 }
 
-.mat-tab-label.mat-tab-label-active {
-    min-width: 25px !important;
-    max-width: 60px !important;
-    padding: 3px !important;
-    background-color: #305496 !important;
-    color: white !important;
-    font-weight: 700 !important;
-    text-align: center !important;
+.mat-tab-label-active {
+    min-width: 25px ;
+    width: 60px !important;
+    padding: 3px ;
+    background: #305496 ;
+    color: #fff ;
+    font-weight: 700 ;
+    text-align: center ;
+    border-radius: 0px;
+    
 }
 
 .mat-ink-bar {
-    background-color: #305496 !important;
-    width: auto !important;
+    background: #305496 ;
+    width: auto ;
+    height: 5px !important;
 }
 
 .tabGroup {
-    min-height: 150px !important;
+    min-height: 150px ;
 }
-
 
 /*  ----------------------------------------------------------------  */
 
 .orderInfo {
-    min-width: 960px !important;
-    position: relative !important;
-    max-height: 80px !important;
+    min-width: 960px ;
+    position: relative ;
+    max-height: 80px ;
 }
 
 .orderInfo1Table {
-    position: relative !important;
-    height: 50px !important;
-    max-height: 50px !important;
-    max-width: 960px !important;
+    position: relative ;
+    height: 50px ;
+    max-height: 50px ;
+    max-width: 960px ;
 }
 
 .orderInfo1Table>td {
-    min-height: 21px !important;
+    min-height: 21px ;
 }
 
 .orderInfo2 {
-    max-width: 100% !important;
-    margin-top: 10px !important;
-    position: relative !important;
-    min-width: 1120px !important;
+    max-width: 100% ;
+    margin-top: 10px ;
+    position: relative ;
+    min-width: 1120px ;
 }
 
 .orderInfo2Table1 {
-    position: relative !important;
-    float: left !important;
-    height: 90px !important;
-    max-height: 90px !important;
-    max-width: 380px !important;
+    position: relative ;
+    float: left ;
+    height: 90px ;
+    max-height: 90px ;
+    max-width: 380px ;
 }
 
 .orderInfo2Table2 {
-    position: relative !important;
-    height: 80px !important;
-    max-height: 80px !important;
+    position: relative ;
+    height: 80px ;
+    max-height: 80px ;
     width: auto;
 }
 
 .infoTable {
-    min-width: 1050px !important;
+    min-width: 1050px ;
     margin-top: 10px;
     width: auto;
     height: 170px;
@@ -151,14 +107,14 @@ td {
 }
 
 .infoTable>div>table>thead>tr>th {
-    position: sticky !important;
+    position: sticky ;
     top: 0;
     background-color: white;
 }
 
 .tbl1 {
     width: fit-content;
-    float: left !important;
+    float: left ;
     max-width: 600px;
 }
 
@@ -205,34 +161,34 @@ td {
 /* -------------------------------------- */
 
 .tdcenter {
-    text-align: center !important;
-    padding: 0px 10px !important;
-    min-width: 40px !important;
-    min-height: 23px !important;
+    text-align: center ;
+    padding: 0px 10px ;
+    min-width: 40px ;
+    min-height: 23px ;
     font-size: small;
 }
 
 .tddate {
-    text-align: center !important;
-    width: 83px !important;
-    min-height: 23px !important;
+    text-align: center ;
+    width: 83px ;
+    min-height: 23px ;
     font-size: small;
 }
 
 .tdprice {
-    text-align: right !important;
-    width: 100px !important;
-    padding: 0px 5px 0px 20px !important;
-    height: 23px !important;
+    text-align: right ;
+    width: 100px ;
+    padding: 0px 5px 0px 20px ;
+    height: 23px ;
 }
 
 .tdContract {
-    min-width: 300px !important;
-    max-height: 20px !important;
+    min-width: 300px ;
+    max-height: 20px ;
 }
 
 .tdCode {
-    min-width: 150px !important;
+    min-width: 150px ;
 }
 
 .bottomButton {
@@ -246,28 +202,11 @@ td {
     margin-left: 0;
 }
 
-.btn-flat-dashed-border {
-    height: 100%;
-    display: inline-block;
-    text-decoration: none;
-    color: #1170ff;
-    transition: .4s;
-    background-color: Transparent;
-    background-repeat: no-repeat;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-}
-
-.orderdetailaddinputBody {
-    width: auto;
-    background-color: Transparent;
-    border: none;
-    text-align: left !important;
-}
-
 .orderdetailaddinput>tr>th {
     background-color: #C5D9F1;
     text-align: center;
+}
+
+.orderdetailaddinput>tbody>tr>td>input{
+    border: 0;
 }

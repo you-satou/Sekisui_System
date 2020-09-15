@@ -13,21 +13,23 @@ export class Odis0020Service {
   // データの変更を通知するためのオブジェクト
   private closeEventSubject = new Subject<string>();
 
-    /**
-   * コンストラクタ
-   *
-   * @memberof Odis0020Service
-   */
+  /**
+  * コンストラクタ
+  *
+  * @memberof Odis0020Service
+  */
   constructor() { }
 
   private _val
 
-  
+
   public getVal() {
     return this._val;
   }
 
-  //戻り値をセット
+  /**
+  * フォーカス対象の値をセット
+  */
   public setVal(val:ODIS0020AddOrderDetail) {
     this._val = val;
   }
