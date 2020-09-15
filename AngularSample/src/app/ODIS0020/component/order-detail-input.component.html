@@ -206,10 +206,10 @@
         <table class="orderdetailaddinput">
             <tr>
                 <th style="width: 20px; border-left: 0; ">
-                    <button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL2" (click)="orderJournalSelect($event);" span style="border-bottom: solid 1px#1170ff;">仕訳コード</button></th>
+                    <button class="btn-flat-dashed-border" data-toggle="modal" data-target="#M_ODIS0030" (click)="orderJournalSelect($event,this.addInput.journalCode);" span style="border-bottom: solid 1px#1170ff;">仕訳コード</button></th>
                 <th style="width: 20px;">経理コード</th>
                 <th style="width: 20px;">仕訳名称</th>
-                <th style="width: 40px;" colspan="2"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#MODAL3" (click)="orderSupplierSelect($event);" span style="border-bottom: solid 1px#1170ff;">発注先</button></th>
+                <th style="width: 40px;" colspan="2"><button class="btn-flat-dashed-border" data-toggle="modal" data-target="#M_ODIS0040" (click)="orderSupplierSelect($event,this.addInput.orderSuplierCode);" span style="border-bottom: solid 1px#1170ff;">発注先</button></th>
                 <th style="width: 20px;">発注予定金額</th>
             </tr>
             <tbody>
@@ -218,7 +218,7 @@
                     <td style="width: 20px;"><input [(ngModel)]="addInput.accountCode" type="text" class="orderdetailaddinputBody" name="accountingCategory"></td>
                     <td style="width: 20px;"><input [(ngModel)]="addInput.journalName" type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
                     <td style="width: 20px;"><input [(ngModel)]="addInput.orderSuplierCode" type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderSuplierName" type="text" class="orderdetailaddinputBody" name="supplierJournalName"></td>
+                    <td style="width: 160px;"><label>{{addInput.orderSuplierName}}</label></td>
                     <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
                 </tr>
             </tbody>
@@ -238,7 +238,7 @@
 <div class="footer-container" style=" margin-top: 20px;">
     <div class="_footer-container">
         <div style="float: left;" class="bottomButton">
-            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal" data-target="#MODAL1" (click)="supplierPattern($event);">発注先パターン選択</button>
+            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal" data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
         </div>
         <div style="margin-left: 200px;" class="bottomButton">
             <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn ">得意先元帳</button>

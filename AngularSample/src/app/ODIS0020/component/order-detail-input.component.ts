@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
 import { CommonService } from '../../common/common.service';
-import { Odis0020Service } from '../services/odis0020-service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
 import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
@@ -17,6 +15,7 @@ import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.en
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { Odis0020Service } from '../services/odis0020-service';
 
 @Component({
   selector: 'order-detail-input',
@@ -31,10 +30,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabHontai', { static: false }) childHontai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
-<<<<<<< Updated upstream
   // タッブの初期値
-=======
->>>>>>> Stashed changes
   selectedTab: string = "設計";
 
   //  タッブの名
@@ -70,10 +66,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
-    private router: Router,
     private SupplierPatternService: SupplierPatternService,
     private OrderJournalSelectService: OrderJournalSelectService,
     private OrderSupplierSelectService: OrderSupplierSelectService,
+    private ODIS0020Service: Odis0020Service,
 
   ) { }
 
@@ -87,21 +83,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //ODIS0030発注仕訳マスタ選択
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
+
         if(!(this.OrderJournalSelectService.getVal() == undefined)){
           this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
           this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
           this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
         }
-        this.modal = null;
 
+        this.modal = null;
       }
     );
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
+
         if(!(this.OrderSupplierSelectService.getVal() == undefined)){
-        this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
-        this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+          this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
+          this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
 
         this.modal = null;
@@ -112,6 +110,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       () => {
 
         if(!(this.SupplierPatternService.getVal() == undefined)){
+
           let returnValues = this.SupplierPatternService.getVal();
           returnValues.forEach(element => {
             
@@ -145,23 +144,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     );
 
-
   }
 
-<<<<<<< Updated upstream
-=======
-  constructor(
-    private appComponent: AppComponent,
-    private orderService: CommonService,
-    private router: Router,
-    private SupplierPatternService: SupplierPatternService,
-    private OrderJournalSelectService: OrderJournalSelectService,
-    private OrderSupplierSelectService: OrderSupplierSelectService,
-    private Odis0020Service: Odis0020Service,
-
-  ) { }
-
->>>>>>> Stashed changes
   getOrderInputData() {
     this.orderService.getSingleData(this._urlOrderInput)
       .subscribe(
@@ -181,59 +165,34 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-<<<<<<< Updated upstream
    * 仕訳コードリンクボタンを押下する時、モダールを設定する
-=======
-   * クリックイベント
->>>>>>> Stashed changes
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-  /**
-   * 仕訳コードリンク
-   */
+
   orderJournalSelect($event,selectVal) {
-    this.Odis0020Service.setVal(selectVal);
+    this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
 
   /**
-<<<<<<< Updated upstream
   * 発注先リンクボタンを押下する時、モダールを設定する
   *
   * @param {*} $event イベント情報
   * @memberof AppComponent
   */
 
-  orderSupplierSelect($event) {
-=======
-* クリックイベント
-* @param {*} $event イベント情報
-* @memberof AppComponent
-*/
-  /**
-   * 発注先リンク
-   */
   orderSupplierSelect($event,selectVal) {
-    this.Odis0020Service.setVal(selectVal);
->>>>>>> Stashed changes
+    this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
 
 
   /**
-<<<<<<< Updated upstream
    * 発注先パターン選択ボタンを押下する時、モダールを設定する
    *
-=======
-   * クリックイベント
->>>>>>> Stashed changes
    * @param {*} $event イベント情報
    * @memberof AppComponent
-   */
-
-  /**
-   * 発注先パターンボタン
    */
   supplierPattern($event) {
     this.modal = SupplierPatternComponent;
