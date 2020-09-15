@@ -90,15 +90,3 @@ mat-paginator.mat-stroked-button {
     color: blue;
     outline: 0;
 }
-
-.btn-flat-dashed-border {
-    height: 100%;
-    text-decoration: none;
-    color: #1170ff;
-    transition: .4s;
-    background-color: Transparent;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-}
