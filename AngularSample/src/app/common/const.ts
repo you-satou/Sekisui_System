@@ -94,4 +94,18 @@ export namespace Const{
         export const Inserted = '#40a8c4';
 
     }
+    
+    /** エラーメッセージ */
+    export namespace ErrorMsg{
+
+        export const E0001 = '{0}が{1}を超えています。';
+        export const E0002 = '該当データがありません。';
+        export const E0003 = '発注仕訳コードは必須入力です。';
+        export const E0004 = '経理分類は必須入力です。';
+        export const E0005 = '発注先は必須入力です。';
+        export const E0006 = '発注予定金額は必須入力です。';
+        export const E0007 = '発注金額は必須入力です。';
+        export const E0008 = '選択してください';
+
+    }
 }

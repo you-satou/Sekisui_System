@@ -66,3 +66,8 @@
 .btn-secondary>modal-footer{
     position: left;
 }
+
+.errormsg{
+    font-size: 1.2em;
+    color: rgb(255, 0, 0);
+  }

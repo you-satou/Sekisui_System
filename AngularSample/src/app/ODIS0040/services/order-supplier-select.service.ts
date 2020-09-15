@@ -11,7 +11,6 @@ import { OrderSupplierSelectType } from '../entities/odis0040.entity'
  */
 export class OrderSupplierSelectService {
 
-  
   // データの変更を通知するためのオブジェクト
   private closeEventSubject = new Subject<string>();
   
@@ -26,12 +25,13 @@ export class OrderSupplierSelectService {
 
   private _val
 
-
   public getVal() {
     return this._val;
   }
 
-  //戻り値をセット
+  /**
+  * 戻り値をセット
+  */
   public setVal(val:OrderSupplierSelectType) {
     this._val = val;
   }
@@ -41,8 +41,19 @@ export class OrderSupplierSelectService {
    *
    * @memberof OrderSupplierSelectService
    */
-  public requestCloseModal(resVal:OrderSupplierSelectType) {
+  /**
+  * モーダルを閉じる
+  */
+  public requestCloseModal() {
+    this.closeEventSubject.next();
+  }
+  /**
+  * 戻り値をセットしてモーダルを閉じる
+  */
+  public requestChooseVal(resVal:OrderSupplierSelectType) {
     this.setVal(resVal)
     this.closeEventSubject.next();
   }
+
+
 }

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { OrderJournalSelectService } from '../services/order-journal-select.service';
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
+import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
+import { Const } from '../../common/const';
 
 @Component({
     selector: 'order-journal-select',
@@ -21,8 +23,12 @@ export class OrderJournalSelectComponent implements OnInit {
 
   //画面表示データ
   datas: OrderJournalSelectType[];
+
   //戻り値
   resVal:OrderJournalSelectType;
+
+  //エラーメッセージ
+  errormsg:string ="";
 
   // JSONファイル
   _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
@@ -37,24 +43,30 @@ export class OrderJournalSelectComponent implements OnInit {
     private commonComponent: CommonComponent,
     private modalService: OrderJournalSelectService,
     private orderService: CommonService,
+    private Odis0020Service: Odis0020Service,
   ) {}
   
-  //初期処理
+  /**
+  * 初期処理
+  */
   ngOnInit() {
 
     this.getOrderInputData();
+    console.log(this.Odis0020Service.getVal());
 
   }
 
-  //モーダルを閉じた時
+  /**
+  * 終了時
+  */
   ngOnDestroy() {}
 
-   /**
-   * テーブル クリック 選択背景 設定
-   *
-   * @param $event イベント
-   * @param selectedItem 行選択 値取得
-   */
+  /**
+  * テーブル クリック 選択背景 設定
+  *
+  * @param $event イベント
+  * @param selectedItem 行選択 値取得
+  */
   public onSelHighLight($event, selectedItem){
     
     this.resVal = selectedItem;
@@ -62,17 +74,31 @@ export class OrderJournalSelectComponent implements OnInit {
     this.commonComponent.CommonOnSelHight($event);
   }
 
-  //閉じるボタン
-  public onClick($event) {
-    this.notifyCloseModal();
-
+  /**
+  * 閉じるボタン
+  */
+  public onCloseClick() {
+    this.modalService.requestCloseModal();
   }
 
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
+  /**
+  * 選択ボタン
+  */
+  public onChooseClick($event) {
+    
+    if(this.resVal == undefined ||this.resVal == null){
+        this.errormsg = Const.ErrorMsg.E0008;
+        $event.stopPropagation();
+    }
+    else{
+      this.modalService.requestChooseVal(this.resVal);
+    }
+    
   }
 
-  //JSONファイルをdatasに格納
+  /**
+  * JSONファイルをdatasに格納
+  */
   getOrderInputData(){
 
     this.orderService.getSingleData(this._journalSelect)

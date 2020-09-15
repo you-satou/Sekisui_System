@@ -3,6 +3,8 @@ import { OrderSupplierSelectService } from '../services/order-supplier-select.se
 import { OrderSupplierSelectType } from '../entities/odis0040.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
+import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
+import { Const } from '../../common/const';
 
 @Component({
     selector: 'order-Supplier-select',
@@ -21,8 +23,12 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
   //画面表示データ
   datas: OrderSupplierSelectType[];
+
   //戻り値
   resVal:OrderSupplierSelectType;
+
+  //エラーメッセージ
+  errormsg:string ="";
 
   // JSONファイル
   _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
@@ -37,15 +43,22 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
     private modalService: OrderSupplierSelectService,
     private commonComponent: CommonComponent,
     private orderService: CommonService,
+    private Odis0020Service: Odis0020Service,
   ) {}
   
-  //初期処理
+  /**
+   * 初期処理
+   */
   ngOnInit() {
 
     this.getOrderInputData();
+    console.log(this.Odis0020Service.getVal());
 
   }
-  
+
+  /**
+   * 終了時
+  */
   ngOnDestroy() {}
 
    /**
@@ -62,17 +75,30 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
   }
 
-  //閉じるボタン
-  public onClick($event) {
-    this.notifyCloseModal();
-
+  /**
+   * 閉じるボタン
+   */
+  public onCloseClick() {
+    this.modalService.requestCloseModal();
   }
 
-  private notifyCloseModal() {
-    this.modalService.requestCloseModal(this.resVal);
+  /**
+  * 選択ボタン
+  */
+  public onChooseClick($event) {
+    
+    if(this.resVal == undefined ||this.resVal == null){
+        this.errormsg = Const.ErrorMsg.E0008;
+        $event.stopPropagation();
+    }
+    else{
+      this.modalService.requestChooseVal(this.resVal);
+    }
   }
 
-  //JSONファイルをdatasに格納
+  /**
+  * JSONファイルをdatasに格納
+  */
   getOrderInputData(){
 
     this.orderService.getSingleData(this._suppierSelect)
