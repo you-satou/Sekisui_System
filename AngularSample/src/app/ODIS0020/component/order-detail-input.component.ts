@@ -4,6 +4,7 @@ import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
 import { CommonService } from '../../common/common.service';
+import { Odis0020Service } from '../services/odis0020-service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
 import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal-select.service';
@@ -30,7 +31,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabHontai', { static: false }) childHontai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
+<<<<<<< Updated upstream
   // タッブの初期値
+=======
+>>>>>>> Stashed changes
   selectedTab: string = "設計";
 
   //  タッブの名
@@ -83,11 +87,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //ODIS0030発注仕訳マスタ選択
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
-
-        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
-        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
-
+        if(!(this.OrderJournalSelectService.getVal() == undefined)){
+          this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+          this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
+          this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+        }
         this.modal = null;
 
       }
@@ -95,9 +99,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
-
+        if(!(this.OrderSupplierSelectService.getVal() == undefined)){
         this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
         this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+        }
 
         this.modal = null;
       }
@@ -106,33 +111,35 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
 
-        let returnValues = this.SupplierPatternService.getVal();
-        returnValues.forEach(element => {
-          
-          let temp: ODIS0020OrderDetailList ={
-            journalCode: element.journalCode,
-            accountCode: element.accountingCategory,
-            journalName: element.journalName,
-            orderSuplierCode: element.supplierCode,
-            orderSuplierName: element.supplierName,
-            orderPlanAmount: '',
-            comment: '',
-            orderSplitAmount: '',
-            requestDate: '',
-            requester: '',
-            approvalDate_lv1: '',
-            approvalPerson_lv1: '',
-            approvalDate_lv2: '',
-            approvalPerson_lv2: '',
-            orderDate: '',
-            orderAmount: '',
-            recievedDate: '',
-            recievedAmount: '',
-            paymentDate: '',
-            paymentAmount: '',
-          }
-          this.insertToDataTable(temp);
-        });
+        if(!(this.SupplierPatternService.getVal() == undefined)){
+          let returnValues = this.SupplierPatternService.getVal();
+          returnValues.forEach(element => {
+            
+            let temp: ODIS0020OrderDetailList ={
+              journalCode: element.journalCode,
+              accountCode: element.accountingCategory,
+              journalName: element.journalName,
+              orderSuplierCode: element.supplierCode,
+              orderSuplierName: element.supplierName,
+              orderPlanAmount: '',
+              comment: '',
+              orderSplitAmount: '',
+              requestDate: '',
+              requester: '',
+              approvalDate_lv1: '',
+              approvalPerson_lv1: '',
+              approvalDate_lv2: '',
+              approvalPerson_lv2: '',
+              orderDate: '',
+              orderAmount: '',
+              recievedDate: '',
+              recievedAmount: '',
+              paymentDate: '',
+              paymentAmount: '',
+            }
+            this.insertToDataTable(temp);
+          });
+        }
 
         this.modal = null;
       }
@@ -141,6 +148,20 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+<<<<<<< Updated upstream
+=======
+  constructor(
+    private appComponent: AppComponent,
+    private orderService: CommonService,
+    private router: Router,
+    private SupplierPatternService: SupplierPatternService,
+    private OrderJournalSelectService: OrderJournalSelectService,
+    private OrderSupplierSelectService: OrderSupplierSelectService,
+    private Odis0020Service: Odis0020Service,
+
+  ) { }
+
+>>>>>>> Stashed changes
   getOrderInputData() {
     this.orderService.getSingleData(this._urlOrderInput)
       .subscribe(
@@ -160,16 +181,24 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
+<<<<<<< Updated upstream
    * 仕訳コードリンクボタンを押下する時、モダールを設定する
+=======
+   * クリックイベント
+>>>>>>> Stashed changes
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-
-  orderJournalSelect($event) {
+  /**
+   * 仕訳コードリンク
+   */
+  orderJournalSelect($event,selectVal) {
+    this.Odis0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
 
   /**
+<<<<<<< Updated upstream
   * 発注先リンクボタンを押下する時、モダールを設定する
   *
   * @param {*} $event イベント情報
@@ -177,15 +206,34 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   */
 
   orderSupplierSelect($event) {
+=======
+* クリックイベント
+* @param {*} $event イベント情報
+* @memberof AppComponent
+*/
+  /**
+   * 発注先リンク
+   */
+  orderSupplierSelect($event,selectVal) {
+    this.Odis0020Service.setVal(selectVal);
+>>>>>>> Stashed changes
     this.modal = OrderSupplierSelectComponent;
   }
 
 
   /**
+<<<<<<< Updated upstream
    * 発注先パターン選択ボタンを押下する時、モダールを設定する
    *
+=======
+   * クリックイベント
+>>>>>>> Stashed changes
    * @param {*} $event イベント情報
    * @memberof AppComponent
+   */
+
+  /**
+   * 発注先パターンボタン
    */
   supplierPattern($event) {
     this.modal = SupplierPatternComponent;
