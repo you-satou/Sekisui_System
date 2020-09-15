@@ -109,7 +109,7 @@
         <ng-container matColumnDef="split">
             <th style="width: 20px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; text-align: center;" mat-cell *matCellDef="let element ">
-                <button class="btn btn-link" >分</button>
+                <button class="btn btn-link" (click) = 'moveToSliptDetailInput(element)' >分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

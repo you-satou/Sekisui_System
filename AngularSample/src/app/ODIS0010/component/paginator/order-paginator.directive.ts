@@ -96,9 +96,23 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     }
   }
 
-ngAfterViewInit() {
+  ngAfterViewInit() {
     this.initPageRange();
+
+    //　パージネタの色を変える。
+    this.setNewClass();
   }
+
+  setNewClass(){
+    let buttonNodes = document.querySelectorAll('div.mat-paginator-range-actions > button');
+    buttonNodes.forEach(element => {
+
+      element.classList.add('btn');
+      element.classList.add('btn-link');
+    });
+
+  }
+
 
 }
 
