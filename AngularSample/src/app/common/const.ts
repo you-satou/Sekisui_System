@@ -25,16 +25,10 @@ export namespace Const{
         export const L0007 = "<a href='/OrderSplitApprovalMaster>'発注分割承認者マスタ<a> >"
     }
 
+    /** リンクの定義 */
     export namespace UrlLinkName {
-        export const S0001_Search = "/OrderDetailApproval/Search";
-        export const S0002_Search = "/OrderDetailInput/Search";
-        // export const L0001 = "<a href='/OrderDetailApproval'>発注明細入力_明細入力<a> >"
-        // export const L0002 = "<a href='/OrderDetailInput>'発注明細入力_明細入力<a> >"
-        // export const L0003 = "<a href='/SupplierPattern>'発注明細入力_発注先パターン選択<a> >"
-        // export const L0004 = "<a href='/SupplierPattern>'発注仕訳マスタ選択<a> >"
-        // export const L0005 = "<a href='/OrderSupplierSelect>'発注先マスタ選択<a> >"
-        // export const L0006 = "<a href='/SplitDetailInput>'発注明細入力_分割明細入力<a> >"
-        // export const L0007 = "<a href='/OrderSplitApprovalMaster>'発注分割承認者マスタ<a> >"
+        export const S0001_Search = "/ODIS0010/search";
+        // export const S0002_Search = "/ODIS0020/Search";
     }
 
     export namespace UrlSetting{
@@ -47,23 +41,19 @@ export namespace Const{
         export const U0006 = "/SplitDetailInput";//発注明細入力_分割明細入力
         export const U0007 = "/OrderSplitApprovalMaster";//発注分割承認者マスタ
 
-
     }
 
     export namespace Action{
-
         export const A0001 = 'RowInsert';
         export const A0002 = 'RowModified';
         export const A0003 = 'RowDelete';
-
         export const T0001 = 'RowSelect';
-        export const T0002 = 'DisplaySplitAmout';
+        export const T0002 = 'DisplaySplitAmount';
         export const T0003 = 'UnSelected';
 
     }
 
     export namespace HighLightColour{
-
         export const None = '';
         export const Black = 'Black';
         export const Selected = '#CCFFFF';

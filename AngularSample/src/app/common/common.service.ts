@@ -8,7 +8,7 @@ import { catchError, map, tap, takeUntil } from 'rxjs/operators';
 export class CommonService{
 
     
-    private baseUrl: string = "http://localhost:8080/";
+    private baseUrl: string = "http://localhost:8080/api";
 
     private searchUrl: string;
 
