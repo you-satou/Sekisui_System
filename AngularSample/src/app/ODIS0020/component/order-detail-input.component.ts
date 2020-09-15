@@ -1,11 +1,8 @@
-import { style } from '@angular/animations';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
-
-//サービスの追加
 import { CommonService } from '../../common/common.service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
@@ -13,8 +10,6 @@ import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
-
-// テーブルの定義
 import { ODIS0020OrderDetailList } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
@@ -35,10 +30,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabHontai', { static: false }) childHontai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
-
+  // タッブの初期値
   selectedTab: string = "設計";
 
-  _element: HTMLElement;
+  //  タッブの名
+  tab1: string = '設計';
+  tab2: string = '本体';
+  tab3: string = '追加';
 
   // レスポンスから取得する
   pageTotalInfo: ODIS0020OrderDetailTotalInfo;
@@ -53,7 +51,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblHontai: ODIS0020OrderDetailList[];
   tblTsuika: ODIS0020OrderDetailList[];
 
-  // url
+  // mocking data url
   _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
 
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
@@ -64,9 +62,20 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // 明細追加専用クラス
   addInput = new ODIS0020AddOrderDetail();
   rowStatus = new TableStatus();
+  
+  constructor(
+    private appComponent: AppComponent,
+    private orderService: CommonService,
+    private router: Router,
+    private SupplierPatternService: SupplierPatternService,
+    private OrderJournalSelectService: OrderJournalSelectService,
+    private OrderSupplierSelectService: OrderSupplierSelectService,
+
+  ) { }
 
   ngOnInit() {
 
+    // Mocking data
     this.getOrderInputData();
 
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
@@ -132,18 +141,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-  constructor(
-    private appComponent: AppComponent,
-    private orderService: CommonService,
-    private router: Router,
-    private SupplierPatternService: SupplierPatternService,
-    private OrderJournalSelectService: OrderJournalSelectService,
-    private OrderSupplierSelectService: OrderSupplierSelectService,
-
-  ) { }
-
   getOrderInputData() {
-
     this.orderService.getSingleData(this._urlOrderInput)
       .subscribe(
         data => {
@@ -161,23 +159,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       );
   }
 
-  swichPage(order: string) {
-
-    switch (order) {
-      case 'meisai':
-        this.router.navigate(['/OrderDetailAddInput']);
-        break;
-
-      case 'supplier':
-        this.router.navigate(['/SupplierPattern']);
-        break;
-    }
-
-  }
-
   /**
-   * クリックイベント
-   *
+   * 仕訳コードリンクボタンを押下する時、モダールを設定する
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
@@ -187,11 +170,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-* クリックイベント
-*
-* @param {*} $event イベント情報
-* @memberof AppComponent
-*/
+  * 発注先リンクボタンを押下する時、モダールを設定する
+  *
+  * @param {*} $event イベント情報
+  * @memberof AppComponent
+  */
 
   orderSupplierSelect($event) {
     this.modal = OrderSupplierSelectComponent;
@@ -199,7 +182,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
 
   /**
-   * クリックイベント
+   * 発注先パターン選択ボタンを押下する時、モダールを設定する
    *
    * @param {*} $event イベント情報
    * @memberof AppComponent
@@ -218,7 +201,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   * 明細を追加する。
    */
   insertOrderDetail() {
     if (this.addInput.isBlank) {
@@ -251,9 +234,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  /** テーブルに明細を追加る */
   insertToDataTable(temp: ODIS0020OrderDetailList){
     switch (this.selectedTab) {
-      case '設計':
+      case this.tab1:
         this.childSekkei.orderData.push(temp);
         this.childSekkei.tableShiwake.renderRows();
 
@@ -264,7 +248,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.addInput.Clear();
         break;
 
-      case '本体':
+      case this.tab2:
         this.childHontai.orderData.push(temp);
         this.childHontai.tableShiwake.renderRows();
 
@@ -275,7 +259,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.addInput.Clear();
         break;
 
-      case '追加':
+      case this.tab3:
         this.childTsuika.orderData.push(temp);
         this.childTsuika.tableShiwake.renderRows();
 
@@ -300,7 +284,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     var i = this.rowStatus.rowIndex;
     switch (this.selectedTab) {
-      case '設計':
+      case this.tab1:
         this.childSekkei.orderData[i].journalCode = this.addInput.journalCode;
         this.childSekkei.orderData[i].accountCode = this.addInput.accountCode;
         this.childSekkei.orderData[i].journalName = this.addInput.journalName;
@@ -314,7 +298,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
-      case '本体':
+      case this.tab2:
         this.childHontai.orderData[i].journalCode = this.addInput.journalCode;
         this.childHontai.orderData[i].accountCode = this.addInput.accountCode;
         this.childHontai.orderData[i].journalName = this.addInput.journalName;
@@ -328,7 +312,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
-      case '追加':
+      case this.tab3:
         this.childTsuika.orderData[i].journalCode = this.addInput.journalCode;
         this.childTsuika.orderData[i].accountCode = this.addInput.accountCode;
         this.childTsuika.orderData[i].journalName = this.addInput.journalName;
@@ -347,11 +331,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 明細追加をクリアする
+   * 変更処理を中止する
    */
   clearOrderDetail() {
     switch (this.selectedTab) {
-      case '設計':
+      case this.tab1:
         let skIndex = this.rowStatus.rowIndex;
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.T0003, skBody, skIndex);
@@ -359,7 +343,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus.Reset();
         break;
 
-      case '本体':
+      case this.tab2:
         let hntIndex = this.rowStatus.rowIndex;
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.T0003, hntBody, hntIndex);
@@ -367,7 +351,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus.Reset();
         break;
 
-      case '追加':
+      case this.tab3:
         let tskIndex = this.rowStatus.rowIndex;
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.T0003, tsuikaBody, tskIndex);
@@ -390,15 +374,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (request) {
       let i = this.rowStatus.rowIndex;
       switch (this.selectedTab) {
-        case '設計':
+        case this.tab1:
           this.childSekkei.orderData.splice(i, 1);
           this.childSekkei.tableShiwake.renderRows();
           break;
-        case '本体':
+        case this.tab2:
           this.childHontai.orderData.splice(i, 1);
           this.childHontai.tableShiwake.renderRows();
           break;
-        case '追加':
+        case this.tab3:
           this.childTsuika.orderData.splice(i, 1);
           this.childTsuika.tableShiwake.renderRows();
           break;
@@ -438,7 +422,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     }
     this.rowStatus.Reset();
-
   }
 
   getColor(action: string): string {
@@ -453,10 +436,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
   }
-
-  updateColor(body: any) {
-
-  }
   /**
    * タブを変わった時、デフォルト値を変える。
    * @param event 
@@ -466,6 +445,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.Clear();
   }
 
+  /**
+   * 子供コンポーネントから渡されたデータを取得する
+   * @param emitterData 
+   */
   getEmitter(emitterData: DataEmitter) {
 
     if (!emitterData.action.match(Const.Action.T0001)) {
@@ -473,6 +456,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // 値設定
     this.rowStatus.rowIndex = emitterData.id;
     this.rowStatus.isSelected = emitterData.selected;
     this.addInput.accountCode = emitterData.data.accountCode;
@@ -489,19 +473,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   setAutoScroll() {
 
-
-  }
-
-  /**
-   * 追加されたや更新した行はフォント色を変える 
-   */
-  setRowsTextsColor(action: string, body: any) {
-
-    switch (action) {
-      case '':
-
-        break;
-    }
+    return true;
   }
 }
 
@@ -518,6 +490,9 @@ export class DataEmitter {
   constructor() { }
 }
 
+/**
+ * 
+ */
 export class TableStatus {
   rowIndex: number;
   isSelected: boolean = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostBinding } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -27,8 +27,6 @@ const openClose = trigger('openClose', [
 export class AppComponent implements OnInit {
 
   // 初期化
-  // public static displayTitle: string = "";
-  // public static rootPath: string = "";
   displayTitle: string = "";
   rootPath: string = "";
   frmPath: string = "";
@@ -38,7 +36,6 @@ export class AppComponent implements OnInit {
   errorFlg: boolean;
   mode: number;
   systemDate: Date = new Date();
-  
 
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
@@ -78,10 +75,7 @@ export class AppComponent implements OnInit {
         return false;
       }
     };
-    // this.init();
   }
-
-
   /**
    * ヘッダー 設定
    * @param strTitle 
@@ -92,6 +86,9 @@ export class AppComponent implements OnInit {
     this.rootPath = strPath;
   }
 
+  /**
+   * ロカールに時刻を取得する
+   */
   getSystemDate(): string {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
   }

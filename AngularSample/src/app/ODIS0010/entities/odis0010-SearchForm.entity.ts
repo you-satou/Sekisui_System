@@ -1,13 +1,30 @@
+/**
+ * 発注明細＿承認処理画面の入力専用
+ */
 export class ODIS0010OrderSearchInputment {
 
+    /** 契約番号From */
     contractNumFrom: string;
+
+    /** 契約番号To */
     contractNumTo: string;
+
+    /** 物件名 */
     propertyName: string;
+
+    /** 明細あり */
     detailCreated: boolean;
+
+    /** 明細なし */
     detailNone: boolean;
+
+    /** 承認１ */
     approval_1: boolean;
+
+    /** 承認２ */
     approval_2: boolean;
 
+    /** 検索する形 */
     get searchByName(): string {
         if(this._checked){
             return '1' // １： 名称から始まる
@@ -20,6 +37,7 @@ export class ODIS0010OrderSearchInputment {
 
     constructor() {}
 
+    /** 入力をクリアする */
     Clear(){
         this.contractNumFrom = '';
         this.contractNumTo = '';

@@ -1,5 +1,6 @@
+import { Const } from 'app/common/const';
 import { Router } from '@angular/router';
-import { Component, ViewChild, Input, OnChanges, ViewEncapsulation, ViewContainerRef, Renderer2 } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
@@ -17,6 +18,7 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   @Input() resultData: ODIS0010OrderDetail[];
 
+  /** デーベルカラム名の定義列 */
   displayedColumns: string[] = [
       'detail',
       'contractNum',
@@ -51,10 +53,10 @@ export class OrderDetailApprovalTable implements OnChanges {
 
   }
   
+  /**　ページに移動する */
   switchPage(data: ODIS0010OrderDetail){
 
-    // console.log(this.router);
-    this.router.navigate(['/OrderDetailInput']);
+    this.router.navigate([Const.UrlSetting.U0002]);
 
   }
 }
