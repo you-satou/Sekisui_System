@@ -84,19 +84,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
 
-<<<<<<< HEAD
         if(!(this.OrderJournalSelectService.getVal() == undefined)){
           this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
           this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
           this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
         }
-=======
-        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
-        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
-
-        this.modal = null;
->>>>>>> parent of 477167d1... marge
 
         this.modal = null;
       }
@@ -105,15 +97,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
 
-<<<<<<< HEAD
         if(!(this.OrderSupplierSelectService.getVal() == undefined)){
           this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
           this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
-=======
-        this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
-        this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
->>>>>>> parent of 477167d1... marge
 
         this.modal = null;
       }
@@ -122,7 +109,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
 
-<<<<<<< HEAD
         if(!(this.SupplierPatternService.getVal() == undefined)){
 
           let returnValues = this.SupplierPatternService.getVal();
@@ -153,35 +139,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.insertToDataTable(temp);
           });
         }
-=======
-        let returnValues = this.SupplierPatternService.getVal();
-        returnValues.forEach(element => {
-          
-          let temp: ODIS0020OrderDetailList ={
-            journalCode: element.journalCode,
-            accountCode: element.accountingCategory,
-            journalName: element.journalName,
-            orderSuplierCode: element.supplierCode,
-            orderSuplierName: element.supplierName,
-            orderPlanAmount: '',
-            comment: '',
-            orderSplitAmount: '',
-            requestDate: '',
-            requester: '',
-            approvalDate_lv1: '',
-            approvalPerson_lv1: '',
-            approvalDate_lv2: '',
-            approvalPerson_lv2: '',
-            orderDate: '',
-            orderAmount: '',
-            recievedDate: '',
-            recievedAmount: '',
-            paymentDate: '',
-            paymentAmount: '',
-          }
-          this.insertToDataTable(temp);
-        });
->>>>>>> parent of 477167d1... marge
 
         this.modal = null;
       }
@@ -213,12 +170,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
 
-<<<<<<< HEAD
   orderJournalSelect($event,selectVal) {
     this.ODIS0020Service.setVal(selectVal);
-=======
-  orderJournalSelect($event) {
->>>>>>> parent of 477167d1... marge
     this.modal = OrderJournalSelectComponent;
   }
 
@@ -229,12 +182,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @memberof AppComponent
   */
 
-<<<<<<< HEAD
   orderSupplierSelect($event,selectVal) {
     this.ODIS0020Service.setVal(selectVal);
-=======
-  orderSupplierSelect($event) {
->>>>>>> parent of 477167d1... marge
     this.modal = OrderSupplierSelectComponent;
   }
 
