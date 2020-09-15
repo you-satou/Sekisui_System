@@ -1,7 +1,3 @@
-<header>
-    <title>{{title}}</title>
-</header>
-
 <div>
     <div>
         <mat-tab-group style="float: left; width: 100%">
@@ -23,7 +19,7 @@
                             <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
                             <td style="width: 6%; " class="tdRight" mat-cell
                                 *matCellDef="let element; let i = index"> {{element.orderPlanAmount}} </td>
-                            <td mat-footer-cell *matFooterCellDef class="tdRight">{{sum|number}}</td>
+                            <td mat-footer-cell *matFooterCellDef class="tdRight">{{totalAmount()|number}}</td>
                         </ng-container>
                         <ng-container matColumnDef="comment1">
                             <th style="width: 16%; " class="" mat-header-cell *matHeaderCellDef></th>
@@ -43,7 +39,7 @@
                             <th class="splitcolor-1" class="color-input-1" mat-header-cell *matHeaderCellDef>依頼者
                             </th>
                             <td style="width: 6%; " class="color-input-2" mat-cell *matCellDef="let element">
-                                {{element.requester}} </td>
+                                <button mat-button id="btnIrai" class="btn btn-primary border mx-1 back-btn " (click)="onAddOrderClick($event);">依頼</button></td>
                             <td mat-footer-cell *matFooterCellDef></td>
                         </ng-container>
                         <ng-container matColumnDef="approvalDate_lv1">
@@ -160,7 +156,7 @@
             <tr>
                 <th class="color-input-1" style="width: 25%;" rowspan="2">発注予定金額</th>
                 <th class="color-input-1" style="width: 25%;" rowspan="2">コメント</th>
-                <th class="color-input-2" style="width: 50%;" colspan="2"><button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onAddOrderClick($event);">依頼</button></th>
+                <th class="color-input-2" style="width: 50%;" colspan="2">依頼</th>
             </tr>
             <tr>
                 <th class="color-input-1">依頼日</th>
@@ -170,7 +166,7 @@
                 <td><input [(ngModel)]="orderPlanAmount" type="text"></td>
                 <td><input [(ngModel)]="comment" type="text"></td>
                 <td class="tdCenter">{{requestDate}}</td>
-                <td class="color-input-1">{{requester}}</td>
+                <td class="color-input-1"><button mat-button id="btnIrai" class="btn btn-primary border mx-1 back-btn " (click)="onAddOrderClick($event);">依頼</button></td>
             </tr>
         </table>
     </div>
@@ -196,7 +192,7 @@
             
             <div style="right: 46px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
-                    (click)="onBackClick($event)">閉じる</button>
+                    (click)="onBackClick($event)" routerLink="/OrderDetailInput">閉じる</button>
             </div>
         </div>
     </footer>
