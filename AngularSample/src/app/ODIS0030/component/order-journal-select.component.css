@@ -48,5 +48,10 @@
   width: 30%;
   word-wrap: break-word;
 }
+
+.errormsg{
+  font-size: 1.2em;
+  color: rgb(255, 0, 0);
+}
   
   

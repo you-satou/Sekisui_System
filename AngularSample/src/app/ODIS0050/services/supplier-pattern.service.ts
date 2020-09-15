@@ -30,7 +30,9 @@ export class SupplierPatternService {
   public getVal() {
     return this._val;
   }
-  //戻り値をセット
+  /**
+  * 戻り値をセット
+  */
   public setVal(val:SupplierPatternList[]) {
     this._val = val;
   }
@@ -40,8 +42,18 @@ export class SupplierPatternService {
    *
    * @memberof SupplierPatternService
    */
-  public requestCloseModal(resVal: SupplierPatternList[]) {
+  /**
+  * 戻り値をセットしてモーダルを閉じる
+  */
+  public requestChooseVal(resVal: SupplierPatternList[]) {
     this.setVal(resVal);
     this.closeEventSubject.next();
   }
+  /**
+  * モーダルを閉じる
+  */
+  public requestCloseModal() {
+   this.closeEventSubject.next();
+  }
+ 
 }

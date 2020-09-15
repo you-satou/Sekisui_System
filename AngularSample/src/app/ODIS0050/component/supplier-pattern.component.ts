@@ -5,7 +5,9 @@ import { SupplierPatternList } from'.././entities/odis0050-SuppierPattern.entity
 import { SupplierList } from '.././entities/odis0050-SupplierList.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
-import { ODIS0050SupplierPatternTotalInfo } from'.././entities/odis0050-Form.entity'
+import { ODIS0050SupplierPatternTotalInfo } from'.././entities/odis0050-Form.entity';
+import { Const } from '../../common/const';
+
 
 @Component({
     selector: 'supplier-pattern',
@@ -36,39 +38,59 @@ export class SupplierPatternComponent implements OnInit {
   //選択されたパターン
   selectPattern:string;
 
+  //エラーメッセージ
+  errormsg:string ="";
+
   // JSONファイル
   _patternList: string = "assets/data/odis0050-PatternName.json";
   _supplierList: string = "assets/data/odis0050-SupplierName.json";
 
-    /**
-   * コンストラクタ
-   *
-   * @param {ModalService} modalService
-   * @memberof ModalComponent
-   */  
+  /**
+  *コンストラクタ
+  *
+  * @param {ModalService} modalService
+  * @memberof ModalComponent
+  */  
   constructor(
     private modalService: SupplierPatternService,
     private commonComponent: CommonComponent,
     private orderService: CommonService,
   ){}
 
-  //初期処理
+  /**
+   * 初期処理
+   */
   ngOnInit() {
 
     this.getInputData();
 
   }
-
+  /**
+   * 終了時
+   */
   ngOnDestroy() {}
-
-  //閉じるボタン
-  public onClick($event) {
-    this.notifyCloseModal();
+  /**
+   * 閉じるボタン
+   */
+  public onCloseClick() {
+    this.modalService.requestCloseModal();
   }
 
-  private notifyCloseModal() {
+  /**
+  * 選択ボタン
+  */
+  public onChooseClick($event) {
+
     this.resVal = this.sDatas;
-    this.modalService.requestCloseModal(this.resVal);
+    
+    if(this.resVal == undefined ||this.resVal == null){
+        this.errormsg = Const.ErrorMsg.E0008;
+        $event.stopPropagation();
+    }
+    else{
+
+      this.modalService.requestChooseVal(this.resVal);
+    }
   }
 
   /**
@@ -95,6 +117,9 @@ export class SupplierPatternComponent implements OnInit {
     this.sDatas = wDatas;
   }
 
+  /**
+  * JSONファイルをpdatas,fdatasに格納
+  */
   getInputData(){
 
     this.orderService.getSingleData(this._patternList)
@@ -109,7 +134,6 @@ export class SupplierPatternComponent implements OnInit {
     .subscribe(
       data => {
         if (data !== undefined) {
-
           this.fDatas = data;
       }
     });

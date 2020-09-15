@@ -1,4 +1,4 @@
-<div id="MODAL3" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-backdrop="true">
+<div id="M_ODIS0040" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,8 +25,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClick($event);">閉じる</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onClick($event);">選択</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseClick();">閉じる</button>
+                <label class ="errormsg">{{errormsg}}</label>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onChooseClick($event);">選択</button>
             </div>
         </div>
     </div>

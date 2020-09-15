@@ -30,7 +30,9 @@ export class OrderJournalSelectService {
     return this._val;
   }
 
-  //戻り値をセット
+  /**
+  * 戻り値をセット
+  */
   public setVal(val:OrderJournalSelectType) {
     this._val = val;
   }
@@ -39,8 +41,18 @@ export class OrderJournalSelectService {
    * イベント通知のリクエストを処理する( モーダルダイアログを閉じる )
    *
    * @memberof OrderJournalSelectService
-   */
-  public requestCloseModal(resVal:OrderJournalSelectType) {
+  */
+  /**
+  * モーダルを閉じる
+  */
+  public requestCloseModal() {
+    this.closeEventSubject.next();
+  }
+
+  /**
+  * 戻り値をセットして、モーダルを閉じる
+  */
+  public requestChooseVal(resVal:OrderJournalSelectType) {
     this.setVal(resVal)
     this.closeEventSubject.next();
   }
