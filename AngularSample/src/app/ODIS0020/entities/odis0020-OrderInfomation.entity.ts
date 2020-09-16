@@ -3,6 +3,12 @@
  */
 export interface ODIS0020OrderDetailInputInformation {
 
+    /** 物件管理番号 */
+    propertyManagerCd: string;
+
+    /** 得意先番号 */
+    customerNum: string;
+
     /** 発注番号 */
     contractNum: string;
 

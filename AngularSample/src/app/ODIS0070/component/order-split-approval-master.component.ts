@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class OrderSplitApprovalMasterComponent implements OnInit {
 
+  //編集テーブルの値
   personalID: string = "";
   employeeCode: string = "";
   employeeName: string = "";
@@ -20,12 +21,16 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   approval2: string = "";
   deleteFlag: string = "";
 
+  //行が選択されているかどうか
   selected: boolean;
   
+  //選択された行のインデックス
   index: number;
 
+  //発注分割承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
+  //発注分割承認者マスタテーブルのカラム
   orderApprovalColumns: string[] = [
     'personalID',
     'employeeCode',
@@ -37,6 +42,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   dataSource: any;
 
+  /**
+   * コンストラクタ
+   *
+   * @param {service} service
+   * @memberof OrderSplitApprovalMasterService
+   */
   constructor(
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
@@ -44,11 +55,19 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private service: OrderSplitApprovalMasterService,
   ) { }
 
+  /**
+   * ページがロードする時、テーブルデータを取得する
+   */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0007);
     this.getOrderSplitApproval();
   }
 
+  /**
+   * テーブルデータの取得
+   *
+   * @param $event イベント
+   */
   getOrderSplitApproval() {
 
     this.service.getOrderSplitApproval()
@@ -57,10 +76,21 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       );
   }
 
+  /**
+   * 「戻る」ボタンの押下
+   *
+   * @param $event イベント
+   */
   public onBackClick($event) {
     this._location.back();
   }
 
+  /**
+   * 行を選択する処理
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
   public onSelHighLight($event, selectedItem) {
     this.commonComponent.CommonOnSelHight($event);
     this.selected = true
