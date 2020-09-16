@@ -11,6 +11,7 @@
 .mat-table>thead>tr>th,
 .mat-table>tbody>tr>td {
     padding-left: 5px !important;
+    padding-right: 5px !important;
     border-top: 0.5px solid #CCD0D5;
     border-collapse: collapse;
     border-bottom: 0.5px solid #CCD0D5;
@@ -18,9 +19,9 @@
     border-left: 0.5px solid #CCD0D5;
 }
 .mat-table>tbody>tr {
-    height: 30px !important;
+    height: 20px !important;
+    vertical-align:middle;
 }
-
 
 .color-approval-1 {
     background-color: #FABF8F;
@@ -80,7 +81,7 @@ mat-paginator.mat-stroked-button {
     text-align: center;
     margin: 0;
     min-width: 64px;
-    line-height: 36px;
+    line-height: 30px;
     padding: 0 16px;
     border-radius: 1px;
     overflow: visible;
@@ -89,4 +90,5 @@ mat-paginator.mat-stroked-button {
 .keiyaku-bango {
     color: blue;
     outline: 0;
+    text-align: center;
 }

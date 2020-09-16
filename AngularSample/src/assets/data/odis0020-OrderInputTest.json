@@ -5,37 +5,37 @@
         "officeCode": "116009",
         "officeName": "ＩＴ業務部",
         "salesStaffCode": "990001",
-        "salesStaffName": "LE DINH QUAN",
+        "salesStaffName": "",
         "architectCode": "990002",
-        "architectName": "MOC MIEN",
+        "architectName": "",
         "constructionKata": "ｶﾌﾞｼｷｶﾞｲｼｬｾｷｽｲﾊﾅｺ　ｼｬｲﾝﾘｮｳ",
         "constructionHira": "株式会社積水花子　社員寮",
         "contractorCode": "70116997700",
-        "contractorName": "TESTTTT",
+        "contractorName": "",
         "planContractDate": "",
-        "perforContractDate": "2019/06/18",
+        "perforContractDate": "19/06/18",
         "planDODate": "",
-        "perforDODate": " ",
-        "planStartDate": "",
-        "perforStartDate": " ",
+        "perforDODate": "",
+        "planStartDate": "19/7/12",
+        "perforStartDate": "19/7/12",
         "planArrivalDate": "",
-        "perforArrivalDate": " ",
+        "perforArrivalDate": "",
         "planWoodWorkDate": "",
-        "perforWoodWorkDate": " ",
-        "planInspectionDate": "2020/04/17",
-        "perforInspectionDate": "2020/04/17",
-        "planCompletionInspection": "2020/04/22",
-        "perforCompletionInspection": "2020/04/22",
-        "planHandingOver": "2020/04/24",
-        "perforHandingOver": "2020/04/24"
+        "perforWoodWorkDate": "",
+        "planInspectionDate": "20/04/17",
+        "perforInspectionDate": "20/04/17",
+        "planCompletionInspection": "20/04/22",
+        "perforCompletionInspection": "20/04/22",
+        "planHandingOver": "20/04/24",
+        "perforHandingOver": "20/04/24"
     }],
     "MainOrderInfo": [{
             "contractModel": "ハ　ウ　ス",
             "orderModel": "",
             "branchNum1": "00",
             "branchNum2": "",
-            "date": "2019/6/18",
-            "contractAmount": "586100000",
+            "date": "19/06/18",
+            "contractAmount": "586,100,000",
             "completeStatus": "済",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -80,7 +80,7 @@
         {
             "contractModel": "土　地",
             "orderModel": "",
-            "branchNum1": "",
+            "branchNum1": "09",
             "branchNum2": "",
             "date": "",
             "contractAmount": "",
@@ -95,8 +95,8 @@
             "orderModel": "C",
             "branchNum1": "36",
             "branchNum2": "36",
-            "date": "2018/10/29",
-            "contractAmount": "16500000",
+            "date": "18/10/29",
+            "contractAmount": "16,500,000",
             "completeStatus": "*",
             "salesStatus": "未",
             "salesUpdateDate": ""
@@ -105,10 +105,10 @@
         {
             "contractModel": "設計",
             "orderModel": "C",
-            "branchNum1": "30",
+            "branchNum1": "37",
             "branchNum2": "",
-            "date": "2019/5/31",
-            "contractAmount": "-16500000",
+            "date": "19/05/31",
+            "contractAmount": "-16,500,000",
             "completeStatus": "",
             "salesStatus": "未",
             "salesUpdateDate": ""
@@ -116,71 +116,47 @@
         },
         {
             "contractModel": "設計",
-            "orderModel": "",
-            "branchNum1": "31",
+            "orderModel": "C",
+            "branchNum1": "38",
             "branchNum2": "",
-            "date": "2019/5/31",
-            "contractAmount": "",
-            "completeStatus": "",
+            "date": "19/05/31",
+            "contractAmount": "16,500,000",
+            "completeStatus": "*",
             "salesStatus": "済",
-            "salesUpdateDate": ""
+            "salesUpdateDate": "20/04"
 
         },
         {
             "contractModel": "設計",
-            "orderModel": "",
-            "branchNum1": "32",
-            "branchNum2": "",
-            "date": "2019/5/31",
-            "contractAmount": "",
-            "completeStatus": "16500000",
+            "orderModel": "C",
+            "branchNum1": "39",
+            "branchNum2": "39",
+            "date": "19/05/31",
+            "contractAmount": "350,000",
+            "completeStatus": "*",
             "salesStatus": "済",
-            "salesUpdateDate": ""
+            "salesUpdateDate": "20/04"
 
         },
         {
             "contractModel": "建物",
-            "orderModel": "",
-            "branchNum1": "",
-            "branchNum2": "",
-            "date": "2019/6/31",
-            "contractAmount": "",
-            "completeStatus": "16500000",
-            "salesStatus": "",
-            "salesUpdateDate": ""
+            "orderModel": "B",
+            "branchNum1": "40",
+            "branchNum2": "40",
+            "date": "20/04/22",
+            "contractAmount": "20,873,000",
+            "completeStatus": "*",
+            "salesStatus": "済",
+            "salesUpdateDate": "20/04"
 
         },
         {
             "contractModel": "建物",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
+            "orderModel": "B",
+            "branchNum1": "41",
+            "branchNum2": "41",
+            "date": "20/05/01",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -188,23 +164,11 @@
         },
         {
             "contractModel": "建物",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "orderModel": "B",
+            "branchNum1": "42",
+            "branchNum2": "42",
             "date": "",
-            "contractAmount": "",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -212,69 +176,21 @@
         },
         {
             "contractModel": "設計",
-            "orderModel": "",
-            "branchNum1": "32",
-            "branchNum2": "",
-            "date": "2019/5/31",
-            "contractAmount": "",
-            "completeStatus": "16500000",
-            "salesStatus": "済",
-            "salesUpdateDate": ""
+            "orderModel": "C",
+            "branchNum1": "43",
+            "branchNum2": "43",
+            "date": "20/05/31",
+            "contractAmount": "-16,500,000",
+            "completeStatus": "",
+            "salesStatus": "未",
+            "salesUpdateDate": "20/05"
 
         },
         {
             "contractModel": "建物",
             "orderModel": "",
-            "branchNum1": "",
-            "branchNum2": "",
-            "date": "2019/6/31",
-            "contractAmount": "",
-            "completeStatus": "16500000",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "建物",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
-            "date": "",
-            "contractAmount": "350000",
-            "completeStatus": "",
-            "salesStatus": "",
-            "salesUpdateDate": ""
-
-        },
-        {
-            "contractModel": "建物",
-            "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "44",
+            "branchNum2": "44",
             "date": "",
             "contractAmount": "",
             "completeStatus": "",
@@ -283,12 +199,96 @@
 
         },
         {
+            "contractModel": "建物",
+            "orderModel": "",
+            "branchNum1": "45",
+            "branchNum2": "45",
+            "date": "",
+            "contractAmount": "",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "建物",
+            "orderModel": "",
+            "branchNum1": "46",
+            "branchNum2": "46",
+            "date": "",
+            "contractAmount": "",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "建物",
+            "orderModel": "",
+            "branchNum1": "47",
+            "branchNum2": "47",
+            "date": "",
+            "contractAmount": "",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "建物",
+            "orderModel": "",
+            "branchNum1": "48",
+            "branchNum2": "48",
+            "date": "",
+            "contractAmount": "350,000",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
             "contractModel": "",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "49",
+            "branchNum2": "49",
             "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "",
+            "orderModel": "",
+            "branchNum1": "50",
+            "branchNum2": "50",
+            "date": "",
+            "contractAmount": "350,000",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "建物",
+            "orderModel": "",
+            "branchNum1": "51",
+            "branchNum2": "51",
+            "date": "",
+            "contractAmount": "",
+            "completeStatus": "",
+            "salesStatus": "",
+            "salesUpdateDate": ""
+
+        },
+        {
+            "contractModel": "",
+            "orderModel": "",
+            "branchNum1": "52",
+            "branchNum2": "52",
+            "date": "",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -297,11 +297,11 @@
         {
             "contractModel": "設計",
             "orderModel": "",
-            "branchNum1": "32",
+            "branchNum1": "53",
             "branchNum2": "",
-            "date": "2019/5/31",
+            "date": "19/05/31",
             "contractAmount": "",
-            "completeStatus": "16500000",
+            "completeStatus": "16,500,000",
             "salesStatus": "済",
             "salesUpdateDate": ""
 
@@ -309,11 +309,11 @@
         {
             "contractModel": "建物",
             "orderModel": "",
-            "branchNum1": "",
+            "branchNum1": "54",
             "branchNum2": "",
-            "date": "2019/6/31",
+            "date": "19/06/31",
             "contractAmount": "",
-            "completeStatus": "16500000",
+            "completeStatus": "16,500,000",
             "salesStatus": "",
             "salesUpdateDate": ""
 
@@ -321,10 +321,10 @@
         {
             "contractModel": "建物",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "55",
+            "branchNum2": "",
             "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -333,10 +333,10 @@
         {
             "contractModel": "",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "56",
+            "branchNum2": "56",
             "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -345,10 +345,10 @@
         {
             "contractModel": "",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "57",
+            "branchNum2": "57",
             "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -357,8 +357,8 @@
         {
             "contractModel": "建物",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "58",
+            "branchNum2": "58",
             "date": "",
             "contractAmount": "",
             "completeStatus": "",
@@ -369,10 +369,10 @@
         {
             "contractModel": "",
             "orderModel": "",
-            "branchNum1": "12",
-            "branchNum2": "33",
+            "branchNum1": "59",
+            "branchNum2": "",
             "date": "",
-            "contractAmount": "350000",
+            "contractAmount": "350,000",
             "completeStatus": "",
             "salesStatus": "",
             "salesUpdateDate": ""
@@ -389,18 +389,18 @@
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "245000000",
             "comment": "",
-            "requestDate": "2019/7/4",
+            "requestDate": "19/07/04",
             "requester": "積水潤一",
             "approvalDate_lv1": "",
             "approvalPerson_lv1": "承認",
             "approvalDate_lv2": "",
             "approvalPerson_lv2": "承認",
-            "orderDate": "2019/7/4",
-            "orderAmount": "245000000",
+            "orderDate": "19/07/04",
+            "orderAmount": "245,000,000",
             "recievedDate": "2019/7/5",
-            "recievedAmount": "245000000",
-            "paymentDate": "2019/7/6",
-            "paymentAmount": "245000000"
+            "recievedAmount": "245,000,000",
+            "paymentDate": "19/07/06",
+            "paymentAmount": "245,000,000"
 
         },
         {
@@ -493,12 +493,48 @@
             "orderSuplierCode": "803",
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "880000",
-            "requestDate": "2019/9/17",
+            "requestDate": "19/09/17",
             "requester": "積水潤一",
-            "approvalDate_lv1": "2019/9/17",
+            "approvalDate_lv1": "19/09/17",
             "approvalPerson_lv1": "積水綾子",
             "approvalDate_lv2": "",
             "approvalPerson_lv2": "承認"
+        },
+        {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "ハウス材",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "運賃・荷造・保管料",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "労災",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
         }
     ],
 
@@ -510,18 +546,18 @@
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "245000000",
             "comment": "",
-            "requestDate": "2019/7/4",
+            "requestDate": "19/07/04",
             "requester": "積水潤一",
             "approvalDate_lv1": "",
             "approvalPerson_lv1": "承認",
             "approvalDate_lv2": "",
             "approvalPerson_lv2": "承認",
-            "orderDate": "2019/7/4",
-            "orderAmount": "245000000",
+            "orderDate": "19/07/04",
+            "orderAmount": "245,000,000",
             "recievedDate": "2019/7/5",
-            "recievedAmount": "245000000",
-            "paymentDate": "2019/7/6",
-            "paymentAmount": "245000000"
+            "recievedAmount": "245,000,000",
+            "paymentDate": "19/07/06",
+            "paymentAmount": "245,000,000"
 
         },
         {
@@ -544,17 +580,6 @@
             "recievedAmount": "",
             "paymentDate": "",
             "paymentAmount": ""
-
-        },
-        {
-            "journalCode": "1000",
-            "accountCode": "100",
-            "journalName": "防水工事(8)",
-            "orderSuplierCode": "",
-            "orderSuplierName": "",
-            "orderPlanAmount": "9200000",
-            "comment": ""
-
 
         },
         {
@@ -601,10 +626,61 @@
 
         },
         {
+            "journalCode": "4700",
+            "accountCode": "470",
+            "journalName": "工事保険(8)",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "367167"
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "ハウス材",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "運賃・荷造・保管料",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
+        },
+        {
+            "journalCode": "",
+            "accountCode": "",
+            "journalName": "労災",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": ""
+
+        }
+
+    ],
+
+
+    "TsuikaData": [
+        {
             "journalCode": "2880",
             "accountCode": "280",
             "journalName": "エレベーター工事(8)",
             "orderPlanAmount": "5300000"
+
+        },
+        {
+            "journalCode": "1000",
+            "accountCode": "100",
+            "journalName": "防水工事(8)",
+            "orderSuplierCode": "",
+            "orderSuplierName": "",
+            "orderPlanAmount": "9200000",
+            "comment": ""
 
         },
         {
@@ -614,18 +690,13 @@
             "orderSuplierCode": "803",
             "orderSuplierName": "積水建設㈱",
             "orderPlanAmount": "880000",
-            "requestDate": "2019/9/17",
+            "requestDate": "19/09/17",
             "requester": "積水潤一",
-            "approvalDate_lv1": "2019/9/17",
+            "approvalDate_lv1": "19/09/17",
             "approvalPerson_lv1": "積水綾子",
             "approvalDate_lv2": "",
             "approvalPerson_lv2": "承認"
-        }
-    ],
-
-
-    "TsuikaData": [
-
+        },
         {
             "journalCode": "3230",
             "accountCode": "320",
@@ -666,16 +737,6 @@
 
         },
         {
-            "journalCode": "",
-            "accountCode": "",
-            "journalName": "",
-            "orderSuplierCode": "",
-            "orderSuplierName": "",
-            "orderPlanAmount": "48555",
-            "requester": "依頼"
-
-        },
-        {
             "journalCode": "4700",
             "accountCode": "470",
             "journalName": "工事保険(8)",
@@ -699,133 +760,8 @@
             "accountCode": "930",
             "journalName": "労災"
 
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
-        },
-        {
-            "journalCode": "4700",
-            "accountCode": "470",
-            "journalName": "工事保険(8)",
-            "orderPlanAmount": "367167"
-
         }
+      
     ]
 
 }

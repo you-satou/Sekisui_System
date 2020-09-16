@@ -94,7 +94,7 @@
         <!--発注予定金額-->
         <ng-container matColumnDef="orderPlanAmount">
             <th style="width: 40px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderPlanAmount|number}} </td>
+            <td style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderPlanAmount|number}} </td>
             <td mat-footer-cell *matFooterCellDef>{{getTotalPlanAmount()|number}}</td>
         </ng-container>
         <!--反映-->
