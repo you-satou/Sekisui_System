@@ -192,7 +192,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
       
     //行が選択されていない場合警告メッセージを表示
     } else {
-      alert("行を選択して下さい。");
+      alert(Const.ErrorMsg.E0008);
     }
   }
 
@@ -214,7 +214,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
     //行が選択されていない場合警告メッセージを表示
     } else {
-      alert("行を選択して下さい。");
+      alert(Const.ErrorMsg.E0008);
     }
   }
 
