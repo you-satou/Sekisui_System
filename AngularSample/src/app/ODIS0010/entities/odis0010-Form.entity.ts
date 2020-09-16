@@ -2,12 +2,20 @@
  * 発注明細テーブルの定義
  */
 export interface ODIS0010OrderDetail {
+    /** 物件管理番号 */
+    propertyManagerCd: string;
+
+    /** 得意先番号 */
+    customerNum: string;
 
     /** 契約番号 */
     contractNum: string;
     
-    /** 物件名称 */
+    /** 物件名称漢字 */
     propertyName: string;
+
+    /** 事業コード */
+    officeCode: string;
     
     /** 発注予定金額 */
     planOrderAmount: string;

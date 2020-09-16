@@ -4,7 +4,6 @@
     width: 100%;
     min-width: 1200px;
     background-color: transparent;
-    border-collapse: collapse;
     border: #CCD0D5 0.5px solid;
     padding: 10px;
 }
@@ -32,9 +31,6 @@
     margin-top: 13px;
     margin-bottom: 10px;
 }
-
-
-/*********************************************/
 
 
 /********************* Page Footer *************************/

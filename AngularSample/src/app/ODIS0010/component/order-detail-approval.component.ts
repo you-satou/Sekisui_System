@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation } from "@angular/core";
 import { ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.entity";
 import { CommonService } from "app/common/common.service";
@@ -16,8 +16,13 @@ export class OrderDetailApprovalComponent implements OnInit {
   orderDetailData: ODIS0010OrderDetail[];
   inputment= new ODIS0010OrderSearchInputment();
 
+  pixel: number;
+
+  screenSize: any;
+
   // Mocking data用、削除予定
   _url: string = "assets/data/dataApproval.json";
+  
   
   constructor(
     private appComponent: AppComponent,
@@ -31,6 +36,21 @@ export class OrderDetailApprovalComponent implements OnInit {
       Const.LinKSetting.L0000
     );
     this.setStartPage();
+    
+    // Search ボタンの位置を設定する
+    this.screenSize = window.innerWidth;
+    this.pixel = this.screenSize  - 408;
+    
+  }
+
+  //ページ広さを調整する時にボタンの位置も調整する
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenSize = window.innerWidth;
+    if(this.screenSize <= 1284){
+      return;
+    }
+    this.pixel = this.screenSize  - 408;
   }
 
   /** ページ初期化 */
