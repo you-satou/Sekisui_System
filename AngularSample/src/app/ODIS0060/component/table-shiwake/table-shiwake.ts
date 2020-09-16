@@ -9,8 +9,10 @@ import { Component, Input } from '@angular/core';
 
 export class SplitOrderDetailShiwakeTable {
 
+  //仕訳データの取得
   @Input() shiwakeData: SplitOrderDetailShiwake[];
 
+  //仕訳テーブルのカラム
   shiwakeColumns: string[] = [
     'journalCode',
     'accountCode',
