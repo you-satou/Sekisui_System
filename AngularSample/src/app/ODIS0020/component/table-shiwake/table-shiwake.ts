@@ -1,4 +1,4 @@
-import { ODIS0020OrderDetailList, ODIS0020OrderSplitSub} from "./../../entities/odis0020-OrderDetailList.entity";
+import { ODIS0020OrderDetailList, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "./../order-detail-input.component";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable, MatTableDataSource } from "@angular/material";
@@ -82,6 +82,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     "paymentAmount",
   ];
 
+  display : String;
+
   constructor(
     private router: Router,
     private comCompnt: CommonComponent,
@@ -89,12 +91,42 @@ export class OrderDetailShiwakeTable implements OnInit {
     private service: SplitOrderDetailService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
 
-  resourceData(data: ODIS0020OrderSplitSub[]) {
-    return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
+    this.display = 'none';
+   }
+
+  // resourceData(data: ODIS0020OrderSplitSub[]) {
+  //   return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
+  // }
+
+  isExsted(element: ODIS0020OrderDetailList, action: string) {
+    console.log(action);
+    switch (action) {
+      case 'irai':
+        if (element.requester != '' ||
+          element.requester != null ||
+          element.requester != undefined) {
+          return true;
+        }
+        return false;
+      case 'shounin1':
+        if (element.approvalPerson_lv1 != '' ||
+          element.approvalPerson_lv1 != null ||
+          element.approvalPerson_lv1 != undefined) {
+          return true;
+        }
+        return false;
+      case 'shounin2':
+        if (element.approvalPerson_lv2 != '' ||
+          element.approvalPerson_lv2 != null ||
+          element.approvalPerson_lv2 != undefined) {
+          return true;
+        }
+        return false;
+    }
+
   }
-
   /**
    * 発注予定金額の合計
    */
@@ -117,10 +149,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["orderSplitAmount"] != null ||
-            t.splitData["orderSplitAmount"] != ""
+            t.orderSplitAmount != null ||
+            t.orderSplitAmount != ""
           ) {
-            return Number(t.splitData["orderSplitAmount"]);
+            return Number(t.orderSplitAmount);
           }
         })
         .reduce((acc, value) => acc + value);
@@ -135,10 +167,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["orderAmount"] != null ||
-            t.splitData["orderAmount"] != ""
+            t.orderAmount != null ||
+            t.orderAmount != ""
           ) {
-            return Number(t.splitData["orderAmount"]);
+            return Number(t.orderAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -153,10 +185,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["recievedAmount"] != null ||
-            t.splitData["recievedAmount"] != ""
+            t.recievedAmount != null ||
+            t.recievedAmount != ""
           ) {
-            return Number(t.splitData["recievedAmount"]);
+            return Number(t.recievedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -171,10 +203,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["recievedAmount"] != null ||
-            t.splitData["recievedAmount"] != ""
+            t.recievedAmount != null ||
+            t.recievedAmount != ""
           ) {
-            return Number(t.splitData["recievedAmount"]);
+            return Number(t.recievedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -187,28 +219,14 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   getDisplayData($event, data: ODIS0020OrderDetailList) {
     this.setRowHightlight($event);
-    let temp: ODIS0020OrderSplitSub = {
-      comment: "",
-      orderSplitAmount: data.orderPlanAmount,
-      requestDate: "",
-      requester: "",
-      approvalDate_lv1: "",
-      approvalPerson_lv1: "",
-      approvalDate_lv2: "",
-      approvalPerson_lv2: "",
-      orderDate: "",
-      orderAmount: "",
-      recievedDate: "",
-      recievedAmount: "",
-      paymentDate: "",
-      paymentAmount: "",
-    };
-
-    if (data.splitData[0] == null || data.splitData[0] == undefined) {
-      data.splitData[0] = temp;
-    } else {
-      data.splitData.push(temp);
+    if (data.orderPlanAmount == '' ||
+      data.orderPlanAmount == null ||
+      data.orderPlanAmount == undefined
+    ) {
+      return;
     }
+    data.orderSplitAmount = data.orderPlanAmount;
+
   }
 
   /**
@@ -229,7 +247,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     }
     // 要素取得
     var wTr = event.target.parentElement.parentElement.parentElement;
-    console.log(wTr);
     // 背景色 変更
     for (var i = 0; i < wTr.cells.length; i++) {
       var wTd = wTr.cells[i];
@@ -246,7 +263,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     try {
       var temp1: SplitOrderDetailShiwake[] = [];
       let tmp1 = new SplitOrderDetailShiwake();
-      
+
       tmp1.journalCode = selectedItem.journalCode;
       tmp1.accountCode = selectedItem.accountCode;
       tmp1.journalName = selectedItem.journalName;
@@ -256,30 +273,26 @@ export class OrderDetailShiwakeTable implements OnInit {
 
       temp1.push(tmp1);
 
-      let splitDt: ODIS0020OrderSplitSub[] = selectedItem.splitData;
-
       let temp2: SplitOrderDetailSplit[] = [];
 
-      splitDt.forEach((element) => {
-        var tmp = new SplitOrderDetailSplit ();
-        
-        tmp.orderPlanAmount = element.orderSplitAmount;
-        tmp.comment = element.comment;
-        tmp.requestDate = element.requestDate;
-        tmp.requester = element.requester;
-        tmp.approvalDate_lv1 = element.approvalDate_lv1;
-        tmp.approvalPerson_lv1 = element.approvalPerson_lv1;
-        tmp.approvalDate_lv2 = element.approvalDate_lv2;
-        tmp.approvalPerson_lv2 = element.approvalPerson_lv2;
-        tmp.orderDate = element.orderDate;
-        tmp.orderAmount = element.orderAmount;
-        tmp.recievedDate = element.recievedDate;
-        tmp.recievedAmount = element.recievedAmount;
-        tmp.paymentDate = element.paymentDate;
-        tmp.paymentAmount = element.paymentAmount;
-        
-        temp2.push(tmp);
-      });
+      var tmp = new SplitOrderDetailSplit();
+
+      tmp.orderPlanAmount = selectedItem.orderSplitAmount;
+      tmp.comment = selectedItem.comment;
+      tmp.requestDate = selectedItem.requestDate;
+      tmp.requester = selectedItem.requester;
+      tmp.approvalDate_lv1 = selectedItem.approvalDate_lv1;
+      tmp.approvalPerson_lv1 = selectedItem.approvalPerson_lv1;
+      tmp.approvalDate_lv2 = selectedItem.approvalDate_lv2;
+      tmp.approvalPerson_lv2 = selectedItem.approvalPerson_lv2;
+      tmp.orderDate = selectedItem.orderDate;
+      tmp.orderAmount = selectedItem.orderAmount;
+      tmp.recievedDate = selectedItem.recievedDate;
+      tmp.recievedAmount = selectedItem.recievedAmount;
+      tmp.paymentDate = selectedItem.paymentDate;
+      tmp.paymentAmount = selectedItem.paymentAmount;
+
+      temp2.push(tmp);
 
       this.service.setSplitTable(temp1);
       this.service.setDetailTable(temp2);

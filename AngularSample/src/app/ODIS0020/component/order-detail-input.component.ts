@@ -52,8 +52,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblTsuika: ODIS0020OrderDetailList[];
 
   // mocking data url
-  // _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
-  _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
+  _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
+  // _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
 
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
@@ -122,22 +122,20 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               orderSuplierCode: element.supplierCode,
               orderSuplierName: element.supplierName,
               orderPlanAmount: '',
-              splitData:[{
-                comment: '',
-                orderSplitAmount: '',
-                requestDate: '',
-                requester: '',
-                approvalDate_lv1: '',
-                approvalPerson_lv1: '',
-                approvalDate_lv2: '',
-                approvalPerson_lv2: '',
-                orderDate: '',
-                orderAmount: '',
-                recievedDate: '',
-                recievedAmount: '',
-                paymentDate: '',
-                paymentAmount: '',
-              }]
+              comment: '',
+              orderSplitAmount: '',
+              requestDate: '',
+              requester: '',
+              approvalDate_lv1: '',
+              approvalPerson_lv1: '',
+              approvalDate_lv2: '',
+              approvalPerson_lv2: '',
+              orderDate: '',
+              orderAmount: '',
+              recievedDate: '',
+              recievedAmount: '',
+              paymentDate: '',
+              paymentAmount: '',
 
             }
             this.insertToDataTable(temp);
@@ -151,7 +149,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   getOrderInputData() {
-    this.orderService.getSingleData(this._urlOrderInput2)
+    this.orderService.getSingleData(this._urlOrderInput)
       .subscribe(
         data => {
           if (data !== undefined) {
@@ -225,22 +223,20 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       orderSuplierCode: this.addInput.orderSuplierCode,
       orderSuplierName: this.addInput.orderSuplierName,
       orderPlanAmount: this.addInput.orderPlanAmount,
-      splitData:[{
-        comment: '',
-        orderSplitAmount: '',
-        requestDate: '',
-        requester: '',
-        approvalDate_lv1: '',
-        approvalPerson_lv1: '',
-        approvalDate_lv2: '',
-        approvalPerson_lv2: '',
-        orderDate: '',
-        orderAmount: '',
-        recievedDate: '',
-        recievedAmount: '',
-        paymentDate: '',
-        paymentAmount: '',
-      }]
+      comment: '',
+      orderSplitAmount: '',
+      requestDate: '',
+      requester: '',
+      approvalDate_lv1: '',
+      approvalPerson_lv1: '',
+      approvalDate_lv2: '',
+      approvalPerson_lv2: '',
+      orderDate: '',
+      orderAmount: '',
+      recievedDate: '',
+      recievedAmount: '',
+      paymentDate: '',
+      paymentAmount: '',
     }
 
     this.insertToDataTable(temp);
@@ -252,6 +248,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     switch (this.selectedTab) {
       case this.tab1:
         this.childSekkei.orderData.push(temp);
+        console.log(this.childSekkei.orderData.length);
+        
         this.childSekkei.tableShiwake.renderRows();
 
         let skIndex = this.childSekkei.orderData.length - 1;

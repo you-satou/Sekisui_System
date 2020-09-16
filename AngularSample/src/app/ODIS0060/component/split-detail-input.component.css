@@ -36,26 +36,6 @@ tr.mat-footer-row {
     text-align: center;
 }
 
-th {
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-top: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-    font: bold 12px "メイリオ" !important;
-    text-align: center;
-    padding: 5px;
-}
-
-td {
-    border-collapse: collapse;
-    border-right: 0.5px solid #CCD0D5;
-    border-top: 0.5px solid #CCD0D5;
-    border-bottom: 0.5px solid #CCD0D5;
-    border-left: 0.5px solid #CCD0D5;
-    padding: 5px;
-}
-
 .table-Shiwake>tbody {
     height: 250px !important;
     overflow-y: scroll;
