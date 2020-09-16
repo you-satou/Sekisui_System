@@ -220,7 +220,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     * @param data 
     */
   moveToSliptDetailInput($event,selectedItem: ODIS0020OrderDetailList[]) {
-    this.router.navigate([Const.UrlSetting.U0006]);
     var temp1: SplitOrderDetailShiwake[] = [
       {
         journalCode: selectedItem['journalCode'],
@@ -252,6 +251,7 @@ export class OrderDetailShiwakeTable implements OnInit {
       }
     ]
     this.service.setDetailTable(temp2);
+    this.router.navigate([Const.UrlSetting.U0006]);
   }
 
   /**
