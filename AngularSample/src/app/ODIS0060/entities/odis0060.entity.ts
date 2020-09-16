@@ -1,16 +1,17 @@
 //仕訳テーブルのインターフェース
-export interface SplitOrderDetailShiwake{
+export class SplitOrderDetailShiwake{
     journalCode: string;
     accountCode: string;
     journalName: string;
     orderSuplierCode: string;
     orderSuplierName: string;
     orderPlanAmount: string;
+    constructor() {}
 
 }
 
 //分割テーブルのインターフェース
-export interface SplitOrderDetailSplit{
+export class SplitOrderDetailSplit{
     orderPlanAmount: string;
     comment: string;
     requestDate: string;
@@ -26,4 +27,5 @@ export interface SplitOrderDetailSplit{
     paymentDate: string;
     paymentAmount: string;
     
+    constructor() {}
 }

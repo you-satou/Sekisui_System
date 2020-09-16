@@ -1,114 +1,112 @@
-import { ODIS0020OrderDetailList } from './../../entities/odis0020-OrderDetailList.entity';
-import { DataEmitter } from './../order-detail-input.component';
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from '@angular/core';
-import { MatTable } from '@angular/material';
-import { Router } from '@angular/router';
-import { CommonComponent } from 'app/common/common.component';
-import { Const } from 'app/common/const';
-import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from '../../../ODIS0060/entities/odis0060.entity';
-import { SplitOrderDetailService } from '../../../ODIS0060/services/split-detail-input-service';
-
-
+import { ODIS0020OrderDetailList, ODIS0020OrderSplitSub} from "./../../entities/odis0020-OrderDetailList.entity";
+import { DataEmitter } from "./../order-detail-input.component";
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
+import { MatTable, MatTableDataSource } from "@angular/material";
+import { Router } from "@angular/router";
+import { CommonComponent } from "app/common/common.component";
+import { Const } from "app/common/const";
+import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from "../../../ODIS0060/entities/odis0060.entity";
+import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail-input-service";
 
 @Component({
-  selector: 'shiwake-table',
-  styleUrls: ['table-shiwake.css'],
-  templateUrl: './table-shiwake.html',
+  selector: "shiwake-table",
+  styleUrls: ["table-shiwake.css"],
+  templateUrl: "./table-shiwake.html",
   encapsulation: ViewEncapsulation.None,
 })
-
 export class OrderDetailShiwakeTable implements OnInit {
-
   @Input() orderData: ODIS0020OrderDetailList[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
 
-  
   dataEmitter = new DataEmitter();
 
   /**
    * テーブルヘッダーのカラムを定義する。
    */
   mainHeaderColumns: string[] = [
-    'shiwakeCode',
-    'keiriCode',
-    'shiwakeName',
-    'hacchuSaki',
-    'hacchuKingaku',
-    'hanei',
-    'bunkatsu',
-    'yoteiKigaku',
-    'comment1',
-    'irai',
-    'shounin_lv1',
-    'shounin_lv2',
-    'hacChu',
-    'ukeIre',
-    'shiHarai',
-
+    "shiwakeCode",
+    "keiriCode",
+    "shiwakeName",
+    "hacchuSaki",
+    "hacchuKingaku",
+    "hanei",
+    "bunkatsu",
+    "yoteiKigaku",
+    "comment1",
+    "irai",
+    "shounin_lv1",
+    "shounin_lv2",
+    "hacChu",
+    "ukeIre",
+    "shiHarai",
   ];
 
   /**
    * ヘッダーサーブの定義
    */
   subHeaderColumns: string[] = [
-    'requestDate',
-    'requester',
-    'approvalDate_lv1',
-    'approvalPerson_lv1',
-    'approvalDate_lv2',
-    'approvalPerson_lv2',
+    "requestDate",
+    "requester",
+    "approvalDate_lv1",
+    "approvalPerson_lv1",
+    "approvalDate_lv2",
+    "approvalPerson_lv2",
   ];
 
   /**
    * 行のカラムの定義
    */
   bodyColumns: string[] = [
-    'journalCode',
-    'accountCode',
-    'journalName',
-    'orderSupplierCode',
-    'orderSupplierName',
-    'orderPlanAmount',
-    'display',
-    'split',
-    'orderSplitAmount',
-    'comment',
-    'requestDate',
-    'requester',
-    'approvalDate_lv1',
-    'approvalPerson_lv1',
-    'approvalDate_lv2',
-    'approvalPerson_lv2',
-    'orderSupplierDate',
-    'orderSupplierAmount',
-    'recievedDate',
-    'recievedAmount',
-    'paymentDate',
-    'paymentAmount',
+    "journalCode",
+    "accountCode",
+    "journalName",
+    "orderSupplierCode",
+    "orderSupplierName",
+    "orderPlanAmount",
+    "display",
+    "split",
+    "orderSplitAmount",
+    "comment",
+    "requestDate",
+    "requester",
+    "approvalDate_lv1",
+    "approvalPerson_lv1",
+    "approvalDate_lv2",
+    "approvalPerson_lv2",
+    "orderSupplierDate",
+    "orderSupplierAmount",
+    "recievedDate",
+    "recievedAmount",
+    "paymentDate",
+    "paymentAmount",
   ];
-
 
   constructor(
     private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
-    private service: SplitOrderDetailService,
+    private service: SplitOrderDetailService
   ) { }
 
   ngOnInit() { }
 
+  resourceData(data: ODIS0020OrderSplitSub[]) {
+    return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
+  }
+
   /**
    * 発注予定金額の合計
-   */ 
+   */
   getTotalPlanAmount() {
-
     if (this.orderData != undefined || this.orderData != null) {
-      return this.orderData.map(t => {
-        if (t.orderPlanAmount != null || t.orderPlanAmount != '') {
-          return Number(t.orderPlanAmount);
-        }
-      }).reduce((acc, value) => acc + value, 0);
+      return this.orderData
+        .map((t) => {
+          if (t.orderPlanAmount != null || t.orderPlanAmount != "") {
+            return Number(t.orderPlanAmount);
+          }
+        })
+        .reduce((acc, value) => acc + value, 0);
     }
   }
   /**
@@ -116,85 +114,110 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   getOrderSplitAmount() {
     if (this.orderData != undefined || this.orderData != null) {
-
-      return this.orderData.map(t => {
-        if (t.orderSplitAmount != null || t.orderSplitAmount != '') {
-          return Number(t.orderSplitAmount);
-        }
-      }).reduce((acc, value) => acc + value);
+      return this.orderData
+        .map((t) => {
+          if (
+            t.splitData["orderSplitAmount"] != null ||
+            t.splitData["orderSplitAmount"] != ""
+          ) {
+            return Number(t.splitData["orderSplitAmount"]);
+          }
+        })
+        .reduce((acc, value) => acc + value);
     }
   }
 
   /**
-  *  発注金額の合計
-  */
+   *  発注金額の合計
+   */
   getOrderAmount() {
     if (this.orderData != undefined || this.orderData != null) {
-
-      return this.orderData.map(t => {
-        if (t.orderAmount != null || t.orderAmount != '') {
-          return Number(t.orderAmount);
-        }
-      }).reduce((acc, value) => acc + value, 0);
+      return this.orderData
+        .map((t) => {
+          if (
+            t.splitData["orderAmount"] != null ||
+            t.splitData["orderAmount"] != ""
+          ) {
+            return Number(t.splitData["orderAmount"]);
+          }
+        })
+        .reduce((acc, value) => acc + value, 0);
     }
   }
 
   /**
-  *  受入金額の合計
-  */
+   *  受入金額の合計
+   */
   getRecievedAmount() {
     if (this.orderData != undefined || this.orderData != null) {
-
-      return this.orderData.map(
-        t => {
-          if (t.recievedAmount != null || t.recievedAmount != '') {
-            return Number(t.recievedAmount);
+      return this.orderData
+        .map((t) => {
+          if (
+            t.splitData["recievedAmount"] != null ||
+            t.splitData["recievedAmount"] != ""
+          ) {
+            return Number(t.splitData["recievedAmount"]);
           }
-        }).reduce((acc, value) => acc + value, 0);
+        })
+        .reduce((acc, value) => acc + value, 0);
     }
   }
 
   /**
-  *  支払金額の合計
-  */
+   *  支払金額の合計
+   */
   getPaymentAmount() {
     if (this.orderData != undefined || this.orderData != null) {
-
-      return this.orderData.map(t => {
-        if (t.paymentAmount != null || t.paymentAmount != '') { return Number(t.paymentAmount) }
-      }).reduce((acc, value) => acc + value, 0);
+      return this.orderData
+        .map((t) => {
+          if (
+            t.splitData["recievedAmount"] != null ||
+            t.splitData["recievedAmount"] != ""
+          ) {
+            return Number(t.splitData["recievedAmount"]);
+          }
+        })
+        .reduce((acc, value) => acc + value, 0);
     }
   }
-
   /**
    * 発注金額を設定する
-   * @param $event 
-   * @param dataDetail 
+   * @param $event
+   * @param dataDetail
    */
-  getDisplayData($event, dataDetail) {
-
+  getDisplayData($event, data: ODIS0020OrderDetailList) {
     this.setRowHightlight($event);
-
-    if (dataDetail.orderSplitAmount === null ||
-      dataDetail.orderSplitAmount === undefined ||
-      dataDetail.orderSplitAmount === '') {
-      dataDetail.orderSplitAmount = dataDetail.orderPlanAmount;
-      let rowIndex = this.orderData.indexOf(dataDetail);
-      this.dataEmitter.id = rowIndex;
-      this.dataEmitter.action = Const.Action.T0002;
-      this.dataEmitter.selected = true;
-      this.dataEmitter.data = dataDetail;
-      this.sendOrderData.emit(this.dataEmitter);
+    let temp: ODIS0020OrderSplitSub = {
+      comment: "",
+      orderSplitAmount: data.orderPlanAmount,
+      requestDate: "",
+      requester: "",
+      approvalDate_lv1: "",
+      approvalPerson_lv1: "",
+      approvalDate_lv2: "",
+      approvalPerson_lv2: "",
+      orderDate: "",
+      orderAmount: "",
+      recievedDate: "",
+      recievedAmount: "",
+      paymentDate: "",
+      paymentAmount: "",
     };
+
+    if (data.splitData[0] == null || data.splitData[0] == undefined) {
+      data.splitData[0] = temp;
+    } else {
+      data.splitData.push(temp);
+    }
   }
 
   /**
    * 反映ボタンを押下する時行の背景色を変える。
-   * @param event 
+   * @param event
    */
   setRowHightlight(event: any) {
     // テーブル 背景色 クリア
-    var wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
+    var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
     for (var i = 0; i < wTbody.rows.length; i++) {
       // 行 取得
       var wTr = wTbody.rows[i];
@@ -205,61 +228,73 @@ export class OrderDetailShiwakeTable implements OnInit {
       }
     }
     // 要素取得
-    var wTr = event.target.parentElement.parentElement.parentElement.parentElement;
+    var wTr = event.target.parentElement.parentElement.parentElement;
+    console.log(wTr);
     // 背景色 変更
     for (var i = 0; i < wTr.cells.length; i++) {
       var wTd = wTr.cells[i];
       wTd.style.backgroundColor = Const.HighLightColour.Selected;
     }
-
   }
 
-   /**
-    * 分割明細画面に移動する
-    * @param $event 
-    * @param data 
-    */
-  moveToSliptDetailInput($event,selectedItem: ODIS0020OrderDetailList[]) {
-    var temp1: SplitOrderDetailShiwake[] = [
-      {
-        journalCode: selectedItem['journalCode'],
-        accountCode: selectedItem['accountCode'],
-        journalName: selectedItem['journalName'],
-        orderSuplierCode: selectedItem['orderSuplierCode'],
-        orderSuplierName: selectedItem['orderSuplierName'],
-        orderPlanAmount: selectedItem['orderPlanAmount'],
-      }
-    ]
-    this.service.setSplitTable(temp1);
+  /**
+   * 分割明細画面に移動する
+   * @param $event
+   * @param data
+   */
+  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetailList) {
+    try {
+      var temp1: SplitOrderDetailShiwake[] = [];
+      let tmp1 = new SplitOrderDetailShiwake();
+      
+      tmp1.journalCode = selectedItem.journalCode;
+      tmp1.accountCode = selectedItem.accountCode;
+      tmp1.journalName = selectedItem.journalName;
+      tmp1.orderSuplierCode = selectedItem.orderSuplierCode;
+      tmp1.orderSuplierName = selectedItem.orderSuplierName;
+      tmp1.orderPlanAmount = selectedItem.orderPlanAmount;
 
-    var temp2: SplitOrderDetailSplit[] = [
-      {
-        orderPlanAmount: selectedItem['orderSplitAmount'],
-        comment: selectedItem['comment'],
-        requestDate: selectedItem['requestDate'],
-        requester: selectedItem['requester'],
-        approvalDate_lv1: selectedItem['approvalDate_lv1'],
-        approvalPerson_lv1: selectedItem['approvalPerson_lv1'],
-        approvalDate_lv2: selectedItem['approvalDate_lv2'],
-        approvalPerson_lv2: selectedItem['approvalPerson_lv2'],
-        orderDate: selectedItem['orderDate'],
-        orderAmount: selectedItem['orderAmount'],
-        recievedDate: selectedItem['recievedDate'],
-        recievedAmount: selectedItem['recievedAmount'],
-        paymentDate: selectedItem['paymentDate'],
-        paymentAmount: selectedItem['paymentAmount'],
-      }
-    ]
-    this.service.setDetailTable(temp2);
-    this.router.navigate([Const.UrlSetting.U0006]);
+      temp1.push(tmp1);
+
+      let splitDt: ODIS0020OrderSplitSub[] = selectedItem.splitData;
+
+      let temp2: SplitOrderDetailSplit[] = [];
+
+      splitDt.forEach((element) => {
+        var tmp = new SplitOrderDetailSplit ();
+        
+        tmp.orderPlanAmount = element.orderSplitAmount;
+        tmp.comment = element.comment;
+        tmp.requestDate = element.requestDate;
+        tmp.requester = element.requester;
+        tmp.approvalDate_lv1 = element.approvalDate_lv1;
+        tmp.approvalPerson_lv1 = element.approvalPerson_lv1;
+        tmp.approvalDate_lv2 = element.approvalDate_lv2;
+        tmp.approvalPerson_lv2 = element.approvalPerson_lv2;
+        tmp.orderDate = element.orderDate;
+        tmp.orderAmount = element.orderAmount;
+        tmp.recievedDate = element.recievedDate;
+        tmp.recievedAmount = element.recievedAmount;
+        tmp.paymentDate = element.paymentDate;
+        tmp.paymentAmount = element.paymentAmount;
+        
+        temp2.push(tmp);
+      });
+
+      this.service.setSplitTable(temp1);
+      this.service.setDetailTable(temp2);
+
+      this.router.navigate([Const.UrlSetting.U0006]);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**
    * 選択された行の背景色を変える。
-   * @param $event 
+   * @param $event
    */
   onSelectHighLight($event, data: ODIS0020OrderDetailList) {
-
     this.comCompnt.CommonOnSelHight($event);
 
     // パラメータを設定。
@@ -272,6 +307,4 @@ export class OrderDetailShiwakeTable implements OnInit {
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
-
 }
-
