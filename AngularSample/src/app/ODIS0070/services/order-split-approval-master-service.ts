@@ -15,22 +15,14 @@ export class OrderSplitApprovalMasterService {
     // Subscribe するためのプロパティ( これでイベント通知をキャッチする )
     public closeEventObservable$ = this.closeEventSubject.asObservable();
 
+    //発注分割承認者マスタテーブルのモッキングデータ
     private _url: string = "assets/data/dataSplitApproval.json";
 
     constructor(
         private http: HttpClient
     ) { }
 
-    private _val1
-
-    public getVal1() {
-        return this._val1;
-    }
-    public setVal1(val1: string) {
-        this._val1 = val1;
-
-    }
-
+    //発注分割承認者マスタデータの取得
     getOrderSplitApproval(): Observable<OrderSplitApprovalMasterTable[]> {
 
         return this.http.get<OrderSplitApprovalMasterTable[]>(this._url);

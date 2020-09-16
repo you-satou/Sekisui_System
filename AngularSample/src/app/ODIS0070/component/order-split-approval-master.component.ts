@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 })
 export class OrderSplitApprovalMasterComponent implements OnInit {
 
+  //編集テーブルの値
   personalID: string = "";
   employeeCode: string = "";
   employeeName: string = "";
@@ -20,12 +21,16 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   approval2: string = "";
   deleteFlag: string = "";
 
+  //行が選択されているかどうか
   selected: boolean;
   
+  //選択された行のインデックス
   index: number;
 
+  //発注分割承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
+  //発注分割承認者マスタテーブルのカラム
   orderApprovalColumns: string[] = [
     'personalID',
     'employeeCode',
@@ -49,6 +54,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.getOrderSplitApproval();
   }
 
+  //テーブルデータの取得
   getOrderSplitApproval() {
 
     this.service.getOrderSplitApproval()
@@ -57,10 +63,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       );
   }
 
+  //「戻る」ボタンの押下
   public onBackClick($event) {
     this._location.back();
   }
 
+  //行を選択する処理
   public onSelHighLight($event, selectedItem) {
     this.commonComponent.CommonOnSelHight($event);
     this.selected = true
