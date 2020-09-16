@@ -50,15 +50,15 @@
         </ng-container>
         <!--発注-->
         <ng-container matColumnDef="hacChu">
-            <th style="width: 80px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">発注</th>
+            <th style="width: 100px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">発注</th>
         </ng-container>
         <!--受入-->
         <ng-container matColumnDef="ukeIre">
-            <th style="width: 80px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">受入</th>
+            <th style="width: 100px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">受入</th>
         </ng-container>
         <!--支払-->
         <ng-container matColumnDef="shiHarai">
-            <th style="width: 80px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
+            <th style="width: 100px; " class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
         </ng-container>
 
 
@@ -117,13 +117,13 @@
          <!--発注金額-->
          <ng-container matColumnDef="orderSplitAmount">
             <th style="width: 40px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; padding:0 0 0 20px;" class="font-s-right" mat-cell *matCellDef="let element">
+            <td style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
-                        <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.orderSplitAmount | number}}
+                        <td style="border: none !important; text-align: right;" mat-cell *matCellDef="let element2">{{element2.orderSplitAmount | number}}
                         </td>
                     </ng-container>
-                    <tr mat-row *matRowDef="let r; columns: ['test'];" style="text-align: right;"></tr>
+                    <tr mat-row *matRowDef="let r; columns: ['test'];"></tr>
                 </table>
             </td>
             <td mat-footer-cell *matFooterCellDef>{{getOrderSplitAmount()|number}}</td>
@@ -222,8 +222,8 @@
         </ng-container>
         <!--発注日-->
         <ng-container matColumnDef="orderSupplierDate">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.orderDate}}</td>
@@ -235,21 +235,21 @@
         </ng-container>
         <!--発注金額-->
         <ng-container matColumnDef="orderSupplierAmount">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; padding:0 0 0 20px;" class="font-s-right" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.orderAmount}}</td>
                     </ng-container>
-                    <tr mat-row *matRowDef="let r; columns: ['test'];" style="text-align: right;"></tr>
+                    <tr mat-row *matRowDef="let r; columns: ['test'];"></tr>
                 </table>
             </td>
             <td mat-footer-cell *matFooterCellDef>{{getOrderAmount()|number}}</td>
         </ng-container>
         <!--受入日-->
         <ng-container matColumnDef="recievedDate">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.recievedDate}}</td>
@@ -261,21 +261,21 @@
         </ng-container>
         <!--受け入れ金額-->
         <ng-container matColumnDef="recievedAmount">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; padding:0 0 0 20px;" class="font-s-right" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.recievedAmount}}</td>
                     </ng-container>
-                    <tr mat-row *matRowDef="let r; columns: ['test'];" style="text-align: right;"></tr>
+                    <tr mat-row *matRowDef="let r; columns: ['test'];"></tr>
                 </table>
             </td>
             <td mat-footer-cell *matFooterCellDef>{{getRecievedAmount()|number}}</td>
         </ng-container>
         <!--支払日-->
         <ng-container matColumnDef="paymentDate">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.paymentDate}}</td>
@@ -287,13 +287,13 @@
         </ng-container>
         <!--支払い金額-->
         <ng-container matColumnDef="paymentAmount">
-            <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; padding:0 0 0 20px;" class="font-s-right" mat-cell *matCellDef="let element ">
+            <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
+            <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">
                 <table mat-table [dataSource] = "resourceData(element.splitData)" style="width: 100%;">
                     <ng-container matColumnDef = "test">
                         <td style="border: none !important;" mat-cell *matCellDef="let element2">{{element2.paymentAmount}}</td>
                     </ng-container>
-                    <tr mat-row *matRowDef="let r; columns: ['test'];" style="text-align: right;"></tr>
+                    <tr mat-row *matRowDef="let r; columns: ['test'];"></tr>
                 </table>
             </td>
             <td mat-footer-cell *matFooterCellDef>{{getPaymentAmount()|number}}</td>

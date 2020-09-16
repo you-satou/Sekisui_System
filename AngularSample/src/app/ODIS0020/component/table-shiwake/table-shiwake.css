@@ -8,10 +8,6 @@
     position: sticky;
 }
 
-.mat-cell{
-    margin:0;
-}
-
 
 tr.mat-footer-row {
     font-weight: bold;
@@ -65,13 +61,9 @@ tr.mat-footer-row {
 .table-responsive .mat-cell,
 .table-responsive .mat-header-cell {
     word-wrap: initial;
-    /**
-    *     display: table-cell;
-        padding: 0px 5px;
-        width: auto;
-    *
-    **/
+    display: table-cell;
     padding: 0px 5px;
+    width: auto;
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;

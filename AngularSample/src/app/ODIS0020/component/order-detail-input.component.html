@@ -220,7 +220,7 @@
                     <td style="width: 20px;"><input [(ngModel)]="addInput.journalName" type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
                     <td style="width: 20px;"><input [(ngModel)]="addInput.orderSuplierCode" type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
                     <td style="width: 160px;"><label>{{addInput.orderSuplierName}}</label></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" class="orderdetailaddinputBody" name="orderPlansKin" style="text-align: right;"></td>
+                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
                 </tr>
             </tbody>
         </table>
@@ -241,13 +241,13 @@
         <div style="float: left;" class="bottomButton">
             <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal" data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
         </div>
-        <div style="margin-left: 170px;" class="bottomButton">
+        <div style="margin-left: 200px;" class="bottomButton">
             <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1 ">得意先元帳</button>
         </div>
-        <div style="margin-left: 280px;" class="bottomButton">
+        <div style="margin-left: 330px;" class="bottomButton">
             <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border">工事台帳</button>
         </div>
-        <div style="margin-left: 375px;" class="bottomButton">
+        <div style="margin-left: 450px;" class="bottomButton">
             <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border">明細一覧</button>
         </div>
         <div style="right: 46px;" class="bottomButton">
