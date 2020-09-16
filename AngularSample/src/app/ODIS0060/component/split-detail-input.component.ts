@@ -75,13 +75,13 @@ export class SplitOrderDetailInputComponent implements OnInit {
   bunkatsuData: SplitOrderDetailSplit[];
 
   //編集テーブルの値
-  orderPlanAmount: string;
-  comment: string;
-  requestDate: string;
-  requester: string;
+  orderPlanAmount: string = "";
+  comment: string = "";
+  requestDate: string = "";
+  requester: string = "";
 
   //仕訳テーブルの選択行
-  selected: boolean;
+  selected: boolean = false;
 
   //選択した行のインデックス
   index: number;
@@ -108,18 +108,12 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   //仕訳テーブルのデータの取得のメソッド
   getSplitOderDetailShiwake() {
-    this.service.getSplitOderDetailShiwake()
-      .subscribe(
-        data => this.shiwakeData = data
-      );
+    this.shiwakeData = this.service.getSplitTable();
   }
 
   //分割テーブルのデータの取得のメソッド
   getSplitOrderDetailSplit() {
-    this.service.getSplitOrderDetailSplit()
-      .subscribe(
-        data => this.bunkatsuData = data
-      );
+    this.bunkatsuData = this.service.getDetailTable();
   }
 
   //分割テーブルの合計金額の再計算
