@@ -10,12 +10,18 @@ export class SplitOrderDetailService {
   //詳細入力テーブルの選択された行の仕訳データ
   private _splitTable;
 
-  //詳細入力テーブルの選択された行の仕訳データの取得
+  /**
+   * 詳細入力テーブルの選択された行の仕訳データの取得
+   */
   public getSplitTable() {
     return this._splitTable;
   }
 
-  //詳細入力テーブルの選択された行の仕訳データの保存
+  /**
+   * 詳細入力テーブルの選択された行の仕訳データの保存
+   *
+   * @param splitTable 仕訳テーブルのデータ
+   */
   public setSplitTable(splitTable: SplitOrderDetailShiwake[]) {
     this._splitTable = splitTable;
   }
@@ -23,12 +29,19 @@ export class SplitOrderDetailService {
   //詳細入力テーブルの選択された行の分割データ
   private _detailTable;
 
-  /** 詳細入力テーブルの選択された行の分割データの取得 */
+
+  /**
+   * 詳細入力テーブルの選択された行の分割データの取得
+   */
   public getDetailTable() {
     return this._detailTable;
   }
 
-  //詳細入力テーブルの選択された行の分割データの保存
+  /**
+   * 詳細入力テーブルの選択された行の分割データの保存
+   *
+   * @param splitTable 分割テーブルのデータ
+   */
   public setDetailTable(detailTable: SplitOrderDetailSplit[]) {
     this._detailTable = detailTable;
   }

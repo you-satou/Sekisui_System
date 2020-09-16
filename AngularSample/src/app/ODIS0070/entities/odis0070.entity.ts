@@ -1,4 +1,6 @@
-//発注分割承認者マスタのインターフェース
+/**
+   * 発注分割承認者マスタのインターフェース
+   */
 export interface OrderSplitApprovalMasterTable{
     personalID: string;
     employeeCode: string;

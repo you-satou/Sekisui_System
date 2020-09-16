@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable()
+/**
+ * 発注分割承認者マスタからパラメータを受け取り専用
+ */
 export class OrderSplitApprovalMasterService {
 
     //TODO: add URL to Server
@@ -22,7 +25,9 @@ export class OrderSplitApprovalMasterService {
         private http: HttpClient
     ) { }
 
-    //発注分割承認者マスタデータの取得
+    /**
+   * 発注分割承認者マスタデータの取得
+   */
     getOrderSplitApproval(): Observable<OrderSplitApprovalMasterTable[]> {
 
         return this.http.get<OrderSplitApprovalMasterTable[]>(this._url);
