@@ -88,11 +88,14 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   //現在日付
   currentDate = Date.now();
-
   //タブネーム
   tabName: string;
-
-
+  /**
+   * コンストラクタ
+   *
+   * @param {service} service
+   * @memberof SplitOrderDetailService
+   */
   constructor(
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
@@ -101,6 +104,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
     private service: SplitOrderDetailService,
   ) { }
 
+  /**
+   * ページがロードする時、テーブルデータを取得する
+   */
   ngOnInit() {
     //仕訳テーブルのデータの取得
     this.getSplitOderDetailShiwake();
@@ -109,28 +115,42 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
   }
 
-  //仕訳テーブルのデータの取得のメソッド
+  /**
+   * 仕訳テーブルのデータの取得のメソッド
+   */
   getSplitOderDetailShiwake() {
     this.shiwakeData = this.service.getSplitTable();
     this.tabName = this.shiwakeData[0].tabIndex;
   }
 
-  //分割テーブルのデータの取得のメソッド
+  /**
+   * 分割テーブルのデータの取得のメソッド
+   */
   getSplitOrderDetailSplit() {
     this.bunkatsuData = this.service.getDetailTable();
   }
 
-  //分割テーブルの合計金額の再計算
+  /**
+   * 分割テーブルの合計金額の再計算
+   */
   totalAmount() {
     return this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
   }
 
-  //「戻る」ボタンの押下
+  /**
+   * 「戻る」ボタンの押下
+   *
+   * @param $event イベント
+   */
   public onBackClick($event) {
     this._location.back();
   }
 
-  //「明細追加」ボタンの押下
+  /**
+   * 「明細追加」ボタンの押下
+   *
+   * @param $event イベント
+   */
   public onSelectClick($event) {
     //編集テーブルが未入力になっていない場合
     if (this.orderPlanAmount || this.comment || this.requestDate || this.requester) {
@@ -162,7 +182,12 @@ export class SplitOrderDetailInputComponent implements OnInit {
     }
   }
 
-  //仕訳テーブルの行を選択する場合
+  /**
+   * 仕訳テーブルの行を選択する場合
+   *
+   * @param $event イベント
+   * @param selectedItem 行選択 値取得
+   */
   public onSelHighLight($event, selectedItem) {
 
     //行が選択された時にselectedをtrueにする
@@ -181,7 +206,11 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.index = this.bunkatsuData.indexOf(selectedItem);
   }
 
-  //「明細更新」ボタンの押下
+  /**
+   * 「明細更新」ボタンの押下
+   *
+   * @param $event イベント
+   */
   onUpdateClick($event) {
 
     //行が選択された場合
@@ -196,11 +225,15 @@ export class SplitOrderDetailInputComponent implements OnInit {
       
     //行が選択されていない場合警告メッセージを表示
     } else {
-      alert("行を選択して下さい。");
+      alert(Const.ErrorMsg.E0008);
     }
   }
 
-  //「明細削除」ボタンの押下
+  /**
+   * 「明細削除」ボタンの押下
+   *
+   * @param $event イベント
+   */
   onDeleteClick($event) {
 
     //行が選択された場合
@@ -218,11 +251,15 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
     //行が選択されていない場合警告メッセージを表示
     } else {
-      alert("行を選択して下さい。");
+      alert(Const.ErrorMsg.E0008);
     }
   }
 
-  //編集テーブルの行をクリアする
+  /**
+   * 編集テーブルの行をクリアする
+   *
+   * @param $event イベント
+   */
   onClearClick($event) {
     this.selected = false;
     this.orderPlanAmount = "";
@@ -231,7 +268,11 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.requester = "";
   }
 
-  //「依頼」ボタンの押下
+  /**
+   * 「依頼」ボタンの押下
+   *
+   * @param $event イベント
+   */
   onAddOrderClick($event) {
     this.requester = "user";
     this.requestDate = this.datePipe.transform(this.currentDate, "yyyy/MM/dd").toString();

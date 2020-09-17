@@ -20,7 +20,6 @@
 .footer>.back-btn {
     display: inline-block;
     width: 120px;
-    float: left;
 }
 
 .mat-footer-cell {
@@ -96,9 +95,8 @@ tr.mat-footer-row {
 }
 
 .bottomButton {
-    position: fixed; 
-    z-index: 2; 
-    bottom: 5px;
+    position: absolute;
+    margin-right: 20px;
 }
 
 .color-input-1 {
@@ -172,7 +170,15 @@ tr.mat-footer-row {
 
 .add-table {
     position: relative;
-    width: 28.5%;
+    width: 500px;
+}
+
+.tdInput {
+    text-align: center;
+    padding: 5px !important;
+    word-break: keep-all;
+    white-space: nowrap;
+    width: 125px;
 }
 
 input {

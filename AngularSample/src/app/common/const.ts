@@ -29,6 +29,9 @@ export namespace Const{
     export namespace UrlLinkName {
         export const S0001_Search = '/ODIS0010/search';
         // export const S0002_Search = '/ODIS0020/Search';
+        export const S0003_Init = '/ODIS0030/Init';
+        export const S0004_Init = '/ODIS0040/Init';
+        export const S0005_Init = '/ODIS0050/Init';
     }
 
     /** ページのURLを定義する */

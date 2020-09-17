@@ -59,9 +59,8 @@
         <order-detail-approval-table [resultData]="orderDetailData"></order-detail-approval-table>
     </section>
 </div>
-<br>
 <div class="footer-container ">
     <div class="text-left bottomButton ">
-        <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn ">閉じる</button>
+        <button type="button" class="btn btn-secondary" (click)="onCloseClick();">閉じる</button>
     </div>
 </div>

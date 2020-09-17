@@ -2,18 +2,22 @@
 export class SplitOrderDetailShiwake{
     tabIndex:string;
     id:string;
+    tabIndex:string;
+    id:string;
     journalCode: string;
     accountCode: string;
     journalName: string;
     orderSuplierCode: string;
     orderSuplierName: string;
     orderPlanAmount: string;
-    constructor() {}
+    constructor() { }
 
 }
 
-//分割テーブルのインターフェース
-export class SplitOrderDetailSplit{
+/**
+   * 分割テーブルのインターフェース
+   */
+export class SplitOrderDetailSplit {
     orderPlanAmount: string;
     comment: string;
     requestDate: string;
@@ -28,6 +32,6 @@ export class SplitOrderDetailSplit{
     recievedAmount: string;
     paymentDate: string;
     paymentAmount: string;
-    
-    constructor() {}
+
+    constructor() { }
 }
