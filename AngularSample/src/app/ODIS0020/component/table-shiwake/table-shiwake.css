@@ -1,18 +1,22 @@
-.mat-footer-cell {
-    background-color: #e0e0e0;
-    position: sticky;
-}
+/*************************** HEADER ***********************************/
 
 .mat-header-cell {
     text-align: center !important;
     position: sticky;
 }
 
-
-tr.mat-footer-row {
-    font-weight: bold;
+.table-responsive .mat-cell,
+.table-responsive .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
 }
 
+/*************************** BODY ************************************/
 .mat-table-sticky {
     border-top: 1px solid #e0e0e0;
 }
@@ -58,22 +62,39 @@ tr.mat-footer-row {
     
 }
 
-.table-responsive .mat-cell,
-.table-responsive .mat-header-cell {
-    word-wrap: initial;
-    display: table-cell;
-    padding: 0px 5px;
-    width: auto;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: middle;
+.btn-outline-success,
+.btn-outline-primary{
+    height: 35px !important;
+}
+
+.shiwake-table>tbody>tr>td>button.btn.btn-link :hover{
+    color: cyan !important;
 }
 
 
-/**
-* Table's scroll
-*
-**/
+
+/************************** FOOTER ************************************/
+
+.shiwake-table>tfoot>tr.mat-footer-row {
+    font-weight: bold !important;
+}
+.mat-footer-cell {
+    background-color: #e0e0e0;
+    position: sticky;
+}
+
+.shiwake-table>tfoot>tr>td {
+    padding-top: 20px;
+    padding-right: 5px;
+    text-align: right;
+}
+.shiwake-table>tfoot>tr>td.goukie {
+    text-align: center !important;
+}
+
+
+
+/*********************** TABLE SCROLL***********************************/
 
 .table-responsive>table>thead>tr>th {
     top: 0px;
@@ -84,16 +105,15 @@ tr.mat-footer-row {
 .sticky {
     top: 30px !important;
 }
-
-
 .col-display {
     background-color: white !important;
     border-top: none !important;
     border-bottom: none !important;
 }
-
 .col-display-footer {
     background-color: white !important;
     border-top: none !important;
     border-bottom: none !important;
 }
+
+

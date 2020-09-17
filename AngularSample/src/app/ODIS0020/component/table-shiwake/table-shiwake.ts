@@ -1,4 +1,7 @@
-import { ODIS0020OrderDetailList, ODIS0020OrderSplitSub} from "./../../entities/odis0020-OrderDetailList.entity";
+import { style } from '@angular/animations';
+import { element } from 'protractor';
+import { DatePipe } from '@angular/common';
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "./../order-detail-input.component";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable, MatTableDataSource } from "@angular/material";
@@ -15,10 +18,11 @@ import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail
   encapsulation: ViewEncapsulation.None,
 })
 export class OrderDetailShiwakeTable implements OnInit {
-  @Input() orderData: ODIS0020OrderDetailList[];
+  @Input() orderData: ODIS0020OrderShiwake[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
 
+  systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
 
   /**
@@ -86,13 +90,12 @@ export class OrderDetailShiwakeTable implements OnInit {
     private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
-    private service: SplitOrderDetailService
+    private service: SplitOrderDetailService,
+    private datePipe: DatePipe,
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
 
-  resourceData(data: ODIS0020OrderSplitSub[]) {
-    return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
   }
 
   /**
@@ -117,10 +120,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["orderSplitAmount"] != null ||
-            t.splitData["orderSplitAmount"] != ""
+            t.orderSplitAmount != null ||
+            t.orderSplitAmount != ""
           ) {
-            return Number(t.splitData["orderSplitAmount"]);
+            return Number(t.orderSplitAmount);
           }
         })
         .reduce((acc, value) => acc + value);
@@ -135,10 +138,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["orderAmount"] != null ||
-            t.splitData["orderAmount"] != ""
+            t.orderAmount != null ||
+            t.orderAmount != ""
           ) {
-            return Number(t.splitData["orderAmount"]);
+            return Number(t.orderAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -153,10 +156,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["recievedAmount"] != null ||
-            t.splitData["recievedAmount"] != ""
+            t.recievedAmount != null ||
+            t.recievedAmount != ""
           ) {
-            return Number(t.splitData["recievedAmount"]);
+            return Number(t.recievedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -171,10 +174,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.splitData["recievedAmount"] != null ||
-            t.splitData["recievedAmount"] != ""
+            t.recievedAmount != null ||
+            t.recievedAmount != ""
           ) {
-            return Number(t.splitData["recievedAmount"]);
+            return Number(t.recievedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -185,55 +188,42 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param dataDetail
    */
-  getDisplayData($event, data: ODIS0020OrderDetailList) {
-    this.setRowHightlight($event);
-    let temp: ODIS0020OrderSplitSub = {
-      comment: "",
-      orderSplitAmount: data.orderPlanAmount,
-      requestDate: "",
-      requester: "",
-      approvalDate_lv1: "",
-      approvalPerson_lv1: "",
-      approvalDate_lv2: "",
-      approvalPerson_lv2: "",
-      orderDate: "",
-      orderAmount: "",
-      recievedDate: "",
-      recievedAmount: "",
-      paymentDate: "",
-      paymentAmount: "",
-    };
+  getDisplayData($event, data: ODIS0020OrderShiwake) {
+    let rowIndx = this.orderData.indexOf(data);
+    this.setRowHightlight(rowIndx);
 
-    if (data.splitData[0] == null || data.splitData[0] == undefined) {
-      data.splitData[0] = temp;
-    } else {
-      data.splitData.push(temp);
+    if (data.orderPlanAmount == '' ||
+      data.orderPlanAmount == null ||
+      data.orderPlanAmount == undefined
+    ) {
+      return;
     }
+    data.orderSplitAmount = data.orderPlanAmount;
+
   }
 
   /**
    * 反映ボタンを押下する時行の背景色を変える。
    * @param event
    */
-  setRowHightlight(event: any) {
-    // テーブル 背景色 クリア
+  setRowHightlight(rowIndex: number) {
     var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
     for (var i = 0; i < wTbody.rows.length; i++) {
-      // 行 取得
-      var wTr = wTbody.rows[i];
-      for (var j = 0; j < wTr.cells.length; j++) {
-        // セル クリア
-        var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = Const.HighLightColour.None;
+
+      if(i === rowIndex){
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.Selected;
+        }
       }
-    }
-    // 要素取得
-    var wTr = event.target.parentElement.parentElement.parentElement;
-    console.log(wTr);
-    // 背景色 変更
-    for (var i = 0; i < wTr.cells.length; i++) {
-      var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = Const.HighLightColour.Selected;
+      else{
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.None;
+        }
+      }
     }
   }
 
@@ -242,11 +232,15 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param data
    */
-  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetailList) {
+  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
     try {
+      //　選択した以降は重要データがあるかどうかをチェック
+
       var temp1: SplitOrderDetailShiwake[] = [];
       let tmp1 = new SplitOrderDetailShiwake();
-      
+
+      tmp1.tabIndex = selectedItem.tabIndex;
+      tmp1.id = selectedItem.id;
       tmp1.journalCode = selectedItem.journalCode;
       tmp1.accountCode = selectedItem.accountCode;
       tmp1.journalName = selectedItem.journalName;
@@ -256,31 +250,33 @@ export class OrderDetailShiwakeTable implements OnInit {
 
       temp1.push(tmp1);
 
-      let splitDt: ODIS0020OrderSplitSub[] = selectedItem.splitData;
-
       let temp2: SplitOrderDetailSplit[] = [];
 
-      splitDt.forEach((element) => {
-        var tmp = new SplitOrderDetailSplit ();
+      this.orderData.forEach(dt => {
         
-        tmp.orderPlanAmount = element.orderSplitAmount;
-        tmp.comment = element.comment;
-        tmp.requestDate = element.requestDate;
-        tmp.requester = element.requester;
-        tmp.approvalDate_lv1 = element.approvalDate_lv1;
-        tmp.approvalPerson_lv1 = element.approvalPerson_lv1;
-        tmp.approvalDate_lv2 = element.approvalDate_lv2;
-        tmp.approvalPerson_lv2 = element.approvalPerson_lv2;
-        tmp.orderDate = element.orderDate;
-        tmp.orderAmount = element.orderAmount;
-        tmp.recievedDate = element.recievedDate;
-        tmp.recievedAmount = element.recievedAmount;
-        tmp.paymentDate = element.paymentDate;
-        tmp.paymentAmount = element.paymentAmount;
-        
-        temp2.push(tmp);
+        if(dt.id == selectedItem.id){
+          var tmp = new SplitOrderDetailSplit();
+
+          tmp.orderPlanAmount = dt.orderSplitAmount;
+          tmp.comment = dt.comment;
+          tmp.requestDate = dt.requestDate;
+          tmp.requester = dt.requester;
+          tmp.approvalDate_lv1 = dt.approvalDate_lv1;
+          tmp.approvalPerson_lv1 = dt.approvalPerson_lv1;
+          tmp.approvalDate_lv2 = dt.approvalDate_lv2;
+          tmp.approvalPerson_lv2 = dt.approvalPerson_lv2;
+          tmp.orderDate = dt.orderDate;
+          tmp.orderAmount = dt.orderAmount;
+          tmp.recievedDate = dt.recievedDate;
+          tmp.recievedAmount = dt.recievedAmount;
+          tmp.paymentDate = dt.paymentDate;
+          tmp.paymentAmount = dt.paymentAmount;
+    
+          temp2.push(tmp);
+        }
       });
 
+      console.log(temp2);
       this.service.setSplitTable(temp1);
       this.service.setDetailTable(temp2);
 
@@ -294,7 +290,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 選択された行の背景色を変える。
    * @param $event
    */
-  onSelectHighLight($event, data: ODIS0020OrderDetailList) {
+  onSelectHighLight($event, data: ODIS0020OrderShiwake) {
     this.comCompnt.CommonOnSelHight($event);
 
     // パラメータを設定。
@@ -307,4 +303,85 @@ export class OrderDetailShiwakeTable implements OnInit {
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
+
+  
+  setResquest(event: any, dt: ODIS0020OrderShiwake){
+    let rowIndex = this.orderData.indexOf(dt);
+
+    this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.requestDate = requestTime;
+    dt.requester = '積水　次郎';
+  
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
+
+    // 承認一回目のボタンを活動化する.
+    let tr = btn.parentElement.parentElement;
+
+    //承認１ボタンのインデックスは「13」
+    let btnShounin = tr.children[13].getElementsByTagName('button');
+    btnShounin[0].removeAttribute('disabled');
+  }
+
+  setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake){
+    let rowIndex = this.orderData.indexOf(dt);
+    this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_lv1 = requestTime;
+    dt.approvalPerson_lv1 = '積水　次郎';
+
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
+
+    // 承認一回目のボタンを活動化する
+    let tr = btn.parentElement.parentElement;
+    //承認１ボタンのインデックスは「15」
+    let btnShounin = tr.children[15].getElementsByTagName('button');
+    btnShounin[0].removeAttribute('disabled');
+
+  }
+
+  setApprovaNextLevel(event: any, dt: ODIS0020OrderShiwake){
+    let rowIndex = this.orderData.indexOf(dt);
+    this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_lv2 = requestTime;
+    dt.approvalPerson_lv2 = '積水　次郎';
+
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
+
+  }
+
 }
