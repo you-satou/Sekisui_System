@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Const } from '../../common/const'
