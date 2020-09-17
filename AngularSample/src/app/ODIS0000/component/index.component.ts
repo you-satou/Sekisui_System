@@ -8,7 +8,7 @@ import { Const } from '../../common/const'
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['../../common/common.component.css',
-              './index.component.css']
+              './index.component.css'],
 })
 
 export class IndexComponent implements OnInit{
