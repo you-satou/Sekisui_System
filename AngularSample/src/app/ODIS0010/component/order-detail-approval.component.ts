@@ -4,6 +4,7 @@ import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.en
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -26,7 +27,8 @@ export class OrderDetailApprovalComponent implements OnInit {
   
   constructor(
     private appComponent: AppComponent,
-    private orderService: CommonService
+    private orderService: CommonService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -41,6 +43,10 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.screenSize = window.innerWidth;
     this.pixel = this.screenSize  - 408;
     
+  }
+
+  onCloseClick(){
+    this.router.navigate(['']);
   }
 
   //ページ広さを調整する時にボタンの位置も調整する

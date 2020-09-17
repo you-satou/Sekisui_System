@@ -1,9 +1,10 @@
 import { Const } from 'app/common/const';
-import { Router } from '@angular/router';
 import { Component, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
+import { OrderDetailApprovalComponent } from '../order-detail-approval.component'
+import { Router,ActivatedRoute } from '@angular/router';
 
 import { ODIS0010OrderDetail } from '../../entities/odis0010-Form.entity';
 
@@ -39,8 +40,10 @@ export class OrderDetailApprovalTable implements OnChanges {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
+    private OrderDetailApprovalComponent: OrderDetailApprovalComponent,
     private router: Router,
-   ) {  }
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnChanges( ) {
 
@@ -56,8 +59,12 @@ export class OrderDetailApprovalTable implements OnChanges {
   /**　ページに移動する */
   switchPage(data: ODIS0010OrderDetail){
 
-    this.router.navigate([Const.UrlSetting.U0002]);
-
+    this.router.navigate(['OrderDetailInput'])
+    .then(() => {
+    window.location.reload();
+    });
+    
   }
+
 }
 

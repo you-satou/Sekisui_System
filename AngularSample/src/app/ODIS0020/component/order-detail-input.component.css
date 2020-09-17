@@ -93,8 +93,8 @@
 
 .orderInfo2Table2 {
     position: relative ;
-    height: 80px ;
-    max-height: 80px ;
+    height: 90px ;
+    max-height: 90px ;
     width: auto;
 }
 
@@ -126,7 +126,7 @@
     overflow-y: auto;
     height: 161px;
     float: left;
-    margin-left: 30px;
+    margin-left: 20px;
     width: fit-content;
 }
 
