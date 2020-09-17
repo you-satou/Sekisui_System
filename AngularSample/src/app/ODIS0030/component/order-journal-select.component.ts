@@ -34,9 +34,6 @@ export class OrderJournalSelectComponent implements OnInit {
   //エラーメッセージ
   errormsg:string ="";
 
-  // JSONファイル
-  _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
-
   /**
    * コンストラクタ
    *
@@ -74,7 +71,7 @@ export class OrderJournalSelectComponent implements OnInit {
   public onSelHighLight($event, selectedItem){
     
     this.resVal = selectedItem;
-
+    // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
   }
 
@@ -97,22 +94,12 @@ export class OrderJournalSelectComponent implements OnInit {
     else{
       this.modalService.requestChooseVal(this.resVal);
     }
-    
   }
 
   /**
   * JSONファイルをdatasに格納
   */
   getOrderInputData(){
-
-    // this.orderService.getSingleData(this._journalSelect)
-    // .subscribe(
-    //   data => {
-    //     if (data !== undefined) {
-    //       this.datas = data;
-    //   }
-    // });
-
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '701000';
