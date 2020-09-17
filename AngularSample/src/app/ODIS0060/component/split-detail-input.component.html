@@ -1,12 +1,11 @@
 <div>
     <div>
         <mat-tab-group style="float: left; width: 100%">
-            <mat-tab class="hontai" label="本体">
+            <mat-tab class="hontai" label = "{{tabName}}">
                 <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
                 <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
-
                     <table mat-table [dataSource]="bunkatsuData"
-                        class="split-shiwake-table table-hover table-stripped" id="bunkatsuTable">
+                        class="split-shiwake-table table-hover table-stripped table table-bordered table-sm" id="bunkatsuTable">
 
                         <ng-container matColumnDef="index">
                             <th style="width: 1%; padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
@@ -152,7 +151,7 @@
     </div>
 
     <div class="add-div" style="margin: 20px 0 30px 0;">
-        <table class="add-table">
+        <table class="add-table table table-bordered table-sm">
             <tr>
                 <th class="color-input-1" style="width: 25%;" rowspan="2">発注予定金額</th>
                 <th class="color-input-1" style="width: 25%;" rowspan="2">コメント</th>

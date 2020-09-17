@@ -1,3 +1,5 @@
+import { element } from 'protractor';
+import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
@@ -9,7 +11,7 @@ import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
-import { ODIS0020OrderDetailList } from '../entities/odis0020-OrderDetailList.entity'
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
@@ -47,9 +49,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
 
   // 明細テーブルにデータを渡す引数
-  tblSekki: ODIS0020OrderDetailList[];
-  tblHontai: ODIS0020OrderDetailList[];
-  tblTsuika: ODIS0020OrderDetailList[];
+  tblSekki: ODIS0020OrderShiwake[] = [];
+  tblHontai: ODIS0020OrderShiwake[] = [];
+  tblTsuika: ODIS0020OrderShiwake[] = [];
 
   // mocking data url
   // _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
@@ -63,7 +65,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // 明細追加専用クラス
   addInput = new ODIS0020AddOrderDetail();
   rowStatus = new TableStatus();
-  
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -85,7 +87,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
 
-        if(!(this.OrderJournalSelectService.getVal() == undefined)){
+        if (!(this.OrderJournalSelectService.getVal() == undefined)) {
           this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
           this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
           this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
@@ -98,7 +100,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
 
-        if(!(this.OrderSupplierSelectService.getVal() == undefined)){
+        if (!(this.OrderSupplierSelectService.getVal() == undefined)) {
           this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
           this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
@@ -110,34 +112,34 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
       () => {
 
-        if(!(this.SupplierPatternService.getVal() == undefined)){
+        if (!(this.SupplierPatternService.getVal() == undefined)) {
 
           let returnValues = this.SupplierPatternService.getVal();
           returnValues.forEach(element => {
-            
-            let temp: ODIS0020OrderDetailList ={
+
+            let temp: ODIS0020OrderShiwake = {
+              tabIndex: this.selectedTab,
+              id: element.journalCode,
               journalCode: element.journalCode,
               accountCode: element.accountingCategory,
               journalName: element.journalName,
               orderSuplierCode: element.supplierCode,
               orderSuplierName: element.supplierName,
               orderPlanAmount: '',
-              splitData:[{
-                comment: '',
-                orderSplitAmount: '',
-                requestDate: '',
-                requester: '',
-                approvalDate_lv1: '',
-                approvalPerson_lv1: '',
-                approvalDate_lv2: '',
-                approvalPerson_lv2: '',
-                orderDate: '',
-                orderAmount: '',
-                recievedDate: '',
-                recievedAmount: '',
-                paymentDate: '',
-                paymentAmount: '',
-              }]
+              comment: '',
+              orderSplitAmount: '',
+              requestDate: '',
+              requester: '',
+              approvalDate_lv1: '',
+              approvalPerson_lv1: '',
+              approvalDate_lv2: '',
+              approvalPerson_lv2: '',
+              orderDate: '',
+              orderAmount: '',
+              recievedDate: '',
+              recievedAmount: '',
+              paymentDate: '',
+              paymentAmount: '',
 
             }
             this.insertToDataTable(temp);
@@ -150,6 +152,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * データを取得
+   */
   getOrderInputData() {
     this.orderService.getSingleData(this._urlOrderInput2)
       .subscribe(
@@ -159,13 +164,161 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.orderInformation = this.pageTotalInfo.ContractInfo;
             this.tblMainOrder = this.pageTotalInfo.MainOrderInfo;
             this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
-            this.tblSekki = this.pageTotalInfo.SekkeiData;
-            this.tblHontai = this.pageTotalInfo.HontaiData;
-            this.tblTsuika = this.pageTotalInfo.TsuikaData;
+
+            this.tblSekki = this.divideData(this.pageTotalInfo.SekkeiData, this.tab1);
+            this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tab2);
+            this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tab3);
+
+            // this.setTableButtonDisplay(this.tblSekki,this.tab1);
+            // this.setTableButtonDisplay(this.tblHontai,this.tab2);
+            // this.setTableButtonDisplay(this.tblTsuika,this.tab3);
 
           }
         }
       );
+  }
+
+  /**
+   * 重複しているデータを余白にさせる。
+   * @param dt 
+   */
+  divideData(dt: ODIS0020OrderDetailList[], tabName: string): ODIS0020OrderShiwake[] {
+    let data: ODIS0020OrderShiwake[] = [];
+
+    dt.forEach(element => {
+      // 分割データを取得
+      let splitdt: ODIS0020OrderSplitSub[] = element.splitData;
+
+      if (splitdt.length > 0) {
+
+        for (let i = 0; i < splitdt.length; i++) {
+          let tmp = new ODIS0020OrderShiwake();
+          const sdt = splitdt[i];
+          //データをある場合、設定する
+          if (i === 0) {
+            tmp.tabIndex = tabName;
+            tmp.id = element.journalCode;
+            tmp.journalCode = element.journalCode;
+            tmp.accountCode = element.accountCode;
+            tmp.journalName = element.journalName;
+            tmp.orderSuplierCode = element.orderSuplierCode;
+            tmp.orderSuplierName = element.orderSuplierName;
+            tmp.orderPlanAmount = element.orderPlanAmount;
+            tmp.comment = sdt.comment;
+            tmp.orderSplitAmount = sdt.orderSplitAmount;
+            tmp.requestDate = sdt.requestDate;
+            tmp.requester = sdt.requester;
+            tmp.approvalDate_lv1 = sdt.approvalDate_lv1;
+            tmp.approvalPerson_lv1 = sdt.approvalPerson_lv1;
+            tmp.approvalDate_lv2 = sdt.approvalDate_lv2;
+            tmp.approvalPerson_lv2 = sdt.approvalPerson_lv2;
+            tmp.orderDate = sdt.orderDate;
+            tmp.orderAmount = sdt.orderAmount;
+            tmp.recievedDate = sdt.recievedDate;
+            tmp.recievedAmount = sdt.recievedAmount;
+            tmp.paymentDate = sdt.paymentDate;
+            tmp.paymentAmount = sdt.paymentAmount;
+
+          }
+          else {
+            //　一番以降仕訳データを余白にする
+            tmp.tabIndex = tabName;
+            tmp.id = element.journalCode;
+            tmp.journalCode = '';
+            tmp.accountCode = '';
+            tmp.journalName = '';
+            tmp.orderSuplierCode = '';
+            tmp.orderSuplierName = '';
+            tmp.orderPlanAmount = '';
+            tmp.comment = sdt.comment;
+            tmp.orderSplitAmount = sdt.orderSplitAmount;
+            tmp.requestDate = sdt.requestDate;
+            tmp.requester = sdt.requester;
+            tmp.approvalDate_lv1 = sdt.approvalDate_lv1;
+            tmp.approvalPerson_lv1 = sdt.approvalPerson_lv1;
+            tmp.approvalDate_lv2 = sdt.approvalDate_lv2;
+            tmp.approvalPerson_lv2 = sdt.approvalPerson_lv2;
+            tmp.orderDate = sdt.orderDate;
+            tmp.orderAmount = sdt.orderAmount;
+            tmp.recievedDate = sdt.recievedDate;
+            tmp.recievedAmount = sdt.recievedAmount;
+            tmp.paymentDate = sdt.paymentDate;
+            tmp.paymentAmount = sdt.paymentAmount;
+
+          }
+
+          data.push(tmp);
+        }
+      }
+      else {
+
+        let tmp = new ODIS0020OrderShiwake();
+        tmp.tabIndex = tabName;
+        tmp.id = element.journalCode;
+        tmp.journalCode = element.journalCode;
+        tmp.accountCode = element.accountCode;
+        tmp.journalName = element.journalName;
+        tmp.orderSuplierCode = element.orderSuplierCode;
+        tmp.orderSuplierName = element.orderSuplierName;
+        tmp.orderPlanAmount = element.orderPlanAmount;
+        tmp.comment = '';
+        tmp.orderSplitAmount = '';
+        tmp.requestDate = '';
+        tmp.requester = '';
+        tmp.approvalDate_lv1 = '';
+        tmp.approvalPerson_lv1 = '';
+        tmp.approvalDate_lv2 = '';
+        tmp.approvalPerson_lv2 = '';
+        tmp.orderDate = '';
+        tmp.orderAmount = '';
+        tmp.recievedDate = '';
+        tmp.recievedAmount = '';
+        tmp.paymentDate = '';
+        tmp.paymentAmount = '';
+
+        data.push(tmp);
+      }
+
+    });
+
+    return data;
+
+  }
+
+  setTableButtonDisplay(dt: ODIS0020OrderShiwake[], tabName:string){
+
+    dt.forEach(element =>{
+
+      let ind = dt.indexOf(element);
+      if(element.requester != '' ||
+        element.requester != null){
+
+          let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+          console.log(skBody);
+
+          for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+
+            let tr = skBody.rows[ind];
+            var btn = tr.cells[11];
+            console.log(btn);
+
+            // for(var cIndex =10; cIndex < tr.cells.lenght)
+
+            // if (rIndex == newIndex) {
+            //   var tr = body.rows[rIndex];
+            //   for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+            //     var td = tr.cells[cIndex];
+            //     td.style.color = this.getColor(action);
+            //   }
+            // }
+          }
+
+
+      }
+
+
+    });
+
   }
 
   /**
@@ -174,7 +327,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
 
-  orderJournalSelect($event,selectVal) {
+  orderJournalSelect($event, selectVal) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
@@ -186,7 +339,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @memberof AppComponent
   */
 
-  orderSupplierSelect($event,selectVal) {
+  orderSupplierSelect($event, selectVal) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
@@ -218,29 +371,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (this.addInput.isBlank) {
       return;
     }
-    let temp: ODIS0020OrderDetailList = {
+    let temp: ODIS0020OrderShiwake = {
+      tabIndex: this.selectedTab,
+      id: this.addInput.journalCode,
       journalCode: this.addInput.journalCode,
       accountCode: this.addInput.accountCode,
       journalName: this.addInput.journalName,
       orderSuplierCode: this.addInput.orderSuplierCode,
       orderSuplierName: this.addInput.orderSuplierName,
       orderPlanAmount: this.addInput.orderPlanAmount,
-      splitData:[{
-        comment: '',
-        orderSplitAmount: '',
-        requestDate: '',
-        requester: '',
-        approvalDate_lv1: '',
-        approvalPerson_lv1: '',
-        approvalDate_lv2: '',
-        approvalPerson_lv2: '',
-        orderDate: '',
-        orderAmount: '',
-        recievedDate: '',
-        recievedAmount: '',
-        paymentDate: '',
-        paymentAmount: '',
-      }]
+      comment: '',
+      orderSplitAmount: '',
+      requestDate: '',
+      requester: '',
+      approvalDate_lv1: '',
+      approvalPerson_lv1: '',
+      approvalDate_lv2: '',
+      approvalPerson_lv2: '',
+      orderDate: '',
+      orderAmount: '',
+      recievedDate: '',
+      recievedAmount: '',
+      paymentDate: '',
+      paymentAmount: '',
     }
 
     this.insertToDataTable(temp);
@@ -248,37 +401,41 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /** テーブルに明細を追加る */
-  insertToDataTable(temp: ODIS0020OrderDetailList){
+  insertToDataTable(temp: ODIS0020OrderShiwake) {
+    var insertIndex: number = 0;
+
     switch (this.selectedTab) {
       case this.tab1:
-        this.childSekkei.orderData.push(temp);
+        insertIndex = this.childSekkei.orderData.length -3; // 一番下に肯定している３行を除く
+
+        this.childSekkei.orderData.splice(insertIndex,0,temp);
         this.childSekkei.tableShiwake.renderRows();
 
-        let skIndex = this.childSekkei.orderData.length - 1;
-        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0001, skBody, skIndex);
+        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+        this.setNewRowHighLight(Const.Action.A0001, skBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
 
       case this.tab2:
-        this.childHontai.orderData.push(temp);
+        insertIndex = this.childHontai.orderData.length -3; // 一番下に肯定している３行を除く
+
+        this.childHontai.orderData.splice(insertIndex,0,temp);
         this.childHontai.tableShiwake.renderRows();
 
-        let hntIndex = this.childHontai.orderData.length - 1;
-        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0001, hntBody, hntIndex);
+        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
+        this.setNewRowHighLight(Const.Action.A0001, hntBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
 
       case this.tab3:
-        this.childTsuika.orderData.push(temp);
+        insertIndex = this.childTsuika.orderData.length -3; // 一番下に肯定している３行を除く
+        this.childTsuika.orderData.splice(insertIndex,0,temp);
         this.childTsuika.tableShiwake.renderRows();
 
-        let tskIndex = this.childTsuika.orderData.length - 1;
-        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, tskIndex);
+        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
+        this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
@@ -321,7 +478,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
         let hontaiBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
         this.setNewRowHighLight(Const.Action.A0002, hontaiBody, i);
-        
+
         this.childHontai.tableShiwake.renderRows();
         this.addInput.Clear();
         break;
@@ -498,7 +655,9 @@ export class DataEmitter {
   id: number;
   action: string;
   selected: boolean;
-  data: ODIS0020OrderDetailList;
+  // data: ODIS0020OrderDetailList;
+
+  data: ODIS0020OrderShiwake;
 
   constructor() { }
 }
