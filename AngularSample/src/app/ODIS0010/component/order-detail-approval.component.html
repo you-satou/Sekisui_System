@@ -37,17 +37,17 @@
                 <p class="radioCheckbok"><input [(ngModel)]="inputment.detailCreated" type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
             </div>
         </div>
-        <div id = "btnSearch" class="input-group row" style="background-color: antiquewhite; height: 30px;">
-            <div class="input-group-prepend " style="background-color: antiquewhite;">
+        <div id = "btnSearch" class="input-group row" style="height: 30px;">
+            <div class="input-group-prepend ">
                 <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
             </div>
             <div style="width: 50px;"></div>
-            <div class="input-group-append" style="background-color: antiquewhite;">
+            <div class="input-group-append">
                 <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" id="" autocomplete="off">承認１</p>
                 <div style="width: 20px; "></div>
                 <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
             </div>
-            <div [style.width.px]="pixel" style="display: inline-block; background-color: aquamarine;">
+            <div [style.width.px]="pixel">
                 <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" (click)="getSearchRequest()">検索</button>
             </div>
         </div>
