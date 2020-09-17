@@ -95,7 +95,7 @@ tr.mat-footer-row {
 }
 
 .bottomButton {
-    position: absolute;
+    position: relative;
     margin-right: 20px;
 }
 
