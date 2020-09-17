@@ -37,7 +37,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     'shounin_1',
     'shounin_2',
     'order',
-    'recieved',
+    'received',
     'payment',
   ]
 
@@ -54,8 +54,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
     'approvalPerson_lv2',
     'orderDate',
     'orderAmount',
-    'recievedDate',
-    'recievedAmount',
+    'receivedDate',
+    'receivedAmount',
     'paymentDate',
     'paymentAmount',
   ];
@@ -166,8 +166,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
         approvalPerson_lv2: "",
         orderDate: "",
         orderAmount: "",
-        recievedDate: "",
-        recievedAmount: "",
+        receivedDate: "",
+        receivedAmount: "",
         paymentDate: "",
         paymentAmount: "",
       }

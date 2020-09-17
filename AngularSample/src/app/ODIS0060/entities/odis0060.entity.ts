@@ -5,8 +5,8 @@ export class SplitOrderDetailShiwake{
     journalCode: string;
     accountCode: string;
     journalName: string;
-    orderSuplierCode: string;
-    orderSuplierName: string;
+    orderSupplierCode: string;
+    orderSupplierName: string;
     orderPlanAmount: string;
     constructor() { }
 
@@ -26,8 +26,8 @@ export class SplitOrderDetailSplit {
     approvalPerson_lv2: string;
     orderDate: string;
     orderAmount: string;
-    recievedDate: string;
-    recievedAmount: string;
+    receivedDate: string;
+    receivedAmount: string;
     paymentDate: string;
     paymentAmount: string;
 

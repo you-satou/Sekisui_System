@@ -13,10 +13,10 @@ export class ODIS0020AddOrderDetail {
     journalName: string;
 
     /** 発注先 コード */
-    orderSuplierCode: string;
+    orderSupplierCode: string;
 
     /** 発注先名 */
-    orderSuplierName: string;
+    orderSupplierName: string;
 
     /** 発注予定金額 */
     orderPlanAmount: string;
@@ -25,15 +25,13 @@ export class ODIS0020AddOrderDetail {
         if(this.journalCode != '' ||
         this.accountCode != '' ||
         this.journalName != '' ||
-        this.orderSuplierCode != '' ||
-        this.orderSuplierName != '' ||
+        this.orderSupplierCode != '' ||
+        this.orderSupplierName != '' ||
         this.orderPlanAmount != ''
         ){
             return false;
         }
         return true;
-        
-        
     } 
     constructor() {}
 
@@ -42,8 +40,8 @@ export class ODIS0020AddOrderDetail {
         this.journalCode = '';
         this.accountCode = '';
         this.journalName = '';
-        this.orderSuplierCode = '';
-        this.orderSuplierName = '';
+        this.orderSupplierCode = '';
+        this.orderSupplierName = '';
         this.orderPlanAmount = '';
     }
 

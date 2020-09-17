@@ -13,7 +13,7 @@ import { OrderSupplierSelectService } from '../../ODIS0040/services/order-suppli
 import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
-import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInfomation.entity'
+import { ODIS0020OrderDetailInputInformation } from '../entities/odis002-OrderInformation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { Odis0020Service } from '../services/odis0020-service';
@@ -101,8 +101,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       () => {
 
         if (!(this.OrderSupplierSelectService.getVal() == undefined)) {
-          this.addInput.orderSuplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
-          this.addInput.orderSuplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+          this.addInput.orderSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
+          this.addInput.orderSupplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
 
         this.modal = null;
@@ -123,8 +123,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               journalCode: element.journalCode,
               accountCode: element.accountingCategory,
               journalName: element.journalName,
-              orderSuplierCode: element.supplierCode,
-              orderSuplierName: element.supplierName,
+              orderSupplierCode: element.supplierCode,
+              orderSupplierName: element.supplierName,
               orderPlanAmount: '',
               comment: '',
               orderSplitAmount: '',
@@ -136,8 +136,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               approvalPerson_lv2: '',
               orderDate: '',
               orderAmount: '',
-              recievedDate: '',
-              recievedAmount: '',
+              receivedDate: '',
+              receivedAmount: '',
               paymentDate: '',
               paymentAmount: '',
 
@@ -204,8 +204,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             tmp.journalCode = element.journalCode;
             tmp.accountCode = element.accountCode;
             tmp.journalName = element.journalName;
-            tmp.orderSuplierCode = element.orderSuplierCode;
-            tmp.orderSuplierName = element.orderSuplierName;
+            tmp.orderSupplierCode = element.orderSupplierCode;
+            tmp.orderSupplierName = element.orderSupplierName;
             tmp.orderPlanAmount = element.orderPlanAmount;
             tmp.comment = sdt.comment;
             tmp.orderSplitAmount = sdt.orderSplitAmount;
@@ -217,8 +217,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             tmp.approvalPerson_lv2 = sdt.approvalPerson_lv2;
             tmp.orderDate = sdt.orderDate;
             tmp.orderAmount = sdt.orderAmount;
-            tmp.recievedDate = sdt.recievedDate;
-            tmp.recievedAmount = sdt.recievedAmount;
+            tmp.receivedDate = sdt.receivedDate;
+            tmp.receivedAmount = sdt.receivedAmount;
             tmp.paymentDate = sdt.paymentDate;
             tmp.paymentAmount = sdt.paymentAmount;
 
@@ -230,8 +230,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             tmp.journalCode = '';
             tmp.accountCode = '';
             tmp.journalName = '';
-            tmp.orderSuplierCode = '';
-            tmp.orderSuplierName = '';
+            tmp.orderSupplierCode = '';
+            tmp.orderSupplierName = '';
             tmp.orderPlanAmount = '';
             tmp.comment = sdt.comment;
             tmp.orderSplitAmount = sdt.orderSplitAmount;
@@ -243,8 +243,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             tmp.approvalPerson_lv2 = sdt.approvalPerson_lv2;
             tmp.orderDate = sdt.orderDate;
             tmp.orderAmount = sdt.orderAmount;
-            tmp.recievedDate = sdt.recievedDate;
-            tmp.recievedAmount = sdt.recievedAmount;
+            tmp.receivedDate = sdt.receivedDate;
+            tmp.receivedAmount = sdt.receivedAmount;
             tmp.paymentDate = sdt.paymentDate;
             tmp.paymentAmount = sdt.paymentAmount;
 
@@ -261,8 +261,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         tmp.journalCode = element.journalCode;
         tmp.accountCode = element.accountCode;
         tmp.journalName = element.journalName;
-        tmp.orderSuplierCode = element.orderSuplierCode;
-        tmp.orderSuplierName = element.orderSuplierName;
+        tmp.orderSupplierCode = element.orderSupplierCode;
+        tmp.orderSupplierName = element.orderSupplierName;
         tmp.orderPlanAmount = element.orderPlanAmount;
         tmp.comment = '';
         tmp.orderSplitAmount = '';
@@ -274,8 +274,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         tmp.approvalPerson_lv2 = '';
         tmp.orderDate = '';
         tmp.orderAmount = '';
-        tmp.recievedDate = '';
-        tmp.recievedAmount = '';
+        tmp.receivedDate = '';
+        tmp.receivedAmount = '';
         tmp.paymentDate = '';
         tmp.paymentAmount = '';
 
@@ -305,7 +305,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             var btn = tr.cells[11];
             console.log(btn);
 
-            // for(var cIndex =10; cIndex < tr.cells.lenght)
+            // for(var cIndex =10; cIndex < tr.cells.length)
 
             // if (rIndex == newIndex) {
             //   var tr = body.rows[rIndex];
@@ -380,8 +380,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       journalCode: this.addInput.journalCode,
       accountCode: this.addInput.accountCode,
       journalName: this.addInput.journalName,
-      orderSuplierCode: this.addInput.orderSuplierCode,
-      orderSuplierName: this.addInput.orderSuplierName,
+      orderSupplierCode: this.addInput.orderSupplierCode,
+      orderSupplierName: this.addInput.orderSupplierName,
       orderPlanAmount: this.addInput.orderPlanAmount,
       comment: '',
       orderSplitAmount: '',
@@ -393,8 +393,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       approvalPerson_lv2: '',
       orderDate: '',
       orderAmount: '',
-      recievedDate: '',
-      recievedAmount: '',
+      receivedDate: '',
+      receivedAmount: '',
       paymentDate: '',
       paymentAmount: '',
     }
@@ -461,8 +461,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData[i].journalCode = this.addInput.journalCode;
         this.childSekkei.orderData[i].accountCode = this.addInput.accountCode;
         this.childSekkei.orderData[i].journalName = this.addInput.journalName;
-        this.childSekkei.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
-        this.childSekkei.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childSekkei.orderData[i].orderSupplierCode = this.addInput.orderSupplierCode;
+        this.childSekkei.orderData[i].orderSupplierName = this.addInput.orderSupplierName;
         this.childSekkei.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let sekkeiBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
@@ -475,8 +475,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData[i].journalCode = this.addInput.journalCode;
         this.childHontai.orderData[i].accountCode = this.addInput.accountCode;
         this.childHontai.orderData[i].journalName = this.addInput.journalName;
-        this.childHontai.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
-        this.childHontai.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childHontai.orderData[i].orderSupplierCode = this.addInput.orderSupplierCode;
+        this.childHontai.orderData[i].orderSupplierName = this.addInput.orderSupplierName;
         this.childHontai.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let hontaiBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
@@ -489,8 +489,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData[i].journalCode = this.addInput.journalCode;
         this.childTsuika.orderData[i].accountCode = this.addInput.accountCode;
         this.childTsuika.orderData[i].journalName = this.addInput.journalName;
-        this.childTsuika.orderData[i].orderSuplierCode = this.addInput.orderSuplierCode;
-        this.childTsuika.orderData[i].orderSuplierName = this.addInput.orderSuplierName;
+        this.childTsuika.orderData[i].orderSupplierCode = this.addInput.orderSupplierCode;
+        this.childTsuika.orderData[i].orderSupplierName = this.addInput.orderSupplierName;
         this.childTsuika.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
@@ -635,8 +635,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.accountCode = emitterData.data.accountCode;
     this.addInput.journalCode = emitterData.data.journalCode;
     this.addInput.journalName = emitterData.data.journalName;
-    this.addInput.orderSuplierCode = emitterData.data.orderSuplierCode;
-    this.addInput.orderSuplierName = emitterData.data.orderSuplierName;
+    this.addInput.orderSupplierCode = emitterData.data.orderSupplierCode;
+    this.addInput.orderSupplierName = emitterData.data.orderSupplierName;
     this.addInput.orderPlanAmount = emitterData.data.orderPlanAmount;
 
   }

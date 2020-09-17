@@ -80,8 +80,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     "approvalPerson_lv2",
     "orderSupplierDate",
     "orderSupplierAmount",
-    "recievedDate",
-    "recievedAmount",
+    "receivedDate",
+    "receivedAmount",
     "paymentDate",
     "paymentAmount",
   ];
@@ -151,15 +151,15 @@ export class OrderDetailShiwakeTable implements OnInit {
   /**
    *  受入金額の合計
    */
-  getRecievedAmount() {
+  getReceivedAmount() {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
           if (
-            t.recievedAmount != null ||
-            t.recievedAmount != ""
+            t.receivedAmount != null ||
+            t.receivedAmount != ""
           ) {
-            return Number(t.recievedAmount);
+            return Number(t.receivedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -174,10 +174,10 @@ export class OrderDetailShiwakeTable implements OnInit {
       return this.orderData
         .map((t) => {
           if (
-            t.recievedAmount != null ||
-            t.recievedAmount != ""
+            t.receivedAmount != null ||
+            t.receivedAmount != ""
           ) {
-            return Number(t.recievedAmount);
+            return Number(t.receivedAmount);
           }
         })
         .reduce((acc, value) => acc + value, 0);
@@ -190,7 +190,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   getDisplayData($event, data: ODIS0020OrderShiwake) {
     let rowIndx = this.orderData.indexOf(data);
-    this.setRowHightlight(rowIndx);
+    this.setRowHighlight(rowIndx);
 
     if (data.orderPlanAmount == '' ||
       data.orderPlanAmount == null ||
@@ -206,7 +206,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 反映ボタンを押下する時行の背景色を変える。
    * @param event
    */
-  setRowHightlight(rowIndex: number) {
+  setRowHighlight(rowIndex: number) {
     var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
     for (var i = 0; i < wTbody.rows.length; i++) {
 
@@ -236,27 +236,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     try {
       var shiwakeDt: SplitOrderDetailShiwake[] = [];
       let splitDt: SplitOrderDetailSplit[] = [];
-
-      // this.orderData.forEach(odrDt => {
-
-      //   if(odrDt.id === selectedItem.id ){
-
-      //     let tmp1 = new SplitOrderDetailShiwake();
-
-      //     tmp1.tabIndex = selectedItem.tabIndex;
-      //     tmp1.id = selectedItem.id;
-      //     tmp1.journalCode = selectedItem.journalCode;
-      //     tmp1.accountCode = selectedItem.accountCode;
-      //     tmp1.journalName = selectedItem.journalName;
-      //     tmp1.orderSuplierCode = selectedItem.orderSuplierCode;
-      //     tmp1.orderSuplierName = selectedItem.orderSuplierName;
-      //     tmp1.orderPlanAmount = selectedItem.orderPlanAmount;
-
-      //     temp1.push(tmp1);
-
-      //   }
-      // });
-
       let cnt: number = 0;
       for (const odrDt of this.orderData) {
         if (odrDt.id === selectedItem.id && cnt === 0) {
@@ -267,8 +246,8 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.journalCode = odrDt.journalCode;
           tmp.accountCode = odrDt.accountCode;
           tmp.journalName = odrDt.journalName;
-          tmp.orderSuplierCode = odrDt.orderSuplierCode;
-          tmp.orderSuplierName = odrDt.orderSuplierName;
+          tmp.orderSupplierCode = odrDt.orderSupplierCode;
+          tmp.orderSupplierName = odrDt.orderSupplierName;
           tmp.orderPlanAmount = odrDt.orderPlanAmount;
 
           shiwakeDt.push(tmp);
@@ -292,8 +271,8 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.approvalPerson_lv2 = dt.approvalPerson_lv2;
           tmp.orderDate = dt.orderDate;
           tmp.orderAmount = dt.orderAmount;
-          tmp.recievedDate = dt.recievedDate;
-          tmp.recievedAmount = dt.recievedAmount;
+          tmp.receivedDate = dt.receivedDate;
+          tmp.receivedAmount = dt.receivedAmount;
           tmp.paymentDate = dt.paymentDate;
           tmp.paymentAmount = dt.paymentAmount;
 
@@ -333,10 +312,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param event 
    * @param dt 
    */
-  setResquest(event: any, dt: ODIS0020OrderShiwake) {
+  setRequest(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
 
-    this.setRowHightlight(rowIndex);
+    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -376,9 +355,9 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param event 
    * @param dt 
    */
-  setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake) {
+  setApprovalFirstLevel(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
-    this.setRowHightlight(rowIndex);
+    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -418,9 +397,9 @@ export class OrderDetailShiwakeTable implements OnInit {
  * @param event 
  * @param dt 
  */
-  setApprovaNextLevel(event: any, dt: ODIS0020OrderShiwake) {
+  setApprovalNextLevel(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
-    this.setRowHightlight(rowIndex);
+    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -452,70 +431,62 @@ export class OrderDetailShiwakeTable implements OnInit {
 
     console.log(this.orderData)
 
-    this.setTableButtonDisplay(this.orderData);
+    // this.setTableButtonDisplay(this.orderData);
   }
 
-  setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
+  // setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
 
-    dt.forEach(element => {
+  //   dt.forEach(element => {
 
-      let ind = dt.indexOf(element);
-      if (element.requester != '' ||
-        element.requester != null) {
+  //     let ind = dt.indexOf(element);
+  //     if (element.requester != '' ||
+  //       element.requester != null) {
 
-        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
 
-        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
 
-          let tr = skBody.rows[ind];
-          let btn: HTMLButtonElement;
-          btn = tr.cells[11].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
-          btn[0].style.display = 'none';
-        };
+  //         let tr = skBody.rows[ind];
+  //         let btn: HTMLButtonElement;
+  //         btn = tr.cells[11].getElementsByTagName('button');
+  //         btn[0].setAttribute('disabled', 'disabled');
+  //         btn[0].style.display = 'none';
+  //       };
 
-      }
-      if (element.approvalPerson_lv1 != '' ||
-        element.approvalPerson_lv1 != null ||
-        element.approvalPerson_lv1 != undefined) {
+  //     }
+  //     if (element.approvalPerson_lv1 != '' ||
+  //       element.approvalPerson_lv1 != null ||
+  //       element.approvalPerson_lv1 != undefined) {
 
-        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
 
-        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
 
-          let tr = skBody.rows[ind];
-          let btn: HTMLButtonElement;
-          btn = tr.cells[13].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
-          btn[0].style.display = 'none';
-        };
+  //         let tr = skBody.rows[ind];
+  //         let btn: HTMLButtonElement;
+  //         btn = tr.cells[13].getElementsByTagName('button');
+  //         btn[0].setAttribute('disabled', 'disabled');
+  //         btn[0].style.display = 'none';
+  //       };
 
-      }
-      if (element.approvalPerson_lv2 != '' ||
-        element.approvalPerson_lv2 != null ||
-        element.approvalPerson_lv2 != undefined) {
+  //     }
+  //     if (element.approvalPerson_lv2 != '' ||
+  //       element.approvalPerson_lv2 != null ||
+  //       element.approvalPerson_lv2 != undefined) {
 
-        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
 
-        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
 
-          let tr = skBody.rows[ind];
-          let btn: HTMLButtonElement;
-          btn = tr.cells[15].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
-          btn[0].style.display = 'none';
-        };
+  //         let tr = skBody.rows[ind];
+  //         let btn: HTMLButtonElement;
+  //         btn = tr.cells[15].getElementsByTagName('button');
+  //         btn[0].setAttribute('disabled', 'disabled');
+  //         btn[0].style.display = 'none';
+  //       };
+  //     }
+  //   });
 
-      }
-
-
-    });
-
-  }
-
-
-
-
-
+  // }
 
 }

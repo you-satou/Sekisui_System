@@ -12,57 +12,14 @@ export interface ODIS0020OrderDetailList {
   journalName: string;
 
   /** 発注先 コード */
-  orderSuplierCode: string;
+  orderSupplierCode: string;
 
   /** 発注先名 */
-  orderSuplierName: string;
+  orderSupplierName: string;
 
   /** 発注予定金額 */
   orderPlanAmount: string;
 
-  // /** コメント */
-  // comment: string;
-
-  // /** 発注予定分割金額 */
-  // orderSplitAmount: string;
-
-  // /** 依頼日 */
-  // requestDate: string;
-
-  // /** 依頼者 */
-  // requester: string;
-
-  // /** 承認日 一回目 */
-  // approvalDate_lv1: string;
-
-  // /** 承認者 一回目 */
-  // approvalPerson_lv1: string;
-
-  // /** 承認日 ニ回目 */
-  // approvalDate_lv2: string;
-
-  // /** 承認者 ニ回目*/
-  // approvalPerson_lv2: string;
-
-  // /** 発注年月日 */
-  // orderDate: string;
-
-  // /** 発注金額 */
-  // orderAmount: string;
-
-  // /** 受入年月日 */
-  // recievedDate: string;
-
-  // /** 受入金額 */
-  // recievedAmount: string;
-
-  // /** 支払年月日 */
-  // paymentDate: string;
-
-  // /** 支払金額 */
-  // paymentAmount: string;
-
-  /**  */
   splitData: ODIS0020OrderSplitSub[]
 }
 
@@ -98,10 +55,10 @@ export interface ODIS0020OrderSplitSub {
   orderAmount: string;
 
   /** 受入年月日 */
-  recievedDate: string;
+  receivedDate: string;
 
   /** 受入金額 */
-  recievedAmount: string;
+  receivedAmount: string;
 
   /** 支払年月日 */
   paymentDate: string;
@@ -127,10 +84,10 @@ export class ODIS0020OrderShiwake {
   journalName: string;
 
   /** 発注先 コード */
-  orderSuplierCode: string;
+  orderSupplierCode: string;
 
   /** 発注先名 */
-  orderSuplierName: string;
+  orderSupplierName: string;
 
   /** 発注予定金額 */
   orderPlanAmount: string;
@@ -166,10 +123,10 @@ export class ODIS0020OrderShiwake {
   orderAmount: string;
 
   /** 受入年月日 */
-  recievedDate: string;
+  receivedDate: string;
 
   /** 受入金額 */
-  recievedAmount: string;
+  receivedAmount: string;
 
   /** 支払年月日 */
   paymentDate: string;

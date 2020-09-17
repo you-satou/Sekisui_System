@@ -135,7 +135,7 @@
             <th style="width: 100px; " class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
                 {{element.requester}}
-                <button id="btnIrai" (click) = "setResquest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
+                <button id="btnIrai" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -150,7 +150,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
                 {{element.approvalPerson_lv1}}
-                <button id="btnShounin1" disabled (click) = "setApprovaFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin1" disabled (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -165,7 +165,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
                 {{element.approvalPerson_lv2}}
-                <button id="btnShounin2" disabled (click) = "setApprovaNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin2" disabled (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -182,16 +182,16 @@
             <td mat-footer-cell *matFooterCellDef>{{getOrderAmount()|number}}</td>
         </ng-container>
         <!--受入日-->
-        <ng-container matColumnDef="recievedDate">
+        <ng-container matColumnDef="receivedDate">
             <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">{{element.recievedDate}}</td>
             <td mat-footer-cell *matFooterCellDef class="goukie">合計</td>
         </ng-container>
         <!--受け入れ金額-->
-        <ng-container matColumnDef="recievedAmount">
+        <ng-container matColumnDef="receivedAmount">
             <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">{{element.recievedAmount}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{getRecievedAmount()|number}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{getReceivedAmount()|number}}</td>
         </ng-container>
         <!--支払日-->
         <ng-container matColumnDef="paymentDate">
