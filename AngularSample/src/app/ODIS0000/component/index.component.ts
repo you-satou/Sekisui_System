@@ -27,4 +27,7 @@ export class IndexComponent implements OnInit{
       this.appComponent.setHeader(Const.ScreenName.S0000);
   }
 
+  public setfrmUrl(){
+    this.indexService.setVal(Const.UrlSetting.U0000.toString());
+  }
 }
