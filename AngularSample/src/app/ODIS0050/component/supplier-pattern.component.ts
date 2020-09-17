@@ -5,7 +5,7 @@ import { SupplierPatternList } from'.././entities/odis0050-SuppierPattern.entity
 import { SupplierList } from '.././entities/odis0050-SupplierList.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
-import { ODIS0050SupplierPatternTotalInfo } from'.././entities/odis0050-Form.entity';
+import { ODIS0050Form } from'.././entities/odis0050-Form.entity';
 import { Const } from '../../common/const';
 
 
@@ -24,6 +24,8 @@ export class SupplierPatternComponent implements OnInit {
   //タイトル
   title = "発注明細入力_発注先パターン選択";
 
+  // データ取得
+  datas: SupplierPatternList[]
   //画面表示データ（パターン名）
   pDatas: PatternList[];
   //画面表示データ（仕訳コードテーブル）
@@ -31,9 +33,9 @@ export class SupplierPatternComponent implements OnInit {
   //sDatas初期画面表示データを格納
   fDatas: SupplierList[];
   //戻り値
-  resVal: SupplierPatternList[];
-  //画面表示データフォーム
-  Datas: ODIS0050SupplierPatternTotalInfo[];
+  resVal: SupplierList[];
+  // パラメータ
+  param = new ODIS0050Form();
   
   //選択されたパターン
   selectPattern:string;
@@ -97,46 +99,58 @@ export class SupplierPatternComponent implements OnInit {
    * テーブル クリック 選択背景 設定
    * 選択されたパターン名の仕訳データを表示する
    * @param $event イベント
+   * @param data 行データ取得
    */
-  public onSelHighLight($event){
-
+  public onSelHighLight($event, data){
+    // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
 
     this.selectPattern = $event.target.textContent;
 
     let wDatas: SupplierList[] = new Array();
 
-    for (let fdata of this.fDatas){
+    // for (let fdata of this.fDatas){
 
-      if(this.selectPattern == fdata.pattern){
+    //   if(this.selectPattern == fdata.pattern){
 
-        wDatas.push(fdata);
-      }
-    }
+    //     wDatas.push(fdata);
+    //   }
+    // }
     //選択されたパターン名の仕訳データを格納
-    this.sDatas = wDatas;
+    this.sDatas = data.supplierList;
   }
 
   /**
-  * JSONファイルをpdatas,fdatasに格納
+  * JSONファイルをdatasに格納
   */
   getInputData(){
 
-    this.orderService.getSingleData(this._patternList)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.pDatas = data;
-      }
-    });
+    // this.orderService.getSingleData(this._patternList)
+    // .subscribe(
+    //   data => {
+    //     if (data !== undefined) {
+    //       this.pDatas = data;
+    //   }
+    // });
 
-    this.orderService.getSingleData(this._supplierList)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.fDatas = data;
-      }
-    });
+    // this.orderService.getSingleData(this._supplierList)
+    // .subscribe(
+    //   data => {
+    //     if (data !== undefined) {
+    //       this.fDatas = data;
+    //   }
+    // });
 
+    // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '201005';
+
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
+      .then(
+        (response) => {
+          this.datas = response;
+        }
+      );
   }
 }

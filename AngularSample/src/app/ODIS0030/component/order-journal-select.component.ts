@@ -5,6 +5,7 @@ import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
 import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
+import { ODIS0030Form } from '../entities/odis0030-Form.entity'
 
 @Component({
     selector: 'order-journal-select',
@@ -26,6 +27,9 @@ export class OrderJournalSelectComponent implements OnInit {
 
   //戻り値
   resVal:OrderJournalSelectType;
+
+  // パラメータ
+  param = new ODIS0030Form();
 
   //エラーメッセージ
   errormsg:string ="";
@@ -101,13 +105,25 @@ export class OrderJournalSelectComponent implements OnInit {
   */
   getOrderInputData(){
 
-    this.orderService.getSingleData(this._journalSelect)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.datas = data;
-      }
-    });
+    // this.orderService.getSingleData(this._journalSelect)
+    // .subscribe(
+    //   data => {
+    //     if (data !== undefined) {
+    //       this.datas = data;
+    //   }
+    // });
+
+    // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '701000';
+
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+      .then(
+        (response) => {
+          this.datas = response;
+        }
+      );
   }
 }
 

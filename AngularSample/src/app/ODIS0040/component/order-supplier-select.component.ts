@@ -5,6 +5,7 @@ import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
 import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
+import { ODIS0040Form } from '../entities/odis0040-Form.entity'
 
 @Component({
     selector: 'order-Supplier-select',
@@ -18,16 +19,19 @@ import { Const } from '../../common/const';
  */
 export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
-  //タイトル
+  // タイトル
   title = '発注先マスタ選択';
 
-  //画面表示データ
+  // 画面表示データ
   datas: OrderSupplierSelectType[];
 
-  //戻り値
+  // 戻り値
   resVal:OrderSupplierSelectType;
 
-  //エラーメッセージ
+  // パラメータ
+  param = new ODIS0040Form();
+
+  // エラーメッセージ
   errormsg:string ="";
 
   // JSONファイル
@@ -101,14 +105,27 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   */
   getOrderInputData(){
 
-    this.orderService.getSingleData(this._suppierSelect)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.datas = data;
+    // this.orderService.getSingleData(this._suppierSelect)
+    // .subscribe(
+    //   data => {
+    //     if (data !== undefined) {
+    //       this.datas = data;
 
-      }
-    });
+    //   }
+    // });
+
+    // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '701000';
+
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
+      .then(
+        (response) => {
+          this.datas = response;
+        }
+      );
+
   }
 
 }

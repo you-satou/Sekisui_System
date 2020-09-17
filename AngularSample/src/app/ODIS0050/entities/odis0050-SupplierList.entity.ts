@@ -1,17 +1,16 @@
+import {SupplierPatternList } from './odis0050-SuppierPattern.entity'
 /**
  * 仕訳コードエンティティ
  */
 export class SupplierList {
-    /** パターン名 */
-    pattern: string;
-    /** パターン名 */
+    /** 仕訳コード */
     journalCode: string;
-    /** パターン名 */
+    /** 経理分類 */
     accountingCategory: string;
-    /** パターン名 */
+    /** 仕訳名称 */
     journalName: string;
-    /** パターン名 */
+    /** 発注先コード */
     supplierCode: string;
-    /** パターン名 */
+    /** 発注先名 */
     supplierName: string;
 }
