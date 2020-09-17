@@ -1,20 +1,19 @@
-import { style } from '@angular/animations';
-import { element } from 'protractor';
 import { DatePipe } from '@angular/common';
-import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
-import { DataEmitter } from "./../order-detail-input.component";
+import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
+import { DataEmitter } from "../order-detail-input.component";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
-import { MatTable, MatTableDataSource } from "@angular/material";
+import { MatTable } from "@angular/material";
 import { Router } from "@angular/router";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from "../../../ODIS0060/entities/odis0060.entity";
 import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail-input-service";
+import { exit } from 'process';
 
 @Component({
   selector: "shiwake-table",
-  styleUrls: ["table-shiwake.css"],
-  templateUrl: "./table-shiwake.html",
+  styleUrls: ["order-detail-input-table.css"],
+  templateUrl: "./order-detail-input-table.html",
   encapsulation: ViewEncapsulation.None,
 })
 export class OrderDetailShiwakeTable implements OnInit {
@@ -234,28 +233,53 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
     try {
-      //　選択した以降は重要データがあるかどうかをチェック
+      var shiwakeDt: SplitOrderDetailShiwake[] = [];
+      let splitDt: SplitOrderDetailSplit[] = [];
 
-      var temp1: SplitOrderDetailShiwake[] = [];
-      let tmp1 = new SplitOrderDetailShiwake();
+      // this.orderData.forEach(odrDt => {
 
-      tmp1.tabIndex = selectedItem.tabIndex;
-      tmp1.id = selectedItem.id;
-      tmp1.journalCode = selectedItem.journalCode;
-      tmp1.accountCode = selectedItem.accountCode;
-      tmp1.journalName = selectedItem.journalName;
-      tmp1.orderSuplierCode = selectedItem.orderSuplierCode;
-      tmp1.orderSuplierName = selectedItem.orderSuplierName;
-      tmp1.orderPlanAmount = selectedItem.orderPlanAmount;
+      //   if(odrDt.id === selectedItem.id ){
+          
+      //     let tmp1 = new SplitOrderDetailShiwake();
+    
+      //     tmp1.tabIndex = selectedItem.tabIndex;
+      //     tmp1.id = selectedItem.id;
+      //     tmp1.journalCode = selectedItem.journalCode;
+      //     tmp1.accountCode = selectedItem.accountCode;
+      //     tmp1.journalName = selectedItem.journalName;
+      //     tmp1.orderSuplierCode = selectedItem.orderSuplierCode;
+      //     tmp1.orderSuplierName = selectedItem.orderSuplierName;
+      //     tmp1.orderPlanAmount = selectedItem.orderPlanAmount;
 
-      temp1.push(tmp1);
+      //     temp1.push(tmp1);
 
-      let temp2: SplitOrderDetailSplit[] = [];
+      //   }
+      // });
+
+      let cnt: number = 0;
+      for (const odrDt of this.orderData) {
+        if(odrDt.id === selectedItem.id && cnt === 0){
+          let tmp = new SplitOrderDetailShiwake();
+
+          tmp.tabIndex = odrDt.tabIndex;
+          tmp.id = odrDt.id;
+          tmp.journalCode = odrDt.journalCode;
+          tmp.accountCode = odrDt.accountCode;
+          tmp.journalName = odrDt.journalName;
+          tmp.orderSuplierCode = odrDt.orderSuplierCode;
+          tmp.orderSuplierName = odrDt.orderSuplierName;
+          tmp.orderPlanAmount = odrDt.orderPlanAmount;
+
+          shiwakeDt.push(tmp);
+          cnt ++;
+          break;
+        }
+        
+      }
 
       this.orderData.forEach(dt => {
-        
-        if(dt.id == selectedItem.id){
-          var tmp = new SplitOrderDetailSplit();
+        if(dt.id === selectedItem.id){
+          let tmp = new SplitOrderDetailSplit();
 
           tmp.orderPlanAmount = dt.orderSplitAmount;
           tmp.comment = dt.comment;
@@ -272,13 +296,12 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.paymentDate = dt.paymentDate;
           tmp.paymentAmount = dt.paymentAmount;
     
-          temp2.push(tmp);
+          splitDt.push(tmp);
         }
       });
 
-      console.log(temp2);
-      this.service.setSplitTable(temp1);
-      this.service.setDetailTable(temp2);
+      this.service.setSplitTable(shiwakeDt);
+      this.service.setDetailTable(splitDt);
 
       this.router.navigate([Const.UrlSetting.U0006]);
     } catch (e) {
