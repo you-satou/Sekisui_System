@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { SupplierPatternList } from'../entities/odis0050-SuppierPattern.entity'
+import { SupplierList } from'../entities/odis0050-SupplierList.entity'
 
 @Injectable({
     providedIn: 'root'
@@ -33,7 +33,7 @@ export class SupplierPatternService {
   /**
   * 戻り値をセット
   */
-  public setVal(val:SupplierPatternList[]) {
+  public setVal(val:SupplierList[]) {
     this._val = val;
   }
 
@@ -45,7 +45,7 @@ export class SupplierPatternService {
   /**
   * 戻り値をセットしてモーダルを閉じる
   */
-  public requestChooseVal(resVal: SupplierPatternList[]) {
+  public requestChooseVal(resVal: SupplierList[]) {
     this.setVal(resVal);
     this.closeEventSubject.next();
   }
