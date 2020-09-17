@@ -15,6 +15,10 @@
     line-height: 20px;
 }
 
+.search-area>.row{
+    height: 30px;
+}
+
 .input-group-text {
     color: black;
     font-weight: bolder;
