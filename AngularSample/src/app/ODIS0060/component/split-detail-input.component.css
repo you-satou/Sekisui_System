@@ -94,11 +94,6 @@ tr.mat-footer-row {
     background-color: transparent;
 }
 
-.bottomButton {
-    position: relative;
-    margin-right: 20px;
-}
-
 .color-input-1 {
     background-color: #C5D9F1 !important;
     word-break: keep-all;

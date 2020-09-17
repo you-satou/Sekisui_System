@@ -1,10 +1,11 @@
 import { SplitOrderDetailShiwake } from '../../entities/odis0060.entity';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'split-shiwake-table',
   styleUrls: ['table-shiwake.css'],
   templateUrl: './table-shiwake.html',
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class SplitOrderDetailShiwakeTable {
