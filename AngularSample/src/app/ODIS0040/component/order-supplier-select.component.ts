@@ -34,9 +34,6 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   // エラーメッセージ
   errormsg:string ="";
 
-  // JSONファイル
-  _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
-
   /**
    * コンストラクタ
    *
@@ -74,7 +71,7 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   public onSelHighLight($event, selectedItem){
   
     this.resVal = selectedItem;
-
+    // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
 
   }
@@ -104,16 +101,6 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   * JSONファイルをdatasに格納
   */
   getOrderInputData(){
-
-    // this.orderService.getSingleData(this._suppierSelect)
-    // .subscribe(
-    //   data => {
-    //     if (data !== undefined) {
-    //       this.datas = data;
-
-    //   }
-    // });
-
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '701000';

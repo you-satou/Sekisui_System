@@ -8,7 +8,6 @@ import { CommonService } from '../../common/common.service';
 import { ODIS0050Form } from'.././entities/odis0050-Form.entity';
 import { Const } from '../../common/const';
 
-
 @Component({
     selector: 'supplier-pattern',
     templateUrl: './supplier-pattern.component.html',
@@ -36,16 +35,9 @@ export class SupplierPatternComponent implements OnInit {
   resVal: SupplierList[];
   // パラメータ
   param = new ODIS0050Form();
-  
-  //選択されたパターン
-  selectPattern:string;
 
   //エラーメッセージ
   errormsg:string ="";
-
-  // JSONファイル
-  _patternList: string = "assets/data/odis0050-PatternName.json";
-  _supplierList: string = "assets/data/odis0050-SupplierName.json";
 
   /**
   *コンストラクタ
@@ -105,17 +97,6 @@ export class SupplierPatternComponent implements OnInit {
     // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
 
-    this.selectPattern = $event.target.textContent;
-
-    let wDatas: SupplierList[] = new Array();
-
-    // for (let fdata of this.fDatas){
-
-    //   if(this.selectPattern == fdata.pattern){
-
-    //     wDatas.push(fdata);
-    //   }
-    // }
     //選択されたパターン名の仕訳データを格納
     this.sDatas = data.supplierList;
   }
@@ -124,23 +105,6 @@ export class SupplierPatternComponent implements OnInit {
   * JSONファイルをdatasに格納
   */
   getInputData(){
-
-    // this.orderService.getSingleData(this._patternList)
-    // .subscribe(
-    //   data => {
-    //     if (data !== undefined) {
-    //       this.pDatas = data;
-    //   }
-    // });
-
-    // this.orderService.getSingleData(this._supplierList)
-    // .subscribe(
-    //   data => {
-    //     if (data !== undefined) {
-    //       this.fDatas = data;
-    //   }
-    // });
-
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '201005';
