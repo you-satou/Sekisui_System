@@ -1,5 +1,5 @@
 import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, HostBinding } from '@angular/core';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
@@ -17,6 +17,7 @@ import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderI
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { Odis0020Service } from '../services/odis0020-service';
+import { DataSource } from '@angular/cdk/table';
 
 @Component({
   selector: 'order-detail-input',
@@ -167,14 +168,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblSekki = this.divideData(this.pageTotalInfo.SekkeiData, this.tab1);
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tab2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tab3);
-
+            
             // this.setTableButtonDisplay(this.tblSekki,this.tab1);
             // this.setTableButtonDisplay(this.tblHontai,this.tab2);
             // this.setTableButtonDisplay(this.tblTsuika,this.tab3);
 
           }
         }
+
+        
       );
+      
   }
 
   /**

@@ -1,7 +1,8 @@
+import { style } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "../order-detail-input.component";
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef, HostBinding } from "@angular/core";
 import { MatTable } from "@angular/material";
 import { Router } from "@angular/router";
 import { CommonComponent } from "app/common/common.component";
@@ -209,14 +210,14 @@ export class OrderDetailShiwakeTable implements OnInit {
     var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
     for (var i = 0; i < wTbody.rows.length; i++) {
 
-      if(i === rowIndex){
+      if (i === rowIndex) {
         var wTr = wTbody.rows[i];
         for (var j = 0; j < wTr.cells.length; j++) {
           var wTd = wTr.cells[j];
           wTd.style.backgroundColor = Const.HighLightColour.Selected;
         }
       }
-      else{
+      else {
         var wTr = wTbody.rows[i];
         for (var j = 0; j < wTr.cells.length; j++) {
           var wTd = wTr.cells[j];
@@ -239,9 +240,9 @@ export class OrderDetailShiwakeTable implements OnInit {
       // this.orderData.forEach(odrDt => {
 
       //   if(odrDt.id === selectedItem.id ){
-          
+
       //     let tmp1 = new SplitOrderDetailShiwake();
-    
+
       //     tmp1.tabIndex = selectedItem.tabIndex;
       //     tmp1.id = selectedItem.id;
       //     tmp1.journalCode = selectedItem.journalCode;
@@ -258,7 +259,7 @@ export class OrderDetailShiwakeTable implements OnInit {
 
       let cnt: number = 0;
       for (const odrDt of this.orderData) {
-        if(odrDt.id === selectedItem.id && cnt === 0){
+        if (odrDt.id === selectedItem.id && cnt === 0) {
           let tmp = new SplitOrderDetailShiwake();
 
           tmp.tabIndex = odrDt.tabIndex;
@@ -271,14 +272,14 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.orderPlanAmount = odrDt.orderPlanAmount;
 
           shiwakeDt.push(tmp);
-          cnt ++;
+          cnt++;
           break;
         }
-        
+
       }
 
       this.orderData.forEach(dt => {
-        if(dt.id === selectedItem.id){
+        if (dt.id === selectedItem.id) {
           let tmp = new SplitOrderDetailSplit();
 
           tmp.orderPlanAmount = dt.orderSplitAmount;
@@ -295,7 +296,7 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.recievedAmount = dt.recievedAmount;
           tmp.paymentDate = dt.paymentDate;
           tmp.paymentAmount = dt.paymentAmount;
-    
+
           splitDt.push(tmp);
         }
       });
@@ -327,27 +328,30 @@ export class OrderDetailShiwakeTable implements OnInit {
     this.sendOrderData.emit(this.dataEmitter);
   }
 
-  
-  setResquest(event: any, dt: ODIS0020OrderShiwake){
+  /**
+   * 依頼ボタンを実行する
+   * @param event 
+   * @param dt 
+   */
+  setResquest(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
 
     this.setRowHightlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
-    if(event.target.nodeName === 'SPAN'){
+    if (event.target.nodeName === 'SPAN') {
       btn = event.target.parentElement;
     }
-    else{
+    else {
       btn = event.target;
     }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
+
+    //TODO: ログイン情報を取得
     dt.requester = '積水　次郎';
-  
-    // 処理後　非活動化する。
-    btn.style.display = 'none';
 
     // 承認一回目のボタンを活動化する.
     let tr = btn.parentElement.parentElement;
@@ -355,27 +359,41 @@ export class OrderDetailShiwakeTable implements OnInit {
     //承認１ボタンのインデックスは「13」
     let btnShounin = tr.children[13].getElementsByTagName('button');
     btnShounin[0].removeAttribute('disabled');
+
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+    // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
+
+
   }
 
-  setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake){
+  /**
+   * 承認１を実行する
+   * @param event 
+   * @param dt 
+   */
+  setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
     this.setRowHightlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
-    if(event.target.nodeName === 'SPAN'){
+    if (event.target.nodeName === 'SPAN') {
       btn = event.target.parentElement;
     }
-    else{
+    else {
       btn = event.target;
     }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv1 = requestTime;
-    dt.approvalPerson_lv1 = '積水　次郎';
 
-    // 処理後　非活動化する。
-    btn.style.display = 'none';
+    //TODO: ログイン情報を取得
+    dt.approvalPerson_lv1 = '積水　次郎';
 
     // 承認一回目のボタンを活動化する
     let tr = btn.parentElement.parentElement;
@@ -383,17 +401,32 @@ export class OrderDetailShiwakeTable implements OnInit {
     let btnShounin = tr.children[15].getElementsByTagName('button');
     btnShounin[0].removeAttribute('disabled');
 
+
+
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+    // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
+
   }
 
-  setApprovaNextLevel(event: any, dt: ODIS0020OrderShiwake){
+  /**
+ * 承認２を実行する
+ * @param event 
+ * @param dt 
+ */
+  setApprovaNextLevel(event: any, dt: ODIS0020OrderShiwake) {
     let rowIndex = this.orderData.indexOf(dt);
     this.setRowHightlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
-    if(event.target.nodeName === 'SPAN'){
+    if (event.target.nodeName === 'SPAN') {
       btn = event.target.parentElement;
     }
-    else{
+    else {
       btn = event.target;
     }
 
@@ -402,9 +435,87 @@ export class OrderDetailShiwakeTable implements OnInit {
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = '積水　次郎';
 
-    // 処理後　非活動化する。
-    btn.style.display = 'none';
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+    // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
+  }
+  cnt: number = 0;
+  ngAfterViewInit(): void {
+    this.cnt++;
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    console.log(this.cnt);
+
+    console.log(this.orderData)
+
+    this.setTableButtonDisplay(this.orderData);
+  }
+
+  setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
+
+    dt.forEach(element => {
+
+      let ind = dt.indexOf(element);
+      if (element.requester != '' ||
+        element.requester != null) {
+
+        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+
+        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+
+          let tr = skBody.rows[ind];
+          let btn: HTMLButtonElement;
+          btn = tr.cells[11].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+        };
+
+      }
+      if (element.approvalPerson_lv1 != '' ||
+        element.approvalPerson_lv1 != null ||
+        element.approvalPerson_lv1 != undefined) {
+
+        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+
+        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+
+          let tr = skBody.rows[ind];
+          let btn: HTMLButtonElement;
+          btn = tr.cells[13].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+        };
+
+      }
+      if (element.approvalPerson_lv2 != '' ||
+        element.approvalPerson_lv2 != null ||
+        element.approvalPerson_lv2 != undefined) {
+
+        let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+
+        for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+
+          let tr = skBody.rows[ind];
+          let btn: HTMLButtonElement;
+          btn = tr.cells[15].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+        };
+
+      }
+
+
+    });
 
   }
+
+
+
+
+
 
 }
