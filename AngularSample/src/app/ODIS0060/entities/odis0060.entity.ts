@@ -2,8 +2,6 @@
 export class SplitOrderDetailShiwake{
     tabIndex:string;
     id:string;
-    tabIndex:string;
-    id:string;
     journalCode: string;
     accountCode: string;
     journalName: string;
