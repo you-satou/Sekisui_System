@@ -1,7 +1,7 @@
 <div>
     <div>
         <mat-tab-group style="float: left; width: 100%">
-            <mat-tab class="hontai" label="本体">
+            <mat-tab class="hontai" label = "{{tabName}}">
                 <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
                 <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
                     <table mat-table [dataSource]="bunkatsuData"

@@ -546,6 +546,21 @@
           "recievedAmount": "245000000",
           "paymentDate": "2019/7/6",
           "paymentAmount": "245000000"
+        },
+        {
+          "comment": "",
+          "requestDate": "2019/7/4",
+          "requester": "積水潤一",
+          "approvalDate_lv1": "",
+          "approvalPerson_lv1": "承認",
+          "approvalDate_lv2": "",
+          "approvalPerson_lv2": "承認",
+          "orderDate": "2019/7/4",
+          "orderAmount": "245000000",
+          "recievedDate": "2019/7/5",
+          "recievedAmount": "245000000",
+          "paymentDate": "2019/7/6",
+          "paymentAmount": "245000000"
         }
       ]
     },
@@ -574,7 +589,23 @@
       "orderSuplierCode": "",
       "orderSuplierName": "",
       "orderPlanAmount": "90000",
-      "splitData": []
+      "splitData": [
+        {
+          "comment": "",
+          "requestDate": "2019/7/4",
+          "requester": "積水潤一",
+          "approvalDate_lv1": "",
+          "approvalPerson_lv1": "承認",
+          "approvalDate_lv2": "",
+          "approvalPerson_lv2": "承認",
+          "orderDate": "2019/7/4",
+          "orderAmount": "90000",
+          "recievedDate": "2019/7/5",
+          "recievedAmount": "90000",
+          "paymentDate": "2019/7/6",
+          "paymentAmount": "90000"
+        }
+      ]
     },
     {
       "journalCode": "1900",

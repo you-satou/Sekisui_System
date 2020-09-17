@@ -69,10 +69,10 @@ export class SplitOrderDetailInputComponent implements OnInit {
   sum: number = 0;
 
   //仕訳テーブルのデータ
-  shiwakeData: SplitOrderDetailShiwake[];
+  shiwakeData: SplitOrderDetailShiwake[] = [];
 
   //分割テーブルのデータ
-  bunkatsuData: SplitOrderDetailSplit[];
+  bunkatsuData: SplitOrderDetailSplit[] = [];
 
   //編集テーブルの値
   orderPlanAmount: string = "";
@@ -88,6 +88,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
   //現在日付
   currentDate = Date.now();
+
+  //タブネーム
+  tabName: string;
 
 
   constructor(
@@ -109,6 +112,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   //仕訳テーブルのデータの取得のメソッド
   getSplitOderDetailShiwake() {
     this.shiwakeData = this.service.getSplitTable();
+    this.tabName = this.shiwakeData[0].tabIndex;
   }
 
   //分割テーブルのデータの取得のメソッド

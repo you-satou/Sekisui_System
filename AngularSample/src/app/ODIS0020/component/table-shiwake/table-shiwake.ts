@@ -1,4 +1,4 @@
-import { ODIS0020OrderDetailList, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "./../order-detail-input.component";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable, MatTableDataSource } from "@angular/material";
@@ -15,7 +15,7 @@ import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail
   encapsulation: ViewEncapsulation.None,
 })
 export class OrderDetailShiwakeTable implements OnInit {
-  @Input() orderData: ODIS0020OrderDetailList[];
+  @Input() orderData: ODIS0020OrderShiwake[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
 
@@ -100,7 +100,7 @@ export class OrderDetailShiwakeTable implements OnInit {
   //   return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
   // }
 
-  isExsted(element: ODIS0020OrderDetailList, action: string) {
+  isExsted(element: ODIS0020OrderShiwake, action: string) {
     console.log(action);
     switch (action) {
       case 'irai':
@@ -217,7 +217,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param dataDetail
    */
-  getDisplayData($event, data: ODIS0020OrderDetailList) {
+  getDisplayData($event, data: ODIS0020OrderShiwake) {
     this.setRowHightlight($event);
     if (data.orderPlanAmount == '' ||
       data.orderPlanAmount == null ||
@@ -259,11 +259,17 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param data
    */
-  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetailList) {
+  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
     try {
+        let rowIndex = this.orderData.indexOf(selectedItem);
+
+      //　選択した以降は重要データがあるかどうかをチェック
+
       var temp1: SplitOrderDetailShiwake[] = [];
       let tmp1 = new SplitOrderDetailShiwake();
 
+      tmp1.tabIndex = selectedItem.tabIndex;
+      tmp1.id = selectedItem.id;
       tmp1.journalCode = selectedItem.journalCode;
       tmp1.accountCode = selectedItem.accountCode;
       tmp1.journalName = selectedItem.journalName;
@@ -275,25 +281,31 @@ export class OrderDetailShiwakeTable implements OnInit {
 
       let temp2: SplitOrderDetailSplit[] = [];
 
-      var tmp = new SplitOrderDetailSplit();
+      this.orderData.forEach(dt => {
+        
+        if(dt.id == selectedItem.id){
+          var tmp = new SplitOrderDetailSplit();
 
-      tmp.orderPlanAmount = selectedItem.orderSplitAmount;
-      tmp.comment = selectedItem.comment;
-      tmp.requestDate = selectedItem.requestDate;
-      tmp.requester = selectedItem.requester;
-      tmp.approvalDate_lv1 = selectedItem.approvalDate_lv1;
-      tmp.approvalPerson_lv1 = selectedItem.approvalPerson_lv1;
-      tmp.approvalDate_lv2 = selectedItem.approvalDate_lv2;
-      tmp.approvalPerson_lv2 = selectedItem.approvalPerson_lv2;
-      tmp.orderDate = selectedItem.orderDate;
-      tmp.orderAmount = selectedItem.orderAmount;
-      tmp.recievedDate = selectedItem.recievedDate;
-      tmp.recievedAmount = selectedItem.recievedAmount;
-      tmp.paymentDate = selectedItem.paymentDate;
-      tmp.paymentAmount = selectedItem.paymentAmount;
+          tmp.orderPlanAmount = dt.orderSplitAmount;
+          tmp.comment = dt.comment;
+          tmp.requestDate = dt.requestDate;
+          tmp.requester = dt.requester;
+          tmp.approvalDate_lv1 = dt.approvalDate_lv1;
+          tmp.approvalPerson_lv1 = dt.approvalPerson_lv1;
+          tmp.approvalDate_lv2 = dt.approvalDate_lv2;
+          tmp.approvalPerson_lv2 = dt.approvalPerson_lv2;
+          tmp.orderDate = dt.orderDate;
+          tmp.orderAmount = dt.orderAmount;
+          tmp.recievedDate = dt.recievedDate;
+          tmp.recievedAmount = dt.recievedAmount;
+          tmp.paymentDate = dt.paymentDate;
+          tmp.paymentAmount = dt.paymentAmount;
+    
+          temp2.push(tmp);
+        }
+      });
 
-      temp2.push(tmp);
-
+      console.log(temp2);
       this.service.setSplitTable(temp1);
       this.service.setDetailTable(temp2);
 
@@ -307,7 +319,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 選択された行の背景色を変える。
    * @param $event
    */
-  onSelectHighLight($event, data: ODIS0020OrderDetailList) {
+  onSelectHighLight($event, data: ODIS0020OrderShiwake) {
     this.comCompnt.CommonOnSelHight($event);
 
     // パラメータを設定。

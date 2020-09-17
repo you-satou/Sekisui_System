@@ -1,5 +1,7 @@
 //仕訳テーブルのインターフェース
 export class SplitOrderDetailShiwake{
+    tabIndex:string;
+    id:string;
     journalCode: string;
     accountCode: string;
     journalName: string;
