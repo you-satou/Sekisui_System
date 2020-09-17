@@ -99,7 +99,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   constructor(
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
-    private _location: Location,
+    private router: Router,
     public datePipe: DatePipe,
     private service: SplitOrderDetailService,
   ) { }
@@ -143,7 +143,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
-    this._location.back();
+    this.router.navigate([Const.UrlSetting.U0002])
   }
 
   /**

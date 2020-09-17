@@ -170,25 +170,25 @@
         </table>
 
         <section>
-            <div style="position:absolute; margin-top: 20px !important">
-                <div class="bottomButton">
-                    <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn" (click)="onSelectClick($event);">明細追加</button>
+            <div style="position: relative; margin-top: 20px">
+                <div style="float: left;">
+                    <button mat-button class="btn btn-success border mx-1 back-btn" (click)="onSelectClick($event);">明細追加</button>
                 </div>
     
-                <div style="left: 106px !important;" class="bottomButton">
-                    <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onUpdateClick($event);">明細更新</button>
+                <div style="float: left;">
+                    <button mat-button class="btn btn-info border mx-1 back-btn " (click)="onUpdateClick($event);">明細更新</button>
                 </div>
     
-                <div style="left: 212px !important;" class="bottomButton">
-                    <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onClearClick($event);">中止</button>
+                <div>
+                    <button mat-button class="btn btn-danger border mx-1 back-btn " (click)="onClearClick($event);">中止</button>
                 </div>
     
-                <div style="left: 400px !important;" class="bottomButton">
-                    <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn " (click)="onDeleteClick($event);">明細削除</button>
+                <div style="position:absolute; top:0; left: 400px;">
+                    <button mat-button class="btn btn-danger border mx-1 back-btn " (click)="onDeleteClick($event);">明細削除</button>
                 </div>
                 
-                <div style="margin: 55px 0 30px 0 !important;" class="bottomButton">
-                    <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn " (click)="onBackClick($event)" routerLink="/OrderDetailInput">閉じる</button>
+                <div style="margin: 10px 0 50px 0">
+                    <button mat-button class="btn btn-secondary border mx-1 back-btn " (click)="onBackClick($event)">閉じる</button>
                 </div>
             </div>
         </section>
