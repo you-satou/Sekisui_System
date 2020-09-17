@@ -104,10 +104,12 @@ tr.mat-footer-row {
     word-break: keep-all;
     white-space: nowrap;
     text-align: center !important;
+    vertical-align: middle !important;
 }
 .color-input-2 {
     background-color: #95B3D7 !important;
     text-align: center !important;
+    vertical-align: middle !important;
     word-break: keep-all;
     white-space: nowrap;
 }
@@ -115,6 +117,7 @@ tr.mat-footer-row {
 .color-input-3 {
     background-color: #FABF8F !important;
     text-align: center !important;
+    vertical-align: middle !important;
     word-break: keep-all;
     white-space: nowrap;
 }
@@ -122,6 +125,7 @@ tr.mat-footer-row {
 .color-input-4 {
     background-color: #FDE9D9 !important;
     text-align: center !important;
+    vertical-align: middle !important;
     word-break: keep-all;
     white-space: nowrap;
 }
@@ -129,6 +133,7 @@ tr.mat-footer-row {
 .color-input-5 {
     background-color: #C4D79B !important;
     text-align: center !important;
+    vertical-align: middle !important;
     word-break: keep-all;
     white-space: nowrap;
 }
