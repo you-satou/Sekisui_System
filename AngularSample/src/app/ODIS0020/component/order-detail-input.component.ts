@@ -165,8 +165,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
 
             this.tblSekki = this.divideData(this.pageTotalInfo.SekkeiData, this.tab1);
-            this.tblHontai = this.divideData(this.pageTotalInfo.SekkeiData, this.tab2);
-            this.tblTsuika = this.divideData(this.pageTotalInfo.SekkeiData, this.tab3);
+            this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tab2);
+            this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tab3);
 
           }
         }

@@ -261,8 +261,6 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
     try {
-        let rowIndex = this.orderData.indexOf(selectedItem);
-
       //　選択した以降は重要データがあるかどうかをチェック
 
       var temp1: SplitOrderDetailShiwake[] = [];
@@ -332,4 +330,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
+
+  
+
 }
