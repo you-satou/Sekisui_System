@@ -1,3 +1,6 @@
+import { style } from '@angular/animations';
+import { element } from 'protractor';
+import { DatePipe } from '@angular/common';
 import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderSplitSub } from "./../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "./../order-detail-input.component";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
@@ -19,6 +22,7 @@ export class OrderDetailShiwakeTable implements OnInit {
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
 
+  systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
 
   /**
@@ -82,51 +86,18 @@ export class OrderDetailShiwakeTable implements OnInit {
     "paymentAmount",
   ];
 
-  display : String;
-
   constructor(
     private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
-    private service: SplitOrderDetailService
+    private service: SplitOrderDetailService,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit() {
 
-    this.display = 'none';
-   }
-
-  // resourceData(data: ODIS0020OrderSplitSub[]) {
-  //   return new MatTableDataSource<ODIS0020OrderSplitSub>(data);
-  // }
-
-  isExsted(element: ODIS0020OrderShiwake, action: string) {
-    console.log(action);
-    switch (action) {
-      case 'irai':
-        if (element.requester != '' ||
-          element.requester != null ||
-          element.requester != undefined) {
-          return true;
-        }
-        return false;
-      case 'shounin1':
-        if (element.approvalPerson_lv1 != '' ||
-          element.approvalPerson_lv1 != null ||
-          element.approvalPerson_lv1 != undefined) {
-          return true;
-        }
-        return false;
-      case 'shounin2':
-        if (element.approvalPerson_lv2 != '' ||
-          element.approvalPerson_lv2 != null ||
-          element.approvalPerson_lv2 != undefined) {
-          return true;
-        }
-        return false;
-    }
-
   }
+
   /**
    * 発注予定金額の合計
    */
@@ -218,7 +189,9 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param dataDetail
    */
   getDisplayData($event, data: ODIS0020OrderShiwake) {
-    this.setRowHightlight($event);
+    let rowIndx = this.orderData.indexOf(data);
+    this.setRowHightlight(rowIndx);
+
     if (data.orderPlanAmount == '' ||
       data.orderPlanAmount == null ||
       data.orderPlanAmount == undefined
@@ -233,24 +206,24 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 反映ボタンを押下する時行の背景色を変える。
    * @param event
    */
-  setRowHightlight(event: any) {
-    // テーブル 背景色 クリア
+  setRowHightlight(rowIndex: number) {
     var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
     for (var i = 0; i < wTbody.rows.length; i++) {
-      // 行 取得
-      var wTr = wTbody.rows[i];
-      for (var j = 0; j < wTr.cells.length; j++) {
-        // セル クリア
-        var wTd = wTr.cells[j];
-        wTd.style.backgroundColor = Const.HighLightColour.None;
+
+      if(i === rowIndex){
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.Selected;
+        }
       }
-    }
-    // 要素取得
-    var wTr = event.target.parentElement.parentElement.parentElement;
-    // 背景色 変更
-    for (var i = 0; i < wTr.cells.length; i++) {
-      var wTd = wTr.cells[i];
-      wTd.style.backgroundColor = Const.HighLightColour.Selected;
+      else{
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.None;
+        }
+      }
     }
   }
 
@@ -332,5 +305,93 @@ export class OrderDetailShiwakeTable implements OnInit {
   }
 
   
+  setResquest(event: any, dt: ODIS0020OrderShiwake){
+    // let rowIndex = this.orderData.indexOf(dt);
+
+    // this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    // let currTime = Date.now();
+    // let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    // dt.requestDate = requestTime;
+    // dt.requester = '積水　次郎';
+  
+    // // 処理後　非活動化する。
+    // btn.style.display = 'none';
+
+    // 承認一回目のボタンを活動化する
+
+    // let tr: HTMLTableRowElement = null;
+
+    // tr = btn.parentElement.parentElement;
+    // console.log(tr.cells[13]);
+    // let cells = tr.cells[13];
+    // let a = cells.children[2];
+
+    // console.log(a);
+    
+    // let btnShounin = tr.cells[13].getElementsByTagName('button');
+
+    
+
+
+    
+    
+  }
+
+  setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake){
+    let rowIndex = this.orderData.indexOf(dt);
+    this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_lv1 = requestTime;
+    dt.approvalPerson_lv1 = '積水　次郎';
+
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
+
+    // 承認一回目のボタンを活動化する
+
+    // var row = event.target.parentElement.
+
+  }
+
+  setApprovaNextLevel(event: any, dt: ODIS0020OrderShiwake){
+    let rowIndex = this.orderData.indexOf(dt);
+    this.setRowHightlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if(event.target.nodeName === 'SPAN'){
+      btn = event.target.parentElement;
+    }
+    else{
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_lv2 = requestTime;
+    dt.approvalPerson_lv2 = '積水　次郎';
+
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
+
+  }
 
 }

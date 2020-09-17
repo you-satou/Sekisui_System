@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Const } from '../../common/const'
@@ -168,6 +169,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tab2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tab3);
 
+            // this.setTableButtonDisplay(this.tblSekki,this.tab1);
+            // this.setTableButtonDisplay(this.tblHontai,this.tab2);
+            // this.setTableButtonDisplay(this.tblTsuika,this.tab3);
+
           }
         }
       );
@@ -280,6 +285,42 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  setTableButtonDisplay(dt: ODIS0020OrderShiwake[], tabName:string){
+
+    dt.forEach(element =>{
+
+      let ind = dt.indexOf(element);
+      if(element.requester != '' ||
+        element.requester != null){
+
+          let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+          console.log(skBody);
+
+          for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
+
+            let tr = skBody.rows[ind];
+            var btn = tr.cells[11];
+            console.log(btn);
+
+            // for(var cIndex =10; cIndex < tr.cells.lenght)
+
+            // if (rIndex == newIndex) {
+            //   var tr = body.rows[rIndex];
+            //   for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+            //     var td = tr.cells[cIndex];
+            //     td.style.color = this.getColor(action);
+            //   }
+            // }
+          }
+
+
+      }
+
+
+    });
+
+  }
+
   /**
    * 仕訳コードリンクボタンを押下する時、モダールを設定する
    * @param {*} $event イベント情報
@@ -370,7 +411,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData.splice(insertIndex,0,temp);
         this.childSekkei.tableShiwake.renderRows();
 
-        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
+        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, skBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
@@ -382,7 +423,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData.splice(insertIndex,0,temp);
         this.childHontai.tableShiwake.renderRows();
 
-        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
+        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, hntBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
@@ -393,7 +434,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData.splice(insertIndex,0,temp);
         this.childTsuika.tableShiwake.renderRows();
 
-        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
+        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
