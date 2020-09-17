@@ -306,9 +306,9 @@ export class OrderDetailShiwakeTable implements OnInit {
 
   
   setResquest(event: any, dt: ODIS0020OrderShiwake){
-    // let rowIndex = this.orderData.indexOf(dt);
+    let rowIndex = this.orderData.indexOf(dt);
 
-    // this.setRowHightlight(rowIndex);
+    this.setRowHightlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if(event.target.nodeName === 'SPAN'){
@@ -318,32 +318,20 @@ export class OrderDetailShiwakeTable implements OnInit {
       btn = event.target;
     }
 
-    // let currTime = Date.now();
-    // let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
-    // dt.requestDate = requestTime;
-    // dt.requester = '積水　次郎';
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.requestDate = requestTime;
+    dt.requester = '積水　次郎';
   
-    // // 処理後　非活動化する。
-    // btn.style.display = 'none';
+    // 処理後　非活動化する。
+    btn.style.display = 'none';
 
-    // 承認一回目のボタンを活動化する
+    // 承認一回目のボタンを活動化する.
+    let tr = btn.parentElement.parentElement;
 
-    // let tr: HTMLTableRowElement = null;
-
-    // tr = btn.parentElement.parentElement;
-    // console.log(tr.cells[13]);
-    // let cells = tr.cells[13];
-    // let a = cells.children[2];
-
-    // console.log(a);
-    
-    // let btnShounin = tr.cells[13].getElementsByTagName('button');
-
-    
-
-
-    
-    
+    //承認１ボタンのインデックスは「13」
+    let btnShounin = tr.children[13].getElementsByTagName('button');
+    btnShounin[0].removeAttribute('disabled');
   }
 
   setApprovaFirstLevel(event: any, dt: ODIS0020OrderShiwake){
@@ -367,8 +355,10 @@ export class OrderDetailShiwakeTable implements OnInit {
     btn.style.display = 'none';
 
     // 承認一回目のボタンを活動化する
-
-    // var row = event.target.parentElement.
+    let tr = btn.parentElement.parentElement;
+    //承認１ボタンのインデックスは「15」
+    let btnShounin = tr.children[15].getElementsByTagName('button');
+    btnShounin[0].removeAttribute('disabled');
 
   }
 
