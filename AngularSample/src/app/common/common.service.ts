@@ -16,7 +16,7 @@ export class CommonService{
 
     // サーバよりデータを取得するのに、URLを渡すのが必要です。
     //　Any[]を列として返す。
-    getMultipileData(url: string) : Observable<any[]>{
+    getMultipleData(url: string) : Observable<any[]>{
         return this.http.get<any[]>(url)
         .pipe(
             catchError(this.handleError<any[]>("Can't get Data from serve",[]))
