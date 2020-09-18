@@ -36,6 +36,9 @@ export class SupplierPatternComponent implements OnInit {
   // パラメータ
   param = new ODIS0050Form();
 
+  //選択されたパターン
+  selectPattern:string;
+
   //エラーメッセージ
   errormsg: string = "";
 
@@ -79,7 +82,7 @@ export class SupplierPatternComponent implements OnInit {
       .subscribe(
         data => {
           if (data !== undefined) {
-            this.sDatas = data;
+            this.fDatas = data;
           }
         });
 
@@ -102,7 +105,8 @@ export class SupplierPatternComponent implements OnInit {
   public onChooseClick($event) {
 
     this.resVal = this.sDatas;
-
+    console.log(this.sDatas);
+    
     if (this.resVal == undefined || this.resVal == null) {
       this.errormsg = Const.ErrorMsg.E0008;
       $event.stopPropagation();
@@ -118,19 +122,20 @@ export class SupplierPatternComponent implements OnInit {
    * 選択されたパターン名の仕訳データを表示する
    * @param $event イベント
    */
-  public onSelHighLight($event){
+  public onSelHighLight($event, data: PatternList){
 
     this.commonComponent.CommonOnSelHight($event);
 
-    this.selectPattern = $event.target.textContent;
+    this.selectPattern = data.pName;
 
-    let wDatas: SupplierList[] = new Array();
+    let wDatas: SupplierList[] = [];
 
     for (let fdata of this.fDatas){
 
-      if(this.selectPattern == fdata.pattern){
+      if(fdata.pattern.match(this.selectPattern)){
 
         wDatas.push(fdata);
+        
       }
     }
     //選択されたパターン名の仕訳データを格納

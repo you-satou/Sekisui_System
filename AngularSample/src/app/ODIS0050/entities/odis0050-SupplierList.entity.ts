@@ -3,6 +3,9 @@ import {SupplierPatternList } from './odis0050-SuppierPattern.entity'
  * 仕訳コードエンティティ
  */
 export class SupplierList {
+
+    /** パターン名 */
+    pattern: string;
     /** 仕訳コード */
     journalCode: string;
     /** 経理分類 */
