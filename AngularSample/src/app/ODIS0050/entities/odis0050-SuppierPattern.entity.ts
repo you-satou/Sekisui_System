@@ -8,5 +8,5 @@ export class SupplierPatternList{
     pName: String;
     /** 発注先リスト */
     supplierList: SupplierPatternList[];
-
+    
 }

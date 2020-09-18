@@ -82,7 +82,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       // });
 
       // Mocking data from JSON file
-      this.orderService.getMultipileData(this._url).subscribe((data) => {
+      this.orderService.getMultipleData(this._url).subscribe((data) => {
         this.orderDetailData = data;
         if (this.orderDetailData != null) {
           this.setPaginator();

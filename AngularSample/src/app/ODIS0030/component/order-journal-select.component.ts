@@ -52,9 +52,27 @@ export class OrderJournalSelectComponent implements OnInit {
   */
   ngOnInit() {
 
-    this.getOrderInputData();
-    console.log(this.Odis0020Service.getVal());
+    // this.getOrderInputData();
 
+    this.mockingData();
+    // console.log(this.Odis0020Service.getVal());
+
+  }
+
+  
+
+  mockingData(){
+
+    let _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
+
+    this.orderService.getSingleData(_journalSelect)
+    .subscribe(
+      data => {
+        if (data !== undefined) {
+          this.datas = data;
+      }
+    });
+    
   }
 
   /**
@@ -112,5 +130,6 @@ export class OrderJournalSelectComponent implements OnInit {
         }
       );
   }
+
 }
 

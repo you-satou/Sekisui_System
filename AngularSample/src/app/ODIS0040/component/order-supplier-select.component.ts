@@ -52,8 +52,24 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    */
   ngOnInit() {
 
-    this.getOrderInputData();
-    console.log(this.Odis0020Service.getVal());
+    // this.getOrderInputData();
+    
+    
+    this.mockingData();
+
+  }
+
+  mockingData(){
+      // url
+    let _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
+    this.orderService.getSingleData(_suppierSelect)
+    .subscribe(
+      data => {
+        if (data !== undefined) {
+          this.datas = data;
+
+      }
+    });
 
   }
 
