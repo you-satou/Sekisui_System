@@ -1,5 +1,13 @@
 /**
- * 発注明細テーブルの定義
+ * 発注明細入力_承認処理フォームの定義
+ */
+export class ODIS0010Form{
+    /** 事業区分コード */
+    officeCode: string;
+}
+
+/**
+ * 発注明細入力_承認処理テーブルの定義
  */
 export interface ODIS0010OrderDetail {
     /** 物件管理番号 */

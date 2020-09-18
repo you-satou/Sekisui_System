@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from "@angular/core";
-import { ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
+import { ODIS0010Form,ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.entity";
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
@@ -21,8 +21,11 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   screenSize: any;
 
-  // Mocking data用、削除予定
-  _url: string = "assets/data/dataApproval.json";
+  // パラメータ
+  param = new ODIS0010Form();
+
+  // // Mocking data用、削除予定
+  // _url: string = "assets/data/dataApproval.json";
   
   
   constructor(
@@ -81,13 +84,25 @@ export class OrderDetailApprovalComponent implements OnInit {
       //   );
       // });
 
-      // Mocking data from JSON file
-      this.orderService.getMultipileData(this._url).subscribe((data) => {
-        this.orderDetailData = data;
-        if (this.orderDetailData != null) {
-          this.setPaginator();
+      // // Mocking data from JSON file
+      // this.orderService.getMultipileData(this._url).subscribe((data) => {
+      //   this.orderDetailData = data;
+      //   if (this.orderDetailData != null) {
+      //     this.setPaginator();
+      //   }
+      // });
+
+          // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '701000';
+
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+      .then(
+        (response) => {
+          this.orderDetailData = response;
         }
-      });
+      );
     }
   }
 
