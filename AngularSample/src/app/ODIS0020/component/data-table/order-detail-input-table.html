@@ -81,13 +81,13 @@
         <!--発注先コード-->
         <ng-container matColumnDef="orderSupplierCode">
             <th style="width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSuplierCode}} </td>
+            <td style="width: 40px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSupplierCode}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--発注先名称-->
         <ng-container matColumnDef="orderSupplierName">
             <th style="width: 150px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 150px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSuplierName}} </td>
+            <td style="width: 150px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSupplierName}} </td>
             <td mat-footer-cell *matFooterCellDef class="goukie">合計</td>
         </ng-container>
         <!--発注予定金額-->
@@ -184,13 +184,13 @@
         <!--受入日-->
         <ng-container matColumnDef="receivedDate">
             <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">{{element.recievedDate}}</td>
+            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">{{element.receivedDate}}</td>
             <td mat-footer-cell *matFooterCellDef class="goukie">合計</td>
         </ng-container>
         <!--受け入れ金額-->
         <ng-container matColumnDef="receivedAmount">
             <th style="width: 50px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">{{element.recievedAmount}}</td>
+            <td style="width: 50px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element ">{{element.receivedAmount}}</td>
             <td mat-footer-cell *matFooterCellDef>{{getReceivedAmount()|number}}</td>
         </ng-container>
         <!--支払日-->

@@ -1,15 +1,13 @@
-import { style } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
-import { DataEmitter } from "../order-detail-input.component";
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef, HostBinding } from "@angular/core";
+import { DataEmitter } from "../../entities/odis002-DataEmitter.entity";
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable } from "@angular/material";
 import { Router } from "@angular/router";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from "../../../ODIS0060/entities/odis0060.entity";
 import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail-input-service";
-import { exit } from 'process';
 
 @Component({
   selector: "shiwake-table",
@@ -422,71 +420,75 @@ export class OrderDetailShiwakeTable implements OnInit {
     // btn.setAttribute('disabled','disabled');
     // btn.style.display = 'none';
   }
-  cnt: number = 0;
+
+  /**
+   * テーブルをレンダー後に走るメゾッド
+   */
   ngAfterViewInit(): void {
-    this.cnt++;
-    //Called after every check of the component's view. Applies to components only.
-    //Add 'implements AfterViewChecked' to the class.
-    console.log(this.cnt);
-
-    console.log(this.orderData)
-
-    // this.setTableButtonDisplay(this.orderData);
+    this.setTableButtonDisplay(this.orderData);
   }
 
-  // setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
+  /**
+   * 明細テーブルに初期表の時、ボタン活動性を設定する。
+   *↓↓↓　ボタン名　↓↓↓
+   * 「依頼」「承認」「承認」
+   * 
+   * @param dt 
+   * 
+   */
+  setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
+    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    let tr: HTMLTableRowElement;
+    let btn: any;
+    dt.forEach(element => {
+      let ind = dt.indexOf(element);
+      if (element.requester != '') {
+        tr = skBody.rows[ind];
+        btn = tr.cells[11].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].style.display = 'none';
+        btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].removeAttribute('disabled');
 
-  //   dt.forEach(element => {
+      }
+      if (element.approvalPerson_lv1 != '') {
+        tr = skBody.rows[ind];
+        btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].style.display = 'none';
+        btn = tr.cells[15].getElementsByTagName('button');
+        btn[0].removeAttribute('disabled');
 
-  //     let ind = dt.indexOf(element);
-  //     if (element.requester != '' ||
-  //       element.requester != null) {
+      }
+      if (element.approvalPerson_lv2 != '') {
+        tr = skBody.rows[ind];
+        btn = tr.cells[15].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].style.display = 'none';
+        
+      }
 
-  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+      // 固定行にボンタンを表示させない。
+      if (element.journalName.match('ハウス材') ||
+        element.journalName.match('運賃・荷造・保管料') ||
+        element.journalName.match('労災')) {
+          tr = skBody.rows[ind];
+          btn = tr.cells[6].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn = tr.cells[7].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn = tr.cells[11].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+          btn = tr.cells[13].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+          btn = tr.cells[15].getElementsByTagName('button');
+          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].style.display = 'none';
+      }
+    });
 
-  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
-
-  //         let tr = skBody.rows[ind];
-  //         let btn: HTMLButtonElement;
-  //         btn = tr.cells[11].getElementsByTagName('button');
-  //         btn[0].setAttribute('disabled', 'disabled');
-  //         btn[0].style.display = 'none';
-  //       };
-
-  //     }
-  //     if (element.approvalPerson_lv1 != '' ||
-  //       element.approvalPerson_lv1 != null ||
-  //       element.approvalPerson_lv1 != undefined) {
-
-  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-
-  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
-
-  //         let tr = skBody.rows[ind];
-  //         let btn: HTMLButtonElement;
-  //         btn = tr.cells[13].getElementsByTagName('button');
-  //         btn[0].setAttribute('disabled', 'disabled');
-  //         btn[0].style.display = 'none';
-  //       };
-
-  //     }
-  //     if (element.approvalPerson_lv2 != '' ||
-  //       element.approvalPerson_lv2 != null ||
-  //       element.approvalPerson_lv2 != undefined) {
-
-  //       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-
-  //       for (var rIndex = 2; rIndex < skBody.rows.length; rIndex++) {
-
-  //         let tr = skBody.rows[ind];
-  //         let btn: HTMLButtonElement;
-  //         btn = tr.cells[15].getElementsByTagName('button');
-  //         btn[0].setAttribute('disabled', 'disabled');
-  //         btn[0].style.display = 'none';
-  //       };
-  //     }
-  //   });
-
-  // }
+  }
 
 }

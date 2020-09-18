@@ -20,9 +20,13 @@ export interface ODIS0020OrderDetailList {
   /** 発注予定金額 */
   orderPlanAmount: string;
 
+  /** 分割明細データ */
   splitData: ODIS0020OrderSplitSub[]
 }
 
+/**
+ * 分割明細テーブルの定義
+ */
 export interface ODIS0020OrderSplitSub {
   /** コメント */
   comment: string;
