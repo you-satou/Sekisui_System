@@ -19,12 +19,12 @@
 
             <ng-container matColumnDef="orderSupplierCode">
                 <th colspan="2" style="width: 250px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
-                <td style="width: 40px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
+                <td style="width: 40px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSupplierCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierName">
                 <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
-                <td style="padding: 0 30px 0 5px; word-break: keep-all;" class="splitCell" mat-cell *matCellDef="let element">{{element.orderSuplierName}}</td>
+                <td style="padding: 0 30px 0 5px; word-break: keep-all;" class="splitCell" mat-cell *matCellDef="let element">{{element.orderSupplierName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="orderPlanAmount">
