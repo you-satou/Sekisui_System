@@ -1,5 +1,4 @@
-import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, HostBinding } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
@@ -16,8 +15,8 @@ import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.en
 import { ODIS0020OrderDetailInputInformation } from '../entities/odis002-OrderInformation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
-import { Odis0020Service } from '../services/odis0020-service';
-import { DataSource } from '@angular/cdk/table';
+import { ODIS0020OrderSplitSub } from './../entities/odis0020-OrderDetailList.entity';
+import { ODIS0020Service } from '../services/odis0020-service';
 import { DataEmitter, TableStatus } from '../entities/odis002-DataEmitter.entity';
 
 @Component({
@@ -73,7 +72,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private SupplierPatternService: SupplierPatternService,
     private OrderJournalSelectService: OrderJournalSelectService,
     private OrderSupplierSelectService: OrderSupplierSelectService,
-    private ODIS0020Service: Odis0020Service,
+    private ODIS0020Service: ODIS0020Service,
 
   ) { }
 
@@ -143,11 +142,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               paymentAmount: '',
             }
 
-            // bucketDt.push(temp);
-            this.insertToDataTable(temp);
+            bucketDt.push(temp);
+           
           });
-          // console.log(bucketDt);
-
+          this.insertToDataTable(null,bucketDt);
 
         }
 
@@ -176,7 +174,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
           }
         }
-
         
       );
       
@@ -398,21 +395,31 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       paymentAmount: '',
     }
 
-    this.insertToDataTable(temp);
+    this.insertToDataTable(temp,null);
 
   }
 
   /** テーブルに明細を追加る */
-  insertToDataTable(insertDt: ODIS0020OrderShiwake) {
+  insertToDataTable(insertDt: ODIS0020OrderShiwake,bucketDt: ODIS0020OrderShiwake[]) {
     var insertIndex: number = 0;
 
     switch (this.selectedTab) {
       case this.tabNo1:
-        insertIndex = this.childSekkei.orderData.length -3; // 一番下に肯定している３行を除く
+        if (insertDt != null) {
+          insertIndex = this.childSekkei.orderData.length - 3; // 一番下に肯定している３行を除く
+          this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
+        };
+        if (bucketDt != null){
+          // if(this.checkExistDataWhileInsertProcess(bucketDt,this.childSekkei.orderData,this.rowStatus)){
 
-        this.childSekkei.orderData.splice(insertIndex,0,insertDt);
+          // };
+
+          var a = this.checkExistDataWhileInsertProcess(bucketDt,this.childSekkei.orderData,this.rowStatus);
+          console.log(a);
+          
+        };
+
         this.childSekkei.tableShiwake.renderRows();
-
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, skBody, insertIndex);
         this.setAutoScroll();
@@ -420,11 +427,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo2:
-        insertIndex = this.childHontai.orderData.length -3; // 一番下に肯定している３行を除く
+        if (insertDt != null) {
+          insertIndex = this.childHontai.orderData.length - 3; // 一番下に肯定している３行を除く
+          this.childHontai.orderData.splice(insertIndex, 0, insertDt);
+        };
 
-        this.childHontai.orderData.splice(insertIndex,0,insertDt);
         this.childHontai.tableShiwake.renderRows();
-
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, hntBody, insertIndex);
         this.setAutoScroll();
@@ -432,10 +440,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
-        insertIndex = this.childTsuika.orderData.length -3; // 一番下に肯定している３行を除く
-        this.childTsuika.orderData.splice(insertIndex,0,insertDt);
-        this.childTsuika.tableShiwake.renderRows();
+        if (insertDt != null) {
+          insertIndex = this.childTsuika.orderData.length - 3; // 一番下に肯定している３行を除く
+          this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
+        };
 
+        this.childTsuika.tableShiwake.renderRows();
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, insertIndex);
         this.setAutoScroll();
@@ -444,15 +454,31 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  insertDataProcess(bucketDt: ODIS0020OrderShiwake[],insertDt:ODIS0020OrderShiwake, insertLocation:number){
+  checkExistDataWhileInsertProcess(insertBucket:ODIS0020OrderShiwake[],dataTable: ODIS0020OrderShiwake[], rowStatus: TableStatus): boolean{
+    
+    dataTable.forEach(dt => {
 
-    // Check and overwrite Supplier Code and name:
+      for (const insBk of insertBucket) {
 
-    bucketDt.forEach(element => {
-      
-    });
+        if(dt.journalCode === insBk.journalCode){
+          if(dt.requester == ''){
+            // dt.orderSupplierCode = insBk.orderSupplierCode;
+            // dt.orderSupplierName = insBk.orderSupplierName;
+          }
 
+          return true;
 
+        };
+    }
+  });
+    return false;
+  }
+
+  checkExistedData(bucketDt: ODIS0020OrderShiwake[],insertDt:ODIS0020OrderShiwake, dataTable: ODIS0020OrderShiwake[]): boolean{
+
+    
+
+    return true;
   }
 
   /**
@@ -552,7 +578,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (!this.rowStatus.isSelected) {
       return;
     }
-    // Display request box
+    // Display confirm box
     var request = window.confirm('選択している明細を削除してよろしいでしょうか？');
     if (request) {
       let i = this.rowStatus.rowIndex;

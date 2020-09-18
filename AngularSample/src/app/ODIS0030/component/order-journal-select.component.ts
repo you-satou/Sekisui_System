@@ -3,7 +3,7 @@ import { OrderJournalSelectService } from '../services/order-journal-select.serv
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
-import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
+import { ODIS0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
 import { ODIS0030Form } from '../entities/odis0030-Form.entity'
 
@@ -32,7 +32,7 @@ export class OrderJournalSelectComponent implements OnInit {
   param = new ODIS0030Form();
 
   //エラーメッセージ
-  errormsg:string ="";
+  errorMsg:string ="";
 
   /**
    * コンストラクタ
@@ -44,7 +44,7 @@ export class OrderJournalSelectComponent implements OnInit {
     private commonComponent: CommonComponent,
     private modalService: OrderJournalSelectService,
     private orderService: CommonService,
-    private Odis0020Service: Odis0020Service,
+    private ODIS0020Service: ODIS0020Service,
   ) {}
   
   /**
@@ -55,7 +55,7 @@ export class OrderJournalSelectComponent implements OnInit {
     // this.getOrderInputData();
 
     this.mockingData();
-    // console.log(this.Odis0020Service.getVal());
+    // console.log(this.ODIS0020Service.getVal());
 
   }
 
@@ -106,7 +106,7 @@ export class OrderJournalSelectComponent implements OnInit {
   public onChooseClick($event) {
     
     if(this.resVal == undefined ||this.resVal == null){
-        this.errormsg = Const.ErrorMsg.E0008;
+        this.errorMsg = Const.ErrorMsg.E0008;
         $event.stopPropagation();
     }
     else{

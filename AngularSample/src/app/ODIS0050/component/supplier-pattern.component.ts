@@ -107,7 +107,6 @@ export class SupplierPatternComponent implements OnInit {
   public onChooseClick($event) {
 
     this.resVal = this.sDatas;
-    console.log(this.sDatas);
     
     if (this.resVal == undefined || this.resVal == null) {
       this.errormsg = Const.ErrorMsg.E0008;

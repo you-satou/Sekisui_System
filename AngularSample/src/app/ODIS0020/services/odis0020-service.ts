@@ -8,7 +8,7 @@ import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entit
 /**
  * 発注明細入力発注明細入力_詳細入力サービス
  */
-export class Odis0020Service {
+export class ODIS0020Service {
 
   // データの変更を通知するためのオブジェクト
   private closeEventSubject = new Subject<string>();
@@ -16,7 +16,7 @@ export class Odis0020Service {
   /**
   * コンストラクタ
   *
-  * @memberof Odis0020Service
+  * @memberof ODIS0020Service
   */
   constructor() { }
 

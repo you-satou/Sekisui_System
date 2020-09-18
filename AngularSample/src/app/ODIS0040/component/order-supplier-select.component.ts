@@ -3,7 +3,7 @@ import { OrderSupplierSelectService } from '../services/order-supplier-select.se
 import { OrderSupplierSelectType } from '../entities/odis0040.entity'
 import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
-import { Odis0020Service } from '../../ODIS0020/services/odis0020-service';
+import { ODIS0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
 import { ODIS0040Form } from '../entities/odis0040-Form.entity'
 
@@ -44,7 +44,7 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
     private modalService: OrderSupplierSelectService,
     private commonComponent: CommonComponent,
     private orderService: CommonService,
-    private Odis0020Service: Odis0020Service,
+    private ODIS0020Service: ODIS0020Service,
   ) {}
   
   /**
@@ -61,8 +61,8 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
 
   mockingData(){
       // url
-    let _suppierSelect: string = "assets/data/odis0040-SupplierSelect.json";
-    this.orderService.getSingleData(_suppierSelect)
+    let _supplierSelect: string = "assets/data/odis0040-SupplierSelect.json";
+    this.orderService.getSingleData(_supplierSelect)
     .subscribe(
       data => {
         if (data !== undefined) {
