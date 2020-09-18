@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "../../entities/odis002-DataEmitter.entity";
@@ -335,6 +336,7 @@ export class OrderDetailShiwakeTable implements OnInit {
 
     //承認１ボタンのインデックスは「13」
     let btnShounin = tr.children[13].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
 
 
@@ -376,10 +378,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     let tr = btn.parentElement.parentElement;
     //承認１ボタンのインデックスは「15」
     let btnShounin = tr.children[15].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
-
-
-
 
     // 処理後ボタンを　削除する。
     btn.remove();
@@ -411,7 +411,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = '積水　次郎';
-
 
     // 処理後ボタンを　削除する。
     btn.remove();
@@ -448,6 +447,7 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
         btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].style.display = 'inherit';
         btn[0].removeAttribute('disabled');
 
       }
@@ -457,6 +457,7 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
         btn = tr.cells[15].getElementsByTagName('button');
+        btn[0].style.display = 'inherit';
         btn[0].removeAttribute('disabled');
 
       }

@@ -150,7 +150,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
                 {{element.approvalPerson_lv1}}
-                <button id="btnShounin1" disabled (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin1" disabled style="display: none;" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -165,7 +165,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
                 {{element.approvalPerson_lv2}}
-                <button id="btnShounin2" disabled (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin2" disabled style="display: none;" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
