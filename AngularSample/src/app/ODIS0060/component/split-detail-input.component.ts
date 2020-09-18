@@ -1,6 +1,6 @@
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from '../entities/odis0060.entity';
 import { SplitOrderDetailService } from '../services/split-detail-input-service';
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { Location } from '@angular/common';
 import { AppComponent } from '../../app.component';
@@ -102,6 +102,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     private router: Router,
     public datePipe: DatePipe,
     private service: SplitOrderDetailService,
+    private viewRef: ViewContainerRef,
   ) { }
 
   /**
@@ -267,14 +268,135 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.requestDate = "";
     this.requester = "";
   }
+  
+  /**
+   * 依頼ボタンを実行する
+   * @param event 
+   * @param dt 
+   */
+  setRequest(event: any, dt: SplitOrderDetailSplit) {
+    let rowIndex = this.bunkatsuData.indexOf(dt);
+
+    this.setRowHighlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.requestDate = requestTime;
+
+    //TODO: ログイン情報を取得
+    dt.requester = '積水　次郎';
+
+    // 承認一回目のボタンを活動化する.
+    let tr = btn.parentElement.parentElement;
+
+    //承認１ボタンのインデックスは「4」
+    let btnShounin = tr.children[4].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
+    btnShounin[0].removeAttribute('disabled');
+
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+    // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
+  }
+
+  setAddRequest(event: any, requester) {
+    let btn: HTMLButtonElement = null;
+    if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    this.requestDate = requestTime;
+
+    //TODO: ログイン情報を取得
+    this.requester = '積水　次郎';
+
+    // 承認一回目のボタンを活動化する.
+    let tr = btn.parentElement.parentElement;
+
+    //承認１ボタンのインデックスは「3」
+    let btnShounin = tr.children[3].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
+    btnShounin[0].removeAttribute('disabled');
+
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+    // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
+  }
 
   /**
-   * 「依頼」ボタンの押下
-   *
-   * @param $event イベント
+   * 依頼ボタンを押下する時行の背景色を変える。
+   * @param event
    */
-  onAddOrderClick($event) {
-    this.requester = "user";
-    this.requestDate = this.datePipe.transform(this.currentDate, "yyyy/MM/dd").toString();
+  setRowHighlight(rowIndex: number) {
+    var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
+    for (var i = 0; i < wTbody.rows.length; i++) {
+
+      if (i === rowIndex) {
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.Selected;
+        }
+      }
+      else {
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.None;
+        }
+      }
+    }
+  }
+
+  /**
+   * テーブルをレンダー後に走るメゾッド
+   */
+  ngAfterViewChecked(): void {
+    this.setTableButtonDisplay(this.bunkatsuData);
+  }
+
+  /**
+   * 明細テーブルに初期表の時、ボタン活動性を設定する。
+   *↓↓↓　ボタン名　↓↓↓
+   * 「依頼」「承認」「承認」
+   * 
+   * @param dt 
+   * 
+   */
+  setTableButtonDisplay(dt: SplitOrderDetailSplit[]) {
+    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    let tr: HTMLTableRowElement;
+    let btn: any;
+    dt.forEach(element => {
+      let ind = dt.indexOf(element);
+      if (element.requester != '') {
+        tr = skBody.rows[ind];
+        btn = tr.cells[4].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].style.display = 'none';
+      }
+    });
+
   }
 }

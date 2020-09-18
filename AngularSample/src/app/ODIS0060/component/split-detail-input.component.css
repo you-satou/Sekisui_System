@@ -57,6 +57,10 @@ tr.mat-footer-row {
     border: 0.5px solid #CCD0D5;
 }
 
+.split-shiwake-table>tbody>tr {
+    height: 30px;
+}
+
 .table-Detail {
     height: 250px;
     max-width: 50%;
@@ -82,7 +86,7 @@ tr.mat-footer-row {
 
 .mat-tab-label.mat-tab-label-active {
     min-width: 25px !important;
-    max-width: 60px !important;
+    width: 60px !important;
     padding: 5px;
     background-color: #305496;
     color: white;

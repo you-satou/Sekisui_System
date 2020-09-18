@@ -5,6 +5,7 @@ import { CommonComponent } from 'app/common/common.component';
 import { OrderSplitApprovalMasterTable } from '../entities/odis0070.entity';
 import { OrderSplitApprovalMasterService } from '../services/order-split-approval-master-service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-split-approval-master',
@@ -53,6 +54,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private commonComponent: CommonComponent,
     private _location: Location,
     private service: OrderSplitApprovalMasterService,
+    private router: Router,
   ) { }
 
   /**
@@ -82,7 +84,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
-    this._location.back();
+    this.router.navigate([Const.UrlSetting.U0000]);
   }
 
   /**
