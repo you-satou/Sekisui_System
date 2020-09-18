@@ -145,7 +145,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             bucketDt.push(temp);
            
           });
-          this.insertToDataTable(null,bucketDt);
+          this.insertDataFromSupplier(bucketDt);
 
         }
 
@@ -396,30 +396,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       paymentAmount: '',
     }
 
-    this.insertToDataTable(temp,null);
+    this.insertToDataTable(temp);
 
   }
 
   /** テーブルに明細を追加る */
-  insertToDataTable(insertDt: ODIS0020OrderShiwake,bucketDt: ODIS0020OrderShiwake[]) {
+  insertToDataTable(insertDt: ODIS0020OrderShiwake) {
     var insertIndex: number = 0;
 
     switch (this.selectedTab) {
       case this.tabNo1:
-        if (insertDt != null) {
-          insertIndex = this.childSekkei.orderData.length - 3; // 一番下に肯定している３行を除く
-          this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
-        };
-        if (bucketDt != null){
-          // if(this.checkExistDataWhileInsertProcess(bucketDt,this.childSekkei.orderData,this.rowStatus)){
-
-          // };
-
-          var a = this.checkExistDataWhileInsertProcess(bucketDt,this.childSekkei.orderData,this.rowStatus);
-          console.log(a);
-          
-        };
-
+        insertIndex = this.childSekkei.orderData.length - 3; // 一番下に肯定している３行を除く
+        this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.childSekkei.tableShiwake.renderRows();
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, skBody, insertIndex);
@@ -428,10 +416,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo2:
-        if (insertDt != null) {
-          insertIndex = this.childHontai.orderData.length - 3; // 一番下に肯定している３行を除く
-          this.childHontai.orderData.splice(insertIndex, 0, insertDt);
-        };
+        insertIndex = this.childHontai.orderData.length - 3; // 一番下に肯定している３行を除く
+        this.childHontai.orderData.splice(insertIndex, 0, insertDt);
 
         this.childHontai.tableShiwake.renderRows();
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
@@ -441,10 +427,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
-        if (insertDt != null) {
-          insertIndex = this.childTsuika.orderData.length - 3; // 一番下に肯定している３行を除く
-          this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
-        };
+        insertIndex = this.childTsuika.orderData.length - 3; // 一番下に肯定している３行を除く
+        this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
 
         this.childTsuika.tableShiwake.renderRows();
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
@@ -455,31 +439,78 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkExistDataWhileInsertProcess(insertBucket:ODIS0020OrderShiwake[],dataTable: ODIS0020OrderShiwake[], rowStatus: TableStatus): boolean{
-    
-    dataTable.forEach(dt => {
+  insertDataFromSupplier(insertBucket:ODIS0020OrderShiwake[]){
+    switch (this.selectedTab) {
+      case this.tabNo1:
+        let dataSekkei = this.childSekkei.orderData;
 
-      for (const insBk of insertBucket) {
+        this.insertProcess(insertBucket,dataSekkei);
 
-        if(dt.journalCode === insBk.journalCode){
-          if(dt.requester == ''){
-            // dt.orderSupplierCode = insBk.orderSupplierCode;
-            // dt.orderSupplierName = insBk.orderSupplierName;
-          }
+        this.childSekkei.tableShiwake.renderRows();
+        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+        break;
 
-          return true;
+      case this.tabNo2:
+        let dataHontai = this.childHontai.orderData;
 
-        };
+        this.insertProcess(insertBucket,dataHontai);
+
+        this.childHontai.tableShiwake.renderRows();
+        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
+        break;
+
+      case this.tabNo3:
+        let dataTsuika = this.childTsuika.orderData;
+
+        this.insertProcess(insertBucket,dataTsuika);
+
+        this.childTsuika.tableShiwake.renderRows();
+        break;
     }
-  });
-    return false;
+
   }
 
-  checkExistedData(bucketDt: ODIS0020OrderShiwake[],insertDt:ODIS0020OrderShiwake, dataTable: ODIS0020OrderShiwake[]): boolean{
+  insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
 
-    
+    let temp : ODIS0020OrderShiwake[] = [];
 
-    return true;
+    dataTable.forEach(dt =>{
+      for (const insBk of insertBucket) {
+        // Have same key
+        if(dt.id === insBk.id){
+          // if duplicate key get row index.
+          let index = dataTable.indexOf(dt);
+          //Check irai
+          if (dt.requester != ''){
+            return;
+          }
+          else{
+            // Overwrite first row data on Hacchu Code and Hacchu Name 
+            // It's still exist in insertBucket array, might be duplicate.
+            dataTable[index].orderSupplierCode = insBk.orderSupplierCode;
+            dataTable[index].orderSupplierName = insBk.orderSupplierName;
+            // After process exit loop
+            break;
+          };
+        }
+        // If haven't same key
+        else{
+
+          // Save into temporary array;
+          temp.push(insBk);
+          break;
+        }
+      }
+
+    });
+
+    console.log(temp);
+          // // Insert
+          // // get insert location
+          // let insertIndex = dataTable.length - 3; // 一番下に肯定している３行を除く
+          // dataTable.splice(insertIndex, 0, insBk);
+          // break;
+
   }
 
   /**
