@@ -191,23 +191,24 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       let splitdt: ODIS0020OrderSplitSub[] = element.splitData;
 
       if (splitdt.length > 0) {
-
         for (let i = 0; i < splitdt.length; i++) {
+          let newDt: ODIS0020OrderShiwake;
           const splitDt = splitdt[i];
           //データをある場合、設定する
           if (i === 0) {
-            let newDt = this.setData('SetFirstSplitData', tabName, element, splitDt);
-            data.push(newDt);
+            newDt = this.setData('SetFirstSplitData', tabName, element, splitDt);
           }
+          else{
           //　一番以降仕訳データを余白にする
-          let newDt = this.setData('SetNextSplitData', tabName, element, splitDt);
+          newDt = this.setData('SetNextSplitData', tabName, element, splitDt);
+          }
           data.push(newDt);
         }
       }
-
-      let dividedDt = this.setData('NoSplitData', tabName, element, null);
-      data.push(dividedDt);
-
+      else{
+        let dividedDt = this.setData('NoSplitData', tabName, element, null);
+        data.push(dividedDt);
+      }
     });
 
     return data;

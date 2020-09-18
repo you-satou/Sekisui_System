@@ -448,6 +448,7 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
         btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].style.display = 'inherit';
         btn[0].removeAttribute('disabled');
 
       }
@@ -457,6 +458,7 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
         btn = tr.cells[15].getElementsByTagName('button');
+        btn[0].style.display = 'inherit';
         btn[0].removeAttribute('disabled');
 
       }
