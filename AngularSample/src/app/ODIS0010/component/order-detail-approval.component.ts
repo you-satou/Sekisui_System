@@ -92,12 +92,12 @@ export class OrderDetailApprovalComponent implements OnInit {
       //   }
       // });
 
-          // Todo　システムログイン情報から取得すること！
+    // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '701000';
 
-    // 発注仕訳マスタ取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+    // 発注明細入力_承認処理取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.param)
       .then(
         (response) => {
           this.orderDetailData = response;

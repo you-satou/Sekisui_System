@@ -34,9 +34,6 @@ export class OrderJournalSelectComponent implements OnInit {
   //エラーメッセージ
   errormsg:string ="";
 
-  //jsonFile
-  _url = "assets/data/odis0030-JournalSelect.json" ; 
-
   /**
    * コンストラクタ
    *
@@ -103,30 +100,18 @@ export class OrderJournalSelectComponent implements OnInit {
   * JSONファイルをdatasに格納
   */
   getOrderInputData(){
-    // //サーバから取得
-    // // Todo　システムログイン情報から取得すること！
-    // // 事業区分コード設定
-    // this.param.officeCode = '701000';
+    
+     // Todo　システムログイン情報から取得すること！
+     // 事業区分コード設定
+     this.param.officeCode = '701000';
 
-    // // 発注仕訳マスタ取得
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
-    //   .then(
-    //     (response) => {
-    //       this.datas = response;
-    //     }
-    //   );
-
-    /**
-    JSONファイルをデータに格納
-    */
-    this.orderService .getSingleData (this._url)
-    .subscribe(
-        data =>  {
-        if(data!== undefined){
-       this.datas  =  data ;
-      }
-      } 
-    );
+     // 発注仕訳マスタ取得
+     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+       .then(
+         (response) => {
+           this.datas = response;
+         }
+       );
 
   }
 }

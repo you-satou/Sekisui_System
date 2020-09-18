@@ -34,9 +34,6 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   // エラーメッセージ
   errormsg:string ="";
 
-  //Mocking data用、削除予定
-  _url: string = "assets/data/odis0040-SupplierSelect.json";
-
   /**
    * コンストラクタ
    *
@@ -105,30 +102,17 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   */
   getOrderInputData(){
 
-    // //サーバ繋ぐ用
-    // // Todo　システムログイン情報から取得すること！
-    // // 事業区分コード設定
-    // this.param.officeCode = '701000';
+     // Todo　システムログイン情報から取得すること！
+     // 事業区分コード設定
+     this.param.officeCode = '701000';
 
-    // // 発注仕訳マスタ取得
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
-    //   .then(
-    //     (response) => {
-    //       this.datas = response;
-    //     }
-    //   );
-    
-
-    /**
-    JSONファイルをデータに格納
-    */
-    this.orderService .getSingleData (this._url)
-      .subscribe(
-      data =>  {
-        if(data!== undefined){
-          this.datas  =  data ;
-      }
-    } );
+     // 発注仕訳マスタ取得
+     this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
+       .then(
+         (response) => {
+           this.datas = response;
+         }
+       );
   }
 
 }
