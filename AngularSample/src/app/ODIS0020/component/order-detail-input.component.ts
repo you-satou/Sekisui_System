@@ -36,10 +36,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // タッブの初期値
   selectedTab: string = "設計";
 
-  //  タッブの名
-  tabNo1: string = '設計';
-  tabNo2: string = '本体';
-  tabNo3: string = '追加';
+  //  タッブの名前
+  private tabNo1: string = '設計';
+  private tabNo2: string = '本体';
+  private tabNo3: string = '追加';
 
   // レスポンスから取得する
   pageTotalInfo: ODIS0020OrderDetailTotalInfo;

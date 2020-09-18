@@ -25,6 +25,8 @@ export class SupplierPatternComponent implements OnInit {
 
   // データ取得
   datas: SupplierPatternList[]
+
+
   //画面表示データ（パターン名）
   pDatas: PatternList[];
   //画面表示データ（仕訳コードテーブル）
