@@ -143,10 +143,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               paymentAmount: '',
             }
 
-            bucketDt.push(temp);
-            // this.insertToDataTable(temp);
+            // bucketDt.push(temp);
+            this.insertToDataTable(temp);
           });
-          console.log(bucketDt);
+          // console.log(bucketDt);
 
 
         }
@@ -217,6 +217,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * データを分けて、発注明細のデータを返す。
+   * @param action 
+   * @param tabName タブ名
+   * @param orderDt 明細データ
+   * @param splitDt 分割データ
+   */
   setData(action: string, tabName: string ,orderDt: ODIS0020OrderDetailList, splitDt: ODIS0020OrderSplitSub): ODIS0020OrderShiwake{
 
     let newDt = new ODIS0020OrderShiwake();
