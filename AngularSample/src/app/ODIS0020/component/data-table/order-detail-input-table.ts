@@ -447,12 +447,17 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn = tr.cells[11].getElementsByTagName('button');
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
+        btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].removeAttribute('disabled');
+
       }
       if (element.approvalPerson_lv1 != '') {
         tr = skBody.rows[ind];
         btn = tr.cells[13].getElementsByTagName('button');
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
+        btn = tr.cells[15].getElementsByTagName('button');
+        btn[0].removeAttribute('disabled');
 
       }
       if (element.approvalPerson_lv2 != '') {
@@ -460,6 +465,7 @@ export class OrderDetailShiwakeTable implements OnInit {
         btn = tr.cells[15].getElementsByTagName('button');
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
+        
       }
 
       // 固定行にボンタンを表示させない。
