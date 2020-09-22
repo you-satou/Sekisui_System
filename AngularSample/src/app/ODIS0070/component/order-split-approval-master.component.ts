@@ -79,13 +79,15 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
 
-        // 発注明細入力_承認処理取得
-        this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.param)
-        .then(
-          (response) => {
-            this.orderApprovalData = response;
-          }
-        );
+    this.param.officeCode = '70100';
+
+    // 発注明細入力_承認処理取得
+    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.param)
+      .then(
+        (response) => {
+          this.orderApprovalData = response;
+        }
+      );
 
     // this.service.getOrderSplitApproval()
     //   .subscribe(
