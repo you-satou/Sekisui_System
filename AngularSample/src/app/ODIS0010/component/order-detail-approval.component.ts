@@ -96,6 +96,54 @@ export class OrderDetailApprovalComponent implements OnInit {
     // 事業区分コード設定
     this.param.officeCode = '701000';
 
+    // 事業区分コード設定
+    if(!(this.inputment.contractNumFrom == null)){
+      this.param.contractNumFrom = this.inputment.contractNumFrom;
+    }
+
+    if(!(this.inputment.contractNumTo == null)){
+      this.param.contractNumTo = this.inputment.contractNumTo;
+    }
+
+    if(!(this.inputment.propertyName == null)){
+      this.param.propertyName = this.inputment.propertyName;
+    }
+
+    if(this.inputment._checked == true){
+      this.param.searchByName = '1';
+    }
+    else{
+      this.param.searchByName = '2';
+    }
+    
+    if(this.inputment.detailNone == true ){
+      this.param.detailCreated = true;
+    }
+    else{
+      this.param.detailCreated = false;
+    }
+
+    if(this.inputment.detailCreated == true ){
+      this.param.detailNone = true;
+    }
+    else{
+      this.param.detailNone = false;
+    }
+
+    if(this.inputment.approval_1 == true ){
+      this.param.approval_1 = true;
+    }
+    else{
+      this.param.approval_1 = false;
+    }
+
+    if(this.inputment.approval_2 == true ){
+      this.param.approval_2 = true;
+    }
+    else{
+      this.param.approval_2 = false; 
+    }
+
     // 発注明細入力_承認処理取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.param)
       .then(

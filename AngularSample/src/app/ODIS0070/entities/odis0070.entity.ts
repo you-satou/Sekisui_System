@@ -1,11 +1,23 @@
 /**
-   * 発注分割承認者マスタのインターフェース
+   * 発注承認者マスタのエンティティ
    */
-export interface OrderSplitApprovalMasterTable{
+export class OrderSplitApprovalMasterTable{
+
+    /** 個人認証ＩＤ */
     personalID: string;
+
+    /** 従業員コード */
     employeeCode: string;
+
+    /** 発注先コード */
     employeeName: string;
+
+    /** 発注先コード */
     approval1: string;
+
+    /** 発注先コード */
     approval2: string;
+
+    /** 発注先コード */
     deleteFlag: string;
 }
