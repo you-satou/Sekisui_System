@@ -192,7 +192,7 @@
     <section style="margin-top: 10px;" class="tabGroup">
         <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)">
             <mat-tab class="sekkei" label="設計">
-                <shiwake-table #tabSekkei [orderData]="tblSekki" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabSekkei [orderData]="tblSekkei" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="hontai" label="本体">
                 <shiwake-table #tabHontai [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
@@ -249,6 +249,9 @@
         </div>
         <div style="margin-left: 450px;" class="bottomButton">
             <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border">明細一覧</button>
+        </div>
+        <div style="margin-left: 450px;" class="bottomButton">
+            <button mat-button id="" (click) = 'clear()' class="btn btn-info m-1 border">ClearSession</button>
         </div>
         <div style="right: 46px;" class="bottomButton">
             <button mat-button id="btnKoushin" class="btn btn-info m-1 border">更新終了</button>

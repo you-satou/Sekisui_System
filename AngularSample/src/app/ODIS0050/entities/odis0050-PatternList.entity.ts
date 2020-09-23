@@ -6,4 +6,5 @@ export class PatternList{
      pKubun: String;
      /** 発注先パターン名 */
      pName: String;
+
 }

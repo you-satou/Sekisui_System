@@ -1,3 +1,6 @@
+import { MatTableDataSource } from '@angular/material/table';
+import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from './../../ODIS0020/entities/odis0020-OrderDetailList.entity';
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from '../entities/odis0060.entity';
 import { SplitOrderDetailService } from '../services/split-detail-input-service';
 import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
@@ -62,6 +65,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
   //テーブルを再レンダーする場合
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
+  @ViewChild('ShiwakeData', { static: true }) childShiwake: any;
+  @ViewChild('BunkatsuData', { static: true }) childBunkatsu: any;
+
   dataSource: any;
 
   //合計金額
@@ -101,6 +107,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     private router: Router,
     public datePipe: DatePipe,
     private service: SplitOrderDetailService,
+    private odis0020Service: ODIS0020Service,
     private viewRef: ViewContainerRef,
   ) { }
 
@@ -135,7 +142,68 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
-    this.router.navigate([Const.UrlSetting.U0002])
+
+    let shiwakeData: SplitOrderDetailShiwake[] = this.childShiwake.shiwakeData;
+    let bunkatsu:SplitOrderDetailSplit[] = this.bunkatsuData;
+
+    let senderDt: ODIS0020OrderShiwake[] = [];
+
+    bunkatsu.forEach(element => {
+      let dt = new ODIS0020OrderShiwake();
+      if(bunkatsu.indexOf(element) == 0){
+        dt.id = shiwakeData[0].journalCode;
+        dt.tabIndex = this.tabName;
+        dt.journalCode = shiwakeData[0].journalCode;
+        dt.accountCode = shiwakeData[0].accountCode;
+        dt.journalName = shiwakeData[0].journalName;
+        dt.orderSupplierCode = shiwakeData[0].orderSupplierCode;
+        dt.orderSupplierName = shiwakeData[0].orderSupplierName;
+        dt.orderPlanAmount = shiwakeData[0].orderPlanAmount;
+        dt.orderSplitAmount= element.orderPlanAmount;
+        dt.comment= element.comment;
+        dt.requestDate= element.requestDate;
+        dt.requester= element.requester;
+        dt.approvalDate_lv1= element.approvalDate_lv1;
+        dt.approvalPerson_lv1= element.approvalPerson_lv1;
+        dt.approvalDate_lv2= element.approvalDate_lv2;
+        dt.approvalPerson_lv2= element.approvalPerson_lv2;
+        dt.orderDate= element.orderDate;
+        dt.orderAmount= element.orderAmount;
+        dt.receivedDate= element.receivedDate;
+        dt.receivedAmount= element.receivedAmount;
+        dt.paymentDate= element.paymentDate;
+        dt.paymentAmount= element.paymentAmount;
+      }
+      else{
+        dt.id =  shiwakeData[0].journalCode;
+        dt.tabIndex = this.tabName;
+        dt.journalCode = '';
+        dt.accountCode = '';
+        dt.journalName = '';
+        dt.orderSupplierCode = '';
+        dt.orderSupplierName = '';
+        dt.orderPlanAmount = '';
+        dt.orderSplitAmount= element.orderPlanAmount;
+        dt.comment= element.comment;
+        dt.requestDate= element.requestDate;
+        dt.requester= element.requester;
+        dt.approvalDate_lv1= element.approvalDate_lv1;
+        dt.approvalPerson_lv1= element.approvalPerson_lv1;
+        dt.approvalDate_lv2= element.approvalDate_lv2;
+        dt.approvalPerson_lv2= element.approvalPerson_lv2;
+        dt.orderDate= element.orderDate;
+        dt.orderAmount= element.orderAmount;
+        dt.receivedDate= element.receivedDate;
+        dt.receivedAmount= element.receivedAmount;
+        dt.paymentDate= element.paymentDate;
+        dt.paymentAmount= element.paymentAmount;
+      }
+      senderDt.push(dt);
+      
+    });
+
+    this.odis0020Service.setTableData(senderDt);
+    this.router.navigate([Const.UrlSetting.U0002]);
   }
 
   /**
@@ -145,7 +213,10 @@ export class SplitOrderDetailInputComponent implements OnInit {
    */
   public onSelectClick($event) {
     //編集テーブルが未入力になっていない場合
-    if (this.orderPlanAmount || this.comment || this.requestDate || this.requester) {
+    if (this.orderPlanAmount != '' || 
+    this.comment != '' || 
+    this.requestDate != '' || 
+    this.requester != '') {
       //入力された情報を値に保存
       var temp: SplitOrderDetailSplit = {
         orderPlanAmount: this.orderPlanAmount,

@@ -6,7 +6,7 @@ import { ODIS0020OrderDetailInputInformation } from './odis002-OrderInformation.
 /**
  * 発注明細入力＿詳細入力画面のデータ定義
  */
-export interface ODIS0020OrderDetailTotalInfo{
+export class ODIS0020OrderDetailTotalInfo{
 
     /** 発注明細 邸情報　*/
     ContractInfo: ODIS0020OrderDetailInputInformation[];
@@ -25,5 +25,7 @@ export interface ODIS0020OrderDetailTotalInfo{
 
     /** 追加のデータ */
     TsuikaData: ODIS0020OrderDetailList[]
+
+    constructor() {}
 
 } 

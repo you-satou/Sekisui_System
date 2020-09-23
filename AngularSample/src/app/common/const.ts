@@ -87,6 +87,8 @@ export namespace Const{
         /** 行を外す */
         export const T0003 = 'UnSelected';
 
+        export const P001 = 'MoveToSplitPage';
+
     }
 
     /** 背景の色のコード */

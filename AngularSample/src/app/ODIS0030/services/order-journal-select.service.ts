@@ -24,7 +24,7 @@ export class OrderJournalSelectService {
    */
   constructor() { }
 
-  private _val
+  private _val: any;
 
   public getVal() {
     return this._val;

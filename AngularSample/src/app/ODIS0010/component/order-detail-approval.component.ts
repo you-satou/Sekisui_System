@@ -79,7 +79,6 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   getSearchRequest() {
     if (this.checkInput(this.inputment)) {
-
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.inputment.officeCode = '701000';

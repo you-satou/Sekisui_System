@@ -103,4 +103,90 @@
         "supplierCode": "803",
         "supplierName": "積水建設㈱"
     }
+    ,
+    {
+        "pattern":"テスト用０１",
+        "journalCode": "0260",
+        "accountingCategory":"026",
+        "journalName": "基礎塗装工事",
+        "supplierCode": "803",
+        "supplierName": "積水建設㈱"
+    }
+    ,
+    {
+        "pattern":"テスト用０１",
+        "journalCode": "0880",
+        "accountingCategory":"080",
+        "journalName": "経理テスト０１",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０１"
+    }
+    ,
+    {
+        "pattern":"テスト用０１",
+        "journalCode": "1000",
+        "accountingCategory":"100",
+        "journalName": "経理テスト０２",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０２"
+    }
+    ,
+    {
+        "pattern":"テスト用０１",
+        "journalCode": "1400",
+        "accountingCategory":"140",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+
+
+
+
+    ,
+    {
+        "pattern":"テスト用０２",
+        "journalCode": "4400",
+        "accountingCategory":"400",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+    ,
+    {
+        "pattern":"テスト用０２",
+        "journalCode": "1400",
+        "accountingCategory":"140",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+    ,
+    {
+        "pattern":"テスト用０２",
+        "journalCode": "1400",
+        "accountingCategory":"140",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+    ,
+    {
+        "pattern":"テスト用０２",
+        "journalCode": "1400",
+        "accountingCategory":"140",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+    ,
+    {
+        "pattern":"テスト用０２",
+        "journalCode": "1400",
+        "accountingCategory":"140",
+        "journalName": "経理テスト０３",
+        "supplierCode": "803",
+        "supplierName": "積水テスト０３"
+    }
+    
 ]
