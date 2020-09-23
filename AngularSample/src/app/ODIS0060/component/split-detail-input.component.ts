@@ -1,4 +1,3 @@
-import { MatTableDataSource } from '@angular/material/table';
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from './../../ODIS0020/entities/odis0020-OrderDetailList.entity';
 import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from '../entities/odis0060.entity';
@@ -142,6 +141,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
+    try {
 
     let shiwakeData: SplitOrderDetailShiwake[] = this.childShiwake.shiwakeData;
     let bunkatsu: SplitOrderDetailSplit[] = this.bunkatsuData;
@@ -204,6 +204,13 @@ export class SplitOrderDetailInputComponent implements OnInit {
 
     this.odis0020Service.setTableData(senderDt);
     this.router.navigate([Const.UrlSetting.U0002]);
+          
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+
   }
 
   /**
@@ -366,10 +373,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
    */
   onClearClick($event) {
     this.selected = false;
-    this.orderPlanAmount = "";
-    this.comment = "";
-    this.requestDate = "";
-    this.requester = "";
+    this.resetAddTable();
+
   }
   
   /**

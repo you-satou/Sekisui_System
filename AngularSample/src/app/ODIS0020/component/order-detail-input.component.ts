@@ -77,34 +77,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   ) { }
 
-  clear(){
-
-    sessionStorage.clear();
-    this.ODIS0020Service.clearReturn();
-    console.log(sessionStorage);
-    // console.log(this.ODIS0020Service.returnedSplitData);
-    
-
-    
-  }
-
   ngOnInit() {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
-    // Mocking data
+    
     if(this.ODIS0020Service.returnedSplitData.length > 0 ||
       this.ODIS0020Service.returnedSplitData == null){
       let returnDt = this.ODIS0020Service.returnedSplitData;
 
       this.resetOrderInputData(returnDt);
+      //ロードした後、戻る値を削除
+      this.ODIS0020Service.clearReturn();
     }
     else{
       this.getOrderInputData();
     }
     
-
-
   }
   /**
    * 各モダールの設定
@@ -246,14 +235,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
 
   mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[]): ODIS0020OrderShiwake[]{
-    try {
-
     var returnId = returnDt[0].id;
-    
     var filterDt = savedDt.filter(value =>{
       return value.id == returnId;
     })
-
     let indx = savedDt.indexOf(filterDt[0]);
     switch(true){
       case filterDt.length == returnDt.length:
@@ -374,14 +359,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         };
         return savedDt;
     }
-  } catch (e) {
-    console.log(e);
-  }
     
   }
-
-
-
 
   /**
    * 重複しているデータを余白にさせる。
@@ -936,9 +915,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         
         break;
     }
-
-
-
 
   }
 

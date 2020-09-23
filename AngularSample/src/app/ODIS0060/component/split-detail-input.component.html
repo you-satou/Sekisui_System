@@ -1,7 +1,7 @@
 <div>
     <mat-tab-group>
         <mat-tab class="hontai" label="{{tabName}}">
-            <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
+            <split-shiwake-table #ShiwakeData [shiwakeData]="shiwakeData"></split-shiwake-table>
             <div class="mat-elevation-z8" style="margin: 20px 0;">
                 <table mat-table [dataSource]="bunkatsuData" class="split-table table table-hover table-sm table-bordered" id="bunkatsuTable">
                     <ng-container matColumnDef="no">
