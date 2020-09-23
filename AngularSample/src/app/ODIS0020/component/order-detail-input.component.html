@@ -190,7 +190,7 @@
     </section>
 
     <section style="margin-top: 10px;" class="tabGroup">
-        <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)">
+        <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)" [selectedIndex]="tabValue">
             <mat-tab class="sekkei" label="設計">
                 <shiwake-table #tabSekkei [orderData]="tblSekkei" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>

@@ -40,6 +40,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private tabNo2: string = '本体';
   private tabNo3: string = '追加';
 
+  get tabValue(){
+    switch(this.selectedTab){
+      case this.tabNo1:
+        return 0;
+      case this.tabNo2:
+        return 1;
+      case this.tabNo3:
+        return 2;
+    }
+
+  }
+
   // レスポンスから取得する
   pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
 
@@ -218,8 +230,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
       return;
     }
+    this.selectedTab = returnDt[0].tabIndex;
     switch (returnDt[0].tabIndex) {
-
       case this.tabNo1:
 
         this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
