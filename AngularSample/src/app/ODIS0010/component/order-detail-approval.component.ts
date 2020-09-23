@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit, ViewEncapsulation } from "@angular/core";
-import { ODIS0010Form,ODIS0010OrderDetail } from "../entities/odis0010-Form.entity";
-import { ODIS0010OrderSearchInputment } from "../entities/odis0010-SearchForm.entity";
+import { ODIS0010Form } from "../entities/odis0010-Form.entity";
+import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
 import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
@@ -15,14 +15,12 @@ import { Router } from '@angular/router';
 export class OrderDetailApprovalComponent implements OnInit {
 
   orderDetailData: ODIS0010OrderDetail[];
-  inputment= new ODIS0010OrderSearchInputment();
+  // パラメータ
+  inputment= new ODIS0010Form();
 
   pixel: number;
 
   screenSize: any;
-
-  // パラメータ
-  param = new ODIS0010Form();
 
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
@@ -62,12 +60,23 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.pixel = this.screenSize  - 408;
   }
 
-  /** ページ初期化 */
+  /** 
+   * ページ初期化
+   */
   setStartPage() {
-    this.inputment.Clear();
-
+    this.inputment.contractNumFrom = '';
+    this.inputment.contractNumTo = '';
+    this.inputment.propertyName = '';
+    this.inputment._checked = true;
+    this.inputment.detailCreated = false;
+    this.inputment.detailNone = false;
+    this.inputment.approval_1 = false;
+    this.inputment.approval_2 = false;
   }
 
+  /** 
+   * 検索処理
+   */
   getSearchRequest() {
     if (this.checkInput(this.inputment)) {
 
@@ -94,7 +103,46 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '701000';
+    this.inputment.officeCode = '701000';
+
+    // 物件名 設定
+    this.inputment.searchByName = this.getPropertyKubun();
+
+    // if(!(this.inputment.contractNumFrom == null)){
+    //   this.param.contractNumFrom = this.inputment.contractNumFrom;
+    // }
+
+    // if(!(this.inputment.contractNumTo == null)){
+    //   this.param.contractNumTo = this.inputment.contractNumTo;
+    // }
+
+    // if(!(this.inputment.propertyName == null)){
+    //   this.param.propertyName = this.inputment.propertyName;
+
+    //   if(this.inputment._checked == true){
+    //     this.param.searchByName = '1';
+    //   }
+    //   else if(this.inputment._checked == false){
+    //     this.param.searchByName = '2';
+    //   }
+    // }
+
+    // if(this.inputment.detailCreated == true){
+    //   this.param.detailCreated = this.inputment.detailCreated;
+    // }
+
+    // if(this.inputment.detailNone == true){
+    //   this.param.detailNone = this.inputment.detailNone;
+    // }
+
+    // if(this.inputment.approval_1 == true){
+    //   this.param.approval_1 = this.inputment.approval_1;
+    // }
+
+    // if(this.inputment.approval_2 == true){
+    //   this.param.approval_2 = this.inputment.approval_2; 
+    // }
+
 
     // 事業区分コード設定
     if(!(this.inputment.contractNumFrom == null)){
@@ -145,21 +193,41 @@ export class OrderDetailApprovalComponent implements OnInit {
     }
 
     // 発注明細入力_承認処理取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.param)
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
       .then(
         (response) => {
+
+          if(response.length == 0){
+            console.log(response.length);
+          }
           this.orderDetailData = response;
         }
       );
     }
   }
 
-  /**  入力検証 */
-  checkInput(input: ODIS0010OrderSearchInputment): boolean {
+  /**
+   * 物件名ラジオボタン 値取得
+   */
+  private getPropertyKubun(){
+    if(this.inputment._checked){
+      return '1' // １： 名称から始まる
+    }
+    else{
+        return '2' //２：名称を含めて検索
+    }
+  }
+
+  /**  
+   * 入力検証
+   */
+  checkInput(input: ODIS0010Form): boolean {
     return true;
   }
 
-  /** パージネタを解除する */
+  /** 
+   * パージネタを解除する 
+   */
   setPaginator(){
     let pageInput = document.getElementById("pageIndex");
     pageInput.setAttribute("value", "1");
