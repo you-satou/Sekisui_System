@@ -2,9 +2,9 @@
     <div>
         <mat-tab-group style="float: left; width: 100%">
             <mat-tab class="hontai" label = "{{tabName}}">
-                <split-shiwake-table [shiwakeData]="shiwakeData"></split-shiwake-table>
+                <split-shiwake-table #ShiwakeData [shiwakeData]="shiwakeData"></split-shiwake-table>
                 <div class="mat-elevation-z8" style="margin: 20px 0; width: auto;">
-                    <table mat-table [dataSource]="bunkatsuData"
+                    <table #BunkatsuData mat-table [dataSource]="bunkatsuData"
                         class="split-shiwake-table table-hover table-stripped table table-bordered table-sm" id="bunkatsuTable">
 
                         <ng-container matColumnDef="index">

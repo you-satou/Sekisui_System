@@ -23,6 +23,8 @@ export class OrderDetailShiwakeTable implements OnInit {
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
 
+  private readonly OrderDetailTableData: string = 'ODIS0020DataTable';
+
   /**
    * テーブルヘッダーのカラムを定義する。
    */
@@ -281,7 +283,13 @@ export class OrderDetailShiwakeTable implements OnInit {
       this.service.setSplitTable(shiwakeDt);
       this.service.setDetailTable(splitDt);
 
-      this.router.navigate([Const.UrlSetting.U0006]);
+      // セックションにデータを保存する。
+      // sessionStorage.setItem(this.OrderDetailTableData,JSON.stringify(this.orderData));
+
+      this.dataEmitter.action = Const.Action.P001;
+      this.sendOrderData.emit(this.dataEmitter);
+
+
     } catch (e) {
       console.log(e);
     }

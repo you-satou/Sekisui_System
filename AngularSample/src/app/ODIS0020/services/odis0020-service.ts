@@ -1,3 +1,4 @@
+import { ODIS0020OrderShiwake } from './../entities/odis0020-OrderDetailList.entity';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity'
@@ -18,6 +19,16 @@ export class ODIS0020Service {
   *
   * @memberof ODIS0020Service
   */
+
+  private _tableData: ODIS0020OrderShiwake[] = [];
+
+  get returnedSplitData(){
+    if(this._tableData.length <= 0){
+      return [];
+    }
+    return this._tableData;
+  }
+
   constructor() { }
 
   private _val
@@ -34,5 +45,12 @@ export class ODIS0020Service {
     this._val = val;
   }
 
+  setTableData(data: ODIS0020OrderShiwake[]){
+    this._tableData = data;
+  }
+
+  clearReturn(){
+    this._tableData = null;
+  }
 
 }
