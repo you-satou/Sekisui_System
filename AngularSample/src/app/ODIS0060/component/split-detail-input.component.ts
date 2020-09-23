@@ -225,27 +225,32 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.requestDate != '' || 
     this.requester != '') {
       //入力された情報を値に保存
-      var temp: SplitOrderDetailSplit = {
-        orderPlanAmount: this.orderPlanAmount,
-        comment: this.comment,
-        requestDate: this.requestDate,
-        requester: this.requester,
-        approvalDate_lv1: "",
-        approvalPerson_lv1: "",
-        approvalDate_lv2: "",
-        approvalPerson_lv2: "",
-        orderDate: "",
-        orderAmount: "",
-        receivedDate: "",
-        receivedAmount: "",
-        paymentDate: "",
-        paymentAmount: "",
+      let temp = new SplitOrderDetailSplit ();
+      temp.orderPlanAmount = this.orderPlanAmount;
+      temp.comment =  this.comment;
+      temp.requestDate =  this.requestDate;
+      temp.requester =  this.requester;
+      temp.approvalDate_lv1 =  "";
+      temp.approvalPerson_lv1 =  "";
+      temp.approvalDate_lv2 =  "";
+      temp.approvalPerson_lv2 =  "";
+      temp.orderDate =  "";
+      temp.orderAmount =  "";
+      temp.receivedDate =  "";
+      temp.receivedAmount =  "";
+      temp.paymentDate =  "";
+      temp.paymentAmount =  "";
       
-      }
       this.index = this.bunkatsuData.length;
+      if(this.index == 1 && this.bunkatsuData[0].isBlank){
+        this.bunkatsuData.splice(0,1,temp);
+      }
+      else{
+        //保存された値を分割テーブルのデータに挿入
+        this.bunkatsuData.push(temp);
+      }
 
-      //保存された値を分割テーブルのデータに挿入
-      this.bunkatsuData.push(temp);
+
       this.table.renderRows();
       this.setTableButtonDisplay(this.bunkatsuData);
       
