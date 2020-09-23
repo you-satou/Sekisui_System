@@ -142,7 +142,7 @@ export class OrderJournalSelectComponent implements OnInit {
       if(idCode == selectVal){
         var element = document.getElementById("tableBody");
 
-        element.scrollIntoView();
+        element.scrollIntoView(true);
 
       }
     }
