@@ -32,7 +32,10 @@ export class OrderJournalSelectComponent implements OnInit {
   param = new ODIS0030Form();
 
   //エラーメッセージ
-  errormsg:string ="";
+  errormsg: string ="";
+
+  //入力された値
+  selectVal: string;
 
   /**
    * コンストラクタ
@@ -53,7 +56,8 @@ export class OrderJournalSelectComponent implements OnInit {
   ngOnInit() {
 
     this.getOrderInputData();
-    console.log(this.Odis0020Service.getVal());
+    this.selectVal = this.Odis0020Service.getVal();
+    this.onScroll(this.selectVal);
 
   }
 
@@ -101,18 +105,42 @@ export class OrderJournalSelectComponent implements OnInit {
   */
   getOrderInputData(){
     
-     // Todo　システムログイン情報から取得すること！
-     // 事業区分コード設定
-     this.param.officeCode = '701000';
+    // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '701000';
 
-     // 発注仕訳マスタ取得
-     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
-       .then(
-         (response) => {
-           this.datas = response;
-         }
-       );
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+      .then(
+        (response) => {
+         this.datas = response;
+        }
+     );
+  }
 
+  onScroll(selectVal:any){
+
+    if(!(selectVal == undefined ||selectVal == null)){
+
+      for(var i = 1 ; i < this.datas.length ; i++){
+
+      for(let data of this.datas){
+        if(data.orderJournalName == selectVal){
+
+        }
+      }
+
+      var node = this.datas.length[i];
+      var y = 0;
+
+      while (node.tagName.toUpperCase() != selectVal) {
+        y += node.offsetTop;
+        node = node.parentNode;
+      }
+      window.scrollTo(0, y);
+
+      }
+
+    }
   }
 }
-
