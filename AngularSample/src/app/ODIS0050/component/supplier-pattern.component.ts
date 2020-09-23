@@ -140,7 +140,8 @@ export class SupplierPatternComponent implements OnInit {
       }
     }
     //選択されたパターン名の仕訳データを格納
-    this.sDatas = data.supplierList;
+    // this.sDatas = data.supplierList;
+    this.sDatas = wDatas;
   }
 
   /**

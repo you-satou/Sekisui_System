@@ -108,7 +108,7 @@ export class OrderJournalSelectComponent implements OnInit {
   public onChooseClick($event) {
     
     if(this.resVal == undefined ||this.resVal == null){
-        this.errorMsg = Const.ErrorMsg.E0008;
+        this.errormsg = Const.ErrorMsg.E0008;
         $event.stopPropagation();
     }
     else{
@@ -126,7 +126,7 @@ export class OrderJournalSelectComponent implements OnInit {
     this.param.officeCode = '701000';
 
     //入力された値
-    this.selectVal = this.Odis0020Service.getVal();
+    this.selectVal = this.ODIS0020Service.getVal();
 
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)

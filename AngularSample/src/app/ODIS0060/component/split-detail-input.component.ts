@@ -105,7 +105,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
     private router: Router,
-    public datePipe: DatePipe,
+    private datePipe: DatePipe,
     private service: SplitOrderDetailService,
     private odis0020Service: ODIS0020Service,
     private viewRef: ViewContainerRef,
@@ -144,7 +144,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   public onBackClick($event) {
 
     let shiwakeData: SplitOrderDetailShiwake[] = this.childShiwake.shiwakeData;
-    let bunkatsu:SplitOrderDetailSplit[] = this.bunkatsuData;
+    let bunkatsu: SplitOrderDetailSplit[] = this.bunkatsuData;
 
     let senderDt: ODIS0020OrderShiwake[] = [];
 
