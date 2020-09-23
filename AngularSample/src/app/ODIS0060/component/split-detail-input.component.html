@@ -52,7 +52,7 @@
                     <ng-container matColumnDef="orderPlanAmount1">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
-                            {{element.orderPlanAmount}} </td>
+                            {{element.orderPlanAmount | number}} </td>
                         <td mat-footer-cell *matFooterCellDef class="tdRight">{{totalAmount()|number}}</td>
                     </ng-container>
                     <ng-container matColumnDef="comment1">

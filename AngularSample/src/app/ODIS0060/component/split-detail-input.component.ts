@@ -2,13 +2,11 @@ import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from '../entities/odis
 import { SplitOrderDetailService } from '../services/split-detail-input-service';
 import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
-import { Location } from '@angular/common';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
 import { CommonComponent } from 'app/common/common.component';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { element } from 'protractor';
 
 @Component({
   selector: 'order-detail-input',
@@ -110,26 +108,18 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
-    //仕訳テーブルのデータの取得
-    this.getSplitOderDetailShiwake();
-    //分割テーブルのデータの取得
-    this.getSplitOrderDetailSplit()
+    //各テーブルのデータの取得
+    this.setDisplayData();
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
   }
 
   /**
    * 仕訳テーブルのデータの取得のメソッド
    */
-  getSplitOderDetailShiwake() {
+  setDisplayData() {
     this.shiwakeData = this.service.getSplitTable();
-    this.tabName = this.shiwakeData[0].tabIndex;
-  }
-
-  /**
-   * 分割テーブルのデータの取得のメソッド
-   */
-  getSplitOrderDetailSplit() {
     this.bunkatsuData = this.service.getDetailTable();
+    this.tabName = this.shiwakeData[0].tabIndex;
   }
 
   /**
@@ -172,16 +162,34 @@ export class SplitOrderDetailInputComponent implements OnInit {
         receivedAmount: "",
         paymentDate: "",
         paymentAmount: "",
+      
       }
+      this.index = this.bunkatsuData.length;
+
       //保存された値を分割テーブルのデータに挿入
       this.bunkatsuData.push(temp);
-      //合計金額を再計算
-      this.sum = this.bunkatsuData.map(data => Number(data.orderPlanAmount)).reduce((acc, value) => (acc + value));
       this.table.renderRows();
-      //未入力の場合に警告メッセージを表示
+      this.setTableButtonDisplay(this.bunkatsuData);
+      
+      let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+      this.setNewRowHighLight(Const.Action.A0001,tbody,this.index);
+
+      this.resetAddTable();
+
     } else {
       alert("明細情報を入力して下さい。");
     }
+  }
+
+  resetAddTable(){
+    this.orderPlanAmount = '';
+    this.comment = '';
+    this.requestDate ='';
+    this.requester = '';
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+    let btn = tr.cells[3].getElementsByTagName('button');
+    btn[0].style.display = 'inherit';
+    
   }
 
   /**
@@ -219,6 +227,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
     if(selectedItem.requester != ''){
       btn[0].style.display = 'none';
     }
+    else{
+      btn[0].style.display = 'inherit';
+    }
   }
 
   /**
@@ -232,11 +243,18 @@ export class SplitOrderDetailInputComponent implements OnInit {
     if (this.selected) {
 
       //選択された行に編集テーブルの値を挿入
-      this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount
-      this.bunkatsuData[this.index].comment = this.comment
-      this.bunkatsuData[this.index].requestDate = this.requestDate
-      this.bunkatsuData[this.index].requester = this.requester
+      this.bunkatsuData[this.index].orderPlanAmount = this.orderPlanAmount;
+      this.bunkatsuData[this.index].comment = this.comment;
+      this.bunkatsuData[this.index].requestDate = this.requestDate;
+      this.bunkatsuData[this.index].requester = this.requester;
+
+      this.setTableButtonDisplay(this.bunkatsuData);
+
+      let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+      this.setNewRowHighLight(Const.Action.A0002,tbody,this.index);
+
       this.table.renderRows();
+      this.resetAddTable();
       
     //行が選択されていない場合警告メッセージを表示
     } else {
@@ -291,7 +309,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   setRequest(event: any, dt: SplitOrderDetailSplit) {
     let rowIndex = this.bunkatsuData.indexOf(dt);
 
-    // this.setRowHighlight(rowIndex);
+    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -315,7 +333,6 @@ export class SplitOrderDetailInputComponent implements OnInit {
     let btnShounin = tr.children[4].getElementsByTagName('button');
     btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
-
 
     // 処理後ボタンを　削除する。
     btn.remove();
@@ -341,21 +358,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     //TODO: ログイン情報を取得
     this.requester = '積水　次郎';
 
-    // 承認一回目のボタンを活動化する.
-    let tr = btn.parentElement.parentElement;
-
-    //承認１ボタンのインデックスは「3」
-    let btnShounin = tr.children[3].getElementsByTagName('button');
-    btnShounin[0].style.display = 'inherit';
-    btnShounin[0].removeAttribute('disabled');
-
-
-    // 処理後ボタンを　削除する。
-    btn.remove();
-
-    // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
+    btn.style.display = 'none';
   }
 
   /**
@@ -363,7 +366,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * @param event
    */
   setRowHighlight(rowIndex: number) {
-    var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
+    var wTbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
     for (var i = 0; i < wTbody.rows.length; i++) {
 
       if (i === rowIndex) {
@@ -382,6 +385,51 @@ export class SplitOrderDetailInputComponent implements OnInit {
       }
     }
   }
+
+    /**
+ * 行の背景色 変更する
+ * @param body 
+ * @param newIndex 
+ */
+setNewRowHighLight(action: string, body: any, newIndex: number) {
+
+  if (!action.match(Const.Action.T0003)) {
+    for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
+      if (rIndex == newIndex) {
+        var tr = body.rows[rIndex];
+        for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+          var td = tr.cells[cIndex];
+          td.style.color = this.getColor(action);
+        }
+      }
+    }
+  }
+  else {
+    for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
+      if (rIndex == newIndex) {
+        var tr = body.rows[rIndex];
+        for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+          var td = tr.cells[cIndex];
+          td.style.backgroundColor = this.getColor(action);
+        }
+      }
+    }
+  }
+  // this.rowStatus.Reset();
+}
+
+getColor(action: string): string {
+
+  switch (action) {
+    case Const.Action.A0001:
+      return Const.HighLightColour.Inserted;
+    case Const.Action.A0002:
+      return Const.HighLightColour.Modified;
+    case Const.Action.T0003:
+      return Const.HighLightColour.None;
+  }
+
+}
 
   /**
    * テーブルをレンダー後に走るメゾッド
