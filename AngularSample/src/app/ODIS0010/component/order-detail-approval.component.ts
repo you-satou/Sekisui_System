@@ -92,7 +92,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       .then(
         (response) => {
 
-          if(response.length == 0){
+          if(response.length == 1){
             console.log(response.length);
           }
           this.orderDetailData = response;

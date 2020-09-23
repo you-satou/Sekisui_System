@@ -25,6 +25,9 @@ export class OrderJournalSelectComponent implements OnInit {
   //画面表示データ
   datas: OrderJournalSelectType[];
 
+  //デフォルトデータ
+  dDatas: OrderJournalSelectType[];
+
   //戻り値
   resVal:OrderJournalSelectType;
 
@@ -56,8 +59,6 @@ export class OrderJournalSelectComponent implements OnInit {
   ngOnInit() {
 
     this.getOrderInputData();
-    this.selectVal = this.Odis0020Service.getVal();
-    this.onScroll(this.selectVal);
 
   }
 
@@ -109,38 +110,42 @@ export class OrderJournalSelectComponent implements OnInit {
     // 事業区分コード設定
     this.param.officeCode = '701000';
 
+    //入力された値
+    this.selectVal = this.Odis0020Service.getVal();
+
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
       .then(
         (response) => {
          this.datas = response;
+         if(!(this.selectVal == undefined || this.selectVal == null)){
+          this.onScroll(this.datas,this.selectVal);
+         }
         }
      );
   }
 
-  onScroll(selectVal:any){
+  onScroll(datas:OrderJournalSelectType[],selectVal:any){
 
-    if(!(selectVal == undefined ||selectVal == null)){
+    var i = 0;
 
-      for(var i = 1 ; i < this.datas.length ; i++){
+    for(let data of datas){
 
-      for(let data of this.datas){
-        if(data.orderJournalName == selectVal){
+      var idCode = data.journalCode;
+      var tmp = document.getElementsByClassName("tableBody");
 
-        }
-      }
+      tmp[i].setAttribute("tableBody",idCode);
 
-      var node = this.datas.length[i];
-      var y = 0;
+      i = i +1;
+      console.log(idCode);
 
-      while (node.tagName.toUpperCase() != selectVal) {
-        y += node.offsetTop;
-        node = node.parentNode;
-      }
-      window.scrollTo(0, y);
+      if(idCode == selectVal){
+        var element = document.getElementById("tableBody");
+
+        element.scrollIntoView();
 
       }
-
     }
+
   }
 }

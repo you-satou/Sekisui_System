@@ -17,7 +17,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <div class = "tableBody" id = "tableBody">
                                 <td class="table-str td-b">{{ data.journalCode }}</td>
+                                </div>
                                 <td class="table-str td-b">{{ data.accountingCategory }}</td>
                                 <td class="table-l td-b">{{ data.orderJournalName }}</td>
                                 <td class="table-str td-b">{{ data.other }}</td>
