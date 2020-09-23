@@ -8,6 +8,7 @@ import { Const } from '../../common/const';
 import { CommonComponent } from 'app/common/common.component';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { element } from 'protractor';
 
 @Component({
   selector: 'order-detail-input',
@@ -189,13 +190,17 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * @param $event イベント
    * @param selectedItem 行選択 値取得
    */
-  public onSelHighLight($event, selectedItem) {
-
-    //行が選択された時にselectedをtrueにする
-    this.selected = true
-
+  public onSelHighLight($event, selectedItem: SplitOrderDetailSplit) {
+    
+    if($event.target.nodeName == 'BUTTON' || $event.target.nodeName =='SPAN'){
+      return;
+    }
     //選択された行に色をつける
     this.commonComponent.CommonOnSelHight($event);
+    //行が選択された時にselectedをtrueにする
+    this.selected = true;
+    //選択された行のインデックスをindexに挿入
+    this.index = this.bunkatsuData.indexOf(selectedItem);
 
     //編集テーブルの各セルに選択された行の値を挿入
     this.orderPlanAmount = selectedItem.orderPlanAmount;
@@ -203,8 +208,17 @@ export class SplitOrderDetailInputComponent implements OnInit {
     this.requestDate = selectedItem.requestDate;
     this.requester = selectedItem.requester;
     
-    //選択された行のインデックスをindexに挿入
-    this.index = this.bunkatsuData.indexOf(selectedItem);
+    this.setDisplayButton(selectedItem);
+
+  }
+
+  setDisplayButton(selectedItem: SplitOrderDetailSplit){
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+
+    let btn = tr.cells[3].getElementsByTagName('button');
+    if(selectedItem.requester != ''){
+      btn[0].style.display = 'none';
+    }
   }
 
   /**
@@ -277,7 +291,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
   setRequest(event: any, dt: SplitOrderDetailSplit) {
     let rowIndex = this.bunkatsuData.indexOf(dt);
 
-    this.setRowHighlight(rowIndex);
+    // this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -286,7 +300,7 @@ export class SplitOrderDetailInputComponent implements OnInit {
     else {
       btn = event.target;
     }
-
+    
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
@@ -372,10 +386,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
   /**
    * テーブルをレンダー後に走るメゾッド
    */
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     this.setTableButtonDisplay(this.bunkatsuData);
   }
-
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
    *↓↓↓　ボタン名　↓↓↓
@@ -385,7 +398,9 @@ export class SplitOrderDetailInputComponent implements OnInit {
    * 
    */
   setTableButtonDisplay(dt: SplitOrderDetailSplit[]) {
-    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+
+    let skBody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+
     let tr: HTMLTableRowElement;
     let btn: any;
     dt.forEach(element => {
@@ -395,8 +410,8 @@ export class SplitOrderDetailInputComponent implements OnInit {
         btn = tr.cells[4].getElementsByTagName('button');
         btn[0].setAttribute('disabled', 'disabled');
         btn[0].style.display = 'none';
+
       }
     });
-
   }
 }
