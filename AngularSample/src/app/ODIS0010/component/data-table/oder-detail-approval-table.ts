@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material';
 import { OrderDetailApprovalComponent } from '../order-detail-approval.component'
 import { Router,ActivatedRoute } from '@angular/router';
 
-import { ODIS0010OrderDetail } from '../../entities/odis0010-Form.entity';
+import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
 
 @Component({
   selector: 'order-detail-approval-table',

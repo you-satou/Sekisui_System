@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "../../entities/odis002-DataEmitter.entity";
@@ -235,10 +236,9 @@ export class OrderDetailShiwakeTable implements OnInit {
   moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
     try {
       var shiwakeDt: SplitOrderDetailShiwake[] = [];
-      let splitDt: SplitOrderDetailSplit[] = [];
-      let cnt: number = 0;
+      var splitDt: SplitOrderDetailSplit[] = [];
       for (const odrDt of this.orderData) {
-        if (odrDt.id === selectedItem.id && cnt === 0) {
+        if (odrDt.id === selectedItem.id) {
           let tmp = new SplitOrderDetailShiwake();
 
           tmp.tabIndex = odrDt.tabIndex;
@@ -251,7 +251,7 @@ export class OrderDetailShiwakeTable implements OnInit {
           tmp.orderPlanAmount = odrDt.orderPlanAmount;
 
           shiwakeDt.push(tmp);
-          cnt++;
+
           break;
         }
 
@@ -259,24 +259,25 @@ export class OrderDetailShiwakeTable implements OnInit {
 
       this.orderData.forEach(dt => {
         if (dt.id === selectedItem.id) {
-          let tmp = new SplitOrderDetailSplit();
+          let newSplit = new SplitOrderDetailSplit();
 
-          tmp.orderPlanAmount = dt.orderSplitAmount;
-          tmp.comment = dt.comment;
-          tmp.requestDate = dt.requestDate;
-          tmp.requester = dt.requester;
-          tmp.approvalDate_lv1 = dt.approvalDate_lv1;
-          tmp.approvalPerson_lv1 = dt.approvalPerson_lv1;
-          tmp.approvalDate_lv2 = dt.approvalDate_lv2;
-          tmp.approvalPerson_lv2 = dt.approvalPerson_lv2;
-          tmp.orderDate = dt.orderDate;
-          tmp.orderAmount = dt.orderAmount;
-          tmp.receivedDate = dt.receivedDate;
-          tmp.receivedAmount = dt.receivedAmount;
-          tmp.paymentDate = dt.paymentDate;
-          tmp.paymentAmount = dt.paymentAmount;
+          newSplit.orderPlanAmount = dt.orderSplitAmount;
+          newSplit.comment = dt.comment;
+          newSplit.requestDate = dt.requestDate;
+          newSplit.requester = dt.requester;
+          newSplit.approvalDate_lv1 = dt.approvalDate_lv1;
+          newSplit.approvalPerson_lv1 = dt.approvalPerson_lv1;
+          newSplit.approvalDate_lv2 = dt.approvalDate_lv2;
+          newSplit.approvalPerson_lv2 = dt.approvalPerson_lv2;
+          newSplit.orderDate = dt.orderDate;
+          newSplit.orderAmount = dt.orderAmount;
+          newSplit.receivedDate = dt.receivedDate;
+          newSplit.receivedAmount = dt.receivedAmount;
+          newSplit.paymentDate = dt.paymentDate;
+          newSplit.paymentAmount = dt.paymentAmount;
 
-          splitDt.push(tmp);
+          splitDt.push(newSplit);
+          
         }
       });
 
@@ -343,6 +344,7 @@ export class OrderDetailShiwakeTable implements OnInit {
 
     //承認１ボタンのインデックスは「13」
     let btnShounin = tr.children[13].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
 
 
@@ -384,10 +386,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     let tr = btn.parentElement.parentElement;
     //承認１ボタンのインデックスは「15」
     let btnShounin = tr.children[15].getElementsByTagName('button');
+    btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
-
-
-
 
     // 処理後ボタンを　削除する。
     btn.remove();
@@ -419,7 +419,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = '積水　次郎';
-
 
     // 処理後ボタンを　削除する。
     btn.remove();

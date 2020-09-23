@@ -25,6 +25,9 @@ export class OrderJournalSelectComponent implements OnInit {
   //画面表示データ
   datas: OrderJournalSelectType[];
 
+  //デフォルトデータ
+  dDatas: OrderJournalSelectType[];
+
   //戻り値
   resVal:OrderJournalSelectType;
 
@@ -32,8 +35,10 @@ export class OrderJournalSelectComponent implements OnInit {
   param = new ODIS0030Form();
 
   //エラーメッセージ
-  errorMsg:string ="";
+  errormsg: string ="";
 
+  //入力された値
+  selectVal: string;
   /**
    * コンストラクタ
    *
@@ -52,10 +57,7 @@ export class OrderJournalSelectComponent implements OnInit {
   */
   ngOnInit() {
 
-    // this.getOrderInputData();
-
-    this.mockingData();
-    // console.log(this.ODIS0020Service.getVal());
+    this.getOrderInputData();
 
   }
 
@@ -118,18 +120,47 @@ export class OrderJournalSelectComponent implements OnInit {
   * JSONファイルをdatasに格納
   */
   getOrderInputData(){
+    
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '701000';
+
+    //入力された値
+    this.selectVal = this.Odis0020Service.getVal();
 
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
       .then(
         (response) => {
-          this.datas = response;
+         this.datas = response;
+         if(!(this.selectVal == undefined || this.selectVal == null)){
+          this.onScroll(this.datas,this.selectVal);
+         }
         }
-      );
+     );
   }
 
-}
+  onScroll(datas:OrderJournalSelectType[],selectVal:any){
 
+    var i = 0;
+
+    for(let data of datas){
+
+      var idCode = data.journalCode;
+      var tmp = document.getElementsByClassName("tableBody");
+
+      tmp[i].setAttribute("tableBody",idCode);
+
+      i = i +1;
+      console.log(idCode);
+
+      if(idCode == selectVal){
+        var element = document.getElementById("tableBody");
+
+        element.scrollIntoView(true);
+
+      }
+    }
+
+  }
+}

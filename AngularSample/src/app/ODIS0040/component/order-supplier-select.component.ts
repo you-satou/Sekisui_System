@@ -117,18 +117,18 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   * JSONファイルをdatasに格納
   */
   getOrderInputData(){
-    // Todo　システムログイン情報から取得すること！
-    // 事業区分コード設定
-    this.param.officeCode = '701000';
 
-    // 発注仕訳マスタ取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
-      .then(
-        (response) => {
-          this.datas = response;
-        }
-      );
+     // Todo　システムログイン情報から取得すること！
+     // 事業区分コード設定
+     this.param.officeCode = '701000';
 
+     // 発注仕訳マスタ取得
+     this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
+       .then(
+         (response) => {
+           this.datas = response;
+         }
+       );
   }
 
 }

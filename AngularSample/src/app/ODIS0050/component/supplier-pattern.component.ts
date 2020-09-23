@@ -140,23 +140,23 @@ export class SupplierPatternComponent implements OnInit {
       }
     }
     //選択されたパターン名の仕訳データを格納
-    this.sDatas = wDatas;
+    this.sDatas = data.supplierList;
   }
 
   /**
   * JSONファイルをdatasに格納
   */
-  getInputData() {
-    // Todo　システムログイン情報から取得すること！
-    // 事業区分コード設定
-    this.param.officeCode = '201005';
+  getInputData(){
+     // Todo　システムログイン情報から取得すること！
+     // 事業区分コード設定
+     this.param.officeCode = '201005';
 
-    // 発注仕訳マスタ取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init, this.param)
-      .then(
-        (response) => {
-          this.datas = response;
-        }
-      );
+     // 発注仕訳マスタ取得
+     this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
+       .then(
+         (response) => {
+           this.datas = response;
+         }
+       );
   }
 }

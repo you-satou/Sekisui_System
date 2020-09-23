@@ -1,5 +1,14 @@
 .split-shiwake-table {
-    min-width: 537px;
+    width: 464px;
+}
+
+.split-shiwake-table>thead>tr {
+    height: 60px;
+}
+
+.split-shiwake-table>tbody>tr {
+    height: 37px;
+    vertical-align: middle !important;
 }
 
 .tableHeader {
@@ -42,20 +51,30 @@
 
 tr.mat-footer-row {
     font-weight: bold;
+    white-space: nowrap;
     word-break: keep-all;
 }
 
 .tdRight {
     text-align: right;
     padding: 5px;
+    white-space: nowrap;
+    word-break: keep-all;
+    vertical-align: middle !important
 }
 
 .tdLeft {
     text-align: left;
     padding: 5px;
+    white-space: nowrap;
+    word-break: keep-all;
+    vertical-align: middle !important
 }
 
 .tdCenter {
     text-align: center;
     padding: 5px;
+    white-space: nowrap;
+    word-break: keep-all;
+    vertical-align: middle !important
 }

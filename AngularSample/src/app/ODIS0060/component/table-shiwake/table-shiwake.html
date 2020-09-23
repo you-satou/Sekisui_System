@@ -3,33 +3,33 @@
         <table mat-table [dataSource]="shiwakeData" class="split-shiwake-table table table-bordered table-sm">
             
             <ng-container matColumnDef="journalCode">
-                <th style="width: 60px; padding: 3px 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
-                <td style="padding: 0 5px; text-align: center;" class="splitCell" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
+                <th style="width: 61px; padding: 3px 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
+                <td style="padding: 0 5px;" class="tdRight" mat-cell *matCellDef="let element"> {{element.journalCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="accountCode">
-                <th style="width: 40px;" class="color-input-1" mat-header-cell *matHeaderCellDef>経理<br>分類</th>
+                <th style="width: 39px;" class="color-input-1" mat-header-cell *matHeaderCellDef>経理<br>分類</th>
                 <td style="padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.accountCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="journalName">
-                <th style="width: 200px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
-                <td style="padding: 0 5px;" class="splitCell" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
+                <th style="width: 153px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
+                <td style="width: 153px; padding: 0 5px;" class="tdLeft" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierCode">
-                <th colspan="2" style="width: 250px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
-                <td style="width: 40px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSuplierCode}} </td>
+                <th colspan="2" style="width: 115px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
+                <td style="width: 34px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSupplierCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierName">
-                <th mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
-                <td style="padding: 0 30px 0 5px; word-break: keep-all;" class="splitCell" mat-cell *matCellDef="let element">{{element.orderSuplierName}}</td>
+                <th style="width: 0px;" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
+                <td style="width: 81px;" class="tdLeft" mat-cell *matCellDef="let element">{{element.orderSupplierName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="orderPlanAmount">
-                <th style="width: 40px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
-                <td style="padding: 0 5px 0 50px;" class="splitCell" mat-cell *matCellDef="let element"> {{element.orderPlanAmount}} </td>
+                <th style="width: 95px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
+                <td class="tdRight" mat-cell *matCellDef="let element"> {{element.orderPlanAmount | number}} </td>
                 <td mat-footer-cell *matFooterCellDef>20000</td>
             </ng-container>
 

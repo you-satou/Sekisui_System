@@ -32,6 +32,8 @@ export namespace Const{
         export const S0003_Init = '/ODIS0030/init';
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
+
+        export const S0007_Init = '/ODIS0070/init';
     }
 
     /** ページのURLを定義する */

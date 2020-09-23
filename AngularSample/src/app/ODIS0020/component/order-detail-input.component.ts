@@ -404,12 +404,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           }
           else{
           //　一番以降仕訳データを余白にする
-          newDt = this.setData('SetNextSplitData', tabName, element, splitDt);
+            newDt = this.setData('SetNextSplitData', tabName, element, splitDt);
           }
           data.push(newDt);
         }
       }
-      else{
+      else {
         let dividedDt = this.setData('NoSplitData', tabName, element, null);
         data.push(dividedDt);
       }

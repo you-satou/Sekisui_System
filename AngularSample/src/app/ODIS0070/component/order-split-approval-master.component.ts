@@ -5,6 +5,9 @@ import { CommonComponent } from 'app/common/common.component';
 import { OrderSplitApprovalMasterTable } from '../entities/odis0070.entity';
 import { OrderSplitApprovalMasterService } from '../services/order-split-approval-master-service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
+import { CommonService } from '../../common/common.service';
+import { ODIS0070Form } from '../entities/odis0070-Form.entity';
 
 @Component({
   selector: 'app-order-split-approval-master',
@@ -26,6 +29,10 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   
   //選択された行のインデックス
   index: number;
+
+  
+  // パラメータ
+  param = new ODIS0070Form();
 
   //発注分割承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
@@ -53,6 +60,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private commonComponent: CommonComponent,
     private _location: Location,
     private service: OrderSplitApprovalMasterService,
+    private router: Router,
+    private CommonService: CommonService,  
   ) { }
 
   /**
@@ -70,10 +79,20 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
 
-    this.service.getOrderSplitApproval()
-      .subscribe(
-        data => this.orderApprovalData = data
+    this.param.officeCode = '70100';
+
+    // 発注明細入力_承認処理取得
+    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.param)
+      .then(
+        (response) => {
+          this.orderApprovalData = response;
+        }
       );
+
+    // this.service.getOrderSplitApproval()
+    //   .subscribe(
+    //     data => this.orderApprovalData = data
+    //   );
   }
 
   /**
@@ -82,7 +101,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
-    this._location.back();
+    this.router.navigate([Const.UrlSetting.U0000]);
   }
 
   /**
