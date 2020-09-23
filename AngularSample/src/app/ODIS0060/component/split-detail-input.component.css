@@ -74,6 +74,19 @@ tr.mat-footer-row {
 
 /*  -----------------タブのスタイル---------------------------  */
 
+.split-table {
+    width: 1109px;
+}
+
+.split-table>thead>tr {
+    height: 60px;
+}
+
+.split-table>tbody>tr {
+    height: 37px;
+    vertical-align: middle !important;
+}
+
 .mat-tab-label {
     min-width: 25px !important;
     max-width: 50px !important;
