@@ -67,7 +67,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.contractNumFrom = '';
     this.inputment.contractNumTo = '';
     this.inputment.propertyName = '';
-    this.inputment._checked = true;
+    //this.inputment._checked = true;
     this.inputment.detailCreated = false;
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
@@ -80,117 +80,12 @@ export class OrderDetailApprovalComponent implements OnInit {
   getSearchRequest() {
     if (this.checkInput(this.inputment)) {
 
-      //// Get data from server
-      // setTimeout(()=> {
-      //   this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-      //   .then(
-      //     (response) => {
-      //       this.orderDetailData = response;
-      //       if(this.orderDetailData != null){
-      //           this.setPaginator();
-      //       }
-      //     }
-      //   );
-      // });
-
-      // // Mocking data from JSON file
-      // this.orderService.getMultipileData(this._url).subscribe((data) => {
-      //   this.orderDetailData = data;
-      //   if (this.orderDetailData != null) {
-      //     this.setPaginator();
-      //   }
-      // });
-
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.inputment.officeCode = '701000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
-
-    // if(!(this.inputment.contractNumFrom == null)){
-    //   this.param.contractNumFrom = this.inputment.contractNumFrom;
-    // }
-
-    // if(!(this.inputment.contractNumTo == null)){
-    //   this.param.contractNumTo = this.inputment.contractNumTo;
-    // }
-
-    // if(!(this.inputment.propertyName == null)){
-    //   this.param.propertyName = this.inputment.propertyName;
-
-    //   if(this.inputment._checked == true){
-    //     this.param.searchByName = '1';
-    //   }
-    //   else if(this.inputment._checked == false){
-    //     this.param.searchByName = '2';
-    //   }
-    // }
-
-    // if(this.inputment.detailCreated == true){
-    //   this.param.detailCreated = this.inputment.detailCreated;
-    // }
-
-    // if(this.inputment.detailNone == true){
-    //   this.param.detailNone = this.inputment.detailNone;
-    // }
-
-    // if(this.inputment.approval_1 == true){
-    //   this.param.approval_1 = this.inputment.approval_1;
-    // }
-
-    // if(this.inputment.approval_2 == true){
-    //   this.param.approval_2 = this.inputment.approval_2; 
-    // }
-
-
-    // 事業区分コード設定
-    if(!(this.inputment.contractNumFrom == null)){
-      this.param.contractNumFrom = this.inputment.contractNumFrom;
-    }
-
-    if(!(this.inputment.contractNumTo == null)){
-      this.param.contractNumTo = this.inputment.contractNumTo;
-    }
-
-    if(!(this.inputment.propertyName == null)){
-      this.param.propertyName = this.inputment.propertyName;
-    }
-
-    if(this.inputment._checked == true){
-      this.param.searchByName = '1';
-    }
-    else{
-      this.param.searchByName = '2';
-    }
-    
-    if(this.inputment.detailNone == true ){
-      this.param.detailCreated = true;
-    }
-    else{
-      this.param.detailCreated = false;
-    }
-
-    if(this.inputment.detailCreated == true ){
-      this.param.detailNone = true;
-    }
-    else{
-      this.param.detailNone = false;
-    }
-
-    if(this.inputment.approval_1 == true ){
-      this.param.approval_1 = true;
-    }
-    else{
-      this.param.approval_1 = false;
-    }
-
-    if(this.inputment.approval_2 == true ){
-      this.param.approval_2 = true;
-    }
-    else{
-      this.param.approval_2 = false; 
-    }
 
     // 発注明細入力_承認処理取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)

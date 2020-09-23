@@ -19,6 +19,7 @@ export class ODIS0010Form{
 	 * 2:を含める
 	 */
 	searchByName: string;
+	_checked: boolean;
 
 	/** 明細作成未 */
 	detailCreated:boolean = false;
