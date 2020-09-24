@@ -31,5 +31,25 @@ export class SplitOrderDetailSplit {
     paymentDate: string;
     paymentAmount: string;
 
+    get isBlank(){
+        if (this.orderPlanAmount == '' &&
+            this.comment == '' &&
+            this.requestDate == '' &&
+            this.requester == '' &&
+            this.approvalDate_lv1 == '' &&
+            this.approvalPerson_lv1 == '' &&
+            this.approvalDate_lv2 == '' &&
+            this.approvalPerson_lv2 == '' && 
+            this.orderDate == '' &&
+            this.orderAmount == '' &&
+            this.receivedDate == '' &&
+            this.receivedAmount == '' &&
+            this.paymentDate == '' &&
+            this.paymentAmount == '') {
+            return true;
+        }
+        return false;
+    }
+
     constructor() { }
 }

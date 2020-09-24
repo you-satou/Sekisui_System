@@ -40,6 +40,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private tabNo2: string = '本体';
   private tabNo3: string = '追加';
 
+  get tabValue(){
+    switch(this.selectedTab){
+      case this.tabNo1:
+        return 0;
+      case this.tabNo2:
+        return 1;
+      case this.tabNo3:
+        return 2;
+    }
+
+  }
+
   // レスポンスから取得する
   pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
 
@@ -82,13 +94,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
     
-    if(this.ODIS0020Service.returnedSplitData.length > 0 ||
-      this.ODIS0020Service.returnedSplitData == null){
+    // if(this.ODIS0020Service.returnedSplitData.length > 0 ||
+    //   this.ODIS0020Service.returnedSplitData == null){
+    if(sessionStorage.getItem('ODIS0020') != null){
+      
       let returnDt = this.ODIS0020Service.returnedSplitData;
 
       this.resetOrderInputData(returnDt);
       //ロードした後、戻る値を削除
-      this.ODIS0020Service.clearReturn();
+      // this.ODIS0020Service.clearReturn();
     }
     else{
       this.getOrderInputData();
@@ -188,6 +202,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
 
+            sessionStorage.setItem('ODIS0020',JSON.stringify(this.pageTotalInfo));
           }
         }
         
@@ -206,11 +221,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.orderInformation = savedData.ContractInfo;
     this.tblMainOrder = savedData.MainOrderInfo;
     this.tblInsertedOrder = savedData.InsertedOrderInfo;
+
     if(returnDt.length <= 0){
+
+      this.tblSekkei = savedData.SekkeiData;
+      this.tblHontai = savedData.HontaiData;
+      this.tblTsuika = savedData.TsuikaData;
+
       return;
     }
+    this.selectedTab = returnDt[0].tabIndex;
     switch (returnDt[0].tabIndex) {
-
       case this.tabNo1:
 
         this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
