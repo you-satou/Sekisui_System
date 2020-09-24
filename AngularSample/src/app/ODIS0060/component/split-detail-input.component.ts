@@ -102,6 +102,7 @@ export class SplitOrderDetailComponent implements OnInit {
       this.shiwakeData = savedDt.shiwakeData;
       this.tabName = this.shiwakeData[0].tabIndex;
       this.bunkatsuData = savedDt.bunkatsuData;
+      
     }
     else{
       //各テーブルのデータの取得
@@ -162,7 +163,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * 分割テーブルの合計金額の再計算
    */
   totalAmount() {
-    return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
+      return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
   }
 
   /**
@@ -298,9 +299,29 @@ export class SplitOrderDetailComponent implements OnInit {
       return;
 
     }
-    //選択された行のデータを削除
-    this.bunkatsuData.splice(this.rowStatus.rowIndex, 1);
+    if(this.bunkatsuData.length == 1){
+      this.bunkatsuData[0].orderSplitAmount = '';
+      this.bunkatsuData[0].comment = '';
+      this.bunkatsuData[0].requestDate = '';
+      this.bunkatsuData[0].requester = '';
+      this.bunkatsuData[0].approvalDate_lv1 = '';
+      this.bunkatsuData[0].approvalPerson_lv1 = '';
+      this.bunkatsuData[0].approvalDate_lv2 = '';
+      this.bunkatsuData[0].approvalPerson_lv2 = '';
+      this.bunkatsuData[0].orderDate = '';
+      this.bunkatsuData[0].orderAmount = '';
+      this.bunkatsuData[0].receivedDate = '';
+      this.bunkatsuData[0].receivedAmount = '';
+      this.bunkatsuData[0].paymentDate = '';
+      this.bunkatsuData[0].paymentAmount = '';
 
+      console.log(this.bunkatsuData);
+      this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+    }
+    else{
+      //選択された行のデータを削除
+      this.bunkatsuData.splice(this.rowStatus.rowIndex, 1);
+    }
     //テーブルの再レンダー
     this.table.renderRows();
 

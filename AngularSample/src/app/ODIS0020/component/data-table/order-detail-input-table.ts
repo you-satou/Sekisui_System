@@ -3,7 +3,6 @@ import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.en
 import { DataEmitter } from "../../entities/odis0020-DataEmitter.entity";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable } from "@angular/material";
-import { Router } from "@angular/router";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
@@ -87,7 +86,6 @@ export class OrderDetailShiwakeTable implements OnInit {
   ];
 
   constructor(
-    private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
     private odis0060Service: ODIS0060SplitDetailService,

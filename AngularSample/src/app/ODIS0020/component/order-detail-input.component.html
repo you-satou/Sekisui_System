@@ -225,7 +225,7 @@
                 <td style="width: 20px;"><input [(ngModel)]="addInput.orderSupplierCode" type="text"
                         class="orderdetailaddinputBody" name="supplierCode"></td>
                 <td style="width: 160px;"><label>{{addInput.orderSupplierName}}</label></td>
-                <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text"
+                <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" [(ngModel)]="input.orderSplitAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="text"
                         class="orderdetailaddinputBody" name="orderPlansKin"></td>
             </tr>
         </tbody>

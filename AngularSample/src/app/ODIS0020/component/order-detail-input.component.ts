@@ -19,6 +19,7 @@ import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { ODIS0020Service } from '../services/odis0020-service';
 import { DataEmitter, TableStatus } from '../entities/odis0020-DataEmitter.entity';
+import { CommonComponent } from 'app/common/common.component';
 
 @Component({
   selector: 'order-detail-input',
@@ -86,6 +87,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private OrderSupplierSelectService: OrderSupplierSelectService,
     private ODIS0020Service: ODIS0020Service,
     private router: Router,
+    private commonComponent: CommonComponent,
 
   ) { }
 
@@ -96,7 +98,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       
-      this.resetOrderInputData();
+      this.getOrderInputDataFromSession();
     }
     else{
       this.getOrderInputData();
@@ -212,8 +214,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt 
    * @param tabName 
    */
-  resetOrderInputData(){
+  getOrderInputDataFromSession(){
 
+    // セックションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
     this.orderInformation = savedData.ContractInfo;
     this.tblMainOrder = savedData.MainOrderInfo;
@@ -267,60 +270,24 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var filterDt = savedDt.filter(value =>{
       return value.id == returnId;
     })
+    //先頭位置を取得
     let indx = savedDt.indexOf(filterDt[0]);
     switch(true){
       case filterDt.length == returnDt.length:
         for (let i = 0 ; i < returnDt.length; i++)  {
-          savedDt[i+indx].id = this.setValue(returnDt[i].id);
-          savedDt[i+indx].tabIndex = this.setValue(returnDt[i].tabIndex);
-          savedDt[i+indx].journalCode = this.setValue(returnDt[i].journalCode);
-          savedDt[i+indx].journalName = this.setValue(returnDt[i].journalName);
-          savedDt[i+indx].orderPlanAmount = this.setValue(returnDt[i].orderPlanAmount);
-          savedDt[i+indx].orderSupplierCode = this.setValue(returnDt[i].orderSupplierCode);
-          savedDt[i+indx].orderSupplierName = this.setValue(returnDt[i].orderSupplierName);
-          savedDt[i+indx].comment = this.setValue(returnDt[i].comment);
-          savedDt[i+indx].orderSplitAmount =  this.setValue(returnDt[i].orderSplitAmount);
-          savedDt[i+indx].requestDate =  this.setValue(returnDt[i].requestDate);
-          savedDt[i+indx].requester =  this.setValue(returnDt[i].requester);
-          savedDt[i+indx].approvalDate_lv1 =  this.setValue(returnDt[i].approvalDate_lv1);
-          savedDt[i+indx].approvalPerson_lv1 =  this.setValue(returnDt[i].approvalPerson_lv1);
-          savedDt[i+indx].approvalDate_lv2 =  this.setValue(returnDt[i].approvalDate_lv2);
-          savedDt[i+indx].approvalPerson_lv2 =  this.setValue(returnDt[i].approvalPerson_lv2);
-          savedDt[i+indx].orderDate =  this.setValue(returnDt[i].orderDate);
-          savedDt[i+indx].orderAmount =  this.setValue(returnDt[i].orderAmount);
-          savedDt[i+indx].receivedDate =  this.setValue(returnDt[i].receivedDate);
-          savedDt[i+indx].receivedAmount =  this.setValue(returnDt[i].receivedAmount);
-          savedDt[i+indx].paymentDate =  this.setValue(returnDt[i].paymentDate);
-          savedDt[i+indx].paymentAmount =  this.setValue(returnDt[i].paymentAmount);
+          savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
+          
         };
         return savedDt;
 
       //分割明細画面で明細を削除した場合：
       case filterDt.length > returnDt.length:
+        if(returnDt.length == 1 && returnDt[0].isBlankDetail){
+          savedDt.splice(indx,filterDt.length);
+        }
         for (let i = 0 ; i < filterDt.length; i++)  {
           if(i < returnDt.length){
-            savedDt[i+indx].id = this.setValue(returnDt[i].id);
-            savedDt[i+indx].tabIndex = this.setValue(returnDt[i].tabIndex);
-            savedDt[i+indx].journalCode = this.setValue(returnDt[i].journalCode);
-            savedDt[i+indx].journalName = this.setValue(returnDt[i].journalName);
-            savedDt[i+indx].orderPlanAmount = this.setValue(returnDt[i].orderPlanAmount);
-            savedDt[i+indx].orderSupplierCode = this.setValue(returnDt[i].orderSupplierCode);
-            savedDt[i+indx].orderSupplierName = this.setValue(returnDt[i].orderSupplierName);
-            savedDt[i+indx].comment = this.setValue(returnDt[i].comment);
-            savedDt[i+indx].orderSplitAmount =  this.setValue(returnDt[i].orderSplitAmount);
-            savedDt[i+indx].requestDate =  this.setValue(returnDt[i].requestDate);
-            savedDt[i+indx].requester =  this.setValue(returnDt[i].requester);
-            savedDt[i+indx].approvalDate_lv1 =  this.setValue(returnDt[i].approvalDate_lv1);
-            savedDt[i+indx].approvalPerson_lv1 =  this.setValue(returnDt[i].approvalPerson_lv1);
-            savedDt[i+indx].approvalDate_lv2 =  this.setValue(returnDt[i].approvalDate_lv2);
-            savedDt[i+indx].approvalPerson_lv2 =  this.setValue(returnDt[i].approvalPerson_lv2);
-            savedDt[i+indx].orderDate =  this.setValue(returnDt[i].orderDate);
-            savedDt[i+indx].orderAmount =  this.setValue(returnDt[i].orderAmount);
-            savedDt[i+indx].receivedDate =  this.setValue(returnDt[i].receivedDate);
-            savedDt[i+indx].receivedAmount =  this.setValue(returnDt[i].receivedAmount);
-            savedDt[i+indx].paymentDate =  this.setValue(returnDt[i].paymentDate);
-            savedDt[i+indx].paymentAmount =  this.setValue(returnDt[i].paymentAmount);
-
+            savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
           }
           else{
             savedDt.splice(i+indx,1);
@@ -334,27 +301,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case filterDt.length < returnDt.length:
         for (let i = 0 ; i < returnDt.length; i++)  {
           if(i < filterDt.length){
-            savedDt[i+indx].id = this.setValue(returnDt[i].id);
-            savedDt[i+indx].tabIndex = this.setValue(returnDt[i].tabIndex);
-            savedDt[i+indx].journalCode = this.setValue(returnDt[i].journalCode);
-            savedDt[i+indx].journalName = this.setValue(returnDt[i].journalName);
-            savedDt[i+indx].orderPlanAmount = this.setValue(returnDt[i].orderPlanAmount);
-            savedDt[i+indx].orderSupplierCode = this.setValue(returnDt[i].orderSupplierCode);
-            savedDt[i+indx].orderSupplierName = this.setValue(returnDt[i].orderSupplierName);
-            savedDt[i+indx].comment = this.setValue(returnDt[i].comment);
-            savedDt[i+indx].orderSplitAmount =  this.setValue(returnDt[i].orderSplitAmount);
-            savedDt[i+indx].requestDate =  this.setValue(returnDt[i].requestDate);
-            savedDt[i+indx].requester =  this.setValue(returnDt[i].requester);
-            savedDt[i+indx].approvalDate_lv1 =  this.setValue(returnDt[i].approvalDate_lv1);
-            savedDt[i+indx].approvalPerson_lv1 =  this.setValue(returnDt[i].approvalPerson_lv1);
-            savedDt[i+indx].approvalDate_lv2 =  this.setValue(returnDt[i].approvalDate_lv2);
-            savedDt[i+indx].approvalPerson_lv2 =  this.setValue(returnDt[i].approvalPerson_lv2);
-            savedDt[i+indx].orderDate =  this.setValue(returnDt[i].orderDate);
-            savedDt[i+indx].orderAmount =  this.setValue(returnDt[i].orderAmount);
-            savedDt[i+indx].receivedDate =  this.setValue(returnDt[i].receivedDate);
-            savedDt[i+indx].receivedAmount =  this.setValue(returnDt[i].receivedAmount);
-            savedDt[i+indx].paymentDate =  this.setValue(returnDt[i].paymentDate);
-            savedDt[i+indx].paymentAmount =  this.setValue(returnDt[i].paymentAmount);
+
+            savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
 
           }
           else{
@@ -390,6 +338,34 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     
   }
 
+  setDataShiwake(savedDt: ODIS0020OrderShiwake, returnDt: ODIS0020OrderShiwake): ODIS0020OrderShiwake{
+
+    savedDt.id = this.setValue(returnDt.id);
+    savedDt.tabIndex = this.setValue(returnDt.tabIndex);
+    savedDt.journalCode = this.setValue(returnDt.journalCode);
+    savedDt.journalName = this.setValue(returnDt.journalName);
+    savedDt.orderPlanAmount = this.setValue(returnDt.orderPlanAmount);
+    savedDt.orderSupplierCode = this.setValue(returnDt.orderSupplierCode);
+    savedDt.orderSupplierName = this.setValue(returnDt.orderSupplierName);
+    savedDt.comment = this.setValue(returnDt.comment);
+    savedDt.orderSplitAmount =  this.setValue(returnDt.orderSplitAmount);
+    savedDt.requestDate =  this.setValue(returnDt.requestDate);
+    savedDt.requester =  this.setValue(returnDt.requester);
+    savedDt.approvalDate_lv1 =  this.setValue(returnDt.approvalDate_lv1);
+    savedDt.approvalPerson_lv1 =  this.setValue(returnDt.approvalPerson_lv1);
+    savedDt.approvalDate_lv2 =  this.setValue(returnDt.approvalDate_lv2);
+    savedDt.approvalPerson_lv2 =  this.setValue(returnDt.approvalPerson_lv2);
+    savedDt.orderDate =  this.setValue(returnDt.orderDate);
+    savedDt.orderAmount =  this.setValue(returnDt.orderAmount);
+    savedDt.receivedDate =  this.setValue(returnDt.receivedDate);
+    savedDt.receivedAmount =  this.setValue(returnDt.receivedAmount);
+    savedDt.paymentDate =  this.setValue(returnDt.paymentDate);
+    savedDt.paymentAmount =  this.setValue(returnDt.paymentAmount);
+
+    return savedDt;
+  }
+
+
   /**
    * 重複しているデータを余白にさせる。
    * @param dt 
@@ -424,7 +400,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     });
 
     return data;
-
   }
 
   /**
@@ -583,30 +558,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (this.addInput.isBlank) {
       return;
     }
-    let temp: ODIS0020OrderShiwake = {
-      tabIndex: this.selectedTab,
-      id: this.addInput.journalCode,
-      journalCode: this.addInput.journalCode,
-      accountCode: this.addInput.accountCode,
-      journalName: this.addInput.journalName,
-      orderSupplierCode: this.addInput.orderSupplierCode,
-      orderSupplierName: this.addInput.orderSupplierName,
-      orderPlanAmount: this.addInput.orderPlanAmount,
-      comment: '',
-      orderSplitAmount: '',
-      requestDate: '',
-      requester: '',
-      approvalDate_lv1: '',
-      approvalPerson_lv1: '',
-      approvalDate_lv2: '',
-      approvalPerson_lv2: '',
-      orderDate: '',
-      orderAmount: '',
-      receivedDate: '',
-      receivedAmount: '',
-      paymentDate: '',
-      paymentAmount: '',
-    }
+    let temp = new ODIS0020OrderShiwake ()
+    temp.tabIndex = this.selectedTab ;
+    temp.id = this.addInput.journalCode ;
+    temp.journalCode = this.addInput.journalCode ;
+    temp.accountCode = this.addInput.accountCode ;
+    temp.journalName = this.addInput.journalName ;
+    temp.orderSupplierCode = this.addInput.orderSupplierCode ;
+    temp.orderSupplierName = this.addInput.orderSupplierName ;
+    temp.orderPlanAmount = this.addInput.orderPlanAmount ;
+    temp.comment = '' ;
+    temp.orderSplitAmount = '' ;
+    temp.requestDate = '' ;
+    temp.requester = '' ;
+    temp.approvalDate_lv1 = '' ;
+    temp.approvalPerson_lv1 = '' ;
+    temp.approvalDate_lv2 = '' ;
+    temp.approvalPerson_lv2 = '' ;
+    temp.orderDate = '' ;
+    temp.orderAmount = '' ;
+    temp.receivedDate = '' ;
+    temp.receivedAmount = '' ;
+    temp.paymentDate = '' ;
+    temp.paymentAmount = '' ;
 
     this.insertToDataTable(temp);
 
@@ -670,6 +644,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     return data.length - flt.length;
   }
 
+  /**
+   * 
+   * @param insertBucket 
+   */
   insertDataFromSupplier(insertBucket:ODIS0020OrderShiwake[]){
     switch (this.selectedTab) {
       case this.tabNo1:
@@ -701,6 +679,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  //
   insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
 
     let insFlg: boolean = false;
@@ -948,6 +927,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
 
+  }
+
+    /**
+   * focus処理
+   *
+   * @param $event イベント
+   */
+  commonFocus($event){
+    $event.target.value = this.commonComponent.removeCommas($event.target.value);
+  }
+  /**
+   * blur処理
+   *
+   * @param $event イベント
+   */
+  commonBlur($event){
+    $event.target.value = this.commonComponent.addCommas($event.target.value);
   }
 
   /**

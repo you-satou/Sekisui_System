@@ -138,6 +138,28 @@ export class ODIS0020OrderShiwake {
   /** 支払金額 */
   paymentAmount: string;
 
+  get isBlankDetail(){
+    if (this.comment == '' &&
+      this.orderSplitAmount == '' &&
+      this.requestDate == '' &&
+      this.requester == '' &&
+      this.approvalDate_lv1 == '' &&
+      this.approvalPerson_lv1 == '' &&
+      this.approvalDate_lv2 == '' &&
+      this.approvalPerson_lv2 == '' &&
+      this.orderDate == '' &&
+      this.orderAmount == '' &&
+      this.receivedDate == '' &&
+      this.receivedAmount == '' &&
+      this.paymentDate == '' &&
+      this.paymentAmount == '') 
+      {
+      return true;
+    }
+    return false;
+  }
+
+
   constructor() {}
 
 }
