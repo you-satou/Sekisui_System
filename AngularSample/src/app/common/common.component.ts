@@ -41,7 +41,9 @@ export class CommonComponent{
   static get styleHarfNum():number { return 2 }    // 半角数値　0~9
   static get styleNumber():number { return 3 }       // 数値、"."(カンマ※1つまで)、"-"（マイナス※先頭文字のみ）
   
-  /**背景色変更イベント*/
+  /**
+   * 背景色変更イベント
+   */
   public CommonOnSelHight(event:any){
 
     // テーブル 背景色 クリア
@@ -64,5 +66,23 @@ export class CommonComponent{
       var wTd = wTr.cells[i];
       wTd.style.backgroundColor = Const.HighLightColour.Selected;
     }
+  }
+
+  /**
+   * カンマ付与
+   * @param 値
+   * @returns 変換後 値
+   */
+  addCommas(val:string){
+    return val.replace(/(\d)(?=(\d\d\d)+$)/g, '$1,');
+  }
+
+   /**
+   * カンマ除去
+   * @param 値
+   * @returns 変換後 値
+   */
+  removeCommas(val:string){
+    return val.replace(/,/g, '');
   }
 }
