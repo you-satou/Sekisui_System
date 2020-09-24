@@ -16,19 +16,19 @@
         </ng-container>
         <ng-container matColumnDef="planOrderAmount">
             <th style="width: 10%; text-align: center;" class="color-approval-2" mat-header-cell *matHeaderCellDef> 発注予定金額合計 </th>
-            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.planOrderAmount}} </td>
+            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.planOrderAmount|number}} </td>
         </ng-container>
         <ng-container matColumnDef="approvalRequestAmount">
             <th style="width: 10%; text-align: center;" mat-header-cell *matHeaderCellDef> 承認依頼金額合計 </th>
-            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approvalRequestAmount}} </td>
+            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approvalRequestAmount|number}} </td>
         </ng-container>
         <ng-container matColumnDef="performanceOrderAmount">
             <th style="width: 10%; text-align: center;" class="color-approval-3" mat-header-cell *matHeaderCellDef> 発注金額合計 </th>
-            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.performanceOrderAmount}} </td>
+            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.performanceOrderAmount|number}} </td>
         </ng-container>
         <ng-container matColumnDef="receivedAmount">
             <th style="width: 10%; text-align: center;" class="color-approval-1" mat-header-cell *matHeaderCellDef> 受入金額合計 </th>
-            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.receivedAmount}} </td>
+            <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.receivedAmount|number}} </td>
         </ng-container>
         <ng-container matColumnDef="progressRate">
             <th style="width: 6%; text-align: center;" mat-header-cell *matHeaderCellDef> 進捗率 </th>

@@ -133,19 +133,28 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 半角数字　正規化
+   * 契約番号from半角数字
    */
-  tohalf(value: string){
-     value.replace(/[！＂＃＄％＆＇（）＊＋，－．／０-９：；＜＝＞？＠Ａ-Ｚ［＼］＾＿｀ａ-ｚ｛｜｝～]/g, function(s) {
-      return String.fromCharCode(s.charCodeAt(0) - 0xFEE0); 
-    })
+  toFromHalf(value: string){
+    this.inputment.contractNumFrom = value.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, String.fromCharCode(value.charCodeAt(0)-0xFEE0));
   } 
 
   /** 
-  * 全角　正規化
+   * 契約番号to半角数字
+   */
+  toNumToHalf(value: string){
+    this.inputment.contractNumTo = value.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, String.fromCharCode(value.charCodeAt(0)-0xFEE0));
+  } 
+
+  /** 
+  * 物件名 全角
   */
   toZenkaku(value: string){
+    this.inputment.propertyName = value.replace(/[A-Za-z0-9!-~]/g,String.fromCharCode(value.charCodeAt(0)+0xFEE0));
+  }
 
+  strReplace(event){
+    alert(event.target);
   }
 
 }
