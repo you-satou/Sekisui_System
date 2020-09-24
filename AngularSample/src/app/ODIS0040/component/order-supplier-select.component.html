@@ -14,7 +14,7 @@
                                 <th class="table-s td-b text-center">納品</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id='initScroll'>
                             <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
                                 <td class="table-s td-b">{{ data.supplierCode }}</td>
                                 <td class="table-m td-b">{{ data.supplierJournalName }}</td>

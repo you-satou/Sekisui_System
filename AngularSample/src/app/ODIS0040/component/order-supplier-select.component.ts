@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, QueryList, ViewContainerRef, ViewChildren } from '@angular/core';
 import { OrderSupplierSelectService } from '../services/order-supplier-select.service';
 import { OrderSupplierSelectType } from '../entities/odis0040.entity'
 import { CommonComponent } from '../../common/common.component'
@@ -17,7 +17,7 @@ import { ODIS0040Form } from '../entities/odis0040-Form.entity'
 /**
  * 発注先マスタ選択コンポーネント
  */
-export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
+export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
 
   // タイトル
   title = '発注先マスタ選択';
@@ -34,6 +34,12 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
   // エラーメッセージ
   errormsg:string ="";
 
+  //入力された値
+  selectVal: string;
+
+  //フォーカス対象列
+  selectRow: number;
+
   /**
    * コンストラクタ
    *
@@ -41,6 +47,7 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    * @memberof ModalComponent
    */
   constructor(
+    private view: ViewContainerRef,
     private modalService: OrderSupplierSelectService,
     private commonComponent: CommonComponent,
     private orderService: CommonService,
@@ -52,10 +59,11 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
    */
   ngOnInit() {
 
-    // this.getOrderInputData();
+    //サーバ接続用
+    this.getOrderInputData();
     
-    
-    this.mockingData();
+    //テストデータ用
+    //this.mockingData();
 
   }
 
@@ -71,6 +79,30 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
       }
     });
 
+  }
+ /**
+  * レンダリング後（自動スクロール）
+  */
+ @ViewChildren('initScroll')
+ initScroll: QueryList<any>;
+ ngAfterViewInit(){
+   this.initScroll.changes.subscribe(t => {
+     var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
+
+     if(!(this.selectVal == undefined || this.selectVal == null)){
+     wTbody.rows[this.selectRow].scrollIntoView(true);
+
+     var wTr = wTbody.rows[this.selectRow];
+     for(var j=0; j<wTr.cells.length; j++){
+       // 背景色変更
+       var wTd = wTr.cells[j];
+       wTd.style.backgroundColor = Const.HighLightColour.Selected;
+      }   
+    }
+    else{
+      wTbody.rows[this.selectRow].scrollIntoView(false);
+    }
+    });
   }
 
   /**
@@ -122,13 +154,32 @@ export class OrderSupplierSelectComponent implements OnInit, OnDestroy  {
      // 事業区分コード設定
      this.param.officeCode = '701000';
 
+     //入力された値
+     this.selectVal = this.ODIS0020Service.getVal();
+
      // 発注仕訳マスタ取得
      this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
        .then(
          (response) => {
            this.datas = response;
+           if(!(this.selectVal == undefined || this.selectVal == null)){
+            this.onScroll(this.datas,this.selectVal);
+           }
          }
        );
+  }
+  onScroll(datas:OrderSupplierSelectType[],selectVal:any){
+
+    //行数取得
+    var row = 0;
+
+    for(let data of datas){
+
+      if(data.supplierCode == selectVal){
+         this.selectRow = row;
+      }
+      row += 1;
+    }
   }
 
 }

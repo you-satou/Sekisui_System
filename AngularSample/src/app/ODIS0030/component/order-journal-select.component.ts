@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, QueryList, ViewContainerRef, ViewChildren} from '@angular/core';
+import { Component, OnInit, AfterViewInit, QueryList, ViewContainerRef, ViewChildren} from '@angular/core';
 import { OrderJournalSelectService } from '../services/order-journal-select.service';
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
 import { CommonComponent } from '../../common/common.component'
@@ -26,9 +26,6 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   //画面表示データ
   datas: OrderJournalSelectType[];
 
-  //デフォルトデータ
-  dDatas: OrderJournalSelectType[];
-
   //戻り値
   resVal:OrderJournalSelectType;
 
@@ -41,7 +38,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   //入力された値
   selectVal: string;
 
-  selectRow: number = 0;
+  //フォーカス対象列
+  selectRow: number;
 
   /**
    * コンストラクタ
@@ -62,8 +60,24 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   */
   ngOnInit() {
 
+    //サーバ接続用
     this.getOrderInputData();
 
+    //テストデータ用
+    //this.mockingData();
+
+  }
+
+  mockingData(){
+  // url
+  let _supplierSelect: string = "assets/data/odis0030-JournalSelect.json";
+  this.orderService.getSingleData(_supplierSelect)
+  .subscribe(
+    data => {
+      if (data !== undefined) {
+        this.datas = data;
+    }
+  });
   }
 
  /**
@@ -74,11 +88,22 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
  ngAfterViewInit(){
    this.initScroll.changes.subscribe(t => {
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
-     wTbody.rows[this.selectRow].scrollIntoView(true);
-     
-   });
 
- }
+     if(!(this.selectVal == undefined || this.selectVal == null)){
+     wTbody.rows[this.selectRow].scrollIntoView(true);
+
+     var wTr = wTbody.rows[this.selectRow];
+     for(var j=0; j<wTr.cells.length; j++){
+       // 背景色変更
+       var wTd = wTr.cells[j];
+       wTd.style.backgroundColor = Const.HighLightColour.Selected;
+      }   
+    }
+    else{
+      wTbody.rows[this.selectRow].scrollIntoView(false);
+    }
+    });
+  }
 
   /**
   * 終了時

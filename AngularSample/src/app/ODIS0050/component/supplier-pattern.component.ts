@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,AfterViewInit,QueryList, ViewContainerRef, ViewChildren } from '@angular/core';
 import { SupplierPatternService } from '../services/supplier-pattern.service';
 import { PatternList } from '.././entities/odis0050-PatternList.entity'
 import { SupplierPatternList } from '.././entities/odis0050-SuppierPattern.entity'
