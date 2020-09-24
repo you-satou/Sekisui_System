@@ -101,14 +101,12 @@ export class SplitOrderDetailComponent implements OnInit {
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
       this.shiwakeData = savedDt.shiwakeData;
       this.tabName = this.shiwakeData[0].tabIndex;
-      this.bunkatsuData = savedDt.shiwakeData;
+      this.bunkatsuData = savedDt.bunkatsuData;
     }
     else{
       //各テーブルのデータの取得
       this.setDisplayData();
     }
-
-
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
   }
 
@@ -487,13 +485,11 @@ export class SplitOrderDetailComponent implements OnInit {
   saveDataToSession(){
 
     let saveDt = new ODIS0060Session();
-    
     saveDt.bunkatsuData = this.bunkatsuData;
     saveDt.shiwakeData = this.shiwakeData;
 
     sessionStorage.setItem(Const.ScreenName.S0006EN, JSON.stringify(saveDt));
   }
-
 
   /**
    * 「戻る」ボタンの押下
@@ -562,6 +558,9 @@ export class SplitOrderDetailComponent implements OnInit {
     });
 
     this.odis0020Service.setTableData(senderDt);
+
+    //発注詳細入力画面に戻る時、セックションを削除する
+    sessionStorage.removeItem(Const.ScreenName.S0006EN);
 
     this.router.navigate([Const.UrlSetting.U0002]);
 

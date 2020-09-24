@@ -703,7 +703,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
 
-    let temp : ODIS0020OrderShiwake[] = [];
     let insFlg: boolean = false;
     // 発注先パターン
     for (var insBk of insertBucket) {
