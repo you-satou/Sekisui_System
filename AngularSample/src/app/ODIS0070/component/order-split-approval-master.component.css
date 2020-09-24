@@ -1,8 +1,9 @@
 .table{
     margin-left: auto;
     margin-right: auto;
-    width: 30%;
+    width: 534px;
     overflow-y:scroll;
+    position: relative;
   
   }
   .table>thead {
@@ -14,12 +15,11 @@
   }
   
   .td-b {
-    border-right: 0.5px solid #CCD0D5;
+    border: 0.5px solid #CCD0D5;
   }
   
   .table-str{
   height: 40px;
-  width: 17.8%;
   white-space: nowrap;
   word-wrap: keep-all;
   }
@@ -34,4 +34,21 @@
     position: fixed; 
     z-index: 2; 
     bottom: 5px;
+  }
+
+  .btnDiv {
+    position: relative;
+    height: 50px;
+    width: 467px;
+  }
+
+  .sousaBtn {
+    position: relative;
+    float: left;
+  }
+
+  .table >tbody>tr>td>input {
+    margin: 0;
+    width: 100%;
+    border: 0;
 }
