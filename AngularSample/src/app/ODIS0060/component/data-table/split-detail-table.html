@@ -1,6 +1,6 @@
 <div>
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="shiwakeData" class="split-shiwake-table table table-bordered table-sm">
+        <table mat-table [dataSource]="shiwakeData" class="shiwake-table table table-bordered table-sm">
             
             <ng-container matColumnDef="journalCode">
                 <th style="width: 61px; padding: 3px 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳<br>コード</th>
@@ -33,7 +33,7 @@
                 <td mat-footer-cell *matFooterCellDef>20000</td>
             </ng-container>
 
-            <tr class="tableHeader" mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: shiwakeColumns;"></tr>
         </table>
     </div>

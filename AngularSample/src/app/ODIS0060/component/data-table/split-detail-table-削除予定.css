@@ -1,20 +1,33 @@
-.split-shiwake-table {
+/*************************************************************/
+/*****                                                    ****/
+/*****                  SHIWAKE-TABLE                     ****/
+/*****                                                    ****/
+/*****                                                    ****/
+/*************************************************************/
+.shiwake-table {
     width: 464px;
 }
 
-.split-shiwake-table>thead>tr {
-    height: 60px;
-}
-
-.split-shiwake-table>tbody>tr {
-    height: 37px;
-    vertical-align: middle !important;
-}
-
-.tableHeader {
+.shiwake-table>thead>tr>th {
     height: 30px;
 }
 
+.shiwake-table>tbody>tr>td {
+    height: 30px;
+    vertical-align: middle !important;
+}
+/* .shiwake-table>tfoot>tr.mat-footer-row {
+    font-weight: bold;
+    white-space: nowrap;
+    word-break: keep-all;
+} */
+
+/*************************************************************/
+/*****                                                    ****/
+/*****                  SHIWAKE-TABLE                     ****/
+/*****                                                    ****/
+/*****              カラムの背景色を設定する                 ****/
+/*************************************************************/
 .color-input-1 {
     background-color: #C5D9F1 !important;
     text-align: center;
@@ -47,12 +60,6 @@
 
 .mat-footer-cell {
     background-color: #e0e0e0;
-}
-
-tr.mat-footer-row {
-    font-weight: bold;
-    white-space: nowrap;
-    word-break: keep-all;
 }
 
 .tdRight {

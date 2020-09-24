@@ -114,7 +114,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[]) {
 
-    let skBody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    let skBody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
 
     let tr: HTMLTableRowElement;
     let btn: any;
@@ -174,7 +174,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param selectedItem 
    */
   setInputTableButton(selectedItem: ODIS0060OrderDetailBunkatsu) {
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.tsuika-table>tbody>tr');
 
     let btn = tr.cells[3].getElementsByTagName('button');
     if (selectedItem.requester != '') {
@@ -199,7 +199,7 @@ export class SplitOrderDetailComponent implements OnInit {
         return;
       }
       // OKを押したら行の背景色を削除する。
-      let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+      let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
       this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
     }
     // 入力検証
@@ -224,7 +224,7 @@ export class SplitOrderDetailComponent implements OnInit {
     this.table.renderRows();
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
 
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     
     this.setNewRowHighLight(Const.Action.A0001, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
@@ -256,7 +256,7 @@ export class SplitOrderDetailComponent implements OnInit {
     //選択された行に編集テーブルの値を挿入
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
 
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     this.setNewRowHighLight(Const.Action.A0002, tbody, i);
     this.setHighlight(i);
     
@@ -293,7 +293,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   stopModifyDetail($event) {
 
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
   }
@@ -368,7 +368,7 @@ export class SplitOrderDetailComponent implements OnInit {
 
     this.input.Clear();
     this.rowStatus.Reset();
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.tsuika-table>tbody>tr');
     let btn = tr.cells[3].getElementsByTagName('button');
     btn[0].style.display = 'inherit';
 
@@ -408,7 +408,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param event
    */
   setHighlight(rowIndex: number) {
-    var wTbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    var wTbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     for (var i = 0; i < wTbody.rows.length; i++) {
 
       if (i === rowIndex) {

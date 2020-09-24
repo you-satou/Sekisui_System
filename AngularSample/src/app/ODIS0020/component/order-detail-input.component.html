@@ -1,245 +1,252 @@
-<div class="body-order-input">
-    <section>
-        <div class="orderInfomation" style="margin-top:10px">
-            <div id="firstPart" *ngFor="let orderInfo of orderInformation ">
-                <section class="orderInfo">
-                    <table class="table-bordered">
-                        <tr class="text-center">
-                            <th style="width: 120px;">発注番号</th>
-                            <th style="width: 120px">事業コード</th>
-                            <th style="width: 300px;">事業所名</th>
-                            <th colspan="2" style="width: 200px;">営業担当者</th>
-                            <th colspan="2" style="width: 200px;">建築担当者</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                {{orderInfo.contractNum}}
-                            </td>
-                            <td class="tdcenter">
-                                {{orderInfo.officeCode}}
-                            </td>
-                            <td>
-                                {{orderInfo.officeName}}
-                            </td>
-                            <td class="tdcenter" style="width: 70px;">
-                                {{orderInfo.salesStaffCode}}
-                            </td>
-                            <td style="width: 130px;">
-                                {{orderInfo.salesStaffName}}
-                            </td>
-                            <td class="tdcenter" style="width: 70px;">
-                                {{orderInfo.architectCode}}
-                            </td>
-                            <td style="width: 130px;">
-                                {{orderInfo.architectName}}
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-
-                <section class="orderInfo2">
-                    <!-- <table class="orderInfo2Table1"> -->
-                        <table class="orderInfo2Table1 table-bordered">
-                        <tr>
-                            <th rowspan="2" style="width: 80px;">工事名</th>
-                            <td class="tdContract" colspan="2" style="word-wrap: break-word;">
-                                {{orderInfo.constructionKata}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tdContract" colspan="2" style="width: 50px;">
-                                {{orderInfo.constructionHira}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="width: 80px;">契約者名</th>
-                            <td class="tdCode">
-                                {{orderInfo.contractorCode}}
-                            </td>
-                            <td class="tdCode">
-                                {{orderInfo.contractorName}}
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="orderInfo2Table2 table-bordered">
-                        <tr>
-                            <th style="border-left: none !important;">予定年月日</th>
-                            <th rowspan="2">契<br>約</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planContractDate}}</p>
-                            </td>
-                            <th rowspan="2">D<br>/<br>O</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planDODate}}</p>
-                            </td>
-                            <th rowspan="2">着<br>工</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planStartDate}}</p>
-                            </td>
-                            <th rowspan="2">入<br>荷</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planArrivalDate}}</p>
-                            </td>
-                            <th rowspan="2">木<br>工<br>事</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planWoodWorkDate}}</p>
-                            </td>
-                            <th rowspan="2">総<br>合<br>検<br>査</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planInspectionDate}}</p>
-                            </td>
-                            <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planCompletionInspection}}</p>
-                            </td>
-                            <th rowspan="2">引<br>渡</th>
-                            <td class="tddate">
-                                <p>{{orderInfo.planHandingOver}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="width: 10%; border-left: 0;">実績年月日</th>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforContractDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforDODate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforStartDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforArrivalDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforWoodWorkDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforInspectionDate}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforCompletionInspection}}</p>
-                            </td>
-                            <td class="tdcenter">
-                                <p>{{orderInfo.perforHandingOver}}</p>
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-            </div>
-            <div class="infoTable">
-                <div class="tbl1">
-                    <table class=" table-bordered">
-                        <thead>
-                            <tr>
-                                <th>契　約</th>
-                                <th>受注形態</th>
-                                <th colspan="2">枝番</th>
-                                <th>年月日</th>
-                                <th>金額</th>
-                                <th>発注</th>
-                                <th colspan="2">売上</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of tblMainOrder;">
-                                <td class="tdcenter">{{data.contractModel}}</td>
-                                <td class="tdcenter">{{data.orderModel}}</td>
-                                <td class="tdcenter">{{data.branchNum1}}</td>
-                                <td class="tdcenter">{{data.branchNum2}}</td>
-                                <td class="tddate">{{data.date}}</td>
-                                <td class="tdprice">{{data.contractAmount}}</td>
-                                <td class="tdcenter">{{data.completeStatus}}</td>
-                                <td class="tdcenter">{{data.salesStatus}}</td>
-                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tbl2">
-                    <table class=" table-bordered">
-                        <thead id="theadHeight">
-                            <tr>
-                                <th>契　約</th>
-                                <th>受注形態</th>
-                                <th colspan="2">枝番</th>
-                                <th>年月日</th>
-                                <th>金額</th>
-                                <th>発注</th>
-                                <th colspan="2">売上</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <th style="position: absolute; background-color: #fff; height: 133px;">追<br>加<br>工<br>事</th>
-                            <tr *ngFor="let data of tblInsertedOrder; let i = index">
-                                <td class="tdcenter" style="padding-left: 20px !important;">{{data.contractModel}}</td>
-                                <td class="tdcenter">{{data.orderModel}}</td>
-                                <td class="tdcenter">{{data.branchNum1}}</td>
-                                <td class="tdcenter">{{data.branchNum2}}</td>
-                                <td class="tddate">{{data.date}}</td>
-                                <td class="tdprice">{{data.contractAmount}}</td>
-                                <td class="tdcenter">{{data.completeStatus}}</td>
-                                <td class="tdcenter">{{data.salesStatus}}</td>
-                                <td class="tdcenter">{{data.salesUpdateDate}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section style="margin-top: 10px;" class="tabGroup">
-        <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)" [selectedIndex]="tabValue">
-            <mat-tab class="sekkei" label="設計">
-                <shiwake-table #tabSekkei [orderData]="tblSekkei" (sendOrderData)="getEmitter($event)"></shiwake-table>
-            </mat-tab>
-            <mat-tab class="hontai" label="本体">
-                <shiwake-table #tabHontai [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
-            </mat-tab>
-            <mat-tab class="tsuika" label="追加">
-                <shiwake-table #tabTsuika [orderData]="tblTsuika" (sendOrderData)="getEmitter($event)"></shiwake-table>
-            </mat-tab>
-        </mat-tab-group>
-    </section>
-
-    <section style="margin-top: 10px;">
-        <table class="orderdetailaddinput table-sm table-bordered">
-            <tr>
-                <th style="width: 20px !; border-left: 0; ">
-                    <button class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0030" (click)="orderJournalSelect($event,this.addInput.journalCode);">仕訳コード</button></th>
-                <th style="width: 20px;">経理コード</th>
-                <th style="width: 20px;">仕訳名称</th>
-                <th style="width: 40px;" colspan="2"><button class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040" (click)="orderSupplierSelect($event,this.addInput.orderSupplierCode);">発注先</button></th>
-                <th style="width: 20px;">発注予定金額</th>
-            </tr>
-            <tbody>
-                <tr>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.journalCode" type="text" class="orderdetailaddinputBody" name="journalCode"></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.accountCode" type="text" class="orderdetailaddinputBody" name="accountingCategory"></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.journalName" type="label" class="orderdetailaddinputBody" name="orderJournalName"></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderSupplierCode" type="text" class="orderdetailaddinputBody" name="supplierCode"></td>
-                    <td style="width: 160px;"><label>{{addInput.orderSupplierName}}</label></td>
-                    <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" class="orderdetailaddinputBody" name="orderPlansKin"></td>
+<section>
+    <div *ngFor="let orderInfo of orderInformation">
+        <section class="orderInfo">
+            <table class="table-bordered">
+                <tr class="text-center">
+                    <th style="width: 120px;">発注番号</th>
+                    <th style="width: 120px">事業コード</th>
+                    <th style="width: 300px;">事業所名</th>
+                    <th colspan="2" style="width: 200px;">営業担当者</th>
+                    <th colspan="2" style="width: 200px;">建築担当者</th>
                 </tr>
-            </tbody>
-        </table>
-    </section>
+                <tr>
+                    <td>
+                        {{orderInfo.contractNum}}
+                    </td>
+                    <td class="tdcenter">
+                        {{orderInfo.officeCode}}
+                    </td>
+                    <td>
+                        {{orderInfo.officeName}}
+                    </td>
+                    <td class="tdcenter" style="width: 70px;">
+                        {{orderInfo.salesStaffCode}}
+                    </td>
+                    <td style="width: 130px;">
+                        {{orderInfo.salesStaffName}}
+                    </td>
+                    <td class="tdcenter" style="width: 70px;">
+                        {{orderInfo.architectCode}}
+                    </td>
+                    <td style="width: 130px;">
+                        {{orderInfo.architectName}}
+                    </td>
+                </tr>
+            </table>
+        </section>
 
-    <section style="margin-top: 10px;">
-        <div class="button-container">
-            <button mat-button (click)="insertOrderDetail()" class="btn btn-success">明細追加</button>
-            <button mat-button (click)="updateOrderDetail()" class="btn btn-info m-1 border ">明細更新</button>
-            <button mat-button (click)="clearOrderDetail()" class="btn btn-danger border m-1">中止</button>
-            <button mat-button style="float: right;" (click)="deleteOrderDetail()" class="btn btn-danger border m-1">明細削除</button>
+        <section class="orderInfo2">
+            <!-- <table class="orderInfo2Table1"> -->
+            <table class="orderInfo2Table1 table-bordered">
+                <tr>
+                    <th rowspan="2" style="width: 80px;">工事名</th>
+                    <td class="tdContract" colspan="2" style="word-wrap: break-word;">
+                        {{orderInfo.constructionKata}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tdContract" colspan="2" style="width: 50px;">
+                        {{orderInfo.constructionHira}}
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 80px;">契約者名</th>
+                    <td class="tdCode">
+                        {{orderInfo.contractorCode}}
+                    </td>
+                    <td class="tdCode">
+                        {{orderInfo.contractorName}}
+                    </td>
+                </tr>
+            </table>
+            <table class="orderInfo2Table2 table-bordered">
+                <tr>
+                    <th style="border-left: none !important;">予定年月日</th>
+                    <th rowspan="2">契<br>約</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planContractDate}}</p>
+                    </td>
+                    <th rowspan="2">D<br>/<br>O</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planDODate}}</p>
+                    </td>
+                    <th rowspan="2">着<br>工</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planStartDate}}</p>
+                    </td>
+                    <th rowspan="2">入<br>荷</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planArrivalDate}}</p>
+                    </td>
+                    <th rowspan="2">木<br>工<br>事</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planWoodWorkDate}}</p>
+                    </td>
+                    <th rowspan="2">総<br>合<br>検<br>査</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planInspectionDate}}</p>
+                    </td>
+                    <th rowspan="2" style="word-wrap: normal;">竣<br>工<br>検<br>査</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planCompletionInspection}}</p>
+                    </td>
+                    <th rowspan="2">引<br>渡</th>
+                    <td class="tddate">
+                        <p>{{orderInfo.planHandingOver}}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th style="width: 10%; border-left: 0;">実績年月日</th>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforContractDate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforDODate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforStartDate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforArrivalDate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforWoodWorkDate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforInspectionDate}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforCompletionInspection}}</p>
+                    </td>
+                    <td class="tdcenter">
+                        <p>{{orderInfo.perforHandingOver}}</p>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </div>
+    <div class="infoTable">
+        <div class="tbl1">
+            <table class=" table-bordered">
+                <thead>
+                    <tr>
+                        <th>契　約</th>
+                        <th>受注形態</th>
+                        <th colspan="2">枝番</th>
+                        <th>年月日</th>
+                        <th>金額</th>
+                        <th>発注</th>
+                        <th colspan="2">売上</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of tblMainOrder;">
+                        <td class="tdcenter">{{data.contractModel}}</td>
+                        <td class="tdcenter">{{data.orderModel}}</td>
+                        <td class="tdcenter">{{data.branchNum1}}</td>
+                        <td class="tdcenter">{{data.branchNum2}}</td>
+                        <td class="tddate">{{data.date}}</td>
+                        <td class="tdprice">{{data.contractAmount}}</td>
+                        <td class="tdcenter">{{data.completeStatus}}</td>
+                        <td class="tdcenter">{{data.salesStatus}}</td>
+                        <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </section>
-</div>
+        <div class="tbl2">
+            <table class=" table-bordered">
+                <thead id="theadHeight">
+                    <tr>
+                        <th>契　約</th>
+                        <th>受注形態</th>
+                        <th colspan="2">枝番</th>
+                        <th>年月日</th>
+                        <th>金額</th>
+                        <th>発注</th>
+                        <th colspan="2">売上</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th style="position: absolute; background-color: #fff; height: 133px;">追<br>加<br>工<br>事</th>
+                    <tr *ngFor="let data of tblInsertedOrder; let i = index">
+                        <td class="tdcenter" style="padding-left: 20px !important;">{{data.contractModel}}</td>
+                        <td class="tdcenter">{{data.orderModel}}</td>
+                        <td class="tdcenter">{{data.branchNum1}}</td>
+                        <td class="tdcenter">{{data.branchNum2}}</td>
+                        <td class="tddate">{{data.date}}</td>
+                        <td class="tdprice">{{data.contractAmount}}</td>
+                        <td class="tdcenter">{{data.completeStatus}}</td>
+                        <td class="tdcenter">{{data.salesStatus}}</td>
+                        <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section style="margin-top: 10px;" class="tabGroup">
+    <mat-tab-group animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)"
+        [selectedIndex]="tabValue">
+        <mat-tab class="sekkei" label="設計">
+            <shiwake-table #tabSekkei [orderData]="tblSekkei" (sendOrderData)="getEmitter($event)"></shiwake-table>
+        </mat-tab>
+        <mat-tab class="hontai" label="本体">
+            <shiwake-table #tabHontai [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
+        </mat-tab>
+        <mat-tab class="tsuika" label="追加">
+            <shiwake-table #tabTsuika [orderData]="tblTsuika" (sendOrderData)="getEmitter($event)"></shiwake-table>
+        </mat-tab>
+    </mat-tab-group>
+</section>
+
+<section style="margin-top: 10px;">
+    <table class="orderdetailaddinput table-sm table-bordered">
+        <tr>
+            <th style="width: 20px !; border-left: 0; ">
+                <button class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0030"
+                    (click)="orderJournalSelect($event,this.addInput.journalCode);">仕訳コード</button></th>
+            <th style="width: 20px;">経理コード</th>
+            <th style="width: 20px;">仕訳名称</th>
+            <th style="width: 40px;" colspan="2"><button class="btn btn-link" data-toggle="modal"
+                    data-target="#M_ODIS0040"
+                    (click)="orderSupplierSelect($event,this.addInput.orderSupplierCode);">発注先</button></th>
+            <th style="width: 20px;">発注予定金額</th>
+        </tr>
+        <tbody>
+            <tr>
+                <td style="width: 20px;"><input [(ngModel)]="addInput.journalCode" type="text"
+                        class="orderdetailaddinputBody" name="journalCode"></td>
+                <td style="width: 20px;"><input [(ngModel)]="addInput.accountCode" type="text"
+                        class="orderdetailaddinputBody" name="accountingCategory"></td>
+                <td style="width: 20px;"><input [(ngModel)]="addInput.journalName" type="label"
+                        class="orderdetailaddinputBody" name="orderJournalName"></td>
+                <td style="width: 20px;"><input [(ngModel)]="addInput.orderSupplierCode" type="text"
+                        class="orderdetailaddinputBody" name="supplierCode"></td>
+                <td style="width: 160px;"><label>{{addInput.orderSupplierName}}</label></td>
+                <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text"
+                        class="orderdetailaddinputBody" name="orderPlansKin"></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section style="margin-top: 10px;">
+    <div class="button-container">
+        <button mat-button (click)="insertOrderDetail()" class="btn btn-success">明細追加</button>
+        <button mat-button (click)="updateOrderDetail()" class="btn btn-info m-1 border ">明細更新</button>
+        <button mat-button (click)="clearOrderDetail()" class="btn btn-danger border m-1">中止</button>
+        <button mat-button style="float: right;" (click)="deleteOrderDetail()"
+            class="btn btn-danger border m-1">明細削除</button>
+    </div>
+</section>
 <br>
 <div class="footer-container" style=" margin-top: 20px;">
     <div class="_footer-container">
         <div style="float: left;" class="bottomButton">
-            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal" data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
+            <button mat-button id="btnTokuiSaki" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
+                data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
         </div>
         <div style="margin-left: 200px;" class="bottomButton">
             <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1 ">得意先元帳</button>

@@ -1,4 +1,9 @@
-/*************************** HEADER ***********************************/
+/*************************************************************/
+/*****                                                    ****/
+/*****                    TABLE HEADER                    ****/
+/*****                                                    ****/
+/*****                                                    ****/
+/*************************************************************/
 
 .mat-header-cell {
     text-align: center !important;
@@ -15,8 +20,12 @@
     overflow: hidden;
     vertical-align: middle;
 }
-
-/*************************** BODY ************************************/
+/*************************************************************/
+/*****                                                    ****/
+/*****                      TABLE BODY                    ****/
+/*****                                                    ****/
+/*****                                                    ****/
+/*************************************************************/
 .mat-table-sticky {
     border-top: 1px solid #e0e0e0;
 }
@@ -67,15 +76,18 @@
     height: 35px !important;
 }
 
-.shiwake-table>tbody>tr>td>button.btn.btn-link :hover{
+.journal-table>tbody>tr>td>button.btn.btn-link :hover{
     color: cyan !important;
 }
 
+/*************************************************************/
+/*****                                                    ****/
+/*****                      FOOTER                        ****/
+/*****                                                    ****/
+/*****                                                    ****/
+/*************************************************************/
 
-
-/************************** FOOTER ************************************/
-
-.shiwake-table>tfoot>tr.mat-footer-row {
+.journal-table>tfoot>tr.mat-footer-row {
     font-weight: bold !important;
 }
 .mat-footer-cell {
@@ -83,18 +95,21 @@
     position: sticky;
 }
 
-.shiwake-table>tfoot>tr>td {
+.journal-tablele>tfoot>tr>td {
     padding-top: 20px;
     padding-right: 5px;
     text-align: right;
 }
-.shiwake-table>tfoot>tr>td.goukie {
+.journal-table>tfoot>tr>td.goukie {
     text-align: center !important;
 }
 
-
-
-/*********************** TABLE SCROLL***********************************/
+/*************************************************************/
+/*****                                                    ****/
+/*****                   TABLE SCROLL                     ****/
+/*****            テーブルをスクロールする時、                ****/
+/*****           ヘッダーとフォッターを固定させる             ****/
+/*************************************************************/
 
 .table-responsive>table>thead>tr>th {
     top: 0px;

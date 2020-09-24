@@ -3,7 +3,8 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'split-detail-table',
-  styleUrls: ['split-detail-table.css'],
+  // styleUrls: ['split-detail-table.css'],
+  styleUrls: ['../split-detail-input.component.css'],
   templateUrl: './split-detail-table.html',
   encapsulation: ViewEncapsulation.None,
 })
