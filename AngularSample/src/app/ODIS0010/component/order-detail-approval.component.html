@@ -4,18 +4,18 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text">
+            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text" maxlength='11' pattern="^[0-9]+$" #contractNumFrom (keyup.enter)="tohalf(contractNumFrom.value)"(blur)="tohalf(contractNumFrom.value)">
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text">
+            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text" maxlength='11' pattern="^[0-9]+$" #contractNumTo (keyup.enter)="tohalf(contractNumTo.value)"(blur)="tohalf(contractNumTo.value)">
         </div>
 
         <div class="input-group row" style="height: 30px;">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text">
+            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text"  maxlength='20' pattern="(?=.*?[\u30A1-\u30FC])[\u30A1-\u30FC\s]*" #propertyName (keyup.enter)="toZenkaku(propertyName.value)"(blur)="toZenkaku(propertyName.value)">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
                 <p class="radioCheckbok">

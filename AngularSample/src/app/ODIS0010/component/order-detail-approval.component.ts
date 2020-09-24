@@ -5,6 +5,7 @@ import { CommonService } from "app/common/common.service";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
 import { Router } from '@angular/router';
+import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/typings/scroll/scroll-strategy';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -21,6 +22,9 @@ export class OrderDetailApprovalComponent implements OnInit {
   pixel: number;
 
   screenSize: any;
+
+  //検索値
+  value = '';
 
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
@@ -126,6 +130,22 @@ export class OrderDetailApprovalComponent implements OnInit {
     let pageInput = document.getElementById("pageIndex");
     pageInput.setAttribute("value", "1");
     pageInput.removeAttribute("disabled");
+  }
+
+  /** 
+   * 半角数字　正規化
+   */
+  tohalf(value: string){
+     value.replace(/[！＂＃＄％＆＇（）＊＋，－．／０-９：；＜＝＞？＠Ａ-Ｚ［＼］＾＿｀ａ-ｚ｛｜｝～]/g, function(s) {
+      return String.fromCharCode(s.charCodeAt(0) - 0xFEE0); 
+    })
+  } 
+
+  /** 
+  * 全角　正規化
+  */
+  toZenkaku(value: string){
+
   }
 
 }
