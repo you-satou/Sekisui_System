@@ -49,6 +49,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   dataSource: any;
 
+  // mocking data url
+  _urlOrderSplit: string = "assets/data/dataSplitApproval.json";
+
+  input = new OrderSplitApprovalMasterTable();
+
   /**
    * コンストラクタ
    *
@@ -59,7 +64,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
     private _location: Location,
-    private service: OrderSplitApprovalMasterService,
+    private service: CommonService,
     private router: Router,
     private CommonService: CommonService,  
   ) { }
@@ -69,7 +74,18 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0007);
-    this.getOrderSplitApproval();
+    // this.getOrderSplitApproval();
+    this.getOrderInputData();
+  }
+
+  /**
+   * データを取得
+   */
+  getOrderInputData() {
+    this.service.getSingleData(this._urlOrderSplit)
+      .subscribe(
+        data => this.orderApprovalData = data       
+      );
   }
 
   /**

@@ -1,82 +1,93 @@
 <div class="table-body">
-        <div class="table-container">
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th class="table-str td-b text-center">個人認証ＩＤ</th>
-                        <th class="table-str td-b text-center">従業員コード</th>
-                        <th class="table-str td-b text-center">従業員名</th>
-                        <th class="table-str td-b text-center">承認１</th>
-                        <th class="table-str td-b text-center">承認２</th>
-                        <th class="table-str td-b text-center">削除</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
-                        <td class="table-str td-b">{{ data.personalID }}</td>
-                        <td class="table-str td-b">{{ data.employeeCode }}</td>
-                        <td class="table-str td-b">{{ data.employeeName }}</td>
-                        <td class="table-str td-b text-center">{{ data.approval1 }}</td>
-                        <td class="table-str td-b text-center">{{ data.approval2 }}</td>
-                        <td class="table-str td-b text-center">{{ data.deleteFlag }}</td>
-                    </tr>                 
-                </tbody>
-            </table>
-        </div>
-</div>
-
-<div class="table-body" style="margin-bottom: 50px;">
     <div class="table-container">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th class="table-str td-b text-center">個人認証ＩＤ</th>
-                    <th class="table-str td-b text-center">従業員コード</th>
-                    <th class="table-str td-b text-center">従業員名</th>
-                    <th class="table-str td-b text-center">承認１</th>
-                    <th class="table-str td-b text-center">承認２</th>
-                    <th class="table-str td-b text-center">削除</th>
+                    <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
+                    <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
+                    <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">削除</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="table-str td-b">{{ personalID }}</td>
-                    <td class="table-str td-b">{{ employeeCode }}</td>
-                    <td class="table-str td-b">{{ employeeName }}</td>
-                    <td class="table-str td-b text-center">{{ approval1 }}</td>
-                    <td class="table-str td-b text-center">{{ approval2 }}</td>
-                    <td class="table-str td-b text-center">{{ deleteFlag }}</td>
-                </tr>                 
+                <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
+                    <td class="table-str td-b">{{ data.personalID }}</td>
+                    <td class="table-str td-b">{{ data.employeeCode }}</td>
+                    <td class="table-str td-b">{{ data.employeeName }}</td>
+                    <td class="table-str td-b text-center">{{ data.approval1 }}</td>
+                    <td class="table-str td-b text-center">{{ data.approval2 }}</td>
+                    <td style="width: 64px;" class="table-str td-b text-center">{{ data.deleteFlag }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
 
+<div class="table-body" style="margin-bottom: 50px;">
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
+                    <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
+                    <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
+                    <th style="width: 64px;" class="table-str td-b text-center">削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="table-str td-b"><input [(ngModel)]="personalID" type="text"></td>
+                    <td class="table-str td-b"><input [(ngModel)]="employeeCode" type="text"></td>
+                    <td class="table-str td-b"><input [(ngModel)]="employeeName" type="text"></td>
+                    <td class="table-str td-b text-center">{{ approval1 }}</td>
+                    <td class="table-str td-b text-center">{{ approval2 }}</td>
+                    <td class="table-str td-b text-center">{{ deleteFlag }}</td>
+                </tr>
+                <tr>
+                    <td [attr.colSpan]="6">
+                        <div class="btnDiv">
+                            <div class="sousaBtn">
+                                <button mat-button id="btnClose " class="btn btn-success border mx-1 back-btn"
+                                    data-toggle="modal" data-target="#MODAL5">明細追加</button>
+                            </div>
+
+                            <div class="sousaBtn">
+                                <button mat-button id="btnClose "
+                                    class="btn btn-info border mx-1 back-btn ">明細更新</button>
+                            </div>
+
+                            <div class="sousaBtn">
+                                <button mat-button id="btnClose "
+                                    class="btn btn-danger border mx-1 back-btn ">中止</button>
+                            </div>
+
+                            <div class="sousaBtn">
+                                <button mat-button id="btnClose "
+                                    class="btn btn-danger border mx-1 back-btn ">明細削除</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
 <div class='page-footer'>
     <footer>
         <div class="footer-container" style="position: inherit;">
+
+
             <div style="left: 30px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn" data-toggle="modal"
-                    data-target="#MODAL5">明細追加</button>
-            </div>
-
-            <div style="left: 123px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn ">明細更新</button>
-            </div>
-
-            <div style="left: 216px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn ">中止</button>
-            </div>
-
-            <div style="left: 283px;" class="bottomButton">
-                <button mat-button id="btnClose " class="btn btn-primary border mx-1 back-btn ">明細削除</button>
-            </div>
-            
-            <div style="right: 30px;" class="bottomButton">
                 <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
                     (click)="onBackClick($event)">閉じる</button>
             </div>
         </div>
     </footer>
 </div>
-
