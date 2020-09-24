@@ -1,4 +1,4 @@
-import { ODIS0020OrderDetailList } from './odis0020-OrderDetailList.entity'
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
 import { ODIS0020OrderDetailInputInformation } from './odis0020-OrderInformation.entity'
@@ -25,6 +25,30 @@ export class ODIS0020OrderDetailTotalInfo{
 
     /** 追加のデータ */
     TsuikaData: ODIS0020OrderDetailList[]
+
+    constructor() {}
+
+}
+
+export class ODIS0020Session{
+
+    /** 発注明細 邸情報　*/
+    ContractInfo: ODIS0020OrderDetailInputInformation[];
+
+    /** 本体受注枝番テーブル */
+    MainOrderInfo: ODIS0020MainOrderEdaBan[];
+
+    /** 追加工事受注枝番テーブル */
+    InsertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
+
+    /** 設計のデータ */
+    SekkeiData: ODIS0020OrderShiwake[];
+
+    /** 本体のデータ */
+    HontaiData: ODIS0020OrderShiwake[];
+
+    /** 追加のデータ */
+    TsuikaData: ODIS0020OrderShiwake[]
 
     constructor() {}
 

@@ -3,26 +3,35 @@ export namespace Const{
     
     /** 画面名 */
     export namespace ScreenName {
-        export const S0000 = 'Index'
-        export const S0001 = '発注明細入力_承認処理'
-        export const S0002 = '発注明細入力_詳細入力'
-        export const S0003 = '発注明細入力_発注先パターン選択'
-        export const S0004 = '発注仕訳マスタ選択'
-        export const S0005 = '発注先マスタ選択'
-        export const S0006 = '発注明細入力_分割明細入力'
-        export const S0007 = '発注分割承認者マスタ'
+        export const S0000 = 'Index';
+        export const S0001 = '発注明細入力_承認処理';
+        export const S0002 = '発注明細入力_詳細入力';
+        export const S0003 = '発注明細入力_発注先パターン選択';
+        export const S0004 = '発注仕訳マスタ選択';
+        export const S0005 = '発注先マスタ選択';
+        export const S0006 = '発注明細入力_分割明細入力';
+        export const S0007 = '発注分割承認者マスタ';
+
+        export const S0001EN = 'OrderDetailApproval';
+        export const S0002EN = 'OrderDetailInput';
+        export const S0003EN = 'OrderJournalSelect';
+        export const S0004EN = 'OrderSupplierSelect';
+        export const S0005EN = 'SupplierPattern';
+        export const S0006EN = 'SplitDetailInput';
+        export const S0007EN = 'OrderSplitApprovalMaster';
     }
+
 
     /** リンク */
     export namespace LinKSetting {
-        export const L0000 = '<a href="#">TOP<a> >'
-        export const L0001 = '<a href="/OrderDetailApproval">発注明細入力_明細入力<a> >'
-        export const L0002 = '<a href="/OrderDetailInput>"発注明細入力_明細入力<a> >'
-        export const L0003 = '<a href="/SupplierPattern>"発注明細入力_発注先パターン選択<a> >'
-        export const L0004 = '<a href="/OrderJournalSelect>"発注仕訳マスタ選択<a> >'
-        export const L0005 = '<a href="/OrderSupplierSelect>"発注先マスタ選択<a> >'
-        export const L0006 = '<a href="/SplitDetailInput>"発注明細入力_分割明細入力<a> >'
-        export const L0007 = '<a href="/OrderSplitApprovalMaster>"発注分割承認者マスタ<a> >'
+        export const L0000 = '<a href="#">TOP<a> >';
+        export const L0001 = '<a href="/OrderDetailApproval">発注明細入力_明細入力<a> >';
+        export const L0002 = '<a href="/OrderDetailInput>"発注明細入力_明細入力<a> >';
+        export const L0003 = '<a href="/SupplierPattern>"発注明細入力_発注先パターン選択<a> >';
+        export const L0004 = '<a href="/OrderJournalSelect>"発注仕訳マスタ選択<a> >';
+        export const L0005 = '<a href="/OrderSupplierSelect>"発注先マスタ選択<a> >';
+        export const L0006 = '<a href="/SplitDetailInput>"発注明細入力_分割明細入力<a> >';
+        export const L0007 = '<a href="/OrderSplitApprovalMaster>"発注分割承認者マスタ<a> >';
     }
 
     /** リンクの定義 */
@@ -113,13 +122,10 @@ export namespace Const{
         export const E0006 = '発注予定金額は必須入力です。';
         export const E0007 = '発注金額は必須入力です。';
         export const E0008 = '選択してください';
-        export const E0009 = '発注予定金額が数字のみで入力してください。';
-
         //分割明細用エラーメッセージ
         export const E0010 = '明細情報を入力して下さい。';
         export const E0012 = '発注予定金額が未入力な状態で依頼ができません。';
         export const E0013 = '更新明細を選択してください。';
-
 
     }
     /**

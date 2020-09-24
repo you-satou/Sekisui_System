@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -91,6 +91,12 @@ export class AppComponent implements OnInit {
    */
   getSystemDate(): string {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
+  }
+
+  ngOnDestroy(): void {
+
+    sessionStorage.clear();
+    
   }
 
 }
