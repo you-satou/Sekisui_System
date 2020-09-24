@@ -98,8 +98,8 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   /**
- * テーブルをレンダー後に走るメゾッド
- */
+   * テーブルをレンダー後に走るメゾッド
+   */
   ngAfterViewInit(): void {
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
   }
@@ -146,7 +146,7 @@ export class SplitOrderDetailComponent implements OnInit {
     return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
   }
 
-    /**
+  /**
    * 仕訳テーブルの行を選択する場合
    *
    * @param $event イベント
@@ -471,7 +471,7 @@ export class SplitOrderDetailComponent implements OnInit {
 
   }
 
-    /**
+  /**
    * 「戻る」ボタンの押下
    *
    * @param $event イベント
@@ -541,5 +541,23 @@ export class SplitOrderDetailComponent implements OnInit {
 
     this.router.navigate([Const.UrlSetting.U0002]);
 
+  }
+
+  /**
+   * focus処理
+   *
+   * @param $event イベント
+   */
+  commonFocus($event){
+    $event.target.value = this.commonComponent.removeCommas($event.target.value);
+  }
+
+  /**
+   * blur処理
+   *
+   * @param $event イベント
+   */
+  commonBlur($event){
+    $event.target.value = this.commonComponent.addCommas($event.target.value);
   }
 }
