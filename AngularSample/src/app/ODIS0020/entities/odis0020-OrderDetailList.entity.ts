@@ -21,13 +21,13 @@ export interface ODIS0020OrderDetailList {
   orderPlanAmount: string;
 
   /** 分割明細データ */
-  splitData: ODIS0020OrderSplitSub[]
+  bunkatsuData: ODIS0020OrderBunkatsuSub[]
 }
 
 /**
  * 分割明細テーブルの定義
  */
-export interface ODIS0020OrderSplitSub {
+export interface ODIS0020OrderBunkatsuSub {
   /** コメント */
   comment: string;
 
@@ -140,6 +140,4 @@ export class ODIS0020OrderShiwake {
 
   constructor() {}
 
-  /**  */
-  // splitData: ODIS0020OrderSplitSub[]
 }

@@ -1,17 +1,17 @@
-import { SplitOrderDetailShiwake } from '../../entities/odis0060.entity';
+import { ODIS0060OrderShiwake } from '../../entities/odis0060-SplitDetail.entity';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'split-shiwake-table',
-  styleUrls: ['table-shiwake.css'],
-  templateUrl: './table-shiwake.html',
+  selector: 'split-detail-table',
+  styleUrls: ['split-detail-table.css'],
+  templateUrl: './split-detail-table.html',
   encapsulation: ViewEncapsulation.None,
 })
 
-export class SplitOrderDetailShiwakeTable {
+export class SplitOrderDetailTable {
 
   //仕訳データの取得
-  @Input() shiwakeData: SplitOrderDetailShiwake[];
+  @Input() shiwakeData: ODIS0060OrderShiwake[];
 
   //仕訳テーブルのカラム
   shiwakeColumns: string[] = [

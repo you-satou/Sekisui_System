@@ -1,7 +1,7 @@
 import { ODIS0020OrderDetailList } from './odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
-import { ODIS0020OrderDetailInputInformation } from './odis002-OrderInformation.entity'
+import { ODIS0020OrderDetailInputInformation } from './odis0020-OrderInformation.entity'
 
 /**
  * 発注明細入力＿詳細入力画面のデータ定義

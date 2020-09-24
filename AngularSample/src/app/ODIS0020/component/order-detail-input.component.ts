@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
@@ -9,15 +10,14 @@ import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
-import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderSplitSub } from '../entities/odis0020-OrderDetailList.entity'
+import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderBunkatsuSub } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
-import { ODIS0020OrderDetailInputInformation } from '../entities/odis002-OrderInformation.entity'
+import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInformation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { ODIS0020Service } from '../services/odis0020-service';
-import { DataEmitter, TableStatus } from '../entities/odis002-DataEmitter.entity';
-import { Router } from '@angular/router';
+import { DataEmitter, TableStatus } from '../entities/odis0020-DataEmitter.entity';
 
 @Component({
   selector: 'order-detail-input',
@@ -66,7 +66,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblTsuika: ODIS0020OrderShiwake[] = [];
 
   // mocking data url
-  // _urlOrderInput: string = "assets/data/odis0020-OrderInputTest.json";
   _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
 
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
@@ -392,7 +391,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     let data: ODIS0020OrderShiwake[] = [];
     dt.forEach(element => {
       // 分割データを取得
-      let splitdt: ODIS0020OrderSplitSub[] = element.splitData;
+      let splitdt: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
 
       if (splitdt.length > 0) {
         for (let i = 0; i < splitdt.length; i++) {
@@ -426,7 +425,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param orderDt 明細データ
    * @param splitDt 分割データ
    */
-  setData(action: string, tabName: string ,orderDt: ODIS0020OrderDetailList, splitDt: ODIS0020OrderSplitSub): ODIS0020OrderShiwake{
+  setData(action: string, tabName: string ,orderDt: ODIS0020OrderDetailList, splitDt: ODIS0020OrderBunkatsuSub): ODIS0020OrderShiwake{
 
     let newDt = new ODIS0020OrderShiwake();
 
