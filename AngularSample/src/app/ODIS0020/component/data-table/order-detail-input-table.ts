@@ -1,14 +1,13 @@
-import { style } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
-import { DataEmitter } from "../../entities/odis002-DataEmitter.entity";
+import { DataEmitter } from "../../entities/odis0020-DataEmitter.entity";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
 import { MatTable } from "@angular/material";
 import { Router } from "@angular/router";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
-import { SplitOrderDetailShiwake, SplitOrderDetailSplit } from "../../../ODIS0060/entities/odis0060.entity";
-import { SplitOrderDetailService } from "../../../ODIS0060/services/split-detail-input-service";
+import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
+import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 
 @Component({
   selector: "shiwake-table",
@@ -91,7 +90,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     private router: Router,
     private comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
-    private service: SplitOrderDetailService,
+    private odis0060Service: ODIS0060SplitDetailService,
     private datePipe: DatePipe,
   ) { }
 
@@ -234,66 +233,57 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param data
    */
   moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
-    try {
-      var shiwakeDt: SplitOrderDetailShiwake[] = [];
-      var splitDt: SplitOrderDetailSplit[] = [];
-      for (const odrDt of this.orderData) {
-        if (odrDt.id === selectedItem.id) {
-          let tmp = new SplitOrderDetailShiwake();
+    var shiwakeDt: ODIS0060OrderShiwake[] = [];
+    var splitDt: ODIS0060OrderDetailBunkatsu[] = [];
+    for (const odrDt of this.orderData) {
+      if (odrDt.id === selectedItem.id) {
+        let tmp = new ODIS0060OrderShiwake();
 
-          tmp.tabIndex = odrDt.tabIndex;
-          tmp.id = odrDt.id;
-          tmp.journalCode = odrDt.journalCode;
-          tmp.accountCode = odrDt.accountCode;
-          tmp.journalName = odrDt.journalName;
-          tmp.orderSupplierCode = odrDt.orderSupplierCode;
-          tmp.orderSupplierName = odrDt.orderSupplierName;
-          tmp.orderPlanAmount = odrDt.orderPlanAmount;
+        tmp.tabIndex = odrDt.tabIndex;
+        tmp.id = odrDt.id;
+        tmp.journalCode = odrDt.journalCode;
+        tmp.accountCode = odrDt.accountCode;
+        tmp.journalName = odrDt.journalName;
+        tmp.orderSupplierCode = odrDt.orderSupplierCode;
+        tmp.orderSupplierName = odrDt.orderSupplierName;
+        tmp.orderPlanAmount = odrDt.orderPlanAmount;
 
-          shiwakeDt.push(tmp);
+        shiwakeDt.push(tmp);
 
-          break;
-        }
-
+        break;
       }
 
-      this.orderData.forEach(dt => {
-        if (dt.id === selectedItem.id) {
-          let newSplit = new SplitOrderDetailSplit();
-
-          newSplit.orderPlanAmount = dt.orderSplitAmount;
-          newSplit.comment = dt.comment;
-          newSplit.requestDate = dt.requestDate;
-          newSplit.requester = dt.requester;
-          newSplit.approvalDate_lv1 = dt.approvalDate_lv1;
-          newSplit.approvalPerson_lv1 = dt.approvalPerson_lv1;
-          newSplit.approvalDate_lv2 = dt.approvalDate_lv2;
-          newSplit.approvalPerson_lv2 = dt.approvalPerson_lv2;
-          newSplit.orderDate = dt.orderDate;
-          newSplit.orderAmount = dt.orderAmount;
-          newSplit.receivedDate = dt.receivedDate;
-          newSplit.receivedAmount = dt.receivedAmount;
-          newSplit.paymentDate = dt.paymentDate;
-          newSplit.paymentAmount = dt.paymentAmount;
-
-          splitDt.push(newSplit);
-          
-        }
-      });
-
-      this.service.setSplitTable(shiwakeDt);
-      this.service.setDetailTable(splitDt);
-
-      // セックションにデータを保存する。
-      // sessionStorage.setItem(this.OrderDetailTableData,JSON.stringify(this.orderData));
-
-      this.dataEmitter.action = Const.Action.P001;
-      this.sendOrderData.emit(this.dataEmitter);
-
-
-    } catch (e) {
-      console.log(e);
     }
+
+    this.orderData.forEach(dt => {
+      if (dt.id === selectedItem.id) {
+        let newSplit = new ODIS0060OrderDetailBunkatsu();
+        newSplit.orderSplitAmount = dt.orderSplitAmount;
+        newSplit.comment = dt.comment;
+        newSplit.requestDate = dt.requestDate;
+        newSplit.requester = dt.requester;
+        newSplit.approvalDate_lv1 = dt.approvalDate_lv1;
+        newSplit.approvalPerson_lv1 = dt.approvalPerson_lv1;
+        newSplit.approvalDate_lv2 = dt.approvalDate_lv2;
+        newSplit.approvalPerson_lv2 = dt.approvalPerson_lv2;
+        newSplit.orderDate = dt.orderDate;
+        newSplit.orderAmount = dt.orderAmount;
+        newSplit.receivedDate = dt.receivedDate;
+        newSplit.receivedAmount = dt.receivedAmount;
+        newSplit.paymentDate = dt.paymentDate;
+        newSplit.paymentAmount = dt.paymentAmount;
+
+        splitDt.push(newSplit);
+
+      }
+    });
+
+    this.odis0060Service.setSplitTable(shiwakeDt);
+    this.odis0060Service.setDetailTable(splitDt);
+
+    this.dataEmitter.action = Const.Action.P001;
+    this.sendOrderData.emit(this.dataEmitter);
+
   }
 
   /**
