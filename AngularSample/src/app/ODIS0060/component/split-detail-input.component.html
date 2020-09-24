@@ -45,7 +45,7 @@
                         <th style="padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 50px; padding: 0 5px" class="tdRight" mat-cell *matCellDef="let element">
                             {{bunkatsuData.indexOf(element) + 1}} </td>
-                        <td mat-footer-cell *matFooterCellDef class="tdCenter" style="width: 1%;">合計</td>
+                        <td mat-footer-cell *matFooterCellDef class="goukie" style="width: 1%;">合計</td>
                     </ng-container>
                     <ng-container matColumnDef="orderPlanAmount1">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
@@ -130,8 +130,8 @@
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <ng-container matColumnDef="paymentAmount">
-                        <th style="width: 100px;" class="" mat-header-cell *matHeaderCellDef></th>
-                        <td style="width: 100px;" class="tdRight" mat-cell *matCellDef="let element">
+                        <th style="width: 100px;" mat-header-cell *matHeaderCellDef></th>
+                        <td style="width: 100px;" mat-cell *matCellDef="let element">
                             {{element.paymentAmount | number}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
