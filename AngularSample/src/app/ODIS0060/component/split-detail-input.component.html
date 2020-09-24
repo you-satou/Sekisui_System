@@ -161,7 +161,7 @@
         </thead>
         <tbody>
             <tr>
-                <td><input class="splitAmount" id="splitAmount" [(ngModel)]="input.orderSplitAmount" type="text"></td>
+                <td><input class="splitAmount" id="splitAmount" [(ngModel)]="input.orderSplitAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)"></td>
                 <td><input [(ngModel)]="input.comment" type="text"></td>
                 <td>{{input.requestDate}}</td>
                 <td style="text-align: center !important;">
