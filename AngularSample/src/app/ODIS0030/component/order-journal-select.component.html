@@ -6,7 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-container">
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped" id = "tbl1">
                         <thead>
                             <tr>
                                 <th class="table-str td-b text-center">仕訳コード</th>
@@ -15,11 +15,9 @@
                                 <th class="table-str td-b text-center">其他</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id='initScroll'>
                             <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                                <div class = "tableBody">
                                 <td class="table-str td-b">{{ data.journalCode }}</td>
-                                </div>
                                 <td class="table-str td-b">{{ data.accountingCategory }}</td>
                                 <td class="table-l td-b">{{ data.orderJournalName }}</td>
                                 <td class="table-str td-b">{{ data.other }}</td>

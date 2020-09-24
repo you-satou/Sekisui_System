@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, QueryList, ViewContainerRef, ViewChildren} from '@angular/core';
 import { OrderJournalSelectService } from '../services/order-journal-select.service';
 import { OrderJournalSelectType } from '../entities/odis0030.entity'
 import { CommonComponent } from '../../common/common.component'
@@ -6,6 +6,7 @@ import { CommonService } from '../../common/common.service';
 import { ODIS0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
 import { ODIS0030Form } from '../entities/odis0030-Form.entity'
+import { RouterEvent } from '@angular/router';
 
 @Component({
     selector: 'order-journal-select',
@@ -17,7 +18,7 @@ import { ODIS0030Form } from '../entities/odis0030-Form.entity'
 /**
  * 発注仕訳マスタ選択コンポーネント
  */
-export class OrderJournalSelectComponent implements OnInit {
+export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
 
   //タイトル
   title = '発注仕訳マスタ選択';
@@ -39,6 +40,9 @@ export class OrderJournalSelectComponent implements OnInit {
 
   //入力された値
   selectVal: string;
+
+  selectRow: number = 0;
+
   /**
    * コンストラクタ
    *
@@ -46,13 +50,14 @@ export class OrderJournalSelectComponent implements OnInit {
    * @memberof ModalComponent
    */
   constructor(
+    private view: ViewContainerRef,
     private commonComponent: CommonComponent,
     private modalService: OrderJournalSelectService,
     private orderService: CommonService,
     private ODIS0020Service: ODIS0020Service,
   ) {}
   
-  /**
+ /**
   * 初期処理
   */
   ngOnInit() {
@@ -61,28 +66,26 @@ export class OrderJournalSelectComponent implements OnInit {
 
   }
 
-  
+ /**
+  * レンダリング後（自動スクロール）
+  */
+ @ViewChildren('initScroll')
+ initScroll: QueryList<any>;
+ ngAfterViewInit(){
+   this.initScroll.changes.subscribe(t => {
+     var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
+     wTbody.rows[this.selectRow].scrollIntoView(true);
+     
+   });
 
-  mockingData(){
-
-    let _journalSelect: string = "assets/data/odis0030-JournalSelect.json";
-
-    this.orderService.getSingleData(_journalSelect)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.datas = data;
-      }
-    });
-    
-  }
+ }
 
   /**
   * 終了時
   */
   ngOnDestroy() {}
 
-  /**
+ /**
   * テーブル クリック 選択背景 設定
   *
   * @param $event イベント
@@ -142,25 +145,15 @@ export class OrderJournalSelectComponent implements OnInit {
 
   onScroll(datas:OrderJournalSelectType[],selectVal:any){
 
-    var i = 0;
+    //行数取得
+    var row = 0;
 
     for(let data of datas){
 
-      var idCode = data.journalCode;
-      var tmp = document.getElementsByClassName("tableBody");
-
-      tmp[i].setAttribute("tableBody",idCode);
-
-      i = i +1;
-      console.log(idCode);
-
-      if(idCode == selectVal){
-        var element = document.getElementById("tableBody");
-
-        element.scrollIntoView(true);
-
+      if(data.journalCode == selectVal){
+         this.selectRow = row;
       }
+      row += 1;
     }
-
   }
 }
