@@ -5,7 +5,7 @@ import { Const } from '../../common/const';
 import { CommonComponent } from 'app/common/common.component';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from '../entities/odis0060-SplitDetail.entity';
+import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake, ODIS0060Session } from '../entities/odis0060-SplitDetail.entity';
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderShiwake } from './../../ODIS0020/entities/odis0020-OrderDetailList.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
@@ -76,7 +76,8 @@ export class SplitOrderDetailComponent implements OnInit {
   rowStatus = new RowStatus()
 
   //タブネーム
-  tabName: string;
+  tabName: string = '';
+
 
   constructor(
     private appComponent: AppComponent,
@@ -94,8 +95,20 @@ export class SplitOrderDetailComponent implements OnInit {
    * ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
-    //各テーブルのデータの取得
-    this.setDisplayData();
+
+    if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
+
+      let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
+      this.shiwakeData = savedDt.shiwakeData;
+      this.tabName = this.shiwakeData[0].tabIndex;
+      this.bunkatsuData = savedDt.shiwakeData;
+    }
+    else{
+      //各テーブルのデータの取得
+      this.setDisplayData();
+    }
+
+
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
   }
 
@@ -143,6 +156,8 @@ export class SplitOrderDetailComponent implements OnInit {
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.shiwakeData[0].tabIndex;
     this.bunkatsuData = this.splitService.getDetailTableData();
+
+    this.saveDataToSession();
   }
 
   /**
@@ -233,6 +248,7 @@ export class SplitOrderDetailComponent implements OnInit {
     
     this.setNewRowHighLight(Const.Action.A0001, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
+    this.saveDataToSession();
   }
 
   /**
@@ -267,6 +283,8 @@ export class SplitOrderDetailComponent implements OnInit {
     
     //最後にページ初期化する
     this.resetAddTable();
+
+    this.saveDataToSession();
   }
 
   /**
@@ -289,6 +307,7 @@ export class SplitOrderDetailComponent implements OnInit {
     this.table.renderRows();
 
     this.resetAddTable();
+    this.saveDataToSession();
   }
 
   /**
@@ -464,6 +483,17 @@ export class SplitOrderDetailComponent implements OnInit {
     }
 
   }
+
+  saveDataToSession(){
+
+    let saveDt = new ODIS0060Session();
+    
+    saveDt.bunkatsuData = this.bunkatsuData;
+    saveDt.shiwakeData = this.shiwakeData;
+
+    sessionStorage.setItem(Const.ScreenName.S0006EN, JSON.stringify(saveDt));
+  }
+
 
   /**
    * 「戻る」ボタンの押下

@@ -94,3 +94,12 @@ export class ODIS0060OrderShiwake {
 
     constructor() { }
 }
+
+export class ODIS0060Session{
+
+    shiwakeData: ODIS0060OrderShiwake[];
+    
+    bunkatsuData: ODIS0060OrderDetailBunkatsu[];
+
+    constructor () {}
+}

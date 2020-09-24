@@ -1,3 +1,4 @@
+import { ODIS0020Session } from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Const } from '../../common/const'
@@ -92,17 +93,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
-    // this.getOrderInputData();
-    
-    // if(this.ODIS0020Service.returnedSplitData.length > 0 ||
-    //   this.ODIS0020Service.returnedSplitData == null){
-    if(sessionStorage.getItem('ODIS0020') != null){
-      
-      let returnDt = this.ODIS0020Service.returnedSplitData;
 
-      this.resetOrderInputData(returnDt);
-      //ロードした後、戻る値を削除
-      // this.ODIS0020Service.clearReturn();
+    if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
+      
+      this.resetOrderInputData();
     }
     else{
       this.getOrderInputData();
@@ -197,7 +191,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
 
-            sessionStorage.setItem('ODIS0020',JSON.stringify(this.pageTotalInfo));
+            // セックションに保持する
+            let saveDt = new ODIS0020Session();
+            saveDt.ContractInfo = this.orderInformation;
+            saveDt.MainOrderInfo = this.tblMainOrder;
+            saveDt.InsertedOrderInfo = this.tblInsertedOrder;
+            saveDt.SekkeiData = this.tblSekkei;
+            saveDt.HontaiData = this.tblHontai;
+            saveDt.TsuikaData = this.tblTsuika;
+
+            sessionStorage.setItem(Const.ScreenName.S0002EN,JSON.stringify(saveDt));
           }
         }
         
@@ -209,43 +212,54 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt 
    * @param tabName 
    */
-  resetOrderInputData(returnDt: ODIS0020OrderShiwake[]){
+  resetOrderInputData(){
 
-    let savedData = JSON.parse(sessionStorage.getItem('ODIS0020'));
+    let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
     this.orderInformation = savedData.ContractInfo;
     this.tblMainOrder = savedData.MainOrderInfo;
     this.tblInsertedOrder = savedData.InsertedOrderInfo;
-
+    
+    let returnDt = this.ODIS0020Service.returnedSplitData;
     if(returnDt.length <= 0){
-
       this.tblSekkei = savedData.SekkeiData;
       this.tblHontai = savedData.HontaiData;
       this.tblTsuika = savedData.TsuikaData;
-
-      return;
     }
-    this.selectedTab = returnDt[0].tabIndex;
-    switch (returnDt[0].tabIndex) {
-      case this.tabNo1:
-
-        this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
-        this.tblHontai = savedData.HontaiData;
-        this.tblTsuika = savedData.TsuikaData;
-        break;
-
-      case this.tabNo2:
-        this.tblSekkei = savedData.SekkeiData;
-        this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
-        this.tblTsuika = savedData.TsuikaData;
-        break;
-
-      case this.tabNo3:
-        this.tblSekkei = savedData.SekkeiData;
-        this.tblHontai = savedData.HontaiData;
-        this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
-        break;
+    else{
+      this.selectedTab = returnDt[0].tabIndex;
+      switch (returnDt[0].tabIndex) {
+        case this.tabNo1:
+  
+          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
+          this.tblHontai = savedData.HontaiData;
+          this.tblTsuika = savedData.TsuikaData;
+          break;
+  
+        case this.tabNo2:
+          this.tblSekkei = savedData.SekkeiData;
+          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
+          this.tblTsuika = savedData.TsuikaData;
+          break;
+  
+        case this.tabNo3:
+          this.tblSekkei = savedData.SekkeiData;
+          this.tblHontai = savedData.HontaiData;
+          this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
+          break;
+      }
     }
 
+
+    // セックションに保持する
+    let saveDt = new ODIS0020Session();
+    saveDt.ContractInfo = this.orderInformation;
+    saveDt.MainOrderInfo = this.tblMainOrder;
+    saveDt.InsertedOrderInfo = this.tblInsertedOrder;
+    saveDt.SekkeiData = this.tblSekkei;
+    saveDt.HontaiData = this.tblHontai;
+    saveDt.TsuikaData = this.tblTsuika;
+
+    sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
   }
 
   mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[]): ODIS0020OrderShiwake[]{
@@ -384,6 +398,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     let data: ODIS0020OrderShiwake[] = [];
     dt.forEach(element => {
+   
       // 分割データを取得
       let bunkatsuData: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
 
@@ -689,43 +704,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
 
     let temp : ODIS0020OrderShiwake[] = [];
-
-    dataTable.forEach(dt =>{
-      for (const insBk of insertBucket) {
-        // Have same key
-        if(dt.id === insBk.id){
-          // if duplicate key get row index.
-          let index = dataTable.indexOf(dt);
-          //Check irai
-          if (dt.requester != ''){
-            return;
-          }
-          else{
-            // Overwrite first row data on Hacchu Code and Hacchu Name 
-            // It's still exist in insertBucket array, might be duplicate.
-            dataTable[index].orderSupplierCode = insBk.orderSupplierCode;
-            dataTable[index].orderSupplierName = insBk.orderSupplierName;
-            // After process exit loop
+    let insFlg: boolean = false;
+    // 発注先パターン
+    for (var insBk of insertBucket) {
+      insFlg = true;
+      // テーブルデータ
+      for (var data of dataTable) {
+        // 同一仕訳コードが存在する場合
+        if (insBk.id === data.id) {
+          // 依頼日が空白の場合
+          if (data.requestDate.trim() === '') {
+            data.orderSupplierCode = insBk.orderSupplierCode    // 発注先コード
+            data.orderSupplierName = insBk.orderSupplierName    // 発注先名称
+            insFlg = false;
             break;
-          };
-        }
-        // If haven't same key
-        else{
-
-          // Save into temporary array;
-          temp.push(insBk);
-          break;
+          }
         }
       }
+      // データ追加
+      if (insFlg) {
+        this.insertToDataTable(insBk);
+      }
+    }
 
-    });
-
-    console.log(temp);
-          // // Insert
-          // // get insert location
-          // let insertIndex = dataTable.length - 3; // 一番下に肯定している３行を除く
-          // dataTable.splice(insertIndex, 0, insBk);
-          // break;
   }
 
   /**
@@ -929,19 +930,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case Const.Action.P001:
         this.rowStatus.Reset();
 
-        let savedData = new ODIS0020OrderDetailTotalInfo();
+        let pageData = new ODIS0020Session();
      
-        savedData.ContractInfo = this.orderInformation;
-        savedData.MainOrderInfo = this.tblMainOrder;
-        savedData.InsertedOrderInfo = this.tblInsertedOrder;
-        savedData.SekkeiData = this.childSekkei.orderData;
-        savedData.HontaiData = this.childHontai.orderData;
-        savedData.TsuikaData = this.childTsuika.orderData;
+        pageData.ContractInfo = this.orderInformation;
+        pageData.MainOrderInfo = this.tblMainOrder;
+        pageData.InsertedOrderInfo = this.tblInsertedOrder;
+        pageData.SekkeiData = this.childSekkei.orderData;
+        pageData.HontaiData = this.childHontai.orderData;
+        pageData.TsuikaData = this.childTsuika.orderData;
 
-        if(sessionStorage.getItem('ODIS0020') != null){
-          sessionStorage.removeItem('ODIS0020');
+        if(sessionStorage.getItem(Const.ScreenName.S0002EN) != null){
+          sessionStorage.removeItem(Const.ScreenName.S0002EN);
         }
-        sessionStorage.setItem('ODIS0020', JSON.stringify(savedData));
+        sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(pageData));
 
         this.router.navigate([Const.UrlSetting.U0006]);
         
