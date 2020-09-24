@@ -1,9 +1,11 @@
+import { CommonComponent } from 'app/common/common.component';
+import { CommonService } from './../../common/common.service';
 import { ODIS0060OrderDetailBunkatsu } from './odis0060-SplitDetail.entity';
 
 /**
  * 発注明細に追加するの定義
  */
-export class ODIS0020AddBunkatsu {
+export class ODIS0020AddBunkatsu extends CommonComponent{
 
     /** 発注金額 */
     orderSplitAmount: string;
@@ -35,7 +37,8 @@ export class ODIS0020AddBunkatsu {
         return true;
     }
 
-    constructor() {
+    constructor( ) {
+        super();
         this.Clear();
     }
 
@@ -55,7 +58,7 @@ export class ODIS0020AddBunkatsu {
     setInput(input: ODIS0060OrderDetailBunkatsu) {
 
         //編集テーブルの各セルに選択された行の値を挿入
-        this.orderSplitAmount = input.orderSplitAmount;
+        this.orderSplitAmount = this.addCommas(input.orderSplitAmount);
         this.comment = input.comment;
         this.requestDate = input.requestDate;
         this.requester = input.requester;
@@ -63,14 +66,14 @@ export class ODIS0020AddBunkatsu {
 
     getInput(output: ODIS0060OrderDetailBunkatsu): ODIS0060OrderDetailBunkatsu{
 
-        output.orderSplitAmount = this.orderSplitAmount;
+        output.orderSplitAmount = this.removeCommas(this.orderSplitAmount);
         output.comment = this.comment;
         output.requestDate = this.requestDate;
         output.requester = this.requester;
         
         return output;
     }
-
+ 
 }
 
   /**

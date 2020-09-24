@@ -80,6 +80,11 @@
     color: cyan !important;
 }
 
+.mat-cell.font-s-right{
+    text-align: right !important;
+    padding-right: 5px !important;
+}
+
 /*************************************************************/
 /*****                                                    ****/
 /*****                      FOOTER                        ****/
@@ -93,6 +98,10 @@
 .mat-footer-cell {
     background-color: #e0e0e0;
     position: sticky;
+}
+.mat-footer-cell.font-s-right {
+    text-align: right !important;
+    padding-right: 5px !important;
 }
 
 .journal-table>tfoot>tr>td {

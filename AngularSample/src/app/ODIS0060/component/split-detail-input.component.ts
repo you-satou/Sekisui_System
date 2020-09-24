@@ -86,7 +86,9 @@ export class SplitOrderDetailComponent implements OnInit {
     private splitService: ODIS0060SplitDetailService,
     private odis0020Service: ODIS0020Service,
     private viewRef: ViewContainerRef,
-  ) { }
+  ) { 
+    this.input.Clear();
+  }
 
   /**
    * ページがロードする時、テーブルデータを取得する
@@ -114,8 +116,12 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[]) {
 
-    let skBody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-
+    let skBody:HTMLTableSectionElement = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
+    //分割データがない場合、余白行を削除する
+    if(dt.length == 1 && dt[0].isBlank){
+      skBody.rows[0].remove();
+      return;
+    }
     let tr: HTMLTableRowElement;
     let btn: any;
     dt.forEach(element => {
@@ -208,19 +214,18 @@ export class SplitOrderDetailComponent implements OnInit {
     }
     //入力された情報を値に保存
     let temp = new ODIS0060OrderDetailBunkatsu();
-
     temp = this.input.getInput(temp);
 
-    if (this.bunkatsuData == null) {
-      var tmp: ODIS0060OrderDetailBunkatsu[] = [];
+    if(this.bunkatsuData.length == 1 && this.bunkatsuData[0].isBlank){
+      this.bunkatsuData.splice(0, 1, temp);
       this.rowStatus.rowIndex = 0;
-      tmp.splice(0, 0, temp);
-      this.bunkatsuData = tmp;
-    } else {
+    }
+    else{
       this.rowStatus.rowIndex = this.bunkatsuData.length;
       this.bunkatsuData.splice(this.rowStatus.rowIndex, 0, temp);
-
     }
+
+
     this.table.renderRows();
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
 
@@ -338,11 +343,6 @@ export class SplitOrderDetailComponent implements OnInit {
       alert(Const.ErrorMsg.E0012);
       return;
     }
-    if(!Number(this.input.orderSplitAmount)){
-      this.setFocus();
-      alert(Const.ErrorMsg.E0009);
-      return;
-    }
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
       btn = event.target.parentElement;
@@ -385,12 +385,6 @@ export class SplitOrderDetailComponent implements OnInit {
     if (this.input.amountIsBlank) {
       this.setFocus();
       alert(Const.ErrorMsg.E0006);
-      return false;
-    }
-    //発注予定金額が数字のみをチェックする
-    if (!Number(this.input.orderSplitAmount)) {
-      this.setFocus();
-      alert(Const.ErrorMsg.E0009);
       return false;
     }
 
@@ -551,7 +545,6 @@ export class SplitOrderDetailComponent implements OnInit {
   commonFocus($event){
     $event.target.value = this.commonComponent.removeCommas($event.target.value);
   }
-
   /**
    * blur処理
    *

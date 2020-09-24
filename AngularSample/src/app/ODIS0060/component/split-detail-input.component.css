@@ -67,7 +67,7 @@
 /*************************************************************/
 .tsuika-table {
     position: relative;
-    width: 500px;
+    width: 600px;
 }
 
 .tsuika-table >tbody>tr>td>input {
@@ -165,10 +165,14 @@ input.splitAmount{
     vertical-align: middle !important;
 
 }
+.comment{
+    text-align: right;
+    word-break: keep-all !important;
+}
 
 .tdRight {
     text-align: right;
-    padding: 5px ;
+    padding: 5px !important;
 }
 
 .tdLeft {

@@ -7,15 +7,7 @@ import { Injectable } from '@angular/core';
  */
 export class ODIS0060SplitDetailService {
 
-  //詳細入力テーブルの選択された行の仕訳データ
-  private _splitTable: ODIS0060OrderShiwake[] = [];
-
-  /**
-   * 詳細入力テーブルの選択された行の仕訳データの取得
-   */
-  public getSplitTableData() {
-    return this._splitTable;
-  }
+  private _shiwakeData: ODIS0060OrderShiwake[] = [];
 
   /**
    * 詳細入力テーブルの選択された行の仕訳データの保存
@@ -23,25 +15,34 @@ export class ODIS0060SplitDetailService {
    * @param splitTable 仕訳テーブルのデータ
    */
   public setSplitTable(splitTable: ODIS0060OrderShiwake[]) {
-    this._splitTable = splitTable;
-  }
 
-  //詳細入力テーブルの選択された行の分割データ
-  private _detailTable: ODIS0060OrderDetailBunkatsu[] = [];
+    this._shiwakeData = splitTable;
+  }
 
   /**
-   * 詳細入力テーブルの選択された行の分割データの取得
+   * 詳細入力テーブルの選択された行の仕訳データの取得
    */
-  getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
-    return this._detailTable;
+  public getSplitTableData() {
+    return this._shiwakeData;
   }
 
+
+  private _bunkatsuData: any;
+  
   /**
    * 詳細入力テーブルの選択された行の分割データの保存
    *
    * @param splitTable 分割テーブルのデータ
    */
   setDetailTable(detailTable: ODIS0060OrderDetailBunkatsu[]) {
-    this._detailTable = detailTable;
+    this._bunkatsuData = detailTable;
   }
+
+  /**
+   * 詳細入力テーブルの選択された行の分割データの取得
+   */
+  getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
+    return this._bunkatsuData;
+  }
+
 }
