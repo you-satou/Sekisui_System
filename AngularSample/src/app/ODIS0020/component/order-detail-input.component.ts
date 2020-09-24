@@ -391,12 +391,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     let data: ODIS0020OrderShiwake[] = [];
     dt.forEach(element => {
       // 分割データを取得
-      let splitdt: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
+      let bunkatsuDt: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
 
-      if (splitdt.length > 0) {
-        for (let i = 0; i < splitdt.length; i++) {
+      if (bunkatsuDt.length > 0) {
+        for (let i = 0; i < bunkatsuDt.length; i++) {
           let newDt: ODIS0020OrderShiwake;
-          const splitDt = splitdt[i];
+          const splitDt = bunkatsuDt[i];
           //データをある場合、設定する
           if (i === 0) {
             newDt = this.setData('SetFirstSplitData', tabName, element, splitDt);
