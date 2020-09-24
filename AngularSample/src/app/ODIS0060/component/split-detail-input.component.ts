@@ -398,8 +398,8 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   setFocus(){
-    let element: HTMLInputElement = this.viewRef.element.nativeElement.querySelector('input[id= splitAmount]');
-    element.focus();
+    let input: HTMLInputElement = this.viewRef.element.nativeElement.querySelector('input[id = splitAmount]');
+    input.focus();
   }
 
   
