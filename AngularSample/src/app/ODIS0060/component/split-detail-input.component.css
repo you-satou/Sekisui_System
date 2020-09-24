@@ -138,30 +138,30 @@ input.splitAmount{
 /*************************************************************/
 .color-input-1 {
     background-color: #C5D9F1 ;
-    text-align: center ;
+    text-align: center !important;
     vertical-align: middle !important;
 }
 .color-input-2 {
     background-color: #95B3D7 ;
-    text-align: center ;
+    text-align: center !important;
     vertical-align: middle !important;
 }
 
 .color-input-3 {
     background-color: #FABF8F ;
-    text-align: center ;
+    text-align: center !important;
     vertical-align: middle !important;
 }
 
 .color-input-4 {
     background-color: #FDE9D9 ;
-    text-align: center ;
+    text-align: center !important;
     vertical-align: middle !important;
 }
 
 .color-input-5 {
     background-color: #C4D79B ;
-    text-align: center ;
+    text-align: center !important;
     vertical-align: middle !important;
 
 }
