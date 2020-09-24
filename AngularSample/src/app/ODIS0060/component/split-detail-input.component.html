@@ -50,7 +50,7 @@
                     <ng-container matColumnDef="orderPlanAmount1">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
-                            {{element.orderPlanAmount | number}} </td>
+                            {{element.orderSplitAmount | currency:'JPY'}} </td>
                         <td mat-footer-cell *matFooterCellDef class="tdRight">{{totalAmount()|number}}</td>
                     </ng-container>
                     <ng-container matColumnDef="comment1">
@@ -108,7 +108,7 @@
                     <ng-container matColumnDef="orderAmount">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
-                            {{element.orderAmount}} </td>
+                            {{element.orderAmount | currency:'JPY'}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <ng-container matColumnDef="receivedDate">
@@ -120,7 +120,7 @@
                     <ng-container matColumnDef="receivedAmount">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
-                            {{element.receivedAmount}} </td>
+                            {{element.receivedAmount | currency:'JPY'}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
                     <ng-container matColumnDef="paymentDate">
@@ -132,7 +132,7 @@
                     <ng-container matColumnDef="paymentAmount">
                         <th style="width: 100px;" class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px;" class="tdRight" mat-cell *matCellDef="let element">
-                            {{element.paymentAmount}} </td>
+                            {{element.paymentAmount | currency:'JPY'}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
 
