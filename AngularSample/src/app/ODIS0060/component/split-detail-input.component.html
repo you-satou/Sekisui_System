@@ -162,7 +162,7 @@
         </thead>
         <tbody>
             <tr>
-                <td><input [(ngModel)]="input.orderSplitAmount" type="text"></td>
+                <td><input id="splitAmount" [(ngModel)]="input.orderSplitAmount" type="text"></td>
                 <td><input [(ngModel)]="input.comment" type="text"></td>
                 <td>{{input.requestDate}}</td>
                 <td style="text-align: center !important;">
@@ -192,7 +192,7 @@
 
             <div style="position:absolute; top:0; left: 400px;">
                 <button mat-button class="btn btn-danger border mx-1 back-btn "
-                    (click)="onDeleteClick($event);">明細削除</button>
+                    (click)="deleteOrderDetail($event);">明細削除</button>
             </div>
         </div>
     </section>

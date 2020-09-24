@@ -92,21 +92,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
-    this.getOrderInputData();
+    // this.getOrderInputData();
     
-    // // if(this.ODIS0020Service.returnedSplitData.length > 0 ||
-    // //   this.ODIS0020Service.returnedSplitData == null){
-    // if(sessionStorage.getItem('ODIS0020') != null){
+    // if(this.ODIS0020Service.returnedSplitData.length > 0 ||
+    //   this.ODIS0020Service.returnedSplitData == null){
+    if(sessionStorage.getItem('ODIS0020') != null){
       
-    //   let returnDt = this.ODIS0020Service.returnedSplitData;
+      let returnDt = this.ODIS0020Service.returnedSplitData;
 
-    //   this.resetOrderInputData(returnDt);
-    //   //ロードした後、戻る値を削除
-    //   // this.ODIS0020Service.clearReturn();
-    // }
-    // else{
-    //   this.getOrderInputData();
-    // }
+      this.resetOrderInputData(returnDt);
+      //ロードした後、戻る値を削除
+      // this.ODIS0020Service.clearReturn();
+    }
+    else{
+      this.getOrderInputData();
+    }
     
   }
   /**
@@ -140,48 +140,43 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     );
     //ODIS0050発注明細入力_発注先パターン選択
-    this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(
-      () => {
+    this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(() => {
+      if (!(this.SupplierPatternService.getVal() == undefined)) {
+        let returnValues = this.SupplierPatternService.getVal();
+        let bucketDt: ODIS0020OrderShiwake[] = [];
+        returnValues.forEach(element => {
+          let temp = new ODIS0020OrderShiwake();
+          temp.tabIndex = this.selectedTab;
+          temp.id = element.journalCode;
+          temp.journalCode = element.journalCode;
+          temp.accountCode = element.accountingCategory;
+          temp.journalName = element.journalName;
+          temp.orderSupplierCode = element.supplierCode;
+          temp.orderSupplierName = element.supplierName;
+          temp.orderPlanAmount = '';
+          temp.comment = '';
+          temp.orderSplitAmount = '';
+          temp.requestDate = '';
+          temp.requester = '';
+          temp.approvalDate_lv1 = '';
+          temp.approvalPerson_lv1 = '';
+          temp.approvalDate_lv2 = '';
+          temp.approvalPerson_lv2 = '';
+          temp.orderDate = '';
+          temp.orderAmount = '';
+          temp.receivedDate = '';
+          temp.receivedAmount = '';
+          temp.paymentDate = '';
+          temp.paymentAmount = '';
 
-        if (!(this.SupplierPatternService.getVal() == undefined)) {
+          bucketDt.push(temp);
+        });
 
-          let returnValues = this.SupplierPatternService.getVal();
-          let bucketDt: ODIS0020OrderShiwake[] = [];
-          returnValues.forEach(element => {
-            let temp: ODIS0020OrderShiwake = {
-              tabIndex: this.selectedTab,
-              id: element.journalCode,
-              journalCode: element.journalCode,
-              accountCode: element.accountingCategory,
-              journalName: element.journalName,
-              orderSupplierCode: element.supplierCode,
-              orderSupplierName: element.supplierName,
-              orderPlanAmount: '',
-              comment: '',
-              orderSplitAmount: '',
-              requestDate: '',
-              requester: '',
-              approvalDate_lv1: '',
-              approvalPerson_lv1: '',
-              approvalDate_lv2: '',
-              approvalPerson_lv2: '',
-              orderDate: '',
-              orderAmount: '',
-              receivedDate: '',
-              receivedAmount: '',
-              paymentDate: '',
-              paymentAmount: '',
-            }
-
-            bucketDt.push(temp);
-           
-          });
-          this.insertDataFromSupplier(bucketDt);
-
-        }
-
-        this.modal = null;
+        this.insertDataFromSupplier(bucketDt);
       }
+
+      this.modal = null;
+    }
     );
   }
 
@@ -202,12 +197,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
 
-            // sessionStorage.setItem('ODIS0020',JSON.stringify(this.pageTotalInfo));
+            sessionStorage.setItem('ODIS0020',JSON.stringify(this.pageTotalInfo));
           }
         }
         
       );
-      
   }
 
   /**
@@ -253,7 +247,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
   }
-
 
   mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[]): ODIS0020OrderShiwake[]{
     var returnId = returnDt[0].id;
@@ -607,10 +600,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /** テーブルに明細を追加る */
   insertToDataTable(insertDt: ODIS0020OrderShiwake) {
     var insertIndex: number = 0;
+    var cnt: number;
 
     switch (this.selectedTab) {
       case this.tabNo1:
-        insertIndex = this.childSekkei.orderData.length - 3; // 一番下に肯定している３行を除く
+
+        insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.childSekkei.tableShiwake.renderRows();
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
@@ -620,9 +615,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo2:
-        insertIndex = this.childHontai.orderData.length - 3; // 一番下に肯定している３行を除く
-        this.childHontai.orderData.splice(insertIndex, 0, insertDt);
 
+        insertIndex = this.countDefaultData(this.childHontai.orderData);
+        this.childHontai.orderData.splice(insertIndex, 0, insertDt);
         this.childHontai.tableShiwake.renderRows();
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, hntBody, insertIndex);
@@ -631,9 +626,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
-        insertIndex = this.childTsuika.orderData.length - 3; // 一番下に肯定している３行を除く
-        this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
 
+        insertIndex = this.countDefaultData(this.childTsuika.orderData);
+        this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.childTsuika.tableShiwake.renderRows();
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, insertIndex);
@@ -641,6 +636,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.addInput.Clear();
         break;
     }
+  }
+
+  /**
+   * 一番下に肯定されているデータを除く
+   * @param data 
+   */
+  countDefaultData(data: ODIS0020OrderShiwake[]):number{
+
+    var flt = data.filter(dt =>{
+      if(dt.journalName == 'ハウス材' ||
+        dt.journalName == '運賃・荷造・保管料' ||
+        dt.journalName == '労災'){
+          return dt;
+      }
+    })
+
+    return data.length - flt.length;
   }
 
   insertDataFromSupplier(insertBucket:ODIS0020OrderShiwake[]){
@@ -714,7 +726,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           // let insertIndex = dataTable.length - 3; // 一番下に肯定している３行を除く
           // dataTable.splice(insertIndex, 0, insBk);
           // break;
-
   }
 
   /**

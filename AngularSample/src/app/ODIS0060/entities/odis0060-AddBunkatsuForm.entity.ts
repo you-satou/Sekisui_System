@@ -27,6 +27,14 @@ export class ODIS0020AddBunkatsu {
         }
         return true;
     } 
+
+    get amountIsBlank(): boolean{
+        if(this.orderSplitAmount != ''){
+            return false;
+        }
+        return true;
+    }
+
     constructor() {
         this.Clear();
     }

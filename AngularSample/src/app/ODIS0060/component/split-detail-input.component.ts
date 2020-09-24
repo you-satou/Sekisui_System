@@ -104,6 +104,32 @@ export class SplitOrderDetailComponent implements OnInit {
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
   }
 
+   /**
+   * 明細テーブルに初期表の時、ボタン活動性を設定する。
+   *↓↓↓　ボタン名　↓↓↓
+   * 「依頼」「承認」「承認」
+   * 
+   * @param dt 
+   * 
+   */
+  setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[]) {
+
+    let skBody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+
+    let tr: HTMLTableRowElement;
+    let btn: any;
+    dt.forEach(element => {
+      let ind = dt.indexOf(element);
+      if (element.requester != '') {
+        tr = skBody.rows[ind];
+        btn = tr.cells[4].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].style.display = 'none';
+
+      }
+    });
+  }
+
   /**
    * 仕訳テーブルのデータの取得のメソッド
    */
@@ -111,9 +137,6 @@ export class SplitOrderDetailComponent implements OnInit {
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.shiwakeData[0].tabIndex;
     this.bunkatsuData = this.splitService.getDetailTableData();
-    if (this.bunkatsuData.length == 1 && this.bunkatsuData[0].isBlank) {
-      this.bunkatsuData = [];
-    }
   }
 
   /**
@@ -123,7 +146,332 @@ export class SplitOrderDetailComponent implements OnInit {
     return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
   }
 
+    /**
+   * 仕訳テーブルの行を選択する場合
+   *
+   * @param $event イベント
+   * @param rowDt 選択さらた行の値
+   */
+  selectRow($event, rowDt: ODIS0060OrderDetailBunkatsu) {
+
+    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
+      return;
+    }
+    //選択された行に色をつける
+    this.commonComponent.CommonOnSelHight($event);
+    let index = this.bunkatsuData.indexOf(rowDt);
+    this.rowStatus.setRowStatus(true, index);
+
+    //編集テーブルの各セルに選択された行の値を挿入
+    this.input.setInput(rowDt);
+
+    //依頼ボタンの初期表示を設定する
+    this.setInputTableButton(rowDt);
+  }
+
   /**
+   * 入力分割明細テーブルにて、依頼ボタンを表示させるかどうか設定する。
+   * @param selectedItem 
+   */
+  setInputTableButton(selectedItem: ODIS0060OrderDetailBunkatsu) {
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+
+    let btn = tr.cells[3].getElementsByTagName('button');
+    if (selectedItem.requester != '') {
+      btn[0].style.display = 'none';
+    }
+    else {
+      btn[0].style.display = 'inherit';
+    }
+  }
+
+  /**
+   * 「明細追加」ボタンの押下
+   *
+   * @param $event イベント
+   */
+  insertBunkatsuOrderDetail($event) {
+    //明細更新を作業する時、追加ボタンを押下する場合
+    if(this.rowStatus.rowIndex >= 0 &&
+       this.rowStatus.rowIndex != null){
+      var confirm = window.confirm(Const.WarningMsg.W0001);
+      if(!confirm){
+        return;
+      }
+      // OKを押したら行の背景色を削除する。
+      let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+      this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
+    }
+    // 入力検証
+    if(!this.inputCheck()){
+      return;
+    }
+    //入力された情報を値に保存
+    let temp = new ODIS0060OrderDetailBunkatsu();
+
+    temp = this.input.getInput(temp);
+
+    if (this.bunkatsuData == null) {
+      var tmp: ODIS0060OrderDetailBunkatsu[] = [];
+      this.rowStatus.rowIndex = 0;
+      tmp.splice(0, 0, temp);
+      this.bunkatsuData = tmp;
+    } else {
+      this.rowStatus.rowIndex = this.bunkatsuData.length;
+      this.bunkatsuData.splice(this.rowStatus.rowIndex, 0, temp);
+
+    }
+    this.table.renderRows();
+    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    
+    this.setNewRowHighLight(Const.Action.A0001, tbody, this.rowStatus.rowIndex);
+    this.resetAddTable();
+  }
+
+  /**
+   * 分割明細を更新する
+   *
+   * @param $event イベント
+   */
+  updateBunkatsuOrderDetail($event) {
+
+    //行が選択された場合
+    if (!this.rowStatus.isSelected) {
+      alert(Const.ErrorMsg.E0013);
+      return;
+    }
+    // 入力検証
+    if(!this.inputCheck()){
+      return;
+    }
+
+    let i: number = this.rowStatus.rowIndex;
+
+    this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i]);
+
+    this.table.renderRows();
+
+    //選択された行に編集テーブルの値を挿入
+    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    this.setNewRowHighLight(Const.Action.A0002, tbody, i);
+    this.setHighlight(i);
+    
+    //最後にページ初期化する
+    this.resetAddTable();
+  }
+
+  /**
+   * 「明細削除」ボタンの押下
+   *
+   * @param $event イベント
+   */
+  deleteOrderDetail($event) {
+
+    //行が選択された場合
+    if (!this.rowStatus.isSelected) {
+      alert(Const.ErrorMsg.E0008);
+      return;
+
+    }
+    //選択された行のデータを削除
+    this.bunkatsuData.splice(this.rowStatus.rowIndex, 1);
+
+    //テーブルの再レンダー
+    this.table.renderRows();
+
+    this.resetAddTable();
+  }
+
+  /**
+   * 編集テーブルの行をクリアする
+   *
+   * @param $event イベント
+   */
+  stopModifyDetail($event) {
+
+    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
+    this.resetAddTable();
+  }
+
+  /**
+   * 分割明細テーブルに「依頼」ボタンを押下する時
+   * @param event 
+   * @param dt 
+   */
+  mainTableRequest(event: any, dt: ODIS0060OrderDetailBunkatsu,) {
+    let rowIndex = this.bunkatsuData.indexOf(dt);
+
+    this.setHighlight(rowIndex);
+
+    let btn: HTMLButtonElement = null;
+    if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.requestDate = requestTime;
+    //TODO: ログイン情報を取得
+    dt.requester = '積水　次郎';
+
+    // 処理後ボタンを　削除する。
+    btn.remove();
+
+  }
+
+  /**
+   * 入力テーブルに「依頼」ボタンを押下する時。
+   * @param event 
+   */
+  subTableRequest(event: any) {
+
+    if(this.input.orderSplitAmount == ''){
+      this.setFocus();
+      alert(Const.ErrorMsg.E0012);
+      return;
+    }
+    if(!Number(this.input.orderSplitAmount)){
+      this.setFocus();
+      alert(Const.ErrorMsg.E0009);
+      return;
+    }
+    let btn: HTMLButtonElement = null;
+    if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+    }
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+
+    this.input.requestDate = requestTime;
+    this.input.requester = '積水　次郎';
+
+    btn.style.display = 'none';
+  }
+
+  
+  /**
+   * 分割明細追加テーブルを初期化する
+   */
+  resetAddTable() {
+
+    this.input.Clear();
+    this.rowStatus.Reset();
+    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
+    let btn = tr.cells[3].getElementsByTagName('button');
+    btn[0].style.display = 'inherit';
+
+  }
+
+  inputCheck(): boolean {
+    //編集テーブルが未入力になっていない場合
+    if (this.input.isBlank) {
+      this.setFocus();
+      alert(Const.ErrorMsg.E0010);
+      return false;
+    }
+    //発注予定金額が未入力かどうか
+    if (this.input.amountIsBlank) {
+      this.setFocus();
+      alert(Const.ErrorMsg.E0006);
+      return false;
+    }
+    //発注予定金額が数字のみをチェックする
+    if (!Number(this.input.orderSplitAmount)) {
+      this.setFocus();
+      alert(Const.ErrorMsg.E0009);
+      return false;
+    }
+
+    return true;
+  }
+
+  setFocus(){
+    let element: HTMLInputElement = this.viewRef.element.nativeElement.querySelector('input[id= splitAmount]');
+    element.focus();
+  }
+
+  
+  /**
+   * 依頼ボタンを押下する時行の背景色を変える。
+   * @param event
+   */
+  setHighlight(rowIndex: number) {
+    var wTbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
+    for (var i = 0; i < wTbody.rows.length; i++) {
+
+      if (i === rowIndex) {
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.Selected;
+        }
+      }
+      else {
+        var wTr = wTbody.rows[i];
+        for (var j = 0; j < wTr.cells.length; j++) {
+          var wTd = wTr.cells[j];
+          wTd.style.backgroundColor = Const.HighLightColour.None;
+        }
+      }
+    }
+  }
+
+  /**
+  * 行の背景色 変更する
+  * @param body 
+  * @param newIndex 
+  */
+  setNewRowHighLight(action: string, body: any, newIndex: number) {
+    if (!action.match(Const.Action.T0003)) {
+      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
+        if (rIndex == newIndex) {
+          var tr = body.rows[rIndex];
+          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+            var td = tr.cells[cIndex];
+            td.style.color = this.getColor(action);
+          }
+        }
+      }
+      return;
+    }
+
+    for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
+      if (rIndex == newIndex) {
+        var tr = body.rows[rIndex];
+        for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
+          var td = tr.cells[cIndex];
+          td.style.backgroundColor = this.getColor(action);
+        }
+      }
+    }
+  }
+
+  getColor(action: string): string {
+
+    switch (action) {
+      case Const.Action.A0001:
+        return Const.HighLightColour.Inserted;
+      case Const.Action.A0002:
+        return Const.HighLightColour.Modified;
+      case Const.Action.T0003:
+        return Const.HighLightColour.None;
+    }
+
+  }
+
+    /**
    * 「戻る」ボタンの押下
    *
    * @param $event イベント
@@ -193,314 +541,5 @@ export class SplitOrderDetailComponent implements OnInit {
 
     this.router.navigate([Const.UrlSetting.U0002]);
 
-  }
-
-  /**
-   * 「明細追加」ボタンの押下
-   *
-   * @param $event イベント
-   */
-  public insertBunkatsuOrderDetail($event) {
-    //編集テーブルが未入力になっていない場合
-    if (this.input.isBlank) {
-      alert("明細情報を入力して下さい。");
-      return;
-    }
-
-    //入力された情報を値に保存
-    let temp = new ODIS0060OrderDetailBunkatsu();
-
-    temp = this.input.getInput(temp);
-
-    // temp.orderSplitAmount = this.orderSplitAmount;
-    // temp.comment = this.comment;
-    // temp.requestDate = this.requestDate;
-    // temp.requester = this.requester;
-    // temp.approvalDate_lv1 = "";
-    // temp.approvalPerson_lv1 = "";
-    // temp.approvalDate_lv2 = "";
-    // temp.approvalPerson_lv2 = "";
-    // temp.orderDate = "";
-    // temp.orderAmount = "";
-    // temp.receivedDate = "";
-    // temp.receivedAmount = "";
-    // temp.paymentDate = "";
-    // temp.paymentAmount = "";
-
-    if (this.bunkatsuData == null) {
-      var tmp: ODIS0060OrderDetailBunkatsu[] = [];
-      this.rowStatus.rowIndex = 0;
-      tmp.splice(0, 0, temp);
-      this.bunkatsuData = tmp;
-    } else {
-      this.rowStatus.rowIndex = this.bunkatsuData.length;
-      this.bunkatsuData.splice(this.rowStatus.rowIndex, 0, temp);
-
-    }
-    this.table.renderRows();
-    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
-
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
-    this.setNewRowHighLight(Const.Action.A0001, tbody, this.rowStatus.rowIndex);
-
-    this.resetAddTable();
-  }
-
-  /**
-   * 分割明細追加テーブルを初期化する
-   */
-  resetAddTable() {
-
-    this.input.Clear();
-    this.rowStatus.Reset();
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
-    let btn = tr.cells[3].getElementsByTagName('button');
-    btn[0].style.display = 'inherit';
-
-  }
-
-  /**
-   * 仕訳テーブルの行を選択する場合
-   *
-   * @param $event イベント
-   * @param rowDt 選択さらた行の値
-   */
-  public selectRow($event, rowDt: ODIS0060OrderDetailBunkatsu) {
-
-    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
-      return;
-    }
-    //選択された行に色をつける
-    this.commonComponent.CommonOnSelHight($event);
-    let index = this.bunkatsuData.indexOf(rowDt);
-    this.rowStatus.setRowStatus(true, index);
-
-    //編集テーブルの各セルに選択された行の値を挿入
-    this.input.setInput(rowDt);
-
-    //依頼ボタンの初期表示を設定する
-    this.setInputTableButton(rowDt);
-  }
-
-  /**
-   * 入力分割明細テーブルにて、依頼ボタンを表示させるかどうか設定する。
-   * @param selectedItem 
-   */
-  setInputTableButton(selectedItem: ODIS0060OrderDetailBunkatsu) {
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.add-table>tbody>tr');
-
-    let btn = tr.cells[3].getElementsByTagName('button');
-    if (selectedItem.requester != '') {
-      btn[0].style.display = 'none';
-    }
-    else {
-      btn[0].style.display = 'inherit';
-    }
-  }
-
-  /**
-   * 分割明細を更新する
-   *
-   * @param $event イベント
-   */
-  updateBunkatsuOrderDetail($event) {
-
-    //行が選択された場合
-    if (!this.rowStatus.isSelected) {
-      alert(Const.ErrorMsg.E0008);
-      return;
-
-    }
-    let i: number = this.rowStatus.rowIndex;
-
-    this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i]);
-
-    this.table.renderRows();
-
-    //選択された行に編集テーブルの値を挿入
-    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
-
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
-    this.setNewRowHighLight(Const.Action.A0002, tbody, i);
-
-    this.resetAddTable();
-  }
-
-  /**
-   * 「明細削除」ボタンの押下
-   *
-   * @param $event イベント
-   */
-  onDeleteClick($event) {
-
-    //行が選択された場合
-    if (!this.rowStatus.isSelected) {
-      alert(Const.ErrorMsg.E0008);
-      return;
-
-    }
-    //選択された行のデータを削除
-    this.bunkatsuData.splice(this.rowStatus.rowIndex, 1);
-
-    //テーブルの再レンダー
-    this.table.renderRows();
-
-    this.resetAddTable();
-  }
-
-  /**
-   * 編集テーブルの行をクリアする
-   *
-   * @param $event イベント
-   */
-  stopModifyDetail($event) {
-
-    this.resetAddTable();
-
-  }
-
-  /**
-   * 分割明細テーブルに「依頼」ボタンを押下する時
-   * @param event 
-   * @param dt 
-   */
-  mainTableRequest(event: any, dt: ODIS0060OrderDetailBunkatsu,) {
-    let rowIndex = this.bunkatsuData.indexOf(dt);
-
-    this.setRowHighlight(rowIndex);
-
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
-
-    let currTime = Date.now();
-    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
-    dt.requestDate = requestTime;
-    //TODO: ログイン情報を取得
-    dt.requester = '積水　次郎';
-
-    // 処理後ボタンを　削除する。
-    btn.remove();
-
-  }
-
-  /**
-   * 入力テーブルに「依頼」ボタンを押下する時。
-   * @param event 
-   */
-  subTableRequest(event: any) {
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
-
-    let currTime = Date.now();
-    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
-
-    this.input.requestDate = requestTime;
-    this.input.requester = '積水　次郎';
-
-    btn.style.display = 'none';
-  }
-
-  /**
-   * 依頼ボタンを押下する時行の背景色を変える。
-   * @param event
-   */
-  setRowHighlight(rowIndex: number) {
-    var wTbody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
-    for (var i = 0; i < wTbody.rows.length; i++) {
-
-      if (i === rowIndex) {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.Selected;
-        }
-      }
-      else {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.None;
-        }
-      }
-    }
-  }
-
-  /**
-  * 行の背景色 変更する
-  * @param body 
-  * @param newIndex 
-  */
-  setNewRowHighLight(action: string, body: any, newIndex: number) {
-    if (!action.match(Const.Action.T0003)) {
-      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-        if (rIndex == newIndex) {
-          var tr = body.rows[rIndex];
-          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-            var td = tr.cells[cIndex];
-            td.style.color = this.getColor(action);
-          }
-        }
-      }
-    }
-    else {
-      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-        if (rIndex == newIndex) {
-          var tr = body.rows[rIndex];
-          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-            var td = tr.cells[cIndex];
-            td.style.backgroundColor = this.getColor(action);
-          }
-        }
-      }
-    }
-    // this.rowStatus.Reset();
-  }
-
-  getColor(action: string): string {
-
-    switch (action) {
-      case Const.Action.A0001:
-        return Const.HighLightColour.Inserted;
-      case Const.Action.A0002:
-        return Const.HighLightColour.Modified;
-      case Const.Action.T0003:
-        return Const.HighLightColour.None;
-    }
-
-  }
-  /**
-   * 明細テーブルに初期表の時、ボタン活動性を設定する。
-   *↓↓↓　ボタン名　↓↓↓
-   * 「依頼」「承認」「承認」
-   * 
-   * @param dt 
-   * 
-   */
-  setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[]) {
-
-    let skBody = this.viewRef.element.nativeElement.querySelector('table.split-table>tbody');
-
-    let tr: HTMLTableRowElement;
-    let btn: any;
-    dt.forEach(element => {
-      let ind = dt.indexOf(element);
-      if (element.requester != '') {
-        tr = skBody.rows[ind];
-        btn = tr.cells[4].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'disabled');
-        btn[0].style.display = 'none';
-
-      }
-    });
   }
 }
