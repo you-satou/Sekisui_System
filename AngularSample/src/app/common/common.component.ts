@@ -85,4 +85,19 @@ export class CommonComponent{
   removeCommas(val:string){
     return val.replace(/,/g, '');
   }
+
+  /**
+   * 0パディング
+   * @param 値
+   * @param 桁数
+   * @returns 変換後 値
+   */
+  getZeroPadding(val:string, digit:number){
+    var strVal = val;
+    // 桁数分 0埋め
+    for(var i=strVal.length; i<digit; i++){
+      strVal = "0" + strVal; 
+    }
+    return strVal; 
+  }
 }
