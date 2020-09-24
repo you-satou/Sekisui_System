@@ -149,9 +149,15 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
   * 物件名 全角
   */
-  resultValue:string = "";
+  
 
   toZenkaku(value: string){
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    console.log(beforeTextArr);
 
     var han = new Array('ｱ','ｲ','ｳ','ｴ','ｵ',
     'ｶ','ｷ','ｸ','ｹ','ｺ',
@@ -192,23 +198,24 @@ export class OrderDetailApprovalComponent implements OnInit {
     ,'パ','ピ','プ','ペ','ポ'
     );
 
-    this.resultValue = value.replace(/[A-Za-z0-9!-~]/g,String.fromCharCode(value.charCodeAt(0)+0xFEE0));
-    console.log(this.resultValue);
+    //this.resultValue = value.replace(/[A-Za-z0-9!-~]/g,String.fromCharCode(value.charCodeAt(0)+0xFEE0));
+    //console.log(this.resultValue);
 
-    for (var i=0; i< value.length; i++)
-    {
-      var c = value.charAt(i);
+    for (var i=0; i< value.length; i++){
 
-      if(c.match(/^[ｦ-ﾟ]*$/)){
-        for(var j=0; j<han.length; j++){
-          if(c == han[j].toString()){
-            c = txt[j].toString();
+      var c = "";
+      c = beforeTextArr[i];
+
+        if(c.match(/^[ｦ-ﾟ]*$/)){
+          for(var j=0; j<han.length; j++){
+            if(c == han[j].toString()){
+              c = txt[j].toString();
+            } 
           }
         }
-        this.resultValue = value.replace(value.charAt(i),c);
-      }
+      resultValue += c
     }
-    this.inputment.propertyName = this.resultValue;
+    this.inputment.propertyName = resultValue;
   }
   
 }
