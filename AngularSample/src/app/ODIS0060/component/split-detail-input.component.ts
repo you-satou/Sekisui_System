@@ -215,7 +215,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * 金額差
    */
   getAmountDeference(){
-    return Number(this.shiwakeData[0].orderPlanAmount) - Number(this.totalAmount());
+    return  Number(this.totalAmount()) - Number(this.shiwakeData[0].orderPlanAmount);
   }
 
   /**
@@ -341,7 +341,6 @@ export class SplitOrderDetailComponent implements OnInit {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
-    // this.setHighlight(i);
     
     //最後にページ初期化する
     this.resetAddTable();

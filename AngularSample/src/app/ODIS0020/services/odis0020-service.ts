@@ -44,7 +44,7 @@ export class ODIS0020Service {
   /**
    * 金額差が合わない場合「True」を返す
    */
-  isDeferenceAmount: boolean;
+  isDeferenceAmount: boolean = false;
 
   /**
   * フォーカス対象の値をセット
