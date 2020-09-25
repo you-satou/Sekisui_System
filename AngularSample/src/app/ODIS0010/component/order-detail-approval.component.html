@@ -4,18 +4,18 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" id="contractNumFrom" type="text" maxlength='11' pattern="^[0-9]+$" #contractNumFrom (keyup.enter)="toFromHalf(contractNumFrom.value)"(blur)="toFromHalf(contractNumFrom.value)">
+            <input [(ngModel)]="inputment.contractNumFrom" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" (blue)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false">
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumTo" id="contractNumTo" type="text" maxlength='11' pattern="^[0-9]+$" #contractNumTo (keyup.enter)="toNumToHalf(contractNumTo.value)"(blur)="toNumToHalf(contractNumTo.value)">
+            <input [(ngModel)]="inputment.contractNumTo" style = "ime-mode:disabled" id="contractNumTo" type="text" maxlength='11' #contractNumTo (keyup)="onKeyUpNumTo(contractNumTo.value)"(blur)="onKeyUpNumTo(contractNumTo.value)" onpaste="return false" oncontextmenu="return false">
         </div>
 
         <div class="input-group row" style="height: 30px;">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text"  maxlength='20' pattern="[\u30A1-\u30F6]*,[\uFF10-\uFF19]*,[\uFF21-\uFF3A]*,[\uFF41-\uFF5A]*" #propertyName (keyup.enter)="toZenkaku(propertyName.value)"(blur)="toZenkaku(propertyName.value)">
+            <input [(ngModel)]="inputment.propertyName" style = "ime-mode:active" id="propertyName" type="text"  maxlength='20' #propertyName (keyup)="toZenkaku(propertyName.value)"(blur)="toZenkaku(propertyName.value)" onpaste="return false" oncontextmenu="return false">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
                 <p class="radioCheckbok">

@@ -100,4 +100,146 @@ export class CommonComponent{
     }
     return strVal; 
   }
+
+  /**
+   * 半角⇒全角　変換
+   * 
+   */
+  onChangeZenkaku(value:string){
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    var han = new Array('ｱ','ｲ','ｳ','ｴ','ｵ',
+    'ｶ','ｷ','ｸ','ｹ','ｺ',
+    'ｻ','ｼ','ｽ','ｾ','ｿ',
+    'ﾀ','ﾁ','ﾂ','ﾃ','ﾄ',
+    'ﾅ','ﾆ','ﾇ','ﾈ','ﾉ'
+    ,'ﾊ','ﾋ','ﾌ','ﾍ','ﾎ'
+    ,'ﾏ','ﾐ','ﾑ','ﾒ','ﾓ'
+    ,'ﾔ','ﾕ','ﾖ'
+    ,'ﾗ','ﾘ','ﾙ','ﾚ','ﾛ'
+    ,'ﾜ','ｦ','ﾝ'
+    ,'ｧ','ｨ','ｩ','ｪ','ｫ'
+    ,'ｬ','ｭ','ｮ','ｯ'
+    ,'､','｡','ｰ','｢','｣','ﾞ','ﾟ'
+    ,'ｳﾞ','ｶﾞ','ｷﾞ','ｸﾞ','ｹﾞ','ｺﾞ'
+    ,'ｻﾞ','ｼﾞ','ｽﾞ','ｾﾞ','ｿﾞ'
+    ,'ﾀﾞ','ﾁﾞ','ﾂﾞ','ﾃﾞ','ﾄﾞ'
+    ,'ﾊﾞ','ﾋﾞ','ﾌﾞ','ﾍﾞ','ﾎﾞ'
+    ,'ﾊﾟ','ﾋﾟ','ﾌﾟ','ﾍﾟ','ﾎﾟ'
+    );
+    var txt = new Array('ア','イ','ウ','エ','オ'
+    ,'カ','キ','ク','ケ','コ'
+    ,'サ','シ','ス','セ','ソ'
+    ,'タ','チ','ツ','テ','ト'
+    ,'ナ','ニ','ヌ','ネ','ノ'
+    ,'ハ','ヒ','フ','ヘ','ホ'
+    ,'マ','ミ','ム','メ','モ'
+    ,'ヤ','ユ','ヨ'
+    ,'ラ','リ','ル','レ','ロ'
+    ,'ワ','ヲ','ン'
+    ,'ァ','ィ','ゥ','ェ','ォ'
+    ,'ャ','ュ','ョ','ッ'
+    ,'、','。','ー','「','」','”',''
+    ,'ヴ','ガ','ギ','グ','ゲ','ゴ'
+    ,'ザ','ジ','ズ','ゼ','ゾ'
+    ,'ダ','ヂ','ヅ','デ','ド'
+    ,'バ','ビ','ブ','ベ','ボ'
+    ,'パ','ピ','プ','ペ','ポ'
+    );
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+        if(c.match(/^[ｦ-ﾟ]*$/)){
+          for(var j=0; j<han.length; j++){
+            if(c == han[j].toString()){
+              c = txt[j].toString();
+            } 
+          }
+        }else if(c.match(/[A-Z a-z 0-9 !-~]/)){
+          c = String.fromCharCode(c.charCodeAt(0)+0xFEE0);
+        }
+        else{}
+      resultValue += c
+    }
+
+    return resultValue;
+  }
+
+  /**
+   * 全角⇒半角　変換
+   * 
+   */
+  onChangeHankaku(value:string){
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+        if(c.match(/[Ａ-Ｚａ-ｚ０-９！-～]/)){
+
+          c = String.fromCharCode(c.charCodeAt(0)-0xFEE0);
+        }
+        resultValue += c
+    }
+
+    return resultValue;
+  }
+
+  /**
+   * 入力値制限 半角数字以外削除
+   * 
+   */
+  onlyHanNumber(value:string){
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+      if(c.match(/[^0-9]/)){
+        c = '';
+      }
+      resultValue += c
+    }
+    return resultValue;
+  }
+
+  /**
+   * 入力値制限 全角以外削除
+   * 
+   */
+  onlyZenkaku(value:string){
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+      if(c.match(/[ｦ-ﾟ A-Z a-z 0-9 !-~]/)){
+        c = '';
+      }
+      resultValue += c
+    }
+    return resultValue;
+  }
+
 }
