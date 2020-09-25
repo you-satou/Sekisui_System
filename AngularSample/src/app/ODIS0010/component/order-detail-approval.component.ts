@@ -181,15 +181,11 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
   * 物件名 全角
   */
-  
-
   toZenkaku(value: string){
 
     var resultValue = "";
 
     var beforeTextArr = String(value).split('');
-
-    console.log(beforeTextArr);
 
     var han = new Array('ｱ','ｲ','ｳ','ｴ','ｵ',
     'ｶ','ｷ','ｸ','ｹ','ｺ',

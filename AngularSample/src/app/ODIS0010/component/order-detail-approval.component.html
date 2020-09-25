@@ -15,7 +15,7 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text"  maxlength='20' pattern="^[ァ-ンヴー]+$ , [\u30A1-\u30FF]* , ^[ぁ-ん]+$ , [\u3041-\u309F]*" #propertyName (keyup.enter)="toZenkaku(propertyName.value)"(blur)="toZenkaku(propertyName.value)">
+            <input [(ngModel)]="inputment.propertyName" id="propertyName" type="text"  maxlength='20' pattern="[\u30A1-\u30F6]*,[\uFF10-\uFF19]*,[\uFF21-\uFF3A]*,[\uFF41-\uFF5A]*" #propertyName (keyup.enter)="toZenkaku(propertyName.value)"(blur)="toZenkaku(propertyName.value)">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
                 <p class="radioCheckbok">
