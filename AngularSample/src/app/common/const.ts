@@ -126,14 +126,16 @@ export namespace Const{
         export const E0010 = '明細情報を入力して下さい。';
         export const E0012 = '発注予定金額が未入力な状態で依頼ができません。';
         export const E0013 = '更新明細を選択してください。';
-
+        export const E0014 = '承認済な明細は変更できません。';
+        export const E0015 = '対象データを変更してください。';
     }
     /**
      * 警告メッセージ
      */
     export namespace WarningMsg {
 
-        export const W0001 = '更新作業中ですが、追加作業で続けますか？。';
+        export const W0001 = '明細削除処理を行いますか？';
 
     }
+    
 }

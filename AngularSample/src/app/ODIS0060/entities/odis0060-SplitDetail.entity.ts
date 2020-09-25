@@ -1,4 +1,6 @@
-//仕訳テーブルのインターフェース
+/**
+ * 仕訳テーブルの定義
+ */
 export class ODIS0060OrderShiwake {
     /** タブ名 */
     tabIndex: string;
@@ -28,9 +30,9 @@ export class ODIS0060OrderShiwake {
 }
 
 /**
-   * 分割テーブルのインターフェース
-   */
-  export class ODIS0060OrderDetailBunkatsu {
+　* 分割テーブルの定義
+　*/
+export class ODIS0060OrderDetailBunkatsu {
 
     /** 発注予定分割金額 */
     orderSplitAmount: string;
@@ -72,7 +74,8 @@ export class ODIS0060OrderShiwake {
     /** 支払金額 */
     paymentAmount: string;
 
-    get isBlank(){
+    /**全項目が空の時、Trueを返す */
+    get isBlank() {
         if (this.orderSplitAmount == '' &&
             this.comment == '' &&
             this.requestDate == '' &&
@@ -80,7 +83,7 @@ export class ODIS0060OrderShiwake {
             this.approvalDate_lv1 == '' &&
             this.approvalPerson_lv1 == '' &&
             this.approvalDate_lv2 == '' &&
-            this.approvalPerson_lv2 == '' && 
+            this.approvalPerson_lv2 == '' &&
             this.orderDate == '' &&
             this.orderAmount == '' &&
             this.receivedDate == '' &&
@@ -95,11 +98,16 @@ export class ODIS0060OrderShiwake {
     constructor() { }
 }
 
-export class ODIS0060Session{
+/**
+ * 分割明細画面のデータがセックションに保持する用のクラス
+ */
+export class ODIS0060Session {
 
+    /**仕訳データ */
     shiwakeData: ODIS0060OrderShiwake[];
-    
+
+    /**分割データ */
     bunkatsuData: ODIS0060OrderDetailBunkatsu[];
 
-    constructor () {}
+    constructor() { }
 }

@@ -187,8 +187,9 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param dataDetail
    */
   getDisplayData($event, data: ODIS0020OrderShiwake) {
-    let rowIndx = this.orderData.indexOf(data);
-    this.setRowHighlight(rowIndx);
+
+    // let rowIndx = this.orderData.indexOf(data);
+    // this.setRowHighlight(rowIndx);
 
     if (data.orderPlanAmount == '' ||
       data.orderPlanAmount == null ||
@@ -199,32 +200,6 @@ export class OrderDetailShiwakeTable implements OnInit {
     data.orderSplitAmount = data.orderPlanAmount;
 
   }
-
-  /**
-   * 反映ボタンを押下する時行の背景色を変える。
-   * @param event
-   */
-  setRowHighlight(rowIndex: number) {
-    var wTbody = this.viewRef.element.nativeElement.querySelector("tbody");
-    for (var i = 0; i < wTbody.rows.length; i++) {
-
-      if (i === rowIndex) {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.Selected;
-        }
-      }
-      else {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.None;
-        }
-      }
-    }
-  }
-
   /**
    * 分割明細画面に移動する
    * @param $event
@@ -289,6 +264,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    */
   onSelectHighLight($event, data: ODIS0020OrderShiwake) {
+
     this.comCompnt.CommonOnSelHight($event);
 
     // パラメータを設定。
@@ -308,9 +284,6 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param dt 
    */
   setRequest(event: any, dt: ODIS0020OrderShiwake) {
-    let rowIndex = this.orderData.indexOf(dt);
-
-    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -352,8 +325,6 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param dt 
    */
   setApprovalFirstLevel(event: any, dt: ODIS0020OrderShiwake) {
-    let rowIndex = this.orderData.indexOf(dt);
-    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -392,8 +363,6 @@ export class OrderDetailShiwakeTable implements OnInit {
  * @param dt 
  */
   setApprovalNextLevel(event: any, dt: ODIS0020OrderShiwake) {
-    let rowIndex = this.orderData.indexOf(dt);
-    this.setRowHighlight(rowIndex);
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {

@@ -71,7 +71,9 @@ export interface ODIS0020OrderBunkatsuSub {
   paymentAmount: string;
 }
 
-
+/**
+ * 仕訳データの定義
+ */
 export class ODIS0020OrderShiwake {
 
   tabIndex: string;

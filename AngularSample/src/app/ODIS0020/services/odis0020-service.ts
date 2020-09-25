@@ -22,7 +22,10 @@ export class ODIS0020Service {
 
   private _tableData: ODIS0020OrderShiwake[] = [];
 
-  get returnedSplitData(){
+  /**
+   * 分割明細画面から渡されたパラメータを返す
+   */
+  get ReturnedSplitData(){
     if(this._tableData.length <= 0){
       return [];
     }
@@ -45,7 +48,7 @@ export class ODIS0020Service {
     this._val = val;
   }
 
-  setTableData(data: ODIS0020OrderShiwake[]){
+  setReturnSplitData(data: ODIS0020OrderShiwake[]){
     this._tableData = data;
   }
 

@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
@@ -9,7 +10,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake, ODIS0060Session } fr
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderShiwake } from './../../ODIS0020/entities/odis0020-OrderDetailList.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
-import { ODIS0020AddBunkatsu, RowStatus } from '../entities/odis0060-AddBunkatsuForm.entity';
+import { ODIS0020BunkatsuInsertService, RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
 
 @Component({
   selector: 'split-detail-input',
@@ -20,7 +21,7 @@ import { ODIS0020AddBunkatsu, RowStatus } from '../entities/odis0060-AddBunkatsu
 
 export class SplitOrderDetailComponent implements OnInit {
 
-  //仕訳テーブルのヘッダーの1行目のカラム
+  /** 仕訳テーブルのヘッダーの1行目のカラム */
   headerColspan: string[] = [
     'no',
     'orderPlanAmount',
@@ -33,7 +34,7 @@ export class SplitOrderDetailComponent implements OnInit {
     'payment',
   ]
 
-  //仕訳テーブルのヘッダーの2行目のカラム
+  /** 仕訳テーブルのヘッダーの2行目のカラム */
   bunkatsuColumnsName: string[] = [
     'requestDate',
     'requester',
@@ -43,7 +44,7 @@ export class SplitOrderDetailComponent implements OnInit {
     'approvalPerson_lv2',
   ];
 
-  //テーブルの全カラム
+  /** テーブルの全カラム */
   totalColumns: string[] = [
     'index',
     'orderPlanAmount1',
@@ -62,7 +63,7 @@ export class SplitOrderDetailComponent implements OnInit {
     'paymentAmount',
   ];
 
-  //テーブルを再レンダーする場合
+  
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   @ViewChild('ShiwakeData', { static: true }) childShiwake: any;
   @ViewChild('BunkatsuData', { static: true }) childBunkatsu: any;
@@ -71,31 +72,40 @@ export class SplitOrderDetailComponent implements OnInit {
   shiwakeData: ODIS0060OrderShiwake[] = [];
   //分割テーブルのデータ
   bunkatsuData: ODIS0060OrderDetailBunkatsu[] = [];
+  //分割明細追加サービス
+  input = new ODIS0020BunkatsuInsertService();
 
-  input = new ODIS0020AddBunkatsu();
   rowStatus = new RowStatus()
 
   //タブネーム
   tabName: string = '';
+  //ボタンの初期表示
+  btnTsuika: boolean;
+  btnHenkou: boolean;
+  btnChuushi: boolean;
+  btnSakujo: boolean;
 
+  //明細追加テーブルのボタンの初期表示
+  btnSubIrai: any;
 
   constructor(
     private appComponent: AppComponent,
-    private commonComponent: CommonComponent,
+    private baseCompnt: CommonComponent,
     private router: Router,
     private datePipe: DatePipe,
     private splitService: ODIS0060SplitDetailService,
     private odis0020Service: ODIS0020Service,
     private viewRef: ViewContainerRef,
-  ) { 
-    this.input.Clear();
-  }
+  ) {  }
 
   /**
    * ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
 
+    this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
+
+    //セックションにデータがあるかどうか
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
@@ -105,17 +115,20 @@ export class SplitOrderDetailComponent implements OnInit {
       
     }
     else{
-      //各テーブルのデータの取得
+      //初期表示
       this.setDisplayData();
     }
-    this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
-  }
 
+    //ページボタンの初期化
+    this.setPageButtonDisplay(false,false,false,false);
+
+  }
   /**
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+    this.btnSubIrai = document.getElementById('btnSubIrai');
+    this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
   }
 
    /**
@@ -126,26 +139,56 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param dt 
    * 
    */
-  setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[]) {
-
-    let skBody:HTMLTableSectionElement = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
+  setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[], action: string) {
     //分割データがない場合、余白行を削除する
-    if(dt.length == 1 && dt[0].isBlank){
+    if (dt.length == 1 &&
+      dt[0].orderSplitAmount == '' &&
+      dt[0].comment == '' &&
+      dt[0].requestDate == '' &&
+      dt[0].requester == '' &&
+      dt[0].approvalDate_lv1 == '' &&
+      dt[0].approvalPerson_lv1 == '' &&
+      dt[0].approvalDate_lv2 == '' &&
+      dt[0].approvalPerson_lv2 == '' &&
+      dt[0].orderDate == '' &&
+      dt[0].orderAmount == '' &&
+      dt[0].receivedDate == '' &&
+      dt[0].receivedAmount == '' &&
+      dt[0].paymentDate == '' &&
+      dt[0].paymentAmount == '') {
+
+      let skBody:any = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
       skBody.rows[0].remove();
       return;
     }
-    let tr: HTMLTableRowElement;
-    let btn: any;
     dt.forEach(element => {
-      let ind = dt.indexOf(element);
+      let i = dt.indexOf(element);
+      var btnName = "btnIrai"+i;
+      let btn = document.getElementById(btnName);
       if (element.requester != '') {
-        tr = skBody.rows[ind];
-        btn = tr.cells[4].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'disabled');
-        btn[0].style.display = 'none';
-
+        btn.style.display = 'none';
+        return;
+      }
+      if (action == 'update') {
+        btn.style.display = 'inherit';
+        return;
       }
     });
+  }
+
+  /**
+   * 分割明細ページの各ボタンの活用性を設定する。　
+   * ボタンの初期表、「disabled」属性を「False」する
+   * @param tsuika 追加ボタンの設定
+   * @param henkou 変更ボタンの設定
+   * @param chuushi 中止ボタンの設定
+   * @param sakujo 削除ボタンの設定
+   */
+  setPageButtonDisplay(tsuika: boolean,henkou: boolean,chuushi: boolean,sakujo: boolean) {
+    this.btnTsuika = tsuika;
+    this.btnHenkou = henkou;
+    this.btnChuushi = chuushi;
+    this.btnSakujo = sakujo;
   }
 
   /**
@@ -174,78 +217,84 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   selectRow($event, rowDt: ODIS0060OrderDetailBunkatsu) {
 
-    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
-      return;
-    }
-    //選択された行に色をつける
-    this.commonComponent.CommonOnSelHight($event);
+    //選択された行に背景色を変える
+    this.baseCompnt.CommonOnSelHight($event);
+
     let index = this.bunkatsuData.indexOf(rowDt);
     this.rowStatus.setRowStatus(true, index);
-
+    
     //編集テーブルの各セルに選択された行の値を挿入
     this.input.setInput(rowDt);
+    
+    //明細追加テーブルの依頼ボタンの表示を設定
+    if (rowDt.requester != '') {
+      this.btnSubIrai.style.display = 'none';
+    }
+    else {
+      this.btnSubIrai.style.display = 'inherit';
+    }
 
-    //依頼ボタンの初期表示を設定する
-    this.setInputTableButton(rowDt);
+    //分割明細のボタンの活用性を設定する
+    this.journalDataApprovalChecker(rowDt);
   }
 
   /**
-   * 入力分割明細テーブルにて、依頼ボタンを表示させるかどうか設定する。
-   * @param selectedItem 
+   * 分割明細ぼ制限をチェックする
+   * @param rowData 
    */
-  setInputTableButton(selectedItem: ODIS0060OrderDetailBunkatsu) {
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.tsuika-table>tbody>tr');
+  journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu){
+    
+    switch(true){
+      //依頼未・承認未
+      case (rowData.requester == '' && rowData.approvalPerson_lv1 == ''):
+        this.setPageButtonDisplay(true, false, false, false);
+        break;
+      //依頼済・承認未
+      case (rowData.requester != '' && rowData.approvalPerson_lv1 == ''):
+        this.setPageButtonDisplay(true, false, false, false);
+        break;
+      //依頼済・承認済
+      case (rowData.requester != '' && rowData.approvalPerson_lv1 != ''):
+        this.setPageButtonDisplay(true, true, false, true);
+        break;
+    };
 
-    let btn = tr.cells[3].getElementsByTagName('button');
-    if (selectedItem.requester != '') {
-      btn[0].style.display = 'none';
-    }
-    else {
-      btn[0].style.display = 'inherit';
-    }
   }
 
   /**
    * 「明細追加」ボタンの押下
-   *
    * @param $event イベント
    */
   insertBunkatsuOrderDetail($event) {
-    //明細更新を作業する時、追加ボタンを押下する場合
-    if(this.rowStatus.rowIndex >= 0 &&
-       this.rowStatus.rowIndex != null){
-      var confirm = window.confirm(Const.WarningMsg.W0001);
-      if(!confirm){
-        return;
-      }
-      // OKを押したら行の背景色を削除する。
-      let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-      this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
-    }
     // 入力検証
     if(!this.inputCheck()){
       return;
     }
     //入力された情報を値に保存
-    let temp = new ODIS0060OrderDetailBunkatsu();
-    temp = this.input.getInput(temp);
+    let insertDt = new ODIS0060OrderDetailBunkatsu();
+    insertDt = this.input.getInput(insertDt,Const.Action.A0001);
 
+    //明細に追加する位置
+    let insertIndex: number = 0;
+    //分割明細は１件もない場合
     if(this.bunkatsuData.length == 1 && this.bunkatsuData[0].isBlank){
-      this.bunkatsuData.splice(0, 1, temp);
-      this.rowStatus.rowIndex = 0;
+      this.bunkatsuData.splice(insertIndex, 1, insertDt);
     }
     else{
-      this.rowStatus.rowIndex = this.bunkatsuData.length;
-      this.bunkatsuData.splice(this.rowStatus.rowIndex, 0, temp);
+      //明細に追加する位置を取得
+      insertIndex = this.bunkatsuData.length;
+      this.bunkatsuData.splice(insertIndex, 0, insertDt);
     }
 
-
     this.table.renderRows();
-    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+    
+    this.setTableBunkatsuButtonDisplay(this.bunkatsuData,'insert');
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    
-    this.setNewRowHighLight(Const.Action.A0001, tbody, this.rowStatus.rowIndex);
+    //明細の色を変える
+    this.baseCompnt.setRowColor(Const.Action.A0001, tbody, insertIndex);
+
+    this.setPageButtonDisplay(false, false, false, false);
     this.resetAddTable();
     this.saveDataToSession();
   }
@@ -267,21 +316,27 @@ export class SplitOrderDetailComponent implements OnInit {
       return;
     }
 
+    if(!this.input.isChanged){
+      alert(Const.ErrorMsg.E0015);
+      return;
+    }
+
     let i: number = this.rowStatus.rowIndex;
 
-    this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i]);
+    this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i], Const.Action.A0002);
 
     this.table.renderRows();
 
     //選択された行に編集テーブルの値を挿入
-    this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+    this.setTableBunkatsuButtonDisplay(this.bunkatsuData, 'update');
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    this.setNewRowHighLight(Const.Action.A0002, tbody, i);
-    this.setHighlight(i);
+    this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
+    // this.setHighlight(i);
     
     //最後にページ初期化する
     this.resetAddTable();
+    this.setPageButtonDisplay(false, false, false, false);
 
     this.saveDataToSession();
   }
@@ -299,6 +354,12 @@ export class SplitOrderDetailComponent implements OnInit {
       return;
 
     }
+    // 削除する前に一回確認する
+    var confirm = window.confirm(Const.WarningMsg.W0001);
+    if(!confirm){
+      return;
+    }
+    //分割明細が一つだけの場合、中身を空白する
     if(this.bunkatsuData.length == 1){
       this.bunkatsuData[0].orderSplitAmount = '';
       this.bunkatsuData[0].comment = '';
@@ -315,8 +376,9 @@ export class SplitOrderDetailComponent implements OnInit {
       this.bunkatsuData[0].paymentDate = '';
       this.bunkatsuData[0].paymentAmount = '';
 
-      console.log(this.bunkatsuData);
-      this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+      //テーブルを再レンダーする
+      this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
+      
     }
     else{
       //選択された行のデータを削除
@@ -326,19 +388,21 @@ export class SplitOrderDetailComponent implements OnInit {
     this.table.renderRows();
 
     this.resetAddTable();
+    this.setPageButtonDisplay(false, false, false, false);
     this.saveDataToSession();
   }
 
   /**
    * 編集テーブルの行をクリアする
-   *
    * @param $event イベント
    */
   stopModifyDetail($event) {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    this.setNewRowHighLight(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
+    //選択状態を抜ける
+    this.baseCompnt.setRowColor(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
+    this.setPageButtonDisplay(false, false, false, false);
   }
 
   /**
@@ -347,17 +411,6 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param dt 
    */
   mainTableRequest(event: any, dt: ODIS0060OrderDetailBunkatsu,) {
-    let rowIndex = this.bunkatsuData.indexOf(dt);
-
-    this.setHighlight(rowIndex);
-
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -365,9 +418,11 @@ export class SplitOrderDetailComponent implements OnInit {
     //TODO: ログイン情報を取得
     dt.requester = '積水　次郎';
 
+    //ボタンのIDを取得。
+    let name = "btnIrai"+this.bunkatsuData.indexOf(dt);
+    let btn = document.getElementById(name);
     // 処理後ボタンを　削除する。
-    btn.remove();
-
+    btn.style.display = 'none';
   }
 
   /**
@@ -375,27 +430,19 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param event 
    */
   subTableRequest(event: any) {
-
     if(this.input.orderSplitAmount == ''){
       this.setFocus();
       alert(Const.ErrorMsg.E0012);
       return;
     }
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
-
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
     this.input.requestDate = requestTime;
     this.input.requester = '積水　次郎';
+    //依頼ボタンを非表示する
+    this.btnSubIrai.style.display = 'none';
 
-    btn.style.display = 'none';
   }
 
   
@@ -403,13 +450,9 @@ export class SplitOrderDetailComponent implements OnInit {
    * 分割明細追加テーブルを初期化する
    */
   resetAddTable() {
-
     this.input.Clear();
     this.rowStatus.Reset();
-    let tr: HTMLTableRowElement = this.viewRef.element.nativeElement.querySelector('table.tsuika-table>tbody>tr');
-    let btn = tr.cells[3].getElementsByTagName('button');
-    btn[0].style.display = 'inherit';
-
+    this.btnSubIrai.style.display = 'inherit';
   }
 
   inputCheck(): boolean {
@@ -430,79 +473,12 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   setFocus(){
-    let input: HTMLInputElement = this.viewRef.element.nativeElement.querySelector('input[id = splitAmount]');
+    let input = document.getElementById('splitAmount');
     input.focus();
   }
-
-  
   /**
-   * 依頼ボタンを押下する時行の背景色を変える。
-   * @param event
+   * 一時的なデータをセックションに保持する
    */
-  setHighlight(rowIndex: number) {
-    var wTbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    for (var i = 0; i < wTbody.rows.length; i++) {
-
-      if (i === rowIndex) {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.Selected;
-        }
-      }
-      else {
-        var wTr = wTbody.rows[i];
-        for (var j = 0; j < wTr.cells.length; j++) {
-          var wTd = wTr.cells[j];
-          wTd.style.backgroundColor = Const.HighLightColour.None;
-        }
-      }
-    }
-  }
-
-  /**
-  * 行の背景色 変更する
-  * @param body 
-  * @param newIndex 
-  */
-  setNewRowHighLight(action: string, body: any, newIndex: number) {
-    if (!action.match(Const.Action.T0003)) {
-      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-        if (rIndex == newIndex) {
-          var tr = body.rows[rIndex];
-          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-            var td = tr.cells[cIndex];
-            td.style.color = this.getColor(action);
-          }
-        }
-      }
-      return;
-    }
-
-    for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-      if (rIndex == newIndex) {
-        var tr = body.rows[rIndex];
-        for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-          var td = tr.cells[cIndex];
-          td.style.backgroundColor = this.getColor(action);
-        }
-      }
-    }
-  }
-
-  getColor(action: string): string {
-
-    switch (action) {
-      case Const.Action.A0001:
-        return Const.HighLightColour.Inserted;
-      case Const.Action.A0002:
-        return Const.HighLightColour.Modified;
-      case Const.Action.T0003:
-        return Const.HighLightColour.None;
-    }
-
-  }
-
   saveDataToSession(){
 
     let saveDt = new ODIS0060Session();
@@ -519,13 +495,17 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   backToOrderDetailInput($event) {
 
+    //仕訳データを仕訳テーブルから取得する
     let shiwakeData: ODIS0060OrderShiwake[] = this.childShiwake.shiwakeData;
+    //分割データを取得
     let bunkatsu: ODIS0060OrderDetailBunkatsu[] = this.bunkatsuData;
 
     let senderDt: ODIS0020OrderShiwake[] = [];
 
+    //分割明細毎発注仕訳データを作成する
     bunkatsu.forEach(element => {
       let dt = new ODIS0020OrderShiwake();
+      //先頭データ作成
       if (bunkatsu.indexOf(element) == 0) {
         dt.id = shiwakeData[0].journalCode;
         dt.tabIndex = this.tabName;
@@ -551,6 +531,7 @@ export class SplitOrderDetailComponent implements OnInit {
         dt.paymentAmount = element.paymentAmount;
       }
       else {
+        //後尾データ
         dt.id = shiwakeData[0].journalCode;
         dt.tabIndex = this.tabName;
         dt.journalCode = '';
@@ -574,13 +555,15 @@ export class SplitOrderDetailComponent implements OnInit {
         dt.paymentDate = element.paymentDate;
         dt.paymentAmount = element.paymentAmount;
       }
+
       senderDt.push(dt);
 
     });
 
-    this.odis0020Service.setTableData(senderDt);
+    //発注明細入力画面に返却するデータを設定する。
+    this.odis0020Service.setReturnSplitData(senderDt);
 
-    //発注詳細入力画面に戻る時、セックションを削除する
+    //発注詳細入力画面に戻る前に、セックションを削除する
     sessionStorage.removeItem(Const.ScreenName.S0006EN);
 
     this.router.navigate([Const.UrlSetting.U0002]);
@@ -593,7 +576,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   commonFocus($event){
-    $event.target.value = this.commonComponent.removeCommas($event.target.value);
+    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
   }
   /**
    * blur処理
@@ -601,6 +584,6 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   commonBlur($event){
-    $event.target.value = this.commonComponent.addCommas($event.target.value);
+    $event.target.value = this.baseCompnt.addCommas($event.target.value);
   }
 }

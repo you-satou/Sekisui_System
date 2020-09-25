@@ -222,7 +222,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblMainOrder = savedData.MainOrderInfo;
     this.tblInsertedOrder = savedData.InsertedOrderInfo;
     
-    let returnDt = this.ODIS0020Service.returnedSplitData;
+    let returnDt = this.ODIS0020Service.ReturnedSplitData;
     if(returnDt.length <= 0){
       this.tblSekkei = savedData.SekkeiData;
       this.tblHontai = savedData.HontaiData;
