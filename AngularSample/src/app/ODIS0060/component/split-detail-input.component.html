@@ -1,7 +1,7 @@
 <div>
     <mat-tab-group>
         <mat-tab label="{{tabName}}">
-            <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData"></split-detail-table>
+            <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference] = "getAmountDeference()"></split-detail-table>
             <div class="mat-elevation-z8" style="margin: 20px 0;">
                 <table mat-table [dataSource]="bunkatsuData"
                     class="bunkatsu-table table table-hover table-sm table-bordered" id="bunkatsuTable">
@@ -47,7 +47,6 @@
                             {{element.comment}} </td>
                         <td mat-footer-cell *matFooterCellDef></td>
                     </ng-container>
-
 
                     <!--Header 依頼 -->
                     <ng-container matColumnDef="irai">

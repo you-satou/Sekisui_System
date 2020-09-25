@@ -42,6 +42,11 @@ export class ODIS0020Service {
   }
 
   /**
+   * 金額差が合わない場合「True」を返す
+   */
+  isDeferenceAmount: boolean;
+
+  /**
   * フォーカス対象の値をセット
   */
   public setVal(val:ODIS0020AddOrderDetail) {

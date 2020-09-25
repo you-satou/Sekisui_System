@@ -13,6 +13,7 @@ export class SplitOrderDetailTable {
 
   //仕訳データの取得
   @Input() shiwakeData: ODIS0060OrderShiwake[];
+  @Input() amountDeference: number = 0;
 
   //仕訳テーブルのカラム
   shiwakeColumns: string[] = [
@@ -22,6 +23,7 @@ export class SplitOrderDetailTable {
     'orderSupplierCode',
     'orderSupplierName',
     'orderPlanAmount',
+    'amountDifference',
   ];
 
   dataSource: any;

@@ -75,6 +75,8 @@ export class SplitOrderDetailComponent implements OnInit {
   //分割明細追加サービス
   input = new ODIS0020BunkatsuInsertService();
 
+  amountDeference: number = 0;
+
   rowStatus = new RowStatus()
 
   //タブネーム
@@ -129,6 +131,7 @@ export class SplitOrderDetailComponent implements OnInit {
   ngAfterViewInit(): void {
     this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
+    
   }
 
    /**
@@ -207,6 +210,12 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   totalAmount() {
       return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
+  }
+  /**
+   * 金額差
+   */
+  getAmountDeference(){
+    return Number(this.shiwakeData[0].orderPlanAmount) - Number(this.totalAmount());
   }
 
   /**
@@ -559,6 +568,9 @@ export class SplitOrderDetailComponent implements OnInit {
       senderDt.push(dt);
 
     });
+    if(Number(shiwakeData[0].orderPlanAmount) != this.getAmountDeference()){
+      this.odis0020Service.isDeferenceAmount = true;
+    }
 
     //発注明細入力画面に返却するデータを設定する。
     this.odis0020Service.setReturnSplitData(senderDt);
