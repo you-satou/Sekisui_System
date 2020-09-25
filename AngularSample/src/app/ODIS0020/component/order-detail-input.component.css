@@ -16,13 +16,13 @@
     width: 100%;
 }
 
-/* .footer {
-    position: fixed ;
-    display: fixed ;
+.footer {
+    /* position: fixed ;
+    display: fixed ; */
     background-color: #F5F5F5 ;
     z-index: 1;
     height: 50px ;
-} */
+}
 
 .footer>.back-btn {
     display: inline-block ;
