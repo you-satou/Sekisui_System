@@ -4,7 +4,7 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false">
+            <input [(ngModel)]="inputment.contractNumFrom" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false" autofocus>
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
