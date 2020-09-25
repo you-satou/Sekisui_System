@@ -73,7 +73,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.contractNumFrom = '';
     this.inputment.contractNumTo = '';
     this.inputment.propertyName = '';
-    //this.inputment._checked = true;
+    this.inputment._checked = true;
     this.inputment.detailCreated = false;
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
@@ -153,14 +153,12 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 物件名　入力値チェック 
+   * 物件名　ロストフォーカスで半角⇒全角
    */
   toZenkaku(value:string){
 
-    this.inputment.propertyName = this.CommonComponent.onlyZenkaku(value);
+    this.inputment.propertyName = this.CommonComponent.onChangeZenkaku(value);
 
   }
 
-
-  
 }
