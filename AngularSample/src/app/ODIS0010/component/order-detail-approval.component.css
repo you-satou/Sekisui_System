@@ -39,7 +39,7 @@
 
 /********************* Page Footer *************************/
 
-.footer-container {
+.footer-container-approval {
     position: fixed;
     display: inline-block;
     bottom: 0;
@@ -47,10 +47,10 @@
     z-index: 2;
 }
 
-.footer {
+/* .footer {
     display: fixed;
     background-color: #F5F5F5;
-}
+} */
 
 .footer>.back-btn {
     display: inline-block;

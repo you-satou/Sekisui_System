@@ -59,10 +59,11 @@ export class OrderDetailApprovalTable implements OnChanges {
   /**　ページに移動する */
   switchPage(data: ODIS0010OrderDetail){
 
-    this.router.navigate(['OrderDetailInput'])
-    .then(() => {
-    window.location.reload();
-    });
+    // this.router.navigate(['OrderDetailInput'])
+    // .then(() => {
+    // window.location.reload();
+    // });
+    this.router.navigate(['OrderDetailInput']);
     
   }
 
