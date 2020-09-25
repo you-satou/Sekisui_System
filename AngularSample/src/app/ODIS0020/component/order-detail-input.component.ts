@@ -87,7 +87,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private OrderSupplierSelectService: OrderSupplierSelectService,
     private ODIS0020Service: ODIS0020Service,
     private router: Router,
-    private commonComponent: CommonComponent,
+    private baseCompnt: CommonComponent,
 
   ) { }
 
@@ -307,28 +307,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           }
           else{
             let ins = new ODIS0020OrderShiwake();
-            ins.id = this.setValue(returnDt[i].id);
-            ins.tabIndex =  this.setValue(returnDt[i].tabIndex);
+            ins.id = this.baseCompnt.setValue(returnDt[i].id);
+            ins.tabIndex =  this.baseCompnt.setValue(returnDt[i].tabIndex);
             ins.journalCode = '';
             ins.accountCode = '';
             ins.journalName = '';
             ins.orderSupplierCode = '';
             ins.orderSupplierName = '';
             ins.orderPlanAmount = '';
-            ins.comment = this.setValue(returnDt[i].comment);
-            ins.orderSplitAmount = this.setValue(returnDt[i].orderSplitAmount);
-            ins.requestDate = this.setValue(returnDt[i].requestDate);
-            ins.requester = this.setValue(returnDt[i].requester);
-            ins.approvalDate_lv1 = this.setValue(returnDt[i].approvalDate_lv1);
-            ins.approvalPerson_lv1 = this.setValue(returnDt[i].approvalPerson_lv1);
-            ins.approvalDate_lv2 = this.setValue(returnDt[i].approvalDate_lv2);
-            ins.approvalPerson_lv2 = this.setValue(returnDt[i].approvalPerson_lv2);
-            ins.orderDate = this.setValue(returnDt[i].orderDate);
-            ins.orderAmount = this.setValue(returnDt[i].orderAmount);
-            ins.receivedDate = this.setValue(returnDt[i].receivedDate);
-            ins.receivedAmount = this.setValue(returnDt[i].receivedAmount);
-            ins.paymentDate = this.setValue(returnDt[i].paymentDate);
-            ins.paymentAmount = this.setValue(returnDt[i].paymentAmount);
+            ins.comment = this.baseCompnt.setValue(returnDt[i].comment);
+            ins.orderSplitAmount = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
+            ins.requestDate = this.baseCompnt.setValue(returnDt[i].requestDate);
+            ins.requester = this.baseCompnt.setValue(returnDt[i].requester);
+            ins.approvalDate_lv1 = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
+            ins.approvalPerson_lv1 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv1);
+            ins.approvalDate_lv2 = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
+            ins.approvalPerson_lv2 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv2);
+            ins.orderDate = this.baseCompnt.setValue(returnDt[i].orderDate);
+            ins.orderAmount = this.baseCompnt.setValue(returnDt[i].orderAmount);
+            ins.receivedDate = this.baseCompnt.setValue(returnDt[i].receivedDate);
+            ins.receivedAmount = this.baseCompnt.setValue(returnDt[i].receivedAmount);
+            ins.paymentDate = this.baseCompnt.setValue(returnDt[i].paymentDate);
+            ins.paymentAmount = this.baseCompnt.setValue(returnDt[i].paymentAmount);
 
             savedDt.splice(i+indx,0,ins);
           }
@@ -340,27 +340,27 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   setDataShiwake(savedDt: ODIS0020OrderShiwake, returnDt: ODIS0020OrderShiwake): ODIS0020OrderShiwake{
 
-    savedDt.id = this.setValue(returnDt.id);
-    savedDt.tabIndex = this.setValue(returnDt.tabIndex);
-    savedDt.journalCode = this.setValue(returnDt.journalCode);
-    savedDt.journalName = this.setValue(returnDt.journalName);
-    savedDt.orderPlanAmount = this.setValue(returnDt.orderPlanAmount);
-    savedDt.orderSupplierCode = this.setValue(returnDt.orderSupplierCode);
-    savedDt.orderSupplierName = this.setValue(returnDt.orderSupplierName);
-    savedDt.comment = this.setValue(returnDt.comment);
-    savedDt.orderSplitAmount =  this.setValue(returnDt.orderSplitAmount);
-    savedDt.requestDate =  this.setValue(returnDt.requestDate);
-    savedDt.requester =  this.setValue(returnDt.requester);
-    savedDt.approvalDate_lv1 =  this.setValue(returnDt.approvalDate_lv1);
-    savedDt.approvalPerson_lv1 =  this.setValue(returnDt.approvalPerson_lv1);
-    savedDt.approvalDate_lv2 =  this.setValue(returnDt.approvalDate_lv2);
-    savedDt.approvalPerson_lv2 =  this.setValue(returnDt.approvalPerson_lv2);
-    savedDt.orderDate =  this.setValue(returnDt.orderDate);
-    savedDt.orderAmount =  this.setValue(returnDt.orderAmount);
-    savedDt.receivedDate =  this.setValue(returnDt.receivedDate);
-    savedDt.receivedAmount =  this.setValue(returnDt.receivedAmount);
-    savedDt.paymentDate =  this.setValue(returnDt.paymentDate);
-    savedDt.paymentAmount =  this.setValue(returnDt.paymentAmount);
+    savedDt.id = this.baseCompnt.setValue(returnDt.id);
+    savedDt.tabIndex = this.baseCompnt.setValue(returnDt.tabIndex);
+    savedDt.journalCode = this.baseCompnt.setValue(returnDt.journalCode);
+    savedDt.journalName = this.baseCompnt.setValue(returnDt.journalName);
+    savedDt.orderPlanAmount = this.baseCompnt.setValue(returnDt.orderPlanAmount);
+    savedDt.orderSupplierCode = this.baseCompnt.setValue(returnDt.orderSupplierCode);
+    savedDt.orderSupplierName = this.baseCompnt.setValue(returnDt.orderSupplierName);
+    savedDt.comment = this.baseCompnt.setValue(returnDt.comment);
+    savedDt.orderSplitAmount =  this.baseCompnt.setValue(returnDt.orderSplitAmount);
+    savedDt.requestDate =  this.baseCompnt.setValue(returnDt.requestDate);
+    savedDt.requester =  this.baseCompnt.setValue(returnDt.requester);
+    savedDt.approvalDate_lv1 =  this.baseCompnt.setValue(returnDt.approvalDate_lv1);
+    savedDt.approvalPerson_lv1 =  this.baseCompnt.setValue(returnDt.approvalPerson_lv1);
+    savedDt.approvalDate_lv2 =  this.baseCompnt.setValue(returnDt.approvalDate_lv2);
+    savedDt.approvalPerson_lv2 =  this.baseCompnt.setValue(returnDt.approvalPerson_lv2);
+    savedDt.orderDate =  this.baseCompnt.setValue(returnDt.orderDate);
+    savedDt.orderAmount =  this.baseCompnt.setValue(returnDt.orderAmount);
+    savedDt.receivedDate =  this.baseCompnt.setValue(returnDt.receivedDate);
+    savedDt.receivedAmount =  this.baseCompnt.setValue(returnDt.receivedAmount);
+    savedDt.paymentDate =  this.baseCompnt.setValue(returnDt.paymentDate);
+    savedDt.paymentAmount =  this.baseCompnt.setValue(returnDt.paymentAmount);
 
     return savedDt;
   }
@@ -416,13 +416,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     switch (action) {
       case 'NoSplitData':
         newDt.tabIndex = tabName;
-        newDt.id = this.setValue(orderDt.journalCode);
-        newDt.journalCode = this.setValue(orderDt.journalCode);
-        newDt.accountCode = this.setValue(orderDt.accountCode);
-        newDt.journalName = this.setValue(orderDt.journalName);
-        newDt.orderSupplierCode = this.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName = this.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount = this.setValue(orderDt.orderPlanAmount);
+        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.journalCode = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.accountCode = this.baseCompnt.setValue(orderDt.accountCode);
+        newDt.journalName = this.baseCompnt.setValue(orderDt.journalName);
+        newDt.orderSupplierCode = this.baseCompnt.setValue(orderDt.orderSupplierCode);
+        newDt.orderSupplierName = this.baseCompnt.setValue(orderDt.orderSupplierName);
+        newDt.orderPlanAmount = this.baseCompnt.setValue(orderDt.orderPlanAmount);
         newDt.comment = '';
         newDt.orderSplitAmount = '';
         newDt.requestDate = '';
@@ -442,70 +442,57 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
       case 'SetFirstSplitData':
         newDt.tabIndex = tabName;
-        newDt.id = this.setValue(orderDt.journalCode);
-        newDt.journalCode = this.setValue(orderDt.journalCode);
-        newDt.accountCode = this.setValue(orderDt.accountCode);
-        newDt.journalName = this.setValue(orderDt.journalName);
-        newDt.orderSupplierCode = this.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName = this.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount = this.setValue(orderDt.orderPlanAmount);
-        newDt.comment = this.setValue(splitDt.comment);
-        newDt.orderSplitAmount = this.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate = this.setValue(splitDt.requestDate);
-        newDt.requester = this.setValue(splitDt.requester);
-        newDt.approvalDate_lv1 = this.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1 = this.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2 = this.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2 = this.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate = this.setValue(splitDt.orderDate);
-        newDt.orderAmount = this.setValue(splitDt.orderAmount);
-        newDt.receivedDate = this.setValue(splitDt.receivedDate);
-        newDt.receivedAmount = this.setValue(splitDt.receivedAmount);
-        newDt.paymentDate = this.setValue(splitDt.paymentDate);
-        newDt.paymentAmount = this.setValue(splitDt.paymentAmount);
+        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.journalCode = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.accountCode = this.baseCompnt.setValue(orderDt.accountCode);
+        newDt.journalName = this.baseCompnt.setValue(orderDt.journalName);
+        newDt.orderSupplierCode = this.baseCompnt.setValue(orderDt.orderSupplierCode);
+        newDt.orderSupplierName = this.baseCompnt.setValue(orderDt.orderSupplierName);
+        newDt.orderPlanAmount = this.baseCompnt.setValue(orderDt.orderPlanAmount);
+        newDt.comment = this.baseCompnt.setValue(splitDt.comment);
+        newDt.orderSplitAmount = this.baseCompnt.setValue(splitDt.orderSplitAmount);
+        newDt.requestDate = this.baseCompnt.setValue(splitDt.requestDate);
+        newDt.requester = this.baseCompnt.setValue(splitDt.requester);
+        newDt.approvalDate_lv1 = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
+        newDt.approvalPerson_lv1 = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
+        newDt.approvalDate_lv2 = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
+        newDt.approvalPerson_lv2 = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
+        newDt.orderDate = this.baseCompnt.setValue(splitDt.orderDate);
+        newDt.orderAmount = this.baseCompnt.setValue(splitDt.orderAmount);
+        newDt.receivedDate = this.baseCompnt.setValue(splitDt.receivedDate);
+        newDt.receivedAmount = this.baseCompnt.setValue(splitDt.receivedAmount);
+        newDt.paymentDate = this.baseCompnt.setValue(splitDt.paymentDate);
+        newDt.paymentAmount = this.baseCompnt.setValue(splitDt.paymentAmount);
         break;
 
       case 'SetNextSplitData':
         newDt.tabIndex = tabName;
-        newDt.id = this.setValue(orderDt.journalCode);
+        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
         newDt.journalCode = '';
         newDt.accountCode = '';
         newDt.journalName = '';
         newDt.orderSupplierCode = '';
         newDt.orderSupplierName = '';
         newDt.orderPlanAmount = '';
-        newDt.comment = this.setValue(splitDt.comment);
-        newDt.orderSplitAmount = this.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate = this.setValue(splitDt.requestDate);
-        newDt.requester = this.setValue(splitDt.requester);
-        newDt.approvalDate_lv1 = this.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1 = this.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2 = this.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2 = this.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate = this.setValue(splitDt.orderDate);
-        newDt.orderAmount = this.setValue(splitDt.orderAmount);
-        newDt.receivedDate = this.setValue(splitDt.receivedDate);
-        newDt.receivedAmount = this.setValue(splitDt.receivedAmount);
-        newDt.paymentDate = this.setValue(splitDt.paymentDate);
-        newDt.paymentAmount = this.setValue(splitDt.paymentAmount);
+        newDt.comment = this.baseCompnt.setValue(splitDt.comment);
+        newDt.orderSplitAmount = this.baseCompnt.setValue(splitDt.orderSplitAmount);
+        newDt.requestDate = this.baseCompnt.setValue(splitDt.requestDate);
+        newDt.requester = this.baseCompnt.setValue(splitDt.requester);
+        newDt.approvalDate_lv1 = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
+        newDt.approvalPerson_lv1 = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
+        newDt.approvalDate_lv2 = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
+        newDt.approvalPerson_lv2 = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
+        newDt.orderDate = this.baseCompnt.setValue(splitDt.orderDate);
+        newDt.orderAmount = this.baseCompnt.setValue(splitDt.orderAmount);
+        newDt.receivedDate = this.baseCompnt.setValue(splitDt.receivedDate);
+        newDt.receivedAmount = this.baseCompnt.setValue(splitDt.receivedAmount);
+        newDt.paymentDate = this.baseCompnt.setValue(splitDt.paymentDate);
+        newDt.paymentAmount = this.baseCompnt.setValue(splitDt.paymentAmount);
 
         break;
     }
     return newDt;
 
-  }
-
-  /**
-   * データがNULL時、
-   * 空白で返す
-   * @param dt 
-   */
-  setValue(dt: any){
-
-    if(dt != undefined || dt != null){
-      return dt;
-    }
-    return '';
   }
 
   /**
@@ -935,7 +922,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param $event イベント
    */
   commonFocus($event){
-    $event.target.value = this.commonComponent.removeCommas($event.target.value);
+    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
   }
   /**
    * blur処理
@@ -943,9 +930,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param $event イベント
    */
   commonBlur($event){
-    $event.target.value = this.commonComponent.addCommas($event.target.value);
+    $event.target.value = this.baseCompnt.addCommas($event.target.value);
   }
-
   /**
    * 追加した明細に自動スクロールする
    */
