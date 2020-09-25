@@ -136,14 +136,46 @@ export class OrderDetailApprovalComponent implements OnInit {
    * 契約番号from半角数字
    */
   toFromHalf(value: string){
-    this.inputment.contractNumFrom = value.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, String.fromCharCode(value.charCodeAt(0)-0xFEE0));
-  } 
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+        if(c.match(/[Ａ-Ｚａ-ｚ０-９！-～]/)){
+
+          c = String.fromCharCode(c.charCodeAt(0)-0xFEE0);
+        }
+        resultValue += c
+    }
+    this.inputment.contractNumFrom = resultValue;
+  }
 
   /** 
    * 契約番号to半角数字
    */
   toNumToHalf(value: string){
-    this.inputment.contractNumTo = value.replace(/[Ａ-Ｚａ-ｚ０-９！-～]/g, String.fromCharCode(value.charCodeAt(0)-0xFEE0));
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i=0; i< value.length; i++){
+
+      var c = "";
+      c = beforeTextArr[i];
+
+        if(c.match(/[Ａ-Ｚａ-ｚ０-９！-～]/)){
+
+          c = String.fromCharCode(c.charCodeAt(0)-0xFEE0);
+        }
+        resultValue += c
+    }
+    this.inputment.contractNumTo = resultValue;
+
   } 
 
   /** 
@@ -198,9 +230,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     ,'パ','ピ','プ','ペ','ポ'
     );
 
-    //this.resultValue = value.replace(/[A-Za-z0-9!-~]/g,String.fromCharCode(value.charCodeAt(0)+0xFEE0));
-    //console.log(this.resultValue);
-
     for (var i=0; i< value.length; i++){
 
       var c = "";
@@ -212,7 +241,10 @@ export class OrderDetailApprovalComponent implements OnInit {
               c = txt[j].toString();
             } 
           }
+        }else if(c.match(/[A-Z a-z 0-9 !-~]/)){
+          c = String.fromCharCode(c.charCodeAt(0)+0xFEE0);
         }
+        else{}
       resultValue += c
     }
     this.inputment.propertyName = resultValue;
