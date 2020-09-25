@@ -84,6 +84,7 @@ export class OrderDetailApprovalComponent implements OnInit {
    * 検索処理
    */
   getSearchRequest() {
+
     if (this.checkInput(this.inputment)) {
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
@@ -122,7 +123,17 @@ export class OrderDetailApprovalComponent implements OnInit {
    * 入力検証
    */
   checkInput(input: ODIS0010Form): boolean {
-    return true;
+
+    var NumFrom = Number(input.contractNumFrom);
+    var NumTo = Number(input.contractNumTo);
+
+      if(NumFrom >= NumTo){
+        alert(Const.ErrorMsg.E0001);
+        return false;
+      }
+      //alert("OK");
+      return true;
+
   }
 
   /** 
