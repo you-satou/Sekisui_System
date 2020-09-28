@@ -13,27 +13,32 @@
             </ng-container>
 
             <ng-container matColumnDef="journalName">
-                <th style="width: 153px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
-                <td style="width: 153px; padding: 0 5px;" class="tdLeft" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
+                <th style="width: 180px;" class="color-input-1" mat-header-cell *matHeaderCellDef>仕訳名称</th>
+                <td style="width: 180px; padding: 0 5px;" class="tdLeft" mat-cell *matCellDef="let element"> {{element.journalName}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierCode">
-                <th colspan="2" style="width: 155px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
-                <td style="width: 35px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSupplierCode}} </td>
+                <th colspan="2" style="width: 220px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注先</th>
+                <td style="width: 40px; padding: 0 5px;" class="tdCenter" mat-cell *matCellDef="let element"> {{element.orderSupplierCode}} </td>
             </ng-container>
 
             <ng-container matColumnDef="orderSupplierName">
                 <th style="width: 0px;" mat-header-cell *matHeaderCellDef [ngStyle]="{'display': 'none'}"></th>
-                <td style="width: 120px;" class="tdLeft" mat-cell *matCellDef="let element">{{element.orderSupplierName}}</td>
+                <td style="width: 180px;" class="tdLeft" mat-cell *matCellDef="let element">{{element.orderSupplierName}}</td>
             </ng-container>
 
             <ng-container matColumnDef="orderPlanAmount">
                 <th style="width: 100px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額</th>
-                <td class="tdRight" mat-cell *matCellDef="let element"> {{element.orderPlanAmount | number}} </td>
+                <td id="orderAmount" class="tdRight" mat-cell *matCellDef="let element"> {{element.orderPlanAmount | number}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalSplitAmount">
+                <th style="width: 100px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>分割合計</th>
+                <td class="tdRight" mat-cell *matCellDef="let element">{{totalSplitAmount | number}}</td>
             </ng-container>
 
             <ng-container matColumnDef="amountDifference">
-                <th style="width: 100px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>金額差</th>
+                <th style="width: 100px; padding: 0 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>差額</th>
                 <td class="tdRight" mat-cell *matCellDef="let element">{{amountDeference | number}}</td>
             </ng-container>
 

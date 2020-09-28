@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ApiResponseBody } from './ApiResponseBody'
 
 @Injectable()
 export class CommonService{
@@ -46,7 +47,7 @@ export class CommonService{
     }
 
     // POST通信。
-    getSearchRequest(urlName: string, data: any): Promise<any[]>{
+    getSearchRequest(urlName: string, data: any): Promise<ApiResponseBody<any>>{
         return this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
         .toPromise()
         .then((res) => {

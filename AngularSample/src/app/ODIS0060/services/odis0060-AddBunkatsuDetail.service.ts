@@ -21,6 +21,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
     bunkatsu: ODIS0060OrderDetailBunkatsu;
 
+    /**未入力の場合、「True」を返却する */
     get isBlank(): boolean {
         if (this.orderSplitAmount != '' ||
             this.comment != '' ||
@@ -31,7 +32,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         }
         return true;
     }
-
+    /**発注金額がないとき「True」を返却する */
     get amountIsBlank(): boolean {
         if (this.orderSplitAmount != '') {
             return false;
@@ -91,8 +92,6 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     getInput(output: ODIS0060OrderDetailBunkatsu, action: string): ODIS0060OrderDetailBunkatsu{
         output.orderSplitAmount = this.removeCommas(this.orderSplitAmount);
         output.comment = this.setValue(this.comment);
-
-
         switch(action){
             case Const.Action.A0001:
                 output.requestDate = this.setValue(this.requestDate);

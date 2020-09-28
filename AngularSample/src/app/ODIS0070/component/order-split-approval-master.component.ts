@@ -34,10 +34,10 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   // パラメータ
   param = new ODIS0070Form();
 
-  //発注分割承認者マスタのインターフェース
+  //発注承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
-  //発注分割承認者マスタテーブルのカラム
+  //発注承認者マスタテーブルのカラム
   orderApprovalColumns: string[] = [
     'personalID',
     'employeeCode',
@@ -73,9 +73,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
-    this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0007);
-    // this.getOrderSplitApproval();
-    this.getOrderInputData();
+    this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
+    this.getOrderSplitApproval();
+    //this.getOrderInputData();
   }
 
   /**
@@ -101,7 +101,10 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.param)
       .then(
         (response) => {
-          this.orderApprovalData = response;
+
+          if(response.result === "OK"){
+            this.orderApprovalData = response.applicationData;
+          }else{}
         }
       );
 

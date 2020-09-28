@@ -10,7 +10,7 @@ export namespace Const{
         export const S0004 = '発注仕訳マスタ選択';
         export const S0005 = '発注先マスタ選択';
         export const S0006 = '発注明細入力_分割明細入力';
-        export const S0007 = '発注分割承認者マスタ';
+        export const S0007 = '発注承認者マスタ';
 
         export const S0001EN = 'OrderDetailApproval';
         export const S0002EN = 'OrderDetailInput';
@@ -31,7 +31,7 @@ export namespace Const{
         export const L0004 = '<a href="/OrderJournalSelect>"発注仕訳マスタ選択<a> >';
         export const L0005 = '<a href="/OrderSupplierSelect>"発注先マスタ選択<a> >';
         export const L0006 = '<a href="/SplitDetailInput>"発注明細入力_分割明細入力<a> >';
-        export const L0007 = '<a href="/OrderSplitApprovalMaster>"発注分割承認者マスタ<a> >';
+        export const L0007 = '<a href="/OrderSplitApprovalMaster>"発注承認者マスタ<a> >';
     }
 
     /** リンクの定義 */
@@ -68,7 +68,7 @@ export namespace Const{
         /** 発注明細入力_分割明細入力 */
         export const U0006 = '/SplitDetailInput';
 
-        /** 発注分割承認者マスタ */
+        /** 発注承認者マスタ */
         export const U0007 = '/OrderSplitApprovalMaster';
 
     }

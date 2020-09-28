@@ -155,9 +155,12 @@ export class SupplierPatternComponent implements OnInit {
      // 発注仕訳マスタ取得
      this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
        .then(
-         (response) => {
-           this.datas = response;
-         }
-       );
+        (response) => {
+
+          if(response.result === "OK"){
+            this.datas = response.applicationData;
+          }else{}
+        }
+      );
   }
 }

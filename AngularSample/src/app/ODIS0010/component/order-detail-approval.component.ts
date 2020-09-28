@@ -1,12 +1,12 @@
-import { Component, HostListener, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation,ViewChild,QueryList,ViewContainerRef } from "@angular/core";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
+import { OrderDetailApprovalTable } from 'app/ODIS0010/component/data-table/oder-detail-approval-table';
 import { CommonService } from "app/common/common.service";
 import { CommonComponent } from "app/common/common.component";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
 import { Router } from '@angular/router';
-import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/typings/scroll/scroll-strategy';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -30,6 +30,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
   
+  @ViewChild(OrderDetailApprovalTable,{static:true}) private orderDetailApprovalTable: OrderDetailApprovalTable;
   
   constructor(
     private appComponent: AppComponent,
@@ -49,7 +50,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     // Search ボタンの位置を設定する
     this.screenSize = window.innerWidth;
     this.pixel = this.screenSize  - 408;
-    
+
+    this.orderDetailApprovalTable.sort.disabled = true;
+
   }
 
   onCloseClick(){
@@ -86,25 +89,28 @@ export class OrderDetailApprovalComponent implements OnInit {
   getSearchRequest() {
 
     if (this.checkInput(this.inputment)) {
+
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.inputment.officeCode = '701000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
-
+    
     // 発注明細入力_承認処理取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
       .then(
         (response) => {
 
-          if(response.length == 1){
-            console.log(response.length);
+          if(response.result === "OK"){
+            this.orderDetailData = response.applicationData;
+          }else{
+            alert(response.message);
           }
-          this.orderDetailData = response;
         }
       );
     }
+    this.orderDetailApprovalTable.sort.disabled = false;
   }
 
   /**
@@ -124,16 +130,17 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   checkInput(input: ODIS0010Form): boolean {
 
-    var NumFrom = Number(input.contractNumFrom);
-    var NumTo = Number(input.contractNumTo);
+    if(!(input.contractNumFrom == "") && !(input.contractNumTo == "")){
 
-      if(NumFrom >= NumTo){
-        alert(Const.ErrorMsg.E0001);
-        return false;
-      }
-      //alert("OK");
-      return true;
-
+      var NumFrom = Number(input.contractNumFrom);
+      var NumTo = Number(input.contractNumTo);
+  
+        if(NumFrom >= NumTo){
+          alert(Const.ErrorMsg.E0001);
+          return false;
+        }
+    }
+    return true;
   }
 
   /** 
@@ -155,7 +162,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 契約番号From　入力値チェック 
+   * 契約番号To　入力値チェック 
    */
   onKeyUpNumTo(value:string){
 

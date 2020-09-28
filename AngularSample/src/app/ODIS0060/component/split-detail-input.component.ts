@@ -160,6 +160,7 @@ export class SplitOrderDetailComponent implements OnInit {
       dt[0].paymentDate == '' &&
       dt[0].paymentAmount == '') {
 
+      // 分割明細テーブルのBodyを取得する
       let skBody:any = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
       skBody.rows[0].remove();
       return;
@@ -215,7 +216,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * 金額差
    */
   getAmountDeference(){
-    return  Number(this.totalAmount()) - Number(this.shiwakeData[0].orderPlanAmount);
+    return Number(this.shiwakeData[0].orderPlanAmount) - Number(this.totalAmount());
   }
 
   /**

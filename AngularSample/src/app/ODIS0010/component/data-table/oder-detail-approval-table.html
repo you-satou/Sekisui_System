@@ -7,7 +7,7 @@
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
-            <th style="width: 10%;" class="color-approval-1 keiyaku-bango" mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
+            <th style="width: 10%;" class="color-approval-1 keiyaku-bango" #keiyakuBango mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
             <td style="width: 10%; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.contractNum}} </td>
         </ng-container>
         <ng-container matColumnDef="propertyName">
