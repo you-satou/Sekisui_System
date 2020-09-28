@@ -88,7 +88,7 @@ export class RowStatus {
 
   /** */
   get isFirstDetail(){
-    if(this.current == 1){
+    if(this.detailLength > 1 && this.current == 1){
 
       return true;
     }

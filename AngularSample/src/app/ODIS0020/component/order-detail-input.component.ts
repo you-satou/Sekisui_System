@@ -802,23 +802,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var confirm = window.confirm(Const.WarningMsg.W0001);
 
     if (!confirm) { return; };
-    let keyIndex = this.rowStatus.keyIndex;
-    let valueIndex = this.rowStatus.rowIndex;
+    let rIndex = this.rowStatus.rowIndex;
     if (!this.rowStatus.isFirstDetail) {
       switch (this.selectedTab) {
         case this.tabNo1:
-          this.childSekkei.orderData.splice(valueIndex, 1);
+          this.childSekkei.orderData.splice(rIndex, 1);
           this.childSekkei.tableShiwake.renderRows();
           break;
         case this.tabNo2:
-          this.childHontai.orderData.splice(valueIndex, 1);
+          this.childHontai.orderData.splice(rIndex, 1);
           this.childHontai.tableShiwake.renderRows();
           break;
         case this.tabNo3:
-          this.childTsuika.orderData.splice(valueIndex, 1);
+          this.childTsuika.orderData.splice(rIndex, 1);
           this.childTsuika.tableShiwake.renderRows();
           break;
       }
+    }
+    else{
+      
     }
 
     this.addInput.Clear();
