@@ -102,10 +102,11 @@ export class OrderDetailApprovalComponent implements OnInit {
       .then(
         (response) => {
 
-          if(response == undefined){
-            console.log(response.length);
+          if(response.result === "OK"){
+            this.orderDetailData = response.applicationData;
+          }else{
+            alert(response.message);
           }
-          this.orderDetailData = response;
         }
       );
     }
