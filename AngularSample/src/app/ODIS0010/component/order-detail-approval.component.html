@@ -4,22 +4,22 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false" autofocus>
+            <input [(ngModel)]="inputment.contractNumFrom" tabindex="1" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false" autofocus>
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumTo" style = "ime-mode:disabled" id="contractNumTo" type="text" maxlength='11' #contractNumTo (keyup)="onKeyUpNumTo(contractNumTo.value)" onpaste="return false" oncontextmenu="return false">
+            <input [(ngModel)]="inputment.contractNumTo" tabindex="2" style = "ime-mode:disabled" id="contractNumTo" type="text" maxlength='11' #contractNumTo (keyup)="onKeyUpNumTo(contractNumTo.value)" onpaste="return false" oncontextmenu="return false">
         </div>
 
         <div class="input-group row" style="height: 30px;">
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
-            <input [(ngModel)]="inputment.propertyName" style = "ime-mode:active" id="propertyName" type="text"  maxlength='20' #propertyName (blur)="toZenkaku(propertyName.value)" onpaste="return false" oncontextmenu="return false">
+            <input [(ngModel)]="inputment.propertyName" tabindex="3" style = "ime-mode:active" id="propertyName" type="text"  maxlength='20' #propertyName (blur)="toZenkaku(propertyName.value)" onpaste="return false" oncontextmenu="return false">
             <div style="width: 30px;"></div>
             <div class="input-group-append radio-container ">
                 <p class="radioCheckbok">
-                    <input [value]="true" [(ngModel)] ="inputment._checked" type="radio" name="options" id="startFromName" autocomplete="off">で始まる</p>
+                    <input [value]="true" [(ngModel)] ="inputment._checked" type="radio" tabindex="4" name="options" id="startFromName" autocomplete="off">で始まる</p>
                 <div style="width: 20px;"></div>
                 <p class="radioCheckbok">
                     <input [value]="false" [(ngModel)] ="inputment._checked
@@ -32,9 +32,9 @@
             </div>
             <div style="width: 50px; "></div>
             <div class="input-group-append">
-                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailNone" type="checkbox" id="detailNone" autocomplete="off">明細作成なし</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailNone" type="checkbox" tabindex="5" id="detailNone" autocomplete="off">明細作成なし</p>
                 <div style="width: 20px; "></div>
-                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailCreated" type="checkbox" id="detailCreated" autocomplete="off">明細作成あり</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.detailCreated" type="checkbox" tabindex="6" id="detailCreated" autocomplete="off">明細作成あり</p>
             </div>
         </div>
         <div id = "btnSearch" class="input-group row" style="height: 30px;">
@@ -43,12 +43,12 @@
             </div>
             <div style="width: 50px;"></div>
             <div class="input-group-append">
-                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" id="" autocomplete="off">承認１</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id="" autocomplete="off">承認１</p>
                 <div style="width: 20px; "></div>
-                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" id="" autocomplete="off">承認２</p>
+                <p class="radioCheckbok"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id="" autocomplete="off">承認２</p>
             </div>
             <div [style.width.px]="pixel">
-                <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" (click)="getSearchRequest()">検索</button>
+                <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" tabindex="9" (click)="getSearchRequest()">検索</button>
             </div>
         </div>
     </section>
