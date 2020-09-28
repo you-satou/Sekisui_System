@@ -2,7 +2,7 @@
     <mat-tab-group>
         <mat-tab label="{{tabName}}">
             <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference] = "getAmountDeference()" [totalSplitAmount] = "totalAmount()"></split-detail-table>
-            <div class="mat-elevation-z8" style="margin: 20px 0;">
+            <div class="bunkatsu-table-responsive" style="margin: 20px 0;">
                 <table mat-table [dataSource]="bunkatsuData"
                     class="bunkatsu-table table table-hover table-sm table-bordered" id="bunkatsuTable">
                     
