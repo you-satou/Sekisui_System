@@ -798,10 +798,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if (!this.rowStatus.isSelected) {
       return;
     }
-    // Display confirm box
     var confirm = window.confirm(Const.WarningMsg.W0001);
 
     if (!confirm) { return; };
+    
     let rIndex = this.rowStatus.rowIndex;
     if (!this.rowStatus.isFirstDetail) {
       switch (this.selectedTab) {
@@ -820,12 +820,42 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     }
     else{
-      
+      switch (this.selectedTab) {
+        case this.tabNo1:
+          this.deleteProcess(this.childSekkei.orderData);
+          this.childSekkei.tableShiwake.renderRows();
+          break;
+        case this.tabNo2:
+          this.deleteProcess(this.childHontai.orderData);
+          this.childHontai.tableShiwake.renderRows();
+          break;
+        case this.tabNo3:
+          this.deleteProcess(this.childTsuika.orderData);
+          this.childTsuika.tableShiwake.renderRows();
+          break;
+      }
     }
 
+    // 初期化する
     this.addInput.Clear();
     this.rowStatus.Reset();
 
+  }
+
+  deleteProcess(dt: ODIS0020OrderShiwake[]){
+
+    let rIndex =  this.rowStatus.rowIndex;
+
+    // 次の行のデータを設定する。
+    dt[rIndex + 1].journalCode = dt[rIndex].journalCode;
+    dt[rIndex + 1].accountCode = dt[rIndex].accountCode;
+    dt[rIndex + 1].journalName = dt[rIndex].journalName;
+    dt[rIndex + 1].orderSupplierCode = dt[rIndex].orderSupplierCode;
+    dt[rIndex + 1].orderSupplierName = dt[rIndex].orderSupplierName;
+    dt[rIndex + 1].orderPlanAmount = dt[rIndex].orderPlanAmount;
+
+    //先頭のデータを削除する。
+    dt.splice(rIndex, 1);
   }
   /**
    * タブを変わった時、デフォルト値を変える。
@@ -924,6 +954,27 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   setAutoScroll() {
 
     return true;
+  }
+
+  finalUpdateProgress(){
+
+
+    //サーバに更新データを送る。
+
+    console.log(this.childSekkei.orderData);
+    console.log(this.childHontai.orderData);
+    console.log(this.childTsuika.orderData);
+
+
+
+
+    //セックションを削除する。
+    // sessionStorage.removeItem(Const.ScreenName.S0002EN);
+
+    // this.router.navigate(['/OrderDetailApproval']);
+
+
+
   }
 
 }

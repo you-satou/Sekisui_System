@@ -90,6 +90,8 @@ export class SplitOrderDetailComponent implements OnInit {
   //明細追加テーブルのボタンの初期表示
   btnSubIrai: any;
 
+  fixed:number = 500;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -132,6 +134,8 @@ export class SplitOrderDetailComponent implements OnInit {
     this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
     
+    // let width = document.querySelector('.bunkatsu-table-responsive').clientWidth;
+    // this.fixed = width + 20;
   }
 
    /**

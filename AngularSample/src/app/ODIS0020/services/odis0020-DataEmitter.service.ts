@@ -98,7 +98,7 @@ export class RowStatus {
   get isSelected(): boolean{
 
     if(this.keyIndex >= 0 &&
-      this.rowIndex >= 0){
+      this.rowIndex >= 0 && this.rowIndex != null){
         return true;
     }
     return false;

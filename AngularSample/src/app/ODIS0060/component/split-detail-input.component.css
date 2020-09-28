@@ -218,9 +218,11 @@ input.splitAmount{
 /*************************************************************/
 .bunkatsu-table-responsive {
     display: block;
-    overflow-x: auto;
-    overflow-y: auto;
+    /* overflow-x: auto; */
+    /* overflow-y: auto; */
+    overflow: auto;
     max-height: 301px;
+    width: fit-content;
 }
 
 /*************************************************************/
