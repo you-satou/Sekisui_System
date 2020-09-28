@@ -55,14 +55,14 @@
                     </ng-container>
                     <!-- Body 依頼日 -->
                     <ng-container matColumnDef="requestDate">
-                        <th style=" padding: 0 5px" class="color-input-1" mat-header-cell *matHeaderCellDef>依頼日</th>
+                        <th style=" padding: 0 5px" class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.requestDate}} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 依頼者 -->
                     <ng-container matColumnDef="requester">
-                        <th class="color-input-1" mat-header-cell *matHeaderCellDef>依頼者</th>
+                        <th class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼者</th>
                         <td style="width: 100px; text-align: center;" mat-cell *matCellDef="let element; let i = index">
                             {{element.requester}}
                             <button (click)="mainTableRequest($event,element)" mat-button id="btnIrai{{i}}"
@@ -79,14 +79,14 @@
                     </ng-container>
                     <!-- Body 承認日１ -->
                     <ng-container matColumnDef="approvalDate_lv1">
-                        <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                        <th class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalDate_lv1}} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 承認者２ -->
                     <ng-container matColumnDef="approvalPerson_lv1">
-                        <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認者</th>
+                        <th class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
                         <td style="width: 100px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalPerson_lv1}} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef></td> -->
@@ -100,14 +100,14 @@
                     </ng-container>
                     <!-- Body 承認日２ -->
                     <ng-container matColumnDef="approvalDate_lv2">
-                        <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
+                        <th class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalDate_lv2}} </td>
                         <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 承認者２ -->
                     <ng-container matColumnDef="approvalPerson_lv2">
-                        <th class="color-input-4" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>承認者
+                        <th class="color-input-4 sticky" style="padding: 0 5px" mat-header-cell *matHeaderCellDef>承認者
                         </th>
                         <td style="width: 100px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalPerson_lv2}} </td>
@@ -177,10 +177,10 @@
                         <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
-                    <tr class="tableHeader" style="height: 30px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
+                    <tr style="height: 30px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
 
-                    <tr class="tableHeader" style="height: 30px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName">
-                    </tr>
+                    <tr style="height: 30px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+                  
                     <!-- <tr mat-footer-row *matFooterRowDef="totalColumns"></tr> -->
                     <tr mat-row *matRowDef="let row; columns: totalColumns;" (click)=selectRow($event,row)></tr>
                 </table>
