@@ -95,7 +95,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
 
-    this.param.officeCode = '70100';
+    this.param.officeCode = '701000';
 
     // 発注明細入力_承認処理取得
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.param)
