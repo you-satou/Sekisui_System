@@ -6,7 +6,6 @@ import { CommonComponent } from "app/common/common.component";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
 import { Router } from '@angular/router';
-import { getMatScrollStrategyAlreadyAttachedError } from '@angular/cdk/overlay/typings/scroll/scroll-strategy';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -98,7 +97,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       .then(
         (response) => {
 
-          if(response.length == 1){
+          if(response == undefined){
             console.log(response.length);
           }
           this.orderDetailData = response;
@@ -124,16 +123,19 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   checkInput(input: ODIS0010Form): boolean {
 
-    var NumFrom = Number(input.contractNumFrom);
-    var NumTo = Number(input.contractNumTo);
+    if(!(input.contractNumFrom == "") && !(input.contractNumTo == "")){
 
-      if(NumFrom >= NumTo){
-        alert(Const.ErrorMsg.E0001);
-        return false;
-      }
-      //alert("OK");
-      return true;
+      var NumFrom = Number(input.contractNumFrom);
+      var NumTo = Number(input.contractNumTo);
+  
+        if(NumFrom >= NumTo){
+          alert(Const.ErrorMsg.E0001);
+          return false;
+        }
+        //alert("OK");
+        return true;
 
+    }
   }
 
   /** 
@@ -155,7 +157,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 契約番号From　入力値チェック 
+   * 契約番号To　入力値チェック 
    */
   onKeyUpNumTo(value:string){
 
