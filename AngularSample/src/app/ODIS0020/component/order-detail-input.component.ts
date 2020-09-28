@@ -62,7 +62,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblMainOrder: ODIS0020MainOrderEdaBan[];
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
 
-  // 明細テーブルにデータを渡す引数
+  // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderShiwake[] = [];
   tblHontai: ODIS0020OrderShiwake[] = [];
   tblTsuika: ODIS0020OrderShiwake[] = [];
@@ -585,7 +585,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.childSekkei.tableShiwake.renderRows();
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
-        this.setNewRowHighLight(Const.Action.A0001, skBody, insertIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0001, skBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
@@ -596,7 +596,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
         this.childHontai.tableShiwake.renderRows();
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
-        this.setNewRowHighLight(Const.Action.A0001, hntBody, insertIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0001, hntBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
@@ -607,7 +607,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.childTsuika.tableShiwake.renderRows();
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
-        this.setNewRowHighLight(Const.Action.A0001, tsuikaBody, insertIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0001, tsuikaBody, insertIndex);
         this.setAutoScroll();
         this.addInput.Clear();
         break;
@@ -639,27 +639,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     switch (this.selectedTab) {
       case this.tabNo1:
         let dataSekkei = this.childSekkei.orderData;
-
         this.insertProcess(insertBucket,dataSekkei);
-
         this.childSekkei.tableShiwake.renderRows();
-        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo2:
         let dataHontai = this.childHontai.orderData;
-
         this.insertProcess(insertBucket,dataHontai);
-
         this.childHontai.tableShiwake.renderRows();
-        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo3:
         let dataTsuika = this.childTsuika.orderData;
-
         this.insertProcess(insertBucket,dataTsuika);
-
         this.childTsuika.tableShiwake.renderRows();
         break;
     }
@@ -715,7 +707,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childSekkei.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let sekkeiBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0002, sekkeiBody, i);
+        this.baseCompnt.setRowColor(Const.Action.A0002, sekkeiBody, i);
 
         this.childSekkei.tableShiwake.renderRows();
         this.addInput.Clear();
@@ -729,7 +721,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childHontai.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let hontaiBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0002, hontaiBody, i);
+        this.baseCompnt.setRowColor(Const.Action.A0002, hontaiBody, i);
 
         this.childHontai.tableShiwake.renderRows();
         this.addInput.Clear();
@@ -743,7 +735,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.orderData[i].orderPlanAmount = this.addInput.orderPlanAmount;
 
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.A0002, tsuikaBody, i);
+        this.baseCompnt.setRowColor(Const.Action.A0002, tsuikaBody, i);
 
         this.childTsuika.tableShiwake.renderRows();
         this.addInput.Clear();
@@ -760,7 +752,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo1:
         let skIndex = this.rowStatus.rowIndex;
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.T0003, skBody, skIndex);
+        this.baseCompnt.setRowColor(Const.Action.T0003, skBody, skIndex);
         this.addInput.Clear();
         this.rowStatus.Reset();
         break;
@@ -768,7 +760,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo2:
         let hntIndex = this.rowStatus.rowIndex;
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.T0003, hntBody, hntIndex);
+        this.baseCompnt.setRowColor(Const.Action.T0003, hntBody, hntIndex);
         this.addInput.Clear();
         this.rowStatus.Reset();
         break;
@@ -776,7 +768,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo3:
         let tskIndex = this.rowStatus.rowIndex;
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.setNewRowHighLight(Const.Action.T0003, tsuikaBody, tskIndex);
+        this.baseCompnt.setRowColor(Const.Action.T0003, tsuikaBody, tskIndex);
         this.addInput.Clear();
         this.rowStatus.Reset();
         break;
@@ -813,51 +805,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
   }
-
-  /**
- * 行の背景色 変更する
- * @param body 
- * @param newIndex 
- */
-  setNewRowHighLight(action: string, body: any, newIndex: number) {
-
-    if (!action.match(Const.Action.T0003)) {
-      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-        if (rIndex == newIndex) {
-          var tr = body.rows[rIndex];
-          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-            var td = tr.cells[cIndex];
-            td.style.color = this.getColor(action);
-          }
-        }
-      }
-    }
-    else {
-      for (var rIndex = 0; rIndex < body.rows.length; rIndex++) {
-        if (rIndex == newIndex) {
-          var tr = body.rows[rIndex];
-          for (var cIndex = 0; cIndex < tr.cells.length; cIndex++) {
-            var td = tr.cells[cIndex];
-            td.style.backgroundColor = this.getColor(action);
-          }
-        }
-      }
-    }
-    this.rowStatus.Reset();
-  }
-
-  getColor(action: string): string {
-
-    switch (action) {
-      case Const.Action.A0001:
-        return Const.HighLightColour.Inserted;
-      case Const.Action.A0002:
-        return Const.HighLightColour.Modified;
-      case Const.Action.T0003:
-        return Const.HighLightColour.None;
-    }
-
-  }
   /**
    * タブを変わった時、デフォルト値を変える。
    * @param event 
@@ -872,11 +819,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param emitterData 
    */
   getEmitter(emitterData: DataEmitter) {
-
-    // if (!emitterData.action.match(Const.Action.T0001)) {
-    //   this.rowStatus.Reset();
-    //   return;
-    // }
 
     switch(emitterData.action){
 
@@ -904,6 +846,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         pageData.HontaiData = this.childHontai.orderData;
         pageData.TsuikaData = this.childTsuika.orderData;
 
+        //　一時データを保持する。
         if(sessionStorage.getItem(Const.ScreenName.S0002EN) != null){
           sessionStorage.removeItem(Const.ScreenName.S0002EN);
         }

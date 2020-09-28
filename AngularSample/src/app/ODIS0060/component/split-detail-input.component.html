@@ -1,7 +1,7 @@
 <div>
     <mat-tab-group>
         <mat-tab label="{{tabName}}">
-            <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference] = "getAmountDeference()"></split-detail-table>
+            <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference] = "getAmountDeference()" [totalSplitAmount] = "totalAmount()"></split-detail-table>
             <div class="mat-elevation-z8" style="margin: 20px 0;">
                 <table mat-table [dataSource]="bunkatsuData"
                     class="bunkatsu-table table table-hover table-sm table-bordered" id="bunkatsuTable">
@@ -16,7 +16,7 @@
                         <th style="padding: 0;" class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 50px; padding: 0 5px" class="tdRight" mat-cell *matCellDef="let element">
                             {{bunkatsuData.indexOf(element) + 1}} </td>
-                        <td mat-footer-cell *matFooterCellDef class="goukie" style="width: 1%;">合計</td>
+                        <!-- <td mat-footer-cell *matFooterCellDef class="goukie" style="width: 1%;">合計</td> -->
                     </ng-container>
 
 
@@ -31,7 +31,7 @@
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
                             {{element.orderSplitAmount | number}} </td>
-                        <td mat-footer-cell *matFooterCellDef class="tdRight">{{totalAmount()|number}}</td>
+                        <!-- <td mat-footer-cell *matFooterCellDef class="tdRight">{{totalAmount()|number}}</td> -->
                     </ng-container>
 
 
@@ -45,7 +45,7 @@
                         <th style="width: 190px !important; " class="comment" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 190px !important; " class="tdLeft comment" mat-cell *matCellDef="let element">
                             {{element.comment}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
                     <!--Header 依頼 -->
@@ -58,7 +58,7 @@
                         <th style=" padding: 0 5px" class="color-input-1" mat-header-cell *matHeaderCellDef>依頼日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.requestDate}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 依頼者 -->
                     <ng-container matColumnDef="requester">
@@ -68,7 +68,7 @@
                             <button (click)="mainTableRequest($event,element)" mat-button id="btnIrai{{i}}"
                                 class="btn btn-outline-primary">依頼</button>
                         </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
 
@@ -82,14 +82,14 @@
                         <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalDate_lv1}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 承認者２ -->
                     <ng-container matColumnDef="approvalPerson_lv1">
                         <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認者</th>
                         <td style="width: 100px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalPerson_lv1}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
 
@@ -103,7 +103,7 @@
                         <th class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalDate_lv2}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 承認者２ -->
                     <ng-container matColumnDef="approvalPerson_lv2">
@@ -111,7 +111,7 @@
                         </th>
                         <td style="width: 100px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.approvalPerson_lv2}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
 
@@ -125,14 +125,14 @@
                         <th style="width: 75px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.orderDate}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 発注金額 -->
                     <ng-container matColumnDef="orderAmount">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
                             {{element.orderAmount | number}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
 
@@ -146,14 +146,14 @@
                         <th style="width: 75px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.receivedDate}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 受入金額 -->
                     <ng-container matColumnDef="receivedAmount">
                         <th style="width: 100px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px; " class="tdRight" mat-cell *matCellDef="let element">
                             {{element.receivedAmount | number}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
 
@@ -167,21 +167,21 @@
                         <th style="width: 75px; " class="" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 75px; " class="tdCenter" mat-cell *matCellDef="let element">
                             {{element.paymentDate}}</td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
                     <!-- Body 支払金額 -->
                     <ng-container matColumnDef="paymentAmount">
                         <th style="width: 100px;" mat-header-cell *matHeaderCellDef></th>
                         <td style="width: 100px;" class="tdRight" mat-cell *matCellDef="let element">
                             {{element.paymentAmount | number}} </td>
-                        <td mat-footer-cell *matFooterCellDef></td>
+                        <!-- <td mat-footer-cell *matFooterCellDef></td> -->
                     </ng-container>
 
                     <tr class="tableHeader" style="height: 30px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
 
                     <tr class="tableHeader" style="height: 30px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName">
                     </tr>
-                    <tr mat-footer-row *matFooterRowDef="totalColumns"></tr>
+                    <!-- <tr mat-footer-row *matFooterRowDef="totalColumns"></tr> -->
                     <tr mat-row *matRowDef="let row; columns: totalColumns;" (click)=selectRow($event,row)></tr>
                 </table>
             </div>
