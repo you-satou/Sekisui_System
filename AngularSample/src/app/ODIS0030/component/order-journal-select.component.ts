@@ -160,12 +160,16 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
       .then(
         (response) => {
-         this.datas = response;
-         if(!(this.selectVal == undefined || this.selectVal == null)){
-          this.onScroll(this.datas,this.selectVal);
-         }
-        }
-     );
+
+          if(response.result === "OK"){
+          this.datas = response.applicationData;
+            if(!(this.selectVal == undefined || this.selectVal == null)){
+              this.onScroll(this.datas,this.selectVal);
+            }
+
+          }else{}
+      }
+    );
   }
 
   onScroll(datas:OrderJournalSelectType[],selectVal:any){

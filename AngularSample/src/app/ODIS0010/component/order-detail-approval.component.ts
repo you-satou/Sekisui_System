@@ -110,7 +110,6 @@ export class OrderDetailApprovalComponent implements OnInit {
         }
       );
     }
-
     this.orderDetailApprovalTable.sort.disabled = false;
   }
 
