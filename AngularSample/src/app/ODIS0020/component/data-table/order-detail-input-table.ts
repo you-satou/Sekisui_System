@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
-import { DataEmitter } from "../../entities/odis0020-DataEmitter.entity";
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef } from "@angular/core";
+import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef, HostBinding } from "@angular/core";
 import { MatTable } from "@angular/material";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
@@ -92,9 +92,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     private datePipe: DatePipe,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {  }
 
-  }
 
   /**
    * 発注予定金額の合計
@@ -188,9 +187,6 @@ export class OrderDetailShiwakeTable implements OnInit {
    */
   getDisplayData($event, data: ODIS0020OrderShiwake) {
 
-    // let rowIndx = this.orderData.indexOf(data);
-    // this.setRowHighlight(rowIndx);
-
     if (data.orderPlanAmount == '' ||
       data.orderPlanAmount == null ||
       data.orderPlanAmount == undefined
@@ -198,6 +194,13 @@ export class OrderDetailShiwakeTable implements OnInit {
       return;
     }
     data.orderSplitAmount = data.orderPlanAmount;
+    let name: string;
+    let txt: HTMLElement;
+    name = "txtPlanAmount" + this.orderData.indexOf(data);
+    txt = document.getElementById(name);
+    if(txt.style.color == 'red'){
+      txt.style.color = 'black';  
+    }
 
   }
   /**
@@ -263,24 +266,38 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 選択された行の背景色を変える。
    * @param $event
    */
-  onSelectHighLight($event, data: ODIS0020OrderShiwake) {
-
+  onSelectHighLight($event, value: ODIS0020OrderShiwake) {
     this.comCompnt.CommonOnSelHight($event);
 
-    // パラメータを設定。
-    let rowIndex = this.orderData.indexOf(data);
-    this.dataEmitter.id = rowIndex;
+    //テーブルに選択されたデータをまとめる
+    let filter = this.orderData.filter(element =>{
+      if(element.id == value.id){
+        return element;
+      }
+    })
+
+    //先頭データのインデックスを取得する
+    let keyIndex = this.orderData.indexOf(filter[0]);
+    // 選択されたデータのインデックス
+    let rIndex: number = this.orderData.indexOf(value);
+    //明細件数を取得
+    let totalLength: number = filter.length;
+    //総明細に対して、選択された明細のインデックスを取得する。
+    let current: number = filter.indexOf(value) + 1;
+
+    //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.T0001;
-    this.dataEmitter.selected = true;
-    this.dataEmitter.data = data;
+    this.dataEmitter.setEmitterData(filter[0], value);
+    this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current);
 
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
 
+
   /**
    * 依頼ボタンを実行する
-   * @param event 
+   * @param event
    * @param dt 
    */
   setRequest(event: any, dt: ODIS0020OrderShiwake) {
@@ -308,13 +325,9 @@ export class OrderDetailShiwakeTable implements OnInit {
     btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
 
-
-    // 処理後ボタンを　削除する。
-    btn.remove();
-
     // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
+    btn.setAttribute('disabled','disabled');
+    btn.style.display = 'none';
 
 
   }
@@ -348,12 +361,9 @@ export class OrderDetailShiwakeTable implements OnInit {
     btnShounin[0].style.display = 'inherit';
     btnShounin[0].removeAttribute('disabled');
 
-    // 処理後ボタンを　削除する。
-    btn.remove();
-
     // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
+    btn.setAttribute('disabled','disabled');
+    btn.style.display = 'none';
 
   }
 
@@ -377,21 +387,18 @@ export class OrderDetailShiwakeTable implements OnInit {
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = '積水　次郎';
 
-    // 処理後ボタンを　削除する。
-    btn.remove();
 
     // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
+    btn.setAttribute('disabled','disabled');
+    btn.style.display = 'none';
   }
 
   /**
    * テーブルをレンダー後に走るメゾッド
    */
-  ngAfterViewInit(): void {
+  ngAfterViewChecked(): void {
     this.setTableButtonDisplay(this.orderData);
   }
-
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
    *↓↓↓　ボタン名　↓↓↓
@@ -409,17 +416,26 @@ export class OrderDetailShiwakeTable implements OnInit {
       if (element.requester != '') {
         tr = skBody.rows[ind];
         btn = tr.cells[11].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].setAttribute('disabled', 'true');
         btn[0].style.display = 'none';
         btn = tr.cells[13].getElementsByTagName('button');
         btn[0].style.display = 'inherit';
         btn[0].removeAttribute('disabled');
 
       }
+      else{
+        tr = skBody.rows[ind];
+        btn = tr.cells[11].getElementsByTagName('button');
+        btn[0].style.display = 'inherit';
+        btn[0].removeAttribute('disabled');
+        btn = tr.cells[13].getElementsByTagName('button');
+        btn[0].style.display = 'none';
+        btn[0].setAttribute('disabled', 'true');
+      }
       if (element.approvalPerson_lv1 != '') {
         tr = skBody.rows[ind];
         btn = tr.cells[13].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].setAttribute('disabled', 'true');
         btn[0].style.display = 'none';
         btn = tr.cells[15].getElementsByTagName('button');
         btn[0].style.display = 'inherit';
@@ -429,7 +445,7 @@ export class OrderDetailShiwakeTable implements OnInit {
       if (element.approvalPerson_lv2 != '') {
         tr = skBody.rows[ind];
         btn = tr.cells[15].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'disabled');
+        btn[0].setAttribute('disabled', 'true');
         btn[0].style.display = 'none';
         
       }
@@ -440,17 +456,17 @@ export class OrderDetailShiwakeTable implements OnInit {
         element.journalName.match('労災')) {
           tr = skBody.rows[ind];
           btn = tr.cells[6].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].setAttribute('disabled', 'true');
           btn = tr.cells[7].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].setAttribute('disabled', 'true');
           btn = tr.cells[11].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].setAttribute('disabled', 'true');
           btn[0].style.display = 'none';
           btn = tr.cells[13].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].setAttribute('disabled', 'true');
           btn[0].style.display = 'none';
           btn = tr.cells[15].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'disabled');
+          btn[0].setAttribute('disabled', 'true');
           btn[0].style.display = 'none';
       }
     });

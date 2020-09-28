@@ -93,7 +93,7 @@
         <!--発注予定金額-->
         <ng-container matColumnDef="orderPlanAmount">
             <th style="width: 40px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element "> {{element.orderPlanAmount | number}} </td>
+            <td id="txtPlanAmount{{i}}" style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element; let i = index "> {{element.orderPlanAmount | number}} </td>
             <td mat-footer-cell *matFooterCellDef>{{getTotalPlanAmount() | number}}</td>
         </ng-container>
         <!--反映-->
@@ -135,7 +135,7 @@
             <th style="width: 100px; " class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
                 {{element.requester}}
-                <button id="btnIrai" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
+                <button id="btnIrai" disabled = "true" style="display: none;" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -150,7 +150,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
                 {{element.approvalPerson_lv1}}
-                <button id="btnShounin1" disabled style="display: none;" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin1" disabled = "true" style="display: none;" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -165,7 +165,7 @@
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
                 {{element.approvalPerson_lv2}}
-                <button id="btnShounin2" disabled style="display: none;" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button id="btnShounin2" disabled = "true" style="display: none;" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

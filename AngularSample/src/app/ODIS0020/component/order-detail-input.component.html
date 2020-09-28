@@ -225,7 +225,7 @@
                 <td style="width: 20px;"><input [(ngModel)]="addInput.orderSupplierCode" type="text"
                         class="orderdetailaddinputBody" name="supplierCode"></td>
                 <td style="width: 160px;"><label>{{addInput.orderSupplierName}}</label></td>
-                <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" [(ngModel)]="input.orderSplitAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="text"
+                <td style="width: 20px;"><input [(ngModel)]="addInput.orderPlanAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="text"
                         class="orderdetailaddinputBody" name="orderPlansKin"></td>
             </tr>
         </tbody>
@@ -234,10 +234,10 @@
 
 <section style="margin-top: 10px;">
     <div class="button-container">
-        <button mat-button (click)="insertOrderDetail()" class="btn btn-success">明細追加</button>
-        <button mat-button (click)="updateOrderDetail()" class="btn btn-info m-1 border ">明細更新</button>
-        <button mat-button (click)="clearOrderDetail()" class="btn btn-danger border m-1">中止</button>
-        <button mat-button style="float: right;" (click)="deleteOrderDetail()"
+        <button disabled = {{btnInsert}} mat-button (click)="insertOrderDetail()" class="btn btn-success">明細追加</button>
+        <button disabled = {{btnUpdate}} mat-button (click)="updateOrderDetail()" class="btn btn-info m-1 border ">明細更新</button>
+        <button disabled = {{btnStop}} mat-button (click)="stopUpdateOrderDetail()" class="btn btn-danger border m-1">中止</button>
+        <button disabled = {{btnDelete}} mat-button style="float: right;" (click)="deleteOrderDetail()"
             class="btn btn-danger border m-1">明細削除</button>
     </div>
 </section>

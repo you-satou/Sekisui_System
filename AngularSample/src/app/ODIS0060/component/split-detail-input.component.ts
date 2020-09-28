@@ -568,7 +568,7 @@ export class SplitOrderDetailComponent implements OnInit {
       senderDt.push(dt);
 
     });
-    if(Number(shiwakeData[0].orderPlanAmount) != this.getAmountDeference()){
+    if(this.getAmountDeference() != 0){
       this.odis0020Service.isDeferenceAmount = true;
     }
 
