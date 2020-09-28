@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation,ViewChild,QueryList,ViewContainerRef } from "@angular/core";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
+import { OrderDetailApprovalTable } from 'app/ODIS0010/component/data-table/oder-detail-approval-table';
 import { CommonService } from "app/common/common.service";
 import { CommonComponent } from "app/common/common.component";
 import { AppComponent } from "../../app.component";
@@ -29,6 +30,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
   
+  @ViewChild(OrderDetailApprovalTable,{static:true}) private orderDetailApprovalTable: OrderDetailApprovalTable;
   
   constructor(
     private appComponent: AppComponent,
@@ -48,7 +50,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     // Search ボタンの位置を設定する
     this.screenSize = window.innerWidth;
     this.pixel = this.screenSize  - 408;
-    
+
+    this.orderDetailApprovalTable.sort.disabled = true;
+
   }
 
   onCloseClick(){
@@ -85,13 +89,14 @@ export class OrderDetailApprovalComponent implements OnInit {
   getSearchRequest() {
 
     if (this.checkInput(this.inputment)) {
+
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.inputment.officeCode = '701000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
-
+    
     // 発注明細入力_承認処理取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
       .then(
@@ -104,6 +109,8 @@ export class OrderDetailApprovalComponent implements OnInit {
         }
       );
     }
+
+    this.orderDetailApprovalTable.sort.disabled = false;
   }
 
   /**
@@ -132,10 +139,8 @@ export class OrderDetailApprovalComponent implements OnInit {
           alert(Const.ErrorMsg.E0001);
           return false;
         }
-        //alert("OK");
-        return true;
-
     }
+    return true;
   }
 
   /** 
