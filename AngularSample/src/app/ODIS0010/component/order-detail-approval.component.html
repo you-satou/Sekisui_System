@@ -4,11 +4,11 @@
             <div class="input-group-prepend">
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumFrom" tabindex="1" style = "ime-mode:disabled" id="contractNumFrom" type="text" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false" autofocus>
+            <input [(ngModel)]="inputment.contractNumFrom" tabindex="1" style = "ime-mode:disabled" id="contractNumFrom" type="tel" maxlength='11' #contractNumFrom (keyup)="onKeyUpNumFrom(contractNumFrom.value)" onpaste="return false" oncontextmenu="return false" autofocus>
             <div style="width: 30px; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
-            <input [(ngModel)]="inputment.contractNumTo" tabindex="2" style = "ime-mode:disabled" id="contractNumTo" type="text" maxlength='11' #contractNumTo (keyup)="onKeyUpNumTo(contractNumTo.value)" onpaste="return false" oncontextmenu="return false">
+            <input [(ngModel)]="inputment.contractNumTo" tabindex="2" style = "ime-mode:disabled" id="contractNumTo" type="tel" maxlength='11' #contractNumTo (keyup)="onKeyUpNumTo(contractNumTo.value)" onpaste="return false" oncontextmenu="return false">
         </div>
 
         <div class="input-group row" style="height: 30px;">
