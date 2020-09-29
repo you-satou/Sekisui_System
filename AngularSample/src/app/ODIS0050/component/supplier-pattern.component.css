@@ -1,9 +1,9 @@
 .modal {
     position: fixed;
     top: 10%;
-    left: 10%;
-    height: 600px;
-    width: 90%;
+    left: 20%;
+    height: 700px;
+    width: 60%;
     border-radius: 15px;
 }
 .modal-header{
@@ -38,7 +38,7 @@
 }
 
 .table{
-    width: 80%;
+    width: 85%;
 }
 .table>thead {
     background-color: #E5E5E5;
@@ -51,9 +51,21 @@
     border-right: 0.5px solid #CCD0D5;
 }
 
+.table-str-m{
+    height: 40px;
+    width: 12%;
+    word-wrap: break-word;
+}
+
+.table-str-s{
+    height: 40px;
+    width: 9%;
+    word-wrap: break-word;
+}
+
 .table-str{
     height: 40px;
-    width: 17.8%;
+    width: 25%;
     word-wrap: break-word;
 }
 

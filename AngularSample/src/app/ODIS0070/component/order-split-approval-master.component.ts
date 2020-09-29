@@ -102,9 +102,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       .then(
         (response) => {
 
-          if(response.result === "OK"){
+          if(response.result === Const.ConnectResult.R0001){
             this.orderApprovalData = response.applicationData;
-          }else{}
+          }else{
+            alert(response.message);
+          }
         }
       );
 

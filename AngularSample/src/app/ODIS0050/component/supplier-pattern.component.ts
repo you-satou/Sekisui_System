@@ -61,9 +61,9 @@ export class SupplierPatternComponent implements OnInit {
    */
   ngOnInit() {
 
-    // this.getInputData();
+    this.getInputData();
 
-    this.mockingData();
+    //this.mockingData();
 
   }
 
@@ -148,19 +148,21 @@ export class SupplierPatternComponent implements OnInit {
   * JSONファイルをdatasに格納
   */
   getInputData(){
-     // Todo　システムログイン情報から取得すること！
-     // 事業区分コード設定
-     this.param.officeCode = '201005';
+    // Todo　システムログイン情報から取得すること！
+    // 事業区分コード設定
+    this.param.officeCode = '701000';
 
-     // 発注仕訳マスタ取得
-     this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
-       .then(
-        (response) => {
+    // 発注仕訳マスタ取得
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
+      .then(
+      (response) => {
 
-          if(response.result === "OK"){
-            this.datas = response.applicationData;
-          }else{}
+        if(response.result === Const.ConnectResult.R0001){
+          this.datas = response.applicationData;
+        }else{
+          alert(response.message);
         }
-      );
+      }
+    );
   }
 }
