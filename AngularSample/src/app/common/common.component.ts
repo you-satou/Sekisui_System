@@ -283,10 +283,11 @@ export class CommonComponent {
         //明細追加または変更した時に、フォント色を変える
         if (action == Const.Action.A0001 || action == Const.Action.A0002) {
           tr.style.color = this.getColor(action);
+          tr.style.backgroundColor = '';
         }
-        else {
-          tr.style.backgroundColor = this.getColor(action);
-        }
+        // else {
+        //   tr.style.backgroundColor = this.getColor(action);
+        // }
       }
     }
 

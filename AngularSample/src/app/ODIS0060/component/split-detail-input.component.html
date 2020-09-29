@@ -226,7 +226,7 @@
 </div>
 
 <div class="add-div">
-    <table class="tsuika-table table table-bordered table-sm">
+    <table class="tsuika-table table table-bordered">
         <thead>
             <tr>
                 <th class="color-input-1" style="width: 25%" rowspan="2">
@@ -250,7 +250,7 @@
                     <input style="width: 190px !important; text-align: right" maxlength="12" [(ngModel)]="input.comment"
                         type="text" />
                 </td>
-                <td>{{ input.requestDate }}</td>
+                <td style="text-align: center !important">{{ input.requestDate }}</td>
                 <td style="text-align: center !important">
                     {{ input.requester }}
                     <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)" mat-button
