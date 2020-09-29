@@ -85,7 +85,7 @@ export namespace Const{
      * 行動の定義
      * A: Action - テーブル、ページに対する行動
      * 
-     * SA: Server Action
+     * SA: Server Action サーバに行動する
      */
     export namespace Action{
 
