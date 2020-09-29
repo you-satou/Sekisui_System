@@ -58,6 +58,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   // 差額
   isDeference: boolean;
+  
+  loaderText: string = Const.WarningMsg.W0002;
+  isLoading: boolean = true;
 
   // レスポンスから取得する
   pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
@@ -125,6 +128,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
     this.setPageButtonDisplay(false,false,false,false);
+
+
 
   }
   /**
@@ -225,6 +230,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             saveDt.TsuikaData = this.tblTsuika;
 
             sessionStorage.setItem(Const.ScreenName.S0002EN,JSON.stringify(saveDt));
+            //ロード画面を解除する。
+            this.isLoading = false;
           }
         }
         
@@ -288,6 +295,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     saveDt.TsuikaData = this.tblTsuika;
 
     sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
+    //ロード画面を解除する。
+    this.isLoading = false;
   }
 
   mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[]): ODIS0020OrderShiwake[]{
@@ -1005,15 +1014,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     console.log(this.childHontai.orderData);
     console.log(this.childTsuika.orderData);
 
-
-
-
     //セックションを削除する。
-    // sessionStorage.removeItem(Const.ScreenName.S0002EN);
+    sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
-    // this.router.navigate(['/OrderDetailApproval']);
-
-
+    this.router.navigate(['/OrderDetailApproval']);
 
   }
 
@@ -1061,7 +1065,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 経理分類 ロストフォーカス
    * @param event 
    */
-  blurAccountCode($evnet){
+  blurAccountCode($event){
     this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
   }
 
