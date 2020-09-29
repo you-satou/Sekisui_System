@@ -137,5 +137,17 @@ export namespace Const{
         export const W0001 = '明細削除処理を行いますか？';
 
     }
+
+    /**
+     * データベース接続結果
+     */
+    export namespace ConnectResult{
+
+        export const R0001 = 'OK';
+        export const R0002 = 'NG';
+        
+    } 
+
+
     
 }

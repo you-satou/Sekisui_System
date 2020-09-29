@@ -162,13 +162,14 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
        .then(
          (response) => {
 
-            if(response.result === "OK"){
+            if(response.result === Const.ConnectResult.R0001){
               this.datas = response.applicationData;
                 if(!(this.selectVal == undefined || this.selectVal == null)){
                   this.onScroll(this.datas,this.selectVal);
                 }
-  
-            }else{}
+            }else{
+              alert(response.message);
+            }
           }
         );
   }

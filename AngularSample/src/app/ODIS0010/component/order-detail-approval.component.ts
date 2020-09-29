@@ -102,7 +102,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       .then(
         (response) => {
 
-          if(response.result === "OK"){
+          if(response.result === Const.ConnectResult.R0001){
             this.orderDetailData = response.applicationData;
           }else{
             alert(response.message);
