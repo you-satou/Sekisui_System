@@ -124,7 +124,7 @@ export class SplitOrderDetailComponent implements OnInit {
     }
 
     //ページボタンの初期化
-    this.setPageButtonDisplay(false,false,false,false);
+    this.setPageButtonDisplay(false,true,false,true);
 
   }
   /**
@@ -133,9 +133,6 @@ export class SplitOrderDetailComponent implements OnInit {
   ngAfterViewInit(): void {
     this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
-    
-    // let width = document.querySelector('.bunkatsu-table-responsive').clientWidth;
-    // this.fixed = width + 20;
   }
 
    /**
@@ -147,6 +144,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * 
    */
   setTableBunkatsuButtonDisplay(dt: ODIS0060OrderDetailBunkatsu[], action: string) {
+
     //分割データがない場合、余白行を削除する
     if (dt.length == 1 &&
       dt[0].orderSplitAmount == '' &&
@@ -163,7 +161,6 @@ export class SplitOrderDetailComponent implements OnInit {
       dt[0].receivedAmount == '' &&
       dt[0].paymentDate == '' &&
       dt[0].paymentAmount == '') {
-
       // 分割明細テーブルのBodyを取得する
       let skBody:any = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
       skBody.rows[0].remove();
@@ -308,7 +305,7 @@ export class SplitOrderDetailComponent implements OnInit {
     //明細の色を変える
     this.baseCompnt.setRowColor(Const.Action.A0001, tbody, insertIndex);
 
-    this.setPageButtonDisplay(false, false, false, false);
+    this.setPageButtonDisplay(false, true, false, true);
     this.resetAddTable();
     this.saveDataToSession();
   }
@@ -346,10 +343,11 @@ export class SplitOrderDetailComponent implements OnInit {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
+    // this.baseCompnt.setRowColor(Const.Action.A0006, tbody, i);
     
     //最後にページ初期化する
     this.resetAddTable();
-    this.setPageButtonDisplay(false, false, false, false);
+    this.setPageButtonDisplay(false, true, false, true);
 
     this.saveDataToSession();
   }
@@ -401,7 +399,7 @@ export class SplitOrderDetailComponent implements OnInit {
     this.table.renderRows();
 
     this.resetAddTable();
-    this.setPageButtonDisplay(false, false, false, false);
+    this.setPageButtonDisplay(false, true, false, true);
     this.saveDataToSession();
   }
 
@@ -415,7 +413,7 @@ export class SplitOrderDetailComponent implements OnInit {
     //選択状態を抜ける
     this.baseCompnt.setRowColor(Const.Action.A0006, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
-    this.setPageButtonDisplay(false, false, false, false);
+    this.setPageButtonDisplay(false, true, false, true);
   }
 
   /**
