@@ -5,9 +5,9 @@ import { SupplierList } from './odis0050-SupplierList.entity';
  */
 export class SupplierPatternList{
     /** 発注先パターン区分 */
-    pKubun: String;
+    pkubun: String;
     /** 発注先パターン名 */
-    pName: String;
+    pname: String;
     /** 発注先リスト */
     supplierList: SupplierList[];
     

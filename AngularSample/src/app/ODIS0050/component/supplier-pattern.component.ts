@@ -123,25 +123,12 @@ export class SupplierPatternComponent implements OnInit {
    * 選択されたパターン名の仕訳データを表示する
    * @param $event イベント
    */
-  public onSelHighLight($event, data: PatternList){
+  public onSelHighLight($event, data: SupplierPatternList){
 
     this.commonComponent.CommonOnSelHight($event);
 
-    this.selectPattern = data.pName;
-
-    let wDatas: SupplierList[] = [];
-
-    for (let fdata of this.fDatas){
-
-      if(fdata.pattern.match(this.selectPattern)){
-
-        wDatas.push(fdata);
-        
-      }
-    }
     //選択されたパターン名の仕訳データを格納
-    // this.sDatas = data.supplierList;
-    this.sDatas = wDatas;
+    this.sDatas = data.supplierList;
   }
 
   /**
@@ -150,7 +137,7 @@ export class SupplierPatternComponent implements OnInit {
   getInputData(){
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '701000';
+    this.param.officeCode = '201005';
 
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)

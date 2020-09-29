@@ -9,12 +9,12 @@
                     <table class="table-small table-hover table-striped">
                         <thead>
                             <tr>
-                                <th class="table-str-large td-b text-center">パターン名</th>
+                                <th class="table-str-large td-b text-center" style ="padding-top: 30px;">パターン名</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let data of pDatas" (click)=onSelHighLight($event,data)>
-                                <td class="table-str td-b">{{ data.pName }}</td>
+                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <td class="table-str td-b">{{ data.pname }}</td>
                             </tr>
                         </tbody>
                     </table>
