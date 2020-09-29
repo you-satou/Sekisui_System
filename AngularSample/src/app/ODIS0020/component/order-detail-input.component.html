@@ -258,7 +258,7 @@
             <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border">明細一覧</button>
         </div>
         <div style="right: 46px;" class="bottomButton">
-            <button mat-button id="btnKoushin" class="btn btn-info m-1 border">更新終了</button>
+            <button mat-button id="btnKoushin" class="btn btn-info m-1 border" (click)="finalUpdateProgress()">更新終了</button>
         </div>
     </div>
     <ng-container *ngComponentOutlet="modal"></ng-container>
