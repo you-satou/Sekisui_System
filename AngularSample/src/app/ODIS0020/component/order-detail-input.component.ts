@@ -127,10 +127,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.getOrderInputData();
     }
 
+    // 初期化
+    this.Clear();
+    // ボタン制御
     this.setPageButtonDisplay(false,false,false,false);
-
-
-
   }
   /**
    * 各モダールの設定
@@ -283,7 +283,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
         
     }
-
 
     // セックションに保持する
     let saveDt = new ODIS0020Session();
@@ -540,7 +539,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
     return newDt;
-
   }
 
   /**
@@ -633,19 +631,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-  /** テーブルに明細を追加る */
+  /** テーブルに明細を追加 */
   insertToDataTable(insertDt: ODIS0020OrderShiwake) {
     var insertIndex: number = 0;
+    var tblBody;
     switch (this.selectedTab) {
       case this.tabNo1:
 
         insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.childSekkei.tableShiwake.renderRows();
-        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0001, skBody, insertIndex);
-        this.setAutoScroll();
-        this.addInput.Clear();
+        tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo2:
@@ -653,10 +649,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         insertIndex = this.countDefaultData(this.childHontai.orderData);
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
         this.childHontai.tableShiwake.renderRows();
-        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0001, hntBody, insertIndex);
-        this.setAutoScroll();
-        this.addInput.Clear();
+        tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo3:
@@ -664,12 +657,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         insertIndex = this.countDefaultData(this.childTsuika.orderData);
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.childTsuika.tableShiwake.renderRows();
-        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0001, tsuikaBody, insertIndex);
-        this.setAutoScroll();
-        this.addInput.Clear();
+        tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
+
+    this.baseCompnt.setRowColor(Const.Action.A0001, tblBody, insertIndex);
+    this.setAutoScroll(tblBody, insertIndex);
+    this.Clear();
   }
 
   /**
@@ -716,8 +710,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 発注先パターン 追加/上書き
+   */
   insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
-
     let insFlg: boolean = false;
     // 発注先パターン
     for (var insBk of insertBucket) {
@@ -740,7 +736,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.insertToDataTable(insBk);
       }
     }
-
   }
 
   /**
@@ -804,7 +799,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
 
-    this.addInput.Clear();
+    this.Clear();
 
   }
 
@@ -812,28 +807,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 変更処理を中止する
    */
   stopUpdateOrderDetail() {
+
+    // 初期化
+    let index = this.rowStatus.rowIndex;
+    var tblBody;
+
     switch (this.selectedTab) {
       case this.tabNo1:
-        let skIndex = this.rowStatus.rowIndex;
-        let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.A0006, skBody, skIndex);
+        tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo2:
-        let hntIndex = this.rowStatus.rowIndex;
-        let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.A0006, hntBody, hntIndex);
+        tblBody= this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo3:
-        let tskIndex = this.rowStatus.rowIndex;
-        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.A0006, tsuikaBody, tskIndex);
-
+        tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
 
-    this.addInput.Clear();
+    // 行　背景 背低
+    this.baseCompnt.setRowColor(Const.Action.A0006, tblBody, index);
+    // 初期化
+    this.Clear();
     this.rowStatus.Reset();
     this.setPageButtonDisplay(false,false,false,false);
   }
@@ -886,7 +882,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
     // 初期化する
-    this.addInput.Clear();
+    this.Clear();
     this.rowStatus.Reset();
 
   }
@@ -912,8 +908,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   setSelectTabChanged(event: any) {
     this.selectedTab = event.tab.textLabel;
-    this.addInput.Clear();
+    this.Clear();
   }
+
+  /**
+   * 初期化
+   */
+  private Clear(){
+    this.addInput.journalCode = '';
+    this.addInput.accountCode = '';
+    this.addInput.journalName = '';
+    this.addInput.orderSupplierCode = '';
+    this.addInput.orderSupplierName = '';
+    this.addInput.orderPlanAmount = '';
+    this.addInput.shiwakeData = new ODIS0020OrderShiwake();
+    this.paramJounalCode = new ODIS0020Form();
+    this.paramOrderCode = new ODIS0020Form();
+  } 
 
   /**
    * 子供コンポーネントから渡されたデータを取得する
@@ -974,14 +985,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-  setPageButtonDisplay(tsuika:boolean, koushin:boolean, chuushi:boolean, sakujo:boolean){
-    this.btnInsert = tsuika;
-    this.btnUpdate = koushin;
-    this.btnStop = chuushi;
-    this.btnDelete = sakujo;
+  /**
+   * 明細ボタン制御
+   * @param add 明細追加ボタン
+   * @param upd 明細更新ボタン
+   * @param cancel 中止ボタン
+   * @param del 明細削除ボタン
+   */
+  setPageButtonDisplay(add:boolean, upd:boolean, cancel:boolean, del:boolean){
+    this.btnInsert = add;
+    this.btnUpdate = upd;
+    this.btnStop = cancel;
+    this.btnDelete = del;
   }
 
-    /**
+  /**
    * focus処理
    *
    * @param $event イベント
@@ -999,10 +1017,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
   /**
    * 追加した明細に自動スクロールする
+   * @param body 
+   * @param row
    */
-  setAutoScroll() {
-
-    return true;
+  setAutoScroll(body: any, row: number) {
+    body.rows[row].scrollIntoView(true);
   }
 
   finalUpdateProgress(){
