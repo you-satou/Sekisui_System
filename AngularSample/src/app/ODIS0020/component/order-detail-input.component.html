@@ -1,4 +1,5 @@
 <section>
+    <loading-spinner *ngIf="isLoading"></loading-spinner>
     <div *ngFor="let orderInfo of orderInformation">
         <section class="orderInfo">
             <table class="table-bordered">
