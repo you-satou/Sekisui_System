@@ -36,12 +36,20 @@ export namespace Const{
 
     /** リンクの定義 */
     export namespace UrlLinkName {
+        
+        //Component名
+        export const L0001 = '/ODIS0010';
+        export const L0002 = '/ODIS0020';
+        export const L0003 = '/ODIS0030';
+        export const L0004 = '/ODIS0040';
+        export const L0005 = '/ODIS0050';
+        export const L0006 = '/ODIS0060';
+        export const L0007 = '/ODIS0070';
+
         export const S0001_Search = '/ODIS0010/search';
-        // export const S0002_Search = '/ODIS0020/Search';
         export const S0003_Init = '/ODIS0030/init';
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
-
         export const S0007_Init = '/ODIS0070/init';
     }
 
@@ -75,28 +83,31 @@ export namespace Const{
 
     /**
      * 行動の定義
+     * A: Action - テーブル、ページに対する行動
+     * 
+     * SA: Server Action
      */
     export namespace Action{
 
         /** 行の追加 */
         export const A0001 = 'RowInsert';
-
         /** 行の変更 */
         export const A0002 = 'RowModified';
-
         /** 行の削除 */
         export const A0003 = 'RowDelete';
-
         /** 行の選択 */
-        export const T0001 = 'RowSelect';
-
+        export const A0004 = 'RowSelect';
         /** 行にて反映ボタンを押下する */
-        export const T0002 = 'DisplaySplitAmount';
-
+        export const A0005 = 'DisplaySplitAmount';
         /** 行を外す */
-        export const T0003 = 'UnSelected';
+        export const A0006 = 'UnSelected';
 
-        export const P001 = 'MoveToSplitPage';
+        export const A0007 = 'MoveToSplitPage';
+
+        /**発注コードを取得 */
+        export const SA_GET_ORDER_CODE = '/getOrderCode';
+        /**仕訳コードを取得 */
+        export const SA_GET_JOURNAL_CODE = '/getJournalCode';
 
     }
 

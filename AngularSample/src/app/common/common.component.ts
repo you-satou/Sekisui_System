@@ -72,8 +72,8 @@ export class CommonComponent {
 
     for (var i = 0; i < wTbody.rows.length; i++) {
       // 行 取得
-      var t = wTbody.rows[i];
-      t.style.backgroundColor = Const.HighLightColour.None;
+      var tr = wTbody.rows[i];
+      tr.style.backgroundColor = Const.HighLightColour.None;
     }
     // 要素取得
 
@@ -270,7 +270,7 @@ export class CommonComponent {
   }
 
   /**
-  * 行の背景色 変更する
+  * 行の背景色を設定する
   * @param action 追加・変更・未選択・選択
   * @param body 
   * @param rIndex row Index 
@@ -295,16 +295,17 @@ export class CommonComponent {
   getColor(action: string): string {
 
     switch (action) {
+      //行を追加する
       case Const.Action.A0001:
         return Const.HighLightColour.Inserted;
-
+      //行を変更する
       case Const.Action.A0002:
         return Const.HighLightColour.Modified;
-
-      case Const.Action.T0003:
+      //行を外す
+      case Const.Action.A0006:
         return Const.HighLightColour.None;
-
-      case Const.Action.T0001:
+      //行を選択する
+      case Const.Action.A0004:
         return Const.HighLightColour.Selected;
     }
 

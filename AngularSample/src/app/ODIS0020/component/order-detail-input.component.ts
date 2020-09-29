@@ -816,19 +816,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo1:
         let skIndex = this.rowStatus.rowIndex;
         let skBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.T0003, skBody, skIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0006, skBody, skIndex);
         break;
 
       case this.tabNo2:
         let hntIndex = this.rowStatus.rowIndex;
         let hntBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.T0003, hntBody, hntIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0006, hntBody, hntIndex);
         break;
 
       case this.tabNo3:
         let tskIndex = this.rowStatus.rowIndex;
         let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setRowColor(Const.Action.T0003, tsuikaBody, tskIndex);
+        this.baseCompnt.setRowColor(Const.Action.A0006, tsuikaBody, tskIndex);
 
         break;
     }
@@ -923,14 +923,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     switch(emitterData.action){
 
-      case Const.Action.T0001:
+      case Const.Action.A0004:
         // 値設定
         this.rowStatus = emitterData.getRowStatus();
         this.addInput.setInput(emitterData.getEmitterData());
         this.journalDataApprovalChecker(emitterData.getEmitterData());
         break;
 
-      case Const.Action.P001:
+      case Const.Action.A0007:
         this.rowStatus.Reset();
 
         let pageData = new ODIS0020Session();
@@ -1017,7 +1017,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //セックションを削除する。
     sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
-    this.router.navigate(['/OrderDetailApproval']);
+    this.router.navigate([Const.UrlSetting.U0001]);
 
   }
 
@@ -1043,7 +1043,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJounalCode.journalCode = strJounalCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest('/ODIS0020/getJournalCode',this.paramJounalCode)
+        let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_JOURNAL_CODE;
+        this.orderService.getSearchRequest(actionUrl,this.paramJounalCode)
         .then(
           (response) => {
 
@@ -1091,7 +1092,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest('/ODIS0020/getOrderCode',this.paramOrderCode)
+        let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_ORDER_CODE;
+        this.orderService.getSearchRequest(actionUrl,this.paramOrderCode)
         .then(
           (response) => {
 

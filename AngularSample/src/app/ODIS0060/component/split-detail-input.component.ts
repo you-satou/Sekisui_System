@@ -413,7 +413,7 @@ export class SplitOrderDetailComponent implements OnInit {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     //選択状態を抜ける
-    this.baseCompnt.setRowColor(Const.Action.T0003, tbody, this.rowStatus.rowIndex);
+    this.baseCompnt.setRowColor(Const.Action.A0006, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
     this.setPageButtonDisplay(false, false, false, false);
   }

@@ -257,7 +257,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     this.odis0060Service.setSplitTable(shiwakeDt);
     this.odis0060Service.setDetailTable(splitDt);
 
-    this.dataEmitter.action = Const.Action.P001;
+    this.dataEmitter.action = Const.Action.A0007;
     this.sendOrderData.emit(this.dataEmitter);
 
   }
@@ -286,7 +286,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     let current: number = filter.indexOf(value) + 1;
 
     //渡すデータを設定する。
-    this.dataEmitter.action = Const.Action.T0001;
+    this.dataEmitter.action = Const.Action.A0004;
     this.dataEmitter.setEmitterData(filter[0], value);
     this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current);
 
