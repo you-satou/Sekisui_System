@@ -570,6 +570,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   insertOrderDetail() {
     if (this.addInput.isBlank) {
+      alert(Const.ErrorMsg.E0010);
+      this.baseCompnt.setFocus('txtAddJCode');
+      return;
+    }
+    if(this.addInput.journalCode == ''){
+      alert(Const.ErrorMsg.E0003);
+      this.baseCompnt.setFocus('txtAddJCode');
+      return;
+    }
+    if(this.addInput.accountCode == ''){
+      alert(Const.ErrorMsg.E0004);
+      this.baseCompnt.setFocus('txtAddAccCode');
       return;
     }
     let temp = new ODIS0020OrderShiwake ()
@@ -657,7 +669,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   * 発注先パータンから返却データを一覧に追加する
    * @param insertBucket 
    */
   insertDataFromSupplier(insertBucket:ODIS0020OrderShiwake[]){
@@ -715,13 +727,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   updateOrderDetail() {
 
-    if (!this.rowStatus.isSelected ||
-      this.addInput.isBlank) {
+    if (!this.rowStatus.isSelected) {
+      alert(Const.ErrorMsg.E0013);
       return;
-    }
+    };
 
     if(this.addInput.isUnchanged){
       alert(Const.ErrorMsg.E0015);
+      return;
+    };
+    if (this.addInput.isBlank) {
+      alert(Const.ErrorMsg.E0010);
+      this.baseCompnt.setFocus('txtAddJCode');
+      return;
+    }
+    if(this.addInput.journalCode == ''){
+      alert(Const.ErrorMsg.E0003);
+      this.baseCompnt.setFocus('txtAddJCode');
+      return;
+    }
+    if(this.addInput.accountCode == ''){
+      alert(Const.ErrorMsg.E0004);
+      this.baseCompnt.setFocus('txtAddAccCode');
       return;
     }
 
@@ -796,8 +823,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   deleteOrderDetail() {
 
     if (!this.rowStatus.isSelected) {
+      alert(Const.ErrorMsg.E0008);
       return;
-    }
+    };
     var confirm = window.confirm(Const.WarningMsg.W0001);
 
     if (!confirm) { return; };

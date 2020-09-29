@@ -121,13 +121,13 @@ export namespace Const{
         export const E0005 = '発注先は必須入力です。';
         export const E0006 = '発注予定金額は必須入力です。';
         export const E0007 = '発注金額は必須入力です。';
-        export const E0008 = '選択してください';
+        export const E0008 = '対象なデータを選択してください';
         //分割明細用エラーメッセージ
         export const E0010 = '明細情報を入力して下さい。';
         export const E0012 = '発注予定金額が未入力な状態で依頼ができません。';
-        export const E0013 = '更新明細を選択してください。';
-        export const E0014 = '承認済な明細は変更できません。';
-        export const E0015 = '対象データを変更してください。';
+        export const E0013 = '更新する明細を選択してください。';
+        export const E0014 = '承認済な明細は更新できません。';
+        export const E0015 = '変更されていないデータは更新できません。';
     }
     /**
      * 警告メッセージ

@@ -444,7 +444,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   subTableRequest(event: any) {
     if(this.input.orderSplitAmount == ''){
-      this.setFocus();
+      this.baseCompnt.setFocus('txtSplitAmount');
       alert(Const.ErrorMsg.E0012);
       return;
     }
@@ -471,13 +471,13 @@ export class SplitOrderDetailComponent implements OnInit {
   inputCheck(): boolean {
     //編集テーブルが未入力になっていない場合
     if (this.input.isBlank) {
-      this.setFocus();
+      this.baseCompnt.setFocus('txtSplitAmount');
       alert(Const.ErrorMsg.E0010);
       return false;
     }
     //発注予定金額が未入力かどうか
     if (this.input.amountIsBlank) {
-      this.setFocus();
+      this.baseCompnt.setFocus('txtSplitAmount');
       alert(Const.ErrorMsg.E0006);
       return false;
     }
@@ -485,10 +485,10 @@ export class SplitOrderDetailComponent implements OnInit {
     return true;
   }
 
-  setFocus(){
-    let input = document.getElementById('splitAmount');
-    input.focus();
-  }
+  // setFocus(){
+  //   let input = document.getElementById('splitAmount');
+  //   input.focus();
+  // }
   /**
    * 一時的なデータをセックションに保持する
    */

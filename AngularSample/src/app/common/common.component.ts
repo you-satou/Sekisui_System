@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { style } from '@angular/animations';
 import { Const } from './const';
 import { Input } from '@angular/core'
@@ -309,6 +310,13 @@ export class CommonComponent {
 
   }
 
+  /**
+   * 検討中!!!!
+   * @param action 
+   * @param body 
+   * @param key 
+   * @param value 
+   */
   setUpdateColor(action: string, body: any, key: number, value: number) {
 
     for (var i = 0; i < body.rows.length; i++) {
@@ -339,6 +347,16 @@ export class CommonComponent {
       }
     }
 
+  }
+
+  /**
+   * フォーカスを設定する
+   * @param elementId 
+   */
+  setFocus(elementId: string){
+
+    var element: HTMLElement = document.getElementById(elementId);
+    element.focus();
   }
 
 }

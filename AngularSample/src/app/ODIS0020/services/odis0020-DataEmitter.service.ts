@@ -86,7 +86,10 @@ export class RowStatus {
   /**総件数に対して選択された明細の位置 */
   current:number;
 
-  /** */
+  /** 
+   * 総明細数が１件以上、
+   * 選択された明細が
+  */
   get isFirstDetail(){
     if(this.detailLength > 1 && this.current == 1){
 

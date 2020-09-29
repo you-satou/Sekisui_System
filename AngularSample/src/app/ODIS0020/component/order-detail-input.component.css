@@ -68,9 +68,9 @@
 }
 
 /*************************************************************/
-/*****                                                    ****/
-/*****          発注情報、契約情報　　                       ****/
-/*****                                                    ****/
+/*****                                                     ****/
+/*****          発注情報、契約情報　　                     ****/
+/*****                                                     ****/
 /*************************************************************/
 .orderInfo {
     min-width: 960px ;
@@ -215,11 +215,53 @@
     margin-left: 0;
 }
 
-.orderdetailaddinput>tr>th {
+/*************************************************************/
+/*****                                                    ****/
+/*****          分割明細の追加するテーブル                ****/
+/*****                                                    ****/
+/*************************************************************/
+
+.insert-table>tr>th {
     background-color: #C5D9F1;
     text-align: center;
 }
 
-.orderdetailaddinput>tbody>tr>td>input{
+.insert-table>tbody>tr>td>input{
+    text-align: right;
     border: 0;
+}
+
+.add-journalCode{
+    margin: 0;
+    padding: 0;
+    width: 60px;
+    
+}
+.add-accountCode{
+    margin: 0;
+    padding: 0;
+    width: 60px;
+}
+.add-journalName{
+    margin: 0;
+    padding: 0;
+}
+.add-supplierCode{
+    margin: 0;
+    padding: 0;
+    width: 60px;
+}
+.add-supplierName{
+    width: 200px;
+    
+}
+.add-planAmount{
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
