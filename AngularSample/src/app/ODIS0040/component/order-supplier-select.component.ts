@@ -181,7 +181,9 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
     for(let data of datas){
 
       if(data.supplierCode == selectVal){
-         this.selectRow = row;
+        this.selectRow = row;
+        // 値 設定
+        this.resVal = data;
       }
       row += 1;
     }
