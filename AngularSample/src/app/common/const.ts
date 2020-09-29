@@ -121,7 +121,7 @@ export namespace Const{
         export const E0005 = '発注先は必須入力です。';
         export const E0006 = '発注予定金額は必須入力です。';
         export const E0007 = '発注金額は必須入力です。';
-        export const E0008 = '対象なデータを選択してください';
+        export const E0008 = '対象データを選択してください';
         //分割明細用エラーメッセージ
         export const E0010 = '明細情報を入力して下さい。';
         export const E0012 = '発注予定金額が未入力な状態で依頼ができません。';
@@ -145,7 +145,7 @@ export namespace Const{
 
         export const R0001 = 'OK';
         export const R0002 = 'NG';
-        
+
     } 
 
 
