@@ -1,4 +1,4 @@
-import { ODIS0020Session } from './../entities/odis0020-Form.entity';
+import { ODIS0020Session, ODIS0020Form } from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Const } from '../../common/const'
@@ -20,6 +20,8 @@ import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entit
 import { ODIS0020Service } from '../services/odis0020-service';
 import { DataEmitter, RowStatus } from '../services/odis0020-DataEmitter.service';
 import { CommonComponent } from 'app/common/common.component';
+import { ODIS0020JounalCode } from '../entities/odis0020-JournalCode.entity'
+import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entitiy'
 
 @Component({
   selector: 'order-detail-input',
@@ -86,6 +88,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   btnUpdate: boolean;
   btnStop: boolean;
   btnDelete: boolean;
+
+  // 仕訳コード パラメータ
+  paramJounalCode = new ODIS0020Form();
+  // 仕訳コード レスポンス
+  resJounalCode: ODIS0020JounalCode;
+
+  // 発注先コード パラメータ
+  paramOrderCode = new ODIS0020Form();
+  // 発注先コード レスポンス
+  resOrderCode : ODIS0020OrderCode;
 
   constructor(
     private appComponent: AppComponent,
@@ -1005,4 +1017,90 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * 仕訳コード ロストフォーカス
+   * @param event 
+   */
+  getJournalCode($event){
+
+    // 空白以外の場合に処理を実行
+    if($event.target.value.trim().length >= 1){
+      // 0パディング 設定
+      var strJounalCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 4);
+      // 前回の仕訳コードと異なる場合に以降の処理を実施
+      if(this.paramJounalCode.journalCode !== strJounalCode){
+        // 初期化
+        this.paramJounalCode = new ODIS0020Form();
+        // Todo　システムログイン情報から取得すること！
+        // 事業区分コード設定
+        this.paramJounalCode.officeCode = '701000';
+
+        // 仕訳コード 設定
+        this.paramJounalCode.journalCode = strJounalCode;
+
+        // 仕訳コード取得
+        this.orderService.getSearchRequest('/ODIS0020/getJournalCode',this.paramJounalCode)
+        .then(
+          (response) => {
+
+            if(response.result === Const.ConnectResult.R0001){
+              this.resJounalCode = response.applicationData;
+              this.addInput.journalCode = strJounalCode;   // 仕訳コード
+              this.addInput.accountCode = this.resJounalCode.accountCode;   // 経理分類
+              this.addInput.journalName = this.resJounalCode.journalName;   // 仕訳名称
+            }else{
+              alert(response.message);
+            }
+          }
+        );
+      }
+    }
+  }
+
+  /**
+   * 経理分類 ロストフォーカス
+   * @param event 
+   */
+  blurAccountCode($evnet){
+    this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
+  }
+
+
+  /**
+   * 発注先コード ロストフォーカス
+   * @param event 
+   */
+  getOrderCode($event){
+    // 空白以外の場合に処理を実行
+    if($event.target.value.trim().length >= 1){
+      // 0パディング 設定
+      var strOrderCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3);
+      // 前回の仕訳コードと異なる場合に以降の処理を実施
+      if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
+        // 初期化
+        this.paramOrderCode = new ODIS0020Form();
+        // Todo　システムログイン情報から取得すること！
+        // 事業区分コード設定
+        this.paramOrderCode.officeCode = '701000';
+
+        // 仕訳コード 設定
+        this.paramOrderCode.orderSupplierCode = strOrderCode;
+
+        // 仕訳コード取得
+        this.orderService.getSearchRequest('/ODIS0020/getOrderCode',this.paramOrderCode)
+        .then(
+          (response) => {
+
+            if(response.result === Const.ConnectResult.R0001){
+              this.resOrderCode = response.applicationData;
+              this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード
+              this.addInput.orderSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
+            }else{
+              alert(response.message);
+            }
+          }
+        );
+      }
+    }
+  }
 }
