@@ -91,13 +91,15 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
 
      if(!(this.selectVal == undefined || this.selectVal == null)){
      wTbody.rows[this.selectRow].scrollIntoView(true);
-
+     
      var wTr = wTbody.rows[this.selectRow];
-     for(var j=0; j<wTr.cells.length; j++){
-       // 背景色変更
-       var wTd = wTr.cells[j];
-       wTd.style.backgroundColor = Const.HighLightColour.Selected;
-      }   
+     wTr.style.backgroundColor = Const.HighLightColour.Selected;
+
+    //  for(var j=0; j<wTr.cells.length; j++){
+    //    // 背景色変更
+    //    var wTd = wTr.cells[j];
+    //    wTd.style.backgroundColor = Const.HighLightColour.Selected;
+    //   }   
     }
     else{
       wTbody.rows[this.selectRow].scrollIntoView(false);
