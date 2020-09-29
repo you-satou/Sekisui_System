@@ -26,6 +26,8 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   //検索値
   value = '';
+  loaderText = Const.WarningMsg.W0002;
+  isGetting: boolean = false;
 
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
@@ -90,6 +92,8 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     if (this.checkInput(this.inputment)) {
 
+      this.isGetting = true;
+
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.inputment.officeCode = '701000';
@@ -107,6 +111,8 @@ export class OrderDetailApprovalComponent implements OnInit {
           }else{
             alert(response.message);
           }
+          //ロード中を解除する。
+          this.isGetting = false;
         }
       );
     }

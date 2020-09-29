@@ -26,6 +26,7 @@ import { OrderSplitApprovalMasterService } from './ODIS0070/services/order-split
 import { OrderDetailShiwakeTable } from './ODIS0020/component/data-table/order-detail-input-table';
 import { ODIS0060SplitDetailService } from './ODIS0060/services/split-detail-input-service';
 import { OrderDetailApprovalComponent } from './ODIS0010/component/order-detail-approval.component';
+import { LoadingSpinner } from './common/progressingSpinner/common.spinner';
 
 const appRoute: Routes = [
   { path: '', component: IndexComponent },
@@ -53,6 +54,7 @@ const appRoute: Routes = [
     OrderDetailApprovalTable,
     OrderDetailShiwakeTable,
     SplitOrderDetailTable,
+    LoadingSpinner,
 
   ],
   imports: [

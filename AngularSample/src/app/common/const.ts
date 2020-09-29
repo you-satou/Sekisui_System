@@ -135,7 +135,7 @@ export namespace Const{
     export namespace WarningMsg {
 
         export const W0001 = '明細削除処理を行いますか？';
-
+        export const W0002 = '通信中。。。'
     }
 
     /**
