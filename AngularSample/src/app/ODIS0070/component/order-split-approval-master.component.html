@@ -43,7 +43,13 @@
                     <td class="table-str td-b"><input [(ngModel)]="personalID" type="text"></td>
                     <td class="table-str td-b"><input [(ngModel)]="employeeCode" type="text"></td>
                     <td class="table-str td-b"><input [(ngModel)]="employeeName" type="text"></td>
-                    <td class="table-str td-b text-center">{{ approval1 }}</td>
+                    <td class="table-str td-b text-center">
+                        <select [(ngModel)]="types">
+                            <option *ngFor="let type of types" [ngValue]="approvalId">>
+                                {{type.text}}
+                            </option>
+                        </select>
+                    </td>
                     <td class="table-str td-b text-center">{{ approval2 }}</td>
                     <td class="table-str td-b text-center">{{ deleteFlag }}</td>
                 </tr>
