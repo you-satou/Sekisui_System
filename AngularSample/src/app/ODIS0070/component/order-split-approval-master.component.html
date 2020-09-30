@@ -40,50 +40,65 @@
             </thead>
             <tbody>
                 <tr>
-                    <td class="table-str td-b"><input [(ngModel)]="personalID" type="text"></td>
-                    <td class="table-str td-b"><input [(ngModel)]="employeeCode" type="tel"></td>
-                    <td class="table-str td-b"><input [(ngModel)]="employeeName" type="text"></td>
+                    <td class="table-str td-b">
+                        <input [(ngModel)]="input.personalID" type="text">
+                    </td>
+                    <td class="table-str td-b">
+                        <input [(ngModel)]="input.employeeCode" type="tel">
+                    </td>
+                    <td class="table-str td-b">
+                        <input [(ngModel)]="input.employeeName" type="text">
+                    </td>
                     <td class="table-str td-b text-center">
-                        <select [(ngModel)]="types">
-                            <option *ngFor="let type of types" [ngValue]="approvalId">>
-                                {{type.text}}
+                        <select id="selApp1">
+                            <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
+                                {{type1.text}}
                             </option>
                         </select>
                     </td>
-                    <td class="table-str td-b text-center">{{ approval2 }}</td>
-                    <td class="table-str td-b text-center">{{ deleteFlag }}</td>
-                </tr>
-                <tr>
-                    <td [attr.colSpan]="6">
-                        <div class="btnDiv">
-                            <div class="sousaBtn">
-                                <button mat-button id="btnClose " class="btn btn-success border mx-1 back-btn"
-                                    data-toggle="modal" data-target="#MODAL5">明細追加</button>
-                            </div>
-
-                            <div class="sousaBtn">
-                                <button mat-button id="btnClose "
-                                    class="btn btn-info border mx-1 back-btn ">明細更新</button>
-                            </div>
-
-                            <div class="sousaBtn">
-                                <button mat-button id="btnClose "
-                                    class="btn btn-danger border mx-1 back-btn ">中止</button>
-                            </div>
-
-                            <div class="sousaBtn">
-                                <button mat-button id="btnClose "
-                                    class="btn btn-danger border mx-1 back-btn ">明細削除</button>
-                            </div>
-                        </div>
+                    <td class="table-str td-b text-center">
+                        <select id="selApp2">
+                            <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
+                                {{type2.text}}
+                            </option>
+                        </select>
+                    </td>
+                    <td class="table-str td-b text-center">
+                        <select id="selDel">
+                            <option *ngFor="let typeDel of delTypes" [ngValue]="typeDel.id">
+                                {{typeDel.text}}
+                            </option>
+                        </select>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <section>
+            <div style="position: relative; margin: 20px 0 50px 0">
+                <div style="float: left">
+                    <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
+                        (click)="onInsClick()">明細追加</button>
+                </div>
+    
+                <div style="float: left">
+                    <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
+                        (click)="onUpdClick()">明細更新</button>
+                </div>
+    
+                <div>
+                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
+                        (click)="onStopClick($event)">中止</button>
+                </div>
+    
+                <div style="position: absolute; top: 0; left: 400px">
+                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
+                        (click)="onDelClick()">明細削除</button>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
-
-
 
 <div class='page-footer'>
     <footer>

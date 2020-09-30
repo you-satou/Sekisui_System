@@ -23,7 +23,9 @@ export class OrderSplitApprovalMasterTable{
 }
 
 export class DropDownList {
+    /** value */
     id: string;
 
+    /** text */
     text: string;
 }
