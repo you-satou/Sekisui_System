@@ -4,7 +4,7 @@
             <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference]="getAmountDeference()"
                 [totalSplitAmount]="totalAmount()">
             </split-detail-table>
-            <div class="bunkatsu-table-responsive" style="margin: 20px 0">
+            <div class="bunkatsu-table-responsive" style="margin-top: 20px;">
                 <table mat-table [dataSource]="bunkatsuData"
                     class="bunkatsu-table table table-hover table-sm table-bordered" id="bunkatsuTable">
                     <!--Header 番号 -->
@@ -139,7 +139,7 @@
     </mat-tab-group>
 </div>
 
-<div class="add-div">
+<div class="add-div" style="margin-top: 20px;">
     <table class="tsuika-table table table-bordered">
         <thead>
             <tr>
@@ -157,10 +157,10 @@
         <tbody>
             <tr>
                 <td>
-                    <input maxlength="11" class="splitAmount" id="txtSplitAmount" [(ngModel)]="input.orderSplitAmount" type="tel" (focus)="commonFocus($event)" (blur)="commonBlur($event)"/>
+                    <input type="tel" class="splitAmount" id="txtSplitAmount" maxlength="11" tabindex="1" [(ngModel)]="input.orderSplitAmount" (focus)="commonFocus($event)" (blur)="commonBlur($event)" (keyup)="onlyHanNumber($event)"/>
                 </td>
                 <td>
-                    <input style="width: 190px !important; text-align: right" maxlength="12" [(ngModel)]="input.comment" type="text" />
+                    <input type="text" style="width: 190px !important;" maxlength="12" tabindex="2" [(ngModel)]="input.comment" (blur)="onChangeZenkaku($event)" />
                 </td>
                 <td style="text-align: center !important">{{ input.requestDate }}</td>
                 <td style="text-align: center !important">{{ input.requester }}
@@ -198,7 +198,7 @@
 
 <div class="footer-container-split">
     <div style="margin: 5px 0 0 0">
-        <button mat-button class="btn btn-secondary border mx-1 back-btn" (click)="backToOrderDetailInput($event)">
+        <button mat-button class="btn btn-secondary border mx-1 back-btn" tabindex="3" (click)="backToOrderDetailInput($event)">
             閉じる
         </button>
     </div>
