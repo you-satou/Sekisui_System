@@ -220,20 +220,20 @@
         <tbody>
             <tr>
                 <td style="width: auto;">
-                    <input maxlength = "4" id="txtAddJCode" class="add-journalCode" [(ngModel)]="addInput.journalCode" (blur)="getJournalCode($event)" type="text" name="journalCode" >
+                    <input maxlength = "4" id="txtAddJCode" class="add-journalCode" [(ngModel)]="addInput.journalCode" (blur)="getJournalCode($event)" type="tel" name="journalCode" >
                 </td>
                 <td>
-                    <input maxlength = "3" id="txtAddAccCode" class="add-accountCode" [(ngModel)]="addInput.accountCode" (blur)="blurAccountCode($event)" type="text" name="accountingCategory">
+                    <input maxlength = "3" id="txtAddAccCode" class="add-accountCode" [(ngModel)]="addInput.accountCode" (blur)="blurAccountCode($event)" type="tel" name="accountingCategory">
                 </td>
                 <td>
                     <input maxlength = "10" class="add-journalName" [(ngModel)]="addInput.journalName" type="text" name="orderJournalName">
                 </td>
                 <td>
-                    <input maxlength = "3" class="add-supplierCode" [(ngModel)]="addInput.orderSupplierCode" (blur)="getOrderCode($event)" type="text" name="supplierCode">
+                    <input maxlength = "3" class="add-supplierCode" [(ngModel)]="addInput.orderSupplierCode" (blur)="getOrderCode($event)" type="tel" name="supplierCode">
                 </td>
                 <td class="add-supplierName">{{addInput.orderSupplierName}}</td>
                 <td class="add-planAmount">
-                    <input maxlength = "11" id="txtAddAmount" [(ngModel)]="addInput.orderPlanAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="text" name="orderPlansKin">
+                    <input maxlength = "11" id="txtAddAmount" [(ngModel)]="addInput.orderPlanAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="tel" name="orderPlansKin">
                 </td>
             </tr>
         </tbody>
