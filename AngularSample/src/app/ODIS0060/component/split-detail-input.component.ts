@@ -576,7 +576,7 @@ export class SplitOrderDetailComponent implements OnInit {
     $event.target.value = this.baseCompnt.removeCommas($event.target.value);
   }
   /**
-   * blur処理
+   * blur処理（カンマ）
    *
    * @param $event イベント
    */
@@ -584,12 +584,36 @@ export class SplitOrderDetailComponent implements OnInit {
     $event.target.value = this.baseCompnt.addCommas($event.target.value);
   }
 
+  /**
+   * blur処理（全角変換）
+   *
+   * @param $event イベント
+   */
+  onChangeZenkaku($event){
+    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
+  }
+
+  /**
+   * keyUp処理(半角数字のみ)
+   *
+   * @param $event イベント
+   */
+  onlyHanNumber($event){
+    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
+  }
+
+
+
+
+
+
+
     /**
    * 追加した明細に自動スクロールする
    * @param body 
    * @param row
    */
   setAutoScroll(body: any, row: number) {
-    body.rows[row].scrollIntoView(true);
+    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 }

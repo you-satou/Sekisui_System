@@ -55,9 +55,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
 
   }
-
-  // 差額がある場合
-  private isDeference: boolean = false;
   
   loaderText: string = Const.WarningMsg.W0002;
   isLoading: boolean = true;
@@ -127,10 +124,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.getOrderInputData();
     }
 
-    // 初期化
-    this.Clear();
-    // ボタン制御
-    this.setPageButtonDisplay(false,false,false,false);
+    this.setDefaultDisplay();
   }
   /**
    * 各モダールの設定
@@ -169,28 +163,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let bucketDt: ODIS0020OrderShiwake[] = [];
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderShiwake();
-          temp.tabIndex = this.selectedTab;
-          temp.id = element.journalCode;
-          temp.journalCode = element.journalCode;
-          temp.accountCode = element.accountingCategory;
-          temp.journalName = element.journalName;
-          temp.orderSupplierCode = element.supplierCode;
-          temp.orderSupplierName = element.supplierName;
-          temp.orderPlanAmount = '';
-          temp.comment = '';
-          temp.orderSplitAmount = '';
-          temp.requestDate = '';
-          temp.requester = '';
-          temp.approvalDate_lv1 = '';
+          temp.tabIndex           = this.selectedTab;
+          temp.id                 = element.journalCode;
+          temp.journalCode        = element.journalCode;
+          temp.accountCode        = element.accountingCategory;
+          temp.journalName        = element.journalName;
+          temp.orderSupplierCode  = element.supplierCode;
+          temp.orderSupplierName  = element.supplierName;
+          temp.orderPlanAmount    = '';
+          temp.comment            = '';
+          temp.orderSplitAmount   = '';
+          temp.requestDate        = '';
+          temp.requester          = '';
+          temp.approvalDate_lv1   = '';
           temp.approvalPerson_lv1 = '';
-          temp.approvalDate_lv2 = '';
+          temp.approvalDate_lv2   = '';
           temp.approvalPerson_lv2 = '';
-          temp.orderDate = '';
-          temp.orderAmount = '';
-          temp.receivedDate = '';
-          temp.receivedAmount = '';
-          temp.paymentDate = '';
-          temp.paymentAmount = '';
+          temp.orderDate          = '';
+          temp.orderAmount        = '';
+          temp.receivedDate       = '';
+          temp.receivedAmount     = '';
+          temp.paymentDate        = '';
+          temp.paymentAmount      = '';
 
           bucketDt.push(temp);
         });
@@ -220,16 +214,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
             this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
 
-            // セックションに保持する
-            let saveDt = new ODIS0020Session();
-            saveDt.ContractInfo = this.orderInformation;
-            saveDt.MainOrderInfo = this.tblMainOrder;
-            saveDt.InsertedOrderInfo = this.tblInsertedOrder;
-            saveDt.SekkeiData = this.tblSekkei;
-            saveDt.HontaiData = this.tblHontai;
-            saveDt.TsuikaData = this.tblTsuika;
-
-            sessionStorage.setItem(Const.ScreenName.S0002EN,JSON.stringify(saveDt));
+            this.saveTemporaryData();
             //ロード画面を解除する。
             this.isLoading = false;
           }
@@ -253,6 +238,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     
     //分割明細画面から渡されたパラメータを取得する
     let returnDt = this.ODIS0020Service.ReturnedSplitData;
+    var body: any;
+    var index: number;
+
     if(returnDt.length <= 0){
       this.tblSekkei = savedData.SekkeiData;
       this.tblHontai = savedData.HontaiData;
@@ -260,57 +248,47 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
     else{
       this.selectedTab = returnDt[0].tabIndex;
-      this.isDeference = this.ODIS0020Service.isDeferenceAmount;
       switch (returnDt[0].tabIndex) {
         case this.tabNo1:
-  
-          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
+          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt, index);
           this.tblHontai = savedData.HontaiData;
           this.tblTsuika = savedData.TsuikaData;
           break;
   
         case this.tabNo2:
           this.tblSekkei = savedData.SekkeiData;
-          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
+          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt, index);
           this.tblTsuika = savedData.TsuikaData;
           break;
   
         case this.tabNo3:
           this.tblSekkei = savedData.SekkeiData;
           this.tblHontai = savedData.HontaiData;
-          this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
+          this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt, index);
           break;
       }
-        
     }
-
-    // セックションに保持する
-    let saveDt = new ODIS0020Session();
-    saveDt.ContractInfo = this.orderInformation;
-    saveDt.MainOrderInfo = this.tblMainOrder;
-    saveDt.InsertedOrderInfo = this.tblInsertedOrder;
-    saveDt.SekkeiData = this.tblSekkei;
-    saveDt.HontaiData = this.tblHontai;
-    saveDt.TsuikaData = this.tblTsuika;
-
-    sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
+   
+    this.saveTemporaryData();
     //ロード画面を解除する。
     this.isLoading = false;
   }
 
-  mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[]): ODIS0020OrderShiwake[]{
+  mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[], r:number): ODIS0020OrderShiwake[]{
     var returnId = returnDt[0].id;
     var filterDt = savedDt.filter(value =>{
-      return value.id == returnId;
+      if(value.id == returnId){
+        return value;
+      }
     })
     //先頭位置を取得
     let indx = savedDt.indexOf(filterDt[0]);
-    this.rowStatus.rowIndex = indx;
+    this.rowStatus.keyIndex = indx;
+    this.rowStatus.detailLength = returnDt.length;
     switch(true){
       case filterDt.length == returnDt.length:
         for (let i = 0 ; i < returnDt.length; i++)  {
           savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-          
         };
         return savedDt;
 
@@ -326,9 +304,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           else{
             savedDt.splice(i+indx,1);
           }
-
         };
-
         return savedDt;
 
       //分割明細画面で明細を追加した場合：
@@ -339,28 +315,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           }
           else{
             let ins = new ODIS0020OrderShiwake();
-            ins.id = this.baseCompnt.setValue(returnDt[i].id);
-            ins.tabIndex =  this.baseCompnt.setValue(returnDt[i].tabIndex);
-            ins.journalCode = '';
-            ins.accountCode = '';
-            ins.journalName = '';
-            ins.orderSupplierCode = '';
-            ins.orderSupplierName = '';
-            ins.orderPlanAmount = '';
-            ins.comment = this.baseCompnt.setValue(returnDt[i].comment);
-            ins.orderSplitAmount = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
-            ins.requestDate = this.baseCompnt.setValue(returnDt[i].requestDate);
-            ins.requester = this.baseCompnt.setValue(returnDt[i].requester);
-            ins.approvalDate_lv1 = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
+            ins.id                 = this.baseCompnt.setValue(returnDt[i].id);
+            ins.tabIndex           = this.baseCompnt.setValue(returnDt[i].tabIndex);
+            ins.journalCode        = '';
+            ins.accountCode        = '';
+            ins.journalName        = '';
+            ins.orderSupplierCode  = '';
+            ins.orderSupplierName  = '';
+            ins.orderPlanAmount    = '';
+            ins.comment            = this.baseCompnt.setValue(returnDt[i].comment);
+            ins.orderSplitAmount   = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
+            ins.requestDate        = this.baseCompnt.setValue(returnDt[i].requestDate);
+            ins.requester          = this.baseCompnt.setValue(returnDt[i].requester);
+            ins.approvalDate_lv1   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
             ins.approvalPerson_lv1 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv1);
-            ins.approvalDate_lv2 = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
+            ins.approvalDate_lv2   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
             ins.approvalPerson_lv2 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv2);
-            ins.orderDate = this.baseCompnt.setValue(returnDt[i].orderDate);
-            ins.orderAmount = this.baseCompnt.setValue(returnDt[i].orderAmount);
-            ins.receivedDate = this.baseCompnt.setValue(returnDt[i].receivedDate);
-            ins.receivedAmount = this.baseCompnt.setValue(returnDt[i].receivedAmount);
-            ins.paymentDate = this.baseCompnt.setValue(returnDt[i].paymentDate);
-            ins.paymentAmount = this.baseCompnt.setValue(returnDt[i].paymentAmount);
+            ins.orderDate          = this.baseCompnt.setValue(returnDt[i].orderDate);
+            ins.orderAmount        = this.baseCompnt.setValue(returnDt[i].orderAmount);
+            ins.receivedDate       = this.baseCompnt.setValue(returnDt[i].receivedDate);
+            ins.receivedAmount     = this.baseCompnt.setValue(returnDt[i].receivedAmount);
+            ins.paymentDate        = this.baseCompnt.setValue(returnDt[i].paymentDate);
+            ins.paymentAmount      = this.baseCompnt.setValue(returnDt[i].paymentAmount);
 
             savedDt.splice(i+indx,0,ins);
           }
@@ -372,46 +348,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   setDataShiwake(savedDt: ODIS0020OrderShiwake, returnDt: ODIS0020OrderShiwake): ODIS0020OrderShiwake{
 
-    savedDt.id = this.baseCompnt.setValue(returnDt.id);
-    savedDt.tabIndex = this.baseCompnt.setValue(returnDt.tabIndex);
-    savedDt.journalCode = this.baseCompnt.setValue(returnDt.journalCode);
-    savedDt.journalName = this.baseCompnt.setValue(returnDt.journalName);
-    savedDt.orderPlanAmount = this.baseCompnt.setValue(returnDt.orderPlanAmount);
-    savedDt.orderSupplierCode = this.baseCompnt.setValue(returnDt.orderSupplierCode);
-    savedDt.orderSupplierName = this.baseCompnt.setValue(returnDt.orderSupplierName);
-    savedDt.comment = this.baseCompnt.setValue(returnDt.comment);
-    savedDt.orderSplitAmount =  this.baseCompnt.setValue(returnDt.orderSplitAmount);
-    savedDt.requestDate =  this.baseCompnt.setValue(returnDt.requestDate);
-    savedDt.requester =  this.baseCompnt.setValue(returnDt.requester);
-    savedDt.approvalDate_lv1 =  this.baseCompnt.setValue(returnDt.approvalDate_lv1);
-    savedDt.approvalPerson_lv1 =  this.baseCompnt.setValue(returnDt.approvalPerson_lv1);
-    savedDt.approvalDate_lv2 =  this.baseCompnt.setValue(returnDt.approvalDate_lv2);
-    savedDt.approvalPerson_lv2 =  this.baseCompnt.setValue(returnDt.approvalPerson_lv2);
-    savedDt.orderDate =  this.baseCompnt.setValue(returnDt.orderDate);
-    savedDt.orderAmount =  this.baseCompnt.setValue(returnDt.orderAmount);
-    savedDt.receivedDate =  this.baseCompnt.setValue(returnDt.receivedDate);
-    savedDt.receivedAmount =  this.baseCompnt.setValue(returnDt.receivedAmount);
-    savedDt.paymentDate =  this.baseCompnt.setValue(returnDt.paymentDate);
-    savedDt.paymentAmount =  this.baseCompnt.setValue(returnDt.paymentAmount);
+    savedDt.id                  = this.baseCompnt.setValue(returnDt.id);
+    savedDt.tabIndex            = this.baseCompnt.setValue(returnDt.tabIndex);
+    savedDt.journalCode         = this.baseCompnt.setValue(returnDt.journalCode);
+    savedDt.journalName         = this.baseCompnt.setValue(returnDt.journalName);
+    savedDt.orderPlanAmount     = this.baseCompnt.setValue(returnDt.orderPlanAmount);
+    savedDt.orderSupplierCode   = this.baseCompnt.setValue(returnDt.orderSupplierCode);
+    savedDt.orderSupplierName   = this.baseCompnt.setValue(returnDt.orderSupplierName);
+    savedDt.comment             = this.baseCompnt.setValue(returnDt.comment);
+    savedDt.orderSplitAmount    = this.baseCompnt.setValue(returnDt.orderSplitAmount);
+    savedDt.requestDate         = this.baseCompnt.setValue(returnDt.requestDate);
+    savedDt.requester           = this.baseCompnt.setValue(returnDt.requester);
+    savedDt.approvalDate_lv1    = this.baseCompnt.setValue(returnDt.approvalDate_lv1);
+    savedDt.approvalPerson_lv1  = this.baseCompnt.setValue(returnDt.approvalPerson_lv1);
+    savedDt.approvalDate_lv2    = this.baseCompnt.setValue(returnDt.approvalDate_lv2);
+    savedDt.approvalPerson_lv2  = this.baseCompnt.setValue(returnDt.approvalPerson_lv2);
+    savedDt.orderDate           = this.baseCompnt.setValue(returnDt.orderDate);
+    savedDt.orderAmount         = this.baseCompnt.setValue(returnDt.orderAmount);
+    savedDt.receivedDate        = this.baseCompnt.setValue(returnDt.receivedDate);
+    savedDt.receivedAmount      = this.baseCompnt.setValue(returnDt.receivedAmount);
+    savedDt.paymentDate         = this.baseCompnt.setValue(returnDt.paymentDate);
+    savedDt.paymentAmount       = this.baseCompnt.setValue(returnDt.paymentAmount);
 
     return savedDt;
-  }
-
-  ngAfterViewInit(): void {
-    this.setTextColor(this.rowStatus.rowIndex);
-
-  }
-
-  setTextColor(rIndex: number) {
-
-    if (this.isDeference) {
-      let name: string;
-      let txt: HTMLElement;
-      name = "txtPlanAmount" + rIndex;
-      txt = document.getElementById(name);
-      txt.style.color = 'red';
-    }
-
   }
 
   /**
@@ -419,19 +378,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt 
    */
   divideData(dt: ODIS0020OrderDetailList[], tabName: string): ODIS0020OrderShiwake[] {
-
     let data: ODIS0020OrderShiwake[] = [];
     dt.forEach(element => {
-   
       // 分割データを取得
       let bunkatsuData: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
-
       if (bunkatsuData.length > 0) {
         for (let i = 0; i < bunkatsuData.length; i++) {
           let newDt= new ODIS0020OrderShiwake();
           const splitDt = bunkatsuData[i];
           //データをある場合、設定する
-          if (i === 0) {
+          if (i == 0) {
             newDt = this.setData('SetFirstSplitData', tabName, element, splitDt);
           }
           else{
@@ -442,8 +398,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         }
       }
       else {
-        let dividedDt = this.setData('NoSplitData', tabName, element, null);
-        data.push(dividedDt);
+        let noSplitDt = this.setData('NoSplitData', tabName, element, null);
+        data.push(noSplitDt);
+        
       }
     });
 
@@ -463,83 +420,118 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     switch (action) {
       case 'NoSplitData':
-        newDt.tabIndex = tabName;
-        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.journalCode = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.accountCode = this.baseCompnt.setValue(orderDt.accountCode);
-        newDt.journalName = this.baseCompnt.setValue(orderDt.journalName);
-        newDt.orderSupplierCode = this.baseCompnt.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName = this.baseCompnt.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount = this.baseCompnt.setValue(orderDt.orderPlanAmount);
-        newDt.comment = '';
-        newDt.orderSplitAmount = '';
-        newDt.requestDate = '';
-        newDt.requester = '';
-        newDt.approvalDate_lv1 = '';
-        newDt.approvalPerson_lv1 = '';
-        newDt.approvalDate_lv2 = '';
-        newDt.approvalPerson_lv2 = '';
-        newDt.orderDate = '';
-        newDt.orderAmount = '';
-        newDt.receivedDate = '';
-        newDt.receivedAmount = '';
-        newDt.paymentDate = '';
-        newDt.paymentAmount = '';
+        newDt.tabIndex            = tabName;
+        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
+        newDt.journalCode         = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.accountCode         = this.baseCompnt.setValue(orderDt.accountCode);
+        newDt.journalName         = this.baseCompnt.setValue(orderDt.journalName);
+        newDt.orderSupplierCode   = this.baseCompnt.setValue(orderDt.orderSupplierCode);
+        newDt.orderSupplierName   = this.baseCompnt.setValue(orderDt.orderSupplierName);
+        newDt.orderPlanAmount     = this.baseCompnt.setValue(orderDt.orderPlanAmount);
+        newDt.comment             = '';
+        newDt.orderSplitAmount    = '';
+        newDt.requestDate         = '';
+        newDt.requester           = '';
+        newDt.approvalDate_lv1    = '';
+        newDt.approvalPerson_lv1  = '';
+        newDt.approvalDate_lv2    = '';
+        newDt.approvalPerson_lv2  = '';
+        newDt.orderDate           = '';
+        newDt.orderAmount         = '';
+        newDt.receivedDate        = '';
+        newDt.receivedAmount      = '';
+        newDt.paymentDate         = '';
+        newDt.paymentAmount       = '';
 
         break;
 
       case 'SetFirstSplitData':
-        newDt.tabIndex = tabName;
-        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.journalCode = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.accountCode = this.baseCompnt.setValue(orderDt.accountCode);
-        newDt.journalName = this.baseCompnt.setValue(orderDt.journalName);
-        newDt.orderSupplierCode = this.baseCompnt.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName = this.baseCompnt.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount = this.baseCompnt.setValue(orderDt.orderPlanAmount);
-        newDt.comment = this.baseCompnt.setValue(splitDt.comment);
-        newDt.orderSplitAmount = this.baseCompnt.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate = this.baseCompnt.setValue(splitDt.requestDate);
-        newDt.requester = this.baseCompnt.setValue(splitDt.requester);
-        newDt.approvalDate_lv1 = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1 = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2 = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2 = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate = this.baseCompnt.setValue(splitDt.orderDate);
-        newDt.orderAmount = this.baseCompnt.setValue(splitDt.orderAmount);
-        newDt.receivedDate = this.baseCompnt.setValue(splitDt.receivedDate);
-        newDt.receivedAmount = this.baseCompnt.setValue(splitDt.receivedAmount);
-        newDt.paymentDate = this.baseCompnt.setValue(splitDt.paymentDate);
-        newDt.paymentAmount = this.baseCompnt.setValue(splitDt.paymentAmount);
+        newDt.tabIndex            = tabName;
+        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
+        newDt.journalCode         = this.baseCompnt.setValue(orderDt.journalCode);
+        newDt.accountCode         = this.baseCompnt.setValue(orderDt.accountCode);
+        newDt.journalName         = this.baseCompnt.setValue(orderDt.journalName);
+        newDt.orderSupplierCode   = this.baseCompnt.setValue(orderDt.orderSupplierCode);
+        newDt.orderSupplierName   = this.baseCompnt.setValue(orderDt.orderSupplierName);
+        newDt.orderPlanAmount     = this.baseCompnt.setValue(orderDt.orderPlanAmount);
+        newDt.comment             = this.baseCompnt.setValue(splitDt.comment);
+        newDt.orderSplitAmount    = this.baseCompnt.setValue(splitDt.orderSplitAmount);
+        newDt.requestDate         = this.baseCompnt.setValue(splitDt.requestDate);
+        newDt.requester           = this.baseCompnt.setValue(splitDt.requester);
+        newDt.approvalDate_lv1    = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
+        newDt.approvalPerson_lv1  = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
+        newDt.approvalDate_lv2    = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
+        newDt.approvalPerson_lv2  = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
+        newDt.orderDate           = this.baseCompnt.setValue(splitDt.orderDate);
+        newDt.orderAmount         = this.baseCompnt.setValue(splitDt.orderAmount);
+        newDt.receivedDate        = this.baseCompnt.setValue(splitDt.receivedDate);
+        newDt.receivedAmount      = this.baseCompnt.setValue(splitDt.receivedAmount);
+        newDt.paymentDate         = this.baseCompnt.setValue(splitDt.paymentDate);
+        newDt.paymentAmount       = this.baseCompnt.setValue(splitDt.paymentAmount);
         break;
 
       case 'SetNextSplitData':
-        newDt.tabIndex = tabName;
-        newDt.id = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.journalCode = '';
-        newDt.accountCode = '';
-        newDt.journalName = '';
-        newDt.orderSupplierCode = '';
-        newDt.orderSupplierName = '';
-        newDt.orderPlanAmount = '';
-        newDt.comment = this.baseCompnt.setValue(splitDt.comment);
-        newDt.orderSplitAmount = this.baseCompnt.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate = this.baseCompnt.setValue(splitDt.requestDate);
-        newDt.requester = this.baseCompnt.setValue(splitDt.requester);
-        newDt.approvalDate_lv1 = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1 = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2 = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2 = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate = this.baseCompnt.setValue(splitDt.orderDate);
-        newDt.orderAmount = this.baseCompnt.setValue(splitDt.orderAmount);
-        newDt.receivedDate = this.baseCompnt.setValue(splitDt.receivedDate);
-        newDt.receivedAmount = this.baseCompnt.setValue(splitDt.receivedAmount);
-        newDt.paymentDate = this.baseCompnt.setValue(splitDt.paymentDate);
-        newDt.paymentAmount = this.baseCompnt.setValue(splitDt.paymentAmount);
+        newDt.tabIndex            = tabName;
+        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
+        newDt.journalCode         = '';
+        newDt.accountCode         = '';
+        newDt.journalName         = '';
+        newDt.orderSupplierCode   = '';
+        newDt.orderSupplierName   = '';
+        newDt.orderPlanAmount     = '';
+        newDt.comment             = this.baseCompnt.setValue(splitDt.comment);
+        newDt.orderSplitAmount    = this.baseCompnt.setValue(splitDt.orderSplitAmount);
+        newDt.requestDate         = this.baseCompnt.setValue(splitDt.requestDate);
+        newDt.requester           = this.baseCompnt.setValue(splitDt.requester);
+        newDt.approvalDate_lv1    = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
+        newDt.approvalPerson_lv1  = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
+        newDt.approvalDate_lv2    = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
+        newDt.approvalPerson_lv2  = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
+        newDt.orderDate           = this.baseCompnt.setValue(splitDt.orderDate);
+        newDt.orderAmount         = this.baseCompnt.setValue(splitDt.orderAmount);
+        newDt.receivedDate        = this.baseCompnt.setValue(splitDt.receivedDate);
+        newDt.receivedAmount      = this.baseCompnt.setValue(splitDt.receivedAmount);
+        newDt.paymentDate         = this.baseCompnt.setValue(splitDt.paymentDate);
+        newDt.paymentAmount       = this.baseCompnt.setValue(splitDt.paymentAmount);
 
         break;
     }
     return newDt;
+  }
+
+  /**
+   * 画面初期表示
+   */
+  setDefaultDisplay(){
+    // 初期化
+    this.Clear();
+    // ボタン制御
+    this.setPageButtonDisplay(false, true, false, true);
+  }
+
+  ngAfterViewInit(): void {
+
+    if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
+      var body: any
+      switch (this.ODIS0020Service.ReturnedSplitData[0].tabIndex) {
+        case this.tabNo1:
+          body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+  
+        case this.tabNo2:
+          body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+  
+        case this.tabNo3:
+          body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+      }
+      var t = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
+    
+      this.setAutoScroll(body, t);
+      this.baseCompnt.setRowColor(Const.Action.A0004,body,t);
+    }
+    
   }
 
   /**
@@ -605,30 +597,33 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return;
     }
     let temp = new ODIS0020OrderShiwake ()
-    temp.tabIndex = this.selectedTab ;
-    temp.id = this.addInput.journalCode ;
-    temp.journalCode = this.addInput.journalCode ;
-    temp.accountCode = this.addInput.accountCode ;
-    temp.journalName = this.addInput.journalName ;
-    temp.orderSupplierCode = this.addInput.orderSupplierCode ;
-    temp.orderSupplierName = this.addInput.orderSupplierName ;
-    temp.orderPlanAmount = this.addInput.orderPlanAmount ;
-    temp.comment = '' ;
-    temp.orderSplitAmount = '' ;
-    temp.requestDate = '' ;
-    temp.requester = '' ;
-    temp.approvalDate_lv1 = '' ;
+    temp.tabIndex           = this.selectedTab ;
+    temp.id                 = `${this.baseCompnt.setValue(this.addInput.journalCode)}_${this.baseCompnt.setValue(this.addInput.accountCode)}_${this.baseCompnt.setValue(this.addInput.journalName)}`;
+    temp.journalCode        = this.addInput.journalCode ;
+    temp.accountCode        = this.addInput.accountCode ;
+    temp.journalName        = this.addInput.journalName ;
+    temp.orderSupplierCode  = this.addInput.orderSupplierCode ;
+    temp.orderSupplierName  = this.addInput.orderSupplierName ;
+    temp.orderPlanAmount    = this.addInput.orderPlanAmount ;
+    temp.comment            = '' ;
+    temp.orderSplitAmount   = '' ;
+    temp.requestDate        = '' ;
+    temp.requester          = '' ;
+    temp.approvalDate_lv1   = '' ;
     temp.approvalPerson_lv1 = '' ;
-    temp.approvalDate_lv2 = '' ;
+    temp.approvalDate_lv2   = '' ;
     temp.approvalPerson_lv2 = '' ;
-    temp.orderDate = '' ;
-    temp.orderAmount = '' ;
-    temp.receivedDate = '' ;
-    temp.receivedAmount = '' ;
-    temp.paymentDate = '' ;
-    temp.paymentAmount = '' ;
+    temp.orderDate          = '' ;
+    temp.orderAmount        = '' ;
+    temp.receivedDate       = '' ;
+    temp.receivedAmount     = '' ;
+    temp.paymentDate        = '' ;
+    temp.paymentAmount      = '' ;
 
     this.insertToDataTable(temp);
+
+    //初期化
+    this.setDefaultDisplay();
 
   }
 
@@ -664,7 +659,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     this.baseCompnt.setRowColor(Const.Action.A0001, tblBody, insertIndex);
     this.setAutoScroll(tblBody, insertIndex);
-    this.Clear();
+
+    this.setDefaultDisplay();
   }
 
   /**
@@ -744,84 +740,84 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   updateOrderDetail() {
 
+    if(!this.inputCheck()){
+      return;
+    };
+    var key = this.rowStatus.keyIndex;
+    var value = this.rowStatus.rowIndex;
+    var body: any;
+    switch (this.selectedTab) {
+      case this.tabNo1:
+
+        this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key,value, Const.Action.A0002);
+        body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
+        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
+        this.childSekkei.tableShiwake.renderRows();
+        break;
+
+      case this.tabNo2:
+        this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key,value, Const.Action.A0002);
+        body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
+        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
+        this.baseCompnt.setUpdateColor(Const.Action.A0002, body,key);
+        this.childHontai.tableShiwake.renderRows();
+        break;
+
+      case this.tabNo3:
+        this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key,value, Const.Action.A0002);
+        body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
+        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
+        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
+        this.childTsuika.tableShiwake.renderRows();
+        break;
+    }
+    this.setDefaultDisplay();
+  }
+
+  inputCheck(){
     if (!this.rowStatus.isSelected) {
       alert(Const.ErrorMsg.E0013);
-      return;
+      return false;
     };
 
     if(this.addInput.isUnchanged){
       alert(Const.ErrorMsg.E0015);
-      return;
+      return false;
     };
     if (this.addInput.isBlank) {
       alert(Const.ErrorMsg.E0010);
       this.baseCompnt.setFocus('txtAddJCode');
-      return;
+      return false;
     }
     if(this.addInput.journalCode == ''){
       alert(Const.ErrorMsg.E0003);
       this.baseCompnt.setFocus('txtAddJCode');
-      return;
+      return false;
     }
     if(this.addInput.accountCode == ''){
       alert(Const.ErrorMsg.E0004);
       this.baseCompnt.setFocus('txtAddAccCode');
-      return;
+      return false;
     }
 
-    var key = this.rowStatus.keyIndex;
-    var value = this.rowStatus.rowIndex;
-    switch (this.selectedTab) {
-      case this.tabNo1:
-        
-        this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key,value, Const.Action.A0002);
-
-        let sekkeiBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, sekkeiBody, key,value);
-
-        this.childSekkei.tableShiwake.renderRows();
-        break;
-      case this.tabNo2:
-
-        this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key,value, Const.Action.A0002);
-
-        let hontaiBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, hontaiBody,key,value);
-
-        this.childHontai.tableShiwake.renderRows();
-        break;
-      case this.tabNo3:
-        this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key,value, Const.Action.A0002);
-
-        let tsuikaBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody')
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, tsuikaBody, key,value);
-
-        this.childTsuika.tableShiwake.renderRows();
-        break;
-    }
-
-    this.Clear();
-
+    return true;
   }
 
   /**
    * 変更処理を中止する
    */
   stopUpdateOrderDetail() {
-
     // 初期化
     let index = this.rowStatus.rowIndex;
-    var tblBody;
-
+    var tblBody: any;
     switch (this.selectedTab) {
       case this.tabNo1:
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
-
       case this.tabNo2:
         tblBody= this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
-
       case this.tabNo3:
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
@@ -830,16 +826,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 行　背景 背低
     this.baseCompnt.setRowColor(Const.Action.A0006, tblBody, index);
     // 初期化
-    this.Clear();
     this.rowStatus.Reset();
-    this.setPageButtonDisplay(false,false,false,false);
+    this.setDefaultDisplay();
   }
 
   /**
    * 明細テーブルにて、選択された明細を削除する
    */
   deleteOrderDetail() {
-
     if (!this.rowStatus.isSelected) {
       alert(Const.ErrorMsg.E0008);
       return;
@@ -847,84 +841,70 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var confirm = window.confirm(Const.WarningMsg.W0001);
 
     if (!confirm) { return; };
-    
-    let rIndex = this.rowStatus.rowIndex;
-    if (!this.rowStatus.isFirstDetail) {
-      switch (this.selectedTab) {
-        case this.tabNo1:
-          this.childSekkei.orderData.splice(rIndex, 1);
-          this.childSekkei.tableShiwake.renderRows();
-          break;
-        case this.tabNo2:
-          this.childHontai.orderData.splice(rIndex, 1);
-          this.childHontai.tableShiwake.renderRows();
-          break;
-        case this.tabNo3:
-          this.childTsuika.orderData.splice(rIndex, 1);
-          this.childTsuika.tableShiwake.renderRows();
-          break;
-      }
-    }
-    else{
-      switch (this.selectedTab) {
-        case this.tabNo1:
-          this.deleteProcess(this.childSekkei.orderData);
-          this.childSekkei.tableShiwake.renderRows();
-          break;
-        case this.tabNo2:
-          this.deleteProcess(this.childHontai.orderData);
-          this.childHontai.tableShiwake.renderRows();
-          break;
-        case this.tabNo3:
-          this.deleteProcess(this.childTsuika.orderData);
-          this.childTsuika.tableShiwake.renderRows();
-          break;
-      }
+
+    let key = this.rowStatus.keyIndex;
+    let len = this.rowStatus.detailLength;
+
+    switch (this.selectedTab) {
+      case this.tabNo1:
+        this.childSekkei.orderData.splice(key, len);
+        this.childSekkei.tableShiwake.renderRows();
+        break;
+      case this.tabNo2:
+        this.childHontai.orderData.splice(key, len);
+        this.childHontai.tableShiwake.renderRows();
+        break;
+      case this.tabNo3:
+        this.childTsuika.orderData.splice(key, len);
+        this.childTsuika.tableShiwake.renderRows();
+        break;
     }
 
+    this.saveTemporaryData();
     // 初期化する
-    this.Clear();
+    this.setDefaultDisplay();
     this.rowStatus.Reset();
-
   }
 
-  deleteProcess(dt: ODIS0020OrderShiwake[]){
+  //検討中！！！！
+  // deleteProcess(dt: ODIS0020OrderShiwake[]){
 
-    let rIndex =  this.rowStatus.rowIndex;
+  //   let rIndex =  this.rowStatus.rowIndex;
 
-    // 次の行のデータを設定する。
-    dt[rIndex + 1].journalCode = dt[rIndex].journalCode;
-    dt[rIndex + 1].accountCode = dt[rIndex].accountCode;
-    dt[rIndex + 1].journalName = dt[rIndex].journalName;
-    dt[rIndex + 1].orderSupplierCode = dt[rIndex].orderSupplierCode;
-    dt[rIndex + 1].orderSupplierName = dt[rIndex].orderSupplierName;
-    dt[rIndex + 1].orderPlanAmount = dt[rIndex].orderPlanAmount;
+  //   // 次の行のデータを設定する。
+  //   dt[rIndex + 1].journalCode        = dt[rIndex].journalCode;
+  //   dt[rIndex + 1].accountCode        = dt[rIndex].accountCode;
+  //   dt[rIndex + 1].journalName        = dt[rIndex].journalName;
+  //   dt[rIndex + 1].orderSupplierCode  = dt[rIndex].orderSupplierCode;
+  //   dt[rIndex + 1].orderSupplierName  = dt[rIndex].orderSupplierName;
+  //   dt[rIndex + 1].orderPlanAmount    = dt[rIndex].orderPlanAmount;
 
-    //先頭のデータを削除する。
-    dt.splice(rIndex, 1);
-  }
+  //   //先頭のデータを削除する。
+  //   dt.splice(rIndex, 1);
+  // }
+
   /**
    * タブを変わった時、デフォルト値を変える。
    * @param event 
    */
   setSelectTabChanged(event: any) {
     this.selectedTab = event.tab.textLabel;
-    this.Clear();
+    this.setDefaultDisplay();
   }
 
   /**
    * 初期化
    */
   private Clear(){
-    this.addInput.journalCode = '';
-    this.addInput.accountCode = '';
-    this.addInput.journalName = '';
+    this.addInput.journalCode       = '';
+    this.addInput.accountCode       = '';
+    this.addInput.journalName       = '';
     this.addInput.orderSupplierCode = '';
     this.addInput.orderSupplierName = '';
-    this.addInput.orderPlanAmount = '';
-    this.addInput.shiwakeData = new ODIS0020OrderShiwake();
-    this.paramJournalCode = new ODIS0020Form();
-    this.paramOrderCode = new ODIS0020Form();
+    this.addInput.orderPlanAmount   = '';
+    // this.addInput.shiwakeData       = new ODIS0020OrderShiwake();
+    this.paramJournalCode           = new ODIS0020Form();
+    this.paramOrderCode             = new ODIS0020Form();
   } 
 
   /**
@@ -939,27 +919,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // 値設定
         this.rowStatus = emitterData.getRowStatus();
         this.addInput.setInput(emitterData.getEmitterData());
-        this.journalDataApprovalChecker(emitterData.getEmitterData());
+        this.journalDataApprovalChecker(this.rowStatus);
         break;
 
+      //分割明細画面に遷移する
       case Const.Action.A0007:
         this.rowStatus.Reset();
 
-        let pageData = new ODIS0020Session();
-     
-        pageData.ContractInfo = this.orderInformation;
-        pageData.MainOrderInfo = this.tblMainOrder;
-        pageData.InsertedOrderInfo = this.tblInsertedOrder;
-        pageData.SekkeiData = this.childSekkei.orderData;
-        pageData.HontaiData = this.childHontai.orderData;
-        pageData.TsuikaData = this.childTsuika.orderData;
-
         //　一時データを保持する。
-        if(sessionStorage.getItem(Const.ScreenName.S0002EN) != null){
-          sessionStorage.removeItem(Const.ScreenName.S0002EN);
-        }
-        sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(pageData));
-
+        this.saveTemporaryData();
         this.router.navigate([Const.UrlSetting.U0006]);
         
         break;
@@ -967,19 +935,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-  journalDataApprovalChecker(data: ODIS0020OrderShiwake){
-    
+  /**
+   * ボタン制御
+   */
+  journalDataApprovalChecker(rs: RowStatus){
     switch(true){
       //依頼未・承認未
-      case (data.requester == '' && data.approvalPerson_lv1 == ''):
+      case (!rs.iraiSumi && !rs.shouninChuu && !rs.shouninSumi):
         this.setPageButtonDisplay(true, false, false, false);
         break;
       //依頼済・承認未
-      case (data.requester != '' && data.approvalPerson_lv1 == ''):
+      case (rs.iraiSumi && !rs.shouninChuu && !rs.shouninSumi):
         this.setPageButtonDisplay(true, false, false, false);
         break;
+      //依頼済・承認中
+      case (rs.iraiSumi && rs.shouninChuu && !rs.shouninSumi):
+        this.setPageButtonDisplay(true, false, false, true);
+        break;
       //依頼済・承認済
-      case (data.requester != '' && data.approvalPerson_lv1 != ''):
+      case (rs.iraiSumi && rs.shouninChuu && rs.shouninSumi):
         this.setPageButtonDisplay(true, true, false, true);
         break;
     };
@@ -1022,7 +996,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param row
    */
   setAutoScroll(body: any, row: number) {
-    body.rows[row].scrollIntoView(true);
+    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 
   finalUpdateProgress(){
@@ -1050,9 +1024,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 空白以外の場合に処理を実行
     if($event.target.value.trim().length >= 1){
       // 0パディング 設定
-      var strJounalCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 4);
+      var strJournalCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 4);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
-      if(this.paramJournalCode.journalCode !== strJounalCode){
+      if(this.paramJournalCode.journalCode !== strJournalCode){
         // 初期化
         this.paramJournalCode = new ODIS0020Form();
         // Todo　システムログイン情報から取得すること！
@@ -1060,7 +1034,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode.officeCode = '701000';
 
         // 仕訳コード 設定
-        this.paramJournalCode.journalCode = strJounalCode;
+        this.paramJournalCode.journalCode = strJournalCode;
 
         // 仕訳コード取得
         let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_JOURNAL_CODE;
@@ -1070,7 +1044,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
             if(response.result === Const.ConnectResult.R0001){
               this.resJournalCode = response.applicationData;
-              this.addInput.journalCode = strJounalCode;   // 仕訳コード
+              this.addInput.journalCode = strJournalCode;   // 仕訳コード
               this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
               this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
             }else{
@@ -1083,13 +1057,32 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * 一時データを保持する
+   */
+  saveTemporaryData(){
+
+    // セックションに保持する
+    let saveDt = new ODIS0020Session();
+    saveDt.ContractInfo = this.orderInformation;
+    saveDt.MainOrderInfo = this.tblMainOrder;
+    saveDt.InsertedOrderInfo = this.tblInsertedOrder;
+    saveDt.SekkeiData = this.tblSekkei;
+    saveDt.HontaiData = this.tblHontai;
+    saveDt.TsuikaData = this.tblTsuika;
+
+    if (sessionStorage.getItem(Const.ScreenName.S0002EN) != null) {
+      sessionStorage.removeItem(Const.ScreenName.S0002EN);
+    }
+    sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
+
+  }
+  /**
    * 経理分類 ロストフォーカス
    * @param event 
    */
   blurAccountCode($event){
     this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
   }
-
 
   /**
    * 発注先コード ロストフォーカス

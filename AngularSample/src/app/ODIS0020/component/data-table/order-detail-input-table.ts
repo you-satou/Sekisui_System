@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { DatePipe } from '@angular/common';
 import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
@@ -92,8 +93,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     private datePipe: DatePipe,
   ) { }
 
-  ngOnInit() {  }
-
+  ngOnInit() { }
 
   /**
    * 発注予定金額の合計
@@ -102,7 +102,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
-          if (t.orderPlanAmount != null || t.orderPlanAmount != "") {
+          if (t.orderPlanAmount != null ||
+              t.orderPlanAmount != "") {
             return Number(t.orderPlanAmount);
           }
         })
@@ -116,10 +117,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
-          if (
-            t.orderSplitAmount != null ||
-            t.orderSplitAmount != ""
-          ) {
+          if ( t.orderSplitAmount != null ||
+               t.orderSplitAmount != "") {
             return Number(t.orderSplitAmount);
           }
         })
@@ -134,10 +133,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
-          if (
-            t.orderAmount != null ||
-            t.orderAmount != ""
-          ) {
+          if ( t.orderAmount != null ||
+               t.orderAmount != "") {
             return Number(t.orderAmount);
           }
         })
@@ -152,10 +149,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
-          if (
-            t.receivedAmount != null ||
-            t.receivedAmount != ""
-          ) {
+          if ( t.receivedAmount != null ||
+               t.receivedAmount != "") {
             return Number(t.receivedAmount);
           }
         })
@@ -170,10 +165,8 @@ export class OrderDetailShiwakeTable implements OnInit {
     if (this.orderData != undefined || this.orderData != null) {
       return this.orderData
         .map((t) => {
-          if (
-            t.receivedAmount != null ||
-            t.receivedAmount != ""
-          ) {
+          if (t.receivedAmount != null ||
+              t.receivedAmount != "") {
             return Number(t.receivedAmount);
           }
         })
@@ -181,25 +174,30 @@ export class OrderDetailShiwakeTable implements OnInit {
     }
   }
   /**
-   * 発注金額を設定する
+   *➡ボタンを押下して、 発注金額を設定する
    * @param $event
    * @param dataDetail
    */
   getDisplayData($event, data: ODIS0020OrderShiwake) {
-
     if (data.orderPlanAmount == '' ||
-      data.orderPlanAmount == null ||
-      data.orderPlanAmount == undefined
-    ) {
+        data.orderPlanAmount == null ||
+        data.orderPlanAmount == undefined
+    ){
+      return;
+    }
+    if(data.orderSplitAmount != ''){
       return;
     }
     data.orderSplitAmount = data.orderPlanAmount;
-    let name: string;
-    let txt: HTMLElement;
-    name = "txtPlanAmount" + this.orderData.indexOf(data);
-    txt = document.getElementById(name);
-    if(txt.style.color == 'red'){
-      txt.style.color = 'black';  
+
+    let i = this.orderData.indexOf(data);
+
+    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    let tr = skBody.rows[i];
+    //合計金額と発注予定金額を比較する
+    if(tr.cells[5].style.color == 'red'){
+      //発注予定金額の色を変える。
+      tr.cells[5].style.color = 'black';
     }
 
   }
@@ -215,20 +213,19 @@ export class OrderDetailShiwakeTable implements OnInit {
       if (odrDt.id === selectedItem.id) {
         let tmp = new ODIS0060OrderShiwake();
 
-        tmp.tabIndex = odrDt.tabIndex;
-        tmp.id = odrDt.id;
-        tmp.journalCode = odrDt.journalCode;
-        tmp.accountCode = odrDt.accountCode;
-        tmp.journalName = odrDt.journalName;
+        tmp.tabIndex          = odrDt.tabIndex;
+        tmp.id                = odrDt.id;
+        tmp.journalCode       = odrDt.journalCode;
+        tmp.accountCode       = odrDt.accountCode;
+        tmp.journalName       = odrDt.journalName;
         tmp.orderSupplierCode = odrDt.orderSupplierCode;
         tmp.orderSupplierName = odrDt.orderSupplierName;
-        tmp.orderPlanAmount = odrDt.orderPlanAmount;
+        tmp.orderPlanAmount   = odrDt.orderPlanAmount;
 
         shiwakeDt.push(tmp);
 
         break;
       }
-
     }
 
     this.orderData.forEach(dt => {
@@ -257,6 +254,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     this.odis0060Service.setSplitTable(shiwakeDt);
     this.odis0060Service.setDetailTable(splitDt);
 
+    //　エミッターを送る。
     this.dataEmitter.action = Const.Action.A0007;
     this.sendOrderData.emit(this.dataEmitter);
 
@@ -274,7 +272,23 @@ export class OrderDetailShiwakeTable implements OnInit {
       if(element.id == value.id){
         return element;
       }
-    })
+    });
+    
+    let irai = filter.filter(dt =>{
+      if(dt.requester != ''){
+        return dt;
+      }
+    });
+
+    let shounin = filter.filter(dt => {
+      if(dt.approvalPerson_lv1 !=''){
+        return dt;
+      }
+    });
+
+    let iraiSumi = irai.length == filter.length;
+    let shouninSumi = shounin.length == filter.length;
+    let shouninChuu = shounin.length > 0;
 
     //先頭データのインデックスを取得する
     let keyIndex = this.orderData.indexOf(filter[0]);
@@ -287,8 +301,8 @@ export class OrderDetailShiwakeTable implements OnInit {
 
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;
-    this.dataEmitter.setEmitterData(filter[0], value);
-    this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current);
+    this.dataEmitter.setEmitterData(filter[0], filter);
+    this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current,iraiSumi,shouninSumi,shouninChuu);
 
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
@@ -396,8 +410,10 @@ export class OrderDetailShiwakeTable implements OnInit {
   /**
    * テーブルをレンダー後に走るメゾッド
    */
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     this.setTableButtonDisplay(this.orderData);
+    this.setTextColorWhenAmountIsDifference(this.orderData);
+
   }
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
@@ -434,6 +450,50 @@ export class OrderDetailShiwakeTable implements OnInit {
           //承認ボタンは既に非表示されているため、再非表示する必要なし。
       }
     });
+
+  }
+
+  /**
+   * レンダー後、差額がある場合、テキスト色を変える。
+   * @param dt 
+   */
+  setTextColorWhenAmountIsDifference(dt: ODIS0020OrderShiwake[]){
+
+    for (let i = 0; i < dt.length; i++) {
+      //先頭データのIDを取得する。
+      let currID = dt[i].id;
+      //IDに当てはまるデータを絞り込む
+      var filter = dt.filter(data =>{
+        if(data.id == currID){
+          return data;
+        }
+      });
+      //絞り込んだデータを分割の合計発注金額を取得する。
+      let totalAmount: number = filter.map(data => {
+        //重複明細を数える。
+        if (Number(data.orderSplitAmount) > 0) {
+          return Number(data.orderSplitAmount);
+        }
+        else {
+          return 0;
+        }
+      }).reduce((acc, value) => acc + value);
+
+      let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+      let tr = skBody.rows[i];
+      //合計金額と発注予定金額を比較する
+      if(totalAmount != Number(dt[i].orderPlanAmount)){
+        //発注予定金額の色を変える。
+        tr.cells[5].style.color = 'red';
+      }
+      else{
+        tr.cells[5].style.color = 'black';
+      }
+      
+      //処理後、カーソルの位置が後尾に変換する。
+      i += filter.length - 1;
+
+    }
 
   }
 

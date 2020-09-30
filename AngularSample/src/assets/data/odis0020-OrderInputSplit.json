@@ -606,10 +606,34 @@
       "orderPlanAmount": "3300000",
       "bunkatsuData": [
         {
+          "requestDate": "19/07/04",
+          "requester": "積水潤一",
+          "approvalDate_lv1": "",
+          "approvalPerson_lv1": "",
+          "approvalDate_lv2": "",
+          "approvalPerson_lv2": "",
+          "orderDate": "19/07/04",
+          "orderAmount": "245000000",
+          "receivedDate": "19/07/05",
+          "receivedAmount": "245000000",
+          "paymentDate": "19/07/06",
+          "paymentAmount": "245000000",
           "orderSplitAmount": "45000",
           "comment": "一期"
         },
         {
+          "requestDate": "19/07/04",
+          "requester": "積水潤一",
+          "approvalDate_lv1": "",
+          "approvalPerson_lv1": "",
+          "approvalDate_lv2": "",
+          "approvalPerson_lv2": "",
+          "orderDate": "19/07/04",
+          "orderAmount": "245000000",
+          "receivedDate": "19/07/05",
+          "receivedAmount": "245000000",
+          "paymentDate": "19/07/06",
+          "paymentAmount": "245000000",
           "orderSplitAmount": "48555",
           "comment": "二期"
         }
@@ -661,38 +685,7 @@
       "orderSupplierCode": "803",
       "orderSupplierName": "積水建設㈱",
       "orderPlanAmount": "245000000",
-      "bunkatsuData": [
-        {
-          "comment": "",
-          "requestDate": "2019/7/4",
-          "requester": "積水潤一",
-          "approvalDate_lv1": "",
-          "approvalPerson_lv1": "",
-          "approvalDate_lv2": "",
-          "approvalPerson_lv2": "",
-          "orderDate": "2019/7/4",
-          "orderAmount": "245000000",
-          "receivedDate": "2019/7/5",
-          "receivedAmount": "245000000",
-          "paymentDate": "2019/7/6",
-          "paymentAmount": "245000000"
-        },
-        {
-          "comment": "",
-          "requestDate": "2019/7/4",
-          "requester": "積水潤一",
-          "approvalDate_lv1": "",
-          "approvalPerson_lv1": "",
-          "approvalDate_lv2": "",
-          "approvalPerson_lv2": "",
-          "orderDate": "2019/7/4",
-          "orderAmount": "245000000",
-          "receivedDate": "2019/7/5",
-          "receivedAmount": "245000000",
-          "paymentDate": "2019/7/6",
-          "paymentAmount": "245000000"
-        }
-      ]
+      "bunkatsuData": []
     },
     {
       "journalCode": "0880",
@@ -798,6 +791,8 @@
       "journalCode": "4400",
       "accountCode": "440",
       "journalName": "杭打工事",
+      "orderSupplierCode": "803",
+      "orderSupplierName": "積水建設㈱",
       "orderPlanAmount": "20000000",
       "bunkatsuData": []
     },
@@ -811,19 +806,12 @@
       "bunkatsuData": []
     },
     {
-      "journalCode": "",
-      "accountCode": "",
+      "journalCode": "4400",
+      "accountCode": "440",
       "journalName": "",
       "orderSupplierCode": "",
       "orderSupplierName": "",
       "orderPlanAmount": "48555",
-      "bunkatsuData": []
-    },
-    {
-      "journalCode": "4700",
-      "accountCode": "470",
-      "journalName": "工事保険(8)",
-      "orderPlanAmount": "367167",
       "bunkatsuData": []
     },
     {
