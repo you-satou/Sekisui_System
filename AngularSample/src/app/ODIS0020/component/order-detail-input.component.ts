@@ -20,7 +20,7 @@ import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entit
 import { ODIS0020Service } from '../services/odis0020-service';
 import { DataEmitter, RowStatus } from '../services/odis0020-DataEmitter.service';
 import { CommonComponent } from 'app/common/common.component';
-import { ODIS0020JounalCode } from '../entities/odis0020-JournalCode.entity'
+import { ODIS0020JournalCode } from '../entities/odis0020-JournalCode.entity'
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entitiy'
 
 @Component({
@@ -37,7 +37,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
   // タッブの初期値
-  selectedTab: string = "設計";
+  protected selectedTab: string = "設計";
 
   //  タッブの名前
   private tabNo1: string = '設計';
@@ -56,14 +56,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   }
 
-  // 差額
-  isDeference: boolean;
+  // 差額がある場合
+  private isDeference: boolean = false;
   
   loaderText: string = Const.WarningMsg.W0002;
   isLoading: boolean = true;
 
   // レスポンスから取得する
-  pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
+  private pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
 
   // 発注データ
   orderInformation: ODIS0020OrderDetailInputInformation[];
@@ -76,7 +76,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblTsuika: ODIS0020OrderShiwake[] = [];
 
   // mocking data url
-  _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
+  readonly _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
 
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
@@ -93,9 +93,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   btnDelete: boolean;
 
   // 仕訳コード パラメータ
-  paramJounalCode = new ODIS0020Form();
+  paramJournalCode = new ODIS0020Form();
   // 仕訳コード レスポンス
-  resJounalCode: ODIS0020JounalCode;
+  resJournalCode: ODIS0020JournalCode;
 
   // 発注先コード パラメータ
   paramOrderCode = new ODIS0020Form();
@@ -403,6 +403,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   setTextColor(rIndex: number) {
+
     if (this.isDeference) {
       let name: string;
       let txt: HTMLElement;
@@ -922,7 +923,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.orderSupplierName = '';
     this.addInput.orderPlanAmount = '';
     this.addInput.shiwakeData = new ODIS0020OrderShiwake();
-    this.paramJounalCode = new ODIS0020Form();
+    this.paramJournalCode = new ODIS0020Form();
     this.paramOrderCode = new ODIS0020Form();
   } 
 
@@ -1051,27 +1052,27 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       // 0パディング 設定
       var strJounalCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 4);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
-      if(this.paramJounalCode.journalCode !== strJounalCode){
+      if(this.paramJournalCode.journalCode !== strJounalCode){
         // 初期化
-        this.paramJounalCode = new ODIS0020Form();
+        this.paramJournalCode = new ODIS0020Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        this.paramJounalCode.officeCode = '701000';
+        this.paramJournalCode.officeCode = '701000';
 
         // 仕訳コード 設定
-        this.paramJounalCode.journalCode = strJounalCode;
+        this.paramJournalCode.journalCode = strJounalCode;
 
         // 仕訳コード取得
         let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_JOURNAL_CODE;
-        this.orderService.getSearchRequest(actionUrl,this.paramJounalCode)
+        this.orderService.getSearchRequest(actionUrl,this.paramJournalCode)
         .then(
           (response) => {
 
             if(response.result === Const.ConnectResult.R0001){
-              this.resJounalCode = response.applicationData;
+              this.resJournalCode = response.applicationData;
               this.addInput.journalCode = strJounalCode;   // 仕訳コード
-              this.addInput.accountCode = this.resJounalCode.accountCode;   // 経理分類
-              this.addInput.journalName = this.resJounalCode.journalName;   // 仕訳名称
+              this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
+              this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
             }else{
               alert(response.message);
             }

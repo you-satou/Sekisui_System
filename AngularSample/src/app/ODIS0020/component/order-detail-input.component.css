@@ -78,7 +78,7 @@
     max-height: 80px ;
 }
 
-.orderInfo1Table {
+/* .orderInfo1Table {
     position: relative ;
     height: 50px ;
     max-height: 50px ;
@@ -87,7 +87,7 @@
 
 .orderInfo1Table>td {
     min-height: 21px ;
-}
+} */
 
 .orderInfo2 {
     max-width: 100% ;

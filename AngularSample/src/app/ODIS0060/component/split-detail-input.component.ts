@@ -147,38 +147,25 @@ export class SplitOrderDetailComponent implements OnInit {
 
     //分割データがない場合、余白行を削除する
     if (dt.length == 1 &&
-      dt[0].orderSplitAmount == '' &&
-      dt[0].comment == '' &&
-      dt[0].requestDate == '' &&
-      dt[0].requester == '' &&
-      dt[0].approvalDate_lv1 == '' &&
-      dt[0].approvalPerson_lv1 == '' &&
-      dt[0].approvalDate_lv2 == '' &&
-      dt[0].approvalPerson_lv2 == '' &&
-      dt[0].orderDate == '' &&
-      dt[0].orderAmount == '' &&
-      dt[0].receivedDate == '' &&
-      dt[0].receivedAmount == '' &&
-      dt[0].paymentDate == '' &&
-      dt[0].paymentAmount == '') {
+      dt[0].orderSplitAmount    == '' &&
+      dt[0].comment             == '' &&
+      dt[0].requestDate         == '' &&
+      dt[0].requester           == '' &&
+      dt[0].approvalDate_lv1    == '' &&
+      dt[0].approvalPerson_lv1  == '' &&
+      dt[0].approvalDate_lv2    == '' &&
+      dt[0].approvalPerson_lv2  == '' &&
+      dt[0].orderDate           == '' &&
+      dt[0].orderAmount         == '' &&
+      dt[0].receivedDate        == '' &&
+      dt[0].receivedAmount      == '' &&
+      dt[0].paymentDate         == '' &&
+      dt[0].paymentAmount       == '') {
       // 分割明細テーブルのBodyを取得する
       let skBody:any = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
       skBody.rows[0].remove();
       return;
     }
-    dt.forEach(element => {
-      let i = dt.indexOf(element);
-      var btnName = "btnIrai"+i;
-      let btn = document.getElementById(btnName);
-      if (element.requester != '') {
-        btn.style.display = 'none';
-        return;
-      }
-      if (action == 'update') {
-        btn.style.display = 'inherit';
-        return;
-      }
-    });
   }
 
   /**
@@ -304,6 +291,7 @@ export class SplitOrderDetailComponent implements OnInit {
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     //明細の色を変える
     this.baseCompnt.setRowColor(Const.Action.A0001, tbody, insertIndex);
+    this.setAutoScroll(tbody,insertIndex);
 
     this.setPageButtonDisplay(false, true, false, true);
     this.resetAddTable();
@@ -372,20 +360,20 @@ export class SplitOrderDetailComponent implements OnInit {
     }
     //分割明細が一つだけの場合、中身を空白する
     if(this.bunkatsuData.length == 1){
-      this.bunkatsuData[0].orderSplitAmount = '';
-      this.bunkatsuData[0].comment = '';
-      this.bunkatsuData[0].requestDate = '';
-      this.bunkatsuData[0].requester = '';
-      this.bunkatsuData[0].approvalDate_lv1 = '';
+      this.bunkatsuData[0].orderSplitAmount   = '';
+      this.bunkatsuData[0].comment            = '';
+      this.bunkatsuData[0].requestDate        = '';
+      this.bunkatsuData[0].requester          = '';
+      this.bunkatsuData[0].approvalDate_lv1   = '';
       this.bunkatsuData[0].approvalPerson_lv1 = '';
-      this.bunkatsuData[0].approvalDate_lv2 = '';
+      this.bunkatsuData[0].approvalDate_lv2   = '';
       this.bunkatsuData[0].approvalPerson_lv2 = '';
-      this.bunkatsuData[0].orderDate = '';
-      this.bunkatsuData[0].orderAmount = '';
-      this.bunkatsuData[0].receivedDate = '';
-      this.bunkatsuData[0].receivedAmount = '';
-      this.bunkatsuData[0].paymentDate = '';
-      this.bunkatsuData[0].paymentAmount = '';
+      this.bunkatsuData[0].orderDate          = '';
+      this.bunkatsuData[0].orderAmount        = '';
+      this.bunkatsuData[0].receivedDate       = '';
+      this.bunkatsuData[0].receivedAmount     = '';
+      this.bunkatsuData[0].paymentDate        = '';
+      this.bunkatsuData[0].paymentAmount      = '';
 
       //テーブルを再レンダーする
       this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
@@ -449,13 +437,13 @@ export class SplitOrderDetailComponent implements OnInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
+    //TODO: ログイン情報を取得 
     this.input.requestDate = requestTime;
     this.input.requester = '積水　次郎';
     //依頼ボタンを非表示する
     this.btnSubIrai.style.display = 'none';
 
   }
-
   
   /**
    * 分割明細追加テーブルを初期化する
@@ -482,11 +470,6 @@ export class SplitOrderDetailComponent implements OnInit {
 
     return true;
   }
-
-  // setFocus(){
-  //   let input = document.getElementById('splitAmount');
-  //   input.focus();
-  // }
   /**
    * 一時的なデータをセックションに保持する
    */
@@ -518,53 +501,53 @@ export class SplitOrderDetailComponent implements OnInit {
       let dt = new ODIS0020OrderShiwake();
       //先頭データ作成
       if (bunkatsu.indexOf(element) == 0) {
-        dt.id = shiwakeData[0].journalCode;
-        dt.tabIndex = this.tabName;
-        dt.journalCode = shiwakeData[0].journalCode;
-        dt.accountCode = shiwakeData[0].accountCode;
-        dt.journalName = shiwakeData[0].journalName;
-        dt.orderSupplierCode = shiwakeData[0].orderSupplierCode;
-        dt.orderSupplierName = shiwakeData[0].orderSupplierName;
-        dt.orderPlanAmount = shiwakeData[0].orderPlanAmount;
-        dt.orderSplitAmount = element.orderSplitAmount;
-        dt.comment = element.comment;
-        dt.requestDate = element.requestDate;
-        dt.requester = element.requester;
-        dt.approvalDate_lv1 = element.approvalDate_lv1;
+        dt.id                 = shiwakeData[0].journalCode;
+        dt.tabIndex           = this.tabName;
+        dt.journalCode        = shiwakeData[0].journalCode;
+        dt.accountCode        = shiwakeData[0].accountCode;
+        dt.journalName        = shiwakeData[0].journalName;
+        dt.orderSupplierCode  = shiwakeData[0].orderSupplierCode;
+        dt.orderSupplierName  = shiwakeData[0].orderSupplierName;
+        dt.orderPlanAmount    = shiwakeData[0].orderPlanAmount;
+        dt.orderSplitAmount   = element.orderSplitAmount;
+        dt.comment            = element.comment;
+        dt.requestDate        = element.requestDate;
+        dt.requester          = element.requester;
+        dt.approvalDate_lv1   = element.approvalDate_lv1;
         dt.approvalPerson_lv1 = element.approvalPerson_lv1;
-        dt.approvalDate_lv2 = element.approvalDate_lv2;
+        dt.approvalDate_lv2   = element.approvalDate_lv2;
         dt.approvalPerson_lv2 = element.approvalPerson_lv2;
-        dt.orderDate = element.orderDate;
-        dt.orderAmount = element.orderAmount;
-        dt.receivedDate = element.receivedDate;
-        dt.receivedAmount = element.receivedAmount;
-        dt.paymentDate = element.paymentDate;
-        dt.paymentAmount = element.paymentAmount;
+        dt.orderDate          = element.orderDate;
+        dt.orderAmount        = element.orderAmount;
+        dt.receivedDate       = element.receivedDate;
+        dt.receivedAmount     = element.receivedAmount;
+        dt.paymentDate        = element.paymentDate;
+        dt.paymentAmount      = element.paymentAmount;
       }
       else {
         //後尾データ
-        dt.id = shiwakeData[0].journalCode;
-        dt.tabIndex = this.tabName;
-        dt.journalCode = '';
-        dt.accountCode = '';
-        dt.journalName = '';
-        dt.orderSupplierCode = '';
-        dt.orderSupplierName = '';
-        dt.orderPlanAmount = '';
-        dt.orderSplitAmount = element.orderSplitAmount;
-        dt.comment = element.comment;
-        dt.requestDate = element.requestDate;
-        dt.requester = element.requester;
-        dt.approvalDate_lv1 = element.approvalDate_lv1;
+        dt.id                 = shiwakeData[0].journalCode;
+        dt.tabIndex           = this.tabName;
+        dt.journalCode        = '';
+        dt.accountCode        = '';
+        dt.journalName        = '';
+        dt.orderSupplierCode  = '';
+        dt.orderSupplierName  = '';
+        dt.orderPlanAmount    = '';
+        dt.orderSplitAmount   = element.orderSplitAmount;
+        dt.comment            = element.comment;
+        dt.requestDate        = element.requestDate;
+        dt.requester          = element.requester;
+        dt.approvalDate_lv1   = element.approvalDate_lv1;
         dt.approvalPerson_lv1 = element.approvalPerson_lv1;
-        dt.approvalDate_lv2 = element.approvalDate_lv2;
+        dt.approvalDate_lv2   = element.approvalDate_lv2;
         dt.approvalPerson_lv2 = element.approvalPerson_lv2;
-        dt.orderDate = element.orderDate;
-        dt.orderAmount = element.orderAmount;
-        dt.receivedDate = element.receivedDate;
-        dt.receivedAmount = element.receivedAmount;
-        dt.paymentDate = element.paymentDate;
-        dt.paymentAmount = element.paymentAmount;
+        dt.orderDate          = element.orderDate;
+        dt.orderAmount        = element.orderAmount;
+        dt.receivedDate       = element.receivedDate;
+        dt.receivedAmount     = element.receivedAmount;
+        dt.paymentDate        = element.paymentDate;
+        dt.paymentAmount      = element.paymentAmount;
       }
 
       senderDt.push(dt);
@@ -599,5 +582,14 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   commonBlur($event){
     $event.target.value = this.baseCompnt.addCommas($event.target.value);
+  }
+
+    /**
+   * 追加した明細に自動スクロールする
+   * @param body 
+   * @param row
+   */
+  setAutoScroll(body: any, row: number) {
+    body.rows[row].scrollIntoView(true);
   }
 }

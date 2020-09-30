@@ -234,20 +234,20 @@ export class OrderDetailShiwakeTable implements OnInit {
     this.orderData.forEach(dt => {
       if (dt.id === selectedItem.id) {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
-        newSplit.orderSplitAmount = dt.orderSplitAmount;
-        newSplit.comment = dt.comment;
-        newSplit.requestDate = dt.requestDate;
-        newSplit.requester = dt.requester;
-        newSplit.approvalDate_lv1 = dt.approvalDate_lv1;
-        newSplit.approvalPerson_lv1 = dt.approvalPerson_lv1;
-        newSplit.approvalDate_lv2 = dt.approvalDate_lv2;
-        newSplit.approvalPerson_lv2 = dt.approvalPerson_lv2;
-        newSplit.orderDate = dt.orderDate;
-        newSplit.orderAmount = dt.orderAmount;
-        newSplit.receivedDate = dt.receivedDate;
-        newSplit.receivedAmount = dt.receivedAmount;
-        newSplit.paymentDate = dt.paymentDate;
-        newSplit.paymentAmount = dt.paymentAmount;
+        newSplit.orderSplitAmount     = dt.orderSplitAmount;
+        newSplit.comment              = dt.comment;
+        newSplit.requestDate          = dt.requestDate;
+        newSplit.requester            = dt.requester;
+        newSplit.approvalDate_lv1     = dt.approvalDate_lv1;
+        newSplit.approvalPerson_lv1   = dt.approvalPerson_lv1;
+        newSplit.approvalDate_lv2     = dt.approvalDate_lv2;
+        newSplit.approvalPerson_lv2   = dt.approvalPerson_lv2;
+        newSplit.orderDate            = dt.orderDate;
+        newSplit.orderAmount          = dt.orderAmount;
+        newSplit.receivedDate         = dt.receivedDate;
+        newSplit.receivedAmount       = dt.receivedAmount;
+        newSplit.paymentDate          = dt.paymentDate;
+        newSplit.paymentAmount        = dt.paymentAmount;
 
         splitDt.push(newSplit);
 
@@ -413,61 +413,25 @@ export class OrderDetailShiwakeTable implements OnInit {
     let btn: any;
     dt.forEach(element => {
       let ind = dt.indexOf(element);
-      if (element.requester != '') {
-        tr = skBody.rows[ind];
-        btn = tr.cells[11].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'true');
-        btn[0].style.display = 'none';
-        btn = tr.cells[13].getElementsByTagName('button');
-        btn[0].style.display = 'inherit';
-        btn[0].removeAttribute('disabled');
-
-      }
-      else{
-        tr = skBody.rows[ind];
-        btn = tr.cells[11].getElementsByTagName('button');
-        btn[0].style.display = 'inherit';
-        btn[0].removeAttribute('disabled');
-        btn = tr.cells[13].getElementsByTagName('button');
-        btn[0].style.display = 'none';
-        btn[0].setAttribute('disabled', 'true');
-      }
-      if (element.approvalPerson_lv1 != '') {
-        tr = skBody.rows[ind];
-        btn = tr.cells[13].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'true');
-        btn[0].style.display = 'none';
-        btn = tr.cells[15].getElementsByTagName('button');
-        btn[0].style.display = 'inherit';
-        btn[0].removeAttribute('disabled');
-
-      }
-      if (element.approvalPerson_lv2 != '') {
-        tr = skBody.rows[ind];
-        btn = tr.cells[15].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', 'true');
-        btn[0].style.display = 'none';
-        
-      }
-
       // 固定行にボンタンを表示させない。
       if (element.journalName.match('ハウス材') ||
         element.journalName.match('運賃・荷造・保管料') ||
         element.journalName.match('労災')) {
           tr = skBody.rows[ind];
+          
+          //➡　ボタンを非表示させる
           btn = tr.cells[6].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'true');
+          btn[0].setAttribute('disabled',true);
+          
+          //分　ボタンを非表示させる
           btn = tr.cells[7].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'true');
+          btn[0].setAttribute('disabled',true);
+          
+          //依頼　ボタンを非表示させる
           btn = tr.cells[11].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'true');
           btn[0].style.display = 'none';
-          btn = tr.cells[13].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'true');
-          btn[0].style.display = 'none';
-          btn = tr.cells[15].getElementsByTagName('button');
-          btn[0].setAttribute('disabled', 'true');
-          btn[0].style.display = 'none';
+
+          //承認ボタンは既に非表示されているため、再非表示する必要なし。
       }
     });
 

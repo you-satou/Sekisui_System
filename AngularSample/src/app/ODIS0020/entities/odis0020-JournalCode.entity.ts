@@ -1,7 +1,7 @@
 /**
  * 仕訳コード ロストフォーカス データ定義
  */
-export class ODIS0020JounalCode {
+export class ODIS0020JournalCode {
     /** 仕訳コード */
     journalCode: string;
 

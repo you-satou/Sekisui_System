@@ -119,6 +119,11 @@ input.splitAmount{
     height: 30px !important;
     vertical-align: middle !important;
 }
+.bunkatsu-table>tbody>tr>td>label {
+    margin: 0;
+    padding: 0;
+}
+
 .bunkatsu-table>tfoot>tr.mat-footer-row {
     font-weight: bold;
     word-break: keep-all;
@@ -136,7 +141,6 @@ input.splitAmount{
 .btn-outline-primary{
     height: 35px !important;
 }
-
 
 /*************************************************************/
 /*****                                                    ****/

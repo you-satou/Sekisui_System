@@ -115,8 +115,8 @@
          <!--発注金額-->
          <ng-container matColumnDef="orderSplitAmount">
             <th style="width: 40px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <td style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element">{{element.orderSplitAmount  | number}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{getOrderSplitAmount()  | number}}</td>
+            <td style="width: 40px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element">{{element.orderSplitAmount | number}}</td>
+            <td mat-footer-cell *matFooterCellDef>{{getOrderSplitAmount() | number}}</td>
         </ng-container>
         <!--コメント-->
         <ng-container matColumnDef="comment">
@@ -133,24 +133,24 @@
         <!--依頼者-->
         <ng-container matColumnDef="requester">
             <th style="width: 100px; " class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼者</th>
-            <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
-                {{element.requester}}
-                <button id="btnIrai" disabled = "true" style="display: none;" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
+            <td style="width: 100px; text-align: center; " mat-cell *matCellDef="let element">
+                <label *ngIf="element.requester !=''">{{element.requester}}</label>
+                <button *ngIf="element.requester ==''" id="btnIrai" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--承認日１-->
         <ng-container matColumnDef="approvalDate_lv1">
             <th style="width: 50px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認日</th>
-            <td style="width: 50px; " class="font-s" mat-cell *matCellDef="let element ">{{element.approvalDate_lv1}}</td>
+            <td style="width: 50px; " class="" mat-cell *matCellDef="let element ">{{element.approvalDate_lv1}}</td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--承認者１-->
         <ng-container matColumnDef="approvalPerson_lv1">
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
-                {{element.approvalPerson_lv1}}
-                <button id="btnShounin1" disabled = "true" style="display: none;" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <label *ngIf="element.approvalPerson_lv1 !=''">{{element.approvalPerson_lv1}}</label>
+                <button *ngIf="element.approvalPerson_lv1 =='' && element.requester !=''" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -164,8 +164,8 @@
         <ng-container matColumnDef="approvalPerson_lv2">
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
-                {{element.approvalPerson_lv2}}
-                <button id="btnShounin2" disabled = "true" style="display: none;" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <label *ngIf="element.approvalPerson_lv2 !=''">{{element.approvalPerson_lv2}}</label>
+                <button *ngIf="element.approvalPerson_lv2 ==''&& element.approvalPerson_lv1 !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

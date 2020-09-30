@@ -47,11 +47,15 @@ export class CommonComponent {
    * 背景色変更イベント
    */
   public CommonOnSelHight(event: any) {
-
-    // テーブル 背景色 クリア
+    //クリックされたエレメント名を取得する
+    var nodeName = event.target.nodeName;
+    //テーブルのBody
     var wTbody: HTMLTableElement;
+    //クリックされた行
     var wTr: any;
-    switch (event.target.nodeName) {
+    
+
+    switch (nodeName) {
       case 'TD':
         wTr = event.path[1];
         wTbody = event.path[2];
@@ -68,15 +72,19 @@ export class CommonComponent {
         wTr = event.path[3];
         wTbody = event.path[4];
         break;
+      case 'LABEL':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
     }
 
+    //テーブルの背景色をクリアする。
     for (var i = 0; i < wTbody.rows.length; i++) {
-      // 行 取得
       var tr = wTbody.rows[i];
       tr.style.backgroundColor = Const.HighLightColour.None;
     }
-    // 要素取得
 
+    // クリックされた行の背景色を変える。
     wTr.style.backgroundColor = Const.HighLightColour.Selected;
 
   }
@@ -285,9 +293,9 @@ export class CommonComponent {
           tr.style.color = this.getColor(action);
           tr.style.backgroundColor = '';
         }
-        // else {
-        //   tr.style.backgroundColor = this.getColor(action);
-        // }
+        else {
+          tr.style.backgroundColor = this.getColor(action);
+        }
       }
     }
 

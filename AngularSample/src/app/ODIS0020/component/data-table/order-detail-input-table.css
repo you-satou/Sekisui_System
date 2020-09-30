@@ -111,8 +111,13 @@
 }
 .journal-table>tfoot>tr>td.goukie {
     text-align: center !important;
+
 }
 
+.journal-table>tbody>tr>td>label{
+    margin: 0;
+    padding: 0;
+}
 /*************************************************************/
 /*****                                                    ****/
 /*****                   TABLE SCROLL                     ****/
