@@ -163,7 +163,7 @@
         <!--承認者２-->
         <ng-container matColumnDef="approvalPerson_lv2">
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
-            <td style="width: 100px; " class="font-s-center" mat-cell *matCellDef="let element">
+            <td style="width: 100px; text-align: center;" class="font-s-center" mat-cell *matCellDef="let element">
                 <label *ngIf="element.approvalPerson_lv2 !=''">{{element.approvalPerson_lv2}}</label>
                 <button *ngIf="element.approvalPerson_lv2 ==''&& element.approvalPerson_lv1 !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
