@@ -2,12 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
-import { OrderSplitApprovalMasterTable } from '../entities/odis0070.entity';
+import { OrderSplitApprovalMasterTable, DropDownList } from '../entities/odis0070.entity';
 import { OrderSplitApprovalMasterService } from '../services/order-split-approval-master-service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { ODIS0070Form } from '../entities/odis0070-Form.entity';
+
+const SEARCH_TYPE: DropDownList[] =[
+  {
+    id:'0',
+    text:''
+  },
+  {
+    id:'1',
+    text:'可'
+  }
+];
 
 @Component({
   selector: 'app-order-split-approval-master',
@@ -15,6 +26,10 @@ import { ODIS0070Form } from '../entities/odis0070-Form.entity';
   styleUrls: ['./order-split-approval-master.component.css']
 })
 export class OrderSplitApprovalMasterComponent implements OnInit {
+
+  types = SEARCH_TYPE;
+
+  approvalId: string = "0";
 
   //編集テーブルの値
   personalID: string = "";
@@ -74,8 +89,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
-    this.getOrderSplitApproval();
-    //this.getOrderInputData();
+    // this.getOrderSplitApproval();
+    this.getOrderInputData();
   }
 
   /**
@@ -137,6 +152,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.personalID = selectedItem.personalID;
     this.employeeCode = selectedItem.employeeCode;
     this.employeeName = selectedItem.employeeName;
+    if(selectedItem.approval1 == "可") {
+      this.approvalId = "1";
+    }
     this.approval1 = selectedItem.approval1;
     this.approval2 = selectedItem.approval2;
     this.deleteFlag = selectedItem.deleteFlag;

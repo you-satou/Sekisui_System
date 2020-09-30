@@ -21,3 +21,9 @@ export class OrderSplitApprovalMasterTable{
     /** 発注先コード */
     deleteFlag: string;
 }
+
+export class DropDownList {
+    id: string;
+
+    text: string;
+}
