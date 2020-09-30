@@ -95,7 +95,8 @@ export class CommonComponent {
    * @returns 変換後 値
    */
   addCommas(val: string) {
-    return val.replace(/(\d)(?=(\d\d\d)+$)/g, '$1,');
+    var str = Number(val).toString();
+    return str.replace(/(\d)(?=(\d\d\d)+$)/g, '$1,');
   }
 
   /**
@@ -240,6 +241,31 @@ export class CommonComponent {
     }
     return resultValue;
   }
+
+  /**
+   * 入力値制限 半角英数字以外削除
+   * 
+   */
+  onlyHanABCNumber(value: string) {
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i = 0; i < value.length; i++) {
+
+      var c = "";
+      c = beforeTextArr[i];
+
+      if (c.match(/[^0-9 A-Z a-z]/)) {
+        c = '';
+      }
+      resultValue += c
+    }
+    return resultValue;
+  }
+
+
 
   /**
    * 入力値制限 全角以外削除
