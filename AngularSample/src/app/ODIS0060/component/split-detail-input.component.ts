@@ -289,7 +289,7 @@ export class SplitOrderDetailComponent implements OnInit {
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData,'insert');
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    //明細の色を変える
+    //明細の背景色を変える
     this.baseCompnt.setRowColor(Const.Action.A0001, tbody, insertIndex);
     this.setAutoScroll(tbody,insertIndex);
 
@@ -501,7 +501,7 @@ export class SplitOrderDetailComponent implements OnInit {
       let dt = new ODIS0020OrderShiwake();
       //先頭データ作成
       if (bunkatsu.indexOf(element) == 0) {
-        dt.id                 = shiwakeData[0].journalCode;
+        dt.id                 = shiwakeData[0].id;
         dt.tabIndex           = this.tabName;
         dt.journalCode        = shiwakeData[0].journalCode;
         dt.accountCode        = shiwakeData[0].accountCode;
@@ -526,7 +526,7 @@ export class SplitOrderDetailComponent implements OnInit {
       }
       else {
         //後尾データ
-        dt.id                 = shiwakeData[0].journalCode;
+        dt.id                 = shiwakeData[0].id;
         dt.tabIndex           = this.tabName;
         dt.journalCode        = '';
         dt.accountCode        = '';
