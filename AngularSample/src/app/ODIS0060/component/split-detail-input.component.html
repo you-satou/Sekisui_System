@@ -157,16 +157,13 @@
         <tbody>
             <tr>
                 <td>
-                    <input maxlength="11" class="splitAmount" id="txtSplitAmount" [(ngModel)]="input.orderSplitAmount"
-                        type="tel" (focus)="commonFocus($event)" (blur)="commonBlur($event)" />
+                    <input maxlength="11" class="splitAmount" id="txtSplitAmount" [(ngModel)]="input.orderSplitAmount" type="tel" (focus)="commonFocus($event)" (blur)="commonBlur($event)"/>
                 </td>
                 <td>
-                    <input style="width: 190px !important; text-align: right" maxlength="12" [(ngModel)]="input.comment"
-                        type="text" />
+                    <input style="width: 190px !important; text-align: right" maxlength="12" [(ngModel)]="input.comment" type="text" />
                 </td>
                 <td style="text-align: center !important">{{ input.requestDate }}</td>
-                <td style="text-align: center !important">
-                    {{ input.requester }}
+                <td style="text-align: center !important">{{ input.requester }}
                     <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)" mat-button
                         class="btn btn-outline-primary btn-small">依頼</button>
                 </td>
