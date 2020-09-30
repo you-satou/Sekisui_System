@@ -161,7 +161,6 @@ export class ODIS0020OrderShiwake {
     return false;
   }
 
-
-  constructor() {}
+  constructor() { }
 
 }

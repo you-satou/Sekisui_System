@@ -271,7 +271,7 @@ export class CommonComponent {
   */
   setValue(dt: any) {
 
-    if (dt != undefined || dt != null) {
+    if (dt != undefined || dt != null || dt != '') {
       return dt;
     }
     return '';
@@ -327,31 +327,16 @@ export class CommonComponent {
    * @param key 
    * @param value 
    */
-  setUpdateColor(action: string, body: any, key: number, value: number) {
+  setUpdateColor(action: string, body: any, key: number) {
 
     for (var i = 0; i < body.rows.length; i++) {
       if (i == key) {
         var tr = body.rows[i];
         //明細追加または変更した時に、フォント色を変える
         if (action == Const.Action.A0001 || action == Const.Action.A0002) {
-          // tr.style.color = this.getColor(action);
           for (let j = 0; j < 5; j++) {
             let cell = tr.cells[j];
             cell.style.color =  this.getColor(action);
-          
-            
-          }
-        }
-      }
-      if (i == value) {
-        var tr = body.rows[i];
-        //明細追加または変更した時に、フォント色を変える
-        if (action == Const.Action.A0001 || action == Const.Action.A0002) {
-          // tr.style.color = this.getColor(action);
-          for (let j = 7; j < tr.cells.length; j++) {
-            let cell = tr.cells[j];
-            cell.style.color =  this.getColor(action);
-            
           }
         }
       }

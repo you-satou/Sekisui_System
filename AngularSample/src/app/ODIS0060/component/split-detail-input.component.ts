@@ -590,6 +590,6 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param row
    */
   setAutoScroll(body: any, row: number) {
-    body.rows[row].scrollIntoView(true);
+    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 }
