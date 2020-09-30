@@ -24,14 +24,14 @@ export namespace Const{
 
     /** リンク */
     export namespace LinKSetting {
-        export const L0000 = '<a href="#">TOP<a> >';
-        export const L0001 = '<a href="/OrderDetailApproval">発注明細入力_明細入力<a> >';
-        export const L0002 = '<a href="/OrderDetailInput>"発注明細入力_明細入力<a> >';
-        export const L0003 = '<a href="/SupplierPattern>"発注明細入力_発注先パターン選択<a> >';
-        export const L0004 = '<a href="/OrderJournalSelect>"発注仕訳マスタ選択<a> >';
-        export const L0005 = '<a href="/OrderSupplierSelect>"発注先マスタ選択<a> >';
-        export const L0006 = '<a href="/SplitDetailInput>"発注明細入力_分割明細入力<a> >';
-        export const L0007 = '<a href="/OrderSplitApprovalMaster>"発注承認者マスタ<a> >';
+        export const L0000 = '<a href="#">TOP</a> > ';
+        export const L0001 = '<a href="/OrderDetailApproval">発注明細入力_承認処理</a> > ';
+        export const L0002 = '<a href="/OrderDetailInput">発注明細入力_明細入力</a> >';
+        export const L0003 = '<a href="/SupplierPattern">発注明細入力_発注先パターン選択<a> > ';
+        export const L0004 = '<a href="/OrderJournalSelect">発注仕訳マスタ選択</a> > ';
+        export const L0005 = '<a href="/OrderSupplierSelect">発注先マスタ選択</a> > ';
+        export const L0006 = '<a href="/SplitDetailInput">発注明細入力_分割明細入力</a> > ';
+        export const L0007 = '<a href="/OrderSplitApprovalMaster">発注承認者マスタ</a> > ';
     }
 
     /** リンクの定義 */
