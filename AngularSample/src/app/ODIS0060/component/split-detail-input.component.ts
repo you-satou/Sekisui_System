@@ -107,7 +107,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   ngOnInit() {
 
-    this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0006);
+    this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
 
     //セックションにデータがあるかどうか
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
