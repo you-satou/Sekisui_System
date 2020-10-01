@@ -291,7 +291,7 @@ export class CommonComponent {
   }
 
 
-  /* データがNULL時、
+ /** データがNULL時、
   * 空白で返す
   * @param dt
   */

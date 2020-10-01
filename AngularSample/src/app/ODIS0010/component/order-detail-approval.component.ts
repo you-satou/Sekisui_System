@@ -7,6 +7,7 @@ import { CommonComponent } from "app/common/common.component";
 import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
 import { Router } from '@angular/router';
+import { stringify } from 'querystring';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -146,9 +147,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       var NumTo = Number(input.contractNumTo);
   
         if(NumFrom >= NumTo){
-          const a = "契約番号From" ;
-          const b = "契約番号From";
-          alert(`${a}が${b}を超えています。`);
+          alert(Const.ErrorMsg.E0001);
           return false;
         }
     }
