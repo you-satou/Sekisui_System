@@ -54,6 +54,9 @@ export namespace Const{
         export const S0007_Insert = '/ODIS0070/insert';
         export const S0007_Update = '/ODIS0070/update';
         export const S0007_Delete = '/ODIS0070/delete';
+
+        export const S0002_Get_Order_Code = '/ODIS0020/getOrderCode';
+        export const S0002_Get_Journal_Code = '/ODIS0020/getJournalCode';
     }
 
     /** ページのURLを定義する */

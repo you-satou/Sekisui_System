@@ -1061,8 +1061,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode.journalCode = strJournalCode;
 
         // 仕訳コード取得
-        let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_JOURNAL_CODE;
-        this.orderService.getSearchRequest(actionUrl,this.paramJournalCode)
+        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Get_Journal_Code,this.paramJournalCode)
         .then(
           (response) => {
 
@@ -1131,8 +1130,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        let actionUrl = Const.UrlLinkName.L0002 + Const.Action.SA_GET_ORDER_CODE;
-        this.orderService.getSearchRequest(actionUrl,this.paramOrderCode)
+        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Get_Order_Code,this.paramOrderCode)
         .then(
           (response) => {
 
