@@ -64,6 +64,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   // 個人情報 レスポンス
   resUserInfo: UserInfo;
 
+  // ビジーカーソル
+  isGetting: boolean = false;
+
   //発注承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
@@ -182,10 +185,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
             }
           }
         );
-
       }
-
-
     }
   }
 
