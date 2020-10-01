@@ -297,10 +297,10 @@ export class CommonComponent {
   */
   setValue(dt: any) {
 
-    if (dt != undefined || dt != null || dt != '') {
-      return dt;
+    if (dt == undefined || dt == null) {
+      return '';
     }
-    return '';
+    return dt;
   }
 
   /**

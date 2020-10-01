@@ -21,5 +21,5 @@ export class ODIS0070Form{
     approval2: string;
 
     /** 削除 */
-    delFlag: string;
+    deleteFlag: string;
 }

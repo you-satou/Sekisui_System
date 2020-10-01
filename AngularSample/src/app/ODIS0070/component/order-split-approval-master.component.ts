@@ -46,24 +46,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   // 削除 ドロップダウン 設定
   delTypes = DEL_TYPE;
 
-  private selectedApp1 = new DropDownList(); // 承認１
-  private selectedApp2 = []; // 承認２
-  private selectedDel = [];  // 削除
-
   approvalId: string = "0";
-
-  //編集テーブルの値
-  // personalID: string = "";
-  // employeeCode: string = "";
-  // employeeName: string = "";
-  // approval1: string = "";
-  // approval2: string = "";
-  // deleteFlag: string = "";
-
-  //行が選択されているかどうか
-  selected: boolean;
   
-  //選択された行のインデックス
+  //選択行 インデックス
   index: number;
 
   //ボタンの初期表示
@@ -117,7 +102,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.getOrderSplitApproval();
     //this.getOrderInputData();
 
-    this.setPageButtonDisplay(false,false, false,false);
+    // ボタン制御
+    this.setPageButtonDisplay(false, true, false, true);
   }
 
   /**
@@ -171,18 +157,40 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   public onSelHighLight($event, selectedItem) {
     // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
-    
-    this.selected = true
+  
+    // 格項目設定
     this.input.personalID = selectedItem.personalID;
     this.input.employeeCode = selectedItem.employeeCode;
     this.input.employeeName = selectedItem.employeeName;
-    if(selectedItem.approval1 == "可") {
-      this.approvalId = "1";
+    // 承認１ ドロップダウン 設定
+    for(var data of APPROVAL_TYPE){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval1)){
+        this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = data.id;
+      }
     }
+
+    // 承認２ ドロップダウン 設定
+    for(var data of APPROVAL_TYPE){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval2)){
+        this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = data.id;
+      }
+    }
+
+    // 削除 ドロップダウン 設定
+    for(var data of DEL_TYPE){
+      if(data.text === this.commonComponent.setValue(selectedItem.deleteFlag)){
+        this.view.element.nativeElement.querySelector('#selDel').selectedIndex = data.id;
+      }
+    }
+
     this.input.approval1 = selectedItem.approval1;
     this.input.approval2 = selectedItem.approval2;
-    this.input.delFlag = selectedItem.deleteFlag;
+    this.input.deleteFlag = selectedItem.deleteFlag;
+    // 選択行 設定
     this.index = this.orderApprovalData.indexOf(selectedItem);
+
+    // ボタン制御
+    this.setPageButtonDisplay(true, false, false, false);
   }
 
   /**
@@ -208,12 +216,14 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
-    this.input.delFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
+    this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Insert,this.input)
     .then(
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
            this.orderApprovalData = response.applicationData;
+           // 初期化
+           this.clearItem();
          }else{
            alert(response.message);
          }
@@ -229,12 +239,14 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
-    this.input.delFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
+    this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
     .then(
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
            this.orderApprovalData = response.applicationData;
+           // 初期化
+           this.clearItem();
          }else{
            alert(response.message);
          }
@@ -248,10 +260,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   onStopClick($event){
     let tbody = this.view.element.nativeElement.querySelector('tbody');
     //選択解除
-    // this.commonComponent.setRowColor(Const.Action.A0006, tbody, this.rowStatus.rowIndex);
+    this.commonComponent.setRowColor(Const.Action.A0006, tbody, this.index);
     // 項目初期化
     this.clearItem();
-
+    // ボタン制御
+    this.setPageButtonDisplay(false, true, false, true);
   }
 
   /**
@@ -265,6 +278,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
            this.orderApprovalData = response.applicationData;
+           // 初期化
+           this.clearItem();
          }else{
            alert(response.message);
          }
@@ -282,7 +297,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.employeeName = ''
     this.input.approval1 = ''
     this.input.approval2 = ''
-    this.input.delFlag = ''
+    this.input.deleteFlag = ''
     // ドロップダウン初期化
     this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
