@@ -1,6 +1,6 @@
 <div class="table-body">
     <div class="table-container">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped approval-table-responsive">
             <thead>
                 <tr>
                     <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
@@ -13,12 +13,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
-                    <td class="table-str td-b">{{ data.personalID }}</td>
-                    <td class="table-str td-b">{{ data.employeeCode }}</td>
-                    <td class="table-str td-b">{{ data.employeeName }}</td>
-                    <td class="table-str td-b text-center">{{ data.approval1 }}</td>
-                    <td class="table-str td-b text-center">{{ data.approval2 }}</td>
-                    <td style="width: 64px;" class="table-str td-b text-center">{{ data.deleteFlag }}</td>
+                    <div class="tableBody">
+                        <td style="width: 115px;" class="table-str td-b">{{ data.personalID }}</td>
+                        <td style="width: 106px;" class="table-str td-b">{{ data.employeeCode }}</td>
+                        <td style="width: 120px;" class="table-str td-b">{{ data.employeeName }}</td>
+                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.approval1 }}</td>
+                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.approval2 }}</td>
+                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.deleteFlag }}</td>
+                    </div>
                 </tr>
             </tbody>
         </table>
@@ -80,17 +82,17 @@
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
                         (click)="onInsClick()">明細追加</button>
                 </div>
-    
+
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
                         (click)="onUpdClick()">明細更新</button>
                 </div>
-    
+
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
                         (click)="onStopClick($event)">中止</button>
                 </div>
-    
+
                 <div style="position: absolute; top: 0; left: 400px">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
                         (click)="onDelClick()">明細削除</button>
