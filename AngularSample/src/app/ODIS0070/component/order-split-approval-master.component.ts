@@ -163,12 +163,13 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   getEmployeeInfo($event){
-    // ビジー開始
-    this.isLoading = true;
     // 空白以外の場合に処理を実行
     if($event.target.value.trim().length >= 1){
       // 前回の個人認証ＩＤと異なる場合に以降の処理を実施
       if(this.paramUserInfo.personalID !== $event.target.value.trim()){
+        // ビジー開始
+        this.isLoading = true;
+
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
         // TODO
