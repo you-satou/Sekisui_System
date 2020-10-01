@@ -65,7 +65,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   resUserInfo: UserInfo;
 
   // ビジーカーソル
-  isGetting: boolean = false;
+  isLoading: boolean = true;
 
   //発注承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
@@ -142,6 +142,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           }else{
             alert(response.message);
           }
+          // ビジー解除
+          this.isLoading = false;
         }
       );
   }
@@ -161,6 +163,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   getEmployeeInfo($event){
+    // ビジー開始
+    this.isLoading = true;
     // 空白以外の場合に処理を実行
     if($event.target.value.trim().length >= 1){
       // 前回の個人認証ＩＤと異なる場合に以降の処理を実施
@@ -183,6 +187,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
             }else{
               alert(response.message);
             }
+            // ビジー解除
+            this.isLoading = false;
           }
         );
       }
@@ -253,11 +259,15 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * 明細追加ボタン
    */
   onInsClick(){
+    // ビジー開始
+    this.isLoading = true;
+
     // TODO
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
+    
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Insert,this.input)
     .then(
       (response) => {
@@ -268,6 +278,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
          }else{
            alert(response.message);
          }
+         // ビジー解除
+         this.isLoading = false;
        }
      );
   }
@@ -276,6 +288,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * 明細更新ボタン
    */
   onUpdClick(){
+    // ビジー開始
+    this.isLoading = true;
+
     // TODO
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
@@ -291,6 +306,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
          }else{
            alert(response.message);
          }
+         // ビジー解除
+         this.isLoading = false;
        }
      );
   }
@@ -312,6 +329,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * 削除ボタン
    */
   onDelClick(){
+    // ビジー開始
+    this.isLoading = true;
+    
     // TODO
     this.input.officeCode = '204006';
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
@@ -324,6 +344,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
          }else{
            alert(response.message);
          }
+         // ビジー解除
+         this.isLoading = false;
        }
      );
   }
@@ -339,6 +361,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.approval1 = ''
     this.input.approval2 = ''
     this.input.deleteFlag = ''
+    this.paramUserInfo = new ODIS0070Form();
     // ドロップダウン初期化
     this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
