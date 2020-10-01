@@ -110,16 +110,26 @@ input.splitAmount{
 .bunkatsu-table {
     width: 1280px;
     min-width: 1280px;
+    display: block;
+    position: relative;
+    box-shadow: -1px 0px 0px 0px #CCD0D5 inset;
+    margin: 0px;
 }
 
 .bunkatsu-table>thead>tr>th {
     height: 30px;
-    padding: 0;
+    background-color: #E5E5E5;
+    top: 0px;
+    position: sticky;
+    border: 0px;
+    box-shadow: 1px 0px 0px 0px #CCD0D5 inset, 0px -1px 0px 0px #CCD0D5 inset, 0px 1px 0px 0px #CCD0D5 inset;
 }
 
 .bunkatsu-table>tbody>tr>td {
     height: 30px !important;
     vertical-align: middle !important;
+    border: 0px;
+    box-shadow: 0.5px -0.5px 0px 0.5px #CCD0D5 inset;
 }
 .bunkatsu-table>tbody>tr>td>label {
     margin: 0;
