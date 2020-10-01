@@ -1,105 +1,98 @@
-<div class="table-body">
-    <div class="table-container">
-        <table class="table table-hover table-striped approval-table-responsive">
-            <thead>
-                <tr>
-                    <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
-                    <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
-                    <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">削除</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
-                    <div class="tableBody">
-                        <td style="width: 115px;" class="table-str td-b">{{ data.personalID }}</td>
-                        <td style="width: 106px;" class="table-str td-b">{{ data.employeeCode }}</td>
-                        <td style="width: 120px;" class="table-str td-b">{{ data.employeeName }}</td>
-                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.approval1 }}</td>
-                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.approval2 }}</td>
-                        <td style="width: 64px;" class="table-str td-b text-center">{{ data.deleteFlag }}</td>
-                    </div>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="table-container">
+    <table class="table table-hover table-striped approval-table-responsive">
+        <thead>
+            <tr>
+                <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
+                <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
+                <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
+                <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
+                <th style="width: 64px;" class="table-str td-b text-center">削除</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
+                <td class="table-str td-b">{{ data.personalID }}</td>
+                <td class="table-str td-b">{{ data.employeeCode }}</td>
+                <td class="table-str td-b">{{ data.employeeName }}</td>
+                <td class="table-str td-b text-center">{{ data.approval1 }}</td>
+                <td class="table-str td-b text-center">{{ data.approval2 }}</td>
+                <td class="table-str td-b text-center">{{ data.deleteFlag }}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+<div class="table-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
+                <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
+                <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
+                <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
+                <th style="width: 64px;" class="table-str td-b text-center">削除</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="table-str td-b">
+                    <input [(ngModel)]="input.personalID" type="text">
+                </td>
+                <td class="table-str td-b">
+                    <input [(ngModel)]="input.employeeCode" type="tel">
+                </td>
+                <td class="table-str td-b">
+                    <input [(ngModel)]="input.employeeName" type="text">
+                </td>
+                <td class="table-str td-b text-center">
+                    <select id="selApp1">
+                        <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
+                            {{type1.text}}
+                        </option>
+                    </select>
+                </td>
+                <td class="table-str td-b text-center">
+                    <select id="selApp2">
+                        <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
+                            {{type2.text}}
+                        </option>
+                    </select>
+                </td>
+                <td class="table-str td-b text-center">
+                    <select id="selDel">
+                        <option *ngFor="let typeDel of delTypes" [ngValue]="typeDel.id">
+                            {{typeDel.text}}
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<div class="table-body" style="margin-bottom: 50px;">
-    <div class="table-container">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
-                    <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
-                    <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
-                    <th style="width: 64px;" class="table-str td-b text-center">削除</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="table-str td-b">
-                        <input [(ngModel)]="input.personalID" type="text">
-                    </td>
-                    <td class="table-str td-b">
-                        <input [(ngModel)]="input.employeeCode" type="tel">
-                    </td>
-                    <td class="table-str td-b">
-                        <input [(ngModel)]="input.employeeName" type="text">
-                    </td>
-                    <td class="table-str td-b text-center">
-                        <select id="selApp1">
-                            <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
-                                {{type1.text}}
-                            </option>
-                        </select>
-                    </td>
-                    <td class="table-str td-b text-center">
-                        <select id="selApp2">
-                            <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
-                                {{type2.text}}
-                            </option>
-                        </select>
-                    </td>
-                    <td class="table-str td-b text-center">
-                        <select id="selDel">
-                            <option *ngFor="let typeDel of delTypes" [ngValue]="typeDel.id">
-                                {{typeDel.text}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <section>
-            <div style="position: relative; margin: 20px 0 50px 0">
-                <div style="float: left">
-                    <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        (click)="onInsClick()">明細追加</button>
-                </div>
-
-                <div style="float: left">
-                    <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        (click)="onUpdClick()">明細更新</button>
-                </div>
-
-                <div>
-                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        (click)="onStopClick($event)">中止</button>
-                </div>
-
-                <div style="position: absolute; top: 0; left: 400px">
-                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        (click)="onDelClick()">明細削除</button>
-                </div>
+    <section>
+        <div style="position: relative; margin: 20px 0 50px 0">
+            <div style="float: left">
+                <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
+                    (click)="onInsClick()">明細追加</button>
             </div>
-        </section>
-    </div>
+
+            <div style="float: left">
+                <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
+                    (click)="onUpdClick()">明細更新</button>
+            </div>
+
+            <div>
+                <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
+                    (click)="onStopClick($event)">中止</button>
+            </div>
+
+            <div style="position: absolute; top: 0; left: 400px">
+                <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
+                    (click)="onDelClick()">明細削除</button>
+            </div>
+        </div>
+    </section>
 </div>
 
 <div class='page-footer'>

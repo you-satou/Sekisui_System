@@ -1,23 +1,33 @@
-.table{
+  .table-container {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 551px;
+    height: 300px;
+    overflow-y: scroll;
+    position: relative;
+  }
+
+  .table{
+    display: block;
     width: 534px;
     position: relative;
   }
 
-  .table>thead {
+  .table-body {
+    width: 551px; 
+    margin: 20px auto 50px auto;
+  }
+
+  .table>thead>tr>th {
     background-color: #E5E5E5;
+  }
+
+  .approval-table-responsive>thead>tr>th {
+    top: 0px;
     position: sticky;
+    border: 0.5px solid #CCD0D5;
   }
-
-  .approval-table-responsive>tbody {
-    display: block;
-    height: 300px;
-    overflow-y: scroll;
-  }
-
-  .table>tbody::-webkit-scrollbar { width: 0 !important }
   
   .td-b {
     border: 0.5px solid #CCD0D5;
