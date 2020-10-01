@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { ODIS0070Form } from '../entities/odis0070-Form.entity';
+import { UserInfo} from '../entities/odis0070-UserInfo.entitiy'
 
 // 承認 ドロップダウン 設定内容
 const APPROVAL_TYPE: DropDownList[] =[
@@ -45,8 +46,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   // 削除 ドロップダウン 設定
   delTypes = DEL_TYPE;
-
-  approvalId: string = "0";
   
   //選択行 インデックス
   index: number;
@@ -59,6 +58,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   
   // パラメータ
   input = new ODIS0070Form();
+
+  // 個人情報 パラメータ
+  paramUserInfo = new ODIS0070Form();
+  // 個人情報 レスポンス
+  resUserInfo: UserInfo;
 
   //発注承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
@@ -117,12 +121,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   }
 
   /**
-   * テーブルデータの取得
+   * 初期表示 データ取得
    *
    * @param $event イベント
    */
   getOrderSplitApproval() {
-
+    // TODO
     this.input.officeCode = '204006';
 
     // 発注承認者マスタ 取得
@@ -146,6 +150,43 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   public onBackClick($event) {
     this.router.navigate([Const.UrlSetting.U0000]);
+  }
+
+  /**
+   * 個人認証ＩＤ ロストフォーカス
+   *
+   * @param $event イベント
+   */
+  getEmployeeInfo($event){
+    // 空白以外の場合に処理を実行
+    if($event.target.value.trim().length >= 1){
+      // 前回の個人認証ＩＤと異なる場合に以降の処理を実施
+      if(this.paramUserInfo.personalID !== $event.target.value.trim()){
+        // 初期化
+        this.paramUserInfo = new ODIS0070Form();
+        // TODO
+        this.input.officeCode = '204006';
+        // 個人認証ＩＤ
+        this.paramUserInfo.personalID = $event.target.value.trim();
+
+        this.CommonService.getSearchRequest('ODIS0070/getUser',this.paramUserInfo)
+        .then(
+          (response) => {
+            if(response.result === Const.ConnectResult.R0001){
+              this.resUserInfo = response.applicationData;
+              this.input.personalID = $event.target.value.trim();
+              this.input.employeeCode = this.resUserInfo.employeeCode;
+              this.input.employeeName = this.resUserInfo.employeeName;
+            }else{
+              alert(response.message);
+            }
+          }
+        );
+
+      }
+
+
+    }
   }
 
   /**
