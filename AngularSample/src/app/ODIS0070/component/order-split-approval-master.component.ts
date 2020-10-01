@@ -177,7 +177,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = $event.target.value.trim();
 
-        this.CommonService.getSearchRequest('ODIS0070/getUser',this.paramUserInfo)
+        this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
