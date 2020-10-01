@@ -6,7 +6,7 @@
             </split-detail-table>
             <div class="bunkatsu-table-responsive" style="margin-top: 20px;">
                 <table mat-table [dataSource]="bunkatsuData"
-                    class="bunkatsu-table table table-hover table-sm table-bordered" id="bunkatsuTable">
+                    class="bunkatsu-table table table-hover table-sm" id="bunkatsuTable">
                     <!--Header 番号 -->
                     <ng-container matColumnDef="no">
                         <th style="width: 50px; padding: 0" class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2"></th>
@@ -117,7 +117,7 @@
 
                     <!--Header 支払 -->
                     <ng-container matColumnDef="payment">
-                        <th style="width: 175px" class="color-input-5" style="padding: 0 5px" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
+                        <th style="width: 175px; padding: 0 5px; box-shadow: 0px 0px 0px 1px #CCD0D5 inset;" class="color-input-5" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">支払</th>
                     </ng-container>
                     <!-- Body 支払日 -->
                     <ng-container matColumnDef="paymentDate">
