@@ -47,16 +47,18 @@ export namespace Const{
         export const L0007 = '/ODIS0070';
 
         export const S0001_Search = '/ODIS0010/search';
+        export const S0002_Get_Order_Code = '/ODIS0020/getOrderCode';
+        export const S0002_Get_Journal_Code = '/ODIS0020/getJournalCode';
         export const S0003_Init = '/ODIS0030/init';
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
         export const S0007_Init = '/ODIS0070/init';
+        export const S0007_GetUser = '/ODIS0070/getUser';
         export const S0007_Insert = '/ODIS0070/insert';
         export const S0007_Update = '/ODIS0070/update';
         export const S0007_Delete = '/ODIS0070/delete';
 
-        export const S0002_Get_Order_Code = '/ODIS0020/getOrderCode';
-        export const S0002_Get_Journal_Code = '/ODIS0020/getJournalCode';
+        
     }
 
     /** ページのURLを定義する */
