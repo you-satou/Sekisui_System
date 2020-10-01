@@ -55,6 +55,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   btnHenkou: boolean;
   btnChuushi: boolean;
   btnSakujo: boolean;
+  isEditFlg: boolean = false;
   
   // パラメータ
   input = new ODIS0070Form();
@@ -237,6 +238,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // 選択行 設定
     this.index = this.orderApprovalData.indexOf(selectedItem);
 
+    // 個人認証ＩＤ 非活性
+    this.isEditFlg = true;
+
     // ボタン制御
     this.setPageButtonDisplay(true, false, false, false);
   }
@@ -367,5 +371,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selDel').selectedIndex = 0;
+
+    // 個人認証ＩＤ 活性
+    this.isEditFlg = false;
   }
 }
