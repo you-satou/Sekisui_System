@@ -513,7 +513,9 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   commonBlur($event){
-    $event.target.value = this.baseCompnt.addCommas($event.target.value);
+    if(!($event.target.value == "")){
+      $event.target.value = this.baseCompnt.addCommas($event.target.value);
+    }
   }
 
   /**

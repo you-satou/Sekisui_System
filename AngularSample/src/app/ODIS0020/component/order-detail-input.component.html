@@ -220,20 +220,20 @@
         <tbody>
             <tr>
                 <td style="width: auto;">
-                    <input maxlength = "4" id="txtAddJCode" class="add-journalCode" [(ngModel)]="addInput.journalCode" (blur)="getJournalCode($event)" type="tel" name="journalCode" >
+                    <input type="tel" maxlength = "4" class="add-journalCode" id="txtAddJCode" name="journalCode" [(ngModel)]="addInput.journalCode" style ="ime-mode:disabled; text-align:left;" tabindex="1" (keyup)="toHanNum($event)" (blur)="getJournalCode($event)" >
                 </td>
                 <td>
-                    <input maxlength = "3" id="txtAddAccCode" class="add-accountCode" [(ngModel)]="addInput.accountCode" (blur)="blurAccountCode($event)" type="tel" name="accountingCategory">
+                    <input type="tel" maxlength = "3" class="add-accountCode" id="txtAddAccCode" name="accountingCategory" [(ngModel)]="addInput.accountCode" style="ime-mode:disabled; text-align:left;" tabindex="2" (keyup)="toHanNum($event)" (blur)="blurAccountCode($event)"  >
                 </td>
                 <td>
-                    <input maxlength = "10" class="add-journalName" [(ngModel)]="addInput.journalName" type="text" name="orderJournalName">
+                    <input type="text" maxlength = "10" class="add-journalName" name="orderJournalName" [(ngModel)]="addInput.journalName" tabindex="3" style="text-align:left;" (blur)="toZenkaku($event)" >
                 </td>
                 <td>
-                    <input maxlength = "3" class="add-supplierCode" [(ngModel)]="addInput.orderSupplierCode" (blur)="getOrderCode($event)" type="tel" name="supplierCode">
+                    <input type="tel" maxlength = "3" class="add-supplierCode" name="supplierCode" [(ngModel)]="addInput.orderSupplierCode" style ="ime-mode:disabled; text-align:left;" tabindex="4" (keyup)="toHanNum($event)" (blur)="getOrderCode($event)" >
                 </td>
-                <td class="add-supplierName">{{addInput.orderSupplierName}}</td>
+                <td class="add-supplierName" style="text-align: left;">{{addInput.orderSupplierName}}</td>
                 <td class="add-planAmount">
-                    <input maxlength = "11" id="txtAddAmount" [(ngModel)]="addInput.orderPlanAmount" type="text" (focus)="commonFocus($event)" (blur)="commonBlur($event)" type="tel" name="orderPlansKin">
+                    <input type="tel" maxlength = "11" id="txtAddAmount" name="orderPlansKin" [(ngModel)]="addInput.orderPlanAmount" tabindex="5" (focus)="commonFocus($event)" (keyup)="toHanNum($event)" (blur)="commonBlur($event)" >
                 </td>
             </tr>
         </tbody>
