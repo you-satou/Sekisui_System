@@ -1,5 +1,5 @@
 import { style } from '@angular/animations';
-import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef,HostListener } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
@@ -67,6 +67,12 @@ export class SplitOrderDetailComponent implements OnInit {
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   @ViewChild('ShiwakeData', { static: true }) childShiwake: any;
   @ViewChild('BunkatsuData', { static: true }) childBunkatsu: any;
+
+  @HostListener('window:beforeunload', [ '$event' ])
+  beforeUnloadHandler(event) {
+    // ページ移動前の確認イベント
+    this.toSaveShiwakeData();
+  }
 
   //仕訳テーブルのデータ
   shiwakeData: ODIS0060OrderShiwake[] = [];
@@ -484,10 +490,60 @@ export class SplitOrderDetailComponent implements OnInit {
 
   /**
    * 「戻る」ボタンの押下
+   */
+  backToOrderDetailInput() {
+
+    this.toSaveShiwakeData();
+
+    this.router.navigate([Const.UrlSetting.U0002]);
+
+  }
+
+  /**
+   * focus処理
    *
    * @param $event イベント
    */
-  backToOrderDetailInput($event) {
+  commonFocus($event){
+    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
+  }
+  /**
+   * blur処理（カンマ）
+   *
+   * @param $event イベント
+   */
+  commonBlur($event){
+    $event.target.value = this.baseCompnt.addCommas($event.target.value);
+  }
+
+  /**
+   * blur処理（全角変換）
+   *
+   * @param $event イベント
+   */
+  onChangeZenkaku($event){
+    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
+  }
+
+  /**
+   * keyUp処理(半角数字のみ)
+   *
+   * @param $event イベント
+   */
+  onlyHanNumber($event){
+    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
+  }
+
+  /**
+   * 追加した明細に自動スクロールする
+   * @param body 
+   * @param row
+   */
+  setAutoScroll(body: any, row: number) {
+    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+  }
+
+  toSaveShiwakeData(){
 
     //仕訳データを仕訳テーブルから取得する
     let shiwakeData: ODIS0060OrderShiwake[] = this.childShiwake.shiwakeData;
@@ -563,57 +619,5 @@ export class SplitOrderDetailComponent implements OnInit {
     //発注詳細入力画面に戻る前に、セックションを削除する
     sessionStorage.removeItem(Const.ScreenName.S0006EN);
 
-    this.router.navigate([Const.UrlSetting.U0002]);
-
-  }
-
-  /**
-   * focus処理
-   *
-   * @param $event イベント
-   */
-  commonFocus($event){
-    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
-  }
-  /**
-   * blur処理（カンマ）
-   *
-   * @param $event イベント
-   */
-  commonBlur($event){
-    $event.target.value = this.baseCompnt.addCommas($event.target.value);
-  }
-
-  /**
-   * blur処理（全角変換）
-   *
-   * @param $event イベント
-   */
-  onChangeZenkaku($event){
-    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
-  }
-
-  /**
-   * keyUp処理(半角数字のみ)
-   *
-   * @param $event イベント
-   */
-  onlyHanNumber($event){
-    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
-  }
-
-
-
-
-
-
-
-    /**
-   * 追加した明細に自動スクロールする
-   * @param body 
-   * @param row
-   */
-  setAutoScroll(body: any, row: number) {
-    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 }
