@@ -79,6 +79,7 @@
 
 .tsuika-table>thead>tr>th {
     height: 30px;
+    padding: 0;
 }
 .tsuika-table>tbody>tr>td {
     height: 36px !important;
@@ -113,6 +114,7 @@ input.splitAmount{
 
 .bunkatsu-table>thead>tr>th {
     height: 30px;
+    padding: 0;
 }
 
 .bunkatsu-table>tbody>tr>td {
