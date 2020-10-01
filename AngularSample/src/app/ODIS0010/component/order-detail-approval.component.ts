@@ -146,7 +146,9 @@ export class OrderDetailApprovalComponent implements OnInit {
       var NumTo = Number(input.contractNumTo);
   
         if(NumFrom >= NumTo){
-          alert(Const.ErrorMsg.E0001);
+          const a = "契約番号From" ;
+          const b = "契約番号From";
+          alert(`${a}が${b}を超えています。`);
           return false;
         }
     }
