@@ -982,14 +982,38 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   commonFocus($event){
     $event.target.value = this.baseCompnt.removeCommas($event.target.value);
   }
+
   /**
-   * blur処理
+  * keyUp処理 半角数字のみ
+  *
+  * @param $event イベント
+  */
+  toHanNum($event){
+    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
+  }
+
+  /**
+   * blur処理 カンマ処理
    *
    * @param $event イベント
    */
   commonBlur($event){
-    $event.target.value = this.baseCompnt.addCommas($event.target.value);
+    if(!($event.target.value == "")){
+      $event.target.value = this.baseCompnt.addCommas($event.target.value);
+    }
   }
+
+  /**
+  * blur処理 半角⇒全角
+  *
+  * @param $event イベント
+  */
+  toZenkaku($event){
+    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
+  }
+
+
+
   /**
    * 追加した明細に自動スクロールする
    * @param body 
@@ -1081,7 +1105,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param event 
    */
   blurAccountCode($event){
-    this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
+    if(!($event.target.value == "")){
+      this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
+    }
   }
 
   /**
