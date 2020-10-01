@@ -1,10 +1,13 @@
+<div *ngIf="isGetting">
+    <loading-spinner></loading-spinner>
+</div>
 <div class="table-container">
     <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th style="width: 115px;" class="table-str text-center">個人認証ＩＤ</th>
                 <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
-                <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                <th style="width: 301px;" class="table-str td-b text-center">従業員名</th>
                 <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
                 <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
                 <th style="width: 64px;" class="table-str td-b text-center">削除</th>
@@ -28,7 +31,7 @@
             <tr>
                 <th style="width: 115px;" class="table-str td-b text-center">個人認証ＩＤ</th>
                 <th style="width: 106px;" class="table-str td-b text-center">従業員コード</th>
-                <th style="width: 120px;" class="table-str td-b text-center">従業員名</th>
+                <th style="width: 301px;" class="table-str td-b text-center">従業員名</th>
                 <th style="width: 64px;" class="table-str td-b text-center">承認１</th>
                 <th style="width: 64px;" class="table-str td-b text-center">承認２</th>
                 <th style="width: 64px; box-shadow: 0px 0px 0px 1px #CCD0D5 inset;" class="table-str td-b text-center">削除</th>
@@ -43,7 +46,7 @@
                     <input [(ngModel)]="input.employeeCode" type="tel" maxlength = "8">
                 </td>
                 <td class="table-str td-b">
-                    <input [(ngModel)]="input.employeeName" type="text" maxlength = "20">
+                    <label type="text" maxlength = "20">{{input.employeeName}}</label>
                 </td>
                 <td class="table-str td-b text-center">
                     <select id="selApp1">
