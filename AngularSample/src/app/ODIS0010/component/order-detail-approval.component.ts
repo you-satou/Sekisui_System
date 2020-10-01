@@ -61,6 +61,10 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  toApproveMaster(){
+    this.router.navigate(['OrderSplitApprovalMaster']);
+  }
+
   //ページ広さを調整する時にボタンの位置も調整する
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -159,29 +163,20 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 契約番号From　入力値チェック 
+   * 契約番号　入力値チェック 
    */
-  onKeyUpNumFrom(value: string){
+  onKeyUpNum($event){
 
-    this.inputment.contractNumFrom = this.CommonComponent.onlyHanNumber(value);
-
-  }
-
-  /** 
-   * 契約番号To　入力値チェック 
-   */
-  onKeyUpNumTo(value:string){
-
-    this.inputment.contractNumTo = this.CommonComponent.onlyHanNumber(value);
+    $event.target.value = this.CommonComponent.onlyHanNumber($event.target.value);
 
   }
 
   /** 
    * 物件名　ロストフォーカスで半角⇒全角
    */
-  toZenkaku(value:string){
+  toZenkaku($event){
 
-    this.inputment.propertyName = this.CommonComponent.onChangeZenkaku(value);
+    $event.target.value = this.CommonComponent.onChangeZenkaku($event.target.value);
 
   }
 
