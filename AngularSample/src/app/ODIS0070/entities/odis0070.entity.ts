@@ -9,7 +9,7 @@ export class OrderSplitApprovalMasterTable{
     /** 従業員コード */
     employeeCode: string;
 
-    /** 発注先コード */
+    /** 従業員名 */
     employeeName: string;
 
     /** 発注先コード */
