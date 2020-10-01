@@ -47,8 +47,9 @@ export namespace Const{
         export const L0007 = '/ODIS0070';
 
         export const S0001_Search = '/ODIS0010/search';
-        export const S0002_Get_Order_Code = '/ODIS0020/getOrderCode';
-        export const S0002_Get_Journal_Code = '/ODIS0020/getJournalCode';
+        export const S0002_Init = '/ODIS0020/init';
+        export const S0002_GetOrderCode = '/ODIS0020/getOrderCode';
+        export const S0002_GetJournalCode = '/ODIS0020/getJournalCode';
         export const S0003_Init = '/ODIS0030/init';
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
