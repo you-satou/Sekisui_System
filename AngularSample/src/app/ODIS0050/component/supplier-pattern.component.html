@@ -1,50 +1,54 @@
-<div id="M_ODIS0050" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+<div id="M_ODIS0050" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-keyboard="false"
+    data-backdrop="static">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <label id="header_label">{{title}}</label>
             </div>
-            <div class="modal-body">
-                <div class="box">
-                    <table class="table-small table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="table-str-large td-b text-center" style ="padding-top: 30px;">パターン名</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                                <td class="table-str td-b">{{ data.pname }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-                    <table class="table table-hover table-striped">
-                        <thead>
-                            <tr>
-                                <th class="table-str-s td-b text-center">仕訳<br>コード</th>
-                                <th class="table-str-s td-b text-center">経理<br>コード</th>
-                                <th class="table-str-m td-b text-center">仕訳名称</th>
-                                <th colspan="2" class="table-str td-b text-center" >発注先</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let sdata of sDatas">
-                                <td class="table-str-s td-b">{{ sdata.journalCode }}</td>
-                                <td class="table-str-s td-b">{{ sdata.accountingCategory }}</td>
-                                <td class="table-str td-b">{{ sdata.journalName }}</td>
-                                <td class="table-str-s td-b">{{ sdata.supplierCode }}</td>
-                                <td class="table-str td-b">{{ sdata.supplierName }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div *ngIf="isInitFlg">
+                <div class="modal-body">
+                    <div class="box">
+                        <table class="table-small table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table-str-large td-b text-center" style="padding-top: 30px;">パターン名</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                    <td class="table-str td-b">{{ data.pname }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="table-str-s td-b text-center">仕訳<br>コード</th>
+                                    <th class="table-str-s td-b text-center">経理<br>コード</th>
+                                    <th class="table-str-m td-b text-center">仕訳名称</th>
+                                    <th colspan="2" class="table-str td-b text-center">発注先</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sdata of sDatas">
+                                    <td class="table-str-s td-b">{{ sdata.journalCode }}</td>
+                                    <td class="table-str-s td-b">{{ sdata.accountingCategory }}</td>
+                                    <td class="table-str td-b">{{ sdata.journalName }}</td>
+                                    <td class="table-str-s td-b">{{ sdata.supplierCode }}</td>
+                                    <td class="table-str td-b">{{ sdata.supplierName }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onCloseClick();">閉じる</button>
-                <label class ="errormsg">{{errormsg}}</label>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onChooseClick($event);">選択</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="onCloseClick();">閉じる</button>
+                <label class="errormsg">{{errormsg}}</label>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                    (click)="onChooseClick($event);">選択</button>
             </div>
         </div>
     </div>

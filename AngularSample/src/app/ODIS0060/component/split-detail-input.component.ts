@@ -98,6 +98,9 @@ export class SplitOrderDetailComponent implements OnInit {
 
   fixed:number = 500;
 
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -122,6 +125,8 @@ export class SplitOrderDetailComponent implements OnInit {
       this.shiwakeData = savedDt.shiwakeData;
       this.tabName = this.shiwakeData[0].tabIndex;
       this.bunkatsuData = savedDt.bunkatsuData;
+      // 画面をレンダーする
+      this.isInitFlg = true;
       
     }
     else{
@@ -198,6 +203,9 @@ export class SplitOrderDetailComponent implements OnInit {
     this.bunkatsuData = this.splitService.getDetailTableData();
 
     this.saveDataToSession();
+
+    // 初期画面をレンダーする
+    this.isInitFlg = true;
   }
 
   /**

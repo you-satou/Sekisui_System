@@ -30,6 +30,9 @@ export class OrderDetailApprovalComponent implements OnInit {
   loaderText = Const.WarningMsg.W0002;
   isGetting: boolean = false;
 
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
+
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
   
@@ -88,6 +91,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
     this.inputment.approval_2 = false;
+
+    // 画面をレンダーする
+    this.isInitFlg = true;
   }
 
   /** 

@@ -44,6 +44,9 @@ export class SupplierPatternComponent implements OnInit {
   //エラーメッセージ
   errormsg: string = "";
 
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
+
   /**
   *コンストラクタ
   *
@@ -149,6 +152,8 @@ export class SupplierPatternComponent implements OnInit {
         }else{
           alert(response.message);
         }
+        // 画面をレンダーする
+        this.isInitFlg = true;
       }
     );
   }

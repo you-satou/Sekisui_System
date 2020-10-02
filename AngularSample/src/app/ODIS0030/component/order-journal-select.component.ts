@@ -41,6 +41,9 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   //フォーカス対象列
   selectRow: number;
 
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
+
   /**
    * コンストラクタ
    *
@@ -166,6 +169,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
           }else{
             alert(response.message);
           }
+          // 画面をレンダーする
+          this.isInitFlg = true;
       }
     );
   }
