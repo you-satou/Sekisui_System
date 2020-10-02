@@ -110,8 +110,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
-    // this.getOrderSplitApproval();
-    this.getOrderInputData();
+    this.getOrderSplitApproval();
+    // this.getOrderInputData();
 
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
