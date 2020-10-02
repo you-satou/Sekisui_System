@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
  */
 export class ODIS0060SplitDetailService {
 
-  private _shiwakeData: ODIS0060OrderShiwake[] = [];
+  private _shiwakeData: ODIS0060OrderShiwake[];
 
   /**
    * 詳細入力テーブルの選択された行の仕訳データの保存

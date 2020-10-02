@@ -1,7 +1,8 @@
-import { ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity'
+
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from './odis0020-OrderInformation.entity'
+import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity'
 
 export class ODIS0020Session{
 
@@ -17,14 +18,17 @@ export class ODIS0020Session{
     /** 追加工事受注枝番テーブル */
     insertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
 
+    /** 発注明細一覧 */
+    orderDetailList: ODIS0020OrderDetaiSplitBean[];
+
     /** 設計のデータ */
-    SekkeiData: ODIS0020OrderShiwake[];
+    SekkeiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 本体のデータ */
-    HontaiData: ODIS0020OrderShiwake[];
+    HontaiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 追加のデータ */
-    TsuikaData: ODIS0020OrderShiwake[]
+    TsuikaData: ODIS0020OrderDetaiSplitBean[]
 
     constructor() {}
 

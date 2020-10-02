@@ -111,33 +111,35 @@ export class SplitOrderDetailComponent implements OnInit {
     private viewRef: ViewContainerRef,
   ) {  }
 
+  // --------------------------------------- ▼▼ 初期表示処理 ▼▼ ---------------------------------------
   /**
-   * ページがロードする時、テーブルデータを取得する
+   * 初期表示
+   * 説明：ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
 
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
 
-    //セックションにデータがあるかどうか
-    if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
+    //セッションにデータがあるかどうか
+    // if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
-      let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
-      this.shiwakeData = savedDt.shiwakeData;
-      this.tabName = this.shiwakeData[0].tabIndex;
-      this.bunkatsuData = savedDt.bunkatsuData;
-      // 画面をレンダーする
-      this.isInitFlg = true;
+    //   let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
+    //   this.shiwakeData = savedDt.shiwakeData;
+    //   this.tabName = this.shiwakeData.detailKind;
+    //   this.bunkatsuData = savedDt.bunkatsuData;
+    //   // 画面をレンダーする
+    //   this.isInitFlg = true;
       
-    }
-    else{
+    // }
+    // else{
       //初期表示
       this.setDisplayData();
-    }
+    // }
 
     //ページボタンの初期化
     this.setPageButtonDisplay(false,true,false,true);
-
   }
+
   /**
    * テーブルをレンダー後に走るメゾッド
    */
@@ -145,6 +147,38 @@ export class SplitOrderDetailComponent implements OnInit {
     this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData, '');
   }
+
+    /**
+   * 仕訳テーブルのデータの取得のメソッド
+   */
+  setDisplayData() {
+    this.shiwakeData = this.splitService.getSplitTableData();
+    this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
+    this.bunkatsuData = this.splitService.getDetailTableData();
+
+    this.saveDataToSession();
+
+    // 初期画面をレンダーする
+    this.isInitFlg = true;
+  }
+
+  /**
+   * タブ名 取得
+   */
+  private getTabName(val: string){
+    var resVal: string = '';
+    switch(val){
+      case Const.JutyuEdaban.TabIndex_0:
+        resVal = Const.TabName.TabName_0;
+      case Const.JutyuEdaban.TabIndex_1:
+        resVal = Const.TabName.TabName_1;
+      case Const.JutyuEdaban.TabIndex_2:
+        resVal = Const.TabName.TabName_2;
+    }
+    return resVal;
+  }
+  // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
+
 
    /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
@@ -192,20 +226,6 @@ export class SplitOrderDetailComponent implements OnInit {
     this.btnHenkou = henkou;
     this.btnChuushi = chuushi;
     this.btnSakujo = sakujo;
-  }
-
-  /**
-   * 仕訳テーブルのデータの取得のメソッド
-   */
-  setDisplayData() {
-    this.shiwakeData = this.splitService.getSplitTableData();
-    this.tabName = this.shiwakeData[0].tabIndex;
-    this.bunkatsuData = this.splitService.getDetailTableData();
-
-    this.saveDataToSession();
-
-    // 初期画面をレンダーする
-    this.isInitFlg = true;
   }
 
   /**
@@ -567,7 +587,8 @@ export class SplitOrderDetailComponent implements OnInit {
       let dt = new ODIS0020OrderShiwake();
       //先頭データ作成
       if (bunkatsu.indexOf(element) == 0) {
-        dt.id                 = shiwakeData[0].id;
+        // TODO
+        // dt.id                 = shiwakeData[0].id;
         dt.tabIndex           = this.tabName;
         dt.journalCode        = shiwakeData[0].journalCode;
         dt.accountCode        = shiwakeData[0].accountCode;
@@ -592,7 +613,8 @@ export class SplitOrderDetailComponent implements OnInit {
       }
       else {
         //後尾データ
-        dt.id                 = shiwakeData[0].id;
+        // TODO
+        // dt.id                 = shiwakeData[0].id;
         dt.tabIndex           = this.tabName;
         dt.journalCode        = '';
         dt.accountCode        = '';
@@ -624,7 +646,8 @@ export class SplitOrderDetailComponent implements OnInit {
     }
 
     //発注明細入力画面に返却するデータを設定する。
-    this.odis0020Service.setReturnSplitData(senderDt);
+    // TODO
+    // this.odis0020Service.setReturnSplitData(senderDt);
 
     //発注詳細入力画面に戻る前に、セックションを削除する
     sessionStorage.removeItem(Const.ScreenName.S0006EN);

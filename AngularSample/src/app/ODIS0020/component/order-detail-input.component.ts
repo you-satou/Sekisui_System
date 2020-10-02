@@ -38,21 +38,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
   // タッブの初期値
-  protected selectedTab: string = "設計";
+  protected selectedTab: string = Const.TabName.TabName_0;
 
   //  タッブの名前
-  private tabNo1: string = '設計';
-  private tabNo2: string = '本体';
-  private tabNo3: string = '追加';
+  private tabNo1: string = Const.TabName.TabName_0;
+  private tabNo2: string = Const.TabName.TabName_1;
+  private tabNo3: string = Const.TabName.TabName_2;
 
   get tabValue(){
     switch(this.selectedTab){
       case this.tabNo1:
-        return 0;
+        return Number(Const.JutyuEdaban.TabIndex_0);
       case this.tabNo2:
-        return 1;
+        return Number(Const.JutyuEdaban.TabIndex_1);;
       case this.tabNo3:
-        return 2;
+        return Number(Const.JutyuEdaban.TabIndex_2);;
     }
 
   }
@@ -71,9 +71,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
-  tblSekkei : ODIS0020OrderShiwake[] = [];
-  tblHontai: ODIS0020OrderShiwake[] = [];
-  tblTsuika: ODIS0020OrderShiwake[] = [];
+  tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
+  tblHontai: ODIS0020OrderDetaiSplitBean[] = [];
+  tblTsuika: ODIS0020OrderDetaiSplitBean[] = [];
 
   // mocking data url
   readonly _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
@@ -117,25 +117,30 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   ) { }
 
+  // --------------------------------------- ▼▼ 初期表示処理 ▼▼ ---------------------------------------
+  /**
+   * 初期表示
+   */
   ngOnInit() {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
 
-    if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
+    // if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       
-      this.getOrderInputDataFromSession();
-    }
-    else{
+    //   this.getOrderInputDataFromSession();
+    // }
+    // else{
       this.getOrderInputData();
-    }
+    //}
 
     this.setDefaultDisplay();
   }
+
   /**
    * 各モダールの設定
    */
-  getDataFromModals(){
+  private getDataFromModals(){
 
     //ODIS0030発注仕訳マスタ選択
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
@@ -245,7 +250,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
               this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割 
-
+              this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_0);
+              this.tblHontai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_1);
+              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
             }else{
               alert(response.message);
             }
@@ -261,7 +268,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param listOrderDetail
    * @param tabIndex
    */
-  private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], tabIndex){
+  private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], tabIndex: string){
     // データ フィルタ
     var dt = listOrderDetail.filter(val =>{
       if(val.detailKind == tabIndex){
@@ -269,16 +276,59 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     })
 
+    // 取得件数が0件の場合に、初期設定を行う
+    if(dt.length === 0){
+      dt = this.getInitData(tabIndex);
+    }
+
     return dt;
   }
 
   /**
-   * 発注明細分割 マッピング
+   * 初期データ 設定
    */
-  // private m
+  private getInitData(tabIndex: string): ODIS0020OrderDetaiSplitBean[]{
+    var initData: ODIS0020OrderDetaiSplitBean[] = [];
+    var dt: ODIS0020OrderDetaiSplitBean;
 
-  /**
-   * セッションからデータを取得
+    // ハウス材
+    dt = new ODIS0020OrderDetaiSplitBean();
+    dt.detailKind = tabIndex;
+    dt.detailNo = '1'
+    dt.journalCode = '0100';
+    dt.accountCode = '010'
+    dt.journalName = 'ハウス材'
+    dt.orderSupplierCode = '';
+    dt.orderSupplierName = '';
+    initData.push(dt);
+
+    // 運賃・荷造・保管料
+    dt = new ODIS0020OrderDetaiSplitBean();
+    dt.detailKind = tabIndex;
+    dt.detailNo = '2'
+    dt.journalCode = '9100';
+    dt.accountCode = '910'
+    dt.journalName = '運賃・荷造・保管料'
+    dt.orderSupplierCode = '';
+    dt.orderSupplierName = '';
+    initData.push(dt);
+
+    // 労災
+    dt = new ODIS0020OrderDetaiSplitBean();
+    dt.detailKind = tabIndex;
+    dt.detailNo = '3'
+    dt.journalCode = '9300';
+    dt.accountCode = '930'
+    dt.journalName = '労災'
+    dt.orderSupplierCode = '';
+    dt.orderSupplierName = '';
+    initData.push(dt);
+
+    return initData;
+  }
+
+    /**
+   * 初期表示時 セッションデータ 取得
    * @param dt 
    * @param tabName 
    */
@@ -302,9 +352,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.tblTsuika = savedData.TsuikaData;
     }
     else{
-      this.selectedTab = returnDt[0].tabIndex;
-      switch (returnDt[0].tabIndex) {
+      this.selectedTab = returnDt[0].detailKind;
+      switch (returnDt[0].detailKind) {
         case this.tabNo1:
+          // TODO
           this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt, index);
           this.tblHontai = savedData.HontaiData;
           this.tblTsuika = savedData.TsuikaData;
@@ -312,6 +363,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   
         case this.tabNo2:
           this.tblSekkei = savedData.SekkeiData;
+          // TODO
           this.tblHontai = this.mergeData(savedData.HontaiData, returnDt, index);
           this.tblTsuika = savedData.TsuikaData;
           break;
@@ -319,6 +371,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         case this.tabNo3:
           this.tblSekkei = savedData.SekkeiData;
           this.tblHontai = savedData.HontaiData;
+          // TODO
           this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt, index);
           break;
       }
@@ -328,76 +381,80 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //ロード画面を解除する。
     this.isLoading = false;
   }
+  // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
 
-  mergeData(savedDt: ODIS0020OrderShiwake[], returnDt: ODIS0020OrderShiwake[], r:number): ODIS0020OrderShiwake[]{
-    var returnId = returnDt[0].id;
-    var filterDt = savedDt.filter(value =>{
-      if(value.id == returnId){
-        return value;
-      }
-    })
-    //先頭位置を取得
-    let indx = savedDt.indexOf(filterDt[0]);
-    this.rowStatus.keyIndex = indx;
-    this.rowStatus.detailLength = returnDt.length;
-    switch(true){
-      case filterDt.length == returnDt.length:
-        for (let i = 0 ; i < returnDt.length; i++)  {
-          savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-        };
-        return savedDt;
 
-      //分割明細画面で明細を削除した場合：
-      case filterDt.length > returnDt.length:
-        if(returnDt.length == 1 && returnDt[0].isBlankDetail){
-          savedDt.splice(indx,filterDt.length);
-        }
-        for (let i = 0 ; i < filterDt.length; i++)  {
-          if(i < returnDt.length){
-            savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-          }
-          else{
-            savedDt.splice(i+indx,1);
-          }
-        };
-        return savedDt;
+  mergeData(savedDt: ODIS0020OrderDetaiSplitBean[], returnDt: ODIS0020OrderDetaiSplitBean[], r:number): ODIS0020OrderDetaiSplitBean[]{
+    // TODO
+    // var returnId = returnDt[0].id;
+    // var filterDt = savedDt.filter(value =>{
+    //   if(value.id == returnId){
+    //     return value;
+    //   }
+    // })
+    // //先頭位置を取得
+    // let indx = savedDt.indexOf(filterDt[0]);
+    // this.rowStatus.keyIndex = indx;
+    // this.rowStatus.detailLength = returnDt.length;
+    // switch(true){
+    //   case filterDt.length == returnDt.length:
+    //     for (let i = 0 ; i < returnDt.length; i++)  {
+    //       savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
+    //     };
+    //     return savedDt;
 
-      //分割明細画面で明細を追加した場合：
-      case filterDt.length < returnDt.length:
-        for (let i = 0 ; i < returnDt.length; i++)  {
-          if(i < filterDt.length){
-            savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-          }
-          else{
-            let ins = new ODIS0020OrderShiwake();
-            ins.id                 = this.baseCompnt.setValue(returnDt[i].id);
-            ins.tabIndex           = this.baseCompnt.setValue(returnDt[i].tabIndex);
-            ins.journalCode        = '';
-            ins.accountCode        = '';
-            ins.journalName        = '';
-            ins.orderSupplierCode  = '';
-            ins.orderSupplierName  = '';
-            ins.orderPlanAmount    = '';
-            ins.comment            = this.baseCompnt.setValue(returnDt[i].comment);
-            ins.orderSplitAmount   = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
-            ins.requestDate        = this.baseCompnt.setValue(returnDt[i].requestDate);
-            ins.requester          = this.baseCompnt.setValue(returnDt[i].requester);
-            ins.approvalDate_lv1   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
-            ins.approvalPerson_lv1 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv1);
-            ins.approvalDate_lv2   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
-            ins.approvalPerson_lv2 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv2);
-            ins.orderDate          = this.baseCompnt.setValue(returnDt[i].orderDate);
-            ins.orderAmount        = this.baseCompnt.setValue(returnDt[i].orderAmount);
-            ins.receivedDate       = this.baseCompnt.setValue(returnDt[i].receivedDate);
-            ins.receivedAmount     = this.baseCompnt.setValue(returnDt[i].receivedAmount);
-            ins.paymentDate        = this.baseCompnt.setValue(returnDt[i].paymentDate);
-            ins.paymentAmount      = this.baseCompnt.setValue(returnDt[i].paymentAmount);
+    //   //分割明細画面で明細を削除した場合：
+    //   case filterDt.length > returnDt.length:
+    //     if(returnDt.length == 1 && returnDt[0].isBlankDetail){
+    //       savedDt.splice(indx,filterDt.length);
+    //     }
+    //     for (let i = 0 ; i < filterDt.length; i++)  {
+    //       if(i < returnDt.length){
+    //         savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
+    //       }
+    //       else{
+    //         savedDt.splice(i+indx,1);
+    //       }
+    //     };
+    //     return savedDt;
 
-            savedDt.splice(i+indx,0,ins);
-          }
-        };
-        return savedDt;
-    }
+    //   //分割明細画面で明細を追加した場合：
+    //   case filterDt.length < returnDt.length:
+    //     for (let i = 0 ; i < returnDt.length; i++)  {
+    //       if(i < filterDt.length){
+    //         savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
+    //       }
+    //       else{
+    //         let ins = new ODIS0020OrderShiwake();
+    //         ins.id                 = this.baseCompnt.setValue(returnDt[i].id);
+    //         ins.tabIndex           = this.baseCompnt.setValue(returnDt[i].tabIndex);
+    //         ins.journalCode        = '';
+    //         ins.accountCode        = '';
+    //         ins.journalName        = '';
+    //         ins.orderSupplierCode  = '';
+    //         ins.orderSupplierName  = '';
+    //         ins.orderPlanAmount    = '';
+    //         ins.comment            = this.baseCompnt.setValue(returnDt[i].comment);
+    //         ins.orderSplitAmount   = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
+    //         ins.requestDate        = this.baseCompnt.setValue(returnDt[i].requestDate);
+    //         ins.requester          = this.baseCompnt.setValue(returnDt[i].requester);
+    //         ins.approvalDate_lv1   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
+    //         ins.approvalPerson_lv1 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv1);
+    //         ins.approvalDate_lv2   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
+    //         ins.approvalPerson_lv2 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv2);
+    //         ins.orderDate          = this.baseCompnt.setValue(returnDt[i].orderDate);
+    //         ins.orderAmount        = this.baseCompnt.setValue(returnDt[i].orderAmount);
+    //         ins.receivedDate       = this.baseCompnt.setValue(returnDt[i].receivedDate);
+    //         ins.receivedAmount     = this.baseCompnt.setValue(returnDt[i].receivedAmount);
+    //         ins.paymentDate        = this.baseCompnt.setValue(returnDt[i].paymentDate);
+    //         ins.paymentAmount      = this.baseCompnt.setValue(returnDt[i].paymentAmount);
+
+    //         savedDt.splice(i+indx,0,ins);
+    //       }
+    //     };
+    //     return savedDt;
+    // }
+    return [];
     
   }
 
@@ -568,7 +625,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
       var body: any
-      switch (this.ODIS0020Service.ReturnedSplitData[0].tabIndex) {
+      switch (this.ODIS0020Service.ReturnedSplitData[0].detailKind) {
         case this.tabNo1:
           body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
           break;
@@ -767,10 +824,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
     let insFlg: boolean = false;
     // 発注先パターン
-    for (var insBk of insertBucket) {
+    for(var insBk of insertBucket) {
       insFlg = true;
       // テーブルデータ
-      for (var data of dataTable) {
+      for(var data of dataTable) {
         // 同一仕訳コードが存在する場合
         if (insBk.journalCode === data.journalCode) {
           // 依頼日が空白の場合
@@ -986,9 +1043,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         
         break;
     }
-
   }
-
+  
   /**
    * ボタン制御
    */
@@ -1029,6 +1085,53 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * 追加した明細に自動スクロールする
+   * @param body 
+   * @param row
+   */
+  setAutoScroll(body: any, row: number) {
+    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+  }
+
+  finalUpdateProgress(){
+    //サーバに更新データを送る。
+
+    console.log(this.childSekkei.orderData);
+    console.log(this.childHontai.orderData);
+    console.log(this.childTsuika.orderData);
+
+    //セッションを削除する。
+    sessionStorage.removeItem(Const.ScreenName.S0002EN);
+
+    this.router.navigate([Const.UrlSetting.U0001]);
+
+  }
+
+  /**
+   * 一時データを保持する
+   */
+  saveTemporaryData(){
+
+    // セッションに保持する
+    let saveDt = new ODIS0020Session();
+    saveDt.CustomerInfo = this.orderCustomerInfo;
+    saveDt.DateInfo = this.order0DateInfo;
+    saveDt.mainOrderInfo = this.tblMainOrder;
+    saveDt.insertedOrderInfo = this.tblInsertedOrder;
+    saveDt.orderDetailList = this.orderDetaiSplitlList;
+    saveDt.SekkeiData = this.tblSekkei;
+    saveDt.HontaiData = this.tblHontai;
+    saveDt.TsuikaData = this.tblTsuika;
+
+    // 既にセッションが格納されている場合は除去する
+    if (sessionStorage.getItem(Const.ScreenName.S0002EN) != null) {
+      sessionStorage.removeItem(Const.ScreenName.S0002EN);
+    }
+    sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
+  }
+
+  // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ ---------------------------------------
+  /**
    * focus処理
    *
    * @param $event イベント
@@ -1064,29 +1167,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   */
   toZenkaku($event){
     $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
-  }
-
-  /**
-   * 追加した明細に自動スクロールする
-   * @param body 
-   * @param row
-   */
-  setAutoScroll(body: any, row: number) {
-    body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
-  }
-
-  finalUpdateProgress(){
-    //サーバに更新データを送る。
-
-    console.log(this.childSekkei.orderData);
-    console.log(this.childHontai.orderData);
-    console.log(this.childTsuika.orderData);
-
-    //セッションを削除する。
-    sessionStorage.removeItem(Const.ScreenName.S0002EN);
-
-    this.router.navigate([Const.UrlSetting.U0001]);
-
   }
 
   /**
@@ -1130,32 +1210,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 一時データを保持する
-   */
-  saveTemporaryData(){
-
-    // セッションに保持する
-    let saveDt = new ODIS0020Session();
-    saveDt.CustomerInfo = this.orderCustomerInfo;
-    saveDt.DateInfo = this.order0DateInfo;
-    saveDt.mainOrderInfo = this.tblMainOrder;
-    saveDt.insertedOrderInfo = this.tblInsertedOrder;
-    saveDt.SekkeiData = this.tblSekkei;
-    saveDt.HontaiData = this.tblHontai;
-    saveDt.TsuikaData = this.tblTsuika;
-
-    if (sessionStorage.getItem(Const.ScreenName.S0002EN) != null) {
-      sessionStorage.removeItem(Const.ScreenName.S0002EN);
-    }
-    sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
-
-  }
-  /**
    * 経理分類 ロストフォーカス
    * @param event 
    */
   blurAccountCode($event){
-    if(!($event.target.value == "")){
+    if(!($event.target.value == '')){
       this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
     }
   }
@@ -1197,4 +1256,5 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       }
     }
   }
+  // --------------------------------------- ▲▲ フォーカス系 処理 ▲▲ ---------------------------------------
 }

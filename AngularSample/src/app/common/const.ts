@@ -167,6 +167,23 @@ export namespace Const{
 
     } 
 
+    /**
+     * 受注枝番
+     */
+    export namespace JutyuEdaban{
 
+        export const TabIndex_0 = '0'
+        export const TabIndex_1 = '1'
+        export const TabIndex_2 = '2'
+    }
+
+    /**
+     * 受注枝番
+     */
+    export namespace TabName{
+        export const TabName_0 = '設計'
+        export const TabName_1 = '本体'
+        export const TabName_2 = '追加'
+    }
     
 }

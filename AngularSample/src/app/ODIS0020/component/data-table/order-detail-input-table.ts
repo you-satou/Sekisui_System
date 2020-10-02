@@ -1,6 +1,4 @@
-import { element } from 'protractor';
 import { DatePipe } from '@angular/common';
-import { ODIS0020OrderShiwake } from "../../entities/odis0020-OrderDetailList.entity";
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
 import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef, HostBinding } from "@angular/core";
 import { MatTable } from "@angular/material";
@@ -8,6 +6,7 @@ import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
+import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
 
 @Component({
   selector: "shiwake-table",
@@ -16,7 +15,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/
   encapsulation: ViewEncapsulation.None,
 })
 export class OrderDetailShiwakeTable implements OnInit {
-  @Input() orderData: ODIS0020OrderShiwake[];
+  @Input() orderData: ODIS0020OrderDetaiSplitBean[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
 
@@ -173,7 +172,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param dataDetail
    */
-  getDisplayData($event, data: ODIS0020OrderShiwake) {
+  getDisplayData($event, data: ODIS0020OrderDetaiSplitBean) {
     if (data.orderPlanAmount == '' ||
         data.orderPlanAmount == null ||
         data.orderPlanAmount == undefined
@@ -201,31 +200,23 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param $event
    * @param data
    */
-  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderShiwake) {
-    var shiwakeDt: ODIS0060OrderShiwake[] = [];
+  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetaiSplitBean) {
+    var shiwakeDt: ODIS0060OrderShiwake[] = [new ODIS0060OrderShiwake()];
     var splitDt: ODIS0060OrderDetailBunkatsu[] = [];
-    for (const odrDt of this.orderData) {
-      if (odrDt.id === selectedItem.id) {
-        let tmp = new ODIS0060OrderShiwake();
-
-        tmp.tabIndex          = odrDt.tabIndex;
-        tmp.id                = odrDt.id;
-        tmp.journalCode       = odrDt.journalCode;
-        tmp.accountCode       = odrDt.accountCode;
-        tmp.journalName       = odrDt.journalName;
-        tmp.orderSupplierCode = odrDt.orderSupplierCode;
-        tmp.orderSupplierName = odrDt.orderSupplierName;
-        tmp.orderPlanAmount   = odrDt.orderPlanAmount;
-
-        shiwakeDt.push(tmp);
-
-        break;
-      }
-    }
-
+    
+    shiwakeDt[0].detailKind        = selectedItem.detailKind;
+    shiwakeDt[0].detailNo          = selectedItem.detailNo;
+    shiwakeDt[0].journalCode       = selectedItem.journalCode;
+    shiwakeDt[0].accountCode       = selectedItem.accountCode;
+    shiwakeDt[0].journalName       = selectedItem.journalName;
+    shiwakeDt[0].orderSupplierCode = selectedItem.orderSupplierCode;
+    shiwakeDt[0].orderSupplierName = selectedItem.orderSupplierName;
+    shiwakeDt[0].orderPlanAmount   = selectedItem.orderPlanAmount;
+    
     this.orderData.forEach(dt => {
-      if (dt.id === selectedItem.id) {
+      if (dt.detailNo === selectedItem.detailNo) {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
+        newSplit.splitNo              = dt.detailNo;
         newSplit.orderSplitAmount     = dt.orderSplitAmount;
         newSplit.comment              = dt.comment;
         newSplit.requestDate          = dt.requestDate;
@@ -242,11 +233,12 @@ export class OrderDetailShiwakeTable implements OnInit {
         newSplit.paymentAmount        = dt.paymentAmount;
 
         splitDt.push(newSplit);
-
       }
     });
 
+    //　テーブル一覧：左側 仕訳コード
     this.odis0060Service.setSplitTable(shiwakeDt);
+    //　テーブル一覧：右側 分割データ
     this.odis0060Service.setDetailTable(splitDt);
 
     //　エミッターを送る。
@@ -259,14 +251,15 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 選択された行の背景色を変える。
    * @param $event
    */
-  onSelectHighLight($event, value: ODIS0020OrderShiwake) {
+  onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
     this.comCompnt.CommonOnSelHight($event);
 
     //テーブルに選択されたデータをまとめる
     let filter = this.orderData.filter(element =>{
-      if(element.id == value.id){
-        return element;
-      }
+      // TODO
+      // if(element.id == value.id){
+      //   return element;
+      // }
     });
     
     let irai = filter.filter(dt =>{
@@ -296,7 +289,8 @@ export class OrderDetailShiwakeTable implements OnInit {
 
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;
-    this.dataEmitter.setEmitterData(filter[0], filter);
+    // TODO
+    // this.dataEmitter.setEmitterData(filter[0], filter);
     this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current,iraiSumi,shouninSumi,shouninChuu);
 
     //　親コンポーネントにデータを送る。
@@ -309,7 +303,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param event
    * @param dt 
    */
-  setRequest(event: any, dt: ODIS0020OrderShiwake) {
+  setRequest(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -346,7 +340,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param event 
    * @param dt 
    */
-  setApprovalFirstLevel(event: any, dt: ODIS0020OrderShiwake) {
+  setApprovalFirstLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -381,7 +375,7 @@ export class OrderDetailShiwakeTable implements OnInit {
  * @param event 
  * @param dt 
  */
-  setApprovalNextLevel(event: any, dt: ODIS0020OrderShiwake) {
+  setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let btn: HTMLButtonElement = null;
     if (event.target.nodeName === 'SPAN') {
@@ -418,7 +412,7 @@ export class OrderDetailShiwakeTable implements OnInit {
    * @param dt 
    * 
    */
-  setTableButtonDisplay(dt: ODIS0020OrderShiwake[]) {
+  setTableButtonDisplay(dt: ODIS0020OrderDetaiSplitBean[]) {
     let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
     let tr: HTMLTableRowElement;
     let btn: any;
@@ -452,41 +446,42 @@ export class OrderDetailShiwakeTable implements OnInit {
    * レンダー後、差額がある場合、テキスト色を変える。
    * @param dt 
    */
-  setTextColorWhenAmountIsDifference(dt: ODIS0020OrderShiwake[]){
+  setTextColorWhenAmountIsDifference(dt: ODIS0020OrderDetaiSplitBean[]){
 
     for (let i = 0; i < dt.length; i++) {
-      //先頭データのIDを取得する。
-      let currID = dt[i].id;
-      //IDに当てはまるデータを絞り込む
-      var filter = dt.filter(data =>{
-        if(data.id == currID){
-          return data;
-        }
-      });
-      //絞り込んだデータを分割の合計発注金額を取得する。
-      let totalAmount: number = filter.map(data => {
-        //重複明細を数える。
-        if (Number(data.orderSplitAmount) > 0) {
-          return Number(data.orderSplitAmount);
-        }
-        else {
-          return 0;
-        }
-      }).reduce((acc, value) => acc + value);
+      // TODO
+      // //先頭データのIDを取得する。
+      // let currID = dt[i].id;
+      // //IDに当てはまるデータを絞り込む
+      // var filter = dt.filter(data =>{
+      //   if(data.id == currID){
+      //     return data;
+      //   }
+      // });
+      // //絞り込んだデータを分割の合計発注金額を取得する。
+      // let totalAmount: number = filter.map(data => {
+      //   //重複明細を数える。
+      //   if (Number(data.orderSplitAmount) > 0) {
+      //     return Number(data.orderSplitAmount);
+      //   }
+      //   else {
+      //     return 0;
+      //   }
+      // }).reduce((acc, value) => acc + value);
 
-      let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-      let tr = skBody.rows[i];
-      //合計金額と発注予定金額を比較する
-      if(totalAmount != Number(dt[i].orderPlanAmount)){
-        //発注予定金額の色を変える。
-        tr.cells[5].style.color = 'red';
-      }
-      else{
-        tr.cells[5].style.color = 'black';
-      }
+      // let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+      // let tr = skBody.rows[i];
+      // //合計金額と発注予定金額を比較する
+      // if(totalAmount != Number(dt[i].orderPlanAmount)){
+      //   //発注予定金額の色を変える。
+      //   tr.cells[5].style.color = 'red';
+      // }
+      // else{
+      //   tr.cells[5].style.color = 'black';
+      // }
       
-      //処理後、カーソルの位置が後尾に変換する。
-      i += filter.length - 1;
+      // //処理後、カーソルの位置が後尾に変換する。
+      // i += filter.length - 1;
 
     }
 

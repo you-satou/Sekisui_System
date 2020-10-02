@@ -1,7 +1,8 @@
 import { ODIS0020OrderShiwake } from './../entities/odis0020-OrderDetailList.entity';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity'
+import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity'
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +21,7 @@ export class ODIS0020Service {
   * @memberof ODIS0020Service
   */
 
-  private _tableData: ODIS0020OrderShiwake[] = [];
+  private _tableData: ODIS0020OrderDetaiSplitBean[] = [];
 
   /**
    * 分割明細画面から渡されたパラメータを返す
@@ -53,7 +54,7 @@ export class ODIS0020Service {
     this._val = val;
   }
 
-  setReturnSplitData(data: ODIS0020OrderShiwake[]){
+  setReturnSplitData(data: ODIS0020OrderDetaiSplitBean[]){
     this._tableData = data;
   }
 

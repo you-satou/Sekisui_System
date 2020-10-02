@@ -2,10 +2,11 @@
  * 仕訳テーブルの定義
  */
 export class ODIS0060OrderShiwake {
-    /** タブ名 */
-    tabIndex: string;
-    /** 行のID */
-    id: string;
+    /** 明細種類 */
+    detailKind: string;
+
+    /** 明細連番 */
+    detailNo: string;
 
     /** 仕訳コード */
     journalCode: string;
@@ -33,11 +34,15 @@ export class ODIS0060OrderShiwake {
 　* 分割テーブルの定義
 　*/
 export class ODIS0060OrderDetailBunkatsu {
+    /** 分割連番 */
+    splitNo: string;
 
     /** 発注予定分割金額 */
     orderSplitAmount: string;
+
     /** コメント */
     comment: string;
+    
     /** 依頼日 */
     requestDate: string;
 
