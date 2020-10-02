@@ -172,6 +172,15 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   }
 
   /**
+   * 入力制限半角英数字のみ
+   *
+   * @param $event イベント
+   */
+  toABCNum($event){
+    $event.target.value = this.commonComponent.onlyHanABCNumber($event.target.value);
+  }
+
+  /**
    * 個人認証ＩＤ ロストフォーカス
    *
    * @param $event イベント
