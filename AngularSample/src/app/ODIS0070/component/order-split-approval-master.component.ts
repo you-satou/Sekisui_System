@@ -71,6 +71,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   //発注承認者マスタのインターフェース
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
+  //初期画面のレンダー
+  ngOnInitFlag: boolean = false;
+
   //発注承認者マスタテーブルのカラム
   orderApprovalColumns: string[] = [
     'personalID',
@@ -107,8 +110,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
-    this.getOrderSplitApproval();
-    //this.getOrderInputData();
+    // this.getOrderSplitApproval();
+    this.getOrderInputData();
 
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
@@ -125,6 +128,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           this.orderApprovalData = data
           // ビジー解除
           this.isLoading = false;
+          // 初期画面をレンダーする
+          this.ngOnInitFlag = true;
         }
         
       );
@@ -151,6 +156,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           }
           // ビジー解除
           this.isLoading = false;
+          // 初期画面をレンダーする
+          this.ngOnInitFlag = true;
         }
       );
   }
