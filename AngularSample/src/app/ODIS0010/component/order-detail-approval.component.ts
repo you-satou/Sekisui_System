@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewEncapsulation,ViewChild,QueryList,ViewContainerRef } from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation,ViewChild,QueryList,ViewContainerRef, ChangeDetectorRef } from "@angular/core";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
 import { OrderDetailApprovalTable } from 'app/ODIS0010/component/data-table/oder-detail-approval-table';
@@ -30,19 +30,20 @@ export class OrderDetailApprovalComponent implements OnInit {
   loaderText = Const.WarningMsg.W0002;
   isGetting: boolean = false;
 
-  //初期画面のレンダー
-  isInitFlg: boolean = false;
-
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
   
-  @ViewChild(OrderDetailApprovalTable,{static:true}) private orderDetailApprovalTable: OrderDetailApprovalTable;
+  @ViewChild(OrderDetailApprovalTable,{static:false}) private orderDetailApprovalTable: OrderDetailApprovalTable;
+
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
   
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
     private router: Router,
     private CommonComponent: CommonComponent,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -57,8 +58,14 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.screenSize = window.innerWidth;
     this.pixel = this.screenSize  - 408;
 
-    this.orderDetailApprovalTable.sort.disabled = true;
+    // 初期画面をレンダーする
+    this.isInitFlg = true;
 
+    //isInitFlgが「true」になる時のみ、OrderDetailApprovalTableがアクセスできるようになりますので、
+    //画面がレンダーされてからorderDetailApprovalTableに挿入して操作できます
+    this.changeDetectorRef.detectChanges();
+
+    this.orderDetailApprovalTable.sort.disabled = true;
   }
 
   onCloseClick(){
@@ -91,9 +98,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.detailNone = false;
     this.inputment.approval_1 = false;
     this.inputment.approval_2 = false;
-
-    // 画面をレンダーする
-    this.isInitFlg = true;
   }
 
   /** 
