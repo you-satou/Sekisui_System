@@ -42,31 +42,33 @@
             <tbody>
                 <tr>
                     <td class="table-str td-b">
-                        <input [(ngModel)]="input.personalID" type="text" disabled="{{ isEditFlg }}"
-                            (blur)="getEmployeeInfo($event)">
+                        <input [(ngModel)]="input.personalID" type="tel" disabled="{{ isEditFlg }}"
+                        tabindex="1" maxlength="32" (keyup)="toABCNum($event)" (change)="toABCNum($event)" 
+                        (blur)="getEmployeeInfo($event)" autofocus>
                     </td>
                     <td class="table-str td-b">
-                        <input [(ngModel)]="input.employeeCode" type="tel" maxlength="8">
+                        <input [(ngModel)]="input.employeeCode" type="tel" maxlength="8"
+                        tabindex="2" maxlength="8" (keyup)="toABCNum($event)" (change)="toABCNum($event)" >
                     </td>
                     <td class="table-str td-b">
                         <label type="text" maxlength="20">{{input.employeeName}}</label>
                     </td>
                     <td class="table-str td-b text-center">
-                        <select id="selApp1">
+                        <select id="selApp1" tabindex="3">
                             <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
                                 {{type1.text}}
                             </option>
                         </select>
                     </td>
                     <td class="table-str td-b text-center">
-                        <select id="selApp2">
+                        <select id="selApp2" tabindex="4">
                             <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
                                 {{type2.text}}
                             </option>
                         </select>
                     </td>
                     <td class="table-str td-b text-center">
-                        <select id="selDel">
+                        <select id="selDel" tabindex="5">
                             <option *ngFor="let typeDel of delTypes" [ngValue]="typeDel.id">
                                 {{typeDel.text}}
                             </option>
@@ -80,7 +82,7 @@
             <div style="position: relative; margin: 20px 0 50px 0">
                 <div style="float: left">
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        (click)="onInsClick()">明細追加</button>
+                        (click)="onInsClick()" tabindex="6">明細追加</button>
                 </div>
 
                 <div style="float: left">
@@ -90,7 +92,7 @@
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        (click)="onStopClick($event)">中止</button>
+                        (click)="onStopClick($event)" tabindex="7">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; left: 618px">
@@ -108,7 +110,7 @@
 
                 <div style="left: 30px;" class="bottomButton">
                     <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
-                        (click)="onBackClick($event)">閉じる</button>
+                        (click)="onBackClick($event)" tabindex="8">閉じる</button>
                 </div>
             </div>
         </footer>
