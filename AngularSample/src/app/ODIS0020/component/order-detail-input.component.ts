@@ -275,7 +275,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 発注明細分割 マッピング
    */
-  private  
+  // private m
 
   /**
    * セッションからデータを取得
