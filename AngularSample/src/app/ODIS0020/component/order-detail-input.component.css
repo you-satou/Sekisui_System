@@ -114,7 +114,7 @@
 .infoTable {
     min-width: 1050px ;
     margin-top: 10px;
-    width: auto;
+    width: max-content;
     height: 170px;
     position: relative;
 }
