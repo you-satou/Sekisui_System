@@ -14,14 +14,15 @@ import { OrderSupplierSelectService } from '../../ODIS0040/services/order-suppli
 import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderBunkatsuSub } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
-import { ODIS0020OrderDetailInputInformation } from '../entities/odis0020-OrderInformation.entity'
-import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020-Form.entity';
+import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from '../entities/odis0020-OrderInformation.entity'
+import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020.entity';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
 import { ODIS0020Service } from '../services/odis0020-service';
 import { DataEmitter, RowStatus } from '../services/odis0020-DataEmitter.service';
 import { CommonComponent } from 'app/common/common.component';
 import { ODIS0020JournalCode } from '../entities/odis0020-JournalCode.entity'
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entitiy'
+import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity'
 
 @Component({
   selector: 'order-detail-input',
@@ -63,9 +64,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private pageTotalInfo = new ODIS0020OrderDetailTotalInfo();
 
   // 発注データ
-  orderInformation: ODIS0020OrderDetailInputInformation[];
+  orderCustomerInfo = new ODIS0020CustomerInfoBean();
+  order0DateInfo = new ODIS0020DateInfoBean;
   tblMainOrder: ODIS0020MainOrderEdaBan[];
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
+  orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderShiwake[] = [];
@@ -88,6 +91,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   btnUpdate: boolean;
   btnStop: boolean;
   btnDelete: boolean;
+
+  // 初期表示 パラメータ
+  paramInit = new ODIS0020Form();
 
   // 仕訳コード パラメータ
   paramJournalCode = new ODIS0020Form();
@@ -201,38 +207,87 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * データを取得
    */
   getOrderInputData() {
-    this.orderService.getSingleData(this._urlOrderInput2)
-      .subscribe(
-        data => {
-          if (data !== undefined) {
-            this.pageTotalInfo = data;
-            this.orderInformation = this.pageTotalInfo.ContractInfo;
-            this.tblMainOrder = this.pageTotalInfo.MainOrderInfo;
-            this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
+    //モック
+    // this.orderService.getSingleData(this._urlOrderInput2)
+    //   .subscribe(
+    //     data => {
+    //       if (data !== undefined) {
+    //         this.pageTotalInfo = data;
+    //         this.orderInformation = this.pageTotalInfo.ContractInfo;
+    //         this.tblMainOrder = this.pageTotalInfo.MainOrderInfo;
+    //         this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
 
-            this.tblSekkei = this.divideData(this.pageTotalInfo.SekkeiData, this.tabNo1);
-            this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
-            this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
+    //         this.tblSekkei = this.divideData(this.pageTotalInfo.SekkeiData, this.tabNo1);
+    //         this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
+    //         this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
 
-            this.saveTemporaryData();
+    //         this.saveTemporaryData();
+    //         //ロード画面を解除する。
+    //         this.isLoading = false;
+    //       }
+    //     }
+    //   );
+
+    // データ取得
+    // TODO
+    this.paramInit.officeCode = '402000';
+    this.paramInit.propertyNo = '184326';
+    this.paramInit.contractNum = '000000122';
+
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramOrderCode)
+        .then(
+          (response) => {
+
+            if(response.result === Const.ConnectResult.R0001){
+              this.pageTotalInfo = response.applicationData;
+              this.orderCustomerInfo = this.pageTotalInfo.custmerInfo;              // 契約情報
+              this.order0DateInfo = this.pageTotalInfo.dateInfo;                    // 契約日付
+              this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
+              this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
+              this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割 
+
+            }else{
+              alert(response.message);
+            }
+
             //ロード画面を解除する。
             this.isLoading = false;
           }
-        }
-        
-      );
+        );
   }
 
   /**
-   * セックションからデータを取得
+   * 受注枝番 データ 仕訳
+   * @param listOrderDetail
+   * @param tabIndex
+   */
+  private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], tabIndex){
+    // データ フィルタ
+    var dt = listOrderDetail.filter(val =>{
+      if(val.detailKind == tabIndex){
+        return val;
+      }
+    })
+
+    return dt;
+  }
+
+  /**
+   * 発注明細分割 マッピング
+   */
+  private  
+
+  /**
+   * セッションからデータを取得
    * @param dt 
    * @param tabName 
    */
   getOrderInputDataFromSession(){
 
-    // セックションからデータを取得する。 
+    // セッションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
-    this.orderInformation = savedData.ContractInfo;
+    this.orderCustomerInfo = savedData.orderCustomerInfo;
+    this.order0DateInfo = savedData.order0DateInfo;
     this.tblMainOrder = savedData.MainOrderInfo;
     this.tblInsertedOrder = savedData.InsertedOrderInfo;
     
@@ -704,7 +759,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.tableShiwake.renderRows();
         break;
     }
-
   }
 
   /**
@@ -718,7 +772,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       // テーブルデータ
       for (var data of dataTable) {
         // 同一仕訳コードが存在する場合
-        if (insBk.id === data.id) {
+        if (insBk.journalCode === data.journalCode) {
           // 依頼日が空白の場合
           if (data.requestDate.trim() === '') {
             data.orderSupplierCode = insBk.orderSupplierCode    // 発注先コード
@@ -1012,8 +1066,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
   }
 
-
-
   /**
    * 追加した明細に自動スクロールする
    * @param body 
@@ -1024,15 +1076,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   finalUpdateProgress(){
-
-
     //サーバに更新データを送る。
 
     console.log(this.childSekkei.orderData);
     console.log(this.childHontai.orderData);
     console.log(this.childTsuika.orderData);
 
-    //セックションを削除する。
+    //セッションを削除する。
     sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
     this.router.navigate([Const.UrlSetting.U0001]);
@@ -1061,7 +1111,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode.journalCode = strJournalCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Get_Journal_Code,this.paramJournalCode)
+        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetJournalCode,this.paramJournalCode)
         .then(
           (response) => {
 
@@ -1084,11 +1134,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   saveTemporaryData(){
 
-    // セックションに保持する
+    // セッションに保持する
     let saveDt = new ODIS0020Session();
-    saveDt.ContractInfo = this.orderInformation;
-    saveDt.MainOrderInfo = this.tblMainOrder;
-    saveDt.InsertedOrderInfo = this.tblInsertedOrder;
+    saveDt.CustomerInfo = this.orderCustomerInfo;
+    saveDt.DateInfo = this.order0DateInfo;
+    saveDt.mainOrderInfo = this.tblMainOrder;
+    saveDt.insertedOrderInfo = this.tblInsertedOrder;
     saveDt.SekkeiData = this.tblSekkei;
     saveDt.HontaiData = this.tblHontai;
     saveDt.TsuikaData = this.tblTsuika;
@@ -1130,7 +1181,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Get_Order_Code,this.paramOrderCode)
+        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderCode,this.paramOrderCode)
         .then(
           (response) => {
 

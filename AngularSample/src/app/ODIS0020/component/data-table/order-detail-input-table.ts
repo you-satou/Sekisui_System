@@ -99,11 +99,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 発注予定金額の合計
    */
   getTotalPlanAmount() {
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if (t.orderPlanAmount != null ||
-              t.orderPlanAmount != "") {
+          if (this.comCompnt.setValue(t.orderPlanAmount) != '') {
             return Number(t.orderPlanAmount);
           }
         })
@@ -114,11 +113,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    * 発注分割金額の合計
    */
   getOrderSplitAmount() {
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if ( t.orderSplitAmount != null ||
-               t.orderSplitAmount != "") {
+          if (this.comCompnt.setValue(t.orderSplitAmount) != '') {
             return Number(t.orderSplitAmount);
           }
         })
@@ -130,11 +128,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    *  発注金額の合計
    */
   getOrderAmount() {
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if ( t.orderAmount != null ||
-               t.orderAmount != "") {
+          if (this.comCompnt.setValue(t.orderAmount) != '') {
             return Number(t.orderAmount);
           }
         })
@@ -146,11 +143,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    *  受入金額の合計
    */
   getReceivedAmount() {
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if ( t.receivedAmount != null ||
-               t.receivedAmount != "") {
+          if ( this.comCompnt.setValue(t.receivedAmount) != '') {
             return Number(t.receivedAmount);
           }
         })
@@ -162,11 +158,10 @@ export class OrderDetailShiwakeTable implements OnInit {
    *  支払金額の合計
    */
   getPaymentAmount() {
-    if (this.orderData != undefined || this.orderData != null) {
+    if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if (t.receivedAmount != null ||
-              t.receivedAmount != "") {
+          if (this.comCompnt.setValue(t.receivedAmount) != '') {
             return Number(t.receivedAmount);
           }
         })

@@ -1,45 +1,21 @@
-import { ODIS0020OrderDetailList, ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity'
+import { ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
-import { ODIS0020OrderDetailInputInformation } from './odis0020-OrderInformation.entity'
-
-/**
- * 発注明細入力＿詳細入力画面のデータ定義
- */
-export class ODIS0020OrderDetailTotalInfo{
-
-    /** 発注明細 邸情報　*/
-    ContractInfo: ODIS0020OrderDetailInputInformation[];
-
-    /** 本体受注枝番テーブル */
-    MainOrderInfo: ODIS0020MainOrderEdaBan[];
-
-    /** 追加工事受注枝番テーブル */
-    InsertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
-
-    /** 設計のデータ */
-    SekkeiData: ODIS0020OrderDetailList[];
-
-    /** 本体のデータ */
-    HontaiData: ODIS0020OrderDetailList[];
-
-    /** 追加のデータ */
-    TsuikaData: ODIS0020OrderDetailList[]
-
-    constructor() {}
-
-}
+import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from './odis0020-OrderInformation.entity'
 
 export class ODIS0020Session{
 
-    /** 発注明細 邸情報　*/
-    ContractInfo: ODIS0020OrderDetailInputInformation[];
+    /** 契約情報　*/
+    CustomerInfo: ODIS0020CustomerInfoBean;
+
+    /** 契約日付 */
+    DateInfo: ODIS0020DateInfoBean;
 
     /** 本体受注枝番テーブル */
-    MainOrderInfo: ODIS0020MainOrderEdaBan[];
+    mainOrderInfo: ODIS0020MainOrderEdaBan[];
 
     /** 追加工事受注枝番テーブル */
-    InsertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
+    insertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
 
     /** 設計のデータ */
     SekkeiData: ODIS0020OrderShiwake[];
@@ -58,6 +34,12 @@ export class ODIS0020Form{
 
     /** 事業区分コード */
     officeCode: string;
+
+    /** 物件管理Ｎｏ */
+    propertyNo: string;
+
+    /** 契約書番号 */
+    contractNum: string;
 
     /** 仕訳コード */
     journalCode: string;

@@ -1,7 +1,7 @@
 /**
  * 発注明細 邸情報の定義
  */
-export interface ODIS0020OrderDetailInputInformation {
+export class ODIS0020CustomerInfoBean {
 
     /** 物件管理番号 */
     propertyManagerCd: string;
@@ -42,7 +42,12 @@ export interface ODIS0020OrderDetailInputInformation {
     /** 契約者名漢字 */
     contractorName: string;
 
-    /*-------------工事名のテーブルの定義---------------------*/
+}
+
+/**
+ * 発注明細 契約日付
+ */
+export class ODIS0020DateInfoBean{
 
     /** NULL(固定) */
     planContractDate: string;
@@ -91,6 +96,4 @@ export interface ODIS0020OrderDetailInputInformation {
 
     /** 建物引渡し実績日 */
     perforHandingOver: string;
-
-
 }
