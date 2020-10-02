@@ -72,7 +72,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   orderApprovalData: OrderSplitApprovalMasterTable[];
 
   //初期画面のレンダー
-  isInitFlag: boolean = false;
+  isInitFlg: boolean = false;
 
   //発注承認者マスタテーブルのカラム
   orderApprovalColumns: string[] = [
@@ -110,8 +110,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
-    this.getOrderSplitApproval();
-    // this.getOrderInputData();
+    // this.getOrderSplitApproval();
+    this.getOrderInputData();
 
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
@@ -129,7 +129,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           // ビジー解除
           this.isLoading = false;
           // 初期画面をレンダーする
-          this.isInitFlag = true;
+          this.isInitFlg = true;
         }
         
       );
@@ -157,7 +157,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           // ビジー解除
           this.isLoading = false;
           // 初期画面をレンダーする
-          this.isInitFlag = true;
+          this.isInitFlg = true;
         }
       );
   }
