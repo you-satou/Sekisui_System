@@ -120,7 +120,13 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   getOrderInputData() {
     this.service.getSingleData(this._urlOrderSplit)
       .subscribe(
-        data => this.orderApprovalData = data       
+        data => 
+        { 
+          this.orderApprovalData = data
+          // ビジー解除
+          this.isLoading = false;
+        }
+        
       );
   }
 
