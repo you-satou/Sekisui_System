@@ -112,4 +112,9 @@
 
 .header-title {
     width: 50%;
+    white-space: nowrap;
+}
+
+.text-right {
+    white-space: nowrap;
 }
