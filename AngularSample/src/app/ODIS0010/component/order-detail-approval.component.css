@@ -2,10 +2,10 @@
 
 .search-area {
     width: 100%;
-    /*min-width: 1200px;*/
+    min-width: 361px;
     background-color: transparent;
     border: #CCD0D5 0.5px solid;
-    padding: 10px;
+    padding: 10px 10px 10px 20px;
 }
 
 .search-area>div>input {
@@ -52,6 +52,10 @@
     white-space: normal;
     }
 
+button {
+    margin: auto;
+}
+
 /* .footer {
     display: fixed;
     background-color: #F5F5F5;
@@ -92,15 +96,15 @@
 .bottomButton {
     position: fixed;
     z-index: 2;
-    bottom: 5px;
+    bottom: 8px;
 }
 
 #contractNumFrom, #contractNumTo{
-    width: 150px;
+    width: 10%;
 }
 
 #propertyName{
-    width: 330px;
+    width: 23%;
 }
 
 .overlay {

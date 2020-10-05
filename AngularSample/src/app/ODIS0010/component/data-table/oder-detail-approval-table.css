@@ -17,6 +17,7 @@
     border-bottom: 0.5px solid #CCD0D5;
     border-right: 0.5px solid #CCD0D5;
     border-left: 0.5px solid #CCD0D5;
+    vertical-align: middle;
 }
 .mat-table>tbody>tr {
     height: 20px !important;
