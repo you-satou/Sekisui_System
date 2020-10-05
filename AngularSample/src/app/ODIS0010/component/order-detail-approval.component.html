@@ -19,7 +19,7 @@
 
         <div class="input-group row" style="height: 30px;">
             <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
+                <p class="input-group-text" maxlength='20' style="width: 80px; text-align: right;">物件名</p>
             </div>
             <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
                 style="ime-mode:active" (blur)="toZenkaku($event)" (change)="toZenkaku($event)">
