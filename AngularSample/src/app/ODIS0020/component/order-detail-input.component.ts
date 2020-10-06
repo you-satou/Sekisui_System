@@ -110,6 +110,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // 更新情報 パラメータ
   paramUpd = new ODIS0020UpdForm();
 
+  //初期画面のレンダー
+  isInitFlg: boolean = false;
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -247,6 +250,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             }
             //ロード画面を解除する。
             this.isLoading = false;
+
+            // 画面をレンダーする
+            this.isInitFlg = true;
           }
         );
   }
