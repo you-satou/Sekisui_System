@@ -139,6 +139,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       // セッション情報 設定
       this.getOrderInputDataFromSession();
+
+      // 画面をレンダーする
+      this.isInitFlg = true;
+      // 再描画
+      this.changeDetectorRef.detectChanges();
     }
     else{
       // 初期設定
@@ -235,13 +240,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               // 「追加」タブ
               this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
               
+              // 画面をレンダーする
+              this.isInitFlg = true;
+
               // 再描画
               this.changeDetectorRef.detectChanges();
-
-              // 各タブ レンダリング
-              this.renderAfterView(this.childSekkei.viewRef.element.nativeElement.querySelector('tbody'), this.tblSekkei);
-              this.renderAfterView(this.childHontai.viewRef.element.nativeElement.querySelector('tbody'), this.tblHontai);
-              this.renderAfterView(this.childTsuika.viewRef.element.nativeElement.querySelector('tbody'), this.tblTsuika);
               
               // セッション保存
               this.saveTemporaryData();
@@ -251,8 +254,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             //ロード画面を解除する。
             this.isLoading = false;
 
-            // 画面をレンダーする
-            this.isInitFlg = true;
           }
         );
   }
@@ -463,49 +464,49 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }    
   }
   
+  // ↓↓ 安井検討中
+  // private renderAfterView(tbody: any, datas: ODIS0020OrderDetaiSplitBean[]){
+  //   // データ 読み込み
+  //   for (let i = 0; i < datas.length; i++) {
+  //     // 初期化
+  //     let tr = tbody.rows[i];
+  //     // 分割データ 1以外は文字フォントを白にする
+  //     if(datas[i].splitNo !== '1'){
+  //       tr.cells[0].style.color = 'white';
+  //       tr.cells[1].style.color = 'white';
+  //       tr.cells[2].style.color = 'white';
+  //       tr.cells[3].style.color = 'white';
+  //       tr.cells[4].style.color = 'white';
+  //       tr.cells[5].style.color = 'white';
+  //     }else{
+  //       // 発注連番 対象データ抽出
+  //       var filter = datas.filter(data =>{
+  //         if(data.detailNo == datas[i].detailNo){
+  //           return data;
+  //         }
+  //       });
+  //       // 対象データ 分割発注金額 合計算出。
+  //       let totalAmount: number = filter.map(data => {
+  //         // 重複明細を数える。
+  //         if (Number(data.orderSplitAmount) > 0) {
+  //           return Number(data.orderSplitAmount);
+  //         }
+  //         else {
+  //           return 0;
+  //         }
+  //       }).reduce((acc, value) => acc + value);
 
-  private renderAfterView(tbody: any, datas: ODIS0020OrderDetaiSplitBean[]){
-    // データ 読み込み
-    for (let i = 0; i < datas.length; i++) {
-      // 初期化
-      let tr = tbody.rows[i];
-      // 分割データ 1以外は文字フォントを白にする
-      if(datas[i].splitNo !== '1'){
-        tr.cells[0].style.color = 'white';
-        tr.cells[1].style.color = 'white';
-        tr.cells[2].style.color = 'white';
-        tr.cells[3].style.color = 'white';
-        tr.cells[4].style.color = 'white';
-        tr.cells[5].style.color = 'white';
-      }else{
-        // 発注連番 対象データ抽出
-        var filter = datas.filter(data =>{
-          if(data.detailNo == datas[i].detailNo){
-            return data;
-          }
-        });
-        // 対象データ 分割発注金額 合計算出。
-        let totalAmount: number = filter.map(data => {
-          // 重複明細を数える。
-          if (Number(data.orderSplitAmount) > 0) {
-            return Number(data.orderSplitAmount);
-          }
-          else {
-            return 0;
-          }
-        }).reduce((acc, value) => acc + value);
-
-        // 合計金額と発注予定金額を比較する
-        if(totalAmount != Number(datas[i].orderPlanAmount)){
-          // 発注予定金額の色を変える。
-          tr.cells[5].style.color = 'red';
-        }
-        else{
-          tr.cells[5].style.color = 'black';
-        }
-      }
-    }
-  }
+  //       // 合計金額と発注予定金額を比較する
+  //       if(totalAmount != Number(datas[i].orderPlanAmount)){
+  //         // 発注予定金額の色を変える。
+  //         tr.cells[5].style.color = 'red';
+  //       }
+  //       else{
+  //         tr.cells[5].style.color = 'black';
+  //       }
+  //     }
+  //   }
+  // }
   // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
 
   // --------------------------------------- ▼▼ 各画面設定 ▼▼ ---------------------------------------

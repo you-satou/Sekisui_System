@@ -111,9 +111,9 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
-          if (this.comCompnt.setValue(t.orderPlanAmount) != '') {
+          if (this.comCompnt.setValue(t.orderPlanAmount) != '' && this.comCompnt.setValue(t.splitNo == '1')) {
             return Number(t.orderPlanAmount);
-          }
+          }else{ return 0}
         })
         .reduce((acc, value) => acc + value, 0);
     }
@@ -127,7 +127,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .map((t) => {
           if (this.comCompnt.setValue(t.orderSplitAmount) != '') {
             return Number(t.orderSplitAmount);
-          }
+          }else{ return 0}
         })
         .reduce((acc, value) => acc + value);
     }
@@ -142,7 +142,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .map((t) => {
           if (this.comCompnt.setValue(t.orderAmount) != '') {
             return Number(t.orderAmount);
-          }
+          }else{ return 0}
         })
         .reduce((acc, value) => acc + value, 0);
     }
@@ -157,7 +157,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .map((t) => {
           if ( this.comCompnt.setValue(t.receivedAmount) != '') {
             return Number(t.receivedAmount);
-          }
+          }else{ return 0}
         })
         .reduce((acc, value) => acc + value, 0);
     }
@@ -172,7 +172,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .map((t) => {
           if (this.comCompnt.setValue(t.receivedAmount) != '') {
             return Number(t.receivedAmount);
-          }
+          }else{ return 0}
         })
         .reduce((acc, value) => acc + value, 0);
     }
@@ -341,7 +341,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     btn.setAttribute('disabled','disabled');
     btn.style.display = 'none';
 
-
   }
 
   /**
@@ -436,7 +435,10 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
             
             //依頼　ボタンを非表示させる
             btn = tr.cells[11].getElementsByTagName('button');
-            btn[0].style.display = 'none';
+            // ボタンが存在すれば以下の処理を実施
+            if(btn[0] !== undefined){
+              btn[0].style.display = 'none';
+            }
 
             //承認ボタンは既に非表示されているため、再非表示する必要なし。
       }

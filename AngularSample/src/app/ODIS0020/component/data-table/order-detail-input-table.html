@@ -152,7 +152,7 @@
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
                 <label *ngIf="this.comCompnt.setValue(element.approvalPerson_lv1) !=''">{{element.approvalPerson_lv1}}</label>
                 <!-- 依頼日が入力あり AND ログイン者が「承認１:可」(TODO)の場合）にボタンを表示 -->
-                <button *ngIf="this.comCompnt.setValue(element.requester) !=''" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button *ngIf="this.comCompnt.setValue(element.approvalPerson_lv1) =='' &&this.comCompnt.setValue(element.requester) !=''" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -168,7 +168,7 @@
             <td style="width: 100px; text-align: center;" class="font-s-center" mat-cell *matCellDef="let element">
                 <label *ngIf="this.comCompnt.setValue(element.approvalPerson_lv2) !=''">{{element.approvalPerson_lv2}}</label>
                 <!-- 承認１が入力あり AND ログイン者が「承認２:可」(TODO)の場合）にボタンを表示 -->
-                <button *ngIf="this.comCompnt.setValue(element.approvalPerson_lv1) !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <button *ngIf="this.comCompnt.setValue(element.approvalPerson_lv2) =='' && this.comCompnt.setValue(element.approvalPerson_lv1) !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
