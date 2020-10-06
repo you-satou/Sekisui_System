@@ -210,6 +210,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
               this.input.employeeName = this.resUserInfo.employeeName;
             }else{
               alert(response.message);
+              // ボタン制御
+              this.setPageButtonDisplay(true, true, false, true);
             }
             // ビジー解除
             this.isLoading = false;
@@ -286,6 +288,13 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * 明細追加ボタン
    */
   onInsClick(){
+    // 入力チェック 個人認証ＩＤ 必須入力
+    var strVal = this.commonComponent.setValue(this.input.personalID);
+    if(strVal === ''){
+      alert(Const.ErrorMsg.E0016);
+      return;
+    }
+
     // ビジー開始
     this.isLoading = true;
 
@@ -348,8 +357,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.commonComponent.setRowColor(Const.Action.A0006, tbody, this.index);
     // 項目初期化
     this.clearItem();
-    // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
   }
 
   /**
@@ -396,5 +403,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
     // 個人認証ＩＤ 活性
     this.isEditFlg = false;
+
+    // ボタン制御
+    this.setPageButtonDisplay(false, true, false, true);
   }
 }

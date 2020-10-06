@@ -148,6 +148,7 @@ export namespace Const{
         export const E0013 = '更新する明細を選択してください。';
         export const E0014 = '承認済な明細は更新できません。';
         export const E0015 = '変更されていないデータは更新できません。';
+        export const E0016 = '個人認証ＩＤは必須入力です。';
     }
     /**
      * 警告メッセージ
