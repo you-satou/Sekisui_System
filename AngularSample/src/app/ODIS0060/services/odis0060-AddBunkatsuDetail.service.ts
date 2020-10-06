@@ -88,6 +88,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
      * 明細追加サービスからデータを取得
      * @param output　返却データ 
      * @param action 追加・変更
+     * @param rowIndex 行番号
      */
     getInput(output: ODIS0060OrderDetailBunkatsu, action: string): ODIS0060OrderDetailBunkatsu{
         output.orderSplitAmount = this.removeCommas(this.orderSplitAmount);

@@ -30,6 +30,9 @@ export class ODIS0020Session{
     /** 追加のデータ */
     TsuikaData: ODIS0020OrderDetaiSplitBean[]
 
+    /** パラメータ設定 */
+    paramInit: ODIS0020Form;
+
     constructor() {}
 
 }

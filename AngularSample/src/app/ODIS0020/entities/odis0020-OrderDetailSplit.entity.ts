@@ -1,8 +1,10 @@
 /**
  * 発注明細 明細分割
  */
-
 export class ODIS0020OrderDetaiSplitBean{
+  /** 物件管理Ｎｏ */
+  propertyNo: string;
+
   /** 明細種類 */
   detailKind: string;
 

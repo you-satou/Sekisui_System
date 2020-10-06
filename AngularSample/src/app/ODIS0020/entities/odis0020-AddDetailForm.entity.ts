@@ -1,6 +1,7 @@
 import { CommonComponent } from 'app/common/common.component';
 import { Const } from 'app/common/const';
 import { ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity';
+import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity';
 
 /**
  * 発注明細に追加するの定義
@@ -25,7 +26,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     /** 発注予定金額 */
     orderPlanAmount: string;
 
-    shiwakeData: ODIS0020OrderShiwake;
+    shiwakeData: ODIS0020OrderDetaiSplitBean;
 
     get isBlank (): boolean {
         if(this.journalCode      != '' ||
@@ -72,10 +73,10 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.orderSupplierCode  = '';
         this.orderSupplierName  = '';
         this.orderPlanAmount    = '';
-        this.shiwakeData        = new ODIS0020OrderShiwake();
+        this.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
     }
 
-    setInput(input: ODIS0020OrderShiwake) {
+    setInput(input: ODIS0020OrderDetaiSplitBean) {
 
         //編集テーブルの各セルに選択された行の値を挿入
         this.journalCode       = input.journalCode;
@@ -94,7 +95,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
      * @param value 
      * @param action 
      */
-    getInput(output: ODIS0020OrderShiwake[], key:number, value:number, action: string): ODIS0020OrderShiwake[]{
+    getInput(output: ODIS0020OrderDetaiSplitBean[], key:number): ODIS0020OrderDetaiSplitBean[]{
 
         output[key].journalCode       = this.journalCode;
         output[key].journalName       = this.journalName;
@@ -102,41 +103,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         output[key].orderSupplierCode = this.orderSupplierCode;
         output[key].orderSupplierName = this.orderSupplierName;
         output[key].orderPlanAmount   = this.removeCommas(this.orderPlanAmount);
-        switch(action){
-            case Const.Action.A0001:
-                output[key].orderSplitAmount   = '';
-                output[key].comment            = '';
-                output[key].requestDate        = '';
-                output[key].requester          = '';
-                output[key].approvalDate_lv1   = '';
-                output[key].approvalPerson_lv1 = '';
-                output[key].approvalDate_lv2   = '';
-                output[key].approvalPerson_lv2 = '';
-                output[key].orderDate          = '';
-                output[key].orderAmount        = '';
-                output[key].receivedDate       = '';
-                output[key].receivedAmount     = '';
-                output[key].paymentDate        = '';
-                output[key].paymentAmount      = '';
 
-                break;
-            case Const.Action.A0002:
-                // output[value].orderSplitAmount   = this.shiwakeData.orderSplitAmount;
-                // output[value].comment            = this.shiwakeData.comment;
-                // output[value].requestDate        = '';
-                // output[value].requester          = '';
-                // output[value].approvalDate_lv1   = this.shiwakeData.approvalDate_lv2;
-                // output[value].approvalPerson_lv1 = this.shiwakeData.approvalDate_lv2;
-                // output[value].approvalDate_lv2   = this.shiwakeData.approvalDate_lv2;
-                // output[value].approvalPerson_lv2 = this.shiwakeData.approvalPerson_lv2;
-                // output[value].orderDate          = this.shiwakeData.orderDate;
-                // output[value].orderAmount        = this.shiwakeData.orderAmount;
-                // output[value].receivedDate       = this.shiwakeData.receivedDate;
-                // output[value].receivedAmount     = this.shiwakeData.receivedAmount;
-                // output[value].paymentDate        = this.shiwakeData.paymentDate;
-                // output[value].paymentAmount      = this.shiwakeData.paymentAmount;
-                break;
-        }
         return output;
     }
 

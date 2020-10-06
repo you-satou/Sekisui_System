@@ -1,5 +1,5 @@
 import { ODIS0020Session, ODIS0020Form } from './../entities/odis0020-Form.entity';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
@@ -23,6 +23,7 @@ import { CommonComponent } from 'app/common/common.component';
 import { ODIS0020JournalCode } from '../entities/odis0020-JournalCode.entity'
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entitiy'
 import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity'
+import { ODIS0020UpdForm } from '../entities/odis0020-UpdForm.entity'
 
 @Component({
   selector: 'order-detail-input',
@@ -87,6 +88,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   addInput = new ODIS0020AddOrderDetail();
   rowStatus = new RowStatus();
 
+  // ボタン制御
   btnInsert: boolean;
   btnUpdate: boolean;
   btnStop: boolean;
@@ -105,6 +107,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // 発注先コード レスポンス
   resOrderCode : ODIS0020OrderCode;
 
+  // 更新情報 パラメータ
+  paramUpd = new ODIS0020UpdForm();
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -114,6 +119,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private ODIS0020Service: ODIS0020Service,
     private router: Router,
     private baseCompnt: CommonComponent,
+    private changeDetectorRef: ChangeDetectorRef,
 
   ) { }
 
@@ -126,13 +132,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
 
-    // if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
-      
-    //   this.getOrderInputDataFromSession();
-    // }
-    // else{
+    // セッション情報が存在する場合
+    if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
+      // セッション情報 設定
+      this.getOrderInputDataFromSession();
+    }
+    else{
+      // 初期設定
       this.getOrderInputData();
-    //}
+    }
 
     this.setDefaultDisplay();
   }
@@ -171,31 +179,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(() => {
       if (!(this.SupplierPatternService.getVal() == undefined)) {
         let returnValues = this.SupplierPatternService.getVal();
-        let bucketDt: ODIS0020OrderShiwake[] = [];
+        let bucketDt: ODIS0020OrderDetaiSplitBean[] = [];
         returnValues.forEach(element => {
-          let temp = new ODIS0020OrderShiwake();
-          temp.tabIndex           = this.selectedTab;
-          temp.id                 = element.journalCode;
+          let temp = new ODIS0020OrderDetaiSplitBean();
+          temp.detailKind         = this.paramInit.propertyNo;
+          temp.detailKind         = this.tabValue.toString();
+          temp.splitNo            = '1';
           temp.journalCode        = element.journalCode;
           temp.accountCode        = element.accountingCategory;
           temp.journalName        = element.journalName;
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
-          temp.orderPlanAmount    = '';
-          temp.comment            = '';
-          temp.orderSplitAmount   = '';
-          temp.requestDate        = '';
-          temp.requester          = '';
-          temp.approvalDate_lv1   = '';
-          temp.approvalPerson_lv1 = '';
-          temp.approvalDate_lv2   = '';
-          temp.approvalPerson_lv2 = '';
-          temp.orderDate          = '';
-          temp.orderAmount        = '';
-          temp.receivedDate       = '';
-          temp.receivedAmount     = '';
-          temp.paymentDate        = '';
-          temp.paymentAmount      = '';
 
           bucketDt.push(temp);
         });
@@ -212,34 +206,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * データを取得
    */
   getOrderInputData() {
-    //モック
-    // this.orderService.getSingleData(this._urlOrderInput2)
-    //   .subscribe(
-    //     data => {
-    //       if (data !== undefined) {
-    //         this.pageTotalInfo = data;
-    //         this.orderInformation = this.pageTotalInfo.ContractInfo;
-    //         this.tblMainOrder = this.pageTotalInfo.MainOrderInfo;
-    //         this.tblInsertedOrder = this.pageTotalInfo.InsertedOrderInfo;
-
-    //         this.tblSekkei = this.divideData(this.pageTotalInfo.SekkeiData, this.tabNo1);
-    //         this.tblHontai = this.divideData(this.pageTotalInfo.HontaiData, this.tabNo2);
-    //         this.tblTsuika = this.divideData(this.pageTotalInfo.TsuikaData, this.tabNo3);
-
-    //         this.saveTemporaryData();
-    //         //ロード画面を解除する。
-    //         this.isLoading = false;
-    //       }
-    //     }
-    //   );
-
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
     this.paramInit.propertyNo = '184326';
     this.paramInit.contractNum = '000000122';
-
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramOrderCode)
+    
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
           (response) => {
 
@@ -250,13 +223,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
               this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割 
+              // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_0);
+              
+              // 「本体」タブ
               this.tblHontai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_1);
+              
+              // 「追加」タブ
               this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
+              
+              // 再描画
+              this.changeDetectorRef.detectChanges();
+
+              // 各タブ レンダリング
+              this.renderAfterView(this.childSekkei.viewRef.element.nativeElement.querySelector('tbody'), this.tblSekkei);
+              this.renderAfterView(this.childHontai.viewRef.element.nativeElement.querySelector('tbody'), this.tblHontai);
+              this.renderAfterView(this.childTsuika.viewRef.element.nativeElement.querySelector('tbody'), this.tblTsuika);
+              
+              // セッション保存
+              this.saveTemporaryData();
             }else{
               alert(response.message);
             }
-
             //ロード画面を解除する。
             this.isLoading = false;
           }
@@ -293,33 +281,39 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // ハウス材
     dt = new ODIS0020OrderDetaiSplitBean();
+    dt.propertyNo = this.paramInit.propertyNo;
     dt.detailKind = tabIndex;
-    dt.detailNo = '1'
+    dt.detailNo = '1';
+    dt.splitNo = '1';
     dt.journalCode = '0100';
-    dt.accountCode = '010'
-    dt.journalName = 'ハウス材'
+    dt.accountCode = '010';
+    dt.journalName = 'ハウス材';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
 
     // 運賃・荷造・保管料
     dt = new ODIS0020OrderDetaiSplitBean();
+    dt.propertyNo = this.paramInit.propertyNo;
     dt.detailKind = tabIndex;
-    dt.detailNo = '2'
+    dt.detailNo = '2';
+    dt.splitNo = '1';
     dt.journalCode = '9100';
-    dt.accountCode = '910'
-    dt.journalName = '運賃・荷造・保管料'
+    dt.accountCode = '910';
+    dt.journalName = '運賃・荷造・保管料';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
 
     // 労災
     dt = new ODIS0020OrderDetaiSplitBean();
+    dt.propertyNo = this.paramInit.propertyNo;
     dt.detailKind = tabIndex;
-    dt.detailNo = '3'
+    dt.detailNo = '3';
+    dt.splitNo = '1';
     dt.journalCode = '9300';
-    dt.accountCode = '930'
-    dt.journalName = '労災'
+    dt.accountCode = '930';
+    dt.journalName = '労災';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
@@ -327,290 +321,188 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     return initData;
   }
 
-    /**
+  /**
    * 初期表示時 セッションデータ 取得
-   * @param dt 
+   * @param dt
    * @param tabName 
    */
-  getOrderInputDataFromSession(){
+  private getOrderInputDataFromSession(){
 
     // セッションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
-    this.orderCustomerInfo = savedData.orderCustomerInfo;
-    this.order0DateInfo = savedData.order0DateInfo;
-    this.tblMainOrder = savedData.MainOrderInfo;
-    this.tblInsertedOrder = savedData.InsertedOrderInfo;
+    this.orderCustomerInfo = savedData.CustomerInfo;
+    this.order0DateInfo = savedData.DateInfo;
+    this.tblMainOrder = savedData.mainOrderInfo;
+    this.tblInsertedOrder = savedData.insertedOrderInfo;
+    this.tblSekkei = savedData.SekkeiData;
+    this.tblHontai = savedData.HontaiData;
+    this.tblTsuika = savedData.TsuikaData;
+    this.paramInit = savedData.paramInit;
     
     //分割明細画面から渡されたパラメータを取得する
     let returnDt = this.ODIS0020Service.ReturnedSplitData;
-    var body: any;
-    var index: number;
 
-    if(returnDt.length <= 0){
-      this.tblSekkei = savedData.SekkeiData;
-      this.tblHontai = savedData.HontaiData;
-      this.tblTsuika = savedData.TsuikaData;
-    }
-    else{
-      this.selectedTab = returnDt[0].detailKind;
+    // 分割データ 1件以上の場合、以降の処理を実施
+    if(returnDt.length >= 1){
       switch (returnDt[0].detailKind) {
-        case this.tabNo1:
-          // TODO
-          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt, index);
-          this.tblHontai = savedData.HontaiData;
-          this.tblTsuika = savedData.TsuikaData;
+        case Const.JutyuEdaban.TabIndex_0:
+          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
           break;
   
-        case this.tabNo2:
-          this.tblSekkei = savedData.SekkeiData;
-          // TODO
-          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt, index);
-          this.tblTsuika = savedData.TsuikaData;
+        case Const.JutyuEdaban.TabIndex_1:
+          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
           break;
   
-        case this.tabNo3:
-          this.tblSekkei = savedData.SekkeiData;
-          this.tblHontai = savedData.HontaiData;
-          // TODO
-          this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt, index);
+        case Const.JutyuEdaban.TabIndex_2:
+          this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
           break;
       }
     }
-   
+    // セッション保存
     this.saveTemporaryData();
-    //ロード画面を解除する。
+    // ロード画面を解除する。
     this.isLoading = false;
+  }
+
+    /**
+   * 分割データ 返却データ マージ
+   * @param savedDt 
+   * @param returnDt 
+   */
+  private mergeData(savedDt: ODIS0020OrderDetaiSplitBean[], returnDt: ODIS0020OrderDetaiSplitBean[]): ODIS0020OrderDetaiSplitBean[]{
+
+    // 先頭位置 取得
+    var fDt = savedDt.filter(value =>{
+      if(value.detailNo == returnDt[0].detailNo){
+        return value;
+      }
+    })
+    // 位置取得
+    let indx = savedDt.indexOf(fDt[0]);
+    this.rowStatus.keyIndex = indx;
+    this.rowStatus.detailLength = returnDt.length;
+
+    // 対象外データ抽出
+    var tempDt = savedDt.filter(value =>{
+      if(value.detailNo != returnDt[0].detailNo){
+        return value;
+      }
+    })
+    
+    // データ マージ
+    for (let i = 0 ; i < returnDt.length; i++){
+      let ins = this.createData(returnDt[i]);
+      tempDt.splice(i+indx,0,ins);
+    }
+    
+    return tempDt;
+  }
+
+  /** 
+   * データ 作成
+   * @param data
+   */
+  private createData(data: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean{
+    let temp = new ODIS0020OrderDetaiSplitBean();
+    temp.propertyNo          = this.baseCompnt.setValue(data.propertyNo);
+    temp.detailKind          = this.baseCompnt.setValue(data.detailKind);
+    temp.detailNo            = this.baseCompnt.setValue(data.detailNo);
+    temp.splitNo             = this.baseCompnt.setValue(data.splitNo);
+    temp.journalCode         = this.baseCompnt.setValue(data.journalCode);
+    temp.journalName         = this.baseCompnt.setValue(data.journalName);
+    temp.orderPlanAmount     = this.baseCompnt.setValue(data.orderPlanAmount);
+    temp.orderSupplierCode   = this.baseCompnt.setValue(data.orderSupplierCode);
+    temp.orderSupplierName   = this.baseCompnt.setValue(data.orderSupplierName);
+    temp.comment             = this.baseCompnt.setValue(data.comment);
+    temp.orderSplitAmount    = this.baseCompnt.setValue(data.orderSplitAmount);
+    temp.requestDate         = this.baseCompnt.setValue(data.requestDate);
+    temp.requester           = this.baseCompnt.setValue(data.requester);
+    temp.approvalDate_lv1    = this.baseCompnt.setValue(data.approvalDate_lv1);
+    temp.approvalPerson_lv1  = this.baseCompnt.setValue(data.approvalPerson_lv1);
+    temp.approvalDate_lv2    = this.baseCompnt.setValue(data.approvalDate_lv2);
+    temp.approvalPerson_lv2  = this.baseCompnt.setValue(data.approvalPerson_lv2);
+    temp.orderDate           = this.baseCompnt.setValue(data.orderDate);
+    temp.orderAmount         = this.baseCompnt.setValue(data.orderAmount);
+    temp.receivedDate        = this.baseCompnt.setValue(data.receivedDate);
+    temp.receivedAmount      = this.baseCompnt.setValue(data.receivedAmount);
+    temp.paymentDate         = this.baseCompnt.setValue(data.paymentDate);
+    temp.paymentAmount       = this.baseCompnt.setValue(data.paymentAmount);
+    return temp;
+  }
+
+  /**
+   * 初期表示後処理実施
+   */
+  ngAfterViewInit(): void {
+
+    if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
+      var body: any
+      switch (this.ODIS0020Service.ReturnedSplitData[0].detailKind) {
+        case Const.JutyuEdaban.TabIndex_0:
+          body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+  
+        case Const.JutyuEdaban.TabIndex_1:
+          body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+  
+        case Const.JutyuEdaban.TabIndex_2:
+          body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+      }
+      var t = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
+    
+      this.setAutoScroll(body, t);
+      this.baseCompnt.setRowColor(Const.Action.A0004,body,t);
+    }    
+  }
+  
+
+  private renderAfterView(tbody: any, datas: ODIS0020OrderDetaiSplitBean[]){
+    // データ 読み込み
+    for (let i = 0; i < datas.length; i++) {
+      // 初期化
+      let tr = tbody.rows[i];
+      // 分割データ 1以外は文字フォントを白にする
+      if(datas[i].splitNo !== '1'){
+        tr.cells[0].style.color = 'white';
+        tr.cells[1].style.color = 'white';
+        tr.cells[2].style.color = 'white';
+        tr.cells[3].style.color = 'white';
+        tr.cells[4].style.color = 'white';
+        tr.cells[5].style.color = 'white';
+      }else{
+        // 発注連番 対象データ抽出
+        var filter = datas.filter(data =>{
+          if(data.detailNo == datas[i].detailNo){
+            return data;
+          }
+        });
+        // 対象データ 分割発注金額 合計算出。
+        let totalAmount: number = filter.map(data => {
+          // 重複明細を数える。
+          if (Number(data.orderSplitAmount) > 0) {
+            return Number(data.orderSplitAmount);
+          }
+          else {
+            return 0;
+          }
+        }).reduce((acc, value) => acc + value);
+
+        // 合計金額と発注予定金額を比較する
+        if(totalAmount != Number(datas[i].orderPlanAmount)){
+          // 発注予定金額の色を変える。
+          tr.cells[5].style.color = 'red';
+        }
+        else{
+          tr.cells[5].style.color = 'black';
+        }
+      }
+    }
   }
   // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
 
-
-  mergeData(savedDt: ODIS0020OrderDetaiSplitBean[], returnDt: ODIS0020OrderDetaiSplitBean[], r:number): ODIS0020OrderDetaiSplitBean[]{
-    // TODO
-    // var returnId = returnDt[0].id;
-    // var filterDt = savedDt.filter(value =>{
-    //   if(value.id == returnId){
-    //     return value;
-    //   }
-    // })
-    // //先頭位置を取得
-    // let indx = savedDt.indexOf(filterDt[0]);
-    // this.rowStatus.keyIndex = indx;
-    // this.rowStatus.detailLength = returnDt.length;
-    // switch(true){
-    //   case filterDt.length == returnDt.length:
-    //     for (let i = 0 ; i < returnDt.length; i++)  {
-    //       savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-    //     };
-    //     return savedDt;
-
-    //   //分割明細画面で明細を削除した場合：
-    //   case filterDt.length > returnDt.length:
-    //     if(returnDt.length == 1 && returnDt[0].isBlankDetail){
-    //       savedDt.splice(indx,filterDt.length);
-    //     }
-    //     for (let i = 0 ; i < filterDt.length; i++)  {
-    //       if(i < returnDt.length){
-    //         savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-    //       }
-    //       else{
-    //         savedDt.splice(i+indx,1);
-    //       }
-    //     };
-    //     return savedDt;
-
-    //   //分割明細画面で明細を追加した場合：
-    //   case filterDt.length < returnDt.length:
-    //     for (let i = 0 ; i < returnDt.length; i++)  {
-    //       if(i < filterDt.length){
-    //         savedDt[i+indx] = this.setDataShiwake(savedDt[i+indx],returnDt[i]);
-    //       }
-    //       else{
-    //         let ins = new ODIS0020OrderShiwake();
-    //         ins.id                 = this.baseCompnt.setValue(returnDt[i].id);
-    //         ins.tabIndex           = this.baseCompnt.setValue(returnDt[i].tabIndex);
-    //         ins.journalCode        = '';
-    //         ins.accountCode        = '';
-    //         ins.journalName        = '';
-    //         ins.orderSupplierCode  = '';
-    //         ins.orderSupplierName  = '';
-    //         ins.orderPlanAmount    = '';
-    //         ins.comment            = this.baseCompnt.setValue(returnDt[i].comment);
-    //         ins.orderSplitAmount   = this.baseCompnt.setValue(returnDt[i].orderSplitAmount);
-    //         ins.requestDate        = this.baseCompnt.setValue(returnDt[i].requestDate);
-    //         ins.requester          = this.baseCompnt.setValue(returnDt[i].requester);
-    //         ins.approvalDate_lv1   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv1);
-    //         ins.approvalPerson_lv1 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv1);
-    //         ins.approvalDate_lv2   = this.baseCompnt.setValue(returnDt[i].approvalDate_lv2);
-    //         ins.approvalPerson_lv2 = this.baseCompnt.setValue(returnDt[i].approvalPerson_lv2);
-    //         ins.orderDate          = this.baseCompnt.setValue(returnDt[i].orderDate);
-    //         ins.orderAmount        = this.baseCompnt.setValue(returnDt[i].orderAmount);
-    //         ins.receivedDate       = this.baseCompnt.setValue(returnDt[i].receivedDate);
-    //         ins.receivedAmount     = this.baseCompnt.setValue(returnDt[i].receivedAmount);
-    //         ins.paymentDate        = this.baseCompnt.setValue(returnDt[i].paymentDate);
-    //         ins.paymentAmount      = this.baseCompnt.setValue(returnDt[i].paymentAmount);
-
-    //         savedDt.splice(i+indx,0,ins);
-    //       }
-    //     };
-    //     return savedDt;
-    // }
-    return [];
-    
-  }
-
-  setDataShiwake(savedDt: ODIS0020OrderShiwake, returnDt: ODIS0020OrderShiwake): ODIS0020OrderShiwake{
-
-    savedDt.id                  = this.baseCompnt.setValue(returnDt.id);
-    savedDt.tabIndex            = this.baseCompnt.setValue(returnDt.tabIndex);
-    savedDt.journalCode         = this.baseCompnt.setValue(returnDt.journalCode);
-    savedDt.journalName         = this.baseCompnt.setValue(returnDt.journalName);
-    savedDt.orderPlanAmount     = this.baseCompnt.setValue(returnDt.orderPlanAmount);
-    savedDt.orderSupplierCode   = this.baseCompnt.setValue(returnDt.orderSupplierCode);
-    savedDt.orderSupplierName   = this.baseCompnt.setValue(returnDt.orderSupplierName);
-    savedDt.comment             = this.baseCompnt.setValue(returnDt.comment);
-    savedDt.orderSplitAmount    = this.baseCompnt.setValue(returnDt.orderSplitAmount);
-    savedDt.requestDate         = this.baseCompnt.setValue(returnDt.requestDate);
-    savedDt.requester           = this.baseCompnt.setValue(returnDt.requester);
-    savedDt.approvalDate_lv1    = this.baseCompnt.setValue(returnDt.approvalDate_lv1);
-    savedDt.approvalPerson_lv1  = this.baseCompnt.setValue(returnDt.approvalPerson_lv1);
-    savedDt.approvalDate_lv2    = this.baseCompnt.setValue(returnDt.approvalDate_lv2);
-    savedDt.approvalPerson_lv2  = this.baseCompnt.setValue(returnDt.approvalPerson_lv2);
-    savedDt.orderDate           = this.baseCompnt.setValue(returnDt.orderDate);
-    savedDt.orderAmount         = this.baseCompnt.setValue(returnDt.orderAmount);
-    savedDt.receivedDate        = this.baseCompnt.setValue(returnDt.receivedDate);
-    savedDt.receivedAmount      = this.baseCompnt.setValue(returnDt.receivedAmount);
-    savedDt.paymentDate         = this.baseCompnt.setValue(returnDt.paymentDate);
-    savedDt.paymentAmount       = this.baseCompnt.setValue(returnDt.paymentAmount);
-
-    return savedDt;
-  }
-
-  /**
-   * 重複しているデータを余白にさせる。
-   * @param dt 
-   */
-  divideData(dt: ODIS0020OrderDetailList[], tabName: string): ODIS0020OrderShiwake[] {
-    let data: ODIS0020OrderShiwake[] = [];
-    dt.forEach(element => {
-      // 分割データを取得
-      let bunkatsuData: ODIS0020OrderBunkatsuSub[] = element.bunkatsuData;
-      if (bunkatsuData.length > 0) {
-        for (let i = 0; i < bunkatsuData.length; i++) {
-          let newDt= new ODIS0020OrderShiwake();
-          const splitDt = bunkatsuData[i];
-          //データをある場合、設定する
-          if (i == 0) {
-            newDt = this.setData('SetFirstSplitData', tabName, element, splitDt);
-          }
-          else{
-          //　一番以降仕訳データを余白にする
-            newDt = this.setData('SetNextSplitData', tabName, element, splitDt);
-          }
-          data.push(newDt);
-        }
-      }
-      else {
-        let noSplitDt = this.setData('NoSplitData', tabName, element, null);
-        data.push(noSplitDt);
-        
-      }
-    });
-
-    return data;
-  }
-
-  /**
-   * データを分けて、発注明細のデータを返す。
-   * @param action 
-   * @param tabName タブ名
-   * @param orderDt 明細データ
-   * @param splitDt 分割データ
-   */
-  setData(action: string, tabName: string ,orderDt: ODIS0020OrderDetailList, splitDt: ODIS0020OrderBunkatsuSub): ODIS0020OrderShiwake{
-
-    let newDt = new ODIS0020OrderShiwake();
-
-    switch (action) {
-      case 'NoSplitData':
-        newDt.tabIndex            = tabName;
-        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
-        newDt.journalCode         = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.accountCode         = this.baseCompnt.setValue(orderDt.accountCode);
-        newDt.journalName         = this.baseCompnt.setValue(orderDt.journalName);
-        newDt.orderSupplierCode   = this.baseCompnt.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName   = this.baseCompnt.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount     = this.baseCompnt.setValue(orderDt.orderPlanAmount);
-        newDt.comment             = '';
-        newDt.orderSplitAmount    = '';
-        newDt.requestDate         = '';
-        newDt.requester           = '';
-        newDt.approvalDate_lv1    = '';
-        newDt.approvalPerson_lv1  = '';
-        newDt.approvalDate_lv2    = '';
-        newDt.approvalPerson_lv2  = '';
-        newDt.orderDate           = '';
-        newDt.orderAmount         = '';
-        newDt.receivedDate        = '';
-        newDt.receivedAmount      = '';
-        newDt.paymentDate         = '';
-        newDt.paymentAmount       = '';
-
-        break;
-
-      case 'SetFirstSplitData':
-        newDt.tabIndex            = tabName;
-        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
-        newDt.journalCode         = this.baseCompnt.setValue(orderDt.journalCode);
-        newDt.accountCode         = this.baseCompnt.setValue(orderDt.accountCode);
-        newDt.journalName         = this.baseCompnt.setValue(orderDt.journalName);
-        newDt.orderSupplierCode   = this.baseCompnt.setValue(orderDt.orderSupplierCode);
-        newDt.orderSupplierName   = this.baseCompnt.setValue(orderDt.orderSupplierName);
-        newDt.orderPlanAmount     = this.baseCompnt.setValue(orderDt.orderPlanAmount);
-        newDt.comment             = this.baseCompnt.setValue(splitDt.comment);
-        newDt.orderSplitAmount    = this.baseCompnt.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate         = this.baseCompnt.setValue(splitDt.requestDate);
-        newDt.requester           = this.baseCompnt.setValue(splitDt.requester);
-        newDt.approvalDate_lv1    = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1  = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2    = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2  = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate           = this.baseCompnt.setValue(splitDt.orderDate);
-        newDt.orderAmount         = this.baseCompnt.setValue(splitDt.orderAmount);
-        newDt.receivedDate        = this.baseCompnt.setValue(splitDt.receivedDate);
-        newDt.receivedAmount      = this.baseCompnt.setValue(splitDt.receivedAmount);
-        newDt.paymentDate         = this.baseCompnt.setValue(splitDt.paymentDate);
-        newDt.paymentAmount       = this.baseCompnt.setValue(splitDt.paymentAmount);
-        break;
-
-      case 'SetNextSplitData':
-        newDt.tabIndex            = tabName;
-        newDt.id                  = `${this.baseCompnt.setValue(orderDt.journalCode)}_${this.baseCompnt.setValue(orderDt.accountCode)}_${this.baseCompnt.setValue(orderDt.journalName)}`;
-        newDt.journalCode         = '';
-        newDt.accountCode         = '';
-        newDt.journalName         = '';
-        newDt.orderSupplierCode   = '';
-        newDt.orderSupplierName   = '';
-        newDt.orderPlanAmount     = '';
-        newDt.comment             = this.baseCompnt.setValue(splitDt.comment);
-        newDt.orderSplitAmount    = this.baseCompnt.setValue(splitDt.orderSplitAmount);
-        newDt.requestDate         = this.baseCompnt.setValue(splitDt.requestDate);
-        newDt.requester           = this.baseCompnt.setValue(splitDt.requester);
-        newDt.approvalDate_lv1    = this.baseCompnt.setValue(splitDt.approvalDate_lv1);
-        newDt.approvalPerson_lv1  = this.baseCompnt.setValue(splitDt.approvalPerson_lv1);
-        newDt.approvalDate_lv2    = this.baseCompnt.setValue(splitDt.approvalDate_lv2);
-        newDt.approvalPerson_lv2  = this.baseCompnt.setValue(splitDt.approvalPerson_lv2);
-        newDt.orderDate           = this.baseCompnt.setValue(splitDt.orderDate);
-        newDt.orderAmount         = this.baseCompnt.setValue(splitDt.orderAmount);
-        newDt.receivedDate        = this.baseCompnt.setValue(splitDt.receivedDate);
-        newDt.receivedAmount      = this.baseCompnt.setValue(splitDt.receivedAmount);
-        newDt.paymentDate         = this.baseCompnt.setValue(splitDt.paymentDate);
-        newDt.paymentAmount       = this.baseCompnt.setValue(splitDt.paymentAmount);
-
-        break;
-    }
-    return newDt;
-  }
-
+  // --------------------------------------- ▼▼ 各画面設定 ▼▼ ---------------------------------------
   /**
    * 画面初期表示
    */
@@ -621,30 +513,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setPageButtonDisplay(false, true, false, true);
   }
 
-  ngAfterViewInit(): void {
-
-    if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
-      var body: any
-      switch (this.ODIS0020Service.ReturnedSplitData[0].detailKind) {
-        case this.tabNo1:
-          body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
-          break;
-  
-        case this.tabNo2:
-          body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
-          break;
-  
-        case this.tabNo3:
-          body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
-          break;
-      }
-      var t = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
-    
-      this.setAutoScroll(body, t);
-      this.baseCompnt.setRowColor(Const.Action.A0004,body,t);
-    }
-    
-  }
 
   /**
    * 仕訳コードリンクボタンを押下する時、モダールを設定する
@@ -688,49 +556,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  // --------------------------------------- ▲▲ 各画面設定 ▲▲ ---------------------------------------
 
+  // --------------------------------------- ▼▼ 各ボタン 処理 ▼▼ ---------------------------------------
   /**
-   * 明細を追加する。
+   * 明細追加ボタン
    */
   insertOrderDetail() {
-    if (this.addInput.isBlank) {
-      alert(Const.ErrorMsg.E0010);
-      this.baseCompnt.setFocus('txtAddJCode');
+    // 入力チェック
+    if(!this.inputCheck('0')){
       return;
-    }
-    if(this.addInput.journalCode == ''){
-      alert(Const.ErrorMsg.E0003);
-      this.baseCompnt.setFocus('txtAddJCode');
-      return;
-    }
-    if(this.addInput.accountCode == ''){
-      alert(Const.ErrorMsg.E0004);
-      this.baseCompnt.setFocus('txtAddAccCode');
-      return;
-    }
-    let temp = new ODIS0020OrderShiwake ()
-    temp.tabIndex           = this.selectedTab ;
-    temp.id                 = `${this.baseCompnt.setValue(this.addInput.journalCode)}_${this.baseCompnt.setValue(this.addInput.accountCode)}_${this.baseCompnt.setValue(this.addInput.journalName)}`;
-    temp.journalCode        = this.addInput.journalCode ;
-    temp.accountCode        = this.addInput.accountCode ;
-    temp.journalName        = this.addInput.journalName ;
-    temp.orderSupplierCode  = this.addInput.orderSupplierCode ;
-    temp.orderSupplierName  = this.addInput.orderSupplierName ;
-    temp.orderPlanAmount    = this.addInput.orderPlanAmount ;
-    temp.comment            = '' ;
-    temp.orderSplitAmount   = '' ;
-    temp.requestDate        = '' ;
-    temp.requester          = '' ;
-    temp.approvalDate_lv1   = '' ;
-    temp.approvalPerson_lv1 = '' ;
-    temp.approvalDate_lv2   = '' ;
-    temp.approvalPerson_lv2 = '' ;
-    temp.orderDate          = '' ;
-    temp.orderAmount        = '' ;
-    temp.receivedDate       = '' ;
-    temp.receivedAmount     = '' ;
-    temp.paymentDate        = '' ;
-    temp.paymentAmount      = '' ;
+    };
+
+    // 追加データ 設定
+    let temp = new ODIS0020OrderDetaiSplitBean();
+    temp.propertyNo         = this.paramInit.propertyNo;
+    temp.detailKind         = this.tabValue.toString();
+    temp.splitNo            = '1';
+    temp.journalCode        = this.addInput.journalCode;
+    temp.accountCode        = this.addInput.accountCode;
+    temp.journalName        = this.addInput.journalName;
+    temp.orderSupplierCode  = this.addInput.orderSupplierCode;
+    temp.orderSupplierName  = this.addInput.orderSupplierName;
+    temp.orderPlanAmount    = this.addInput.orderPlanAmount;
 
     this.insertToDataTable(temp);
 
@@ -738,33 +586,32 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setDefaultDisplay();
 
   }
-
   /** テーブルに明細を追加 */
-  insertToDataTable(insertDt: ODIS0020OrderShiwake) {
+  private insertToDataTable(insertDt: ODIS0020OrderDetaiSplitBean) {
     var insertIndex: number = 0;
     var tblBody;
     switch (this.selectedTab) {
       case this.tabNo1:
-
         insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.childSekkei.tableShiwake.renderRows();
+        this.reDetailNo(this.childSekkei.orderData);
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo2:
-
         insertIndex = this.countDefaultData(this.childHontai.orderData);
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
         this.childHontai.tableShiwake.renderRows();
+        this.reDetailNo(this.childHontai.orderData);
         tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabNo3:
-
         insertIndex = this.countDefaultData(this.childTsuika.orderData);
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.childTsuika.tableShiwake.renderRows();
+        this.reDetailNo(this.childTsuika.orderData);
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
@@ -779,7 +626,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 一番下に肯定されているデータを除く
    * @param data 
    */
-  countDefaultData(data: ODIS0020OrderShiwake[]):number{
+  private countDefaultData(data: ODIS0020OrderDetaiSplitBean[]):number{
 
     var flt = data.filter(dt =>{
       if(dt.journalName == 'ハウス材' ||
@@ -788,15 +635,32 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           return dt;
       }
     })
-
     return data.length - flt.length;
+  }
+
+  /**
+   * 明細連番 再連番 設定
+   * @param data 
+   */
+  private reDetailNo(datas: ODIS0020OrderDetaiSplitBean[]){
+    var tmpNo: number = 0;
+
+    // 再連番
+    for(var i = 0; i < datas.length; i++){
+      // 仕訳コードに値が入っている場合、連番をカウントアップ
+      if(this.baseCompnt.setValue(datas[i].journalCode) !== ''){
+        tmpNo++;
+      }
+
+      datas[i].detailNo = tmpNo.toString();
+    }
   }
 
   /**
    * 発注先パータンから返却データを一覧に追加する
    * @param insertBucket 
    */
-  insertDataFromSupplier(insertBucket:ODIS0020OrderShiwake[]){
+  private insertDataFromSupplier(insertBucket:ODIS0020OrderDetaiSplitBean[]){
     switch (this.selectedTab) {
       case this.tabNo1:
         let dataSekkei = this.childSekkei.orderData;
@@ -821,7 +685,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 発注先パターン 追加/上書き
    */
-  insertProcess(insertBucket:ODIS0020OrderShiwake[], dataTable: ODIS0020OrderShiwake[]){
+  private insertProcess(insertBucket:ODIS0020OrderDetaiSplitBean[], dataTable: ODIS0020OrderDetaiSplitBean[]){
     let insFlg: boolean = false;
     // 発注先パターン
     for(var insBk of insertBucket) {
@@ -830,8 +694,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       for(var data of dataTable) {
         // 同一仕訳コードが存在する場合
         if (insBk.journalCode === data.journalCode) {
-          // 依頼日が空白の場合
-          if (data.requestDate.trim() === '') {
+          // 承認日１が空白の場合
+          if (data.approvalPerson_lv1.trim() === '') {
             data.orderSupplierCode = insBk.orderSupplierCode    // 発注先コード
             data.orderSupplierName = insBk.orderSupplierName    // 発注先名称
             insFlg = false;
@@ -844,14 +708,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.insertToDataTable(insBk);
       }
     }
+    this.reDetailNo(dataTable);
   }
 
   /**
-   * 明細テーブルにて、選択された明細を更新する
+   * 明細更新ボタン
    */
   updateOrderDetail() {
-
-    if(!this.inputCheck()){
+    // 入力チェック
+    if(!this.inputCheck('1')){
       return;
     };
     var key = this.rowStatus.keyIndex;
@@ -859,8 +724,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var body: any;
     switch (this.selectedTab) {
       case this.tabNo1:
-
-        this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key,value, Const.Action.A0002);
+        this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key);
         body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
         this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
@@ -868,7 +732,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo2:
-        this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key,value, Const.Action.A0002);
+        this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key);
         body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
         this.baseCompnt.setUpdateColor(Const.Action.A0002, body,key);
@@ -876,7 +740,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
-        this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key,value, Const.Action.A0002);
+        this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key);
         body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
         this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
@@ -886,16 +750,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setDefaultDisplay();
   }
 
-  inputCheck(){
-    if (!this.rowStatus.isSelected) {
-      alert(Const.ErrorMsg.E0013);
-      return false;
-    };
-
-    if(this.addInput.isUnchanged){
-      alert(Const.ErrorMsg.E0015);
-      return false;
-    };
+  /**
+   * 入力チェック
+   * @param val 0:明細追加, 1:明細更新
+   */
+  private inputCheck(val: string){
     if (this.addInput.isBlank) {
       alert(Const.ErrorMsg.E0010);
       this.baseCompnt.setFocus('txtAddJCode');
@@ -911,12 +770,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.baseCompnt.setFocus('txtAddAccCode');
       return false;
     }
-
+    // 明細更新ボタン押下された場合は以下処理を実施
+    if(val === '1'){
+      if (!this.rowStatus.isSelected) {
+        alert(Const.ErrorMsg.E0013);
+        return false;
+      };
+  
+      if(this.addInput.isUnchanged){
+        alert(Const.ErrorMsg.E0015);
+        return false;
+      };
+    }
     return true;
   }
 
   /**
-   * 変更処理を中止する
+   * 変更中止ボタン
    */
   stopUpdateOrderDetail() {
     // 初期化
@@ -934,7 +804,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
 
-    // 行　背景 背低
+    // 行背景 解除
     this.baseCompnt.setRowColor(Const.Action.A0006, tblBody, index);
     // 初期化
     this.rowStatus.Reset();
@@ -942,32 +812,32 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 明細テーブルにて、選択された明細を削除する
+   * 明細削除ボタン
    */
   deleteOrderDetail() {
-    if (!this.rowStatus.isSelected) {
-      alert(Const.ErrorMsg.E0008);
-      return;
-    };
+    // 警告メッセージ
     var confirm = window.confirm(Const.WarningMsg.W0001);
-
     if (!confirm) { return; };
 
     let key = this.rowStatus.keyIndex;
     let len = this.rowStatus.detailLength;
 
+    // 明細削除
     switch (this.selectedTab) {
       case this.tabNo1:
         this.childSekkei.orderData.splice(key, len);
         this.childSekkei.tableShiwake.renderRows();
+        this.reDetailNo(this.childSekkei.orderData);
         break;
       case this.tabNo2:
         this.childHontai.orderData.splice(key, len);
         this.childHontai.tableShiwake.renderRows();
+        this.reDetailNo(this.childHontai.orderData);
         break;
       case this.tabNo3:
         this.childTsuika.orderData.splice(key, len);
         this.childTsuika.tableShiwake.renderRows();
+        this.reDetailNo(this.childTsuika.orderData);
         break;
     }
 
@@ -977,25 +847,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.rowStatus.Reset();
   }
 
-  //検討中！！！！
-  // deleteProcess(dt: ODIS0020OrderShiwake[]){
-
-  //   let rIndex =  this.rowStatus.rowIndex;
-
-  //   // 次の行のデータを設定する。
-  //   dt[rIndex + 1].journalCode        = dt[rIndex].journalCode;
-  //   dt[rIndex + 1].accountCode        = dt[rIndex].accountCode;
-  //   dt[rIndex + 1].journalName        = dt[rIndex].journalName;
-  //   dt[rIndex + 1].orderSupplierCode  = dt[rIndex].orderSupplierCode;
-  //   dt[rIndex + 1].orderSupplierName  = dt[rIndex].orderSupplierName;
-  //   dt[rIndex + 1].orderPlanAmount    = dt[rIndex].orderPlanAmount;
-
-  //   //先頭のデータを削除する。
-  //   dt.splice(rIndex, 1);
-  // }
-
   /**
-   * タブを変わった時、デフォルト値を変える。
+   * タブ切り替え イベント
    * @param event 
    */
   setSelectTabChanged(event: any) {
@@ -1013,7 +866,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.orderSupplierCode = '';
     this.addInput.orderSupplierName = '';
     this.addInput.orderPlanAmount   = '';
-    // this.addInput.shiwakeData       = new ODIS0020OrderShiwake();
+    this.addInput.shiwakeData       = new ODIS0020OrderDetaiSplitBean();
     this.paramJournalCode           = new ODIS0020Form();
     this.paramOrderCode             = new ODIS0020Form();
   } 
@@ -1047,6 +900,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   
   /**
    * ボタン制御
+   * @param rs
    */
   journalDataApprovalChecker(rs: RowStatus){
     switch(true){
@@ -1067,7 +921,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.setPageButtonDisplay(true, true, false, true);
         break;
     };
-
   }
 
   /**
@@ -1093,18 +946,58 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 
+  /**
+   * 更新終了ボタン
+   */
   finalUpdateProgress(){
+    // 初期化
+    this.isLoading = true;
+
     //サーバに更新データを送る。
+    var tmp: ODIS0020OrderDetaiSplitBean[] = [];
+    
+    // 受注枝番 マージ
+    this.createOrderData(tmp, this.childSekkei.orderData);
+    this.createOrderData(tmp, this.childHontai.orderData);
+    this.createOrderData(tmp, this.childTsuika.orderData);
 
-    console.log(this.childSekkei.orderData);
-    console.log(this.childHontai.orderData);
-    console.log(this.childTsuika.orderData);
+    // データ更新
+    this.paramUpd.propertyNo = this.paramInit.propertyNo;
+    this.paramUpd.orderDetailList = tmp;
 
-    //セッションを削除する。
-    sessionStorage.removeItem(Const.ScreenName.S0002EN);
+    // TODO
+    this.orderService.getSearchRequest('/ODIS0020/update',this.paramUpd)
+        .then(
+          (response) => {
 
-    this.router.navigate([Const.UrlSetting.U0001]);
+            if(response.result === Const.ConnectResult.R0001){
+              
+              //セッションを削除する
+              sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
+              // 承認処理画面に戻る
+              this.router.navigate([Const.UrlSetting.U0001]);    
+            }else{
+              alert(response.message);
+            }
+
+            //ロード画面を解除する。
+            this.isLoading = false;
+          }
+        );
+  }
+
+  /**
+   * データ 受注枝番 マージ
+   * @param outDatas
+   * @param inDatas
+   */
+  private createOrderData(outDatas: ODIS0020OrderDetaiSplitBean[], inDatas: ODIS0020OrderDetaiSplitBean[]):ODIS0020OrderDetaiSplitBean[]{
+    // データ 設定
+    for (let i = 0 ; i < inDatas.length; i++){
+      outDatas.push(this.createData(inDatas[i]));
+    }
+    return outDatas;
   }
 
   /**
@@ -1122,6 +1015,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     saveDt.SekkeiData = this.tblSekkei;
     saveDt.HontaiData = this.tblHontai;
     saveDt.TsuikaData = this.tblTsuika;
+    saveDt.paramInit = this.paramInit;
 
     // 既にセッションが格納されている場合は除去する
     if (sessionStorage.getItem(Const.ScreenName.S0002EN) != null) {
@@ -1129,6 +1023,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
     sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
   }
+  // --------------------------------------- ▲▲ 各ボタン 処理 ▲▲ ---------------------------------------
 
   // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ ---------------------------------------
   /**

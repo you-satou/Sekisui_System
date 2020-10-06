@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit, ViewContainerRef, HostBinding } from "@angular/core";
+import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit,　AfterViewInit, ViewContainerRef } from "@angular/core";
 import { MatTable } from "@angular/material";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
@@ -14,7 +14,7 @@ import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetail
   templateUrl: "./order-detail-input-table.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class OrderDetailShiwakeTable implements OnInit {
+export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
   @Input() orderData: ODIS0020OrderDetaiSplitBean[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
@@ -46,7 +46,7 @@ export class OrderDetailShiwakeTable implements OnInit {
   ];
 
   /**
-   * ヘッダーサーブの定義
+   * ヘッダーサブの定義
    */
   subHeaderColumns: string[] = [
     "requestDate",
@@ -93,6 +93,16 @@ export class OrderDetailShiwakeTable implements OnInit {
   ) { }
 
   ngOnInit() { }
+
+  /**
+   * テーブルをレンダー後に走るメゾッド
+   */
+  ngAfterViewInit(): void {
+    this.setTableButtonDisplay(this.orderData);
+    this.setTextColorWhenAmountIsDifference(this.orderData);
+    this.setFonWhite(this.orderData);
+
+  }
 
   /**
    * 発注予定金額の合計
@@ -203,7 +213,7 @@ export class OrderDetailShiwakeTable implements OnInit {
   moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetaiSplitBean) {
     var shiwakeDt: ODIS0060OrderShiwake[] = [new ODIS0060OrderShiwake()];
     var splitDt: ODIS0060OrderDetailBunkatsu[] = [];
-    
+    shiwakeDt[0].propertyNo        = selectedItem.propertyNo;
     shiwakeDt[0].detailKind        = selectedItem.detailKind;
     shiwakeDt[0].detailNo          = selectedItem.detailNo;
     shiwakeDt[0].journalCode       = selectedItem.journalCode;
@@ -216,22 +226,22 @@ export class OrderDetailShiwakeTable implements OnInit {
     this.orderData.forEach(dt => {
       if (dt.detailNo === selectedItem.detailNo) {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
-        newSplit.splitNo              = dt.detailNo;
-        newSplit.orderSplitAmount     = dt.orderSplitAmount;
-        newSplit.comment              = dt.comment;
-        newSplit.requestDate          = dt.requestDate;
-        newSplit.requester            = dt.requester;
-        newSplit.approvalDate_lv1     = dt.approvalDate_lv1;
-        newSplit.approvalPerson_lv1   = dt.approvalPerson_lv1;
-        newSplit.approvalDate_lv2     = dt.approvalDate_lv2;
-        newSplit.approvalPerson_lv2   = dt.approvalPerson_lv2;
-        newSplit.orderDate            = dt.orderDate;
-        newSplit.orderAmount          = dt.orderAmount;
-        newSplit.receivedDate         = dt.receivedDate;
-        newSplit.receivedAmount       = dt.receivedAmount;
-        newSplit.paymentDate          = dt.paymentDate;
-        newSplit.paymentAmount        = dt.paymentAmount;
-
+          newSplit.splitNo              = dt.detailNo;
+          newSplit.orderSplitAmount     = dt.orderSplitAmount;
+          newSplit.comment              = dt.comment;
+          newSplit.requestDate          = dt.requestDate;
+          newSplit.requester            = dt.requester;
+          newSplit.approvalDate_lv1     = dt.approvalDate_lv1;
+          newSplit.approvalPerson_lv1   = dt.approvalPerson_lv1;
+          newSplit.approvalDate_lv2     = dt.approvalDate_lv2;
+          newSplit.approvalPerson_lv2   = dt.approvalPerson_lv2;
+          newSplit.orderDate            = dt.orderDate;
+          newSplit.orderAmount          = dt.orderAmount;
+          newSplit.receivedDate         = dt.receivedDate;
+          newSplit.receivedAmount       = dt.receivedAmount;
+          newSplit.paymentDate          = dt.paymentDate;
+          newSplit.paymentAmount        = dt.paymentAmount;
+        
         splitDt.push(newSplit);
       }
     });
@@ -254,12 +264,11 @@ export class OrderDetailShiwakeTable implements OnInit {
   onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
     this.comCompnt.CommonOnSelHight($event);
 
-    //テーブルに選択されたデータをまとめる
+    // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
-      // TODO
-      // if(element.id == value.id){
-      //   return element;
-      // }
+      if(element.detailNo == value.detailNo){
+        return element;
+      }
     });
     
     let irai = filter.filter(dt =>{
@@ -290,7 +299,7 @@ export class OrderDetailShiwakeTable implements OnInit {
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;
     // TODO
-    // this.dataEmitter.setEmitterData(filter[0], filter);
+    this.dataEmitter.setEmitterData(filter[0], filter);
     this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current,iraiSumi,shouninSumi,shouninChuu);
 
     //　親コンポーネントにデータを送る。
@@ -397,14 +406,6 @@ export class OrderDetailShiwakeTable implements OnInit {
   }
 
   /**
-   * テーブルをレンダー後に走るメゾッド
-   */
-  ngAfterViewInit(): void {
-    this.setTableButtonDisplay(this.orderData);
-    this.setTextColorWhenAmountIsDifference(this.orderData);
-
-  }
-  /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
    *↓↓↓　ボタン名　↓↓↓
    * 「依頼」「承認」「承認」
@@ -420,71 +421,88 @@ export class OrderDetailShiwakeTable implements OnInit {
       let ind = dt.indexOf(element);
       // 固定行にボンタンを表示させない。
       if (element.journalName.match('ハウス材') ||
-        element.journalName.match('運賃・荷造・保管料') ||
-        element.journalName.match('労災')) {
-          tr = skBody.rows[ind];
+          element.journalName.match('運賃・荷造・保管料') ||
+          element.journalName.match('労災')) {
           
-          //➡　ボタンを非表示させる
-          btn = tr.cells[6].getElementsByTagName('button');
-          btn[0].setAttribute('disabled',true);
+            tr = skBody.rows[ind];
           
-          //分　ボタンを非表示させる
-          btn = tr.cells[7].getElementsByTagName('button');
-          btn[0].setAttribute('disabled',true);
-          
-          //依頼　ボタンを非表示させる
-          btn = tr.cells[11].getElementsByTagName('button');
-          btn[0].style.display = 'none';
+            //➡　ボタンを非表示させる
+            btn = tr.cells[6].getElementsByTagName('button');
+            btn[0].setAttribute('disabled',true);
+            
+            //分　ボタンを非表示させる
+            btn = tr.cells[7].getElementsByTagName('button');
+            btn[0].setAttribute('disabled',true);
+            
+            //依頼　ボタンを非表示させる
+            btn = tr.cells[11].getElementsByTagName('button');
+            btn[0].style.display = 'none';
 
-          //承認ボタンは既に非表示されているため、再非表示する必要なし。
+            //承認ボタンは既に非表示されているため、再非表示する必要なし。
       }
     });
 
   }
 
   /**
-   * レンダー後、差額がある場合、テキスト色を変える。
+   * 差額がある場合、テキスト色を変える。
    * @param dt 
    */
-  setTextColorWhenAmountIsDifference(dt: ODIS0020OrderDetaiSplitBean[]){
+  private setTextColorWhenAmountIsDifference(dt: ODIS0020OrderDetaiSplitBean[]){
 
     for (let i = 0; i < dt.length; i++) {
-      // TODO
-      // //先頭データのIDを取得する。
-      // let currID = dt[i].id;
-      // //IDに当てはまるデータを絞り込む
-      // var filter = dt.filter(data =>{
-      //   if(data.id == currID){
-      //     return data;
-      //   }
-      // });
-      // //絞り込んだデータを分割の合計発注金額を取得する。
-      // let totalAmount: number = filter.map(data => {
-      //   //重複明細を数える。
-      //   if (Number(data.orderSplitAmount) > 0) {
-      //     return Number(data.orderSplitAmount);
-      //   }
-      //   else {
-      //     return 0;
-      //   }
-      // }).reduce((acc, value) => acc + value);
 
-      // let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-      // let tr = skBody.rows[i];
-      // //合計金額と発注予定金額を比較する
-      // if(totalAmount != Number(dt[i].orderPlanAmount)){
-      //   //発注予定金額の色を変える。
-      //   tr.cells[5].style.color = 'red';
-      // }
-      // else{
-      //   tr.cells[5].style.color = 'black';
-      // }
+      // IDに当てはまるデータを絞り込む
+      var filter = dt.filter(data =>{
+        if(data.detailNo == dt[i].detailNo){
+          return data;
+        }
+      });
+      // 絞り込んだデータを分割の合計発注金額を取得する。
+      let totalAmount: number = filter.map(data => {
+        // 重複明細を数える。
+        if (Number(data.orderSplitAmount) > 0) {
+          return Number(data.orderSplitAmount);
+        }
+        else {
+          return 0;
+        }
+      }).reduce((acc, value) => acc + value);
+
+      let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+      let tr = skBody.rows[i];
+      // 合計金額と発注予定金額を比較する
+      if(totalAmount != Number(dt[i].orderPlanAmount)){
+        // 発注予定金額の色を変える。
+        tr.cells[5].style.color = 'red';
+      }
+      else{
+        tr.cells[5].style.color = 'black';
+      }
       
-      // //処理後、カーソルの位置が後尾に変換する。
-      // i += filter.length - 1;
+      // 処理後、カーソルの位置が後尾に変換する。
+      i += filter.length - 1;
 
     }
-
   }
 
+  /**
+   * テーブル一覧 左側 親データ以外は文字白
+   * @param dt 
+   */
+  private setFonWhite(dt: ODIS0020OrderDetaiSplitBean[]){
+    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+
+    for (let i = 0; i < dt.length; i++) {
+      if(dt[i].splitNo !== '1'){
+        let tr = skBody.rows[i];
+        tr.cells[0].style.color = 'white';
+        tr.cells[1].style.color = 'white';
+        tr.cells[2].style.color = 'white';
+        tr.cells[3].style.color = 'white';
+        tr.cells[4].style.color = 'white';
+        tr.cells[5].style.color = 'white';
+      }
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { ODIS0020OrderShiwake } from '../entities/odis0020-OrderDetailList.entity';
+import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity'
 
 /**
  * 親に渡すデータの定義
@@ -7,9 +7,7 @@ export class DataEmitter {
 
   action: string;
 
-  private data = new ODIS0020OrderShiwake();
-
-  // private bunkatsu: ODIS0020OrderShiwake[] = [];
+  private data = new ODIS0020OrderDetaiSplitBean();
   
   private status = new RowStatus();
 
@@ -22,7 +20,7 @@ export class DataEmitter {
    *  前半　仕訳データ、
    *  後半　分割データ
    */
-  setEmitterData(key: ODIS0020OrderShiwake, value: ODIS0020OrderShiwake[]) {
+  setEmitterData(key: ODIS0020OrderDetaiSplitBean, value: ODIS0020OrderDetaiSplitBean[]) {
 
     //仕訳データを設定する。
     this.data.journalCode        = key.journalCode;

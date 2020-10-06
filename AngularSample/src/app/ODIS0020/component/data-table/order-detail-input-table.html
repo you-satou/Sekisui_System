@@ -134,8 +134,9 @@
         <ng-container matColumnDef="requester">
             <th style="width: 100px; " class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼者</th>
             <td style="width: 100px; text-align: center; " mat-cell *matCellDef="let element">
-                <label *ngIf="element.requester !=''">{{element.requester}}</label>
-                <button *ngIf="element.requester ==''" id="btnIrai" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
+                <label *ngIf="this.comCompnt.setValue(element.requester) !=''">{{element.requester}}</label>
+                <!-- 発注金額が入力あり AND 依頼日が空白の場合にボタンを表示 -->
+                <button *ngIf="this.comCompnt.setValue(element.orderSplitAmount) != '' && this.comCompnt.setValue(element.requester) ==''" id="btnIrai" (click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -149,8 +150,9 @@
         <ng-container matColumnDef="approvalPerson_lv1">
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
-                <label *ngIf="element.approvalPerson_lv1 !=''">{{element.approvalPerson_lv1}}</label>
-                <button *ngIf="element.approvalPerson_lv1 =='' && element.requester !=''" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <label *ngIf="this.comCompnt.setValue(element.approvalPerson_lv1) !=''">{{element.approvalPerson_lv1}}</label>
+                <!-- 依頼日が入力あり AND ログイン者が「承認１:可」(TODO)の場合）にボタンを表示 -->
+                <button *ngIf="this.comCompnt.setValue(element.requester) !=''" (click) = "setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -164,8 +166,9 @@
         <ng-container matColumnDef="approvalPerson_lv2">
             <th style="width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="width: 100px; text-align: center;" class="font-s-center" mat-cell *matCellDef="let element">
-                <label *ngIf="element.approvalPerson_lv2 !=''">{{element.approvalPerson_lv2}}</label>
-                <button *ngIf="element.approvalPerson_lv2 ==''&& element.approvalPerson_lv1 !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
+                <label *ngIf="this.comCompnt.setValue(element.approvalPerson_lv2) !=''">{{element.approvalPerson_lv2}}</label>
+                <!-- 承認１が入力あり AND ログイン者が「承認２:可」(TODO)の場合）にボタンを表示 -->
+                <button *ngIf="this.comCompnt.setValue(element.approvalPerson_lv1) !=''" (click) = "setApprovalNextLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

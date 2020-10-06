@@ -1,7 +1,11 @@
+import { CommonComponent } from '../../common/common.component'
 /**
  * 仕訳テーブルの定義
  */
 export class ODIS0060OrderShiwake {
+    /** 物件管理Ｎｏ */
+    propertyNo: string;
+
     /** 明細種類 */
     detailKind: string;
 
@@ -34,6 +38,8 @@ export class ODIS0060OrderShiwake {
 　* 分割テーブルの定義
 　*/
 export class ODIS0060OrderDetailBunkatsu {
+
+    constructor() { }
     /** 分割連番 */
     splitNo: string;
 
@@ -78,33 +84,10 @@ export class ODIS0060OrderDetailBunkatsu {
 
     /** 支払金額 */
     paymentAmount: string;
-
-    /**全項目が空の時、Trueを返す */
-    get isBlank() {
-        if (this.orderSplitAmount == '' &&
-            this.comment == '' &&
-            this.requestDate == '' &&
-            this.requester == '' &&
-            this.approvalDate_lv1 == '' &&
-            this.approvalPerson_lv1 == '' &&
-            this.approvalDate_lv2 == '' &&
-            this.approvalPerson_lv2 == '' &&
-            this.orderDate == '' &&
-            this.orderAmount == '' &&
-            this.receivedDate == '' &&
-            this.receivedAmount == '' &&
-            this.paymentDate == '' &&
-            this.paymentAmount == '') {
-            return true;
-        }
-        return false;
-    }
-
-    constructor() { }
 }
 
 /**
- * 分割明細画面のデータがセックションに保持する用のクラス
+ * 分割明細画面のデータがセッションに保持する用のクラス
  */
 export class ODIS0060Session {
 
