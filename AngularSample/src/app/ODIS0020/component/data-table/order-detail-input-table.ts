@@ -270,37 +270,30 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         return element;
       }
     });
-    
-    let irai = filter.filter(dt =>{
-      if(dt.requester != ''){
-        return dt;
-      }
-    });
-
-    let shounin = filter.filter(dt => {
-      if(dt.approvalPerson_lv1 !=''){
-        return dt;
-      }
-    });
-
-    let iraiSumi = irai.length == filter.length;
-    let shouninSumi = shounin.length == filter.length;
-    let shouninChuu = shounin.length > 0;
 
     //先頭データのインデックスを取得する
     let keyIndex = this.orderData.indexOf(filter[0]);
     // 選択されたデータのインデックス
-    let rIndex: number = this.orderData.indexOf(value);
+    let rowIndex: number = this.orderData.indexOf(value);
     //明細件数を取得
     let totalLength: number = filter.length;
-    //総明細に対して、選択された明細のインデックスを取得する。
-    let current: number = filter.indexOf(value) + 1;
+
+    let isCanNotUpd: boolean = false;
+    let isCanNotDel: boolean = false;
+
+    for (const data of filter) {
+      //抽出したデータに承認かけたデータがあった場合、明細更新と明細削除が不可能
+      if(data.approvalPerson_lv1 != ''){
+        isCanNotUpd = true;
+        isCanNotDel = true;
+        break;
+      }
+    }
 
     //渡すデータを設定する。
-    this.dataEmitter.action = Const.Action.A0004;
-    // TODO
-    this.dataEmitter.setEmitterData(filter[0], filter);
-    this.dataEmitter.setRowStatus(keyIndex,rIndex,totalLength,current,iraiSumi,shouninSumi,shouninChuu);
+    this.dataEmitter.action = Const.Action.A0004;   //行を選択
+    this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
+    this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel); //明細ステータス
 
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);

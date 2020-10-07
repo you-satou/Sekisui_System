@@ -123,6 +123,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
           if(response.result === Const.ConnectResult.R0001){
             this.orderDetailData = response.applicationData;
+            this.setPaginator();
           }else{
             alert(response.message);
           }

@@ -16,12 +16,10 @@ export class DataEmitter {
    */
   constructor() { }
 
-  /** 渡すデータを設定する,
-   *  前半　仕訳データ、
-   *  後半　分割データ
+  /** 
+   *  渡すデータを設定する
    */
-  setEmitterData(key: ODIS0020OrderDetaiSplitBean, value: ODIS0020OrderDetaiSplitBean[]) {
-
+  setEmitterData(key: ODIS0020OrderDetaiSplitBean) {
     //仕訳データを設定する。
     this.data.journalCode        = key.journalCode;
     this.data.journalName        = key.journalName;
@@ -29,47 +27,36 @@ export class DataEmitter {
     this.data.orderSupplierCode  = key.orderSupplierCode;
     this.data.orderSupplierName  = key.orderSupplierName;
     this.data.orderPlanAmount    = key.orderPlanAmount;
-
-    //分割データを設定する。
-    // this.data.orderSplitAmount   = value.orderSplitAmount;
-    // this.data.comment            = value.comment;
-    // this.data.requestDate        = value.requestDate;
-    // this.data.requester          = value.requester;
-    // this.data.approvalDate_lv1   = value.approvalDate_lv1;
-    // this.data.approvalPerson_lv1 = value.approvalPerson_lv1;
-    // this.data.approvalDate_lv2   = value.approvalDate_lv2;
-    // this.data.approvalPerson_lv2 = value.approvalPerson_lv2;
-    // this.data.orderDate          = value.orderDate;
-    // this.data.orderAmount        = value.orderAmount;
-    // this.data.receivedDate       = value.receivedDate;
-    // this.data.receivedAmount     = value.receivedAmount;
-    // this.data.paymentDate        = value.paymentDate;
-    // this.data.paymentAmount      = value.paymentAmount;
-
-    // this.bunkatsu = value;
   }
    /**
     * 明細のステータスを設定する
     * @param key 先頭データのインデックス
     * @param row 選択された明細のインデックス
     * @param totalLength 総明細数
-    * @param curr 総件数に対して選択された明細の位置
+    * @param add 明細追加
+    * @param upd 明細更新
+    * @param cancel 中止
+    * @param del 削除
+    * 
     */
-  setRowStatus(key: number, row: number, totalLength:number, curr: number, irai: boolean, shounin: boolean, shouninChuu: boolean){
+  setRowStatus(key: number, row: number, totalLength:number,upd: boolean, del: boolean){
     this.status.keyIndex = key;
     this.status.rowIndex = row;
     this.status.detailLength = totalLength;
-    this.status.current = curr;
-    this.status.iraiSumi = irai;
-    this.status.shouninSumi = shounin;
-    this.status.shouninChuu = shouninChuu;
+
+    //ボタン制御を設定する。
+    // this.status.add = add;
+    this.status.update = upd;
+    // this.status.cancel = cancel;
+    this.status.delete = del;
   }
 
+  /* 明細ステータスを取得する */
   getRowStatus():RowStatus{
 
     return this.status;
   }
-
+  /*　明細のデータを取得する  */
   getEmitterData(){
     return this.data;
   }
@@ -87,29 +74,16 @@ export class RowStatus {
   /**総明細数 */
   detailLength: number;
 
-  /**総件数に対して選択された明細の位置 */
-  current:number;
+  // ボタン制御
 
-  iraiSumi: boolean;
+  /* 明細更新ボタン */
+  update: boolean;
 
-  shouninSumi:boolean;
+  /* 明細削除ボタン */
+  delete: boolean;
 
-  shouninChuu: boolean;
 
-  /** 
-   * 総明細数が１件以上、
-   * 選択された明細が
-  */
-  get isFirstDetail(){
-    if(this.detailLength > 1 && this.current == 1){
-
-      return true;
-    }
-    return false;
-  }
-
-  get isSelected(): boolean{
-
+　 get isSelected(): boolean{
     if(this.keyIndex >= 0 &&
       this.rowIndex >= 0 && this.rowIndex != null){
         return true;
@@ -125,7 +99,6 @@ export class RowStatus {
     this.rowIndex = null;
     this.keyIndex = null;
     this.detailLength = 0;
-    this.current = null;
   }
 
 }

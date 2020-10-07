@@ -217,7 +217,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
-    this.paramInit.propertyNo = '184326';
+    // this.paramInit.propertyNo = '184326';
+    this.paramInit.propertyNo = '556664';
     this.paramInit.contractNum = '000000122';
     
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
@@ -507,7 +508,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   //     }
   //   }
   // }
-  // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
+  // --------------------------------------- ▲▲ 初期表示処理 ▲▲ -------------------------------------
 
   // --------------------------------------- ▼▼ 各画面設定 ▼▼ ---------------------------------------
   /**
@@ -883,14 +884,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param emitterData 
    */
   getEmitter(emitterData: DataEmitter) {
-
     switch(emitterData.action){
-
       case Const.Action.A0004:
         // 値設定
         this.rowStatus = emitterData.getRowStatus();
         this.addInput.setInput(emitterData.getEmitterData());
-        this.journalDataApprovalChecker(this.rowStatus);
+        this.setPageButtonDisplay(true,this.rowStatus.update,false,this.rowStatus.delete);
         break;
 
       //分割明細画面に遷移する
@@ -904,32 +903,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
   }
-  
-  /**
-   * ボタン制御
-   * @param rs
-   */
-  journalDataApprovalChecker(rs: RowStatus){
-    switch(true){
-      //依頼未・承認未
-      case (!rs.iraiSumi && !rs.shouninChuu && !rs.shouninSumi):
-        this.setPageButtonDisplay(true, false, false, false);
-        break;
-      //依頼済・承認未
-      case (rs.iraiSumi && !rs.shouninChuu && !rs.shouninSumi):
-        this.setPageButtonDisplay(true, false, false, false);
-        break;
-      //依頼済・承認中
-      case (rs.iraiSumi && rs.shouninChuu && !rs.shouninSumi):
-        this.setPageButtonDisplay(true, false, false, true);
-        break;
-      //依頼済・承認済
-      case (rs.iraiSumi && rs.shouninChuu && rs.shouninSumi):
-        this.setPageButtonDisplay(true, true, false, true);
-        break;
-    };
-  }
-
+ 
   /**
    * 明細ボタン制御
    * @param add 明細追加ボタン
@@ -976,9 +950,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.orderService.getSearchRequest('/ODIS0020/update',this.paramUpd)
         .then(
           (response) => {
-
-            if(response.result === Const.ConnectResult.R0001){
-              
+            if(response.result === Const.ConnectResult.R0001){              
               //セッションを削除する
               sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
