@@ -156,7 +156,8 @@ export namespace Const{
     export namespace WarningMsg {
 
         export const W0001 = '明細削除処理を行いますか？';
-        export const W0002 = '通信中。。。'
+        export const W0002 = '通信中。。。';
+        export const W0003 = '変更内容を更新せず、\n 承認処理画面に戻りますが、よろしいでしょうか';
     }
 
     /**
