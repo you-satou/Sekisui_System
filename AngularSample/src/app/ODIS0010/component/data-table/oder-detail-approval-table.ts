@@ -51,11 +51,12 @@ export class OrderDetailApprovalTable implements OnChanges {
     this.sort.disableClear = true;
 
   }
-  
+ 
   /**　ページに移動する */
-  switchPage(data: ODIS0010OrderDetail){
+  switchToOrderInputPage(data: ODIS0010OrderDetail){
 
-    this.router.navigate(['OrderDetailInput']);
+    //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
+    this.router.navigate(['OrderDetailInput'],{ queryParams: {propertyNo: data.propertyManagerCd, contractNum: data.contractNum}});
     
   }
 

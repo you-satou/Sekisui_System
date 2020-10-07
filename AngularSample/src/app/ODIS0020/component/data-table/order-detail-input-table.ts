@@ -210,21 +210,28 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * @param $event
    * @param data
    */
-  moveToSliptDetailInput($event, selectedItem: ODIS0020OrderDetaiSplitBean) {
+  moveToSliptDetailInput($event, data: ODIS0020OrderDetaiSplitBean) {
+
+    if(data.orderPlanAmount == '' ||
+       data.orderPlanAmount == null ||
+       data.orderPlanAmount == undefined){
+          return;
+    }
+
     var shiwakeDt: ODIS0060OrderShiwake[] = [new ODIS0060OrderShiwake()];
     var splitDt: ODIS0060OrderDetailBunkatsu[] = [];
-    shiwakeDt[0].propertyNo        = selectedItem.propertyNo;
-    shiwakeDt[0].detailKind        = selectedItem.detailKind;
-    shiwakeDt[0].detailNo          = selectedItem.detailNo;
-    shiwakeDt[0].journalCode       = selectedItem.journalCode;
-    shiwakeDt[0].accountCode       = selectedItem.accountCode;
-    shiwakeDt[0].journalName       = selectedItem.journalName;
-    shiwakeDt[0].orderSupplierCode = selectedItem.orderSupplierCode;
-    shiwakeDt[0].orderSupplierName = selectedItem.orderSupplierName;
-    shiwakeDt[0].orderPlanAmount   = selectedItem.orderPlanAmount;
+    shiwakeDt[0].propertyNo        = data.propertyNo;
+    shiwakeDt[0].detailKind        = data.detailKind;
+    shiwakeDt[0].detailNo          = data.detailNo;
+    shiwakeDt[0].journalCode       = data.journalCode;
+    shiwakeDt[0].accountCode       = data.accountCode;
+    shiwakeDt[0].journalName       = data.journalName;
+    shiwakeDt[0].orderSupplierCode = data.orderSupplierCode;
+    shiwakeDt[0].orderSupplierName = data.orderSupplierName;
+    shiwakeDt[0].orderPlanAmount   = data.orderPlanAmount;
     
     this.orderData.forEach(dt => {
-      if (dt.detailNo === selectedItem.detailNo) {
+      if (dt.detailNo === data.detailNo) {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
           newSplit.splitNo              = dt.detailNo;
           newSplit.orderSplitAmount     = dt.orderSplitAmount;

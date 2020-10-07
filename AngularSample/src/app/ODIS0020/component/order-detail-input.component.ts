@@ -1,6 +1,6 @@
 import { ODIS0020Session, ODIS0020Form } from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
 import { Subscription } from 'rxjs';
@@ -124,6 +124,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private baseCompnt: CommonComponent,
     private changeDetectorRef: ChangeDetectorRef,
 
+    private actvRoute: ActivatedRoute,
+
+
   ) { }
 
   // --------------------------------------- ▼▼ 初期表示処理 ▼▼ ---------------------------------------
@@ -198,6 +201,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.journalName        = element.journalName;
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
+          temp.orderPlanAmount    = '';
 
           bucketDt.push(temp);
         });
@@ -214,13 +218,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * データを取得
    */
   getOrderInputData() {
+
+    //パラメータを取得する
+    this.actvRoute.queryParams.subscribe(params =>{
+      
+      this.paramInit.propertyNo = params.propertyNo;
+      this.paramInit.contractNum = params.contractNum;
+      
+    });
+
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
     // this.paramInit.propertyNo = '184326';
-    this.paramInit.propertyNo = '55664';
-    this.paramInit.contractNum = '000000122';
-    
+    // this.paramInit.propertyNo = '55664';
+    // this.paramInit.contractNum = '000000122';
+
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
           (response) => {
@@ -1002,6 +1015,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
     sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
   }
+
+  backToApprovalPage(event: any){
+    this.router.navigate([Const.UrlSetting.U0001])
+  }
+
   // --------------------------------------- ▲▲ 各ボタン 処理 ▲▲ ---------------------------------------
 
   // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ ---------------------------------------
