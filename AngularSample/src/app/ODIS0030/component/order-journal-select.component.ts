@@ -6,7 +6,7 @@ import { CommonService } from '../../common/common.service';
 import { ODIS0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
 import { ODIS0030Form } from '../entities/odis0030-Form.entity'
-import { RouterEvent } from '@angular/router';
+
 
 @Component({
     selector: 'order-journal-select',
@@ -41,8 +41,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   //フォーカス対象列
   selectRow: number;
 
-  //初期画面のレンダー
-  isInitFlg: boolean = false;
+  // ローディング 判定
+  isLoading: boolean = true;
 
   /**
    * コンストラクタ
@@ -93,17 +93,14 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
 
      if(this.selectVal !== ''){
-    //  wTbody.rows[this.selectRow].scrollIntoView(true);
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
      
      var wTr = wTbody.rows[this.selectRow];
      wTr.style.backgroundColor = Const.HighLightColour.Selected;
     }
-    // else{
-    //   wTbody.rows[this.selectRow].scrollIntoView(false);
-    // }
+
     });
-  }
+ }
 
   /**
   * 終了時
@@ -169,8 +166,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
           }else{
             alert(response.message);
           }
-          // 画面をレンダーする
-          this.isInitFlg = true;
+          //ロード画面を解除する。
+          this.isLoading = false;
       }
     );
   }

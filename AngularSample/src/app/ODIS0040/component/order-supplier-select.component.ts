@@ -40,8 +40,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
   //フォーカス対象列
   selectRow: number;
 
-  //初期画面のレンダー
-  isInitFlg: boolean = false;
+  // ローディング 判定
+  isLoading: boolean = true;
 
   /**
    * コンストラクタ
@@ -170,8 +170,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
             }else{
               alert(response.message);
             }
-            // 画面をレンダーする
-            this.isInitFlg = true;
+            //ロード画面を解除する。
+            this.isLoading = false;
           }
         );
   }
