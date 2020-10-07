@@ -1,3 +1,4 @@
+<loading-spinner *ngIf="isLoading"></loading-spinner>
 <div id="M_ODIS0040" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-keyboard="false"
     data-backdrop="static">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -5,26 +6,24 @@
             <div class="modal-header">
                 <label id="header_label">{{title}}</label>
             </div>
-            <div class="modal-body">
-                <div *ngIf="isInitFlg">
-                    <div class="table-container">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="table-s td-b text-center">発注先<br>コード</th>
-                                    <th class="table-m td-b text-center">発注先名</th>
-                                    <th class="table-s td-b text-center">納品</th>
-                                </tr>
-                            </thead>
-                            <tbody id='initScroll'>
-                                <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                                    <td class="table-s td-b">{{ data.supplierCode }}</td>
-                                    <td class="table-m td-b">{{ data.supplierJournalName }}</td>
-                                    <td class="table-s td-b">{{ data.delivery }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="modal-body">    
+                <div class="table-container">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-s td-b text-center">発注先<br>コード</th>
+                                <th class="table-m td-b text-center">発注先名</th>
+                                <th class="table-s td-b text-center">納品</th>
+                            </tr>
+                        </thead>
+                        <tbody id='initScroll'>
+                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <td class="table-s td-b">{{ data.supplierCode }}</td>
+                                <td class="table-m td-b">{{ data.supplierJournalName }}</td>
+                                <td class="table-s td-b">{{ data.delivery }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

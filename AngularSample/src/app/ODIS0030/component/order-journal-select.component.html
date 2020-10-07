@@ -1,3 +1,4 @@
+<loading-spinner *ngIf="isLoading"></loading-spinner>
 <div id="M_ODIS0030" class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" data-keyboard="false"
     data-backdrop="static">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
@@ -6,27 +7,25 @@
                 <label id="header_label">{{title}}</label>
             </div>
             <div class="modal-body">
-                <div *ngIf="isInitFlg">
-                    <div class="table-container">
-                        <table class="table table-hover table-striped" id="tbl1">
-                            <thead>
-                                <tr>
-                                    <th class="table-str td-b text-center">仕訳<br>コード</th>
-                                    <th class="table-str td-b text-center">経理<br>コード</th>
-                                    <th class="table-str td-b text-center">仕訳名称</th>
-                                    <th class="table-str td-b text-center">其他</th>
-                                </tr>
-                            </thead>
-                            <tbody id='initScroll'>
-                                <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
-                                    <td class="table-str td-b">{{ data.journalCode }}</td>
-                                    <td class="table-str td-b">{{ data.accountingCategory }}</td>
-                                    <td class="table-l td-b">{{ data.orderJournalName }}</td>
-                                    <td class="table-str td-b">{{ data.other }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-container">
+                    <table class="table table-hover table-striped" id="tbl1">
+                        <thead>
+                            <tr>
+                                <th class="table-str td-b text-center">仕訳<br>コード</th>
+                                <th class="table-str td-b text-center">経理<br>コード</th>
+                                <th class="table-str td-b text-center">仕訳名称</th>
+                                <th class="table-str td-b text-center">其他</th>
+                            </tr>
+                        </thead>
+                        <tbody id='initScroll'>
+                            <tr *ngFor="let data of datas" (click)=onSelHighLight($event,data)>
+                                <td class="table-str td-b">{{ data.journalCode }}</td>
+                                <td class="table-str td-b">{{ data.accountingCategory }}</td>
+                                <td class="table-l td-b">{{ data.orderJournalName }}</td>
+                                <td class="table-str td-b">{{ data.other }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

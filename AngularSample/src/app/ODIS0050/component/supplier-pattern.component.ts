@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit,QueryList, ViewContainerRef, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SupplierPatternService } from '../services/supplier-pattern.service';
 import { PatternList } from '.././entities/odis0050-PatternList.entity'
 import { SupplierPatternList } from '.././entities/odis0050-SuppierPattern.entity'
@@ -44,8 +44,8 @@ export class SupplierPatternComponent implements OnInit {
   //エラーメッセージ
   errormsg: string = "";
 
-  //初期画面のレンダー
-  isInitFlg: boolean = false;
+  // ローディング 判定
+  isLoading: boolean = true;
 
   /**
   *コンストラクタ
@@ -152,8 +152,9 @@ export class SupplierPatternComponent implements OnInit {
         }else{
           alert(response.message);
         }
-        // 画面をレンダーする
-        this.isInitFlg = true;
+
+        //ロード画面を解除する。
+        this.isLoading = false;
       }
     );
   }
