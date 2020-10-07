@@ -1017,7 +1017,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   backToApprovalPage(event: any){
-    this.router.navigate([Const.UrlSetting.U0001])
+    
+    //警告メッセージを表示する
+    let confirm = window.confirm(Const.WarningMsg.W0003);
+    if(!confirm){
+      return;
+    }
+    //セッションを削除する
+    sessionStorage.removeItem(Const.ScreenName.S0002EN);
+    // 承認処理画面に戻る
+    this.router.navigate([Const.UrlSetting.U0001]);
   }
 
   // --------------------------------------- ▲▲ 各ボタン 処理 ▲▲ ---------------------------------------
