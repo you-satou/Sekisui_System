@@ -419,9 +419,9 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     dt.forEach(element => {
       let ind = dt.indexOf(element);
       // 固定行にボンタンを表示させない。
-      if (element.journalName.match('ハウス材') ||
-          element.journalName.match('運賃・荷造・保管料') ||
-          element.journalName.match('労災')) {
+      if (element.journalName == 'ハウス材' ||
+          element.journalName == '運賃・荷造・保管料' ||
+          element.journalName == '労災') {
           
             tr = skBody.rows[ind];
           
