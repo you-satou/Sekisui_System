@@ -219,11 +219,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   getOrderInputData() {
 
-    //パラメータを取得する
+    //承認処理画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
-      
-      this.paramInit.propertyNo = params.propertyNo;
-      this.paramInit.contractNum = params.contractNum;
+    
+      this.paramInit.propertyNo = params.prop;    //物件管理番号
+      this.paramInit.contractNum = params.cntrt;  //契約番号
       
     });
 

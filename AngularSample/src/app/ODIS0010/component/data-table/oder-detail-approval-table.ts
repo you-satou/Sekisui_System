@@ -56,7 +56,7 @@ export class OrderDetailApprovalTable implements OnChanges {
   switchToOrderInputPage(data: ODIS0010OrderDetail){
 
     //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
-    this.router.navigate(['OrderDetailInput'],{ queryParams: {propertyNo: data.propertyManagerCd, contractNum: data.contractNum}});
+    this.router.navigate(['OrderDetailInput'],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum}});
     
   }
 

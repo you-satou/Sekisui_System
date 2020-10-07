@@ -329,17 +329,19 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     //TODO: ログイン情報を取得
     dt.requester = '積水　次郎';
 
-    // 承認一回目のボタンを活動化する.
-    let tr = btn.parentElement.parentElement;
 
-    //承認１ボタンのインデックスは「13」
-    let btnShounin = tr.children[13].getElementsByTagName('button');
-    btnShounin[0].style.display = 'inherit';
-    btnShounin[0].removeAttribute('disabled');
+    //クアン検証中
+    // // 承認一回目のボタンを活動化する.
+    // let tr = btn.parentElement.parentElement;
+
+    // //承認１ボタンのインデックスは「13」
+    // let btnShounin = tr.children[13].getElementsByTagName('button');
+    // btnShounin[0].style.display = 'inherit';
+    // btnShounin[0].removeAttribute('disabled');
 
     // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    btn.setAttribute('disabled','disabled');
-    btn.style.display = 'none';
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
 
   }
 
@@ -365,16 +367,18 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     //TODO: ログイン情報を取得
     dt.approvalPerson_lv1 = '積水　次郎';
 
-    // 承認一回目のボタンを活動化する
-    let tr = btn.parentElement.parentElement;
-    //承認１ボタンのインデックスは「15」
-    let btnShounin = tr.children[15].getElementsByTagName('button');
-    btnShounin[0].style.display = 'inherit';
-    btnShounin[0].removeAttribute('disabled');
 
-    // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    btn.setAttribute('disabled','disabled');
-    btn.style.display = 'none';
+    //クアン検証中
+    // // 承認一回目のボタンを活動化する
+    // let tr = btn.parentElement.parentElement;
+    // //承認１ボタンのインデックスは「15」
+    // let btnShounin = tr.children[15].getElementsByTagName('button');
+    // btnShounin[0].style.display = 'inherit';
+    // btnShounin[0].removeAttribute('disabled');
+
+    // // ↓↓↓↓↓検討中↓↓↓↓↓↓
+    // btn.setAttribute('disabled','disabled');
+    // btn.style.display = 'none';
 
   }
 
