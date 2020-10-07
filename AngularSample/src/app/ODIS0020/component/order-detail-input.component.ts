@@ -201,7 +201,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.journalName        = element.journalName;
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
-          temp.orderPlanAmount    = '';
 
           bucketDt.push(temp);
         });
@@ -230,14 +229,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
-    // this.paramInit.propertyNo = '184326';
-    // this.paramInit.propertyNo = '55664';
-    // this.paramInit.contractNum = '000000122';
+    this.paramInit.propertyNo = '55664';
+    this.paramInit.contractNum = '000000122';
 
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
           (response) => {
-
             if(response.result === Const.ConnectResult.R0001){
               this.pageTotalInfo = response.applicationData;
               this.orderCustomerInfo = this.pageTotalInfo.custmerInfo;              // 契約情報
