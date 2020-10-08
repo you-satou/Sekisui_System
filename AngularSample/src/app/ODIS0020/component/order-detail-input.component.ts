@@ -193,7 +193,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let bucketDt: ODIS0020OrderDetaiSplitBean[] = [];
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
-          temp.detailKind         = this.paramInit.propertyNo;
+          temp.propertyNo         = this.paramInit.propertyNo;
           temp.detailKind         = this.tabValue.toString();
           temp.splitNo            = '1';
           temp.journalCode        = element.journalCode;
@@ -241,7 +241,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.order0DateInfo = this.pageTotalInfo.dateInfo;                    // 契約日付
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
-              this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割 
+              this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
               // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_0);
               
