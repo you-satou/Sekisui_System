@@ -123,6 +123,11 @@
     position: sticky ;
     top: 0;
     background-color: white;
+    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
+}
+
+.tbl2>table>tbody>th {
+    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
 }
 
 .tbl1 {
@@ -141,10 +146,12 @@
     float: left;
     margin-left: 20px;
     width: fit-content;
+    border: 0px;
 }
 
 .tbl2>table>tbody>tr>td {
     min-width: 25px;
+    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
 }
 
 
@@ -162,9 +169,7 @@
 
 .tbl2>table>thead>tr>th:after {
     top: -2px;
-    border-top: 2px solid #CCD0D5;
     bottom: -1px;
-    border-bottom: 1px solid #CCD0D5;
 }
 
 /* -------------------------------------- */
