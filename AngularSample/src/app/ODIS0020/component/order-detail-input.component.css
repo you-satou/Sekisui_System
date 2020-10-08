@@ -112,7 +112,7 @@
 }
 
 .infoTable {
-    min-width: 1050px ;
+    min-width: 1120px ;
     margin-top: 10px;
     width: max-content;
     height: 170px;
@@ -123,11 +123,10 @@
     position: sticky ;
     top: 0;
     background-color: white;
-    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
-}
-
-.tbl2>table>tbody>th {
-    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
+    z-index: 1;
+    box-shadow: 0.5px 0px 0px 0px #dee2e6 inset, 0px -0.5px 0px 0px #dee2e6 inset, 0px 0.5px 0px 0px #dee2e6 inset;
+    text-align: center;
+    padding: 0 5px;
 }
 
 .tbl1 {
@@ -142,37 +141,25 @@
 
 .tbl2 {
     overflow-y: auto;
-    height: 161px;
+    height: 136px;
     float: left;
     margin-left: 20px;
     width: fit-content;
-    border: 0px;
 }
 
 .tbl2>table>tbody>tr>td {
     min-width: 25px;
-    box-shadow: 0px 0px 0px 1px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #dee2e6 inset;
+    box-shadow: 0.5px -0.5px 0px 0px #dee2e6 inset;
 }
 
-
-/**
-* スクロールする時、ヘッダーのボーダー線を描く
-*/
-
-.tbl2>table>thead>tr>th:after,
-.tbl2>table>thead>tr>th:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
+.tsuikakouji {
+    position: absolute; 
+    background-color: #fff; 
+    height: 115px;
+    z-index: 1;
+    box-shadow: 0.5px 0px 0px 0px #dee2e6 inset, 0px -0.5px 0px 0px #dee2e6 inset, -0.5px 0px 0px 0px #dee2e6 inset;
+    padding: 15px 0px;
 }
-
-.tbl2>table>thead>tr>th:after {
-    top: -2px;
-    bottom: -1px;
-}
-
-/* -------------------------------------- */
 
 .tdcenter {
     text-align: center ;
