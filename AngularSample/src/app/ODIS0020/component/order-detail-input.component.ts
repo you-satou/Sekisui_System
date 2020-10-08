@@ -427,6 +427,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.detailNo            = this.baseCompnt.setValue(data.detailNo);
     temp.splitNo             = this.baseCompnt.setValue(data.splitNo);
     temp.journalCode         = this.baseCompnt.setValue(data.journalCode);
+    temp.accountCode         = this.baseCompnt.setValue(data.accountCode)
     temp.journalName         = this.baseCompnt.setValue(data.journalName);
     temp.orderPlanAmount     = this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSupplierCode   = this.baseCompnt.setValue(data.orderSupplierCode);
