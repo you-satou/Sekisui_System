@@ -290,7 +290,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     for (const data of filter) {
       //抽出したデータに承認かけたデータがあった場合、明細更新と明細削除が不可能
-      if(data.approvalPerson_lv1 != ''){
+      if(this.comCompnt.setValue(data.approvalPerson_lv1) != ''){
         isCanNotUpd = true;
         isCanNotDel = true;
         break;
@@ -502,12 +502,12 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     for (let i = 0; i < dt.length; i++) {
       if(dt[i].splitNo !== '1'){
         let tr = skBody.rows[i];
-        tr.cells[0].style.color = 'white';
-        tr.cells[1].style.color = 'white';
-        tr.cells[2].style.color = 'white';
-        tr.cells[3].style.color = 'white';
-        tr.cells[4].style.color = 'white';
-        tr.cells[5].style.color = 'white';
+        tr.cells[0].style.color = 'transparent';
+        tr.cells[1].style.color = 'transparent';
+        tr.cells[2].style.color = 'transparent';
+        tr.cells[3].style.color = 'transparent';
+        tr.cells[4].style.color = 'transparent';
+        tr.cells[5].style.color = 'transparent';
       }
     }
   }
