@@ -774,11 +774,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param val 0:明細追加, 1:明細更新
    */
   private inputCheck(val: string){
-    if (this.addInput.isBlank) {
-      alert(Const.ErrorMsg.E0010);
-      this.baseCompnt.setFocus('txtAddJCode');
-      return false;
-    }
     if(this.addInput.journalCode == ''){
       alert(Const.ErrorMsg.E0003);
       this.baseCompnt.setFocus('txtAddJCode');
@@ -791,11 +786,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
     // 明細更新ボタン押下された場合は以下処理を実施
     if(val === '1'){
-      if (!this.rowStatus.isSelected) {
-        alert(Const.ErrorMsg.E0013);
-        return false;
-      };
-  
+      //明細が変更したかどうかチェックする
       if(this.addInput.isUnchanged){
         alert(Const.ErrorMsg.E0015);
         return false;
@@ -942,6 +933,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 更新終了ボタン
    */
   finalUpdateProgress(){
+
+    //明細追加テーブルにて、入力途中項目があるかどうかを検証する。
+    if(!this.addInput.isBlank){
+        var confirm = window.confirm(Const.WarningMsg.W0004);
+        if(!confirm){
+          return;
+        }
+    }
     // 初期化
     this.isLoading = true;
 

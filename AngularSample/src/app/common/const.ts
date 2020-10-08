@@ -158,6 +158,7 @@ export namespace Const{
         export const W0001 = '明細削除処理を行いますか？';
         export const W0002 = '通信中。。。';
         export const W0003 = '変更内容を更新せず、\n承認処理画面に戻りますが、よろしいでしょうか';
+        export const W0004 = '入力未済な項目がありますが、\n続いて更新処理を行いますか？';
     }
 
     /**
