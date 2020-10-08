@@ -1,5 +1,5 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
-<!-- <div *ngIf="isInitFlg"> -->
+<div *ngIf="isInitFlg">
     <section>
         <div>
             <section class="orderInfo">
@@ -169,7 +169,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <th style="position: absolute; margin-top: -1px; background-color: #fff; height: 135.5px; padding: 20px 0;">追<br>加<br>工<br>事</th>
+                        <th class="tsuikakouji">追<br>加<br>工<br>事</th>
                         <tr *ngFor="let data of tblInsertedOrder; let i = index">
                             <td class="tdcenter" style="padding-left: 20px !important;">{{data.contractModel}}</td>
                             <td class="tdcenter">{{data.orderModel}}</td>
@@ -290,4 +290,4 @@
         </div>
         <ng-container *ngComponentOutlet="modal"></ng-container>
     </div>
-<!-- </div> -->
+</div>
