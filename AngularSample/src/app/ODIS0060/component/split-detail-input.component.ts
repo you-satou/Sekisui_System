@@ -559,7 +559,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   commonFocus($event){
-    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
+    this.input.orderSplitAmount = this.baseCompnt.removeCommas($event.target.value);
   }
   /**
    * blur処理（カンマ）
@@ -568,7 +568,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   commonBlur($event){
     if(!($event.target.value == "")){
-      $event.target.value = this.baseCompnt.addCommas($event.target.value);
+      this.input.orderSplitAmount = this.baseCompnt.addCommas($event.target.value);
     }
   }
 
@@ -578,7 +578,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   onChangeZenkaku($event){
-    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
+    this.input.comment = this.baseCompnt.onChangeZenkaku($event.target.value);
   }
 
   /**
@@ -587,7 +587,7 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   onlyHanNumber($event){
-    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
+    this.input.orderSplitAmount = this.baseCompnt.onlyHanNumber($event.target.value);
   }
 
   /**

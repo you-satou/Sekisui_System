@@ -233,21 +233,21 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     this.orderData.forEach(dt => {
       if (dt.detailNo === data.detailNo) {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
-          newSplit.splitNo              = dt.detailNo;
-          newSplit.orderSplitAmount     = dt.orderSplitAmount;
-          newSplit.comment              = dt.comment;
-          newSplit.requestDate          = dt.requestDate;
-          newSplit.requester            = dt.requester;
-          newSplit.approvalDate_lv1     = dt.approvalDate_lv1;
-          newSplit.approvalPerson_lv1   = dt.approvalPerson_lv1;
-          newSplit.approvalDate_lv2     = dt.approvalDate_lv2;
-          newSplit.approvalPerson_lv2   = dt.approvalPerson_lv2;
-          newSplit.orderDate            = dt.orderDate;
-          newSplit.orderAmount          = dt.orderAmount;
-          newSplit.receivedDate         = dt.receivedDate;
-          newSplit.receivedAmount       = dt.receivedAmount;
-          newSplit.paymentDate          = dt.paymentDate;
-          newSplit.paymentAmount        = dt.paymentAmount;
+        newSplit.splitNo              = this.comCompnt.setValue(dt.detailNo);
+        newSplit.orderSplitAmount     = this.comCompnt.setValue(dt.orderSplitAmount);
+        newSplit.comment              = this.comCompnt.setValue(dt.comment);
+        newSplit.requestDate          = this.comCompnt.setValue(dt.requestDate);
+        newSplit.requester            = this.comCompnt.setValue(dt.requester);
+        newSplit.approvalDate_lv1     = this.comCompnt.setValue(dt.approvalDate_lv1);
+        newSplit.approvalPerson_lv1   = this.comCompnt.setValue(dt.approvalPerson_lv1);
+        newSplit.approvalDate_lv2     = this.comCompnt.setValue(dt.approvalDate_lv2);
+        newSplit.approvalPerson_lv2   = this.comCompnt.setValue(dt.approvalPerson_lv2);
+        newSplit.orderDate            = this.comCompnt.setValue(dt.orderDate);
+        newSplit.orderAmount          = this.comCompnt.setValue(dt.orderAmount);
+        newSplit.receivedDate         = this.comCompnt.setValue(dt.receivedDate);
+        newSplit.receivedAmount       = this.comCompnt.setValue(dt.receivedAmount);
+        newSplit.paymentDate          = this.comCompnt.setValue(dt.paymentDate);
+        newSplit.paymentAmount        = this.comCompnt.setValue(dt.paymentAmount);
         
         splitDt.push(newSplit);
       }
