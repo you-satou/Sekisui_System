@@ -6,8 +6,8 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 })
 
 export class OrderApprovalPaginator extends MatPaginatorIntl {
-
-  // ラベルを設定する
+  @Input() startPage:number;
+  //各ボタンのラベルの名称
 	itemsPerPageLabel	= '表示件数';
 	
 	nextPageLabel		= '次へ';
@@ -16,7 +16,9 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 	
 	firstPageLabel		= '最初へ';
 	
-	lastPageLabel		= '最後へ';
+  lastPageLabel		= '最後へ';
+  
+  pageValue: number;
 
   // ページ総数を習得する
   get numberOfPages(): number {
@@ -28,12 +30,11 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     private viewRef: ViewContainerRef,
     private rend: Renderer2
   ) {
-    
-    super();
+      super();
 
-    this.pagi.page.subscribe(() => {
-      this.initPageRange();
-    });
+      this.pagi.page.subscribe(() => {
+        this.initPageRange();
+      });
   }
 
   private initPageRange(): void {
@@ -43,18 +44,18 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
   }
 
   private buildInputPageNumber() {
-    const labelTotalPages = this.viewRef.element.nativeElement.querySelector(
-      'div.mat-paginator-range-label'
-    );
-    const actionContainer = this.viewRef.element.nativeElement.querySelector(
-      'div.mat-paginator-range-actions'
-    );
+    //総結果表示するラベルを取得する
+    const labelTotalPages = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-label');
+    //各ボタンとラベルのＤＩＶを取得する
+    const actionContainer = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-actions');
 
+    //テキストボックスが存在するかどうかをチェックする。
     let inputNode = this.viewRef.element.nativeElement.querySelector('input');
     setTimeout(() => {
+      //テキストボックスが存在しない場合、新規作成する。
       if (inputNode === null) {
         const inputIndex: Input = this.rend.createElement('input');
-        // クラスを追加する。
+        // 各クラスを追加する。
         this.rend.addClass(inputIndex, 'input-group');
         this.rend.addClass(inputIndex, 'input-group-sm');
         this.rend.setStyle(inputIndex, 'order', '3');
@@ -64,7 +65,8 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
         this.rend.setAttribute(inputIndex, 'type', 'text');
         this.rend.setAttribute(inputIndex, 'disabled', 'disabled');
         this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
-        this.rend.setStyle(inputIndex,'display','disabled');
+        // this.rend.setStyle(inputIndex,'display','disabled');
+        //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
         this.rend.listen(inputIndex, 'keypress', ($event) => {
           this.switchPage($event);
         });
@@ -103,6 +105,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     this.setNewClass();
   }
 
+  //各ボタンにBOOTSTRAPクラスに追加する
   setNewClass(){
     let buttonNodes = document.querySelectorAll('div.mat-paginator-range-actions > button');
     buttonNodes.forEach(element => {
@@ -110,9 +113,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
       element.classList.add('btn');
       element.classList.add('btn-link');
     });
-
   }
-
 
 }
 
@@ -120,7 +121,9 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 export function PaginatorResultLabel() {
 
   const paginator = new MatPaginatorIntl();
-  paginator.getRangeLabel = function(page: number, pageSize: number, length: number) {
+
+  paginator.getRangeLabel = function(page: number, pageSize: number, length: number){
+    //結果が一件もない場合、表示しない
       if (length === 0 || pageSize === 0) {
           return '';
       }

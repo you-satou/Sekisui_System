@@ -39,6 +39,7 @@
 mat-paginator {
     display: flex !important;
     justify-content: center;
+    margin: 20px 0 50px 0;
 }
 
 .mat-paginator-navigation-first {
