@@ -1,5 +1,5 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
-<div *ngIf="isInitFlg">
+<!-- <div *ngIf="isInitFlg"> -->
     <section>
         <div>
             <section class="orderInfo">
@@ -270,7 +270,7 @@
             <div style="float: left;" class="bottomButton">
                 <button mat-button id="btnBack" class="btn btn-secondary m-1 border mx-1 back-btn" (click)="backToApprovalPage($event);" >更新せず終了</button>
             </div>
-            <div style="margin-left: 200px;" class="bottomButton">
+            <div style="margin-left: 200px; bottom: 5px;" class="bottomButton">
                 <button mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
                     data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
             </div>
@@ -290,4 +290,4 @@
         </div>
         <ng-container *ngComponentOutlet="modal"></ng-container>
     </div>
-</div>
+<!-- </div> -->
