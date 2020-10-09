@@ -42,13 +42,13 @@
             <tbody>
                 <tr>
                     <td class="table-str td-b">
-                        <input [(ngModel)]="input.personalID" type="tel" disabled="{{ isEditFlg }}"
-                        tabindex="1" maxlength="32" (keyup)="toABCNum($event)" (change)="toABCNum($event)" 
+                        <input [(ngModel)]="input.personalID" type="tel" disabled="{{ isEditFlgPersonal }}"
+                        tabindex="1" maxlength="32" (keyup)="toABCNumPersonal($event)" (change)="toABCNumPersonal($event)" 
                         (blur)="getEmployeeInfo($event)" autofocus>
                     </td>
                     <td class="table-str td-b">
-                        <input [(ngModel)]="input.employeeCode" type="tel" maxlength="8"
-                        tabindex="2" maxlength="8" (keyup)="toABCNum($event)" (change)="toABCNum($event)" >
+                        <input [(ngModel)]="input.employeeCode" type="tel" disabled="{{ isEditFlgEmployee }}"
+                        tabindex="2" maxlength="8" (keyup)="toABCNumEmployee($event)" (change)="toABCNumEmployee($event)" >
                     </td>
                     <td class="table-str td-b">
                         <label type="text" maxlength="20">{{input.employeeName}}</label>

@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
 import { OrderSplitApprovalMasterTable, DropDownList } from '../entities/odis0070.entity';
-import { OrderSplitApprovalMasterService } from '../services/order-split-approval-master-service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
@@ -55,7 +54,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   btnHenkou: boolean;
   btnChuushi: boolean;
   btnSakujo: boolean;
-  isEditFlg: boolean = false;
+  isEditFlgPersonal: boolean = false;
+  isEditFlgEmployee: boolean = false;
   
   // パラメータ
   input = new ODIS0070Form();
@@ -102,7 +102,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private _location: Location,
     private service: CommonService,
     private router: Router,
-    private CommonService: CommonService,  
+    private CommonService: CommonService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   /**
@@ -172,12 +173,21 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   }
 
   /**
-   * 入力制限半角英数字のみ
+   * 入力制限半角英数字のみ(個人認証ＩＤ)
    *
    * @param $event イベント
    */
-  toABCNum($event){
-    $event.target.value = this.commonComponent.onlyHanABCNumber($event.target.value);
+  toABCNumPersonal($event){
+    this.input.personalID = this.commonComponent.onlyHanABCNumber($event.target.value);
+  }
+
+  /**
+   * 入力制限半角英数字のみ(従業員コード))
+   *
+   * @param $event イベント
+   */
+  toABCNumEmployee($event){
+    this.input.employeeCode = this.commonComponent.onlyHanABCNumber($event.target.value);
   }
 
   /**
@@ -263,7 +273,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.index = this.orderApprovalData.indexOf(selectedItem);
 
     // 個人認証ＩＤ 非活性
-    this.isEditFlg = true;
+    this.isEditFlgPersonal = true;
+    // 従業員コード
+    this.isEditFlgEmployee = true;
 
     // ボタン制御
     this.setPageButtonDisplay(true, false, false, false);
@@ -309,6 +321,25 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
            this.orderApprovalData = response.applicationData;
+
+           // 再描画
+          this.changeDetectorRef.detectChanges();
+
+          // 行 文字色 青 設定
+          var tbody = this.view.element.nativeElement.querySelector('tbody');
+          // 追加データ抽出
+          let filter = this.orderApprovalData.filter(element =>{
+            if(element.personalID == this.input.personalID){
+              return element;
+            }
+          });
+          // 行番号取得
+          let row = this.orderApprovalData.indexOf(filter[0]);
+          // 背景色 変更
+          this.commonComponent.setRowColor(Const.Action.A0001, tbody, row);
+          // 自動スクロール
+          tbody.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+
            // 初期化
            this.clearItem();
          }else{
@@ -337,8 +368,28 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
            this.orderApprovalData = response.applicationData;
+
+          // 再描画
+          this.changeDetectorRef.detectChanges();
+
+          // 行 文字色 青 設定
+          var tbody = this.view.element.nativeElement.querySelector('tbody');
+          // 追加データ抽出
+          let filter = this.orderApprovalData.filter(element =>{
+            if(element.personalID == this.input.personalID){
+              return element;
+            }
+          });
+          // 行番号取得
+          let row = this.orderApprovalData.indexOf(filter[0]);
+          // 背景色 変更
+          this.commonComponent.setRowColor(Const.Action.A0002, tbody, row);
+          // 自動スクロール
+          tbody.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+
            // 初期化
            this.clearItem();
+
          }else{
            alert(response.message);
          }
@@ -402,7 +453,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.view.element.nativeElement.querySelector('#selDel').selectedIndex = 0;
 
     // 個人認証ＩＤ 活性
-    this.isEditFlg = false;
+    this.isEditFlgPersonal = false;
+    // 従業員コード 活性
+    this.isEditFlgEmployee = false;
 
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);

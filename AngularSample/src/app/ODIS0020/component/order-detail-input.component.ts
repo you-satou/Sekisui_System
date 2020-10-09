@@ -11,7 +11,6 @@ import { OrderJournalSelectService } from '../../ODIS0030/services/order-journal
 import { OrderJournalSelectComponent } from '../../ODIS0030/component/order-journal-select.component';
 import { OrderSupplierSelectComponent } from '../../ODIS0040/component/order-supplier-select.component';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
-import { ODIS0020OrderDetailList, ODIS0020OrderShiwake, ODIS0020OrderBunkatsuSub } from '../entities/odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from '../entities/odis0020-OrderInformation.entity'
@@ -123,7 +122,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private router: Router,
     private baseCompnt: CommonComponent,
     private changeDetectorRef: ChangeDetectorRef,
-
     private actvRoute: ActivatedRoute,
 
 

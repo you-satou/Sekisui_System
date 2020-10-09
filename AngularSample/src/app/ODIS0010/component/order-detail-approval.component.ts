@@ -175,20 +175,29 @@ export class OrderDetailApprovalComponent implements OnInit {
   }
 
   /** 
-   * 契約番号　入力値チェック 
+   * 契約番号From　入力値チェック 
    */
-  onKeyUpNum($event){
+  onKeyUpNumFrom($event){
 
-    $event.target.value = this.CommonComponent.onlyHanNumber($event.target.value);
+    this.inputment.contractNumFrom = this.CommonComponent.onlyHanNumber($event.target.value);
+
+  }
+
+  /** 
+   * 契約番号To　入力値チェック 
+   */
+  onKeyUpNumTo($event){
+
+    this.inputment.contractNumTo = this.CommonComponent.onlyHanNumber($event.target.value);
 
   }
 
   /** 
    * 物件名　ロストフォーカスで半角⇒全角
    */
-  toZenkaku($event){
+  toZenkakuPropName($event){
 
-    $event.target.value = this.CommonComponent.onChangeZenkaku($event.target.value);
+    this.inputment.propertyName= this.CommonComponent.onChangeZenkaku($event.target.value);
 
   }
 

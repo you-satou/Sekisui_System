@@ -9,12 +9,12 @@
                 <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
             </div>
             <input type="tel" id="contractNumFrom" maxlength='11' [(ngModel)]="inputment.contractNumFrom" tabindex="1"
-                style="ime-mode:disabled" (keyup)="onKeyUpNum($event)" (change)="onKeyUpNum($event)" autofocus>
+                style="ime-mode:disabled" (keyup)="onKeyUpNumFrom($event)" (change)="onKeyUpNumFrom($event)" autofocus>
             <div style="width: 3%; text-align: center;">
                 <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
             </div>
             <input type="tel" id="contractNumTo" maxlength='11' [(ngModel)]="inputment.contractNumTo" tabindex="2"
-                style="ime-mode:disabled;" (keyup)="onKeyUpNum($event)" (change)="onKeyUpNum($event)">
+                style="ime-mode:disabled;" (keyup)="onKeyUpNumTo($event)" (change)="onKeyUpNumTo($event)">
         </div>
 
         <div class="input-group row" style="height: 30px;">
@@ -22,7 +22,7 @@
                 <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
             </div>
             <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
-                style="ime-mode:active" (blur)="toZenkaku($event)" (change)="toZenkaku($event)">
+                style="ime-mode:active" (blur)="toZenkakuPropName($event)" (change)="toZenkakuPropName($event)">
             <div style="width: 3%;"></div>
             <div class="input-group-append radio-container ">
                 <p class="radioCheckbox">
