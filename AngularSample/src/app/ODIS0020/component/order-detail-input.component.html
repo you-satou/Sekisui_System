@@ -196,6 +196,9 @@
             <mat-tab class="hontai" label="本体">
                 <shiwake-table #tabHontai [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
+            <mat-tab class="kaitai" label="解体">
+                <shiwake-table #tabKaitai [orderData]="tblKaitai" (sendOrderData)="getEmitter($event)"></shiwake-table>
+            </mat-tab>
             <mat-tab class="tsuika" label="追加">
                 <shiwake-table #tabTsuika [orderData]="tblTsuika" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>

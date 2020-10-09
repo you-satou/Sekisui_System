@@ -21,13 +21,16 @@ export class ODIS0020Session{
     /** 発注明細一覧 */
     orderDetailList: ODIS0020OrderDetaiSplitBean[];
 
-    /** 設計のデータ */
+    /** 設計データ */
     SekkeiData: ODIS0020OrderDetaiSplitBean[];
 
-    /** 本体のデータ */
+    /** 本体データ */
     HontaiData: ODIS0020OrderDetaiSplitBean[];
 
-    /** 追加のデータ */
+    /** 解体データ */
+    KaitaiData: ODIS0020OrderDetaiSplitBean[];
+
+    /** 追加データ */
     TsuikaData: ODIS0020OrderDetaiSplitBean[]
 
     /** パラメータ設定 */

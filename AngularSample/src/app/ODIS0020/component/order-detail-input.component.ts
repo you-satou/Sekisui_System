@@ -35,6 +35,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   @ViewChild('tabSekkei', { static: false }) childSekkei: any
   @ViewChild('tabHontai', { static: false }) childHontai: any
+  @ViewChild('tabTsuika', { static: false }) childKaitai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
   // タッブの初期値
@@ -44,6 +45,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private tabNo1: string = Const.TabName.TabName_0;
   private tabNo2: string = Const.TabName.TabName_1;
   private tabNo3: string = Const.TabName.TabName_2;
+  private tabNo4: string = Const.TabName.TabName_3;
 
   get tabValue(){
     switch(this.selectedTab){
@@ -53,6 +55,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         return Number(Const.JutyuEdaban.TabIndex_1);;
       case this.tabNo3:
         return Number(Const.JutyuEdaban.TabIndex_2);;
+      case this.tabNo4:
+        return Number(Const.JutyuEdaban.TabIndex_3);;
     }
 
   }
@@ -72,8 +76,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
-  tblHontai: ODIS0020OrderDetaiSplitBean[] = [];
-  tblTsuika: ODIS0020OrderDetaiSplitBean[] = [];
+  tblHontai : ODIS0020OrderDetaiSplitBean[] = [];
+  tblKaitai : ODIS0020OrderDetaiSplitBean[] = [];
+  tblTsuika : ODIS0020OrderDetaiSplitBean[] = [];
 
   // mocking data url
   readonly _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
@@ -246,8 +251,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               // 「本体」タブ
               this.tblHontai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_1);
               
+              // 「解体」タブ
+              this.tblKaitai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
+
               // 「追加」タブ
-              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
+              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_3);
               
               // 画面をレンダーする
               this.isInitFlg = true;
@@ -352,6 +360,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblInsertedOrder = savedData.insertedOrderInfo;
     this.tblSekkei = savedData.SekkeiData;
     this.tblHontai = savedData.HontaiData;
+    this.tblKaitai = savedData.KaitaiData;
     this.tblTsuika = savedData.TsuikaData;
     this.paramInit = savedData.paramInit;
     
@@ -370,8 +379,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         case Const.JutyuEdaban.TabIndex_1:
           this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
           break;
-  
+
         case Const.JutyuEdaban.TabIndex_2:
+          this.tblKaitai = this.mergeData(savedData.KaitaiData, returnDt);
+          break;
+  
+        case Const.JutyuEdaban.TabIndex_3:
           this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
           break;
       }
@@ -396,6 +409,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
       case Const.JutyuEdaban.TabIndex_2:
         resVal = Const.TabName.TabName_2;
+        break;
+      case Const.JutyuEdaban.TabIndex_3:
+        resVal = Const.TabName.TabName_3;
         break;
     }
     return resVal;
@@ -483,8 +499,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         case Const.JutyuEdaban.TabIndex_1:
           body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
           break;
-  
+
         case Const.JutyuEdaban.TabIndex_2:
+          body = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+  
+        case Const.JutyuEdaban.TabIndex_3:
           body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
           break;
       }
@@ -646,6 +666,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
+        insertIndex = this.countDefaultData(this.childKaitai.orderData);
+        this.childKaitai.orderData.splice(insertIndex, 0, insertDt);
+        this.childKaitai.tableShiwake.renderRows();
+        this.reDetailNo(this.childKaitai.orderData);
+        tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
+        break;
+
+      case this.tabNo4:
         insertIndex = this.countDefaultData(this.childTsuika.orderData);
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.childTsuika.tableShiwake.renderRows();
@@ -713,6 +741,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
 
       case this.tabNo3:
+        let dataKaitai = this.childKaitai.orderData;
+        this.insertProcess(insertBucket,dataKaitai);
+        this.childTsuika.tableShiwake.renderRows();
+        break;
+
+      case this.tabNo4:
         let dataTsuika = this.childTsuika.orderData;
         this.insertProcess(insertBucket,dataTsuika);
         this.childTsuika.tableShiwake.renderRows();
@@ -775,6 +809,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
         this.baseCompnt.setUpdateColor(Const.Action.A0002, body,key);
         this.childHontai.tableShiwake.renderRows();
+        break;
+
+      case this.tabNo3:
+        this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key);
+        body = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
+        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
+        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
+        this.childKaitai.tableShiwake.renderRows();
         break;
 
       case this.tabNo3:
@@ -976,7 +1018,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.orderDetailList = tmp;
 
     // TODO
-    this.orderService.getSearchRequest('/ODIS0020/update',this.paramUpd)
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE,this.paramUpd)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){              
@@ -1022,6 +1064,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     saveDt.orderDetailList = this.orderDetaiSplitlList;
     saveDt.SekkeiData = this.tblSekkei;
     saveDt.HontaiData = this.tblHontai;
+    saveDt.KaitaiData = this.tblKaitai;
     saveDt.TsuikaData = this.tblTsuika;
     saveDt.paramInit = this.paramInit;
 

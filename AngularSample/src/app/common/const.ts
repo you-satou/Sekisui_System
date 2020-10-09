@@ -179,6 +179,7 @@ export namespace Const{
         export const TabIndex_0 = '0'
         export const TabIndex_1 = '1'
         export const TabIndex_2 = '2'
+        export const TabIndex_3 = '3'
     }
 
     /**
@@ -187,7 +188,8 @@ export namespace Const{
     export namespace TabName{
         export const TabName_0 = '設計'
         export const TabName_1 = '本体'
-        export const TabName_2 = '追加'
+        export const TabName_2 = '解体'
+        export const TabName_3 = '追加'
     }
     
 }

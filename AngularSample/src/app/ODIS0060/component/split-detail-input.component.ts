@@ -183,6 +183,9 @@ export class SplitOrderDetailComponent implements OnInit {
   /**
    * タブ名 取得
    */
+/**
+   * タブ名 取得
+   */
   private getTabName(val: string){
     var resVal: string = '';
     switch(val){
@@ -194,6 +197,9 @@ export class SplitOrderDetailComponent implements OnInit {
         break;
       case Const.JutyuEdaban.TabIndex_2:
         resVal = Const.TabName.TabName_2;
+        break;
+      case Const.JutyuEdaban.TabIndex_3:
+        resVal = Const.TabName.TabName_3;
         break;
     }
     return resVal;
