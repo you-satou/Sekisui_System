@@ -177,6 +177,48 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .reduce((acc, value) => acc + value, 0);
     }
   }
+
+  /**
+   * ボタン活性フラグ(分割リンクボタン)
+   * @param element 
+   */
+  isReflectFlg(element:ODIS0020OrderDetaiSplitBean){
+    // 発注予定金額画空白の場合、非活性にする。
+    if(this.comCompnt.setValue(element.orderPlanAmount) === ''){
+      // 非活性
+      return true;
+    }
+
+    // 分割連番 1以外の場合は非活性
+    if(this.comCompnt.setValue(element.splitNo) !== ''){
+      return true;
+    }
+
+    // 発注金額にデータが入っている場合、非活性
+    if(this.comCompnt.setValue(element.orderSplitAmount) !== ''){
+      return true;
+    }
+
+    // 活性
+    return false;
+  }
+
+  /**
+   * ボタン活性フラグ(分割リンクボタン)
+   * @param element 
+   */
+  isSplitFlg(element:ODIS0020OrderDetaiSplitBean){
+    
+    // 発注予定金額画空白の場合、非活性にする。
+    if(this.comCompnt.setValue(element.orderPlanAmount) === ''){
+      // 非活性
+      return true;
+    }
+
+    // 活性
+    return false;
+  }
+
   /**
    *➡ボタンを押下して、 発注金額を設定する
    * @param $event

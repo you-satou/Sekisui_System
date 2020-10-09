@@ -1049,21 +1049,40 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ ---------------------------------------
   /**
-   * focus処理
-   *
-   * @param $event イベント
-   */
-  commonFocus($event){
-    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
-  }
-
-  /**
-  * keyUp処理 半角数字のみ
+  * keyUp処理 半角数字のみ(仕訳コード)
   *
   * @param $event イベント
   */
-  toHanNum($event){
-    $event.target.value = this.baseCompnt.onlyHanNumber($event.target.value);
+  toHanNumJC($event){
+    this.addInput.journalCode = this.baseCompnt.onlyHanNumber($event.target.value);
+  }
+
+ /**
+  * keyUp処理 半角数字のみ(経理分類コード)
+  *
+  * @param $event イベント
+  */
+ toHanNumAC($event){
+  this.addInput.accountCode = this.baseCompnt.onlyHanNumber($event.target.value);
+ }
+
+/**
+  * keyUp処理 半角数字のみ(発注先コード)
+  *
+  * @param $event イベント
+  */
+ toHanNumSC($event){
+  this.addInput.orderSupplierCode = this.baseCompnt.onlyHanNumber($event.target.value);
+ }
+
+
+ /**
+  * keyUp処理 半角数字のみ(発注先予定金額)
+  *
+  * @param $event イベント
+  */
+  toHanNumPA($event){
+    this.addInput.orderPlanAmount = this.baseCompnt.onlyHanNumber($event.target.value);
   }
 
   /**
@@ -1071,19 +1090,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  commonBlur($event){
+  commonBlurPA($event){
     if(!($event.target.value == "")){
-      $event.target.value = this.baseCompnt.addCommas($event.target.value);
+      this.addInput.orderPlanAmount = this.baseCompnt.addCommas($event.target.value);
     }
   }
 
   /**
-  * blur処理 半角⇒全角
+   * focus処理
+   *
+   * @param $event イベント
+   */
+  commonFocusPA($event){
+    this.addInput.orderPlanAmount = this.baseCompnt.removeCommas($event.target.value);
+  }
+
+ /**
+  * blur処理 半角⇒全角(仕訳名称)
   *
   * @param $event イベント
   */
-  toZenkaku($event){
-    $event.target.value = this.baseCompnt.onChangeZenkaku($event.target.value);
+  toZenkakuJN($event){
+    this.addInput.journalName = this.baseCompnt.onChangeZenkaku($event.target.value);
   }
 
   /**

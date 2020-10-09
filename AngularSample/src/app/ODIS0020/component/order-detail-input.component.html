@@ -1,5 +1,5 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
-<!-- <div *ngIf="isInitFlg"> -->
+<div *ngIf="isInitFlg">
     <section>
         <div>
             <section class="orderInfo">
@@ -223,29 +223,29 @@
                     <td style="width: auto;">
                         <input type="tel" maxlength="4" class="add-journalCode" id="txtAddJCode" name="journalCode"
                             [(ngModel)]="addInput.journalCode" style="text-align:left;" tabindex="1"
-                            (keyup)="toHanNum($event)" (change)="toHanNum($event)" (blur)="getJournalCode($event)">
+                            (keyup)="toHanNumJC($event)" (change)="toHanNumJC($event)" (blur)="getJournalCode($event)">
                     </td>
                     <td>
                         <input type="tel" maxlength="3" class="add-accountCode" id="txtAddAccCode"
                             name="accountingCategory" [(ngModel)]="addInput.accountCode"
-                            style="text-align:left;" tabindex="2" (keyup)="toHanNum($event)"
-                            (change)="toHanNum($event)"(blur)="blurAccountCode($event)">
+                            style="text-align:left;" tabindex="2" (keyup)="toHanNumAC($event)"
+                            (change)="toHanNumAC($event)"(blur)="blurAccountCode($event)">
                     </td>
                     <td>
                         <input type="text" maxlength="10" class="add-journalName" name="orderJournalName"
                             [(ngModel)]="addInput.journalName" tabindex="3" style="text-align:left;"
-                            (blur)="toZenkaku($event)" (change)="toZenkaku($event)">
+                            (blur)="toZenkakuJN($event)" (change)="toZenkakuJN($event)">
                     </td>
                     <td>
                         <input type="tel" maxlength="3" class="add-supplierCode" name="supplierCode"
                             [(ngModel)]="addInput.orderSupplierCode" style="ime-mode:disabled; text-align:left;"
-                            tabindex="4" (keyup)="toHanNum($event)" (change)="toHanNum($event)" (blur)="getOrderCode($event)">
+                            tabindex="4" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
                     <td class="add-supplierName" style="text-align: left;">{{addInput.orderSupplierName}}</td>
                     <td class="add-planAmount">
                         <input type="tel" maxlength="11" id="txtAddAmount" name="orderPlansKin"
-                            [(ngModel)]="addInput.orderPlanAmount" tabindex="5" (focus)="commonFocus($event)"
-                            (keyup)="toHanNum($event)" (change)="toHanNum($event)" (blur)="commonBlur($event)">
+                            [(ngModel)]="addInput.orderPlanAmount" tabindex="5" (focus)="commonFocusPA($event)"
+                            (keyup)="toHanNumPA($event)" (change)="toHanNumPA($event)" (blur)="commonBlurPA($event)">
                     </td>
                 </tr>
             </tbody>
@@ -255,39 +255,39 @@
     <section style="margin-top: 10px;">
         <div class="button-container">
             <button disabled={{btnInsert}} mat-button (click)="insertOrderDetail()"
-                class="btn btn-success">明細追加</button>
+                class="btn btn-success" tabindex="6">明細追加</button>
             <button disabled={{btnUpdate}} mat-button (click)="updateOrderDetail()"
-                class="btn btn-info m-1 border ">明細更新</button>
+                class="btn btn-info m-1 border" tabindex="7">明細更新</button>
             <button disabled={{btnStop}} mat-button (click)="stopUpdateOrderDetail()"
-                class="btn btn-danger border m-1">中止</button>
+                class="btn btn-danger border m-1" tabindex="8">中止</button>
             <button disabled={{btnDelete}} mat-button style="float: right;" (click)="deleteOrderDetail()"
-                class="btn btn-danger border m-1">明細削除</button>
+                class="btn btn-danger border m-1" tabindex="9">明細削除</button>
         </div>
     </section>
     <br>
     <div class="footer-container" style=" margin-top: 20px;">
         <div class="_footer-container">
             <div style="float: left;" class="bottomButton">
-                <button mat-button id="btnBack" class="btn btn-secondary m-1 border mx-1 back-btn" (click)="backToApprovalPage($event);" >更新せず終了</button>
+                <button mat-button id="btnBack" class="btn btn-secondary m-1 border mx-1 back-btn" (click)="backToApprovalPage($event);" tabindex="10">更新せず終了</button>
             </div>
             <div style="margin-left: 200px; bottom: 5px;" class="bottomButton">
                 <button mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
-                    data-target="#M_ODIS0050" (click)="supplierPattern($event);">発注先パターン選択</button>
+                    data-target="#M_ODIS0050" (click)="supplierPattern($event);" tabindex="11">発注先パターン選択</button>
             </div>
             <div style="margin-left: 430px;" class="bottomButton">
-                <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1" style ="display: none;">得意先元帳</button>
+                <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1" style ="display: none;" tabindex="12">得意先元帳</button>
             </div>
             <div style="margin-left: 550px;" class="bottomButton">
-                <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" style ="display: none;">工事台帳</button>
+                <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" style ="display: none;" tabindex="13">工事台帳</button>
             </div>
             <div style="margin-left: 680px;" class="bottomButton">
-                <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border">明細一覧</button>
+                <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="14">明細一覧</button>
             </div>
             <div style="right: 46px;" class="bottomButton">
                 <button mat-button id="btnKoushin" class="btn btn-info m-1 border"
-                    (click)="finalUpdateProgress()">更新終了</button>
+                    (click)="finalUpdateProgress()" tabindex="15">更新終了</button>
             </div>
         </div>
         <ng-container *ngComponentOutlet="modal"></ng-container>
     </div>
-<!-- </div> -->
+</div>

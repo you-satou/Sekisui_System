@@ -100,7 +100,7 @@
         <ng-container matColumnDef="display">
             <th style="width: 20px; " class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; box-shadow: 1px 0px 0px 0px #dee2e6 inset;" class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button class="btn btn-link" (click)=getDisplayData($event,element)><mat-icon>➡</mat-icon></button>
+                <button class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)><mat-icon>➡</mat-icon></button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
         </ng-container>
@@ -108,7 +108,7 @@
         <ng-container matColumnDef="split">
             <th style="width: 20px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; text-align: center;" mat-cell *matCellDef="let element ">
-                <button class="btn btn-link" (click) = 'moveToSliptDetailInput($event,element)' >分</button>
+                <button class="btn btn-link" disabled="{{isSplitFlg(element)}}" mat-button (click) = 'moveToSliptDetailInput($event,element)'>分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
