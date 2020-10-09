@@ -254,3 +254,7 @@ button{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+p {
+    margin-bottom: 0;
+}
