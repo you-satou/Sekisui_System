@@ -188,10 +188,13 @@ export class SplitOrderDetailComponent implements OnInit {
     switch(val){
       case Const.JutyuEdaban.TabIndex_0:
         resVal = Const.TabName.TabName_0;
+        break;
       case Const.JutyuEdaban.TabIndex_1:
         resVal = Const.TabName.TabName_1;
+        break;
       case Const.JutyuEdaban.TabIndex_2:
         resVal = Const.TabName.TabName_2;
+        break;
     }
     return resVal;
   }

@@ -360,6 +360,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // 分割データ 1件以上の場合、以降の処理を実施
     if(returnDt.length >= 1){
+      // タブ設定
+      this.selectedTab = this.getTabName(returnDt[0].detailKind);
       switch (returnDt[0].detailKind) {
         case Const.JutyuEdaban.TabIndex_0:
           this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
@@ -378,6 +380,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.saveTemporaryData();
     // ロード画面を解除する。
     this.isLoading = false;
+  }
+
+  /**
+   * タブ名 取得
+   */
+  private getTabName(val: string){
+    var resVal: string = '';
+    switch(val){
+      case Const.JutyuEdaban.TabIndex_0:
+        resVal = Const.TabName.TabName_0;
+        break;
+      case Const.JutyuEdaban.TabIndex_1:
+        resVal = Const.TabName.TabName_1;
+        break;
+      case Const.JutyuEdaban.TabIndex_2:
+        resVal = Const.TabName.TabName_2;
+        break;
+    }
+    return resVal;
   }
 
     /**
@@ -712,9 +733,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // 同一仕訳コードが存在する場合
         if (insBk.journalCode === data.journalCode) {
           // 承認日１が空白の場合
-          if (data.approvalPerson_lv1.trim() === '') {
-            data.orderSupplierCode = insBk.orderSupplierCode    // 発注先コード
-            data.orderSupplierName = insBk.orderSupplierName    // 発注先名称
+          if (this.baseCompnt.setValue(data.approvalPerson_lv1) === '') {
+            data.orderSupplierCode = this.baseCompnt.setValue(insBk.orderSupplierCode);    // 発注先コード
+            data.orderSupplierName = this.baseCompnt.setValue(insBk.orderSupplierName );   // 発注先名称
             insFlg = false;
             break;
           }
