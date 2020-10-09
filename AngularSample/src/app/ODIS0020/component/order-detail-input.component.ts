@@ -35,7 +35,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   @ViewChild('tabSekkei', { static: false }) childSekkei: any
   @ViewChild('tabHontai', { static: false }) childHontai: any
-  @ViewChild('tabTsuika', { static: false }) childKaitai: any
+  @ViewChild('tabKaitai', { static: false }) childKaitai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
 
   // タッブの初期値
@@ -283,7 +283,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], tabIndex: string){
     // データ フィルタ
     var dt = listOrderDetail.filter(val =>{
-      if(val.detailKind == tabIndex){
+      if(this.baseCompnt.setValue(val.detailKind) == tabIndex){
         return val;
       }
     })
@@ -291,6 +291,24 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 取得件数が0件の場合に、初期設定を行う
     if(dt.length === 0){
       dt = this.getInitData(tabIndex);
+    }else{
+      // ハウス材等を一番下に加工
+      var temp1 = dt.filter(dt => {
+        if(dt.journalName != 'ハウス材' &&
+          dt.journalName != '運賃・荷造・保管料' &&
+          dt.journalName != '労災'){
+            return dt;
+        }
+      });
+      var temp2 = dt.filter(dt => {
+        if(dt.journalName == 'ハウス材' ||
+          dt.journalName == '運賃・荷造・保管料' ||
+          dt.journalName == '労災'){
+            return dt;
+        }
+      });
+      // マージ
+      dt = temp1.concat(temp2);
     }
 
     return dt;
@@ -819,7 +837,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childKaitai.tableShiwake.renderRows();
         break;
 
-      case this.tabNo3:
+      case this.tabNo4:
         this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key);
         body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
@@ -871,6 +889,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         tblBody= this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
       case this.tabNo3:
+        tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
+        break;
+      case this.tabNo4:
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
@@ -906,6 +927,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.reDetailNo(this.childHontai.orderData);
         break;
       case this.tabNo3:
+        this.childKaitai.orderData.splice(key, len);
+        this.childKaitai.tableShiwake.renderRows();
+        this.reDetailNo(this.childKaitai.orderData);
+        break;
+      case this.tabNo4:
         this.childTsuika.orderData.splice(key, len);
         this.childTsuika.tableShiwake.renderRows();
         this.reDetailNo(this.childTsuika.orderData);
@@ -1002,22 +1028,42 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           return;
         }
     }
-    // 初期化
-    this.isLoading = true;
 
+    // 入力チェック(「設計」タブ)
+    if(this.updCheck(this.childSekkei.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「本体」タブ)
+    if(this.updCheck(this.childHontai.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「解体」タブ)
+    if(this.updCheck(this.childKaitai.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「追加」タブ)
+    if(this.updCheck(this.childTsuika.orderData)){
+      this.isLoading = false;
+      return 
+    }
+
+    // ローディング開始
+    this.isLoading = true;
     //サーバに更新データを送る。
     var tmp: ODIS0020OrderDetaiSplitBean[] = [];
-    
     // 受注枝番 マージ
-    this.createOrderData(tmp, this.childSekkei.orderData);
-    this.createOrderData(tmp, this.childHontai.orderData);
-    this.createOrderData(tmp, this.childTsuika.orderData);
+    this.createOrderData(tmp, this.childSekkei.orderData);    // 設計
+    this.createOrderData(tmp, this.childHontai.orderData);    // 本体
+    this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
+    this.createOrderData(tmp, this.childTsuika.orderData);    // 追加
 
     // データ更新
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
     this.paramUpd.orderDetailList = tmp;
 
-    // TODO
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE,this.paramUpd)
         .then(
           (response) => {
@@ -1035,6 +1081,37 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.isLoading = false;
           }
         );
+  }
+
+  /**
+   * 更新終了 入力チェック
+   * @param val 
+   */
+  private updCheck(datas: ODIS0020OrderDetaiSplitBean[]):boolean{
+    var tmp = datas.filter(dt => {
+      if(dt.journalName !== 'ハウス材' &&
+        dt.journalName !== '運賃・荷造・保管料' &&
+        dt.journalName !== '労災'){
+          return dt;
+        }
+      });
+    
+    // 発注先コード、発注予定金額 空白チェック   
+    for(var i=0; i<tmp.length; i++){
+      // 発注先コード 空白場合
+      if(this.baseCompnt.setValue(tmp[i].orderSupplierCode) === ''){
+        var tabName = '「' + this.getTabName(tmp[i].detailKind) + '」タブ ';
+        alert(tabName + (i+1).toString()+ '行目：' + Const.ErrorMsg.E0017);
+        return true;
+      }
+      // 発注予定金額
+      if(this.baseCompnt.setValue(tmp[i].orderPlanAmount) === ''){
+        var tabName = '「' + this.getTabName(tmp[i].detailKind) + '」';
+        alert(tabName + '：' + Const.ErrorMsg.E0006);
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -1135,7 +1212,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   commonBlurPA($event){
     if(!($event.target.value == "")){
-      this.addInput.orderPlanAmount = this.baseCompnt.addCommas($event.target.value);
+      // 表示内容
+      $event.target.value = this.baseCompnt.addCommas($event.target.value);
+      // 実際値
+      this.addInput.orderPlanAmount = this.baseCompnt.removeCommas($event.target.value);
     }
   }
 
@@ -1145,6 +1225,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param $event イベント
    */
   commonFocusPA($event){
+    // 表示内容
+    $event.target.value = this.baseCompnt.removeCommas($event.target.value);
+    // 実際値
     this.addInput.orderPlanAmount = this.baseCompnt.removeCommas($event.target.value);
   }
 
