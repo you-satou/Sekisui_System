@@ -190,7 +190,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     }
 
     // 分割連番 1以外の場合は非活性
-    if(this.comCompnt.setValue(element.splitNo) !== ''){
+    if(this.comCompnt.setValue(element.splitNo) !== '1'){
       return true;
     }
 
@@ -225,16 +225,8 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * @param dataDetail
    */
   getDisplayData($event, data: ODIS0020OrderDetaiSplitBean) {
-    if (data.orderPlanAmount == '' ||
-        data.orderPlanAmount == null ||
-        data.orderPlanAmount == undefined
-    ){
-      return;
-    }
-    if(data.orderSplitAmount != ''){
-      return;
-    }
-    data.orderSplitAmount = data.orderPlanAmount;
+    // 発注予定金額を発注金額に設定
+    data.orderSplitAmount = this.comCompnt.removeCommas(data.orderPlanAmount);
 
     let i = this.orderData.indexOf(data);
 
