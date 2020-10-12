@@ -596,8 +596,8 @@ export class SplitOrderDetailComponent implements OnInit {
    *
    * @param $event イベント
    */
-  onlyHanNumber($event){
-    this.input.orderSplitAmount = this.baseCompnt.onlyHanNumber($event.target.value);
+  onlyHanPrice($event){
+    this.input.orderSplitAmount = this.baseCompnt.onlyHanPrice($event.target.value);
   }
 
   /**

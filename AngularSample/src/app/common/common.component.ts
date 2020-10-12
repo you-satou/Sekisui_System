@@ -245,7 +245,7 @@ export class CommonComponent {
   }
 
     /**
-   * 入力値制限 半角数字以外削除
+   * 入力値制限 半角金額以外削除
    * 
    */
   onlyHanPrice(value: string) {
@@ -259,11 +259,12 @@ export class CommonComponent {
       var c = "";
       c = beforeTextArr[i];
 
-      if(beforeTextArr[0] && c.match(/[-]/)){
-        resultValue += c
+      //マイナスはＯＫ
+      if(i == 0 && c.match(/[-]/)){
+
       }
-      else if (c.match(/[^0-9]/)) {
-        c = '';
+      else if (c.match(/[^0-9]/)) {        
+          c = '';
       }
       resultValue += c
     }
