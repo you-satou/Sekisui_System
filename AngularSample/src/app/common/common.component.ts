@@ -244,6 +244,32 @@ export class CommonComponent {
     return resultValue;
   }
 
+    /**
+   * 入力値制限 半角数字以外削除
+   * 
+   */
+  onlyHanPrice(value: string) {
+
+    var resultValue = "";
+
+    var beforeTextArr = String(value).split('');
+
+    for (var i = 0; i < value.length; i++) {
+
+      var c = "";
+      c = beforeTextArr[i];
+
+      if(beforeTextArr[0] && c.match(/[-]/)){
+        resultValue += c
+      }
+      else if (c.match(/[^0-9]/)) {
+        c = '';
+      }
+      resultValue += c
+    }
+    return resultValue;
+  }
+
   /**
    * 入力値制限 半角英数字以外削除
    * 
