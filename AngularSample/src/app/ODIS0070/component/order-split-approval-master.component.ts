@@ -169,7 +169,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   public onBackClick($event) {
-    this.router.navigate([Const.UrlSetting.U0000]);
+    this.router.navigate([Const.UrlSetting.U0001]);
   }
 
   /**
