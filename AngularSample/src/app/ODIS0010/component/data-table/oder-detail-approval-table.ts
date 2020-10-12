@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -41,14 +42,34 @@ export class OrderDetailApprovalTable{
     private router: Router,
   ) {}
 
+  ngOnInit() {
+    //初期化、テーブルのソートを非活性する
+    this.dataSource.sort.disabled = true;
+  }
+
   ngOnChanges( ) {
-
     this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
 
+    if(this.dataSource.data.length > 0){
+      //データがある場合, ソートを活性化する
+      this.sort.disabled = false;
+      //ソート矢印を表示する。
+      this.hiddenSortArrow('1');
+    }
+    else{
+      //データがない場合, ソートを非活性する
+      this.sort.disabled = true;
+      //データが絞り込まれている状態を解除する
+      this.sort.direction = '';
+      //ソート矢印を非表示する。
+      this.hiddenSortArrow('0'); 
+    }
     // ソートした状態が前の状態に戻らない,　降順ー昇順だけ
     this.sort.disableClear = true;
+    
+    //テーブルのソートとパジーネタを設定する
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
  
   /**　ページに移動する */
@@ -57,6 +78,20 @@ export class OrderDetailApprovalTable{
     //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
     this.router.navigate(['OrderDetailInput'],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum}});
     
+  }
+
+  /**
+   * ソートの矢印の表示を設定する。
+   * @param val ０：非表示、１：表示
+   */
+  hiddenSortArrow(val:string){
+
+    //ソート矢印のエレメントを取得する
+    let sortArrow: any = document.querySelector('div.mat-sort-header-arrow');
+
+    if(sortArrow != null){
+      sortArrow.style.opacity = val;
+    }
   }
 
 }

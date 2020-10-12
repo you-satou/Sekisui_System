@@ -1,7 +1,6 @@
-import { Component, HostListener, OnInit, ViewEncapsulation,ViewChild, ChangeDetectorRef } from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
-import { OrderDetailApprovalTable } from 'app/ODIS0010/component/data-table/oder-detail-approval-table';
 import { CommonService } from "app/common/common.service";
 import { CommonComponent } from "app/common/common.component";
 import { AppComponent } from "../../app.component";
@@ -16,7 +15,7 @@ import { Router } from '@angular/router';
 })
 export class OrderDetailApprovalComponent implements OnInit {
 
-  orderDetailData: ODIS0010OrderDetail[] = [];
+  orderDetailData: ODIS0010OrderDetail[];
   // パラメータ
   inputment= new ODIS0010Form();
 
@@ -32,8 +31,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   // // Mocking data用、削除予定
   // _url: string = "assets/data/dataApproval.json";
   
-  @ViewChild(OrderDetailApprovalTable,{static:false}) private orderDetailApprovalTable: OrderDetailApprovalTable;
-
   //初期画面のレンダー
   isInitFlg: boolean = false;
   
@@ -42,7 +39,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     private orderService: CommonService,
     private router: Router,
     private CommonComponent: CommonComponent,
-    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -59,12 +55,6 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // 初期画面をレンダーする
     this.isInitFlg = true;
-
-    //isInitFlgが「true」になる時のみ、OrderDetailApprovalTableがアクセスできるようになりますので、
-    //画面がレンダーされてからorderDetailApprovalTableに挿入して操作できます
-    this.changeDetectorRef.detectChanges();
-
-    this.orderDetailApprovalTable.sort.disabled = true;
   }
 
   onCloseClick(){
@@ -126,16 +116,17 @@ export class OrderDetailApprovalComponent implements OnInit {
             //返却データがない場合、データテーブルを初期化にする。
             this.orderDetailData = [];
             this.setPaginator('0');
+
+            //メッセージを表示するまで、タイマーを設定する。
             setTimeout(function() {
               alert(response.message);
-            },500);
+            },300);
           }
           //ロード中を解除する。
           this.isGetting = false;
         }
       );
     }
-    this.orderDetailApprovalTable.sort.disabled = false;
   }
 
   /**
