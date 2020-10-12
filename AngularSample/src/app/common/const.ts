@@ -155,7 +155,7 @@ export namespace Const{
         export const E0015 = '変更されていないデータは更新できません。';
         export const E0016 = '個人認証ＩＤは必須入力です。';
         export const E0017 = '発注先コードは必須入力です。';
-        export const E0018 = '編集中のデータがあります。';
+        export const E0018 = '編集途中のデータがあります。';
     }
     /**
      * 警告メッセージ
@@ -164,8 +164,8 @@ export namespace Const{
 
         export const W0001 = '明細削除処理を行いますか？';
         export const W0002 = '通信中。。。';
-        export const W0003 = '変更内容を更新せず、\n承認処理画面に戻りますが、よろしいでしょうか';
-        export const W0004 = '入力未済な項目がありますが、\n続いて更新処理を行いますか？';
+        export const W0003 = '承認処理画面に戻ります。\n保存されていないデータは破棄されますが、よろしいでしょうか';
+        export const W0004 = '編集途中のデータがあります。\n編集途中のデータは破棄されますが、更新処理を行いますか？';
     }
 
     /**
