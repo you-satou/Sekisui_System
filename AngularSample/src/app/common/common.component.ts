@@ -396,7 +396,6 @@ export class CommonComponent {
         }
       }
     }
-
   }
 
   /**

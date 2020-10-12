@@ -815,6 +815,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
 
+    // 文字色設定
+    this.setAfterViewFont();
+
     // 初期化
     this.setDefaultDisplay();
   }
@@ -824,16 +827,26 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param val 0:明細追加, 1:明細更新
    */
   private inputCheck(val: string){
-    if(this.addInput.journalCode == ''){
+    // 仕訳コード 未入力の場合
+    if(this.baseCompnt.setValue(this.addInput.journalCode) == ''){
       alert(Const.ErrorMsg.E0003);
       this.baseCompnt.setFocus('txtAddJCode');
       return false;
     }
-    if(this.addInput.accountCode == ''){
+    // 経理分類 未入力の場合
+    if(this.baseCompnt.setValue(this.addInput.accountCode) == ''){
       alert(Const.ErrorMsg.E0004);
       this.baseCompnt.setFocus('txtAddAccCode');
       return false;
     }
+
+    // 発注予定金額が0の場合
+    if(Number(this.baseCompnt.setValue(this.addInput.orderPlanAmount)) == 0){
+      alert(Const.ErrorMsg.E0006);
+      this.baseCompnt.setFocus('txtAddAmount');
+      return false;
+    }
+
     // 明細更新ボタン押下された場合は以下処理を実施
     if(val === '1'){
       //明細が変更したかどうかチェックする

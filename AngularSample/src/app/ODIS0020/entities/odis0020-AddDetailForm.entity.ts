@@ -100,7 +100,10 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         // 発注連番に紐づくデータをすべて更新
         for(var i=0; i<output.length; i++){
             if(output[i].detailNo === output[key].detailNo){
-                output[i].insKubun          = Const.InsKubun.Upd;
+                // 登録区分 通常の場合に更新に変更する。
+                if(output[i].insKubun === Const.InsKubun.Normal){
+                    output[i].insKubun          = Const.InsKubun.Upd;
+                }
                 output[i].journalCode       = this.journalCode;
                 output[i].journalName       = this.journalName;
                 output[i].accountCode       = this.accountCode;
