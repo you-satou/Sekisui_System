@@ -142,7 +142,7 @@
 
 .tbl2 {
     overflow-y: auto;
-    height: 143px;
+    height: 141px;
     float: left;
     margin-left: 20px;
     width: fit-content;
@@ -157,6 +157,8 @@
     position: absolute; 
     background-color: #fff; 
     height: 115px;
+    width: 23px;
+    text-align: center;
     z-index: 1;
     box-shadow: 1px 0px 0px 0px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, -1px 0px 0px 0px #dee2e6 inset;
     padding: 15px 0px;
@@ -247,6 +249,10 @@
 .add-planAmount{
     margin: 0;
     padding: 0;
+}
+
+.mat-icon {
+    height: auto !important;
 }
 
 button{
