@@ -2,81 +2,81 @@
     <loading-spinner></loading-spinner>
 </div>
 <div *ngIf="isInitFlg">
-<div id="orderDetailApproval">
-    <section class="search-area form-group">
-        <div class="input-group row" style="height: 30px;">
-            <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
+    <div id="orderDetailApproval">
+        <section class="search-area form-group">
+            <div class="input-group row" style="height: 30px;">
+                <div class="input-group-prepend">
+                    <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
+                </div>
+                <input type="tel" id="contractNumFrom" maxlength='11' [(ngModel)]="inputment.contractNumFrom" tabindex="1"
+                    style="ime-mode:disabled" (keyup)="onKeyUpNumFrom($event)" (change)="onKeyUpNumFrom($event)" autofocus>
+                <div style="width: 3%; text-align: center;">
+                    <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
+                </div>
+                <input type="tel" id="contractNumTo" maxlength='11' [(ngModel)]="inputment.contractNumTo" tabindex="2"
+                    style="ime-mode:disabled;" (keyup)="onKeyUpNumTo($event)" (change)="onKeyUpNumTo($event)">
             </div>
-            <input type="tel" id="contractNumFrom" maxlength='11' [(ngModel)]="inputment.contractNumFrom" tabindex="1"
-                style="ime-mode:disabled" (keyup)="onKeyUpNumFrom($event)" (change)="onKeyUpNumFrom($event)" autofocus>
-            <div style="width: 3%; text-align: center;">
-                <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
-            </div>
-            <input type="tel" id="contractNumTo" maxlength='11' [(ngModel)]="inputment.contractNumTo" tabindex="2"
-                style="ime-mode:disabled;" (keyup)="onKeyUpNumTo($event)" (change)="onKeyUpNumTo($event)">
-        </div>
 
-        <div class="input-group row" style="height: 30px;">
-            <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
+            <div class="input-group row" style="height: 30px;">
+                <div class="input-group-prepend">
+                    <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
+                </div>
+                <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
+                    style="ime-mode:active" (blur)="toZenkakuPropName($event)" (change)="toZenkakuPropName($event)">
+                <div style="width: 3%;"></div>
+                <div class="input-group-append radio-container ">
+                    <p class="radioCheckbox">
+                        <input [value]="true" type="radio" [(ngModel)]="inputment._checked" tabindex="4" name="options"
+                            id="startFromName" autocomplete="off">で始まる</p>
+                    <p class="radioCheckbox">
+                        <input [value]="false" type="radio" [(ngModel)]="inputment._checked" name="options"
+                            id="includeProName" autocomplete="off">を含む</p>
+                </div>
             </div>
-            <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
-                style="ime-mode:active" (blur)="toZenkakuPropName($event)" (change)="toZenkakuPropName($event)">
-            <div style="width: 3%;"></div>
-            <div class="input-group-append radio-container ">
-                <p class="radioCheckbox">
-                    <input [value]="true" type="radio" [(ngModel)]="inputment._checked" tabindex="4" name="options"
-                        id="startFromName" autocomplete="off">で始まる</p>
-                <p class="radioCheckbox">
-                    <input [value]="false" type="radio" [(ngModel)]="inputment._checked" name="options"
-                        id="includeProName" autocomplete="off">を含む</p>
+            <div class="input-group row" style="height: 30px;">
+                <div class="input-group-prepend">
+                    <p class="input-group-text" style="width: 80px;text-align: right;">明細作成</p>
+                </div>
+                <div style="width: 5%;"></div>
+                <div class="input-group-append">
+                    <p class="radioCheckbox"><input [(ngModel)]="inputment.detailCreated" type="checkbox" tabindex="5"
+                            id="detailNone" autocomplete="off">明細作成なし</p>
+                    <p class="radioCheckbox"><input [(ngModel)]="inputment.detailNone" type="checkbox" tabindex="6"
+                            id="detailCreated" autocomplete="off">明細作成あり</p>
+                </div>
             </div>
-        </div>
-        <div class="input-group row" style="height: 30px;">
-            <div class="input-group-prepend">
-                <p class="input-group-text" style="width: 80px;text-align: right;">明細作成</p>
+            <div id="btnSearch" class="input-group row" style="height: 40px;">
+                <div class="input-group-prepend ">
+                    <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
+                </div>
+                <div style="width: 5%;"></div>
+                <div class="input-group-append">
+                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
+                            autocomplete="off">承認１</p>
+                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
+                            autocomplete="off">承認２</p>
+                </div>
+                <div style="position: absolute; right: 0px;">
+                    <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" tabindex="9"
+                        (click)="getSearchRequest()">検索</button>
+                </div>
             </div>
-            <div style="width: 5%;"></div>
-            <div class="input-group-append">
-                <p class="radioCheckbox"><input [(ngModel)]="inputment.detailCreated" type="checkbox" tabindex="5"
-                        id="detailNone" autocomplete="off">明細作成なし</p>
-                <p class="radioCheckbox"><input [(ngModel)]="inputment.detailNone" type="checkbox" tabindex="6"
-                        id="detailCreated" autocomplete="off">明細作成あり</p>
-            </div>
-        </div>
-        <div id="btnSearch" class="input-group row" style="height: 40px;">
-            <div class="input-group-prepend ">
-                <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
-            </div>
-            <div style="width: 5%;"></div>
-            <div class="input-group-append">
-                <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
-                        autocomplete="off">承認１</p>
-                <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
-                        autocomplete="off">承認２</p>
-            </div>
-            <div style="position: absolute; right: 0px;">
-                <!--<div [style.width.px]="pixel">-->
-                <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" tabindex="9"
-                    (click)="getSearchRequest()">検索</button>
-            </div>
-        </div>
-    </section>
+        </section>
         <div style="margin-top:5px; height: 30px; white-space: nowrap;">
-            <p>結果件数：{{orderDetailData?.length|number}}件</p>
+            <p *ngIf="orderDetailData.length > 0">結果件数：{{orderDetailData?.length|number}}件</p>
+            <p *ngIf="orderDetailData.length == 0"></p>
         </div>
         <section id="data-display" style="margin-bottom: 5px;">
             <order-detail-approval-table [resultData]="orderDetailData" id='order-detail-approval-table'>
             </order-detail-approval-table>
         </section>
-</div>
-<div class="footer-container-approval">
-    <div class="bottomButton ">
-        <button type="button" class="btn btn-secondary" (click)="onCloseClick();">閉じる</button>
     </div>
-    <div class="bottomButton" style="right: 40px;">
-        <button typy="submit" class="btn btn-primary float-right" (click)="toApproveMaster();">発注承認者マスタ</button>
+    <div class="footer-container-approval">
+        <div class="bottomButton ">
+            <button type="button" class="btn btn-secondary" (click)="onCloseClick();">閉じる</button>
+        </div>
+        <div class="bottomButton" style="right: 40px;">
+            <button type="submit" class="btn btn-primary float-right" (click)="toApproveMaster();">発注承認者マスタ</button>
+        </div>
     </div>
-</div>
 </div>

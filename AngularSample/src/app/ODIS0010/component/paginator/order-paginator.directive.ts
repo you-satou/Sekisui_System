@@ -50,7 +50,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     const actionContainer = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-actions');
 
     //テキストボックスが存在するかどうかをチェックする。
-    let inputNode = this.viewRef.element.nativeElement.querySelector('input');
+    let inputNode: any = document.getElementById("pageIndex");
     setTimeout(() => {
       //テキストボックスが存在しない場合、新規作成する。
       if (inputNode === null) {
@@ -63,7 +63,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
         this.rend.setStyle(inputIndex, 'text-align', 'right');
         this.rend.setStyle(inputIndex, 'margin-left', '10px');
         this.rend.setAttribute(inputIndex, 'type', 'text');
-        this.rend.setAttribute(inputIndex, 'disabled', 'disabled');
+        this.rend.setAttribute(inputIndex, 'disabled', 'true');
         this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
         // this.rend.setStyle(inputIndex,'display','disabled');
         //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
@@ -76,8 +76,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
       } 
       else {
         // ボタンを押下毎、ページインデックスを加算する。
-        this.rend.setProperty(inputNode, 'value', (this.pagi.pageIndex + 1).toString());
-
+        inputNode.value = (this.pagi.pageIndex + 1).toString();
       }
     });
   }

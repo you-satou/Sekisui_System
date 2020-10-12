@@ -13,7 +13,7 @@ import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class OrderDetailApprovalTable implements OnChanges {
+export class OrderDetailApprovalTable{
 
   @Input() resultData: ODIS0010OrderDetail[];
 
@@ -32,10 +32,10 @@ export class OrderDetailApprovalTable implements OnChanges {
       'approval_2',
     ];
 
-  dataSource: any;
+  dataSource = new MatTableDataSource<any>();
 
-  @ViewChild(MatSort, {static: true})  sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;                  //ソート
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;   //パージネタ
 
   constructor(
     private router: Router,
@@ -49,7 +49,6 @@ export class OrderDetailApprovalTable implements OnChanges {
 
     // ソートした状態が前の状態に戻らない,　降順ー昇順だけ
     this.sort.disableClear = true;
-
   }
  
   /**　ページに移動する */
