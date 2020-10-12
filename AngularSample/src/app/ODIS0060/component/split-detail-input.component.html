@@ -200,7 +200,7 @@
                     <td style="text-align: center !important">{{ input.requestDate }}</td>
                     <td style="text-align: center !important">{{ input.requester }}
                         <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)"
-                            mat-button class="btn btn-outline-primary btn-small">依頼</button>
+                            mat-button class="btn btn-outline-primary btn-small" tabindex="3">依頼</button>
                     </td>
                 </tr>
             </tbody>
@@ -210,22 +210,22 @@
             <div style="position: relative; margin: 20px 0 50px 0">
                 <div style="float: left">
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        (click)="insertBunkatsuOrderDetail($event)">明細追加</button>
+                        tabindex="4"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
                 </div>
 
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        (click)="updateBunkatsuOrderDetail($event)">明細更新</button>
+                        tabindex="5"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
                 </div>
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        (click)="stopModifyDetail($event)">中止</button>
+                        tabindex="6"(click)="stopModifyDetail($event)">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; left: 400px">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        (click)="deleteOrderDetail($event)">明細削除</button>
+                        tabindex="7"(click)="deleteOrderDetail($event)">明細削除</button>
                 </div>
             </div>
         </section>
@@ -233,9 +233,8 @@
 
     <div class="footer-container-split">
         <div style="margin: 5px 0 0 0">
-            <button mat-button class="btn btn-secondary border mx-1 back-btn" tabindex="3"
-                (click)="backToOrderDetailInput()">
-                閉じる
+            <button mat-button class="btn btn-secondary border mx-1 back-btn" 
+                tabindex="8" (click)="backToOrderDetailInput()">閉じる
             </button>
         </div>
     </div>

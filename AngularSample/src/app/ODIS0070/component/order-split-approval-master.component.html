@@ -87,17 +87,17 @@
 
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        (click)="onUpdClick()">明細更新</button>
+                        (click)="onUpdClick()" tabindex="7">明細更新</button>
                 </div>
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        (click)="onStopClick($event)" tabindex="7">中止</button>
+                        (click)="onStopClick($event)" tabindex="8">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; left: 618px">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        (click)="onDelClick()">明細削除</button>
+                        (click)="onDelClick()" tabindex="9">明細削除</button>
                 </div>
             </div>
         </section>
@@ -110,7 +110,7 @@
 
                 <div style="left: 30px;" class="bottomButton">
                     <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
-                        (click)="onBackClick($event)" tabindex="8">閉じる</button>
+                        (click)="onBackClick($event)" tabindex="10">閉じる</button>
                 </div>
             </div>
         </footer>
