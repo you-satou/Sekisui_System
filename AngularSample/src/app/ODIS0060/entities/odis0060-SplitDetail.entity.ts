@@ -3,6 +3,9 @@ import { CommonComponent } from '../../common/common.component'
  * 仕訳テーブルの定義
  */
 export class ODIS0060OrderShiwake {
+     /** 登録区分 */
+    insKubun: string = '';
+
     /** 物件管理Ｎｏ */
     propertyNo: string;
 

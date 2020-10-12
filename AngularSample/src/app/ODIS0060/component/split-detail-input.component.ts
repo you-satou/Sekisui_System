@@ -520,6 +520,7 @@ export class SplitOrderDetailComponent implements OnInit {
     //分割明細毎発注仕訳データを作成する
     for(var i=0; i < this.bunkatsuData.length; i++){
       let dt = new ODIS0020OrderDetaiSplitBean();
+      dt.insKubun           = this.shiwakeData[0].insKubun;
       dt.propertyNo         = this.shiwakeData[0].propertyNo;
       dt.detailKind         = this.shiwakeData[0].detailKind;
       dt.detailNo           = this.shiwakeData[0].detailNo

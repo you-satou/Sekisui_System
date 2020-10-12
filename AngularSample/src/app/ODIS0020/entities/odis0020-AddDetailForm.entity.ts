@@ -96,14 +96,19 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
      * @param action 
      */
     getInput(output: ODIS0020OrderDetaiSplitBean[], key:number): ODIS0020OrderDetaiSplitBean[]{
-
-        output[key].journalCode       = this.journalCode;
-        output[key].journalName       = this.journalName;
-        output[key].accountCode       = this.accountCode;
-        output[key].orderSupplierCode = this.orderSupplierCode;
-        output[key].orderSupplierName = this.orderSupplierName;
-        output[key].orderPlanAmount   = this.removeCommas(this.orderPlanAmount);
-
+        
+        // 発注連番に紐づくデータをすべて更新
+        for(var i=0; i<output.length; i++){
+            if(output[i].detailNo === output[key].detailNo){
+                output[i].insKubun          = Const.InsKubun.Upd;
+                output[i].journalCode       = this.journalCode;
+                output[i].journalName       = this.journalName;
+                output[i].accountCode       = this.accountCode;
+                output[i].orderSupplierCode = this.orderSupplierCode;
+                output[i].orderSupplierName = this.orderSupplierName;
+                output[i].orderPlanAmount   = this.removeCommas(this.orderPlanAmount);
+            }            
+        }
         return output;
     }
 

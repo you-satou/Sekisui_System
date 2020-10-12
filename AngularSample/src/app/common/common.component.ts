@@ -54,8 +54,10 @@ export class CommonComponent {
     //クリックされた行
     var wTr: any;
     
-
     switch (nodeName) {
+      case'TR':
+        wTr = event.path[1];
+        wTbody = event.path[2];
       case 'TD':
         wTr = event.path[1];
         wTbody = event.path[2];

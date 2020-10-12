@@ -230,13 +230,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     let i = this.orderData.indexOf(data);
 
-    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-    let tr = skBody.rows[i];
-    //合計金額と発注予定金額を比較する
-    if(tr.cells[5].style.color == 'red'){
-      //発注予定金額の色を変える。
-      tr.cells[5].style.color = 'black';
-    }
+    // let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    // let tr = skBody.rows[i];
+    // //合計金額と発注予定金額を比較する
+    // if(tr.cells[5].style.color == 'red'){
+    //   //発注予定金額の色を変える。
+    //   tr.cells[5].style.color = 'black';
+    // }
 
   }
   /**
@@ -246,14 +246,10 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    */
   moveToSliptDetailInput($event, data: ODIS0020OrderDetaiSplitBean) {
 
-    if(data.orderPlanAmount == '' ||
-       data.orderPlanAmount == null ||
-       data.orderPlanAmount == undefined){
-          return;
-    }
-
+    // 初期化
     var shiwakeDt: ODIS0060OrderShiwake[] = [new ODIS0060OrderShiwake()];
     var splitDt: ODIS0060OrderDetailBunkatsu[] = [];
+    shiwakeDt[0].insKubun          = data.insKubun;
     shiwakeDt[0].propertyNo        = data.propertyNo;
     shiwakeDt[0].detailKind        = data.detailKind;
     shiwakeDt[0].detailNo          = data.detailNo;
@@ -362,21 +358,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     //TODO: ログイン情報を取得
     dt.requester = '積水　次郎';
-
-
-    //クアン検証中
-    // // 承認一回目のボタンを活動化する.
-    // let tr = btn.parentElement.parentElement;
-
-    // //承認１ボタンのインデックスは「13」
-    // let btnShounin = tr.children[13].getElementsByTagName('button');
-    // btnShounin[0].style.display = 'inherit';
-    // btnShounin[0].removeAttribute('disabled');
-
-    // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
-
   }
 
   /**
@@ -400,20 +381,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     //TODO: ログイン情報を取得
     dt.approvalPerson_lv1 = '積水　次郎';
-
-
-    //クアン検証中
-    // // 承認一回目のボタンを活動化する
-    // let tr = btn.parentElement.parentElement;
-    // //承認１ボタンのインデックスは「15」
-    // let btnShounin = tr.children[15].getElementsByTagName('button');
-    // btnShounin[0].style.display = 'inherit';
-    // btnShounin[0].removeAttribute('disabled');
-
-    // // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    // btn.setAttribute('disabled','disabled');
-    // btn.style.display = 'none';
-
   }
 
   /**
@@ -511,14 +478,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
       let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
       let tr = skBody.rows[i];
-      // 合計金額と発注予定金額を比較する
-      if(totalAmount != Number(dt[i].orderPlanAmount)){
-        // 発注予定金額の色を変える。
-        tr.cells[5].style.color = 'red';
-      }
-      else{
-        tr.cells[5].style.color = 'black';
-      }
       
       // 処理後、カーソルの位置が後尾に変換する。
       i += filter.length - 1;

@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetec
 import { ActivatedRoute, Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { CommonService } from '../../common/common.service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
@@ -156,6 +156,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.getOrderInputData();
     }
 
+    // 初期化
     this.setDefaultDisplay();
   }
 
@@ -286,7 +287,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       if(this.baseCompnt.setValue(val.detailKind) == tabIndex){
         return val;
       }
-    })
+    });
 
     // 取得件数が0件の場合に、初期設定を行う
     if(dt.length === 0){
@@ -307,7 +308,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             return dt;
         }
       });
-      // マージ
+      // マージ（データ並び順を設定）
       dt = temp1.concat(temp2);
     }
 
@@ -382,7 +383,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblTsuika = savedData.TsuikaData;
     this.paramInit = savedData.paramInit;
     
-    //分割明細画面から渡されたパラメータを取得する
+    // 分割明細画面から渡されたパラメータを取得する
     let returnDt = this.ODIS0020Service.ReturnedSplitData;
 
     // 分割データ 1件以上の場合、以降の処理を実施
@@ -475,6 +476,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private createData(data: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean{
     let temp = new ODIS0020OrderDetaiSplitBean();
+    temp.insKubun            = this.baseCompnt.setValue(data.insKubun);
     temp.propertyNo          = this.baseCompnt.setValue(data.propertyNo);
     temp.detailKind          = this.baseCompnt.setValue(data.detailKind);
     temp.detailNo            = this.baseCompnt.setValue(data.detailNo);
@@ -526,56 +528,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
           break;
       }
+
+      // 文字色設定
+      this.setAfterViewFont();
       var t = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
     
       this.setAutoScroll(body, t);
       this.baseCompnt.setRowColor(Const.Action.A0004,body,t);
     }    
   }
-  
-  // ↓↓ 安井検討中
-  // private renderAfterView(tbody: any, datas: ODIS0020OrderDetaiSplitBean[]){
-  //   // データ 読み込み
-  //   for (let i = 0; i < datas.length; i++) {
-  //     // 初期化
-  //     let tr = tbody.rows[i];
-  //     // 分割データ 1以外は文字フォントを白にする
-  //     if(datas[i].splitNo !== '1'){
-  //       tr.cells[0].style.color = 'white';
-  //       tr.cells[1].style.color = 'white';
-  //       tr.cells[2].style.color = 'white';
-  //       tr.cells[3].style.color = 'white';
-  //       tr.cells[4].style.color = 'white';
-  //       tr.cells[5].style.color = 'white';
-  //     }else{
-  //       // 発注連番 対象データ抽出
-  //       var filter = datas.filter(data =>{
-  //         if(data.detailNo == datas[i].detailNo){
-  //           return data;
-  //         }
-  //       });
-  //       // 対象データ 分割発注金額 合計算出。
-  //       let totalAmount: number = filter.map(data => {
-  //         // 重複明細を数える。
-  //         if (Number(data.orderSplitAmount) > 0) {
-  //           return Number(data.orderSplitAmount);
-  //         }
-  //         else {
-  //           return 0;
-  //         }
-  //       }).reduce((acc, value) => acc + value);
-
-  //       // 合計金額と発注予定金額を比較する
-  //       if(totalAmount != Number(datas[i].orderPlanAmount)){
-  //         // 発注予定金額の色を変える。
-  //         tr.cells[5].style.color = 'red';
-  //       }
-  //       else{
-  //         tr.cells[5].style.color = 'black';
-  //       }
-  //     }
-  //   }
-  // }
   // --------------------------------------- ▲▲ 初期表示処理 ▲▲ -------------------------------------
 
   // --------------------------------------- ▼▼ 各画面設定 ▼▼ ---------------------------------------
@@ -588,7 +549,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
   }
-
 
   /**
    * 仕訳コードリンクボタンを押下する時、モダールを設定する
@@ -612,7 +572,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
-
 
   /**
    * 発注先パターン選択ボタンを押下する時、モダールを設定する
@@ -646,6 +605,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // 追加データ 設定
     let temp = new ODIS0020OrderDetaiSplitBean();
+    temp.insKubun           = Const.InsKubun.Ins;
     temp.propertyNo         = this.paramInit.propertyNo;
     temp.detailKind         = this.tabValue.toString();
     temp.splitNo            = '1';
@@ -658,7 +618,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     this.insertToDataTable(temp);
 
-    //初期化
+    // 初期化
     this.setDefaultDisplay();
 
   }
@@ -703,6 +663,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.baseCompnt.setRowColor(Const.Action.A0001, tblBody, insertIndex);
     this.setAutoScroll(tblBody, insertIndex);
 
+    // 初期化
     this.setDefaultDisplay();
   }
 
@@ -727,16 +688,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param data 
    */
   private reDetailNo(datas: ODIS0020OrderDetaiSplitBean[]){
-    var tmpNo: number = 0;
+    // 初期化
+    var tmpNo:string = '';
+    var cnt: number = 0;
 
     // 再連番
     for(var i = 0; i < datas.length; i++){
       // 仕訳コードに値が入っている場合、連番をカウントアップ
-      if(this.baseCompnt.setValue(datas[i].journalCode) !== ''){
-        tmpNo++;
+      if(this.baseCompnt.setValue(datas[i].splitNo) === '1'){
+        tmpNo = datas[i].detailNo
+        cnt++;
       }
 
-      datas[i].detailNo = tmpNo.toString();
+      datas[i].detailNo = cnt.toString();
     }
   }
 
@@ -786,8 +750,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         if (insBk.journalCode === data.journalCode) {
           // 承認日１が空白の場合
           if (this.baseCompnt.setValue(data.approvalPerson_lv1) === '') {
-            data.orderSupplierCode = this.baseCompnt.setValue(insBk.orderSupplierCode);    // 発注先コード
-            data.orderSupplierName = this.baseCompnt.setValue(insBk.orderSupplierName );   // 発注先名称
+            // 対象データ（同一発注連番）を上書きする
+            for(var tempDt of dataTable){
+              if(data.detailNo === tempDt.detailNo){
+                tempDt.orderSupplierCode = this.baseCompnt.setValue(insBk.orderSupplierCode);    // 発注先コード
+                tempDt.orderSupplierName = this.baseCompnt.setValue(insBk.orderSupplierName );   // 発注先名称
+              }
+            }
             insFlg = false;
             break;
           }
@@ -845,6 +814,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.childTsuika.tableShiwake.renderRows();
         break;
     }
+
+    // 初期化
     this.setDefaultDisplay();
   }
 
@@ -938,6 +909,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         break;
     }
 
+    // セッション保存
     this.saveTemporaryData();
     // 初期化する
     this.setDefaultDisplay();
@@ -949,7 +921,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param event 
    */
   setSelectTabChanged(event: any) {
+    // タブ設定
     this.selectedTab = event.tab.textLabel;
+    // 初期化
     this.setDefaultDisplay();
   }
 
@@ -985,7 +959,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case Const.Action.A0007:
         this.rowStatus.Reset();
 
-        //　一時データを保持する。
+        // セッション保存
         this.saveTemporaryData();
         this.router.navigate([Const.UrlSetting.U0006]);
         
@@ -1000,7 +974,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param cancel 中止ボタン
    * @param del 明細削除ボタン
    */
-  setPageButtonDisplay(add:boolean, upd:boolean, cancel:boolean, del:boolean){
+  private setPageButtonDisplay(add:boolean, upd:boolean, cancel:boolean, del:boolean){
     this.btnInsert = add;
     this.btnUpdate = upd;
     this.btnStop = cancel;
@@ -1012,8 +986,56 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param body 
    * @param row
    */
-  setAutoScroll(body: any, row: number) {
+  private setAutoScroll(body: any, row: number) {
     body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+  }
+
+  /**
+   * 各タブ 文字色設定
+   */
+  private setAfterViewFont(){
+    // 文字色 設定
+    // 「設計」タブ
+    this.setColor(this.childSekkei.orderData,
+                  this.childSekkei.viewRef.element.nativeElement.querySelector('tbody'));
+                  
+    // 「本体」タブ
+    this.setColor(this.childHontai.orderData,
+                  this.childHontai.viewRef.element.nativeElement.querySelector('tbody'));
+    // 「解体」タブ
+    this.setColor(this.childKaitai.orderData,
+                  this.childKaitai.viewRef.element.nativeElement.querySelector('tbody'));
+    // 「追加」タブ
+    this.setColor(this.childTsuika.orderData,
+                  this.childTsuika.viewRef.element.nativeElement.querySelector('tbody'));
+
+    // レンダリング
+    this.childSekkei.tableShiwake.renderRows();   // 設計
+    this.childHontai.tableShiwake.renderRows();   // 本体
+    this.childKaitai.tableShiwake.renderRows();   // 解体
+    this.childTsuika.tableShiwake.renderRows();   // 追加
+  }
+
+  /** 追加、更新データ フォント色 設定
+   * @param tmpTbl
+   * @param body
+   */
+  private setColor(tmpTbl: ODIS0020OrderDetaiSplitBean[], body:any){
+    for(var i=0; i<tmpTbl.length; i++){
+      switch(tmpTbl[i].insKubun){
+        case Const.InsKubun.Normal:
+          // 通常
+          break;
+        case Const.InsKubun.Ins:
+          // 登録
+          this.baseCompnt.setRowColor(Const.Action.A0001,body,i);
+          break;
+        case Const.InsKubun.Upd:
+          // 更新
+          this.baseCompnt.setRowColor(Const.Action.A0002,body,i);
+          break;
+      }
+    }
   }
 
   /**
@@ -1107,7 +1129,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       // 発注予定金額
       if(this.baseCompnt.setValue(tmp[i].orderPlanAmount) === ''){
         var tabName = '「' + this.getTabName(tmp[i].detailKind) + '」';
-        alert(tabName + '：' + Const.ErrorMsg.E0006);
+        alert(tabName + (i+1).toString()+ '行目：' + Const.ErrorMsg.E0006);
         return true;
       }
     }

@@ -2,6 +2,9 @@
  * 発注明細 明細分割
  */
 export class ODIS0020OrderDetaiSplitBean{
+  /** 登録区分 */
+  insKubun: string = '';
+
   /** 物件管理Ｎｏ */
   propertyNo: string = '';
 

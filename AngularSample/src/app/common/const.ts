@@ -21,7 +21,6 @@ export namespace Const{
         export const S0007EN = 'OrderSplitApprovalMaster';
     }
 
-
     /** リンク */
     export namespace LinKSetting {
         export const L0000 = '<a href="#">TOP</a> > ';
@@ -124,12 +123,19 @@ export namespace Const{
     /** 背景の色のコード */
     export namespace HighLightColour{
 
-        export const None = '';
+        export const None = 'white';
         export const Black = 'Black';
         export const Selected = '#CCFFFF';
         export const Modified = '#F57C00';
         export const Inserted = '#40a8c4';
 
+    }
+
+    /** 登録区分 */
+    export namespace InsKubun{
+        export const Normal = '0'
+        export const Ins = '1'
+        export const Upd = '2'
     }
     
     /** エラーメッセージ */
