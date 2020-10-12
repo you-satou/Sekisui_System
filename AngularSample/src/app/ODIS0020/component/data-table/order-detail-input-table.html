@@ -22,7 +22,7 @@
         </ng-container>
         <!--反映-->
         <ng-container matColumnDef="hanei">
-            <th style="width: 35px; box-shadow: 1px 0px 0px 0px #dee2e6 inset;" class="col-display" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">反映</th>
+            <th style="width: 35px; box-shadow: 1px 0px 0px 0px #dee2e6 inset;" class="col-display" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">反<br>映</th>
         </ng-container>
         <!--分割-->
         <ng-container matColumnDef="bunkatsu">
@@ -108,7 +108,7 @@
         <ng-container matColumnDef="split">
             <th style="width: 20px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="width: 20px; text-align: center;" mat-cell *matCellDef="let element ">
-                <button class="btn btn-link" disabled="{{isSplitFlg(element)}}" mat-button (click) = 'moveToSliptDetailInput($event,element)'>分</button>
+                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isSplitFlg(element)}}" mat-button (click) = 'moveToSliptDetailInput($event,element)'>分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
