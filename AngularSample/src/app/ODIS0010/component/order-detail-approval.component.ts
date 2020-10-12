@@ -126,7 +126,9 @@ export class OrderDetailApprovalComponent implements OnInit {
             //返却データがない場合、データテーブルを初期化にする。
             this.orderDetailData = [];
             this.setPaginator('0');
-            alert(response.message);
+            setTimeout(function() {
+              alert(response.message);
+            },500);
           }
           //ロード中を解除する。
           this.isGetting = false;
