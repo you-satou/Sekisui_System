@@ -121,7 +121,7 @@ input.splitAmount{
     top: 0px;
     position: sticky;
     border: 0px;
-    box-shadow: 1px 0px 0px 0px #dee2e6 inset, 0px -1px 0px 0px #dee2e6 inset, 0px 1px 0px 0px #CCD0D5 inset;
+    box-shadow: 0.5px 0px 0px 0px #dee2e6 inset, 0px -0.5px 0px 0px #dee2e6 inset, 0px 0.5px 0px 0px #dee2e6 inset;
 }
 
 .bunkatsu-table>tbody>tr>td {
