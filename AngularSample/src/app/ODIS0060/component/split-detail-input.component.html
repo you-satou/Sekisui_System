@@ -189,8 +189,8 @@
                     <td>
                         <input type="tel" class="splitAmount" id="txtSplitAmount" maxlength="11" tabindex="1"
                             [(ngModel)]="input.orderSplitAmount" (focus)="commonFocus($event)"
-                            (blur)="commonBlur($event)" (keyup)="onlyHanNumber($event)"
-                            (change)="onlyHanNumber($event)" />
+                            (blur)="commonBlur($event)" (keyup)="onlyHanPrice($event)"
+                            (change)="onlyHanPrice($event)" />
                     </td>
                     <td>
                         <input type="text" style="width: 190px !important;" maxlength="12" tabindex="2"

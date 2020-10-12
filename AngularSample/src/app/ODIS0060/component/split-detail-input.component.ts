@@ -492,9 +492,15 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   backToOrderDetailInput() {
 
-    this.toSaveShiwakeData();
+    if(!(this.input.isBlank)){
+      alert(Const.ErrorMsg.E0018);
+    }
+    else{
 
-    this.router.navigate([Const.UrlSetting.U0002]);
+      this.toSaveShiwakeData();
+
+      this.router.navigate([Const.UrlSetting.U0002]);
+    }
   }
 
   /**
@@ -596,8 +602,8 @@ export class SplitOrderDetailComponent implements OnInit {
    *
    * @param $event イベント
    */
-  onlyHanNumber($event){
-    this.input.orderSplitAmount = this.baseCompnt.onlyHanNumber($event.target.value);
+  onlyHanPrice($event){
+    this.input.orderSplitAmount = this.baseCompnt.onlyHanPrice($event.target.value);
   }
 
   /**

@@ -155,6 +155,7 @@ export namespace Const{
         export const E0015 = '変更されていないデータは更新できません。';
         export const E0016 = '個人認証ＩＤは必須入力です。';
         export const E0017 = '発注先コードは必須入力です。';
+        export const E0018 = '編集中のデータがあります。';
     }
     /**
      * 警告メッセージ

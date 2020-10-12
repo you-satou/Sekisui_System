@@ -62,7 +62,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
         this.rend.setStyle(inputIndex, 'max-width', '40px');
         this.rend.setStyle(inputIndex, 'text-align', 'right');
         this.rend.setStyle(inputIndex, 'margin-left', '10px');
-        this.rend.setAttribute(inputIndex, 'type', 'text');
+        this.rend.setAttribute(inputIndex, 'type', 'tel');
         this.rend.setAttribute(inputIndex, 'disabled', 'true');
         this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
         // this.rend.setStyle(inputIndex,'display','disabled');

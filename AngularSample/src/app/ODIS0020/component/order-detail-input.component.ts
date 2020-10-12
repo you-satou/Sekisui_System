@@ -1223,8 +1223,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   *
   * @param $event イベント
   */
-  toHanNumPA($event){
-    this.addInput.orderPlanAmount = this.baseCompnt.onlyHanNumber($event.target.value);
+  toHanPricePA($event){
+    this.addInput.orderPlanAmount = this.baseCompnt.onlyHanPrice($event.target.value);
   }
 
   /**
