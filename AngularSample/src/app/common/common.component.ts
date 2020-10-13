@@ -71,8 +71,8 @@ export class CommonComponent {
         wTbody = event.path[3];
         break;
       case 'MAT-ICON':
-        wTr = event.path[3];
-        wTbody = event.path[4];
+        wTr = event.path[4];
+        wTbody = event.path[5];
         break;
       case 'LABEL':
         wTr = event.path[2];

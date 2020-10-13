@@ -7,6 +7,7 @@ import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
+import { element } from 'protractor';
 
 @Component({
   selector: "shiwake-table",
@@ -99,7 +100,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.setTableButtonDisplay(this.orderData);
-    this.setTextColorWhenAmountIsDifference(this.orderData);
+    // this.setTextColorWhenAmountIsDifference(this.orderData);
     this.setFonWhite(this.orderData);
 
   }
@@ -200,6 +201,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
       return true;
     }
 
+    // ハウス材、運賃・荷造・保管料、労災の場合は非活性
+    if(element.journalName == 'ハウス材' ||
+       element.journalName == '運賃・荷造・保管料' ||
+       element.journalName == '労災'){
+         return true;
+     }
+
     // 活性
     return false;
   }
@@ -215,6 +223,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
       // 非活性
       return true;
     }
+
+    // ハウス材、運賃・荷造・保管料、労災の場合は非活性
+    if(element.journalName == 'ハウス材' ||
+       element.journalName == '運賃・荷造・保管料' ||
+       element.journalName == '労災'){
+         return true;
+     }
 
     // 活性
     return false;
@@ -321,14 +336,28 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     let isCanNotUpd: boolean = false;
     let isCanNotDel: boolean = false;
 
-    for (const data of filter) {
-      //抽出したデータに承認かけたデータがあった場合、明細更新と明細削除が不可能
-      if(this.comCompnt.setValue(data.approvalPerson_lv1) != ''){
-        isCanNotUpd = true;
-        isCanNotDel = true;
-        break;
+    // 承認1 済 抽出
+    let approval1List = filter.filter(element =>{
+      if(this.comCompnt.setValue(element.approvalPerson_lv1) !== ''){
+        return element;
       }
+    });
+    // 抽出データ == 済データが一致した場合は、更新ボタン 非活性
+    if(approval1List.length === filter.length){
+      isCanNotUpd = true;
     }
+
+    // 済みのデータが1件以上の場合、削除ボタン 非活性
+    if(approval1List.length >= 1){
+      isCanNotDel = true;
+    }
+
+    // ハウス材、運賃・荷造・保管料、労災の場合は削除不可
+    if(value.journalName == 'ハウス材' ||
+       value.journalName == '運賃・荷造・保管料' ||
+       value.journalName == '労災'){
+        isCanNotDel = true;
+     }
 
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;   //行を選択
@@ -458,20 +487,41 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * 差額がある場合、テキスト色を変える。
    * @param dt 
    */
-  private setTextColorWhenAmountIsDifference(dt: ODIS0020OrderDetaiSplitBean[]){
+  getFontColor(element: ODIS0020OrderDetaiSplitBean){
 
-    for (let i = 0; i < dt.length; i++) {
+    // フォント色
+    if(element.splitNo == '1'){
+      // 初期化
+      var isFont = 'black';
+
+      // 色 設定
+      switch(element.insKubun){
+        case Const.InsKubun.Normal: 
+          isFont = 'black'
+          break;
+        case Const.InsKubun.Ins:
+          isFont = Const.HighLightColour.Inserted;
+          break;
+        case Const.InsKubun.Upd:
+          isFont = Const.HighLightColour.Modified;
+          break;
+      }
+
+      if(this.comCompnt.setValue(element.orderSplitAmount) === ''){
+        return isFont;
+      }
 
       // IDに当てはまるデータを絞り込む
-      var filter = dt.filter(data =>{
-        if(data.detailNo == dt[i].detailNo){
+      var filter = this.orderData.filter(data =>{
+        if(data.detailNo == element.detailNo){
           return data;
         }
       });
+
       // 絞り込んだデータを分割の合計発注金額を取得する。
       let totalAmount: number = filter.map(data => {
         // 重複明細を数える。
-        if (Number(data.orderSplitAmount) > 0) {
+        if (this.comCompnt.setValue(data.orderSplitAmount) !== '') {
           return Number(data.orderSplitAmount);
         }
         else {
@@ -479,12 +529,11 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         }
       }).reduce((acc, value) => acc + value);
 
-      let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-      let tr = skBody.rows[i];
-      
-      // 処理後、カーソルの位置が後尾に変換する。
-      i += filter.length - 1;
-
+      // 差額がある場合はフォントを赤字にする。
+      if(totalAmount != Number(element.orderPlanAmount)){
+        isFont = 'red';
+      }
+      return isFont;
     }
   }
 
