@@ -52,11 +52,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo1:
         return Number(Const.JutyuEdaban.TabIndex_0);
       case this.tabNo2:
-        return Number(Const.JutyuEdaban.TabIndex_1);;
+        return Number(Const.JutyuEdaban.TabIndex_1);
       case this.tabNo3:
-        return Number(Const.JutyuEdaban.TabIndex_2);;
+        return Number(Const.JutyuEdaban.TabIndex_2);
       case this.tabNo4:
-        return Number(Const.JutyuEdaban.TabIndex_3);;
+        return Number(Const.JutyuEdaban.TabIndex_3);
     }
 
   }
