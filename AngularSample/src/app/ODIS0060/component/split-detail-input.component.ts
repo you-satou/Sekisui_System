@@ -293,7 +293,7 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   insertBunkatsuOrderDetail($event) {
     // 入力検証
-    if(!this.inputCheck()){
+    if(!this.inputCheck('0')){
       return;
     }
     //入力情報 値 保存
@@ -328,24 +328,14 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   /**
-   * 分割明細を更新する
+   * 「明細更新」ボタンの押下
    *
    * @param $event イベント
    */
   updateBunkatsuOrderDetail($event) {
 
-    //行が選択された場合
-    if (!this.rowStatus.isSelected) {
-      alert(Const.ErrorMsg.E0013);
-      return;
-    }
     // 入力検証
-    if(!this.inputCheck()){
-      return;
-    }
-
-    if(!this.input.isChanged){
-      alert(Const.ErrorMsg.E0015);
+    if(!this.inputCheck('1')){
       return;
     }
 
@@ -470,13 +460,12 @@ export class SplitOrderDetailComponent implements OnInit {
     this.btnSubIrai.style.display = 'inherit';
   }
 
-  inputCheck(): boolean {
-    //編集テーブルが未入力になっていない場合
-    if (this.input.isBlank) {
-      this.baseCompnt.setFocus('txtSplitAmount');
-      alert(Const.ErrorMsg.E0010);
-      return false;
-    }
+  /**
+   * 入力チェック
+   * @param val 0:明細追加, 1:明細更新
+   */
+  private inputCheck(val: string): boolean {
+    
     //発注予定金額が未入力かどうか
     if (this.input.amountIsBlank) {
       this.baseCompnt.setFocus('txtSplitAmount');
@@ -484,6 +473,14 @@ export class SplitOrderDetailComponent implements OnInit {
       return false;
     }
 
+    // 「明細更新」ボタン処理の場合
+    if(val === '1'){
+      // 値が変更されていない場合
+      if(!this.input.isChanged){
+        alert(Const.ErrorMsg.E0015);
+        return;
+      }
+    }
     return true;
   }
 
