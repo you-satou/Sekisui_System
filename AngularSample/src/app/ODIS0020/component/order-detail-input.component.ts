@@ -197,6 +197,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let bucketDt: ODIS0020OrderDetaiSplitBean[] = [];
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
+
           temp.insKubun           = Const.InsKubun.Ins;
           temp.propertyNo         = this.paramInit.propertyNo;
           temp.detailKind         = this.tabValue.toString();
@@ -631,7 +632,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo1:
         insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
-        this.childSekkei.tableShiwake.renderRows();
         this.reDetailNo(this.childSekkei.orderData);
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
@@ -639,7 +639,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo2:
         insertIndex = this.countDefaultData(this.childHontai.orderData);
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
-        this.childHontai.tableShiwake.renderRows();
         this.reDetailNo(this.childHontai.orderData);
         tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
@@ -647,7 +646,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo3:
         insertIndex = this.countDefaultData(this.childKaitai.orderData);
         this.childKaitai.orderData.splice(insertIndex, 0, insertDt);
-        this.childKaitai.tableShiwake.renderRows();
         this.reDetailNo(this.childKaitai.orderData);
         tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
         break;
@@ -655,13 +653,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       case this.tabNo4:
         insertIndex = this.countDefaultData(this.childTsuika.orderData);
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
-        this.childTsuika.tableShiwake.renderRows();
         this.reDetailNo(this.childTsuika.orderData);
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
 
-    this.baseCompnt.setRowColor(Const.Action.A0001, tblBody, insertIndex);
+    // 文字色設定
+    this.setAfterViewFont();
     this.setAutoScroll(tblBody, insertIndex);
 
     // 初期化
@@ -756,6 +754,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               if(data.detailNo === tempDt.detailNo){
                 tempDt.orderSupplierCode = this.baseCompnt.setValue(insBk.orderSupplierCode);    // 発注先コード
                 tempDt.orderSupplierName = this.baseCompnt.setValue(insBk.orderSupplierName );   // 発注先名称
+                tempDt.insKubun = Const.InsKubun.Upd;
               }
             }
             insFlg = false;
@@ -990,6 +989,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 各タブ 文字色設定
    */
   private setAfterViewFont(){
+
+    // レンダリング
+    this.childSekkei.tableShiwake.renderRows();   // 設計
+    this.childHontai.tableShiwake.renderRows();   // 本体
+    this.childKaitai.tableShiwake.renderRows();   // 解体
+    this.childTsuika.tableShiwake.renderRows();   // 追加
+
     // 文字色 設定
     // 「設計」タブ
     this.setColor(this.childSekkei.orderData,
@@ -1005,11 +1011,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setColor(this.childTsuika.orderData,
                   this.childTsuika.viewRef.element.nativeElement.querySelector('tbody'));
 
-    // レンダリング
-    this.childSekkei.tableShiwake.renderRows();   // 設計
-    this.childHontai.tableShiwake.renderRows();   // 本体
-    this.childKaitai.tableShiwake.renderRows();   // 解体
-    this.childTsuika.tableShiwake.renderRows();   // 追加
   }
 
   /** 追加、更新データ フォント色 設定
