@@ -197,6 +197,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let bucketDt: ODIS0020OrderDetaiSplitBean[] = [];
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
+          temp.insKubun           = Const.InsKubun.Ins;
           temp.propertyNo         = this.paramInit.propertyNo;
           temp.detailKind         = this.tabValue.toString();
           temp.splitNo            = '1';
