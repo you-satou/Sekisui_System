@@ -61,7 +61,6 @@ export class SplitOrderDetailComponent implements OnInit {
     'paymentDate',
     'paymentAmount',
   ];
-
   
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
   @ViewChild('ShiwakeData', { static: true }) childShiwake: any;
@@ -99,6 +98,9 @@ export class SplitOrderDetailComponent implements OnInit {
 
   //初期画面のレンダー
   isInitFlg: boolean = false;
+
+  // 編集フラグ
+  isEditFlg = false;
 
   constructor(
     private appComponent: AppComponent,
@@ -322,6 +324,10 @@ export class SplitOrderDetailComponent implements OnInit {
     this.baseCompnt.setRowColor(Const.Action.A0001, tbody, rowIndex);
     this.setAutoScroll(tbody,rowIndex);
 
+    //修正完了フラグ ON
+    this.isEditFlg = true;
+
+    // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
     this.resetAddTable();
     this.saveDataToSession();
@@ -352,6 +358,8 @@ export class SplitOrderDetailComponent implements OnInit {
     this.resetAddTable();
     this.setPageButtonDisplay(false, true, false, true);
 
+    //修正完了フラグ ON
+    this.isEditFlg = true;
     this.saveDataToSession();
   }
 
@@ -392,13 +400,16 @@ export class SplitOrderDetailComponent implements OnInit {
     this.table.renderRows();
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
 
-    this.resetAddTable();
+    //修正完了フラグ ON
+    this.isEditFlg = true;
+    // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
+    this.resetAddTable();
     this.saveDataToSession();
   }
 
   /**
-   * 編集テーブルの行をクリアする
+   *  「中止」ボタンの押下
    * @param $event イベント
    */
   stopModifyDetail($event) {
@@ -523,7 +534,12 @@ export class SplitOrderDetailComponent implements OnInit {
     //分割明細毎発注仕訳データを作成する
     for(var i=0; i < this.bunkatsuData.length; i++){
       let dt = new ODIS0020OrderDetaiSplitBean();
-      dt.insKubun           = this.shiwakeData[0].insKubun;
+      // 通常データ　かつ　修正完了している場合、詳細入力の対象データをオレンジにする
+      if(this.shiwakeData[0].insKubun === Const.InsKubun.Normal && this.isEditFlg){
+        dt.insKubun         = Const.InsKubun.Upd;
+      }else{
+        dt.insKubun         = this.shiwakeData[0].insKubun;
+      }
       dt.propertyNo         = this.shiwakeData[0].propertyNo;
       dt.detailKind         = this.shiwakeData[0].detailKind;
       dt.detailNo           = this.shiwakeData[0].detailNo

@@ -102,7 +102,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
             if(output[i].detailNo === output[key].detailNo){
                 // 登録区分 通常の場合に更新に変更する。
                 if(output[i].insKubun === Const.InsKubun.Normal){
-                    output[i].insKubun          = Const.InsKubun.Upd;
+                    output[i].insKubun      = Const.InsKubun.Upd;
                 }
                 output[i].journalCode       = this.journalCode;
                 output[i].journalName       = this.journalName;

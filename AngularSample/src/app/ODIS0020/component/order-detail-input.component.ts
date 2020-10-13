@@ -779,39 +779,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return;
     };
     var key = this.rowStatus.keyIndex;
-    var value = this.rowStatus.rowIndex;
-    var body: any;
     switch (this.selectedTab) {
       case this.tabNo1:
         this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key);
-        body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
-        this.childSekkei.tableShiwake.renderRows();
         break;
 
       case this.tabNo2:
         this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key);
-        body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, body,key);
-        this.childHontai.tableShiwake.renderRows();
         break;
 
       case this.tabNo3:
         this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key);
-        body = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
-        this.childKaitai.tableShiwake.renderRows();
         break;
 
       case this.tabNo4:
         this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key);
-        body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
-        this.baseCompnt.setRowColor(Const.Action.A0006,body,value);
-        this.baseCompnt.setUpdateColor(Const.Action.A0002, body, key);
-        this.childTsuika.tableShiwake.renderRows();
         break;
     }
 
@@ -1212,30 +1194,30 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.journalCode = this.baseCompnt.onlyHanNumber($event.target.value);
   }
 
- /**
-  * keyUp処理 半角数字のみ(経理分類コード)
-  *
-  * @param $event イベント
-  */
+  /**
+    * keyUp処理 半角数字のみ(経理分類コード)
+    *
+    * @param $event イベント
+    */
  toHanNumAC($event){
   this.addInput.accountCode = this.baseCompnt.onlyHanNumber($event.target.value);
  }
 
-/**
-  * keyUp処理 半角数字のみ(発注先コード)
-  *
-  * @param $event イベント
-  */
+  /**
+    * keyUp処理 半角数字のみ(発注先コード)
+    *
+    * @param $event イベント
+    */
  toHanNumSC($event){
   this.addInput.orderSupplierCode = this.baseCompnt.onlyHanNumber($event.target.value);
  }
 
 
- /**
-  * keyUp処理 半角数字のみ(発注先予定金額)
-  *
-  * @param $event イベント
-  */
+  /**
+    * keyUp処理 半角数字のみ(発注先予定金額)
+    *
+    * @param $event イベント
+    */
   toHanPricePA($event){
     this.addInput.orderPlanAmount = this.baseCompnt.onlyHanPrice($event.target.value);
   }

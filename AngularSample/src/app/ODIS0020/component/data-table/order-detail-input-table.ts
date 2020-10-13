@@ -118,6 +118,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         .reduce((acc, value) => acc + value, 0);
     }
   }
+
   /**
    * 発注分割金額の合計
    */
@@ -230,15 +231,17 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     let i = this.orderData.indexOf(data);
 
-    // let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-    // let tr = skBody.rows[i];
-    // //合計金額と発注予定金額を比較する
-    // if(tr.cells[5].style.color == 'red'){
-    //   //発注予定金額の色を変える。
-    //   tr.cells[5].style.color = 'black';
-    // }
-
+    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    let tr = skBody.rows[i];
+    // 通常データの場合は更新データに変更する
+    if(data.insKubun == Const.InsKubun.Normal){
+      // 登録区分：更新に設定
+      data.insKubun = Const.InsKubun.Upd;
+      // 行　更新色に変更
+      this.comCompnt.setRowColor(Const.Action.A0002,skBody,i);
+    }
   }
+
   /**
    * 分割明細画面に移動する
    * @param $event

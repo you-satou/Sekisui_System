@@ -376,29 +376,6 @@ export class CommonComponent {
   }
 
   /**
-   * 検討中!!!!
-   * @param action 
-   * @param body 
-   * @param key 
-   * @param value 
-   */
-  setUpdateColor(action: string, body: any, key: number) {
-
-    for (var i = 0; i < body.rows.length; i++) {
-      if (i == key) {
-        var tr = body.rows[i];
-        //明細追加または変更した時に、フォント色を変える
-        if (action == Const.Action.A0001 || action == Const.Action.A0002) {
-          for (let j = 0; j < 5; j++) {
-            let cell = tr.cells[j];
-            cell.style.color =  this.getColor(action);
-          }
-        }
-      }
-    }
-  }
-
-  /**
    * フォーカスを設定する
    * @param elementId 
    */
