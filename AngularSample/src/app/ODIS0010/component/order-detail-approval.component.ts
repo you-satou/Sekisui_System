@@ -49,7 +49,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     );
     this.setStartPage();
     
-    // Search ボタンの位置を設定する
+    // Search ボタンの初期位置を設定する
     this.screenSize = window.innerWidth;
     this.pixel = this.screenSize  - 408;
 
@@ -80,13 +80,13 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   setStartPage() {
     this.inputment.contractNumFrom = '';
-    this.inputment.contractNumTo = '';
-    this.inputment.propertyName = '';
-    this.inputment._checked = true;
-    this.inputment.detailCreated = false;
-    this.inputment.detailNone = false;
-    this.inputment.approval_1 = false;
-    this.inputment.approval_2 = false;
+    this.inputment.contractNumTo   = '';
+    this.inputment.propertyName    = '';
+    this.inputment._checked        = true;
+    this.inputment.detailCreated   = false;
+    this.inputment.detailNone      = false;
+    this.inputment.approval_1      = false;
+    this.inputment.approval_2      = false;
   }
 
   /** 
