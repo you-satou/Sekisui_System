@@ -150,8 +150,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.isInitFlg = true;
       // 再描画
       this.changeDetectorRef.detectChanges();
-      let firstIndex = document.getElementsByClassName('mat-tab-label-active');
-      firstIndex[0].setAttribute('tabindex','-1');
     }
     else{
       // 初期設定
