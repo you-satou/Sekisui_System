@@ -53,23 +53,22 @@ export class OrderDetailApprovalTable{
     if(this.dataSource.data.length > 0){
       //データがある場合, ソートを活性化する
       this.sort.disabled = false;
-      //ソート矢印を表示する。
-      this.hiddenSortArrow('1');
     }
     else{
       //データがない場合, ソートを非活性する
       this.sort.disabled = true;
-      //データが絞り込まれている状態を解除する
-      this.sort.direction = '';
-      //ソート矢印を非表示する。
-      this.hiddenSortArrow('0'); 
     }
     // ソートした状態が前の状態に戻らない,　降順ー昇順だけ
     this.sort.disableClear = true;
-    
+    //データが絞り込まれている状態を解除する
+    this.sort.direction = '';
+    //ソート矢印を初期表示する。
+    this.hideSortArrow('0'); 
     //テーブルのソートとパジーネタを設定する
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    //明細一覧のデータが変わったら、ページネータのページインデックスを初期化する。
+    this.dataSource.paginator.firstPage();
   }
  
   /**　ページに移動する */
@@ -84,7 +83,7 @@ export class OrderDetailApprovalTable{
    * ソートの矢印の表示を設定する。
    * @param val ０：非表示、１：表示
    */
-  hiddenSortArrow(val:string){
+  hideSortArrow(val:string){
 
     //ソート矢印のエレメントを取得する
     let sortArrow: any = document.querySelector('div.mat-sort-header-arrow');

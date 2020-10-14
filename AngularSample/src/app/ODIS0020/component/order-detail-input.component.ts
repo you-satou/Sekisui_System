@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetec
 import { ActivatedRoute, Router } from '@angular/router';
 import { Const } from '../../common/const'
 import { AppComponent } from '../../app.component'
-import { from, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CommonService } from '../../common/common.service';
 import { SupplierPatternService } from '../../ODIS0050/services/supplier-pattern.service';
 import { SupplierPatternComponent } from '../../ODIS0050/component/supplier-pattern.component';
@@ -237,8 +237,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
-    this.paramInit.propertyNo = '55664';
-    this.paramInit.contractNum = '000000122';
+
+    // this.paramInit.propertyNo = '55664';
+    // this.paramInit.contractNum = '000000122';
 
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
@@ -328,39 +329,42 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // ハウス材
     dt = new ODIS0020OrderDetaiSplitBean();
-    dt.propertyNo = this.paramInit.propertyNo;
-    dt.detailKind = tabIndex;
-    dt.detailNo = '1';
-    dt.splitNo = '1';
-    dt.journalCode = '0100';
-    dt.accountCode = '010';
-    dt.journalName = 'ハウス材';
+    dt.insKubun          = Const.InsKubun.Normal;
+    dt.propertyNo        = this.paramInit.propertyNo;
+    dt.detailKind        = tabIndex;
+    dt.detailNo          = '1';
+    dt.splitNo           = '1';
+    dt.journalCode       = '0100';
+    dt.accountCode       = '010';
+    dt.journalName       = 'ハウス材';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
 
     // 運賃・荷造・保管料
     dt = new ODIS0020OrderDetaiSplitBean();
-    dt.propertyNo = this.paramInit.propertyNo;
-    dt.detailKind = tabIndex;
-    dt.detailNo = '2';
-    dt.splitNo = '1';
-    dt.journalCode = '9100';
-    dt.accountCode = '910';
-    dt.journalName = '運賃・荷造・保管料';
+    dt.insKubun          = Const.InsKubun.Normal;
+    dt.propertyNo        = this.paramInit.propertyNo;
+    dt.detailKind        = tabIndex;
+    dt.detailNo          = '2';
+    dt.splitNo           = '1';
+    dt.journalCode       = '9100';
+    dt.accountCode       = '910';
+    dt.journalName       = '運賃・荷造・保管料';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
 
     // 労災
     dt = new ODIS0020OrderDetaiSplitBean();
-    dt.propertyNo = this.paramInit.propertyNo;
-    dt.detailKind = tabIndex;
-    dt.detailNo = '3';
-    dt.splitNo = '1';
-    dt.journalCode = '9300';
-    dt.accountCode = '930';
-    dt.journalName = '労災';
+    dt.insKubun          = Const.InsKubun.Normal;
+    dt.propertyNo        = this.paramInit.propertyNo;
+    dt.detailKind        = tabIndex;
+    dt.detailNo          = '3';
+    dt.splitNo           = '1';
+    dt.journalCode       = '9300';
+    dt.accountCode       = '930';
+    dt.journalName       = '労災';
     dt.orderSupplierCode = '';
     dt.orderSupplierName = '';
     initData.push(dt);
@@ -1088,13 +1092,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE,this.paramUpd)
         .then(
           (response) => {
-            if(response.result === Const.ConnectResult.R0001){              
+            if(response.result === Const.ConnectResult.R0001){  
+              //更新が成功した場合、メッセージを表示する
+              alert(response.message);
               //セッションを削除する
               sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
               // 承認処理画面に戻る
-              this.router.navigate([Const.UrlSetting.U0001]);    
+              this.router.navigate([Const.UrlSetting.U0001]);
             }else{
+              //更新が失敗した場合、エラーメッセージを表示する
               alert(response.message);
             }
 

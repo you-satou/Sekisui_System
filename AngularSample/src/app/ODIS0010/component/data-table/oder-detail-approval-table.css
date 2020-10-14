@@ -1,7 +1,3 @@
-.mat-table>thead>tr>th>th.mat-sort-header-sorted {
-    color: blue;
-}
-
 .detail-table {
     width: 100%;
     min-width: 1200px;
@@ -92,6 +88,10 @@ mat-paginator.mat-stroked-button {
 .keiyaku-bango {
     color: blue;
     outline: 0;
-    text-align: center;
+    text-align: center !important;
+}
+
+.mat-sort-header-container > button{
+    margin: auto;
 }
 
