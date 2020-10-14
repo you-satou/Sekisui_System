@@ -147,6 +147,8 @@ export class SplitOrderDetailComponent implements OnInit {
   ngAfterViewInit(): void {
     this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
+    let firstIndex = document.getElementsByClassName('mat-tab-label-active')[0];
+    firstIndex.setAttribute('tabindex','-1');
   }
 
   /**

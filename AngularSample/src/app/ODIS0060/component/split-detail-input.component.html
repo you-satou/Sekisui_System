@@ -64,7 +64,7 @@
                                 <label *ngIf="element.requester != ''">{{element.requester}}</label>
                                 <button *ngIf="element.requester == ''" id="btnIrai{{i}}"
                                     (click)="mainTableRequest($event, element)" mat-button
-                                    class="btn btn-outline-primary">依頼</button>
+                                    class="btn btn-outline-primary" tabindex="1">依頼</button>
                             </td>
                         </ng-container>
 
@@ -187,20 +187,20 @@
             <tbody>
                 <tr>
                     <td>
-                        <input type="tel" class="splitAmount" id="txtSplitAmount" maxlength="11" tabindex="1"
+                        <input type="tel" class="splitAmount" id="txtSplitAmount" maxlength="11" tabindex="2" autofocus
                             [(ngModel)]="input.orderSplitAmount" (focus)="commonFocus($event)"
                             (blur)="commonBlur($event)" (keyup)="onlyHanPrice($event)"
                             (change)="onlyHanPrice($event)" />
                     </td>
                     <td>
-                        <input type="text" style="width: 190px !important;" maxlength="12" tabindex="2"
+                        <input type="text" style="width: 190px !important;" maxlength="12" tabindex="3"
                             [(ngModel)]="input.comment" (blur)="onChangeZenkaku($event)" 
                             (change)="onChangeZenkaku($event)"/>
                     </td>
                     <td style="text-align: center !important">{{ input.requestDate }}</td>
                     <td style="text-align: center !important">{{ input.requester }}
                         <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)"
-                            mat-button class="btn btn-outline-primary btn-small" tabindex="3">依頼</button>
+                            mat-button class="btn btn-outline-primary btn-small" tabindex="4">依頼</button>
                     </td>
                 </tr>
             </tbody>
@@ -210,22 +210,22 @@
             <div style="position: relative; margin: 20px 0 50px 0">
                 <div style="float: left">
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        tabindex="4"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
+                        tabindex="5"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
                 </div>
 
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        tabindex="5"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
+                        tabindex="6"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
                 </div>
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        tabindex="6"(click)="stopModifyDetail($event)">中止</button>
+                        tabindex="7"(click)="stopModifyDetail($event)">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; left: 400px">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        tabindex="7"(click)="deleteOrderDetail($event)">明細削除</button>
+                        tabindex="8"(click)="deleteOrderDetail($event)">明細削除</button>
                 </div>
             </div>
         </section>
@@ -234,7 +234,7 @@
     <div class="footer-container-split">
         <div style="margin: 5px 0 0 0">
             <button mat-button class="btn btn-secondary border mx-1 back-btn" 
-                tabindex="8" (click)="backToOrderDetailInput()">閉じる
+                tabindex="9" (click)="backToOrderDetailInput()">閉じる
             </button>
         </div>
     </div>
