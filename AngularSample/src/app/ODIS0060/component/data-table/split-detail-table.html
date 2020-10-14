@@ -33,14 +33,14 @@
         </ng-container>
 
         <ng-container matColumnDef="orderPlanAmount">
-            <th style="width: 100px; padding: 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額
+            <th style="width: 150px; padding: 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>発注予定金額
             </th>
             <td id="orderAmount" class="tdRight" mat-cell *matCellDef="let element">
                 {{element.orderPlanAmount | number}} </td>
         </ng-container>
 
         <ng-container matColumnDef="totalSplitAmount">
-            <th style="width: 100px; padding: 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>分割合計</th>
+            <th style="width: 150px; padding: 5px;" class="color-input-1" mat-header-cell *matHeaderCellDef>分割合計</th>
             <td class="tdRight" mat-cell *matCellDef="let element">{{totalSplitAmount | number}}</td>
         </ng-container>
 

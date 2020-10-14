@@ -57,7 +57,7 @@
                             autocomplete="off">承認２</p>
                 </div>
                 <div style="position: absolute; right: 0px;">
-                    <button style="margin-top: 5px;" class="btn btn-primary float-right" type="submit" tabindex="9"
+                    <button style="margin-top: 5px;" class="btn btn-primary float-right autoMargin" type="submit" tabindex="9"
                         (click)="getSearchRequest()">検索</button>
                 </div>
             </div>
@@ -72,10 +72,10 @@
     </div>
     <div class="footer-container-approval">
         <div class="bottomButton ">
-            <button type="button" class="btn btn-secondary" (click)="onCloseClick();" tabindex="16">閉じる</button>
+            <button type="button" class="btn btn-secondary autoMargin" (click)="onCloseClick();" tabindex="16">閉じる</button>
         </div>
         <div class="bottomButton" style="right: 40px;">
-            <button type="submit" class="btn btn-primary float-right" (click)="toApproveMaster();" tabindex="17">発注承認者マスタ</button>
+            <button type="submit" class="btn btn-primary float-right autoMargin" (click)="toApproveMaster();" tabindex="17">発注承認者マスタ</button>
         </div>
     </div>
 </div>

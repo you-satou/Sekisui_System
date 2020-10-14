@@ -51,7 +51,6 @@
 
 
 .footer {
-    /* position: fixed;     */
     display: fixed ;
     background-color: #F5F5F5 ;
     z-index: 1;
@@ -93,13 +92,12 @@
     margin: 15px 15px 15px 15px !important;
 }
 
-input.splitAmount{
+.splitAmount{
     text-align: right;
 }
 
 #btnSubIrai{
     height: 35px !important;
-    /* width: 50px; */
     text-align: center;
     vertical-align: middle !important;
     line-height: 0;
@@ -110,11 +108,10 @@ input.splitAmount{
 /*****                                                    ****/
 /*****                 BUNKATSU-TABLE                     ****/
 /*****                                                    ****/
-/*****             分割データを表示するテーブル.          ****/
+/*****             分割データを表示するテーブル.              ****/
 /*************************************************************/
 .bunkatsu-table {
-    width: 1280px;
-    min-width: 1280px;
+    width: fit-content;
     display: block;
     position: relative;
     box-shadow: -1px 0px 0px 0px #dee2e6 inset;
@@ -231,7 +228,7 @@ input.splitAmount{
     word-wrap: initial;
     display: table-cell;
     padding: 0px 5px;
-    width: auto;
+    width: fit-content;
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
@@ -249,7 +246,6 @@ input.splitAmount{
     overflow-y: auto;
     max-height: 302px;
     width: fit-content;
-    width: 1314px;
 }
 
 /*************************************************************/
