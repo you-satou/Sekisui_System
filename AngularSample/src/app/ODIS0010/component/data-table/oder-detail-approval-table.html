@@ -3,7 +3,7 @@
         <ng-container matColumnDef="detail">
             <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>詳細</th>
             <td style="width: 5%;" mat-cell *matCellDef="let element">
-                <button class="btn btn-link" (click) = "switchToOrderInputPage(element)" style="text-align: center;">詳細</button>
+                <button class="btn btn-link" (click) = "switchToOrderInputPage(element)" style="text-align: center;" tabindex="10">詳細</button>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">

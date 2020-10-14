@@ -3,11 +3,11 @@
 <div id="app">
     <nav class="navbar text-white p-2" style="background-color:#305496; display: flex; flex-wrap: nowrap;">
         <ul class="navbar-nav mr-auto">
-            <a class="navbar-brand text-white" href="#">
+            <label class="navbar-brand text-white" style="margin: 0;">
                 <img src="./assets/logo.png" class="d-inline-block align-top">
                 <span class="mx-3 fs-big">新本社システム</span>
                 <span class="mx-1 fs-small">v 1.0.0</span>
-            </a>
+            </label>
         </ul>
         <ul class="navbar-nav">
             <div class="text-right">
@@ -25,7 +25,7 @@
         </ul>
     </nav>
     <nav class="bg-light border" style="white-space: nowrap;">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation" disabled="true">
       <i class="fas fa-bars hunbarger-icon"></i>
     </button>
         <span [innerHTML]='rootPath' class="fs-small"></span>
