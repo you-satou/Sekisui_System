@@ -1,6 +1,6 @@
 <div *ngIf="isInitFlg">
     <div>
-        <mat-tab-group>
+        <mat-tab-group disableRipple = "true">
             <mat-tab label="{{ tabName }}">
                 <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference]="getAmountDeference()"
                     [totalSplitAmount]="totalAmount()">

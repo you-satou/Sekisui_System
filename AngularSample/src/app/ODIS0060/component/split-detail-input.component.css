@@ -6,26 +6,31 @@
 /*************************************************************/
 .mat-tab-label {
     min-width: 25px !important;
-    max-width: 50px !important;
-    padding: 5px;
-    background-color: transparent;
-    color: black;
-    font-weight: 700;
-    text-align: center;
+    width: fit-content !important;
+    padding: 3px ;
+    background-color: #cccccc ;
+    color: black ;
+    font-weight: 700 ;
+    text-align: center ;
+    margin: 0 !important;
+    padding: 10px 10px 10px 10px !important;
 }
 
-.mat-tab-label.mat-tab-label-active {
-    min-width: 25px !important;
-    width: 60px !important;
-    padding: 5px;
-    background-color: #305496;
-    color: white;
-    font-weight: 700;
-    text-align: center;
+.mat-tab-label-active {
+    min-width: 25px ;
+    width: fit-content !important;
+    padding: 3px ;
+    background: #305496 ;
+    color: #fff ;
+    font-weight: 700 ;
+    text-align: center ;
+    border-radius: 0px;
 }
 
 .mat-ink-bar {
-    background-color: transparent;
+    background: #305496 ;
+    width: auto !important ;
+    height: 5px !important;
 }
 
 /*************************************************************/

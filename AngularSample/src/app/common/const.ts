@@ -194,9 +194,9 @@ export namespace Const{
      */
     export namespace TabName{
         export const TabName_0 = '設計'
-        export const TabName_1 = '本体'
+        export const TabName_1 = 'ハウス・外構'
         export const TabName_2 = '解体'
-        export const TabName_3 = '追加'
+        export const TabName_3 = '追加工事'
     }
     
 }
