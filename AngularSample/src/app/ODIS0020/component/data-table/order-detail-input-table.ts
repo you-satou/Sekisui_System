@@ -23,8 +23,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
 
-  private readonly OrderDetailTableData: string = 'ODIS0020DataTable';
-
   /**
    * テーブルヘッダーのカラムを定義する。
    */
@@ -100,8 +98,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.setTableButtonDisplay(this.orderData);
-    // this.setTextColorWhenAmountIsDifference(this.orderData);
-    this.setFonWhite(this.orderData);
+    this.setFontWhite(this.orderData);
 
   }
 
@@ -317,6 +314,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * @param $event
    */
   onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
+
+    //依頼・承認ボタンを押下した後、背景色を変えない、更新データも表示しない。
+    if($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN'){
+
+      return;
+    }
+    
     this.comCompnt.CommonOnSelHight($event);
 
     // 明細連番 対象データ抽出
@@ -362,7 +366,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;   //行を選択
     this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
-    this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel); //明細ステータス
+    this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
 
     //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
@@ -497,7 +501,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
       // 色 設定
       switch(element.insKubun){
         case Const.InsKubun.Normal: 
-          isFont = 'black'
+          isFont = 'black';
           break;
         case Const.InsKubun.Ins:
           isFont = Const.HighLightColour.Inserted;
@@ -541,7 +545,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * テーブル一覧 左側 親データ以外は文字白
    * @param dt 
    */
-  private setFonWhite(dt: ODIS0020OrderDetaiSplitBean[]){
+  private setFontWhite(dt: ODIS0020OrderDetaiSplitBean[]){
     let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
 
     for (let i = 0; i < dt.length; i++) {
