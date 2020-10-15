@@ -1,5 +1,6 @@
-import { style } from '@angular/animations';
-import { Component, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
+import { Component, ViewChild, Input, OnChanges, ViewEncapsulation, HostListener } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
@@ -43,13 +44,16 @@ export class OrderDetailApprovalTable{
   ) {}
 
   ngOnInit() {
+    
     //初期化、テーブルのソートを非活性する
     this.dataSource.sort.disabled = true;
+    if(this.dataSource.data != null && this.dataSource.data.length > 0){
+      this.dataSource.sort.disabled = false;
+    }
   }
 
   ngOnChanges( ) {
     this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
-
     if(this.dataSource.data.length > 0){
       //データがある場合, ソートを活性化する
       this.sort.disabled = false;

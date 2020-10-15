@@ -2,12 +2,12 @@
     <table mat-table [dataSource]="dataSource" matSort class="detail-table table table-hover table-sm">
         <ng-container matColumnDef="detail">
             <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>詳細</th>
-            <td style="width: 5%;" mat-cell *matCellDef="let element">
+            <td style="width: 5%; text-align: center;" mat-cell *matCellDef="let element">
                 <button class="btn btn-link" (click) = "switchToOrderInputPage(element)" style="text-align: center;" tabindex="10">詳細</button>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
-            <th style="width: 10%;" class="color-approval-1 keiyaku-bango" #keiyakuBango mat-header-cell *matHeaderCellDef mat-sort-header>契約番号</th>
+            <th style="width: 10%;" class="color-approval-1 keiyaku-bango" #keiyakuBango mat-header-cell *matHeaderCellDef mat-sort-header >契約番号</th>
             <td style="width: 10%; vertical-align:middle;" mat-cell *matCellDef="let element">{{element.customerNum.substring(0,9)}}-{{element.customerNum.substring(9,11)}}</td>
         </ng-container>
         <ng-container matColumnDef="propertyName">
