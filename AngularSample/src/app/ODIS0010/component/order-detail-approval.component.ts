@@ -151,7 +151,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       var NumFrom = Number(input.contractNumFrom);
       var NumTo = Number(input.contractNumTo);
   
-        if(NumFrom >= NumTo){
+        if(NumFrom > NumTo){
           alert(Const.ErrorMsg.E0001);
           return false;
         }
