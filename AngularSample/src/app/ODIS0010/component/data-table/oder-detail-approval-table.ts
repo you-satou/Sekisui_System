@@ -1,6 +1,5 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
-import { Component, ViewChild, Input, OnChanges, ViewEncapsulation, HostListener } from '@angular/core';
+import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } from '@angular/core';
+import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
@@ -41,6 +40,7 @@ export class OrderDetailApprovalTable{
 
   constructor(
     private router: Router,
+    private baseComm : CommonComponent,
   ) {}
 
   ngOnInit() {
@@ -95,6 +95,16 @@ export class OrderDetailApprovalTable{
     if(sortArrow != null){
       sortArrow.style.opacity = val;
     }
+  }
+
+  displayContractNum(data: ODIS0010OrderDetail){
+
+    let customerNum = this.baseComm.setValue(data.customerNum);
+    if(customerNum == ''){
+
+      return '';
+    }
+    return `${customerNum.substring(0,9)}-${customerNum.substring(9,11)}`;
   }
 
 }
