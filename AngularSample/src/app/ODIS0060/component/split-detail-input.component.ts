@@ -599,7 +599,14 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   commonBlur($event){
     if(!($event.target.value == "")){
-      this.input.orderSplitAmount = this.baseCompnt.addCommas($event.target.value);
+
+      var maxLen:number = $event.target.maxLength;
+      var val = $event.target.value;
+      if(val.length > maxLen){
+        val = val.substr(0,maxLen);
+      }
+
+      this.input.orderSplitAmount = this.baseCompnt.addCommas(val);
     }
   }
 
@@ -609,11 +616,13 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   onChangeZenkaku($event){
+
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
       val = val.substr(0,maxLen);
     }
+
     this.input.comment = this.baseCompnt.onChangeZenkaku(val);
   }
 
@@ -623,7 +632,14 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   onlyHanPrice($event){
-    this.input.orderSplitAmount = this.baseCompnt.onlyHanPrice($event.target.value);
+
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+    
+    this.input.orderSplitAmount = this.baseCompnt.onlyHanPrice(val);
   }
 
   /**
