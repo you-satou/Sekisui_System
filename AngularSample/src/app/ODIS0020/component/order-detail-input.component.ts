@@ -1200,14 +1200,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @param $event イベント
   */
   toHanNumJC($event){
-
-    var maxLen:number = $event.target.maxLength;
-    var val = $event.target.value;
-    if(val.length > maxLen){
-      val = val.substr(0,maxLen);
-    }
-
-    this.addInput.journalCode = this.baseCompnt.onlyHanNumber(val);
+    this.addInput.journalCode = this.baseCompnt.onlyHanNumber($event.target.value);
   }
 
   /**
@@ -1216,14 +1209,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     * @param $event イベント
     */
  toHanNumAC($event){
-
-  var maxLen:number = $event.target.maxLength;
-  var val = $event.target.value;
-  if(val.length > maxLen){
-    val = val.substr(0,maxLen);
-  }
-
-  this.addInput.accountCode = this.baseCompnt.onlyHanNumber(val);
+  this.addInput.accountCode = this.baseCompnt.onlyHanNumber($event.target.value);
  }
 
   /**
@@ -1232,14 +1218,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     * @param $event イベント
     */
  toHanNumSC($event){
-
-  var maxLen:number = $event.target.maxLength;
-  var val = $event.target.value;
-  if(val.length > maxLen){
-    val = val.substr(0,maxLen);
-  }
-
-  this.addInput.orderSupplierCode = this.baseCompnt.onlyHanNumber(val);
+  this.addInput.orderSupplierCode = this.baseCompnt.onlyHanNumber($event.target.value);
  }
 
 
@@ -1249,14 +1228,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     * @param $event イベント
     */
   toHanPricePA($event){
-
-    var maxLen:number = $event.target.maxLength;
-    var val = $event.target.value;
-    if(val.length > maxLen){
-      val = val.substr(0,maxLen);
-    }
-
-    this.addInput.orderPlanAmount = this.baseCompnt.onlyHanPrice(val);
+    this.addInput.orderPlanAmount = this.baseCompnt.onlyHanPrice($event.target.value);
   }
 
   /**
@@ -1266,17 +1238,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   commonBlurPA($event){
     if(!($event.target.value == "")){
-
-      var maxLen:number = $event.target.maxLength;
-      var val = $event.target.value;
-      if(val.length > maxLen){
-        val = val.substr(0,maxLen);
-      }
-
       // 表示内容
-      $event.target.value = this.baseCompnt.addCommas(val);
+      $event.target.value = this.baseCompnt.addCommas($event.target.value);
       // 実際値
-      this.addInput.orderPlanAmount = this.baseCompnt.removeCommas(val);
+      this.addInput.orderPlanAmount = this.baseCompnt.removeCommas($event.target.value);
     }
   }
 
@@ -1298,14 +1263,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @param $event イベント
   */
   toZenkakuJN($event){
-
-    var maxLen:number = $event.target.maxLength;
-    var val = $event.target.value;
-    if(val.length > maxLen){
-      val = val.substr(0,maxLen);
-    }
-
-    this.addInput.journalName = this.baseCompnt.onChangeZenkaku(val);
+    this.addInput.journalName = this.baseCompnt.onChangeZenkaku($event.target.value);
   }
 
   /**
@@ -1314,16 +1272,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   getJournalCode($event){
 
-    var maxLen:number = $event.target.maxLength;
-    var val = $event.target.value;
-    if(val.length > maxLen){
-      val = val.substr(0,maxLen);
-    }
-
     // 空白以外の場合に処理を実行
-    if(val.trim().length >= 1){
+    if($event.target.value.trim().length >= 1){
       // 0パディング 設定
-      var strJournalCode = this.baseCompnt.getZeroPadding(val.trim(), 4);
+      var strJournalCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 4);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
       if(this.paramJournalCode.journalCode !== strJournalCode){
         // 初期化
@@ -1360,14 +1312,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   blurAccountCode($event){
     if(!($event.target.value == '')){
-      
-      var maxLen:number = $event.target.maxLength;
-      var val = $event.target.value;
-      if(val.length > maxLen){
-        val = val.substr(0,maxLen);
-      }
-
-      this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3)
+      this.addInput.accountCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3)
     }
   }
 
@@ -1376,17 +1321,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param event 
    */
   getOrderCode($event){
-    
-    var maxLen:number = $event.target.maxLength;
-    var val = $event.target.value;
-    if(val.length > maxLen){
-      val = val.substr(0,maxLen);
-    }
-
     // 空白以外の場合に処理を実行
-    if(val.trim().length >= 1){
+    if($event.target.value.trim().length >= 1){
       // 0パディング 設定
-      var strOrderCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+      var strOrderCode = this.baseCompnt.getZeroPadding($event.target.value.trim(), 3);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
       if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
         // 初期化
