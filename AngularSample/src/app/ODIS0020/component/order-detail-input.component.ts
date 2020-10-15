@@ -807,30 +807,29 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 初期化
     this.setDefaultDisplay();
   }
-
+  
   /**
    * 入力チェック
    * @param val 0:明細追加, 1:明細更新
    */
   private inputCheck(val: string){
 
+    let rowData = this.rowStatus.rowData;
     // 明細更新ボタン押下された場合は以下処理を実施
     if(val === '1'){
-
-      let rowData = this.rowStatus.rowData;
-      //選択された明細は３つの固定箇所かどうかをチェックする
+     
+      //選択された明細は「ハウス材」「運賃・荷造・保管料」「労災」かどうかをチェックする
       if(rowData.journalName === 'ハウス材' ||
          rowData.journalName === '運賃・荷造・保管料' ||
          rowData.journalName === '労災'){
-        //固定明細は発注予定金額以外が変更できない
+        //仕訳と発注先が変更されたかどうかをチェックする
         if (rowData.journalCode != this.addInput.journalCode ||
-          rowData.accountCode != this.addInput.accountCode ||
-          rowData.journalName != this.addInput.journalName ||
-          rowData.orderSupplierCode != this.addInput.orderSupplierCode ||
-          rowData.orderSupplierName != this.addInput.orderSupplierName) {
-
+            rowData.accountCode != this.addInput.accountCode ||
+            rowData.journalName != this.addInput.journalName ||
+            rowData.orderSupplierCode != this.addInput.orderSupplierCode ||
+            rowData.orderSupplierName != this.addInput.orderSupplierName) {
+            //変更された場合、エラーメッセージを表示する。
             alert(Const.ErrorMsg.E0019);
-            this.stopUpdateOrderDetail();
             return false;
         }
       }
@@ -840,7 +839,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         alert(Const.ErrorMsg.E0015);
         return false;
       }
-
     }
 
     // 仕訳コード 未入力の場合
@@ -849,20 +847,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.baseCompnt.setFocus('txtAddJCode');
       return false;
     }
-    // 経理分類 未入力の場合
-    if(this.baseCompnt.setValue(this.addInput.accountCode) == ''){
+    if (this.baseCompnt.setValue(this.addInput.accountCode) == '') {
       alert(Const.ErrorMsg.E0004);
       this.baseCompnt.setFocus('txtAddAccCode');
       return false;
     }
-
     // 発注予定金額が0の場合
     if(Number(this.baseCompnt.setValue(this.addInput.orderPlanAmount)) == 0){
       alert(Const.ErrorMsg.E0006);
       this.baseCompnt.setFocus('txtAddAmount');
       return false;
     }
-
     return true;
   }
 

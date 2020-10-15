@@ -314,15 +314,14 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * @param $event
    */
   onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
-
-    //依頼・承認ボタンを押下した後、背景色を変えない、更新データも表示しない。
-    if($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN'){
-
-      return;
-    }
     
     this.comCompnt.CommonOnSelHight($event);
 
+    //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
+    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
+
+      return;
+    }
     // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
       if(element.detailNo == value.detailNo){
