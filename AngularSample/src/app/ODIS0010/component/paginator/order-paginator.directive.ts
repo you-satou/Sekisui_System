@@ -51,35 +51,32 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 
     //テキストボックスが存在するかどうかをチェックする。
     let inputNode: any = document.getElementById("pageIndex");
-    setTimeout(() => {
-      //テキストボックスが存在しない場合、新規作成する。
-      if (inputNode === null) {
-        const inputIndex: Input = this.rend.createElement('input');
-        // 各クラスを追加する。
-        this.rend.addClass(inputIndex, 'input-group');
-        this.rend.addClass(inputIndex, 'input-group-sm');
-        this.rend.setStyle(inputIndex, 'order', '3');
-        this.rend.setStyle(inputIndex, 'max-width', '40px');
-        this.rend.setStyle(inputIndex, 'text-align', 'right');
-        this.rend.setStyle(inputIndex, 'margin-left', '10px');
-        this.rend.setAttribute(inputIndex, 'type', 'tel');
-        this.rend.setAttribute(inputIndex, 'disabled', 'true');
-        this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
-        this.rend.setAttribute(inputIndex, 'tabIndex', '13');
-        // this.rend.setStyle(inputIndex,'display','disabled');
-        //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
-        this.rend.listen(inputIndex, 'keypress', ($event) => {
-          this.switchPage($event);
-        });
+    //テキストボックスが存在しない場合、新規作成する。
+    if (inputNode == null) {
+      const inputIndex: Input = this.rend.createElement('input');
+      // 各クラスを追加する。
+      this.rend.addClass(inputIndex, 'input-group');
+      this.rend.addClass(inputIndex, 'input-group-sm');
+      this.rend.setStyle(inputIndex, 'order', '3');
+      this.rend.setStyle(inputIndex, 'max-width', '40px');
+      this.rend.setStyle(inputIndex, 'text-align', 'right');
+      this.rend.setStyle(inputIndex, 'margin-left', '10px');
+      this.rend.setAttribute(inputIndex, 'type', 'tel');
+      this.rend.setAttribute(inputIndex, 'disabled', 'true');
+      this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
+      this.rend.setAttribute(inputIndex, 'tabIndex', '13');
+      //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
+      this.rend.listen(inputIndex, 'keypress', ($event) => {
+        this.switchPage($event);
+      });
 
-        // テキストボックスを作成する
-        this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
-      } 
-      else {
-        // ボタンを押下毎、ページインデックスを加算する。
-        inputNode.value = (this.pagi.pageIndex + 1).toString();
-      }
-    });
+      // テキストボックスを作成する
+      this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
+    }
+    else {
+      // ボタンを押下毎、ページインデックスを加算する。
+      inputNode.value = (this.pagi.pageIndex + 1).toString();
+    }
   }
 
   /** ページをジャップ */

@@ -1,11 +1,13 @@
-import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
+
+import { ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
+import { Router } from '@angular/router';
+import { AppComponent } from "../../app.component";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
 import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
 import { CommonService } from "app/common/common.service";
 import { CommonComponent } from "app/common/common.component";
-import { AppComponent } from "../../app.component";
 import { Const } from "../../common/const";
-import { Router } from '@angular/router';
+import { ODIS0010Session } from './../entities/odis001.session.entity';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -39,6 +41,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     private orderService: CommonService,
     private router: Router,
     private CommonComponent: CommonComponent,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -55,13 +58,33 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // 初期画面をレンダーする
     this.isInitFlg = true;
+
+    
+    if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
+      let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN));
+
+      this.inputment = savedData.inputForm;
+      this.orderDetailData = savedData.resultData;
+
+      this.changeDetectorRef.detectChanges();
+      this.setPaginator('1');
+
+    }
   }
 
   onCloseClick(){
+
+    // 既にセッションが格納されている場合は除去する
+    if (sessionStorage.getItem(Const.ScreenName.S0001EN) != null) {
+      sessionStorage.removeItem(Const.ScreenName.S0001EN);
+    }
     this.router.navigate(['']);
   }
 
   toApproveMaster(){
+
+    this.saveTemporaryData();
+
     this.router.navigate(['OrderSplitApprovalMaster']);
   }
 
@@ -122,6 +145,7 @@ export class OrderDetailApprovalComponent implements OnInit {
               alert(response.message);
             },300);
           }
+          this.saveTemporaryData();
           //ロード中を解除する。
           this.isGetting = false;
         }
@@ -202,6 +226,24 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     this.inputment.propertyName= this.CommonComponent.onChangeZenkaku($event.target.value);
 
+  }
+
+   /**
+   * 一時データを保持する
+   */
+  saveTemporaryData(){
+
+    var saveData = new ODIS0010Session();
+
+    saveData.currentPage = 0;
+    saveData.inputForm = this.inputment;
+    saveData.resultData = this.orderDetailData;
+
+    // 既にセッションが格納されている場合は除去する
+    if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
+      sessionStorage.removeItem(Const.ScreenName.S0001EN);
+    }
+    sessionStorage.setItem(Const.ScreenName.S0001EN,JSON.stringify(saveData));
   }
 
 }
