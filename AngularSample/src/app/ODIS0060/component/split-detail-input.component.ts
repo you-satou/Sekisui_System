@@ -609,7 +609,12 @@ export class SplitOrderDetailComponent implements OnInit {
    * @param $event イベント
    */
   onChangeZenkaku($event){
-    this.input.comment = this.baseCompnt.onChangeZenkaku($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+    this.input.comment = this.baseCompnt.onChangeZenkaku(val);
   }
 
   /**
