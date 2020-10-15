@@ -178,7 +178,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   toABCNumPersonal($event){
-    this.input.personalID = this.commonComponent.onlyHanABCNumber($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+    this.input.personalID = this.commonComponent.onlyHanABCNumber(val);
   }
 
   /**
@@ -187,7 +192,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   toABCNumEmployee($event){
-    this.input.employeeCode = this.commonComponent.onlyHanABCNumber($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+    this.input.employeeCode = this.commonComponent.onlyHanABCNumber(val);
   }
 
   /**
@@ -196,10 +206,15 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   getEmployeeInfo($event){
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
     // 空白以外の場合に処理を実行
-    if($event.target.value.trim().length >= 1){
+    if(val.trim().length >= 1){
       // 前回の個人認証ＩＤと異なる場合に以降の処理を実施
-      if(this.paramUserInfo.personalID !== $event.target.value.trim()){
+      if(this.paramUserInfo.personalID !== val.trim()){
         // ビジー開始
         this.isLoading = true;
 
@@ -208,14 +223,14 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // TODO
         this.input.officeCode = '204006';
         // 個人認証ＩＤ
-        this.paramUserInfo.personalID = $event.target.value.trim();
+        this.paramUserInfo.personalID = val.trim();
 
         this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
               this.resUserInfo = response.applicationData;
-              this.input.personalID = $event.target.value.trim();
+              this.input.personalID = val.trim();
               this.input.employeeCode = this.resUserInfo.employeeCode;
               this.input.employeeName = this.resUserInfo.employeeName;
             }else{
