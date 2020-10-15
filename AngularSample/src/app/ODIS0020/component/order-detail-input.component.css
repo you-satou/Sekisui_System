@@ -114,6 +114,30 @@
     position: relative;
 }
 
+
+.tbl1 {
+    width: fit-content;
+    float: left ;
+    max-width: 600px;
+}
+
+.tbl1>table>thead>tr>th {
+    text-align: center;
+    padding: 0 5px;
+}
+
+.tbl1>table>tbody>tr>td {
+    min-width: 47px;
+}
+
+.tbl2 {
+    overflow-y: auto;
+    height: 141px;
+    float: left;
+    margin-left: 20px;
+    width: fit-content;
+}
+
 .tbl2>table>thead>tr>th {
     position: sticky ;
     height: 26px;
@@ -125,26 +149,8 @@
     padding: 0 5px;
 }
 
-.tbl1 {
-    width: fit-content;
-    float: left ;
-    max-width: 600px;
-}
-
-.tbl1>table>tbody>tr>td {
-    min-width: 25px;
-}
-
-.tbl2 {
-    overflow-y: auto;
-    height: 141px;
-    float: left;
-    margin-left: 20px;
-    width: fit-content;
-}
-
 .tbl2>table>tbody>tr>td {
-    min-width: 25px;
+    min-width: 47px;
     box-shadow: 1px -1px 0px 0px #dee2e6 inset;
 }
 
