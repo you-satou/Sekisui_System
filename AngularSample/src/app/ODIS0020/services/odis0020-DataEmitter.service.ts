@@ -39,16 +39,16 @@ export class DataEmitter {
     * @param del 削除
     * 
     */
-  setRowStatus(key: number, row: number, totalLength:number,upd: boolean, del: boolean){
+  setRowStatus(key: number, row: number, totalLength:number, upd: boolean, del: boolean, value: ODIS0020OrderDetaiSplitBean){
     this.status.keyIndex = key;
     this.status.rowIndex = row;
     this.status.detailLength = totalLength;
 
     //ボタン制御を設定する。
-    // this.status.add = add;
     this.status.update = upd;
-    // this.status.cancel = cancel;
     this.status.delete = del;
+
+    this.status.rowData = value;
   }
 
   /* 明細ステータスを取得する */
@@ -82,6 +82,8 @@ export class RowStatus {
   /* 明細削除ボタン */
   delete: boolean;
 
+  /**明細データ */
+  rowData: ODIS0020OrderDetaiSplitBean;
 
 　 get isSelected(): boolean{
     if(this.keyIndex >= 0 &&
@@ -99,6 +101,7 @@ export class RowStatus {
     this.rowIndex = null;
     this.keyIndex = null;
     this.detailLength = 0;
+    this.rowData = new ODIS0020OrderDetaiSplitBean();
   }
 
 }

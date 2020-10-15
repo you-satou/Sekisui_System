@@ -156,6 +156,7 @@ export namespace Const{
         export const E0016 = '個人認証ＩＤは必須入力です。';
         export const E0017 = '発注先コードは必須入力です。';
         export const E0018 = '編集途中のデータがあります。';
+        export const E0019 = '「ハウス材」「運賃・荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
     }
     /**
      * 警告メッセージ

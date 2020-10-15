@@ -813,6 +813,36 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param val 0:明細追加, 1:明細更新
    */
   private inputCheck(val: string){
+
+    // 明細更新ボタン押下された場合は以下処理を実施
+    if(val === '1'){
+
+      let rowData = this.rowStatus.rowData;
+      //選択された明細は３つの固定箇所かどうかをチェックする
+      if(rowData.journalName === 'ハウス材' ||
+         rowData.journalName === '運賃・荷造・保管料' ||
+         rowData.journalName === '労災'){
+        //固定明細は発注予定金額以外が変更できない
+        if (rowData.journalCode != this.addInput.journalCode ||
+          rowData.accountCode != this.addInput.accountCode ||
+          rowData.journalName != this.addInput.journalName ||
+          rowData.orderSupplierCode != this.addInput.orderSupplierCode ||
+          rowData.orderSupplierName != this.addInput.orderSupplierName) {
+
+            alert(Const.ErrorMsg.E0019);
+            this.stopUpdateOrderDetail();
+            return false;
+        }
+      }
+
+      //明細が変更したかどうかチェックする
+      if(this.addInput.isUnchanged){
+        alert(Const.ErrorMsg.E0015);
+        return false;
+      }
+
+    }
+
     // 仕訳コード 未入力の場合
     if(this.baseCompnt.setValue(this.addInput.journalCode) == ''){
       alert(Const.ErrorMsg.E0003);
@@ -833,14 +863,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    // 明細更新ボタン押下された場合は以下処理を実施
-    if(val === '1'){
-      //明細が変更したかどうかチェックする
-      if(this.addInput.isUnchanged){
-        alert(Const.ErrorMsg.E0015);
-        return false;
-      };
-    }
     return true;
   }
 
@@ -947,6 +969,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   getEmitter(emitterData: DataEmitter) {
     switch(emitterData.action){
+      //明細を選択する
       case Const.Action.A0004:
         // 値設定
         this.rowStatus = emitterData.getRowStatus();

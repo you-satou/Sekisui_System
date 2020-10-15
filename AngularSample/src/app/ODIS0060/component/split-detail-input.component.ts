@@ -251,6 +251,12 @@ export class SplitOrderDetailComponent implements OnInit {
     //選択された行に背景色を変える
     this.baseCompnt.CommonOnSelHight($event);
 
+    //依頼ボタンを押下した後、明細変更テーブルにデータを表示しない。
+    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
+
+      return;
+    }
+
     let index = this.bunkatsuData.indexOf(rowDt);
     this.rowStatus.setRowStatus(true, index);
     
