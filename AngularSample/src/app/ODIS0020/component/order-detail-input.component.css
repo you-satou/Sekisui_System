@@ -127,7 +127,7 @@
 }
 
 .tbl1>table>tbody>tr>td {
-    min-width: 47px;
+    min-width: 25px;
 }
 
 .tbl2 {
@@ -150,7 +150,7 @@
 }
 
 .tbl2>table>tbody>tr>td {
-    min-width: 47px;
+    min-width: 25px;
     box-shadow: 1px -1px 0px 0px #dee2e6 inset;
 }
 
@@ -182,7 +182,7 @@
 
 .tdprice {
     text-align: right ;
-    width: 100px ;
+    width: 90px ;
     padding: 0px 5px 0px 20px ;
     height: 23px ;
 }

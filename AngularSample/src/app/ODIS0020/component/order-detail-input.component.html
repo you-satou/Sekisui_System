@@ -142,15 +142,15 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of tblMainOrder;">
-                            <td class="tdcenter">{{data.contractModel}}</td>
-                            <td class="tdcenter">{{data.orderModel}}</td>
-                            <td class="tdcenter">{{data.branchNum1}}</td>
-                            <td class="tdcenter">{{data.branchNum2}}</td>
-                            <td class="tddate">{{data.date}}</td>
+                            <td style="width: 90px;" class="tdcenter">{{data.contractModel}}</td>
+                            <td style="width: 67px;" class="tdcenter">{{data.orderModel}}</td>
+                            <td style="width: 36px;" class="tdcenter">{{data.branchNum1}}</td>
+                            <td style="width: 36px;" class="tdcenter">{{data.branchNum2}}</td>
+                            <td style="width: 83px;" class="tddate">{{data.date}}</td>
                             <td class="tdprice">{{data.contractAmount}}</td>
-                            <td class="tdcenter">{{data.completeStatus}}</td>
-                            <td class="tdcenter">{{data.salesStatus}}</td>
-                            <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                            <td style="width: 39px;" class="tdcenter">{{data.completeStatus}}</td>
+                            <td style="width: 39px;" class="tdcenter">{{data.salesStatus}}</td>
+                            <td style="width: 55px;" class="tdcenter">{{data.salesUpdateDate}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,15 +171,15 @@
                     <tbody>
                         <th class="tsuikakouji">追<br>加<br>工<br>事</th>
                         <tr *ngFor="let data of tblInsertedOrder; let i = index">
-                            <td class="tdcenter" style="padding-left: 20px !important;">{{data.contractModel}}</td>
+                            <td class="tdcenter" style="padding-left: 32px !important;">{{data.contractModel}}</td>
                             <td class="tdcenter">{{data.orderModel}}</td>
-                            <td class="tdcenter">{{data.branchNum1}}</td>
-                            <td class="tdcenter">{{data.branchNum2}}</td>
+                            <td style="width: 36px;" class="tdcenter">{{data.branchNum1}}</td>
+                            <td style="width: 36px;" class="tdcenter">{{data.branchNum2}}</td>
                             <td class="tddate">{{data.date}}</td>
                             <td class="tdprice">{{data.contractAmount}}</td>
-                            <td class="tdcenter">{{data.completeStatus}}</td>
-                            <td class="tdcenter">{{data.salesStatus}}</td>
-                            <td class="tdcenter">{{data.salesUpdateDate}}</td>
+                            <td style="width: 39px;" class="tdcenter">{{data.completeStatus}}</td>
+                            <td style="width: 39px;" class="tdcenter">{{data.salesStatus}}</td>
+                            <td style="width: 55px;" class="tdcenter">{{data.salesUpdateDate}}</td>
                         </tr>
                     </tbody>
                 </table>
