@@ -206,7 +206,13 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   onKeyUpNumFrom($event){
 
-    this.inputment.contractNumFrom = this.CommonComponent.onlyHanNumber($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+
+    this.inputment.contractNumFrom = this.CommonComponent.onlyHanNumber(val);
 
   }
 
@@ -215,7 +221,13 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   onKeyUpNumTo($event){
 
-    this.inputment.contractNumTo = this.CommonComponent.onlyHanNumber($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+
+    this.inputment.contractNumTo = this.CommonComponent.onlyHanNumber(val);
 
   }
 
@@ -224,7 +236,13 @@ export class OrderDetailApprovalComponent implements OnInit {
    */
   toZenkakuPropName($event){
 
-    this.inputment.propertyName= this.CommonComponent.onChangeZenkaku($event.target.value);
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+
+    this.inputment.propertyName= this.CommonComponent.onChangeZenkaku(val);
 
   }
 
