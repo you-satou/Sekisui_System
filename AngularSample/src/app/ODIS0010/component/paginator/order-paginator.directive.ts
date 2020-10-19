@@ -6,7 +6,6 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 })
 
 export class OrderApprovalPaginator extends MatPaginatorIntl {
-  @Input() startPage:number;
   //各ボタンのラベルの名称
 	itemsPerPageLabel	= '表示件数';
 	

@@ -152,7 +152,7 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
 
      // Todo　システムログイン情報から取得すること！
      // 事業区分コード設定
-     this.param.officeCode = '827007';
+     this.param.officeCode = '701000';
 
      //入力された値
      this.selectVal = this.ODIS0020Service.getVal();

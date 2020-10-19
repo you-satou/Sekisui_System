@@ -1,3 +1,4 @@
+import { tableObj } from './data-table/oder-detail-approval-table';
 
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
@@ -123,7 +124,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.inputment.officeCode = '827007';
+    this.inputment.officeCode = '402000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
@@ -262,6 +263,12 @@ export class OrderDetailApprovalComponent implements OnInit {
       sessionStorage.removeItem(Const.ScreenName.S0001EN);
     }
     sessionStorage.setItem(Const.ScreenName.S0001EN,JSON.stringify(saveData));
+  }
+
+  getEmitter(data: tableObj){
+
+    console.log(data);
+    
   }
 
 }

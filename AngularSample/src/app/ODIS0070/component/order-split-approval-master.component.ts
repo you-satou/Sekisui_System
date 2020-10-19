@@ -143,7 +143,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
     // TODO
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
 
     // 発注承認者マスタ 取得
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
@@ -221,7 +221,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
         // TODO
-        this.input.officeCode = '827007';
+        this.input.officeCode = '204006';
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
@@ -326,7 +326,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
@@ -374,7 +374,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
@@ -433,7 +433,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
     
     // TODO
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
     .then(
       (response) => {

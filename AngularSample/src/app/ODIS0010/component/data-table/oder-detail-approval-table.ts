@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } from '@angular/core';
 import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
@@ -18,6 +19,8 @@ export class OrderDetailApprovalTable{
 
   @Input() resultData: ODIS0010OrderDetail[];
 
+  @Output() sendEmitter = new EventEmitter<any>();
+  
   /** デーベルカラム名の定義列 */
   displayedColumns: string[] = [
       'detail',
@@ -50,6 +53,8 @@ export class OrderDetailApprovalTable{
     if(this.dataSource.data != null && this.dataSource.data.length > 0){
       this.dataSource.sort.disabled = false;
     }
+
+    // this.dataSource.paginator.pageIndex = 1;
   }
 
   ngOnChanges( ) {
@@ -83,6 +88,23 @@ export class OrderDetailApprovalTable{
     
   }
 
+  // ngOnDestroy(): void {
+
+  //   var page = this.dataSource.paginator.pageIndex;
+  //   var sort = this.dataSource.sort.direction;
+  //   // console.log(page);
+  //   // console.log(sort);
+  //   let tblObj: tableObj;
+  //   tblObj.pageIndex =page;
+  //   tblObj.sortDirection = sort;
+  //   // this.sendEmitter.emit(tblObj);
+
+  // }
+
+  // @HostListener(){
+
+  // }
+
   /**
    * ソートの矢印の表示を設定する。
    * @param val ０：非表示、１：表示
@@ -107,5 +129,12 @@ export class OrderDetailApprovalTable{
     return `${customerNum.substring(0,9)}-${customerNum.substring(9,11)}`;
   }
 
+}
+
+export interface tableObj{
+
+  sortDirection: string,
+
+  pageIndex: number,
 }
 
