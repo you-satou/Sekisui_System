@@ -16,8 +16,6 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 	firstPageLabel		= '最初へ';
 	
   lastPageLabel		= '最後へ';
-  
-  pageValue: number;
 
   // ページ総数を習得する
   get numberOfPages(): number {

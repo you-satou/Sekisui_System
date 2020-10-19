@@ -1,5 +1,3 @@
-import { tableObj } from './data-table/oder-detail-approval-table';
-
 import { ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
@@ -8,7 +6,7 @@ import { ODIS0010OrderDetail } from "../entities/odis0010.entity";
 import { CommonService } from "app/common/common.service";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "../../common/const";
-import { ODIS0010Session } from './../entities/odis001.session.entity';
+import { ODIS0010Session, TableStatus } from './../entities/odis001.session.entity';
 
 @Component({
   selector: "app-order-detail-approval",
@@ -30,12 +28,15 @@ export class OrderDetailApprovalComponent implements OnInit {
   value = '';
   loaderText = Const.WarningMsg.W0002;
   isGetting: boolean = false;
-
-  // // Mocking data用、削除予定
-  // _url: string = "assets/data/dataApproval.json";
   
   //初期画面のレンダー
   isInitFlg: boolean = false;
+
+  //明細に渡すページナンバー
+  currPageIndex: number;
+  
+  //明細一覧をソート、またはページ切り替えたときにページナンバーを保持するなパラメタ―
+  _pgIndex: number = 0;
   
   constructor(
     private appComponent: AppComponent,
@@ -64,11 +65,14 @@ export class OrderDetailApprovalComponent implements OnInit {
     if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
       let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN));
 
+      //一覧のソート状態
+      this.currPageIndex = savedData.currentPage;    
       this.inputment = savedData.inputForm;
       this.orderDetailData = savedData.resultData;
 
       this.changeDetectorRef.detectChanges();
-      this.setPaginator('1');
+      //保持されたページＮｏを設定する。
+      this.setPaginator('1',`${this.currPageIndex + 1}`);
 
     }
   }
@@ -135,17 +139,18 @@ export class OrderDetailApprovalComponent implements OnInit {
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
             this.orderDetailData = response.applicationData;
-            this.setPaginator('1');
+            this.setPaginator('1','1');
           }else{
             //返却データがない場合、データテーブルを初期化にする。
             this.orderDetailData = [];
-            this.setPaginator('0');
+            this.setPaginator('0','');
 
             //メッセージを表示するまで、タイマーを設定する。
             setTimeout(function() {
               alert(response.message);
             },300);
           }
+          this.currPageIndex = 0;
           this.saveTemporaryData();
           //ロード中を解除する。
           this.isGetting = false;
@@ -153,7 +158,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       );
     }
   }
-
+  
   /**
    * 物件名ラジオボタン 値取得
    */
@@ -173,10 +178,10 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     if(!(input.contractNumFrom == "") && !(input.contractNumTo == "")){
 
-      var NumFrom = Number(input.contractNumFrom);
-      var NumTo = Number(input.contractNumTo);
+      var numFrom = Number(input.contractNumFrom);
+      var numTo = Number(input.contractNumTo);
   
-        if(NumFrom > NumTo){
+        if(numFrom > numTo){
           alert(Const.ErrorMsg.E0001);
           return false;
         }
@@ -187,17 +192,18 @@ export class OrderDetailApprovalComponent implements OnInit {
 /**
  * 検索ボタンを押下した時、パジーネタのページインデックスナンバーを設定する
  * @param val １：データがある場合。２：データがない場合
+ * @param pageNo ページNoを設定する
  */
-  setPaginator(val: string){
+  setPaginator(val: string, pageNo: string){
     let pageInput: any = document.getElementById("pageIndex");
     //返却データがある場合、
     if(val == '1'){
-      pageInput.value = '1';
+      pageInput.value = pageNo;
       pageInput.removeAttribute("disabled");
     }
     else{
       //返却データがない場合
-      pageInput.value = "";
+      pageInput.value = pageNo;
       pageInput.setAttribute("disabled","true");
     }
   }
@@ -253,8 +259,14 @@ export class OrderDetailApprovalComponent implements OnInit {
   saveTemporaryData(){
 
     var saveData = new ODIS0010Session();
-
-    saveData.currentPage = 0;
+    //
+    if(this._pgIndex == 0 && sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
+      saveData.currentPage  = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN)).currentPage;
+    }
+    else{
+      saveData.currentPage = this._pgIndex;
+    }
+    
     saveData.inputForm = this.inputment;
     saveData.resultData = this.orderDetailData;
 
@@ -265,10 +277,19 @@ export class OrderDetailApprovalComponent implements OnInit {
     sessionStorage.setItem(Const.ScreenName.S0001EN,JSON.stringify(saveData));
   }
 
-  getEmitter(data: tableObj){
+  /**
+   * ソート・ページ切り替え毎、エベントを取得する
+   * @param status 現在のソート順とページナンバー
+   */
+  getEmitter(status: TableStatus){
 
-    console.log(data);
-    
+   //現在のソート順とページナンバーを保持する。
+   this._pgIndex = status.pgIndex;
+   this.orderDetailData = status.sortedData;
+   
+   //ソートとページ切り替えた後、一時データを保持する。
+   this.saveTemporaryData();
+   
   }
 
 }

@@ -3,10 +3,11 @@ import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } 
 import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material';
+import { MatSort, MatSortable } from '@angular/material';
 import { Router} from '@angular/router';
 
 import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
+import { TableStatus } from 'app/ODIS0010/entities/odis001.session.entity';
 
 @Component({
   selector: 'order-detail-approval-table',
@@ -18,6 +19,7 @@ import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
 export class OrderDetailApprovalTable{
 
   @Input() resultData: ODIS0010OrderDetail[];
+  @Input() pgIndex: number;
 
   @Output() sendEmitter = new EventEmitter<any>();
   
@@ -34,9 +36,11 @@ export class OrderDetailApprovalTable{
       'createdDetail',
       'approval_1',
       'approval_2',
-    ];
+  ];
 
   dataSource = new MatTableDataSource<any>();
+
+ 
 
   @ViewChild(MatSort, {static: true}) sort: MatSort;                  //ソート
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;   //パージネタ
@@ -50,11 +54,13 @@ export class OrderDetailApprovalTable{
     
     //初期化、テーブルのソートを非活性する
     this.dataSource.sort.disabled = true;
-    if(this.dataSource.data != null && this.dataSource.data.length > 0){
+    //セッションからデータがあれば、展開する。
+    if(this.resultData != null && this.resultData.length > 0){
+      this.dataSource.data = this.resultData;
       this.dataSource.sort.disabled = false;
+      this.dataSource.paginator.pageIndex = this.pgIndex;
     }
 
-    // this.dataSource.paginator.pageIndex = 1;
   }
 
   ngOnChanges( ) {
@@ -79,8 +85,6 @@ export class OrderDetailApprovalTable{
     //明細一覧のデータが変わったら、ページネータのページインデックスを初期化する。
     this.dataSource.paginator.firstPage();
 
-    console.log(this.dataSource);
-    
   }
  
   /**　ページに移動する */
@@ -91,22 +95,16 @@ export class OrderDetailApprovalTable{
     
   }
 
-  // ngOnDestroy(): void {
+  /**ソートボタン、またはページ切り替えた時、イベントを発生する */
+  sortAndPageChangeEvent($event){
 
-  //   var page = this.dataSource.paginator.pageIndex;
-  //   var sort = this.dataSource.sort.direction;
-  //   // console.log(page);
-  //   // console.log(sort);
-  //   let tblObj: tableObj;
-  //   tblObj.pageIndex =page;
-  //   tblObj.sortDirection = sort;
-  //   // this.sendEmitter.emit(tblObj);
+    let tblObj = new TableStatus();
+    //現在のページ目を保持する。
+    tblObj.pgIndex = this.dataSource.paginator.pageIndex;
 
-  // }
-
-  @HostListener('sortChange')
-  test(){
-    
+    //ソートしたデータを保持する。
+    tblObj.sortedData = this.dataSource.sortData(this.dataSource.data,this.sort);
+    this.sendEmitter.emit(tblObj);
   }
 
   /**
@@ -135,10 +133,4 @@ export class OrderDetailApprovalTable{
 
 }
 
-export interface tableObj{
-
-  sortDirection: string,
-
-  pageIndex: number,
-}
 

@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="detail-table table table-hover table-sm">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortAndPageChangeEvent($event)" class="detail-table table table-hover table-sm">
         <ng-container matColumnDef="detail">
             <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>詳細</th>
             <td style="width: 5%; text-align: center;" mat-cell *matCellDef="let element">
@@ -50,7 +50,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator order-paginator hidePageSize [length]="dataSource.data.length" showTotalPages="3" [pageSize]="[10]" showFirstLastButtons sticky="always">
+    <mat-paginator order-paginator hidePageSize [length]="dataSource.data.length" [pageSize]="[10]" (page)="sortAndPageChangeEvent($event)" showFirstLastButtons sticky="always">
     </mat-paginator>
 
 </div>
