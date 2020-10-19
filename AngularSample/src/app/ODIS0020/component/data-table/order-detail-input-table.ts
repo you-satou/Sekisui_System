@@ -317,11 +317,6 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     
     this.comCompnt.CommonOnSelHight($event);
 
-    //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
-    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
-
-      return;
-    }
     // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
       if(element.detailNo == value.detailNo){
@@ -364,10 +359,15 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
 
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;   //行を選択
+
+    //依頼・承認ボタンを押下した場合、設定する
+    var nodeName = $event.target.nodeName;
+    if(nodeName === 'SPAN' || nodeName === 'BUTTON'){
+      this.dataEmitter.action = Const.Action.A0008; 
+    }
     this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
     this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
 
-    //　親コンポーネントにデータを送る。
     this.sendOrderData.emit(this.dataEmitter);
   }
 

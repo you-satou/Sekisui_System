@@ -886,7 +886,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 行背景 解除
     this.baseCompnt.setRowColor(Const.Action.A0006, tblBody, index);
     // 初期化
-    this.rowStatus.Reset();
+    this.rowStatus.Clear();
     this.setDefaultDisplay();
   }
 
@@ -929,7 +929,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.saveTemporaryData();
     // 初期化する
     this.setDefaultDisplay();
-    this.rowStatus.Reset();
+    this.rowStatus.Clear();
   }
 
   /**
@@ -974,11 +974,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
       //分割明細画面に遷移する
       case Const.Action.A0007:
-        this.rowStatus.Reset();
+        this.rowStatus.Clear();
 
         // セッション保存
         this.saveTemporaryData();
         this.router.navigate([Const.UrlSetting.U0006]);
+        
+        break;
+      
+      //依頼・承認を行う時、各ボタン制御設定する。
+      case Const.Action.A0008:
+        //入力項目を初期化する。
+        this.rowStatus.Clear();
+        this.addInput.Clear();
+        //各ボタンの制御を設定する。
+        this.setPageButtonDisplay(true,this.rowStatus.update,false,this.rowStatus.delete);
         
         break;
     }

@@ -94,10 +94,10 @@ export class RowStatus {
   };
 
   constructor() {
-    this.Reset();
+    this.Clear();
   }
 
-  Reset() {
+  Clear() {
     this.rowIndex = null;
     this.keyIndex = null;
     this.detailLength = 0;

@@ -106,12 +106,15 @@ export namespace Const{
         export const A0003 = 'RowDelete';
         /** 行の選択 */
         export const A0004 = 'RowSelect';
-        /** 行にて反映ボタンを押下する */
+        /** 反映ボタンを押下する */
         export const A0005 = 'DisplaySplitAmount';
         /** 行を外す */
         export const A0006 = 'UnSelected';
 
         export const A0007 = 'MoveToSplitPage';
+
+        /**依頼、または承認ボタンを押下する */
+        export const A0008 = 'ApprovalClick';
 
         /**発注コードを取得 */
         export const SA_GET_ORDER_CODE = '/getOrderCode';

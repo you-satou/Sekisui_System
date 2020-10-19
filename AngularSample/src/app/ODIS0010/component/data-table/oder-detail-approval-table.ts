@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, Host } from '@angular/core';
 import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } from '@angular/core';
 import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
@@ -78,6 +78,9 @@ export class OrderDetailApprovalTable{
     this.dataSource.paginator = this.paginator;
     //明細一覧のデータが変わったら、ページネータのページインデックスを初期化する。
     this.dataSource.paginator.firstPage();
+
+    console.log(this.dataSource);
+    
   }
  
   /**　ページに移動する */
@@ -101,9 +104,10 @@ export class OrderDetailApprovalTable{
 
   // }
 
-  // @HostListener(){
-
-  // }
+  @HostListener('sortChange')
+  test(){
+    
+  }
 
   /**
    * ソートの矢印の表示を設定する。

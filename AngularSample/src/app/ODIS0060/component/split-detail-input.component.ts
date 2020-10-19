@@ -251,24 +251,22 @@ export class SplitOrderDetailComponent implements OnInit {
     //選択された行に背景色を変える
     this.baseCompnt.CommonOnSelHight($event);
 
-    //依頼ボタンを押下した後、明細変更テーブルにデータを表示しない。
-    if ($event.target.nodeName == 'BUTTON' || $event.target.nodeName == 'SPAN') {
+    var nodeName = $event.target.nodeName;
+    if(nodeName != 'SPAN' && nodeName != 'BUTTON')
+    {
+      let index = this.bunkatsuData.indexOf(rowDt);
+      this.rowStatus.setRowStatus(true, index);
+      
+      //編集テーブルの各セルに選択された行の値を挿入
+      this.input.setInput(rowDt);
 
-      return;
-    }
-
-    let index = this.bunkatsuData.indexOf(rowDt);
-    this.rowStatus.setRowStatus(true, index);
-    
-    //編集テーブルの各セルに選択された行の値を挿入
-    this.input.setInput(rowDt);
-    
-    //明細追加テーブルの依頼ボタンの表示を設定
-    if (rowDt.requester != '') {
-      this.btnSubIrai.style.display = 'none';
-    }
-    else {
-      this.btnSubIrai.style.display = 'inherit';
+      //明細追加テーブルの依頼ボタンの表示を設定
+      if (rowDt.requester != '') {
+        this.btnSubIrai.style.display = 'none';
+      }
+      else {
+        this.btnSubIrai.style.display = 'inherit';
+      }
     }
 
     //分割明細のボタンの活用性を設定する

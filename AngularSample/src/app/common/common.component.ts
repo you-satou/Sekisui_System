@@ -55,26 +55,28 @@ export class CommonComponent {
     var wTr: any;
     
     switch (nodeName) {
-      case'TR':
+      case 'TR':
         wTr = event.path[1];
         wTbody = event.path[2];
       case 'TD':
         wTr = event.path[1];
         wTbody = event.path[2];
         break;
-      case 'SPAN':
-        wTr = event.path[3];
-        wTbody = event.path[4];
-        break;
-      case 'BUTTON':
-        wTr = event.path[2];
-        wTbody = event.path[3];
-        break;
       case 'MAT-ICON':
         wTr = event.path[4];
         wTbody = event.path[5];
         break;
       case 'LABEL':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
+
+        // //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
+      case 'SPAN':
+        wTr = event.path[3];
+        wTbody = event.path[4];
+        break;
+      case 'BUTTON':
         wTr = event.path[2];
         wTbody = event.path[3];
         break;
