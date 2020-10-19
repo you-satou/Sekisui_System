@@ -1,5 +1,5 @@
-import { style } from '@angular/animations';
-import { Component, ViewChild, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } from '@angular/core';
+import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material';
@@ -40,16 +40,20 @@ export class OrderDetailApprovalTable{
 
   constructor(
     private router: Router,
+    private baseComm : CommonComponent,
   ) {}
 
   ngOnInit() {
+    
     //初期化、テーブルのソートを非活性する
     this.dataSource.sort.disabled = true;
+    if(this.dataSource.data != null && this.dataSource.data.length > 0){
+      this.dataSource.sort.disabled = false;
+    }
   }
 
   ngOnChanges( ) {
     this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
-
     if(this.dataSource.data.length > 0){
       //データがある場合, ソートを活性化する
       this.sort.disabled = false;
@@ -91,6 +95,16 @@ export class OrderDetailApprovalTable{
     if(sortArrow != null){
       sortArrow.style.opacity = val;
     }
+  }
+
+  displayContractNum(data: ODIS0010OrderDetail){
+
+    let customerNum = this.baseComm.setValue(data.customerNum);
+    if(customerNum == ''){
+
+      return '';
+    }
+    return `${customerNum.substring(0,9)}-${customerNum.substring(9,11)}`;
   }
 
 }
