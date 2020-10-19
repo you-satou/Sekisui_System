@@ -85,7 +85,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
   ];
 
   constructor(
-    private comCompnt: CommonComponent,
+    public comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
     private odis0060Service: ODIS0060SplitDetailService,
     private datePipe: DatePipe,
