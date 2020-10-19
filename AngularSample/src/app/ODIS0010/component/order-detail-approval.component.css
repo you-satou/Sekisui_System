@@ -66,7 +66,7 @@
     width: 120px !important;
 }
 
-.mat-button,
+/* .mat-button,
 .mat-flat-button,
 .mat-icon-button,
 .mat-stroked-button {
@@ -85,15 +85,15 @@
     text-decoration: none;
     vertical-align: baseline;
     text-align: center;
-    /* margin: 0; */
-    /* min-width: 64px; */
-    /* line-height: 36px;
-    padding: 0 16px; */
+    margin: 0; 
+    min-width: 64px;
+    line-height: 36px;
+    padding: 0 16px;
     border-radius: 4px;
     overflow: visible;
-}
+} */
 
-.bottomButton {
+.SC0010-bottomButton {
     position: fixed;
     z-index: 2;
     bottom: 8px;
