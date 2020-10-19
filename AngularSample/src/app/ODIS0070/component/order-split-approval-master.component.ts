@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef,AfterViewInit } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
@@ -38,7 +38,7 @@ const DEL_TYPE: DropDownList[] =[
   templateUrl: './order-split-approval-master.component.html',
   styleUrls: ['./order-split-approval-master.component.css']
 })
-export class OrderSplitApprovalMasterComponent implements OnInit {
+export class OrderSplitApprovalMasterComponent implements OnInit,AfterViewInit {
 
   // 承認 ドロップダウン 設定
   appTypes = APPROVAL_TYPE;
@@ -161,6 +161,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
           this.isInitFlg = true;
         }
       );
+  }
+
+  ngAfterViewInit(){
+    let autoFocus = document.getElementById('personalID');
+    autoFocus.focus(); 
+
   }
 
   /**

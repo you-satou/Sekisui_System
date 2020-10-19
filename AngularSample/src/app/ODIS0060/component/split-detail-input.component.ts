@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef,ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
@@ -149,8 +149,8 @@ export class SplitOrderDetailComponent implements OnInit {
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
     let firstIndex = document.getElementsByClassName('mat-tab-label-active');
     firstIndex[0].setAttribute('tabindex','-1');
-    let outFocus = document.getElementById('txtSplitAmount');
-    outFocus.focus();
+    let autoFocus = document.getElementById('txtSplitAmount');
+    autoFocus.focus();
     
   }
 
