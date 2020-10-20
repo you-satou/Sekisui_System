@@ -271,6 +271,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.saveTemporaryData();
             }else{
               alert(response.message);
+              this.router.navigate([Const.UrlSetting.U0001]);
             }
             //ロード画面を解除する。
             this.isLoading = false;
@@ -514,6 +515,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 初期表示後処理実施
    */
   ngAfterViewInit(): void {
+    
+    if(!this.isInitFlg){
+      return;
+    }
 
     if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
       var body: any
