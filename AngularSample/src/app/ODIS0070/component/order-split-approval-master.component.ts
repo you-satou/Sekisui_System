@@ -85,9 +85,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   dataSource: any;
 
-  // mocking data url
-  _urlOrderSplit: string = "assets/data/dataSplitApproval.json";
-
   /**
    * コンストラクタ
    *
@@ -108,33 +105,12 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * ページがロードする時、テーブルデータを取得する
    */
   ngOnInit() {
+    //ヘッダー設定
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
-
+    //データ取得
     this.getOrderSplitApproval();
-    // this.getOrderInputData();
-
-
-
-  }
-
-  /**
-   * データを取得
-   */
-  getOrderInputData() {
-    this.service.getSingleData(this._urlOrderSplit)
-      .subscribe(
-        data => 
-        { 
-          this.orderApprovalData = data
-          // ビジー解除
-          this.isLoading = false;
-          // 初期画面をレンダーする
-          this.isInitFlg = true;
-        }
-        
-      );
   }
 
   /**
@@ -168,19 +144,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         }
       );
   }
-
-
-  // ngAfterViewChecked(): void {
-  //   //Called after every check of the component's view. Applies to components only.
-  //   //Add 'implements AfterViewChecked' to the class.
-
-  //   var li01 = document.getElementById('txtPersonalID');
-
-  //   console.log(li01);
-
-  //   li01.focus();
-    
-  // }
 
   /**
    * 「戻る」ボタンの押下

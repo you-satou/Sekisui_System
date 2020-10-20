@@ -63,24 +63,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   */
   ngOnInit() {
 
-    //サーバ接続用
     this.getOrderInputData();
 
-    //テストデータ用
-    //this.mockingData();
-
-  }
-
-  mockingData(){
-  // url
-  let _supplierSelect: string = "assets/data/odis0030-JournalSelect.json";
-  this.orderService.getSingleData(_supplierSelect)
-  .subscribe(
-    data => {
-      if (data !== undefined) {
-        this.datas = data;
-    }
-  });
   }
 
  /**

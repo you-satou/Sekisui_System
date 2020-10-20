@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     window.onpopstate = function (event) {
       history.pushState(null, null, null);
-      window.alert('前のページに戻る場合、＊＊ボタンから戻ってください。');
+      window.alert('前のページに戻る場合、閉じるボタンから戻ってください。');
 
     };
     window.document.onkeydown = function (event) {

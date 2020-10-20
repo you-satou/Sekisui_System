@@ -64,25 +64,9 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
 
     //サーバ接続用
     this.getOrderInputData();
-    
-    //テストデータ用
-    //this.mockingData();
 
   }
 
-  mockingData(){
-      // url
-    let _supplierSelect: string = "assets/data/odis0040-SupplierSelect.json";
-    this.orderService.getSingleData(_supplierSelect)
-    .subscribe(
-      data => {
-        if (data !== undefined) {
-          this.datas = data;
-
-      }
-    });
-
-  }
  /**
   * レンダリング後（自動スクロール）
   */

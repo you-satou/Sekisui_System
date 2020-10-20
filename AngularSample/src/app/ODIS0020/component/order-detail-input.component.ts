@@ -80,9 +80,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblKaitai : ODIS0020OrderDetaiSplitBean[] = [];
   tblTsuika : ODIS0020OrderDetaiSplitBean[] = [];
 
-  // mocking data url
-  readonly _urlOrderInput2: string = "assets/data/odis0020-OrderInputSplit.json";
-
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
   // ngComponentOutlet にセットするためのプロパティ
@@ -515,7 +512,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 初期表示後処理実施
    */
   ngAfterViewInit(): void {
-    
+
     if(!this.isInitFlg){
       return;
     }

@@ -9,9 +9,6 @@ import { Observable, Subject } from 'rxjs';
  */
 export class OrderSplitApprovalMasterService {
 
-    //TODO: add URL to Server
-    // private _url: string = "/order-detail-approval/data/data.json";
-
     // データの変更を通知するためのオブジェクト
     private closeEventSubject = new Subject<string>();
 

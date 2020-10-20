@@ -66,33 +66,8 @@ export class SupplierPatternComponent implements OnInit {
 
     this.getInputData();
 
-    //this.mockingData();
-
   }
-
-  mockingData() {
-    // url
-    let _patternList: string = "assets/data/odis0050-PatternName.json";
-    let _supplierList: string = "assets/data/odis0050-SupplierName.json";
-
-    this.orderService.getSingleData(_patternList)
-      .subscribe(
-        data => {
-          if (data !== undefined) {
-            this.pDatas = data;
-          }
-        });
-
-    this.orderService.getSingleData(_supplierList)
-      .subscribe(
-        data => {
-          if (data !== undefined) {
-            this.fDatas = data;
-          }
-        });
-
-
-  }
+  
   /**
    * 終了時
    */

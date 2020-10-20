@@ -3,7 +3,7 @@ import { CommonComponent } from 'app/common/common.component';
 import { ODIS0060OrderDetailBunkatsu } from '../entities/odis0060-SplitDetail.entity';
 
 /**
- * 発注明細に追加サービル
+ * 発注明細に追加サービス
  */
 export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
@@ -53,7 +53,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     }
 
     /**
-    * 分割明細に追加するサービル
+    * 分割明細に追加するサービス
     */
     constructor() {
         super();
