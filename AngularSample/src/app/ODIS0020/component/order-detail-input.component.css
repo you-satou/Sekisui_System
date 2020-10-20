@@ -132,7 +132,7 @@
 
 .tbl2 {
     overflow-y: auto;
-    height: 141px;
+    height: 139px;
     float: left;
     margin-left: 20px;
     width: fit-content;
@@ -140,7 +140,7 @@
 
 .tbl2>table>thead>tr>th {
     position: sticky ;
-    height: 26px;
+    height: 24px;
     top: 0;
     background-color: white;
     z-index: 1;
