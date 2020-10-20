@@ -215,6 +215,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
               this.input.personalID = val.trim();
               this.input.employeeCode = this.resUserInfo.employeeCode;
               this.input.employeeName = this.resUserInfo.employeeName;
+              // ボタン制御
+              this.setPageButtonDisplay(false, true, false, true);
             }else{
               alert(response.message);
               // ボタン制御
