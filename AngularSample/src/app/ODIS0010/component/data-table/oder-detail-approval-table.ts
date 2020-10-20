@@ -83,8 +83,7 @@ export class OrderDetailApprovalTable{
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     //明細一覧のデータが変わったら、ページネータのページインデックスを初期化する。
-    this.dataSource.paginator.firstPage();
-
+    this.dataSource.paginator.pageIndex = 0;
   }
  
   /**　ページに移動する */
