@@ -4,7 +4,8 @@
     margin-right: auto;
     width: 734px;
     height: 451px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
   }
 
