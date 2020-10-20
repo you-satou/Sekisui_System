@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewContainerRef, ChangeDetectorRef,AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
 import { OrderSplitApprovalMasterTable, DropDownList } from '../entities/odis0070.entity';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { ODIS0070Form } from '../entities/odis0070-Form.entity';
@@ -38,7 +37,7 @@ const DEL_TYPE: DropDownList[] =[
   templateUrl: './order-split-approval-master.component.html',
   styleUrls: ['./order-split-approval-master.component.css']
 })
-export class OrderSplitApprovalMasterComponent implements OnInit,AfterViewInit {
+export class OrderSplitApprovalMasterComponent implements OnInit {
 
   // 承認 ドロップダウン 設定
   appTypes = APPROVAL_TYPE;
@@ -99,7 +98,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit,AfterViewInit {
     private view: ViewContainerRef,
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
-    private _location: Location,
     private service: CommonService,
     private router: Router,
     private CommonService: CommonService,
@@ -111,11 +109,14 @@ export class OrderSplitApprovalMasterComponent implements OnInit,AfterViewInit {
    */
   ngOnInit() {
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
+    // ボタン制御
+    this.setPageButtonDisplay(false, true, false, true);
+
     this.getOrderSplitApproval();
     // this.getOrderInputData();
 
-    // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
+
+
   }
 
   /**
@@ -159,15 +160,27 @@ export class OrderSplitApprovalMasterComponent implements OnInit,AfterViewInit {
           this.isLoading = false;
           // 初期画面をレンダーする
           this.isInitFlg = true;
+          //再描画
+          this.changeDetectorRef.detectChanges();
+          var autofocus = document.getElementById('txtPersonalID');
+          //個人認証IDにオートフォーカス
+          autofocus.focus();
         }
       );
   }
 
-  ngAfterViewInit(){
-    let autoFocus = document.getElementById('personalID');
-    autoFocus.focus(); 
 
-  }
+  // ngAfterViewChecked(): void {
+  //   //Called after every check of the component's view. Applies to components only.
+  //   //Add 'implements AfterViewChecked' to the class.
+
+  //   var li01 = document.getElementById('txtPersonalID');
+
+  //   console.log(li01);
+
+  //   li01.focus();
+    
+  // }
 
   /**
    * 「戻る」ボタンの押下

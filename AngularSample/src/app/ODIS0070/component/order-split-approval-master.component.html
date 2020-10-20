@@ -42,9 +42,9 @@
             <tbody>
                 <tr>
                     <td class="table-str td-b">
-                        <input [(ngModel)]="input.personalID" type="tel" disabled="{{ isEditFlgPersonal }}" id="personalID" 
+                        <input type="tel" id="txtPersonalID" [(ngModel)]="input.personalID" disabled="{{ isEditFlgPersonal }}"
                         tabindex="1" maxlength="32" (keyup)="toABCNumPersonal($event)" (change)="toABCNumPersonal($event)" 
-                        (blur)="getEmployeeInfo($event)">
+                        (blur)="getEmployeeInfo($event)" />
                     </td>
                     <td class="table-str td-b">
                         <input [(ngModel)]="input.employeeCode" type="tel" disabled="{{ isEditFlgEmployee }}"
