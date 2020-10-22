@@ -53,5 +53,29 @@
   font-size: 1.2em;
   color: rgb(255, 0, 0);
 }
-  
-  
+
+/* Ipad 立向き の対応 */
+@media screen and (width:768px){
+  #M_ODIS0030.modal{
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      height: 700px !important;
+      width: 700px !important;
+      border-radius: 15px !important;
+      transform: translate(-50%, -50%) !important;
+  }
+}
+
+/* Ipad 立向き の対応 */
+@media screen and (max-width:1024px){
+  #M_ODIS0030.modal{
+      position: fixed !important;
+      top: 50% !important;
+      left: 50% !important;
+      height: 700px !important;
+      width: 700px !important;
+      border-radius: 15px !important;
+      transform: translate(-50%, -50%) !important;
+  }
+}
