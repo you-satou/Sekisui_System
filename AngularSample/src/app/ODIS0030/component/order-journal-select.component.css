@@ -67,7 +67,7 @@
   }
 }
 
-/* Ipad 立向き の対応 */
+/* Ipad 横向き の対応 */
 @media screen and (max-width:1024px){
   #M_ODIS0030.modal{
       position: fixed !important;

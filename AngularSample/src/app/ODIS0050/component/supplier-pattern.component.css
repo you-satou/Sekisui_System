@@ -30,12 +30,11 @@
 }
 
 .table-small {
-    width: 20%;
-    margin-right: 30px;
+    width: 20% !important;
+    margin-right: 30px !important;
 }
-.table-small>thead {
-    background-color: #E5E5E5;
-    height: 130px;
+.table-small>thead{
+    background-color: #e5e5e5;
 }
 .table-small>tbody {
     height: 130px;
@@ -74,7 +73,6 @@
 }
 
 .table-str-large{
-    display: inline-block;
     width: 100%;
     word-wrap: break-word;
 }
@@ -103,6 +101,15 @@
     #M_ODIS0050 >.modal-dialog{
         max-width: 90% !important;
     }
+
+    .table td, .table th {
+        padding: 5px;
+    }
+
+    .table-str-large {
+        height: 53px;
+    }
+    
 }
 
 /* Ipad 横向き の対応 */
