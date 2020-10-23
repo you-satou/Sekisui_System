@@ -54,7 +54,7 @@ export class SupplierPatternService {
   */
   public requestCloseModal() {
    //閉じるボタンの押下後、戻り値を初期化する
-   this.setVal([]);
+   this.setVal(null);
    this.closeEventSubject.next();
   }
  

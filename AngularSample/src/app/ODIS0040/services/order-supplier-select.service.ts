@@ -46,7 +46,7 @@ export class OrderSupplierSelectService {
   */
   public requestCloseModal() {
     //閉じるボタンの押下後、戻り値を初期化する
-    this.setVal(new OrderSupplierSelectType());
+    this.setVal(null);
     this.closeEventSubject.next();
   }
   /**

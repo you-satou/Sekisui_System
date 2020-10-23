@@ -47,7 +47,7 @@ export class OrderJournalSelectService {
   */
   public requestCloseModal() {
     //閉じるボタンの押下後、戻り値を初期化する
-    this.setVal(new OrderJournalSelectType());
+    this.setVal(null);
     this.closeEventSubject.next();
   }
 
