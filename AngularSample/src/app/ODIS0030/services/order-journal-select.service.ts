@@ -24,7 +24,7 @@ export class OrderJournalSelectService {
    */
   constructor() { }
 
-  private _val: any;
+  private _val = new OrderJournalSelectType();
 
   public getVal() {
     return this._val;
@@ -46,6 +46,8 @@ export class OrderJournalSelectService {
   * モーダルを閉じる
   */
   public requestCloseModal() {
+    //閉じるボタンの押下後、戻り値を初期化する
+    this.setVal(new OrderJournalSelectType());
     this.closeEventSubject.next();
   }
 

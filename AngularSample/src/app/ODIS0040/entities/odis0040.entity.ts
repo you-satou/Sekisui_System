@@ -4,11 +4,13 @@
 export class OrderSupplierSelectType {
 
     /** 発注先コード */
-    supplierCode: String;
+    supplierCode: string = '';
 
     /** 発注先名 */
-    supplierJournalName: String;
+    supplierJournalName: string = '';
 
     /** 納品 */
-    delivery: String;
+    delivery: string = '';
+
+    constructor(){};
 }

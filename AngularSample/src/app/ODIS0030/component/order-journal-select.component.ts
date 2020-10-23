@@ -27,7 +27,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   datas: OrderJournalSelectType[];
 
   //戻り値
-  resVal:OrderJournalSelectType;
+  resVal = new OrderJournalSelectType();
 
   // パラメータ
   param = new ODIS0030Form();

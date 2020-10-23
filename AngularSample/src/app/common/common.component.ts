@@ -334,6 +334,18 @@ export class CommonComponent {
     return dt;
   }
 
+   /** データがNULL時、
+  * @param dt
+  * @return bool
+  */
+ isEmpty(dt: any):boolean {
+
+  if (dt == undefined || dt == null) {
+    return true;
+  }
+  return false;
+ }
+
   /**
   * 行の背景色を設定する
   * @param action 追加・変更・未選択・選択

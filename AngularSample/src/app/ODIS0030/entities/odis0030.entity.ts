@@ -4,14 +4,16 @@
 export class OrderJournalSelectType {
 
     /** 仕訳コード */
-    journalCode: string;
+    journalCode: string = '';
 
     /** 経理分類 */
-    accountingCategory: string;
+    accountingCategory: string = '';
 
     /** 仕訳名称 */
-    orderJournalName: string;
+    orderJournalName: string = '';
 
      /** 其他 */
-    other: string;
+    other: string = '';
+    
+    constructor(){};
 }

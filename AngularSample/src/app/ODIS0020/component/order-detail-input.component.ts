@@ -166,20 +166,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.subscription = this.OrderJournalSelectService.closeEventObservable$.subscribe(
       () => {
 
-        if (!(this.OrderJournalSelectService.getVal() == undefined)) {
-          this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-          this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
-          this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+        //モーダルから返却データを取得して、展開する。
+        //仕訳コードが必須項目の為、選択された行がない場合、データを取得しない
+        if (this.OrderJournalSelectService.getVal().journalCode != '') {
+        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
+        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
         }
-
         this.modal = null;
       }
     );
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
-
-        if (!(this.OrderSupplierSelectService.getVal() == undefined)) {
+        //発注先コードが必須項目の為、選択された行がない場合、データを取得しない
+        if (this.OrderSupplierSelectService.getVal().supplierCode != '') {
           this.addInput.orderSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
           this.addInput.orderSupplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
@@ -189,7 +190,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     );
     //ODIS0050発注明細入力_発注先パターン選択
     this.subscription = this.SupplierPatternService.closeEventObservable$.subscribe(() => {
-      if (!(this.SupplierPatternService.getVal() == undefined)) {
+      //選択された行がなければ、初期化の文字列の長さは0なので、取得しない
+      if (this.SupplierPatternService.getVal().length != 0) {
         let returnValues = this.SupplierPatternService.getVal();
         let bucketDt: ODIS0020OrderDetaiSplitBean[] = [];
         returnValues.forEach(element => {

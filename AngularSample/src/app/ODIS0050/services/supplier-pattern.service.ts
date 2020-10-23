@@ -24,7 +24,7 @@ export class SupplierPatternService {
    */
   constructor() { }
 
-  private _val
+  private _val: SupplierList[] = [];
 
 
   public getVal() {
@@ -53,6 +53,8 @@ export class SupplierPatternService {
   * モーダルを閉じる
   */
   public requestCloseModal() {
+   //閉じるボタンの押下後、戻り値を初期化する
+   this.setVal([]);
    this.closeEventSubject.next();
   }
  

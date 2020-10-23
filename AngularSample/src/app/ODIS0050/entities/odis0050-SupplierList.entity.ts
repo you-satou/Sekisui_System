@@ -5,15 +5,17 @@ import {SupplierPatternList } from './odis0050-SuppierPattern.entity'
 export class SupplierList {
 
     /** パターン名 */
-    pattern: string;
+    pattern: string = '';
     /** 仕訳コード */
-    journalCode: string;
+    journalCode: string = '';
     /** 経理分類 */
-    accountingCategory: string;
+    accountingCategory: string = '';
     /** 仕訳名称 */
-    journalName: string;
+    journalName: string = '';
     /** 発注先コード */
-    supplierCode: string;
+    supplierCode: string = '';
     /** 発注先名 */
-    supplierName: string;
+    supplierName: string = '';
+
+    constructor(){};
 }
