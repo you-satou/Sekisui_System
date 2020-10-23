@@ -71,8 +71,12 @@ export class OrderDetailApprovalComponent implements OnInit {
       this.orderDetailData = savedData.resultData;
 
       this.changeDetectorRef.detectChanges();
-      //保持されたページＮｏを設定する。
-      this.setPaginator('1',`${this.currPageIndex + 1}`);
+      if(this.orderDetailData.length > 0){
+
+        //保持されたページＮｏを設定する。
+        this.setPaginator('1',`${this.currPageIndex + 1}`);
+      }
+
 
     }
   }
