@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
+import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
@@ -18,7 +18,7 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   orderDetailData: ODIS0010OrderDetail[];
   // パラメータ
-  inputment= new ODIS0010Form();
+  inputment　= new ODIS0010Form();
 
   pixel: number;
 
@@ -43,7 +43,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     private orderService: CommonService,
     private router: Router,
     private CommonComponent: CommonComponent,
-    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -65,18 +64,14 @@ export class OrderDetailApprovalComponent implements OnInit {
     if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
       let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN));
 
-      //一覧のソート状態
-      this.currPageIndex = savedData.currentPage;    
+      //ページャネタの初期表示ページ数を設定する
+      this.currPageIndex = savedData.currentPage;
+      
+      //入力したデータを設定する。
       this.inputment = savedData.inputForm;
+
+      //一覧のソート状態
       this.orderDetailData = savedData.resultData;
-
-      this.changeDetectorRef.detectChanges();
-      if(this.orderDetailData.length > 0){
-
-        //保持されたページＮｏを設定する。
-        this.setPaginator('1',`${this.currPageIndex + 1}`);
-      }
-
 
     }
   }
@@ -143,11 +138,9 @@ export class OrderDetailApprovalComponent implements OnInit {
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
             this.orderDetailData = response.applicationData;
-            this.setPaginator('1','1');
           }else{
             //返却データがない場合、データテーブルを初期化にする。
             this.orderDetailData = [];
-            this.setPaginator('0','');
 
             //メッセージを表示するまで、タイマーを設定する。
             setTimeout(function() {
@@ -191,25 +184,6 @@ export class OrderDetailApprovalComponent implements OnInit {
         }
     }
     return true;
-  }
-
-/**
- * 検索ボタンを押下した時、パジーネタのページインデックスナンバーを設定する
- * @param val １：データがある場合。２：データがない場合
- * @param pageNo ページNoを設定する
- */
-  setPaginator(val: string, pageNo: string){
-    let pageInput: any = document.getElementById("pageIndex");
-    //返却データがある場合、
-    if(val == '1'){
-      pageInput.value = pageNo;
-      pageInput.removeAttribute("disabled");
-    }
-    else{
-      //返却データがない場合
-      pageInput.value = pageNo;
-      pageInput.setAttribute("disabled","true");
-    }
   }
 
   /** 
@@ -263,16 +237,18 @@ export class OrderDetailApprovalComponent implements OnInit {
   saveTemporaryData(){
 
     var saveData = new ODIS0010Session();
-    //
-    if(this._pgIndex == 0 && sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
-      saveData.currentPage  = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN)).currentPage;
-    }
-    else{
-      saveData.currentPage = this._pgIndex;
-    }
-    
+
     saveData.inputForm = this.inputment;
     saveData.resultData = this.orderDetailData;
+    saveData.currentPage = this._pgIndex;
+
+    //ページ切り替えエベント発生しない時、「this._pgIndex」の値が　0　になっているため、セッションを保持する時に
+    //ぺジャーネタの表示されているページ数をみて、０でない場合は、表示されているページ数を取得する。
+    var pgText: any = document.getElementById("pageIndex");
+    var pgNo = pgText.value;
+    if(this._pgIndex == 0 && Number(pgNo) > 0){
+      saveData.currentPage = Number(pgNo) - 1;
+    }
 
     // 既にセッションが格納されている場合は除去する
     if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
@@ -293,7 +269,6 @@ export class OrderDetailApprovalComponent implements OnInit {
    
    //ソートとページ切り替えた後、一時データを保持する。
    this.saveTemporaryData();
-   
   }
 
 }

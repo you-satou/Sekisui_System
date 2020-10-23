@@ -19,6 +19,7 @@ import { TableStatus } from 'app/ODIS0010/entities/odis001.session.entity';
 export class OrderDetailApprovalTable{
 
   @Input() resultData: ODIS0010OrderDetail[];
+  //セッションから取得するページＮｏ
   @Input() pgIndex: number;
 
   @Output() sendEmitter = new EventEmitter<any>();
@@ -59,6 +60,7 @@ export class OrderDetailApprovalTable{
       this.dataSource.data = this.resultData;
       this.dataSource.sort.disabled = false;
       this.dataSource.paginator.pageIndex = this.pgIndex;
+      this.dataSource.paginator.page.next();
     }
 
   }
@@ -82,8 +84,15 @@ export class OrderDetailApprovalTable{
     //テーブルのソートとパジーネタを設定する
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+
     //明細一覧のデータが変わったら、ページネータのページインデックスを初期化する。
     this.dataSource.paginator.pageIndex = 0;
+
+    //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
+    setTimeout(() => {
+      this.dataSource.paginator.page.next();
+    }, 10);
+      
   }
  
   /**　ページに移動する */
@@ -94,11 +103,12 @@ export class OrderDetailApprovalTable{
     
   }
 
-  /**ソートボタン、またはページ切り替えた時、イベントを発生する */
+  /**ソートボタン、またはページ切り替えた時、イベントを発生して、親コンポネントに送る */
   sortAndPageChangeEvent($event){
 
     let tblObj = new TableStatus();
-    //現在のページ目を保持する。
+
+    //ページインデックスを取得する。
     tblObj.pgIndex = this.dataSource.paginator.pageIndex;
 
     //ソートしたデータを保持する。

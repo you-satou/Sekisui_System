@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { Directive, Renderer2, ViewContainerRef, Input } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
@@ -29,51 +30,62 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
   ) {
       super();
 
+      //ボタン押下毎、走る
       this.pagi.page.subscribe(() => {
-        this.initPageRange();
+        this.buildInputPageNumber();
       });
-  }
 
-  private initPageRange(): void {
 
-    //　テキストボックスを作成する
-    this.buildInputPageNumber();
   }
 
   private buildInputPageNumber() {
-    //総結果表示するラベルを取得する
-    const labelTotalPages = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-label');
-    //各ボタンとラベルのＤＩＶを取得する
-    const actionContainer = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-actions');
 
     //テキストボックスが存在するかどうかをチェックする。
     let inputNode: any = document.getElementById("pageIndex");
     //テキストボックスが存在しない場合、新規作成する。
     if (inputNode == null) {
-      const inputIndex: Input = this.rend.createElement('input');
-      // 各クラスを追加する。
-      this.rend.addClass(inputIndex, 'input-group');
-      this.rend.addClass(inputIndex, 'input-group-sm');
-      this.rend.setStyle(inputIndex, 'order', '3');
-      this.rend.setStyle(inputIndex, 'max-width', '40px');
-      this.rend.setStyle(inputIndex, 'text-align', 'right');
-      this.rend.setStyle(inputIndex, 'margin-left', '10px');
-      this.rend.setAttribute(inputIndex, 'type', 'tel');
-      this.rend.setAttribute(inputIndex, 'disabled', 'true');
-      this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
-      this.rend.setAttribute(inputIndex, 'tabIndex', '13');
-      //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
-      this.rend.listen(inputIndex, 'keypress', ($event) => {
-        this.switchPage($event);
-      });
-
-      // テキストボックスを作成する
-      this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
+      //テキストボックスを作成する
+      this.createPageNumberTextBox();
     }
     else {
-      // ボタンを押下毎、ページインデックスを加算する。
-      inputNode.value = (this.pagi.pageIndex + 1).toString();
+      //データがある場合、ページ数を表示する
+      if(this.pagi.length > 0){
+        inputNode.removeAttribute("disabled");
+        inputNode.value = (this.pagi.pageIndex + 1).toString();
+      }
+      else{
+        //データがない場合、ページ数を空白して、非活性する。
+        inputNode.value = "";
+        inputNode.setAttribute("disabled","true");
+
+      }
     }
+  }
+
+  private createPageNumberTextBox(){
+    //総結果表示するラベルを取得する
+    const labelTotalPages = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-label');
+    //各ボタンとラベルのＤＩＶを取得する
+    const actionContainer = this.viewRef.element.nativeElement.querySelector('div.mat-paginator-range-actions');
+
+    const inputIndex: Input = this.rend.createElement('input');
+    // 各クラスを追加する。
+    this.rend.addClass(inputIndex, 'input-group');
+    this.rend.addClass(inputIndex, 'input-group-sm');
+    this.rend.setStyle(inputIndex, 'order', '3');
+    this.rend.setStyle(inputIndex, 'max-width', '40px');
+    this.rend.setStyle(inputIndex, 'text-align', 'right');
+    this.rend.setStyle(inputIndex, 'margin-left', '10px');
+    this.rend.setAttribute(inputIndex, 'type', 'tel');
+    this.rend.setAttribute(inputIndex, 'disabled', 'true');
+    this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
+    this.rend.setAttribute(inputIndex, 'tabIndex', '13');
+    //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
+    this.rend.listen(inputIndex, 'keypress', ($event) => {
+      this.switchPage($event);
+    });
+    // テキストボックスを作成する
+    this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
   }
 
   /** ページをジャップ */
@@ -82,20 +94,22 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     if (key == 13) {
       // 入力値を取得
       let txtInput = e.target.value;
+
       if (Number(txtInput) > 0 &&
         Number(txtInput) <= this.numberOfPages) {
-        const currPageIndex = this.pagi.pageIndex;
+
+        //テキストボックスに入力した切り替えページ数を設定する。
         this.pagi.pageIndex = Number(txtInput) - 1;
-        this.pagi['_emitPageEvent'](currPageIndex);
-        this.initPageRange();
+
+        //メッゾドを呼ぶ
+        this.pagi.page.next();
       }
     }
   }
 
   ngAfterViewInit() {
-    this.initPageRange();
 
-    //　パージネタの色を変える。
+    //パージネタをレンダーした後、ボタンの背景色を変える。
     this.setNewClass();
   }
 
