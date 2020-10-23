@@ -1,6 +1,12 @@
+.mat-elevation-z8 {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
 .detail-table {
     width: 100%;
-    min-width: 1200px;
+    min-width: 1196px;
     position: relative;
 }
 

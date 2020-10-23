@@ -4,6 +4,11 @@
 /*****                                                    ****/
 /*****                     タブの設定                      ****/
 /*************************************************************/
+.shiwake-tab-group {
+    min-width: 863px;
+    padding-right: 42px;
+}
+
 .mat-tab-label {
     min-width: 25px !important;
     width: fit-content !important;
@@ -72,7 +77,7 @@
 /*************************************************************/
 .tsuika-table {
     position: relative;
-    width: 600px;
+    width: 475px;
 }
 
 .tsuika-table>tbody>tr>td>input {
@@ -111,7 +116,7 @@
 /*****             分割データを表示するテーブル.              ****/
 /*************************************************************/
 .bunkatsu-table {
-    width: fit-content;
+    width: 1436px;
     display: block;
     position: relative;
     box-shadow: -1px 0px 0px 0px #dee2e6 inset;
@@ -165,50 +170,59 @@
     background-color: #C5D9F1 ;
     text-align: center !important;
     vertical-align: middle !important;
+    white-space: nowrap;
 }
 .color-input-2 {
     background-color: #95B3D7 ;
     text-align: center !important;
     vertical-align: middle !important;
+    white-space: nowrap;
 }
 
 .color-input-3 {
     background-color: #FABF8F ;
     text-align: center !important;
     vertical-align: middle !important;
+    white-space: nowrap;
 }
 
 .color-input-4 {
     background-color: #FDE9D9 ;
     text-align: center !important;
     vertical-align: middle !important;
+    white-space: nowrap;
 }
 
 .color-input-5 {
     background-color: #C4D79B ;
     text-align: center !important;
     vertical-align: middle !important;
+    white-space: nowrap;
 
 }
 .comment{
     text-align: right;
     word-break: keep-all !important;
+    white-space: nowrap;
 }
 
 .tdRight {
     text-align: right;
     padding: 5px !important;
+    white-space: nowrap;
 }
 
 .tdLeft {
     text-align: left;
     padding: 5px ;
+    white-space: nowrap;
     
 }
 
 .tdCenter {
     text-align: center;
     padding: 5px ;
+    white-space: nowrap;
 }
 
 /*************************************************************/
@@ -245,7 +259,6 @@
     overflow-x: auto;
     overflow-y: auto;
     max-height: 302px;
-    width: fit-content;
 }
 
 /*************************************************************/
@@ -269,6 +282,10 @@
     position: relative;
 }
 
+.add-div>table>tbody>tr {
+    min-height: 40px;
+}
+
 /*************************************************************/
 /*****                                                    ****/
 /*****                  SHIWAKE-TABLE                     ****/
@@ -276,7 +293,7 @@
 /*****                                                    ****/
 /*************************************************************/
 .shiwake-table {
-    width: fit-content;
+    width: 821px;
 }
 
 .shiwake-table>thead>tr>th {

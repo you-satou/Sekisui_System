@@ -2,7 +2,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 734px;
+    width: 684px;
     height: 451px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -11,14 +11,14 @@
 
   .table{
     display: block;
-    width: 715px;
+    width: 684px;
     position: relative;
     box-shadow: -1px 0px 0px 0px #CCD0D5 inset;
     margin: 0px;
   }
 
   .table-body {
-    width: 734px; 
+    width: 684px; 
     margin: 20px auto 50px auto;
   }
   .table>thead>tr>th {

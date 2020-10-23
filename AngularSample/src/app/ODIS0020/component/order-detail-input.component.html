@@ -1,7 +1,7 @@
 <loading-spinner *ngIf="isLoading"></loading-spinner>
 <div *ngIf="isInitFlg">
-    <section>
-        <div>
+    <section class="upperSection">
+        <div class="mainInfo">
             <section class="orderInfo">
                 <table class="table-bordered">
                     <tr class="text-center">
@@ -208,22 +208,22 @@
     <section style="margin-top: 10px;">
         <table class="insert-table table-sm table-bordered">
             <tr>
-                <th style="width: 70px;">
-                    <button style="margin: 0;padding: 0;" class="btn btn-link" data-toggle="modal"
+                <th style="width: 60px;">
+                    <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal"
                         data-target="#M_ODIS0030" tabindex="5"
                         (click)="orderJournalSelect($event,this.addInput.journalCode);">仕訳<br>コード</button>
                 </th>
-                <th style="width: 70px;">経理<br>分類</th>
-                <th>仕訳名称</th>
-                <th colspan="2">
-                    <button style="padding: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040"
+                <th style="width: 40px;">経理<br>分類</th>
+                <th style="width: 150px;">仕訳名称</th>
+                <th style="width: 210px;" colspan="2">
+                    <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040"
                     tabindex="6" (click)="orderSupplierSelect($event,this.addInput.orderSupplierCode);">発注先</button>
                 </th>
-                <th>発注予定金額</th>
+                <th style="width: 120px;">発注予定金額</th>
             </tr>
             <tbody>
                 <tr>
-                    <td style="width: auto;">
+                    <td style="width: 60px;">
                         <input type="tel" maxlength="4" class="add-journalCode" id="txtAddJCode" name="journalCode"
                             [(ngModel)]="addInput.journalCode" style="text-align:left;" tabindex="7"
                             (keyup)="toHanNumJC($event)" (change)="toHanNumJC($event)" (blur)="getJournalCode($event)">
@@ -274,20 +274,22 @@
                 <button mat-button id="btnBack" class="btn btn-secondary m-1 border mx-1 back-btn" 
                 tabindex="16" (click)="backToApprovalPage($event);" >更新せず終了</button>
             </div>
-            <div style="margin-left: 200px; bottom: 5px;" class="SC0020-bottomButton">
+            <div style="margin-left: 130px; bottom: 5px;" class="SC0020-bottomButton">
                 <button mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
                     data-target="#M_ODIS0050" (click)="supplierPattern($event);" tabindex="17">発注先パターン選択</button>
             </div>
-            <div style="margin-left: 430px;" class="SC0020-bottomButton">
-                <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1" style ="display: none;" tabindex="18">得意先元帳</button>
+            <div class="middleButtons">
+                <div class="SC0020-bottomButton" style="display: none;">
+                    <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1" tabindex="18">得意先元帳</button>
+                </div>
+                <div style="transform: translateX(120%); display: none;" class="SC0020-bottomButton">
+                    <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" tabindex="19">工事台帳</button>
+                </div>
+                <div style="transform: translateX(226%);" class="SC0020-bottomButton">
+                    <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="20">明細一覧</button>
+                </div>
             </div>
-            <div style="margin-left: 550px;" class="SC0020-bottomButton">
-                <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" style ="display: none;" tabindex="19">工事台帳</button>
-            </div>
-            <div style="margin-left: 680px;" class="SC0020-bottomButton">
-                <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="20">明細一覧</button>
-            </div>
-            <div style="right: 46px;" class="SC0020-bottomButton">
+            <div style="right: 42px;" class="SC0020-bottomButton">
                 <button mat-button id="btnKoushin" class="btn btn-info m-1 border"
                     (click)="finalUpdateProgress()" tabindex="21">更新終了</button>
             </div>

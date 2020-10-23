@@ -73,6 +73,22 @@
 /*****          発注情報、契約情報　　                        ****/
 /*****                                                     ****/
 /*************************************************************/
+.upperSection {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.mainInfo>section>table>tr>th {
+    padding: 0 5px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.mainInfo>section>table>tr>td {
+    padding: 0 5px;
+    white-space: nowrap;
+}
+
 .orderInfo {
     min-width: 960px ;
     position: relative ;
@@ -81,9 +97,10 @@
 
 .orderInfo2 {
     max-width: 100% ;
-    margin-top: 10px ;
+    margin-top: 10px;
+    margin-right: 42px;
     position: relative ;
-    min-width: 1120px ;
+    min-width: 1174px ;
 }
 
 .orderInfo2Table1 {
@@ -203,8 +220,32 @@
 }
 
 .button-container {
-    width: 50%;
+    width: 581px;
     margin-left: 0;
+}
+
+.middleButtons {
+    left: 43%;
+    right: 50%;
+    width: 320px;
+    margin: auto;
+    /* border: 1px solid red;  */
+    height: 50px; 
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+}
+
+@media screen and (max-width: 804px){
+    .middleButtons {
+        left:45%;
+    }
+
+    .SC0020-bottomButton>button {
+        padding: 0 10px!important;
+        width: fit-content !important;
+    }
+
 }
 
 /*************************************************************/
@@ -221,35 +262,46 @@
 .insert-table>tbody>tr>td>input{
     text-align: right;
     border: 0;
+    white-space: nowrap;
+}
+
+.insert-table>tbody>tr>td{
+    white-space: nowrap;
 }
 
 .add-journalCode{
     margin: 0;
     padding: 0;
-    width: 60px;
+    width: 50px;
     
 }
 .add-accountCode{
     margin: 0;
     padding: 0;
-    width: 60px;
+    width: 30px;
 }
 .add-journalName{
     margin: 0;
     padding: 0;
+    width: 140px;
 }
 .add-supplierCode{
     margin: 0;
     padding: 0;
-    width: 60px;
+    width: 30px;
 }
 .add-supplierName{
-    width: 200px;
+    width: 170px;
+    min-width: 170px;
     
 }
 .add-planAmount{
     margin: 0;
     padding: 0;
+}
+
+#txtAddAmount {
+    width: 110px;
 }
 
 .mat-icon {
