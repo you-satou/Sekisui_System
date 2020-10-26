@@ -5,8 +5,7 @@
 /*****                     タブの設定                      ****/
 /*************************************************************/
 .shiwake-tab-group {
-    min-width: 863px;
-    padding-right: 42px;
+    min-width: 684px;
 }
 
 .mat-tab-label {
@@ -259,6 +258,7 @@
     overflow-x: auto;
     overflow-y: auto;
     max-height: 302px;
+    min-width: 820px;
 }
 
 /*************************************************************/
