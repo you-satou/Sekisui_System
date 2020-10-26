@@ -14,7 +14,7 @@
 .table-responsive .mat-header-cell {
     word-wrap: initial;
     display: table-cell;
-    padding: 0px 5px;
+    padding: 0px 5px !important;
     width: auto;
     white-space: nowrap;
     overflow: hidden;
