@@ -134,6 +134,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 初期表示
    */
   ngOnInit() {
+    //URLのパラメーターを消す
+    history.replaceState({}, '', Const.UrlSetting.U0002);
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
