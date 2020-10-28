@@ -38,9 +38,16 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 
   }
 
-  private buildInputPageNumber() {
+  ngOnInit(): void {
+    let inputNode: any = document.getElementById("pageIndex");
+    //テキストボックスが存在しない場合、新規作成する。
+    if (inputNode == null) {
+      //テキストボックスを作成する
+      this.createPageNumberTextBox();
+    }
+  }
 
-    //テキストボックスが存在するかどうかをチェックする。
+  private buildInputPageNumber() {
     let inputNode: any = document.getElementById("pageIndex");
     //テキストボックスが存在しない場合、新規作成する。
     if (inputNode == null) {
@@ -48,16 +55,15 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
       this.createPageNumberTextBox();
     }
     else {
-      //データがある場合、ページ数を表示する
       if(this.pagi.length > 0){
+        //データがある場合、ページ数を表示する
         inputNode.removeAttribute("disabled");
         inputNode.value = (this.pagi.pageIndex + 1).toString();
       }
       else{
-        //データがない場合、ページ数を空白して、非活性する。
+    　  //データがない場合、ページ数を空白して、非活性する。
         inputNode.value = "";
         inputNode.setAttribute("disabled","true");
-
       }
     }
   }

@@ -36,7 +36,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   currPageIndex: number;
   
   //明細一覧をソート、またはページ切り替えたときにページナンバーを保持するなパラメタ―
-  _pgIndex: number = 0;
+  _pgIndex: number = -1;
   
   constructor(
     private appComponent: AppComponent,
@@ -246,7 +246,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     //ぺジャーネタの表示されているページ数をみて、０でない場合は、表示されているページ数を取得する。
     var pgText: any = document.getElementById("pageIndex");
     var pgNo = pgText.value;
-    if(this._pgIndex == 0 && Number(pgNo) > 0){
+    if(this._pgIndex == -1 && Number(pgNo) > 0){
       saveData.currentPage = Number(pgNo) - 1;
     }
 

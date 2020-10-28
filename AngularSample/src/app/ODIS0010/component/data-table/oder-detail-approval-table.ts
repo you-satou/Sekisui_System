@@ -60,7 +60,11 @@ export class OrderDetailApprovalTable{
       this.dataSource.data = this.resultData;
       this.dataSource.sort.disabled = false;
       this.dataSource.paginator.pageIndex = this.pgIndex;
-      this.dataSource.paginator.page.next();
+      
+      //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
+      setTimeout(() => {
+        this.dataSource.paginator.page.next();
+      }, 100);
     }
 
   }
@@ -91,7 +95,7 @@ export class OrderDetailApprovalTable{
     //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
     setTimeout(() => {
       this.dataSource.paginator.page.next();
-    }, 10);
+    }, 100);
       
   }
  
