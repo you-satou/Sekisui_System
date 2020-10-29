@@ -47,12 +47,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
+    //新しいページに移動した場合、historyには新しいnullの情報を挿入。
+    //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。
     this.location.onUrlChange((event) => {
       setTimeout(() => {
         history.pushState(null, null, null);
       }, 0);
     });
 
+    //ブラウザーの戻るボタンを押下すると、historyにnullの情報を入れ、警告メッセージを表示。
     window.onpopstate = function(event) {
       history.pushState(null, null, null);
       window.alert('前のページに戻る場合、閉じるボタンから戻ってください。');
