@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { Location } from '@angular/common'
 
 const openClose = trigger('openClose', [
   state('open', style({
@@ -41,10 +42,18 @@ export class AppComponent implements OnInit {
 
   constructor( 
     private router: Router, 
+    private location: Location,
     ) {  }
 
   ngOnInit() {
-    window.onpopstate = function (event) {
+
+    this.location.onUrlChange((event) => {
+      setTimeout(() => {
+        history.pushState(null, null, null);
+      }, 0);
+    });
+
+    window.onpopstate = function(event) {
       history.pushState(null, null, null);
       window.alert('前のページに戻る場合、閉じるボタンから戻ってください。');
 
