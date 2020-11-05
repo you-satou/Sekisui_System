@@ -49,6 +49,12 @@ export class ODIS0060OrderDetailBunkatsu {
     /** 発注予定分割金額 */
     orderSplitAmount: string;
 
+    /** 発注分割発注先コード */
+    splitSupplierCode: string;
+
+    /** 発注分割発注先名称*/
+    splitSupplierName: string;
+
     /** コメント */
     comment: string;
     
@@ -69,6 +75,18 @@ export class ODIS0060OrderDetailBunkatsu {
 
     /** 承認者 ニ回目*/
     approvalPerson_lv2: string;
+
+    /** 承認日 三回目 */
+    approvalDate_lv3: string;
+
+    /** 承認者 三回目*/
+    approvalPerson_lv3: string;
+
+    /** 最終承認日*/
+    approvalDate_final: string;
+
+    /** 最終承認者*/
+    approvalPerson_final: string;
 
     /** 発注年月日 */
     orderDate: string;

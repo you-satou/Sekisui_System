@@ -10,6 +10,9 @@ import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderDetaiSplitBean } from './../../ODIS0020/entities/odis0020-OrderDetailSplit.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
 import { ODIS0020BunkatsuInsertService, RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
+import { Subscription } from 'rxjs';
+import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
+import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
 
 @Component({
   selector: 'split-detail-input',
@@ -24,10 +27,13 @@ export class SplitOrderDetailComponent implements OnInit {
   headerColspan: string[] = [
     'no',
     'orderPlanAmount',
+    'bunkatsuHachuuSaki',
     'comment',
     'irai',
     'shounin_1',
     'shounin_2',
+    'shounin_3',
+    'saishuu_shounin',
     'order',
     'received',
     'payment',
@@ -41,12 +47,18 @@ export class SplitOrderDetailComponent implements OnInit {
     'approvalPerson_lv1',
     'approvalDate_lv2',
     'approvalPerson_lv2',
+    'approvalDate_lv3',
+    'approvalPerson_lv3',
+    'approvalDate_final',
+    'approvalPerson_final',
   ];
 
   /** テーブルの全カラム */
   totalColumns: string[] = [
     'index',
     'orderPlanAmount1',
+    'splitSupplierCode',
+    'splitSupplierName',
     'comment1',
     'requestDate',
     'requester',
@@ -54,6 +66,10 @@ export class SplitOrderDetailComponent implements OnInit {
     'approvalPerson_lv1',
     'approvalDate_lv2',
     'approvalPerson_lv2',
+    'approvalDate_lv3',
+    'approvalPerson_lv3',
+    'approvalDate_final',
+    'approvalPerson_final',
     'orderDate',
     'orderAmount',
     'receivedDate',
@@ -66,11 +82,6 @@ export class SplitOrderDetailComponent implements OnInit {
   @ViewChild('ShiwakeData', { static: true }) childShiwake: any;
   @ViewChild('BunkatsuData', { static: true }) childBunkatsu: any;
 
-  // @HostListener('window:beforeunload', [ '$event' ])
-  // beforeUnloadHandler(event) {
-  //   // ページ移動前の確認イベント
-  //   this.toSaveShiwakeData();
-  // }
 
   //仕訳テーブルのデータ
   shiwakeData: ODIS0060OrderShiwake[] = [];
@@ -102,6 +113,9 @@ export class SplitOrderDetailComponent implements OnInit {
   // 編集フラグ
   isEditFlg = false;
 
+  subscription: Subscription;
+  public modal: any = null;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -110,6 +124,7 @@ export class SplitOrderDetailComponent implements OnInit {
     private splitService: ODIS0060SplitDetailService,
     private odis0020Service: ODIS0020Service,
     private viewRef: ViewContainerRef,
+    private OrderSupplierSelectService: OrderSupplierSelectService,
   ) {  }
 
   // --------------------------------------- ▼▼ 初期表示処理 ▼▼ ---------------------------------------
@@ -121,6 +136,7 @@ export class SplitOrderDetailComponent implements OnInit {
 
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
 
+    this.setModel();
     //セッションにデータがあるかどうか
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
@@ -171,6 +187,25 @@ export class SplitOrderDetailComponent implements OnInit {
       skBody.rows[0].remove();
       return;
     }
+  }
+
+  setModel() {
+    //ODIS0040発注先マスタ選択
+    this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
+      () => {
+        if (!this.baseCompnt.isEmpty(this.OrderSupplierSelectService.getVal())) {
+          this.input.splitSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
+          this.input.splitSupplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+        }
+
+        this.modal = null;
+      }
+    );
+  }
+
+  splitSupplierSelect($event) {
+    // this.splitService.setVal(selectVal);
+    this.modal = OrderSupplierSelectComponent;
   }
 
   /**
@@ -588,9 +623,9 @@ export class SplitOrderDetailComponent implements OnInit {
     sessionStorage.removeItem(Const.ScreenName.S0006EN);
 
   }
-  // --------------------------------------- ▲▲ 各ボタン 処理 ▲▲ ---------------------------------------
+  // --------------------------------------- ▲▲ 各ボタン 処理 ▲▲ ----------------------------------------
   
-  // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ ---------------------------------------
+  // --------------------------------------- ▼▼ フォーカス系 処理 ▼▼ -------------------------------------
   /**
    * focus処理
    *

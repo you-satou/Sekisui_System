@@ -35,7 +35,7 @@ export class ODIS0020Service {
 
   constructor() { }
 
-  private _val
+  private _val;
 
 
   public getVal() {

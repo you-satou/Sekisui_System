@@ -1,5 +1,6 @@
 import { ODIS0060OrderShiwake, ODIS0060OrderDetailBunkatsu } from '../entities/odis0060-SplitDetail.entity';
 import { Injectable } from '@angular/core';
+import { ODIS0020BunkatsuInsertService } from './odis0060-AddBunkatsuDetail.service';
 
 @Injectable()
 /**
@@ -9,6 +10,7 @@ export class ODIS0060SplitDetailService {
 
   private _shiwakeData: ODIS0060OrderShiwake[];
 
+  private _val = new ODIS0020BunkatsuInsertService();
   /**
    * 詳細入力テーブルの選択された行の仕訳データの保存
    *
@@ -43,6 +45,17 @@ export class ODIS0060SplitDetailService {
    */
   getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
     return this._bunkatsuData;
+  }
+
+  public getVal() {
+    return this._val;
+  }
+  
+  /**
+  * フォーカス対象の値をセット
+  */
+  public setVal(val: ODIS0020BunkatsuInsertService) {
+    this._val = val;
   }
 
 }

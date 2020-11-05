@@ -28,11 +28,19 @@ export interface ODIS0020OrderDetailList {
  * 分割明細テーブルの定義
  */
 export interface ODIS0020OrderBunkatsuSub {
-  /** コメント */
-  comment: string;
+
 
   /** 発注予定分割金額 */
   orderSplitAmount: string;
+
+  /** 発注分割発注先コード */
+  splitSupplierCode: string;
+
+  /** 発注分割発注先名称 */
+  splitSupplierName: string;
+  
+  /** コメント */
+  comment: string;
 
   /** 依頼日 */
   requestDate: string;
@@ -51,6 +59,18 @@ export interface ODIS0020OrderBunkatsuSub {
 
   /** 承認者 ニ回目*/
   approvalPerson_lv2: string;
+
+  /** 承認日 三回目 */
+  approvalDate_lv3: string;
+
+  /** 承認者 三回目*/
+  approvalPerson_lv3: string;
+
+  /** 最終承認日*/
+  approvalDate_final: string;
+
+  /** 最終承認者*/
+  approvalPerson_final: string;
 
   /** 発注年月日 */
   orderDate: string;
@@ -98,11 +118,17 @@ export class ODIS0020OrderShiwake {
   /** 発注予定金額 */
   orderPlanAmount: string;
 
-  /** コメント */
-  comment: string;
-
   /** 発注予定分割金額 */
   orderSplitAmount: string;
+
+  /** 発注分割発注先コード */
+  splitSupplierCode: string;
+
+  /** 発注分割発注先名称*/
+  splitSupplierName: string;
+
+  /** コメント */
+  comment: string;
 
   /** 依頼日 */
   requestDate: string;
@@ -121,6 +147,18 @@ export class ODIS0020OrderShiwake {
 
   /** 承認者 ニ回目*/
   approvalPerson_lv2: string;
+
+  /** 承認日 三回目 */
+  approvalDate_lv3: string;
+
+  /** 承認者 三回目*/
+  approvalPerson_lv3: string;
+
+  /** 最終承認日*/
+  approvalDate_final: string;
+
+  /** 最終承認者*/
+  approvalPerson_final: string;
 
   /** 発注年月日 */
   orderDate: string;
@@ -143,12 +181,18 @@ export class ODIS0020OrderShiwake {
   get isBlankDetail(){
     if (this.comment == '' &&
       this.orderSplitAmount == '' &&
+      this.splitSupplierCode == '' &&
+      this.splitSupplierName == '' &&
       this.requestDate == '' &&
       this.requester == '' &&
       this.approvalDate_lv1 == '' &&
       this.approvalPerson_lv1 == '' &&
       this.approvalDate_lv2 == '' &&
       this.approvalPerson_lv2 == '' &&
+      this.approvalDate_lv3 == '' &&
+      this.approvalPerson_lv3 == '' &&
+      this.approvalDate_final == '' &&
+      this.approvalPerson_final == '' &&
       this.orderDate == '' &&
       this.orderAmount == '' &&
       this.receivedDate == '' &&

@@ -10,6 +10,12 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     /** 発注金額 */
     orderSplitAmount: string;
 
+    /** 発注分割発注先コード */
+    splitSupplierCode: string;
+
+    /** 発注分割発注先名称 */
+    splitSupplierName: string;
+
     /** 備考 */
     comment: string;
 
@@ -24,6 +30,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     /**未入力の場合、「True」を返却する */
     get isBlank(): boolean {
         if (this.orderSplitAmount != '' ||
+            this.splitSupplierCode != '' ||
+            this.splitSupplierName != '' ||
             this.comment != '' ||
             this.requestDate != '' ||
             this.requester != ''
@@ -42,6 +50,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
     get isChanged(){
         if (this.removeCommas(this.orderSplitAmount) != this.bunkatsu.orderSplitAmount ||
+            this.splitSupplierCode != this.bunkatsu.splitSupplierCode ||
+            this.splitSupplierName != this.bunkatsu.splitSupplierName ||
             this.comment != this.bunkatsu.comment ||
             this.requestDate != this.bunkatsu.requestDate ||
             this.requester != this.bunkatsu.requester) {
