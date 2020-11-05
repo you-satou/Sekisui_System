@@ -227,7 +227,7 @@
                 <tr>
                     <th class="color-input-1" style="width: 120px; min-width: 120px;" rowspan="2">発注予定金額</th>
                     <th class="color-input-1" style="width: 260px; min-width: 260px;" rowspan="2" colspan="2">
-                        <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040" (click)="splitSupplierSelect($event)">発注先</button>
+                        <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040" (click)="splitSupplierSelect($event, this.input.splitSupplierCode)">発注先</button>
                     </th>
                     <th class="color-input-1" style="width: 180px; min-width: 180px ;" rowspan="2">コメント</th>
                     <th class="color-input-2" style="width: 175px; min-width: 175px;" colspan="2">依頼</th>
@@ -246,20 +246,20 @@
                             (change)="onlyHanPrice($event)" />
                     </td>
                     <td style="width: 40px">
-                        <input type="tel" maxlength="3" style="ime-mode:disabled; text-align:left;">
+                        <input type="tel" maxlength="3" name="supplierCode"
+                            [(ngModel)]="input.splitSupplierCode" style="ime-mode:disabled; text-align:left;"
+                            tabindex="3" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
-                    <td style="width: 220px">
-                        <input type="text" maxlength="13" style="text-align: left;">
-                    </td>
+                    <td style="text-align: left;">{{input.splitSupplierName}}</td>
                     <td>
-                        <input type="text" style="width: 179px !important;" maxlength="12" tabindex="3"
+                        <input type="text" style="width: 179px !important;" maxlength="12" tabindex="4"
                             [(ngModel)]="input.comment" (blur)="onChangeZenkaku($event)" 
                             (change)="onChangeZenkaku($event)"/>
                     </td>
                     <td style="text-align: center !important">{{ input.requestDate }}</td>
                     <td style="text-align: center !important">{{ input.requester }}
                         <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)"
-                            mat-button class="btn btn-outline-primary btn-small" tabindex="4">依頼</button>
+                            mat-button class="btn btn-outline-primary btn-small" tabindex="5">依頼</button>
                     </td>
                 </tr>
             </tbody>
@@ -269,31 +269,32 @@
             <div style="position: relative; margin: 20px 0 50px 0">
                 <div style="float: left">
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        tabindex="5"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
+                        tabindex="6"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
                 </div>
 
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        tabindex="6"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
+                        tabindex="7"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
                 </div>
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        tabindex="7"(click)="stopModifyDetail($event)">中止</button>
+                        tabindex="8"(click)="stopModifyDetail($event)">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; left: 380px">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        tabindex="8"(click)="deleteOrderDetail($event)">明細削除</button>
+                        tabindex="9"(click)="deleteOrderDetail($event)">明細削除</button>
                 </div>
             </div>
         </section>
+        <ng-container *ngComponentOutlet="modal"></ng-container>
     </div>
 
     <div class="footer-container-split">
         <div style="margin: 5px 0 0 0">
             <button mat-button class="btn btn-secondary border mx-1 back-btn" 
-                tabindex="9" (click)="backToOrderDetailInput()">閉じる
+                tabindex="10" (click)="backToOrderDetailInput()">閉じる
             </button>
         </div>
     </div>

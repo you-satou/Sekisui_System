@@ -72,6 +72,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
     Clear() {
         this.orderSplitAmount = '';
+        this.splitSupplierCode = '';
+        this.splitSupplierName = '';
         this.comment = '';
         this.requestDate = '';
         this.requester = '';
@@ -102,6 +104,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
      */
     getInput(output: ODIS0060OrderDetailBunkatsu, action: string): ODIS0060OrderDetailBunkatsu{
         output.orderSplitAmount = this.removeCommas(this.orderSplitAmount);
+        output.splitSupplierCode = this.setValue(this.splitSupplierCode);
+        output.splitSupplierName = this.setValue(this.splitSupplierName);
         output.comment = this.setValue(this.comment);
         switch(action){
             case Const.Action.A0001:

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
@@ -13,6 +13,9 @@ import { ODIS0020BunkatsuInsertService, RowStatus } from '../services/odis0060-A
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
+import { ODIS0060Form} from '../entities/odis0060-Form.entity';
+import { ODIS0060OrderCode} from '../entities/odis0060-OrderCode.entitiy';
+import { CommonService } from '../../common/common.service';
 
 @Component({
   selector: 'split-detail-input',
@@ -21,7 +24,7 @@ import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-suppl
   encapsulation: ViewEncapsulation.None
 })
 
-export class SplitOrderDetailComponent implements OnInit {
+export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
   /** 仕訳テーブルのヘッダーの1行目のカラム */
   headerColspan: string[] = [
@@ -113,12 +116,18 @@ export class SplitOrderDetailComponent implements OnInit {
   // 編集フラグ
   isEditFlg = false;
 
-  subscription: Subscription;
+  // 発注先コード パラメータ
+  paramOrderCode = new ODIS0060Form();
+  // 発注先コード レスポンス
+  resOrderCode = new ODIS0060OrderCode();
+
+  private subscription: Subscription;
   public modal: any = null;
 
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
+    private commonService: CommonService,
     private router: Router,
     private datePipe: DatePipe,
     private splitService: ODIS0060SplitDetailService,
@@ -197,14 +206,13 @@ export class SplitOrderDetailComponent implements OnInit {
           this.input.splitSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
           this.input.splitSupplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
         }
-
         this.modal = null;
       }
     );
   }
 
-  splitSupplierSelect($event) {
-    // this.splitService.setVal(selectVal);
+  splitSupplierSelect($event, selectVal) {
+    this.splitService.setVal(this.baseCompnt.setValue(selectVal));
     this.modal = OrderSupplierSelectComponent;
   }
 
@@ -223,9 +231,6 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   /**
-   * タブ名 取得
-   */
-/**
    * タブ名 取得
    */
   private getTabName(val: string){
@@ -247,6 +252,14 @@ export class SplitOrderDetailComponent implements OnInit {
     return resVal;
   }
 
+  /**
+   * 終了処理
+   *
+   * @memberof AppComponent
+   */
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
   // --------------------------------------- ▲▲ 初期表示処理 ▲▲ ---------------------------------------
 
   // --------------------------------------- ▼▼ 各ボタン 処理 ▼▼ ---------------------------------------
@@ -513,6 +526,7 @@ export class SplitOrderDetailComponent implements OnInit {
     this.input.Clear();
     this.rowStatus.Reset();
     this.btnSubIrai.style.display = 'inherit';
+    this.paramOrderCode = new ODIS0060Form();
   }
 
   /**
@@ -544,15 +558,14 @@ export class SplitOrderDetailComponent implements OnInit {
    */
   backToOrderDetailInput() {
 
-    if(!(this.input.isBlank)){
-      alert(Const.ErrorMsg.E0018);
-    }
-    else{
+    // if(!(this.input.isBlank)){
+    //   alert(Const.ErrorMsg.E0018);
+    // }
+    // else{
 
-      this.toSaveShiwakeData();
-
-      this.router.navigate([Const.UrlSetting.U0002]);
-    }
+    this.toSaveShiwakeData();
+    this.router.navigate([Const.UrlSetting.U0002]);
+    // }
   }
 
   /**
@@ -685,6 +698,20 @@ export class SplitOrderDetailComponent implements OnInit {
   }
 
   /**
+    * keyUp処理 半角数字のみ(発注先コード)
+    *
+    * @param $event イベント
+    */
+  toHanNumSC($event){
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+    this.input.splitSupplierCode = this.baseCompnt.onlyHanNumber(val);
+  }
+
+  /**
    * 追加した明細に自動スクロールする
    * @param body 
    * @param row
@@ -692,5 +719,51 @@ export class SplitOrderDetailComponent implements OnInit {
   setAutoScroll(body: any, row: number) {
     body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
+
+  /**
+   * 発注先コード ロストフォーカス
+   * @param event 
+   */
+  getOrderCode($event){
+    
+    var maxLen:number = $event.target.maxLength;
+    var val = $event.target.value;
+    if(val.length > maxLen){
+      val = val.substr(0,maxLen);
+    }
+
+    // 空白以外の場合に処理を実行
+    if(val.trim().length >= 1){
+      // 0パディング 設定
+      var strOrderCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+      // 前回の仕訳コードと異なる場合に以降の処理を実施
+      if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
+        // 初期化
+        this.paramOrderCode = new ODIS0060Form();
+        // Todo　システムログイン情報から取得すること！
+        // 事業区分コード設定
+        this.paramOrderCode.officeCode = '701000';
+
+        // 仕訳コード 設定
+        this.paramOrderCode.orderSupplierCode = strOrderCode;
+
+        // 仕訳コード取得
+        this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetOrderCode,this.paramOrderCode)
+        .then(
+          (response) => {
+
+            if(response.result === Const.ConnectResult.R0001){
+              this.resOrderCode = response.applicationData;
+              this.input.splitSupplierCode = strOrderCode;   // 発注先コード
+              this.input.splitSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
+            }else{
+              alert(response.message);
+            }
+          }
+        );
+      }
+    }
+  }
+  
   // --------------------------------------- ▲▲ フォーカス系 処理 ▲▲ ---------------------------------------
 }
