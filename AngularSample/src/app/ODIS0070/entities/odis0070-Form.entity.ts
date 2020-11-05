@@ -20,6 +20,12 @@ export class ODIS0070Form{
     /** 承認２ */
     approval2: string;
 
+    /** 承認３ */
+    approval3: string;
+
+    /** 最終承認 */
+    approvalLast: string;
+
     /** 削除 */
     deleteFlag: string;
 }

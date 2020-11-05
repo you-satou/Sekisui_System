@@ -12,13 +12,19 @@ export class OrderSplitApprovalMasterTable{
     /** 従業員名 */
     employeeName: string;
 
-    /** 発注先コード */
+    /** 承認１ */
     approval1: string;
 
-    /** 発注先コード */
+    /** 承認２ */
     approval2: string;
 
-    /** 発注先コード */
+    /** 承認３ */
+    approval3: string;
+
+    /** 最終承認 */
+    approvalLast: string;
+
+    /** 削除フラグ */
     deleteFlag: string;
 }
 

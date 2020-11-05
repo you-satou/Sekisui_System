@@ -258,6 +258,20 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       }
     }
 
+    // 承認３ ドロップダウン 設定
+    for(var data of APPROVAL_TYPE){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval3)){
+        this.view.element.nativeElement.querySelector('#selApp3').selectedIndex = data.id;
+      }
+    }
+
+    // 最終承認 ドロップダウン 設定
+    for(var data of APPROVAL_TYPE){
+      if(data.text === this.commonComponent.setValue(selectedItem.approvalLast)){
+        this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex = data.id;
+      }
+    }
+
     // 削除 ドロップダウン 設定
     for(var data of DEL_TYPE){
       if(data.text === this.commonComponent.setValue(selectedItem.deleteFlag)){
@@ -313,6 +327,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+    this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+    this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Insert,this.input)
@@ -361,6 +377,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.officeCode = '204006';
     this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+    this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+    this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
     .then(
@@ -449,6 +467,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // ドロップダウン初期化
     this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
+    this.view.element.nativeElement.querySelector('#selApp3').selectedIndex = 0;
+    this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selDel').selectedIndex = 0;
 
     // 個人認証ＩＤ 活性
