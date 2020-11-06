@@ -85,3 +85,15 @@
     width: 100%;
     border: 0;
   }
+
+  .emplInfo {
+    width: 105px;
+  }
+
+  .emplName {
+    width: 161px;
+  }
+
+  .permissions {
+    width: 77px;
+  }

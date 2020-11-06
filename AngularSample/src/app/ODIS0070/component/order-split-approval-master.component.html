@@ -6,26 +6,26 @@
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th style="width: 105px;" class="table-str text-center">個人認証ＩＤ</th>
-                    <th style="width: 105px;" class="table-str td-b text-center">従業員コード</th>
-                    <th style="width: 161px;" class="table-str td-b text-center">従業員名</th>
-                    <th style="width: 77px;" class="table-str td-b text-center">承認１</th>
-                    <th style="width: 77px;" class="table-str td-b text-center">承認２</th>
-                    <th style="width: 77px;" class="table-str td-b text-center">承認３</th>
-                    <th style="width: 77px;" class="table-str td-b text-center">最終承認</th>
-                    <th style="width: 77px;" class="table-str td-b text-center">削除</th>
+                    <th class="table-str text-center emplInfo">個人認証ＩＤ</th>
+                    <th class="table-str td-b text-center emplInfo">従業員コード</th>
+                    <th class="table-str td-b text-center emplName">従業員名</th>
+                    <th class="table-str td-b text-center permissions">承認１</th>
+                    <th class="table-str td-b text-center permissions">承認２</th>
+                    <th class="table-str td-b text-center permissions">承認３</th>
+                    <th class="table-str td-b text-center permissions">最終承認</th>
+                    <th class="table-str td-b text-center permissions">削除</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
-                    <td class="table-str td-b">{{ data.personalID }}</td>
-                    <td class="table-str td-b">{{ data.employeeCode }}</td>
-                    <td class="table-str td-b">{{ data.employeeName }}</td>
-                    <td class="table-str td-b text-center">{{ data.approval1 }}</td>
-                    <td class="table-str td-b text-center">{{ data.approval2 }}</td>
-                    <td class="table-str td-b text-center">{{ data.approval3 }}</td>
-                    <td class="table-str td-b text-center">{{ data.approvalLast }}</td>
-                    <td class="table-str td-b text-center">{{ data.deleteFlag }}</td>
+                    <td class="table-str td-b emplInfo">{{ data.personalID }}</td>
+                    <td class="table-str td-b emplInfo">{{ data.employeeCode }}</td>
+                    <td class="table-str td-b emplName">{{ data.employeeName }}</td>
+                    <td class="table-str td-b text-center permissions">{{ data.approval1 }}</td>
+                    <td class="table-str td-b text-center permissions">{{ data.approval2 }}</td>
+                    <td class="table-str td-b text-center permissions">{{ data.approval3 }}</td>
+                    <td class="table-str td-b text-center permissions">{{ data.approvalLast }}</td>
+                    <td class="table-str td-b text-center permissions">{{ data.deleteFlag }}</td>
                 </tr>
             </tbody>
         </table>
@@ -35,62 +35,62 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width: 105px;" class="table-str td-b text-center">個人認証ＩＤ</th>
-                        <th style="width: 105px;" class="table-str td-b text-center">従業員コード</th>
-                        <th style="width: 161px;" class="table-str td-b text-center">従業員名</th>
-                        <th style="width: 77px;" class="table-str td-b text-center">承認１</th>
-                        <th style="width: 77px;" class="table-str td-b text-center">承認２</th>
-                        <th style="width: 77px;" class="table-str td-b text-center">承認３</th>
-                        <th style="width: 77px;" class="table-str td-b text-center">最終承認</th>
-                        <th style="width: 77px; box-shadow: 0px 0px 0px 1px #CCD0D5 inset;"
-                            class="table-str td-b text-center">削除</th>
+                        <th class="table-str td-b text-center emplInfo">個人認証ＩＤ</th>
+                        <th class="table-str td-b text-center emplInfo">従業員コード</th>
+                        <th class="table-str td-b text-center emplName">従業員名</th>
+                        <th class="table-str td-b text-center permissions">承認１</th>
+                        <th class="table-str td-b text-center permissions">承認２</th>
+                        <th class="table-str td-b text-center permissions">承認３</th>
+                        <th class="table-str td-b text-center permissions">最終承認</th>
+                        <th style="box-shadow: 0px 0px 0px 1px #CCD0D5 inset;"
+                            class="table-str td-b text-center permissions">削除</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="table-str td-b">
+                        <td class="table-str td-b emplInfo">
                             <input type="tel" id="txtPersonalID" [(ngModel)]="input.personalID"
                                 disabled="{{ isEditFlgPersonal }}" tabindex="1" maxlength="32"
                                 (keyup)="toABCNumPersonal($event)" (change)="toABCNumPersonal($event)"
                                 (blur)="getEmployeeInfo($event)" />
                         </td>
-                        <td class="table-str td-b">
+                        <td class="table-str td-b emplInfo">
                             <input [(ngModel)]="input.employeeCode" type="tel" disabled="{{ isEditFlgEmployee }}"
                                 tabindex="2" maxlength="8" (keyup)="toABCNumEmployee($event)"
                                 (change)="toABCNumEmployee($event)">
                         </td>
-                        <td class="table-str td-b">
+                        <td class="table-str td-b emplName">
                             <label type="text" maxlength="20">{{input.employeeName}}</label>
                         </td>
-                        <td class="table-str td-b text-center">
+                        <td class="table-str td-b text-center permissions">
                             <select id="selApp1" tabindex="3">
                                 <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
                                     {{type1.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center">
+                        <td class="table-str td-b text-center permissions">
                             <select id="selApp2" tabindex="4">
                                 <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
                                     {{type2.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center">
+                        <td class="table-str td-b text-center permissions">
                             <select id="selApp3" tabindex="5">
                                 <option *ngFor="let type3 of appTypes" [ngValue]="type3.id">
                                     {{type3.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center">
+                        <td class="table-str td-b text-center permissions">
                             <select id="selAppLast" tabindex="6">
                                 <option *ngFor="let typeLast of appTypes" [ngValue]="typeLast.id">
                                     {{typeLast.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center">
+                        <td class="table-str td-b text-center permissions">
                             <select id="selDel" tabindex="7">
                                 <option *ngFor="let typeDel of delTypes" [ngValue]="typeDel.id">
                                     {{typeDel.text}}
