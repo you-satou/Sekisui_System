@@ -212,7 +212,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   }
 
   splitSupplierSelect($event, selectVal) {
-    this.splitService.setVal(this.baseCompnt.setValue(selectVal));
+    this.odis0020Service.setVal(this.baseCompnt.setValue(selectVal));
     this.modal = OrderSupplierSelectComponent;
   }
 
@@ -608,6 +608,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.orderPlanAmount    = this.shiwakeData[0].orderPlanAmount;
       dt.splitNo            = (i + 1).toString();
       dt.orderSplitAmount   = this.bunkatsuData[i].orderSplitAmount;
+      dt.splitSupplierCode  = this.bunkatsuData[i].splitSupplierCode;
+      dt.splitSupplierName  = this.bunkatsuData[i].splitSupplierName;
       dt.comment            = this.bunkatsuData[i].comment;
       dt.requestDate        = this.bunkatsuData[i].requestDate;
       dt.requester          = this.bunkatsuData[i].requester;

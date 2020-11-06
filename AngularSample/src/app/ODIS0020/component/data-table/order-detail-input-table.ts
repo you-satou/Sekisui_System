@@ -293,6 +293,8 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         let newSplit = new ODIS0060OrderDetailBunkatsu();
         newSplit.splitNo              = this.comCompnt.setValue(dt.detailNo);
         newSplit.orderSplitAmount     = this.comCompnt.setValue(dt.orderSplitAmount);
+        newSplit.splitSupplierCode    = this.comCompnt.setValue(dt.splitSupplierCode);
+        newSplit.splitSupplierName    = this.comCompnt.setValue(dt.splitSupplierName);
         newSplit.comment              = this.comCompnt.setValue(dt.comment);
         newSplit.requestDate          = this.comCompnt.setValue(dt.requestDate);
         newSplit.requester            = this.comCompnt.setValue(dt.requester);

@@ -489,11 +489,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.journalCode         = this.baseCompnt.setValue(data.journalCode);
     temp.accountCode         = this.baseCompnt.setValue(data.accountCode)
     temp.journalName         = this.baseCompnt.setValue(data.journalName);
-    temp.orderPlanAmount     = this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSupplierCode   = this.baseCompnt.setValue(data.orderSupplierCode);
     temp.orderSupplierName   = this.baseCompnt.setValue(data.orderSupplierName);
-    temp.comment             = this.baseCompnt.setValue(data.comment);
+    temp.orderPlanAmount     = this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSplitAmount    = this.baseCompnt.setValue(data.orderSplitAmount);
+    temp.splitSupplierCode   = this.baseCompnt.setValue(data.splitSupplierCode);
+    temp.splitSupplierName   = this.baseCompnt.setValue(data.splitSupplierName);
+    temp.comment             = this.baseCompnt.setValue(data.comment);
     temp.requestDate         = this.baseCompnt.setValue(data.requestDate);
     temp.requester           = this.baseCompnt.setValue(data.requester);
     temp.approvalDate_lv1    = this.baseCompnt.setValue(data.approvalDate_lv1);

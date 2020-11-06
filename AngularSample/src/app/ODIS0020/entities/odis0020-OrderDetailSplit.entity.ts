@@ -35,6 +35,12 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 発注予定金額 */
   orderPlanAmount: string = '';
 
+  /** 発注先コード(分割) */
+  splitSupplierCode: string = '';
+
+  /** 発注先名(分割) */
+  splitSupplierName: string = '';
+
   /** コメント */
   comment: string = '';
 
