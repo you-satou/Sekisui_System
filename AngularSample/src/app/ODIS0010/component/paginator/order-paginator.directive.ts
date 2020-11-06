@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs';
 import { Directive, Renderer2, ViewContainerRef, Input } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 
@@ -18,6 +17,8 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 	
   lastPageLabel		= '最後へ';
 
+  inputNode: any = null;
+
   // ページ総数を習得する
   get numberOfPages(): number {
     return this.pagi.getNumberOfPages();
@@ -29,42 +30,33 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     private rend: Renderer2
   ) {
       super();
-
-      //ボタン押下毎、走る
-      this.pagi.page.subscribe(() => {
-        this.buildInputPageNumber();
-      });
-
-
   }
 
   ngOnInit(): void {
-    let inputNode: any = document.getElementById("pageIndex");
+    this.inputNode = document.getElementById("pageIndex");
     //テキストボックスが存在しない場合、新規作成する。
-    if (inputNode == null) {
+    if (this.inputNode == null) {
       //テキストボックスを作成する
       this.createPageNumberTextBox();
     }
+
+    //ボタン押下毎、走る
+    this.pagi.page.subscribe(() => {
+      this.buildInputPageNumber();
+    });
   }
 
   private buildInputPageNumber() {
-    let inputNode: any = document.getElementById("pageIndex");
     //テキストボックスが存在しない場合、新規作成する。
-    if (inputNode == null) {
-      //テキストボックスを作成する
-      this.createPageNumberTextBox();
+    if (this.pagi.length > 0) {
+      //データがある場合、ページ数を表示する
+      this.inputNode.removeAttribute("disabled");
+      this.inputNode.value = (this.pagi.pageIndex + 1).toString();
     }
     else {
-      if(this.pagi.length > 0){
-        //データがある場合、ページ数を表示する
-        inputNode.removeAttribute("disabled");
-        inputNode.value = (this.pagi.pageIndex + 1).toString();
-      }
-      else{
-    　  //データがない場合、ページ数を空白して、非活性する。
-        inputNode.value = "";
-        inputNode.setAttribute("disabled","true");
-      }
+      //検索した後、データがない場合、ページ数を空白して、非活性する。
+      this.inputNode.value = "";
+      this.inputNode.setAttribute("disabled", "true");
     }
   }
 
@@ -92,6 +84,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     });
     // テキストボックスを作成する
     this.rend.insertBefore(actionContainer, inputIndex, labelTotalPages);
+    this.inputNode = document.getElementById("pageIndex");
   }
 
   /** ページをジャップ */
@@ -106,9 +99,8 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
 
         //テキストボックスに入力した切り替えページ数を設定する。
         this.pagi.pageIndex = Number(txtInput) - 1;
-
-        //メッゾドを呼ぶ
-        this.pagi.page.next();
+         //メッゾドを呼ぶ
+        this.pagi['_emitPageEvent'](this.pagi.pageIndex);
       }
     }
   }

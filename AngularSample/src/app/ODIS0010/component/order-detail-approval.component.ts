@@ -16,7 +16,7 @@ import { ODIS0010Session, TableStatus } from './../entities/odis001.session.enti
 })
 export class OrderDetailApprovalComponent implements OnInit {
 
-  orderDetailData: ODIS0010OrderDetail[];
+  orderDetailData: ODIS0010OrderDetail[] = [];
   // パラメータ
   inputment　= new ODIS0010Form();
 
@@ -247,7 +247,7 @@ export class OrderDetailApprovalComponent implements OnInit {
     var pgText: any = document.getElementById("pageIndex");
     var pgNo = pgText.value;
     if(this._pgIndex == -1 && Number(pgNo) > 0){
-      saveData.currentPage = Number(pgNo) - 1;
+      saveData.currentPage = this.currPageIndex;
     }
 
     // 既にセッションが格納されている場合は除去する

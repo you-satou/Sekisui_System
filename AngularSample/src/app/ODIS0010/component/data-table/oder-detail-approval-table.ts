@@ -1,11 +1,10 @@
-import { EventEmitter, Host } from '@angular/core';
-import { Component, ViewChild, Input, Output, ViewEncapsulation, HostListener } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, ViewChild, Input, Output, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonComponent } from './../../../common/common.component';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, MatSortable } from '@angular/material';
+import { MatSort } from '@angular/material';
 import { Router} from '@angular/router';
-
 import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
 import { TableStatus } from 'app/ODIS0010/entities/odis001.session.entity';
 
@@ -41,14 +40,13 @@ export class OrderDetailApprovalTable{
 
   dataSource = new MatTableDataSource<any>();
 
- 
-
   @ViewChild(MatSort, {static: true}) sort: MatSort;                  //ソート
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;   //パージネタ
 
   constructor(
     private router: Router,
     private baseComm : CommonComponent,
+    private changeDetector: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -62,9 +60,7 @@ export class OrderDetailApprovalTable{
       this.dataSource.paginator.pageIndex = this.pgIndex;
       
       //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
-      setTimeout(() => {
-        this.dataSource.paginator.page.next();
-      }, 100);
+      this.dataSource.paginator.page.next();
     }
 
   }
@@ -93,10 +89,7 @@ export class OrderDetailApprovalTable{
     this.dataSource.paginator.pageIndex = 0;
 
     //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
-    setTimeout(() => {
-      this.dataSource.paginator.page.next();
-    }, 100);
-      
+    this.dataSource.paginator.page.next();
   }
  
   /**　ページに移動する */
@@ -109,9 +102,15 @@ export class OrderDetailApprovalTable{
 
   /**ソートボタン、またはページ切り替えた時、イベントを発生して、親コンポネントに送る */
   sortAndPageChangeEvent($event){
+    //テーブルをエミットする前に、パジネーターのコンポネントを先にレンダーする
+    this.changeDetector.detectChanges();
+
+    //paginator.next()を呼ぶときにイベントが発生しないので、Emitterデータを送らないようにする。
+    if($event == undefined){
+      return false;
+    }
 
     let tblObj = new TableStatus();
-
     //ページインデックスを取得する。
     tblObj.pgIndex = this.dataSource.paginator.pageIndex;
 
