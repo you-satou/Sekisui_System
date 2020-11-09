@@ -7,6 +7,7 @@ import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
+import { AppComponent } from 'app/app.component';
 
 @Component({
   selector: "shiwake-table",
@@ -19,7 +20,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
   //承認人数
-  @Input() approvalUnit: number;
+  approvalUnit: number;
 
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
@@ -109,10 +110,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     private viewRef: ViewContainerRef,
     private odis0060Service: ODIS0060SplitDetailService,
     private datePipe: DatePipe,
+    private appComponent: AppComponent,
   ) {  }
 
   ngOnInit(): void {
     //2020/11/09 11月中の要望対応　Add Start
+    this.approvalUnit = this.appComponent.approvalLevels;
     switch(this.approvalUnit){
       //承認人数が4人で設定する
       case Const.ApprovalLevel.FourLevels:
@@ -356,7 +359,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     //　テーブル一覧：右側 分割データ
     this.odis0060Service.setDetailTable(splitDt);
     // 承認人数を設定。
-    this.odis0060Service.setApprovalUnit(this.approvalUnit);
+    // this.odis0060Service.setApprovalUnit(this.approvalUnit);
 
     //　エミッターを送る。
     this.dataEmitter.action = Const.Action.A0007;

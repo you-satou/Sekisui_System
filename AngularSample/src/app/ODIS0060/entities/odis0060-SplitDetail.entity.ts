@@ -123,8 +123,6 @@ export class ODIS0060OrderDetailBunkatsu {
  */
 export class ODIS0060Session {
 
-    approvalLevels: number;
-
     /**仕訳データ */
     shiwakeData: ODIS0060OrderShiwake[];
 

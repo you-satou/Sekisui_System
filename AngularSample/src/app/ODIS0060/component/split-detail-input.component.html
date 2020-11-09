@@ -212,8 +212,8 @@
                                 {{ element.paymentAmount | number }}</td>
                         </ng-container>
 
-                        <tr style="height: 30px" mat-header-row *matHeaderRowDef="headerColspan"></tr>
-                        <tr style="height: 30px" mat-header-row *matHeaderRowDef="bunkatsuColumnsName"></tr>
+                        <tr style="height: 30px" mat-header-row *matHeaderRowDef="mainHeaderCols"></tr>
+                        <tr style="height: 30px" mat-header-row *matHeaderRowDef="subHeaderCols"></tr>
                         <tr mat-row *matRowDef="let row; columns: totalColumns" (click)="selectRow($event, row)"></tr>
                     </table>
                 </div>
@@ -247,7 +247,7 @@
                     </td>
                     <td style="width: 40px">
                         <input type="tel" maxlength="3" name="supplierCode"
-                            [(ngModel)]="input.splitSupplierCode" style="ime-mode:disabled; text-align:left;"
+                            [(ngModel)]="input.splitSupplierCode" style="ime-mode:disabled; text-align:right;"
                             tabindex="3" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
                     <td style="text-align: left;">{{input.splitSupplierName}}</td>

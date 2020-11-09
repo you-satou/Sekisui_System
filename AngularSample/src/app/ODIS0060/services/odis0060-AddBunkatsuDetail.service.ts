@@ -91,6 +91,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         this.comment = input.comment;
         this.requestDate = input.requestDate;
         this.requester = input.requester;
+        this.splitSupplierCode = input.splitSupplierCode;
+        this.splitSupplierName = input.splitSupplierName;
 
         //データを保持する
         this.bunkatsu = input;
@@ -115,6 +117,10 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 output.approvalPerson_lv1 = '';
                 output.approvalDate_lv2 = '';
                 output.approvalPerson_lv2 = '';
+                output.approvalDate_lv3 = '';
+                output.approvalPerson_lv3 = '';
+                output.approvalDate_final = '';
+                output.approvalPerson_final = '';
                 output.orderDate = '';
                 output.orderAmount = '';
                 output.receivedDate = '';
@@ -135,6 +141,10 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 output.approvalPerson_lv1 = this.bunkatsu.approvalDate_lv2;
                 output.approvalDate_lv2 = this.bunkatsu.approvalDate_lv2;
                 output.approvalPerson_lv2 = this.bunkatsu.approvalPerson_lv2;
+                output.approvalDate_lv3 = this.bunkatsu.approvalDate_lv3;
+                output.approvalPerson_lv3 = this.bunkatsu.approvalPerson_lv3;
+                output.approvalDate_final = this.bunkatsu.approvalDate_final;
+                output.approvalPerson_final = this.bunkatsu.approvalPerson_final;
                 output.orderDate = this.bunkatsu.orderDate;
                 output.orderAmount = this.bunkatsu.orderAmount;
                 output.receivedDate = this.bunkatsu.receivedDate;

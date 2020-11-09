@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Location } from '@angular/common'
@@ -17,6 +17,7 @@ const openClose = trigger('openClose', [
     animate('0.1s')
   ]),
 ])
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -40,12 +41,17 @@ export class AppComponent implements OnInit {
 
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
+  approvalLevels: number;
+
   constructor( 
     private router: Router, 
     private location: Location,
     ) {  }
 
   ngOnInit() {
+
+    //TODO:　アプリ起動する時、承認者数を取得する。
+    this.approvalLevels = 2;
 
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。

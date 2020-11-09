@@ -35,8 +35,8 @@ export class ODIS0010OrderDetail {
     /** 明細（あり・なし） */
     createdDetail: string;
 
-    /** 承認者数 */
-    approvalLevels: string;
+    // /** 承認者数 */
+    // approvalLevels: string;
     
     /**　承認１（済・未） */
     approval_1: string;

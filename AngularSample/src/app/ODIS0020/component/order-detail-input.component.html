@@ -191,16 +191,16 @@
         <mat-tab-group disableRipple = "true" animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)"
             [selectedIndex]="tabValue">
             <mat-tab class="sekkei" tabindex="1" label="設計">
-                <shiwake-table #tabSekkei [orderData]="tblSekkei" [approvalUnit]="this.approvalUnits" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabSekkei [orderData]="tblSekkei" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="hontai" tabindex="2" label="ハウス・外構">
-                <shiwake-table #tabHontai [orderData]="tblHontai" [approvalUnit]="this.approvalUnits" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabHontai [orderData]="tblHontai" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="kaitai" tabindex="3" label="解体">
-                <shiwake-table #tabKaitai [orderData]="tblKaitai" [approvalUnit]="this.approvalUnits" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabKaitai [orderData]="tblKaitai" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="tsuika" tabindex="4" label="追加工事">
-                <shiwake-table #tabTsuika [orderData]="tblTsuika" [approvalUnit]="this.approvalUnits" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabTsuika [orderData]="tblTsuika" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
         </mat-tab-group>
     </section>

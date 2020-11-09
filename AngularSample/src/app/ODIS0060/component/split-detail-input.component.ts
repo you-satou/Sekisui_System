@@ -28,7 +28,7 @@ import { CommonService } from '../../common/common.service';
 export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
   /** 仕訳テーブルのヘッダーの1行目のカラム */
-  headerColspan: string[] = [
+  mainHeaderCols: string[] = [
     'no',
     'orderPlanAmount',
     'bunkatsuHachuuSaki',
@@ -44,7 +44,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   ]
 
   /** 仕訳テーブルのヘッダーの2行目のカラム */
-  bunkatsuColumnsName: string[] = [
+  subHeaderCols: string[] = [
     'requestDate',
     'requester',
     // 'approvalDate_lv1',
@@ -118,9 +118,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   paramOrderCode = new ODIS0060Form();
   // 発注先コード レスポンス
   resOrderCode = new ODIS0060OrderCode();
-
-  approvalLevels: number;
-
   private subscription: Subscription;
   public modal: any = null;
 
@@ -144,14 +141,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
-
+    this.setApprovalLevelColumns(this.appComponent.approvalLevels);
     this.setModel();
     //セッションにデータがあるかどうか
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
-      this.approvalLevels = savedDt.approvalLevels;
-      this.setApprovalLevelColumns(this.approvalLevels);
       this.shiwakeData = savedDt.shiwakeData;
       this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
       this.bunkatsuData = savedDt.bunkatsuData;
@@ -164,6 +159,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       //初期表示
       this.setDisplayData();
   　 }
+
+
     //ページボタンの初期化
     this.setPageButtonDisplay(false,true,false,true);
   }
@@ -172,7 +169,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-    // this.btnSubIrai = document.getElementById('btnSubIrai');
+    // this.btnSubIrai = document.getElementById('btnSubIrai'); 
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
     let firstIndex = document.getElementsByClassName('mat-tab-label-active');
     firstIndex[0].setAttribute('tabindex','-1');
@@ -185,18 +182,18 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   setApprovalLevelColumns(unit: number){
     switch(unit){
       case Const.ApprovalLevel.FourLevels:
-        this.headerColspan.splice((this.headerColspan.indexOf('irai')+1),0,'shounin_1','shounin_2','shounin_3');
-        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
+        this.mainHeaderCols.splice((this.mainHeaderCols.indexOf('irai')+1),0,'shounin_1','shounin_2','shounin_3');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
         this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
         break;
       case Const.ApprovalLevel.ThreeLevels:
-        this.headerColspan.splice(this.headerColspan.indexOf('irai')+1,0,'shounin_1','shounin_2');
-        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
+        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai')+1,0,'shounin_1','shounin_2');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
         this.totalColumns.splice(7,0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
         break;
       case Const.ApprovalLevel.TwoLevels:
-        this.headerColspan.splice(this.headerColspan.indexOf('irai')+1,0,'shounin_1');
-        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
+        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai')+1,0,'shounin_1');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
         this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
         break;
     }
@@ -243,8 +240,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 仕訳テーブルのデータの取得のメソッド
    */
   private setDisplayData() {
-    this.approvalLevels = this.splitService.getApprovalUnit();
-    this.setApprovalLevelColumns(this.approvalLevels);
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
     this.bunkatsuData = this.splitService.getDetailTableData();
@@ -600,7 +595,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private saveDataToSession(){
 
     let saveDt = new ODIS0060Session();
-    saveDt.approvalLevels = this.approvalLevels;
     saveDt.bunkatsuData = this.bunkatsuData;
     saveDt.shiwakeData = this.shiwakeData;
 

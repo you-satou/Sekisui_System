@@ -67,7 +67,6 @@ const appRoute: Routes = [
     MaterialModules,
   ],
   providers: [
-              ODIS0060SplitDetailService,
               CommonService,
               CommonComponent,
               OrderSplitApprovalMasterService,

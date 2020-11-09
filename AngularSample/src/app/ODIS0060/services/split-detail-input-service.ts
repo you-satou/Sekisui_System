@@ -1,7 +1,9 @@
 import { ODIS0060OrderShiwake, ODIS0060OrderDetailBunkatsu } from '../entities/odis0060-SplitDetail.entity';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 /**
  * 発注明細入力からパラメータを受け取り専用
  */

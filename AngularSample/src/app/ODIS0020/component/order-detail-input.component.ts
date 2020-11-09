@@ -144,7 +144,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
-
     // セッション情報が存在する場合
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       // セッション情報 設定
@@ -397,7 +396,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // セッションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
-    this.approvalUnits = savedData.approvalLevels;
     this.orderCustomerInfo = savedData.CustomerInfo;
     this.order0DateInfo = savedData.DateInfo;
     this.tblMainOrder = savedData.mainOrderInfo;
@@ -1258,7 +1256,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // セッションに保持する
     let saveDt = new ODIS0020Session();
-    saveDt.approvalLevels = this.approvalUnits;
     saveDt.CustomerInfo = this.orderCustomerInfo;
     saveDt.DateInfo = this.order0DateInfo;
     saveDt.mainOrderInfo = this.tblMainOrder;
