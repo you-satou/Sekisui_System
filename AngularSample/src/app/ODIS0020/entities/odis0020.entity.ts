@@ -1,4 +1,3 @@
-import { ODIS0020OrderDetailList } from './odis0020-OrderDetailList.entity'
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from './odis0020-OrderInformation.entity'
@@ -23,15 +22,6 @@ export class ODIS0020OrderDetailTotalInfo{
 
     /** 発注明細一覧 */
     orderDetailList: ODIS0020OrderDetaiSplitBean[];
-
-    /** 設計のデータ */
-    SekkeiData: ODIS0020OrderDetailList[];
-
-    /** 本体のデータ */
-    HontaiData: ODIS0020OrderDetailList[];
-
-    /** 追加のデータ */
-    TsuikaData: ODIS0020OrderDetailList[]
 
     constructor() {}
 

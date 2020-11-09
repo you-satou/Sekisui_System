@@ -1,4 +1,3 @@
-import { CommonComponent } from '../../common/common.component'
 /**
  * 仕訳テーブルの定義
  */
@@ -105,12 +104,26 @@ export class ODIS0060OrderDetailBunkatsu {
 
     /** 支払金額 */
     paymentAmount: string;
+
+    /** 発注依頼日 */
+    bulkRequestDate: string = '';
+
+    /** 発注依頼者 */
+    bulkRequester: string = '';
+
+    /** 発注承認日 */
+    bulkApprovalDate: string = '';
+
+    /** 発注承認者 */
+    bulkApprovalPerson: string = '';
 }
 
 /**
  * 分割明細画面のデータがセッションに保持する用のクラス
  */
 export class ODIS0060Session {
+
+    approvalLevels: number;
 
     /**仕訳データ */
     shiwakeData: ODIS0060OrderShiwake[];

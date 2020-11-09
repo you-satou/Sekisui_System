@@ -96,7 +96,7 @@ export class OrderDetailApprovalTable{
   switchToOrderInputPage(data: ODIS0010OrderDetail){
 
     //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
-    this.router.navigate(['OrderDetailInput'],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum},skipLocationChange: false, replaceUrl: false});
+    this.router.navigate(['OrderDetailInput'],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum, appUnit: data.approvalLevels},skipLocationChange: false, replaceUrl: false});
     
   }
 

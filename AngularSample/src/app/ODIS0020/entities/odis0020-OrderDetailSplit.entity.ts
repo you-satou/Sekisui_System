@@ -65,6 +65,18 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 承認者 ニ回目*/
   approvalPerson_lv2: string = '';
 
+  /** 承認日 三回目 */
+  approvalDate_lv3: string = '';
+
+  /** 承認者 三回目*/
+  approvalPerson_lv3: string = '';
+
+  /** 最終承認日 */
+  approvalDate_final: string = '';
+
+  /** 最終承認者*/
+  approvalPerson_final: string = '';
+
   /** 発注年月日 */
   orderDate: string = '';
 
@@ -82,4 +94,16 @@ export class ODIS0020OrderDetaiSplitBean{
 
   /** 支払金額 */
   paymentAmount: string = '';
+
+  /** 発注依頼日 */
+  bulkRequestDate: string = '';
+
+  /** 発注依頼者 */
+  bulkRequester: string = '';
+
+  /** 発注承認日 */
+  bulkApprovalDate: string = '';
+
+  /** 発注承認者 */
+  bulkApprovalPerson: string = '';
 }

@@ -7,7 +7,6 @@ import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
-import { element } from 'protractor';
 
 @Component({
   selector: "shiwake-table",
@@ -15,10 +14,12 @@ import { element } from 'protractor';
   templateUrl: "./order-detail-input-table.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
+export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   @Input() orderData: ODIS0020OrderDetaiSplitBean[];
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
+  //承認人数
+  @Input() approvalUnit: number;
 
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
@@ -38,9 +39,11 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     "bunkatsuHacchusaki",
     "comment1",
     "irai",
-    "shounin_lv1",
-    "shounin_lv2",
-    "shounin_lv3",
+    //2020/11/09 11月中の要望対応
+    // "shounin_lv1",
+    // "shounin_lv2",
+    // "shounin_lv3",
+    //2020/11/09 11月中の要望対応
     "shounin_saishuu",
     "hacChu",
     "ukeIre",
@@ -53,12 +56,14 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
   subHeaderColumns: string[] = [
     "requestDate",
     "requester",
-    "approvalDate_lv1",
-    "approvalPerson_lv1",
-    "approvalDate_lv2",
-    "approvalPerson_lv2",
-    "approvalDate_lv3",
-    "approvalPerson_lv3",
+    //2020/11/09 11月中の要望対応
+    // "approvalDate_lv1",
+    // "approvalPerson_lv1",
+    // "approvalDate_lv2",
+    // "approvalPerson_lv2",
+    // "approvalDate_lv3",
+    // "approvalPerson_lv3",
+    //2020/11/09 11月中の要望対応
     "approvalDate_final",
     "approvalPerson_final",
   ];
@@ -81,12 +86,14 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     "comment",
     "requestDate",
     "requester",
-    "approvalDate_lv1",
-    "approvalPerson_lv1",
-    "approvalDate_lv2",
-    "approvalPerson_lv2",
-    "approvalDate_lv3",
-    "approvalPerson_lv3",
+    //2020/11/09 11月中の要望対応
+    // "approvalDate_lv1",
+    // "approvalPerson_lv1",
+    // "approvalDate_lv2",
+    // "approvalPerson_lv2",
+    // "approvalDate_lv3",
+    // "approvalPerson_lv3",
+    //2020/11/09 11月中の要望対応
     "approvalDate_final",
     "approvalPerson_final",
     "orderSupplierDate",
@@ -102,9 +109,32 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     private viewRef: ViewContainerRef,
     private odis0060Service: ODIS0060SplitDetailService,
     private datePipe: DatePipe,
-  ) { }
+  ) {  }
 
-  ngOnInit() { }
+  ngOnInit(): void {
+    //2020/11/09 11月中の要望対応　Add Start
+    switch(this.approvalUnit){
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2","shounin_lv3");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2");
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
+        break;
+    }
+    //2020/11/09 11月中の要望対応 Add End
+  }
 
   /**
    * テーブルをレンダー後に走るメゾッド
@@ -250,7 +280,7 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    * @param $event
    * @param dataDetail
    */
-  getDisplayData($event, data: ODIS0020OrderDetaiSplitBean) {
+  getDisplayData($event,data: ODIS0020OrderDetaiSplitBean) {
     // 発注予定金額を発注金額に設定
     data.orderSplitAmount = this.comCompnt.removeCommas(data.orderPlanAmount);
 
@@ -302,12 +332,20 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
         newSplit.approvalPerson_lv1   = this.comCompnt.setValue(dt.approvalPerson_lv1);
         newSplit.approvalDate_lv2     = this.comCompnt.setValue(dt.approvalDate_lv2);
         newSplit.approvalPerson_lv2   = this.comCompnt.setValue(dt.approvalPerson_lv2);
+        newSplit.approvalDate_lv3     = this.comCompnt.setValue(dt.approvalDate_lv3);
+        newSplit.approvalPerson_lv3   = this.comCompnt.setValue(dt.approvalPerson_lv3);
+        newSplit.approvalDate_final   = this.comCompnt.setValue(dt.approvalDate_final);
+        newSplit.approvalPerson_final = this.comCompnt.setValue(dt.approvalPerson_final);
         newSplit.orderDate            = this.comCompnt.setValue(dt.orderDate);
         newSplit.orderAmount          = this.comCompnt.setValue(dt.orderAmount);
         newSplit.receivedDate         = this.comCompnt.setValue(dt.receivedDate);
         newSplit.receivedAmount       = this.comCompnt.setValue(dt.receivedAmount);
         newSplit.paymentDate          = this.comCompnt.setValue(dt.paymentDate);
         newSplit.paymentAmount        = this.comCompnt.setValue(dt.paymentAmount);
+        newSplit.bulkRequestDate      = this.comCompnt.setValue(dt.bulkRequestDate);
+        newSplit.bulkRequester        = this.comCompnt.setValue(dt.bulkRequester);
+        newSplit.bulkApprovalDate     = this.comCompnt.setValue(dt.bulkApprovalDate);
+        newSplit.bulkApprovalPerson   = this.comCompnt.setValue(dt.bulkApprovalPerson);
         
         splitDt.push(newSplit);
       }
@@ -317,6 +355,8 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
     this.odis0060Service.setSplitTable(shiwakeDt);
     //　テーブル一覧：右側 分割データ
     this.odis0060Service.setDetailTable(splitDt);
+    // 承認人数を設定。
+    this.odis0060Service.setApprovalUnit(this.approvalUnit);
 
     //　エミッターを送る。
     this.dataEmitter.action = Const.Action.A0007;
@@ -394,13 +434,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    */
   setRequest(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
+    // let btn: HTMLButtonElement = null;
+    // if (event.target.nodeName === 'SPAN') {
+    //   btn = event.target.parentElement;
+    // }
+    // else {
+    //   btn = event.target;
+    // }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -417,13 +457,13 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
    */
   setApprovalFirstLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
+    // let btn: HTMLButtonElement = null;
+    // if (event.target.nodeName === 'SPAN') {
+    //   btn = event.target.parentElement;
+    // }
+    // else {
+    //   btn = event.target;
+    // }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -440,24 +480,63 @@ export class OrderDetailShiwakeTable implements OnInit, 　AfterViewInit {
  */
   setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    let btn: HTMLButtonElement = null;
-    if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-    }
+    // let btn: HTMLButtonElement = null;
+    // if (event.target.nodeName === 'SPAN') {
+    //   btn = event.target.parentElement;
+    // }
+    // else {
+    //   btn = event.target;
+    // }
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = '積水　次郎';
 
-
-    // ↓↓↓↓↓検討中↓↓↓↓↓↓
-    btn.setAttribute('disabled','disabled');
-    btn.style.display = 'none';
   }
+
+    /**
+ * 承認３を実行する
+ * @param event 
+ * @param dt 
+ */
+setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  
+  let btn: HTMLButtonElement = null;
+  if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+  }
+
+  let currTime = Date.now();
+  let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+  dt.approvalDate_lv3 = requestTime;
+  dt.approvalPerson_lv3 = '積水　次郎';
+
+}
+
+  /**
+ * 最終承認を実行する
+ * @param event 
+ * @param dt 
+ */
+setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  
+  let btn: HTMLButtonElement = null;
+  if (event.target.nodeName === 'SPAN') {
+      btn = event.target.parentElement;
+    }
+    else {
+      btn = event.target;
+  }
+
+  let currTime = Date.now();
+  let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+  dt.approvalDate_final = requestTime;
+  dt.approvalPerson_final = '積水　次郎';
+}
 
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。

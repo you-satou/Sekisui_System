@@ -1,4 +1,3 @@
-import { ODIS0020OrderShiwake } from './../entities/odis0020-OrderDetailList.entity';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';

@@ -204,4 +204,10 @@ export namespace Const{
         export const TabName_3 = '追加工事'
     }
     
+    export namespace ApprovalLevel{
+        export const OneLevel = 1
+        export const TwoLevels = 2
+        export const ThreeLevels = 3
+        export const FourLevels = 4
+    }
 }

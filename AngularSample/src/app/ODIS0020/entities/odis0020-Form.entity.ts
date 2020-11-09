@@ -6,6 +6,8 @@ import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity'
 
 export class ODIS0020Session{
 
+    approvalLevels: number;
+
     /** 契約情報　*/
     CustomerInfo: ODIS0020CustomerInfoBean;
 

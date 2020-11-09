@@ -140,7 +140,7 @@
                         <!--Header 最終承認 -->
                         <ng-container matColumnDef="saishuu_shounin">
                             <th style="width: 175px; min-width: 175px;" class="color-input-3" mat-header-cell *matHeaderCellDef
-                                [attr.colSpan]="2">承認２</th>
+                                [attr.colSpan]="2">最終承認</th>
                         </ng-container>
                         <!-- Body 最終承認日 -->
                         <ng-container matColumnDef="approvalDate_final">
@@ -257,8 +257,9 @@
                             (change)="onChangeZenkaku($event)"/>
                     </td>
                     <td style="text-align: center !important">{{ input.requestDate }}</td>
-                    <td style="text-align: center !important">{{ input.requester }}
-                        <button id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)"
+                    <td style="text-align: center !important">
+                        <label *ngIf="input.requester != ''">{{ input.requester }}</label>
+                        <button *ngIf="input.requester == ''" id="btnSubIrai" style="padding: 0; margin: 0" (click)="subTableRequest($event)"
                             mat-button class="btn btn-outline-primary btn-small" tabindex="5">依頼</button>
                     </td>
                 </tr>

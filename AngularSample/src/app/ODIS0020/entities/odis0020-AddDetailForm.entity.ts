@@ -1,6 +1,5 @@
 import { CommonComponent } from 'app/common/common.component';
 import { Const } from 'app/common/const';
-import { ODIS0020OrderShiwake } from './odis0020-OrderDetailList.entity';
 import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity';
 
 /**

@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef } from '@angular/core';
+import { OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
@@ -33,9 +34,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'bunkatsuHachuuSaki',
     'comment',
     'irai',
-    'shounin_1',
-    'shounin_2',
-    'shounin_3',
+    // 'shounin_1',
+    // 'shounin_2',
+    // 'shounin_3',
     'saishuu_shounin',
     'order',
     'received',
@@ -46,12 +47,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   bunkatsuColumnsName: string[] = [
     'requestDate',
     'requester',
-    'approvalDate_lv1',
-    'approvalPerson_lv1',
-    'approvalDate_lv2',
-    'approvalPerson_lv2',
-    'approvalDate_lv3',
-    'approvalPerson_lv3',
+    // 'approvalDate_lv1',
+    // 'approvalPerson_lv1',
+    // 'approvalDate_lv2',
+    // 'approvalPerson_lv2',
+    // 'approvalDate_lv3',
+    // 'approvalPerson_lv3',
     'approvalDate_final',
     'approvalPerson_final',
   ];
@@ -65,12 +66,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'comment1',
     'requestDate',
     'requester',
-    'approvalDate_lv1',
-    'approvalPerson_lv1',
-    'approvalDate_lv2',
-    'approvalPerson_lv2',
-    'approvalDate_lv3',
-    'approvalPerson_lv3',
+    // 'approvalDate_lv1',
+    // 'approvalPerson_lv1',
+    // 'approvalDate_lv2',
+    // 'approvalPerson_lv2',
+    // 'approvalDate_lv3',
+    // 'approvalPerson_lv3',
     'approvalDate_final',
     'approvalPerson_final',
     'orderDate',
@@ -105,9 +106,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   btnChuushi: boolean;
   btnSakujo: boolean;
 
-  //明細追加テーブルのボタンの初期表示
-  btnSubIrai: any;
-
   fixed:number = 500;
 
   //初期画面のレンダー
@@ -120,6 +118,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   paramOrderCode = new ODIS0060Form();
   // 発注先コード レスポンス
   resOrderCode = new ODIS0060OrderCode();
+
+  approvalLevels: number;
 
   private subscription: Subscription;
   public modal: any = null;
@@ -150,18 +150,20 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
+      this.approvalLevels = savedDt.approvalLevels;
+      this.setApprovalLevelColumns(this.approvalLevels);
       this.shiwakeData = savedDt.shiwakeData;
       this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
       this.bunkatsuData = savedDt.bunkatsuData;
+      
       // 画面をレンダーする
       this.isInitFlg = true;
       
     }
-    else{
+    else{ 
       //初期表示
       this.setDisplayData();
   　 }
-
     //ページボタンの初期化
     this.setPageButtonDisplay(false,true,false,true);
   }
@@ -170,7 +172,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-    this.btnSubIrai = document.getElementById('btnSubIrai');
+    // this.btnSubIrai = document.getElementById('btnSubIrai');
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
     let firstIndex = document.getElementsByClassName('mat-tab-label-active');
     firstIndex[0].setAttribute('tabindex','-1');
@@ -179,6 +181,27 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     
   }
 
+  //2020/11/09 11月中の要望対応
+  setApprovalLevelColumns(unit: number){
+    switch(unit){
+      case Const.ApprovalLevel.FourLevels:
+        this.headerColspan.splice((this.headerColspan.indexOf('irai')+1),0,'shounin_1','shounin_2','shounin_3');
+        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
+        this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
+        break;
+      case Const.ApprovalLevel.ThreeLevels:
+        this.headerColspan.splice(this.headerColspan.indexOf('irai')+1,0,'shounin_1','shounin_2');
+        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
+        this.totalColumns.splice(7,0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
+        break;
+      case Const.ApprovalLevel.TwoLevels:
+        this.headerColspan.splice(this.headerColspan.indexOf('irai')+1,0,'shounin_1');
+        this.bunkatsuColumnsName.splice((this.bunkatsuColumnsName.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
+        this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
+        break;
+    }
+  }
+  //2020/11/09 11月中の要望対応
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
    *↓↓↓　ボタン名　↓↓↓
@@ -220,9 +243,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 仕訳テーブルのデータの取得のメソッド
    */
   private setDisplayData() {
+    this.approvalLevels = this.splitService.getApprovalUnit();
+    this.setApprovalLevelColumns(this.approvalLevels);
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
     this.bunkatsuData = this.splitService.getDetailTableData();
+
 
     this.saveDataToSession();
 
@@ -311,13 +337,13 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       //編集テーブルの各セルに選択された行の値を挿入
       this.input.setInput(rowDt);
 
-      //明細追加テーブルの依頼ボタンの表示を設定
-      if (rowDt.requester != '') {
-        this.btnSubIrai.style.display = 'none';
-      }
-      else {
-        this.btnSubIrai.style.display = 'inherit';
-      }
+      // //明細追加テーブルの依頼ボタンの表示を設定
+      // if (rowDt.requester != '') {
+      //   this.btnSubIrai.style.display = 'none';
+      // }
+      // else {
+      //   this.btnSubIrai.style.display = 'inherit';
+      // }
     }
 
     //分割明細のボタンの活用性を設定する
@@ -515,7 +541,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.input.requestDate = requestTime;
     this.input.requester = '積水　次郎';
     //依頼ボタンを非表示する
-    this.btnSubIrai.style.display = 'none';
+    // this.btnSubIrai.style.display = 'none';
 
   }
   
@@ -525,7 +551,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   resetAddTable() {
     this.input.Clear();
     this.rowStatus.Reset();
-    this.btnSubIrai.style.display = 'inherit';
+    // this.btnSubIrai.style.display = 'inherit';
     this.paramOrderCode = new ODIS0060Form();
   }
 
@@ -574,6 +600,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private saveDataToSession(){
 
     let saveDt = new ODIS0060Session();
+    saveDt.approvalLevels = this.approvalLevels;
     saveDt.bunkatsuData = this.bunkatsuData;
     saveDt.shiwakeData = this.shiwakeData;
 
@@ -597,32 +624,40 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       }else{
         dt.insKubun         = this.shiwakeData[0].insKubun;
       }
-      dt.propertyNo         = this.shiwakeData[0].propertyNo;
-      dt.detailKind         = this.shiwakeData[0].detailKind;
-      dt.detailNo           = this.shiwakeData[0].detailNo
-      dt.journalCode        = this.shiwakeData[0].journalCode;
-      dt.accountCode        = this.shiwakeData[0].accountCode;
-      dt.journalName        = this.shiwakeData[0].journalName;
-      dt.orderSupplierCode  = this.shiwakeData[0].orderSupplierCode;
-      dt.orderSupplierName  = this.shiwakeData[0].orderSupplierName;
-      dt.orderPlanAmount    = this.shiwakeData[0].orderPlanAmount;
-      dt.splitNo            = (i + 1).toString();
-      dt.orderSplitAmount   = this.bunkatsuData[i].orderSplitAmount;
-      dt.splitSupplierCode  = this.bunkatsuData[i].splitSupplierCode;
-      dt.splitSupplierName  = this.bunkatsuData[i].splitSupplierName;
-      dt.comment            = this.bunkatsuData[i].comment;
-      dt.requestDate        = this.bunkatsuData[i].requestDate;
-      dt.requester          = this.bunkatsuData[i].requester;
-      dt.approvalDate_lv1   = this.bunkatsuData[i].approvalDate_lv1;
-      dt.approvalPerson_lv1 = this.bunkatsuData[i].approvalPerson_lv1;
-      dt.approvalDate_lv2   = this.bunkatsuData[i].approvalDate_lv2;
-      dt.approvalPerson_lv2 = this.bunkatsuData[i].approvalPerson_lv2;
-      dt.orderDate          = this.bunkatsuData[i].orderDate;
-      dt.orderAmount        = this.bunkatsuData[i].orderAmount;
-      dt.receivedDate       = this.bunkatsuData[i].receivedDate;
-      dt.receivedAmount     = this.bunkatsuData[i].receivedAmount;
-      dt.paymentDate        = this.bunkatsuData[i].paymentDate;
-      dt.paymentAmount      = this.bunkatsuData[i].paymentAmount;
+      dt.propertyNo           = this.shiwakeData[0].propertyNo;
+      dt.detailKind           = this.shiwakeData[0].detailKind;
+      dt.detailNo             = this.shiwakeData[0].detailNo
+      dt.journalCode          = this.shiwakeData[0].journalCode;
+      dt.accountCode          = this.shiwakeData[0].accountCode;
+      dt.journalName          = this.shiwakeData[0].journalName;
+      dt.orderSupplierCode    = this.shiwakeData[0].orderSupplierCode;
+      dt.orderSupplierName    = this.shiwakeData[0].orderSupplierName;
+      dt.orderPlanAmount      = this.shiwakeData[0].orderPlanAmount;
+      dt.splitNo              = (i + 1).toString();
+      dt.orderSplitAmount     = this.bunkatsuData[i].orderSplitAmount;
+      dt.splitSupplierCode    = this.bunkatsuData[i].splitSupplierCode;
+      dt.splitSupplierName    = this.bunkatsuData[i].splitSupplierName;
+      dt.comment              = this.bunkatsuData[i].comment;
+      dt.requestDate          = this.bunkatsuData[i].requestDate;
+      dt.requester            = this.bunkatsuData[i].requester;
+      dt.approvalDate_lv1     = this.bunkatsuData[i].approvalDate_lv1;
+      dt.approvalPerson_lv1   = this.bunkatsuData[i].approvalPerson_lv1;
+      dt.approvalDate_lv2     = this.bunkatsuData[i].approvalDate_lv2;
+      dt.approvalPerson_lv2   = this.bunkatsuData[i].approvalPerson_lv2;
+      dt.approvalDate_lv3     = this.bunkatsuData[i].approvalDate_lv3;
+      dt.approvalPerson_lv3   = this.bunkatsuData[i].approvalPerson_lv3;
+      dt.approvalDate_final   = this.bunkatsuData[i].approvalDate_final;
+      dt.approvalPerson_final = this.bunkatsuData[i].approvalPerson_final;
+      dt.orderDate            = this.bunkatsuData[i].orderDate;
+      dt.orderAmount          = this.bunkatsuData[i].orderAmount;
+      dt.receivedDate         = this.bunkatsuData[i].receivedDate;
+      dt.receivedAmount       = this.bunkatsuData[i].receivedAmount;
+      dt.paymentDate          = this.bunkatsuData[i].paymentDate;
+      dt.paymentAmount        = this.bunkatsuData[i].paymentAmount;
+      dt.bulkRequestDate      = this.bunkatsuData[i].bulkRequestDate;
+      dt.bulkRequester        = this.bunkatsuData[i].bulkRequester;
+      dt.bulkApprovalDate     = this.bunkatsuData[i].bulkApprovalDate;
+      dt.bulkApprovalPerson   = this.bunkatsuData[i].bulkApprovalPerson;
 
       senderDt.push(dt);
     }

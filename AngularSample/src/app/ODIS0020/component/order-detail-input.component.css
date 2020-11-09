@@ -308,3 +308,59 @@
     height: auto !important;
 }
 
+/*************************************************************/
+/*****                                                    ****/
+/*****                   TABLE APPROVAL                   ****/
+/*****            テーブルをスクロールする時、               ****/
+/*****           ヘッダーとフォッターを固定させる             ****/
+/*************************************************************/
+
+.approval-table{
+    /* min-width: 700px; */
+    margin-bottom: 1rem;
+    margin-top: 5px;
+    max-width: 768px;
+}
+
+.approval-table>tr>.request{
+    background-color: #C5D9F1;
+}
+.approval-table>tr>.approval{
+    background-color: #FDE9D9;
+}
+
+.approval-table > tr{
+    height: 40px !important;
+}
+.approval-table>tr>th{
+    width: 60px;
+    text-align: center;
+}
+.approval-table >tr>td{
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    /* width: 100px; */
+}
+.approval-table >tr>td>button{
+    width: 70px;
+    height: 35px !important;
+    border: 0;
+}
+.approval-table >tr>td>label{
+    /* width: 70px; */
+    /* height: 35px !important; */
+    /* border: 0; */
+    margin-bottom: 0;
+}
+
+.approval-table >tr>.td-date{
+    /* min-width: 75px; */
+    width: 80px;
+}
+.approval-table >tr>.td-name{
+    /* min-width: 100px; */
+    width: 110px;
+}
+
+
