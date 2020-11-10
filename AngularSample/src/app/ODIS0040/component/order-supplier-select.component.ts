@@ -76,7 +76,7 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
    this.initScroll.changes.subscribe(t => {
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
 
-     if(this.selectVal !== ''){
+     if(this.selectVal !== '' && this.commonComponent.setValue(this.selectRow) != ''){
     //  wTbody.rows[this.selectRow].scrollIntoView(true);
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
      var wTr = wTbody.rows[this.selectRow];

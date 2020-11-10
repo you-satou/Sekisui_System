@@ -11,8 +11,6 @@ export class ODIS0060SplitDetailService {
 
   private _shiwakeData: ODIS0060OrderShiwake[];
 
-  private _approvalUnit: number;
-
   /**
    * 詳細入力テーブルの選択された行の仕訳データの保存
    *
@@ -47,14 +45,6 @@ export class ODIS0060SplitDetailService {
    */
   getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
     return this._bunkatsuData;
-  }
-
-  public setApprovalUnit(value: number){
-    this._approvalUnit = value;
-  }
-
-  public getApprovalUnit(){
-    return this._approvalUnit;
   }
 
 }

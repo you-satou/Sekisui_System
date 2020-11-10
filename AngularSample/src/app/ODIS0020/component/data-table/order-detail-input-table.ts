@@ -358,8 +358,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     this.odis0060Service.setSplitTable(shiwakeDt);
     //　テーブル一覧：右側 分割データ
     this.odis0060Service.setDetailTable(splitDt);
-    // 承認人数を設定。
-    // this.odis0060Service.setApprovalUnit(this.approvalUnit);
 
     //　エミッターを送る。
     this.dataEmitter.action = Const.Action.A0007;
