@@ -24,7 +24,6 @@ import { OrderApprovalPaginator } from './ODIS0010/component/paginator/order-pag
 import { OrderSplitApprovalMasterComponent } from './ODIS0070/component/order-split-approval-master.component';
 import { OrderSplitApprovalMasterService } from './ODIS0070/services/order-split-approval-master-service';
 import { OrderDetailShiwakeTable } from './ODIS0020/component/data-table/order-detail-input-table';
-import { ODIS0060SplitDetailService } from './ODIS0060/services/split-detail-input-service';
 import { OrderDetailApprovalComponent } from './ODIS0010/component/order-detail-approval.component';
 import { LoadingSpinner } from './common/progressingSpinner/common.spinner';
 
