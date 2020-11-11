@@ -320,6 +320,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     shiwakeDt[0].orderSupplierCode = data.orderSupplierCode;
     shiwakeDt[0].orderSupplierName = data.orderSupplierName;
     shiwakeDt[0].orderPlanAmount   = data.orderPlanAmount;
+    shiwakeDt[0].bulkRequestDate      = this.comCompnt.setValue(data.bulkRequestDate);
+    shiwakeDt[0].bulkRequester        = this.comCompnt.setValue(data.bulkRequester);
+    shiwakeDt[0].bulkApprovalDate     = this.comCompnt.setValue(data.bulkApprovalDate);
+    shiwakeDt[0].bulkApprovalPerson   = this.comCompnt.setValue(data.bulkApprovalPerson);
     
     this.orderData.forEach(dt => {
       if (dt.detailNo === data.detailNo) {
@@ -345,10 +349,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         newSplit.receivedAmount       = this.comCompnt.setValue(dt.receivedAmount);
         newSplit.paymentDate          = this.comCompnt.setValue(dt.paymentDate);
         newSplit.paymentAmount        = this.comCompnt.setValue(dt.paymentAmount);
-        newSplit.bulkRequestDate      = this.comCompnt.setValue(dt.bulkRequestDate);
-        newSplit.bulkRequester        = this.comCompnt.setValue(dt.bulkRequester);
-        newSplit.bulkApprovalDate     = this.comCompnt.setValue(dt.bulkApprovalDate);
-        newSplit.bulkApprovalPerson   = this.comCompnt.setValue(dt.bulkApprovalPerson);
         
         splitDt.push(newSplit);
       }
@@ -390,28 +390,49 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let isCanNotUpd: boolean = false;
     let isCanNotDel: boolean = false;
 
-    // 承認1 済 抽出
-    let approval1List = filter.filter(element =>{
-      if(this.comCompnt.setValue(element.approvalPerson_lv1) !== ''){
-        return element;
-      }
-    });
+    //一括依頼データがある場合、削除非活性
+    if((this.comCompnt.setValue(value.bulkRequester) != '')){
+      isCanNotDel = true;
+    }
+    ////一括承認データがある場合、更新非活性
+    if((this.comCompnt.setValue(value.bulkApprovalPerson) !='')){
+      isCanNotUpd = true;
+    }
+
+    let approval1List: ODIS0020OrderDetaiSplitBean[] = [];
+    //承認人数が1人以上の場合 承認1 済 抽出
+    if(this.approvalUnit >= 2){
+      approval1List = filter.filter(element => {
+        if (this.comCompnt.setValue(element.approvalPerson_lv1) !== '') {
+          return element;
+        }
+      });
+    }
+    //承認人数が1人の場合、 最終承認 済 抽出
+    if(this.approvalUnit == 1){
+        approval1List = filter.filter(element => {
+        if (this.comCompnt.setValue(element.approvalDate_final) !== '') {
+          return element;
+        }
+      });
+    }
+
     // 抽出データ == 済データが一致した場合は、更新ボタン 非活性
-    if(approval1List.length === filter.length){
+    if (approval1List.length === filter.length) {
       isCanNotUpd = true;
     }
 
     // 済みのデータが1件以上の場合、削除ボタン 非活性
-    if(approval1List.length >= 1){
+    if (approval1List.length >= 1) {
       isCanNotDel = true;
     }
 
     // ハウス材、運賃・荷造・保管料、労災の場合は削除不可
-    if(value.journalName == 'ハウス材' ||
-       value.journalName == '運賃・荷造・保管料' ||
-       value.journalName == '労災'){
-        isCanNotDel = true;
-     }
+    if (value.journalName == 'ハウス材' ||
+      value.journalName == '運賃・荷造・保管料' ||
+      value.journalName == '労災') {
+      isCanNotDel = true;
+    }
 
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;   //行を選択

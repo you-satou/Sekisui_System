@@ -32,6 +32,18 @@ export class ODIS0060OrderShiwake {
     /** 発注予定金額 */
     orderPlanAmount: string;
 
+    /** 発注依頼日 */
+    bulkRequestDate: string = '';
+
+    /** 発注依頼者 */
+    bulkRequester: string = '';
+
+    /** 発注承認日 */
+    bulkApprovalDate: string = '';
+
+    /** 発注承認者 */
+    bulkApprovalPerson: string = '';
+
     constructor() { }
 
 }
@@ -105,17 +117,6 @@ export class ODIS0060OrderDetailBunkatsu {
     /** 支払金額 */
     paymentAmount: string;
 
-    /** 発注依頼日 */
-    bulkRequestDate: string = '';
-
-    /** 発注依頼者 */
-    bulkRequester: string = '';
-
-    /** 発注承認日 */
-    bulkApprovalDate: string = '';
-
-    /** 発注承認者 */
-    bulkApprovalPerson: string = '';
 }
 
 /**

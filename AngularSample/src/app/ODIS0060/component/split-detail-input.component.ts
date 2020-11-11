@@ -1,5 +1,4 @@
-import { OnChanges } from '@angular/core';
-import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef} from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
 import { Const } from '../../common/const';
@@ -121,6 +120,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public modal: any = null;
 
+  //明細追加ボタンの制御の初期値
+  disableIns = false;
+  disableDel = false;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -148,6 +151,14 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0006EN));
       this.shiwakeData = savedDt.shiwakeData;
+      //一括依頼データがある場合、明細削除を非活性する。
+      if(this.baseCompnt.setValue(this.shiwakeData[0].bulkRequester) != ''){
+        this.disableDel = true;
+      }
+      //一括承認データがある場合、明細追加を非活性する。
+      if(this.baseCompnt.setValue(this.shiwakeData[0].bulkApprovalPerson) != ''){
+        this.disableIns = true;
+      }
       this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
       this.bunkatsuData = savedDt.bunkatsuData;
       
@@ -162,7 +173,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
 
     //ページボタンの初期化
-    this.setPageButtonDisplay(false,true,false,true);
+    this.setPageButtonDisplay(this.disableIns,true,false,true);
   }
 
   /**
@@ -241,6 +252,14 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    */
   private setDisplayData() {
     this.shiwakeData = this.splitService.getSplitTableData();
+    //一括依頼データがある場合、明細削除を非活性する。
+    if (this.baseCompnt.setValue(this.shiwakeData[0].bulkRequester) != '') {
+      this.disableDel = true;
+    }
+    //一括承認データがある場合、明細追加を非活性する。
+    if (this.baseCompnt.setValue(this.shiwakeData[0].bulkApprovalPerson) != '') {
+      this.disableIns = true;
+    }
     this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
     this.bunkatsuData = this.splitService.getDetailTableData();
 
@@ -354,15 +373,15 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     switch(true){
       //依頼未・承認未
       case (rowData.requester == '' && rowData.approvalPerson_lv1 == ''):
-        this.setPageButtonDisplay(true, false, false, false);
+        this.setPageButtonDisplay(true, false, false, this.disableDel);
         break;
       //依頼済・承認未
       case (rowData.requester != '' && rowData.approvalPerson_lv1 == ''):
-        this.setPageButtonDisplay(true, false, false, false);
+        this.setPageButtonDisplay(true, false, false, this.disableDel);
         break;
       //依頼済・承認済
       case (rowData.requester != '' && rowData.approvalPerson_lv1 != ''):
-        this.setPageButtonDisplay(true, true, false, true);
+        this.setPageButtonDisplay(true, true, false, this.disableDel);
         break;
     };
   }
@@ -406,7 +425,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.isEditFlg = true;
 
     // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
+    this.setPageButtonDisplay(this.disableIns, true, false, true);
     this.resetAddTable();
     this.saveDataToSession();
   }
@@ -434,7 +453,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     
     //最後にページ初期化する
     this.resetAddTable();
-    this.setPageButtonDisplay(false, true, false, true);
+    this.setPageButtonDisplay(this.disableIns, true, false, true);
 
     //修正完了フラグ ON
     this.isEditFlg = true;
@@ -481,7 +500,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     //修正完了フラグ ON
     this.isEditFlg = true;
     // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
+    this.setPageButtonDisplay(this.disableIns, true, false, true);
     this.resetAddTable();
     this.saveDataToSession();
   }
@@ -496,7 +515,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     //選択状態を抜ける
     this.baseCompnt.setRowColor(Const.Action.A0006, tbody, this.rowStatus.rowIndex);
     this.resetAddTable();
-    this.setPageButtonDisplay(false, true, false, true);
+    this.setPageButtonDisplay(this.disableIns, true, false, true);
   }
 
   /**
@@ -627,6 +646,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.orderSupplierCode    = this.shiwakeData[0].orderSupplierCode;
       dt.orderSupplierName    = this.shiwakeData[0].orderSupplierName;
       dt.orderPlanAmount      = this.shiwakeData[0].orderPlanAmount;
+      dt.bulkRequestDate      = this.shiwakeData[0].bulkRequestDate;
+      dt.bulkRequester        = this.shiwakeData[0].bulkRequester;
+      dt.bulkApprovalDate     = this.shiwakeData[0].bulkApprovalDate;
+      dt.bulkApprovalPerson   = this.shiwakeData[0].bulkApprovalPerson;
       dt.splitNo              = (i + 1).toString();
       dt.orderSplitAmount     = this.bunkatsuData[i].orderSplitAmount;
       dt.splitSupplierCode    = this.bunkatsuData[i].splitSupplierCode;
@@ -648,10 +671,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.receivedAmount       = this.bunkatsuData[i].receivedAmount;
       dt.paymentDate          = this.bunkatsuData[i].paymentDate;
       dt.paymentAmount        = this.bunkatsuData[i].paymentAmount;
-      dt.bulkRequestDate      = this.bunkatsuData[i].bulkRequestDate;
-      dt.bulkRequester        = this.bunkatsuData[i].bulkRequester;
-      dt.bulkApprovalDate     = this.bunkatsuData[i].bulkApprovalDate;
-      dt.bulkApprovalPerson   = this.bunkatsuData[i].bulkApprovalPerson;
+
 
       senderDt.push(dt);
     }

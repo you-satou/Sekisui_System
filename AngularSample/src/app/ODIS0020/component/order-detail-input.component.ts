@@ -117,7 +117,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   bulkReAppStatus =  new BulkRequestAndApproval();
 
-  approvalUnits:number;
+  //一括依頼・一括承認のデータにより、True/False設定する。
+  disableIns: boolean;
 
   constructor(
     private appComponent: AppComponent,
@@ -231,16 +232,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.actvRoute.queryParams.subscribe(params =>{
     
       this.paramInit.propertyNo = params.prop;    //物件管理番号
-      this.paramInit.contractNum = params.cntrt;  //契約番号
-
-      if(this.baseCompnt.setValue(params.appUnit) != ''){
-        this.approvalUnits = Number(params.appUnit);
-      }
-      else{
-        this.approvalUnits = Const.ApprovalLevel.FourLevels;
-      }
-      
-      
+      this.paramInit.contractNum = params.cntrt;  //契約番号      
     });
 
     // データ取得
@@ -260,8 +252,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
               this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
-              //TODO: 承認人数を設定する。
-              // this.approvalUnits = 3;
+
               // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_0);
               
@@ -280,7 +271,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               // 再描画
               this.changeDetectorRef.detectChanges();
               // 
-              this.setBulkReqAppData(this.tblSekkei);
+              this.getBulkReqAppData(this.tblSekkei);
               
               
               // セッション保存
@@ -437,9 +428,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = false;
 
     
-    // TODO: TEST
+    // 現在選択さているタブデータの一括依頼・一括承認情報を取得
     var currentTabDt = this.getDataFromCurrentTab();
-    this.setBulkReqAppData(currentTabDt);
+    this.getBulkReqAppData(currentTabDt);
   }
 
   /**
@@ -590,8 +581,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   setDefaultDisplay(){
     // 初期化
     this.Clear();
+
+    // 2020/11/11　11月の対応
     // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
+    this.setPageButtonDisplay(this.disableIns, true, false, true);
   }
 
   /**
@@ -980,11 +973,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     var tabDt = this.getDataFromCurrentTab();
 
-    this.setBulkReqAppData(tabDt);
+    this.getBulkReqAppData(tabDt);
     
   }
 
-  setBulkReqAppData(tabDt: ODIS0020OrderDetaiSplitBean[]){
+  getBulkReqAppData(tabDt: ODIS0020OrderDetaiSplitBean[]){
     this.bulkReAppStatus = new BulkRequestAndApproval();
 
     // 承認 済 抽出
@@ -1009,6 +1002,21 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.bulkReAppStatus.bulkApprovalDate = bulkApproval[0].bulkApprovalDate;
       this.bulkReAppStatus.bulkApprovalPerson = bulkApproval[0].bulkApprovalPerson;
     }
+
+    //グロバール明細追加制御を設定する。
+    this.disableIns = false;
+
+    //一括依頼がある場合：追加活性・更新非活性・削除非活性
+    if(bulkRequest.length > 0){
+      this.disableIns = false;
+    }
+    //一括承認がある場合：追加非活性・更新非活性・削除非活性
+    if(bulkApproval.length > 0){
+      this.disableIns = true;
+    }
+    //ボタン制御設定
+    this.setPageButtonDisplay(this.disableIns,true,false,true);
+
   }
 
   /**
@@ -1296,7 +1304,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     //TODO: ログイン情報
     this.bulkRequestApproval('irai',childDt, requestTime, '積水　次郎');
-    this.setBulkReqAppData(childDt);
+    this.getBulkReqAppData(childDt);
   }
 
   oneClickApproval(){
@@ -1307,7 +1315,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     //TODO: ログイン情報
     this.bulkRequestApproval('shounin',childDt, requestTime, '積水　次郎');
-    this.setBulkReqAppData(childDt);
+    this.getBulkReqAppData(childDt);
   }
 
   getDataFromCurrentTab(){
