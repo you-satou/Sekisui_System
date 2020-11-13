@@ -46,6 +46,8 @@ export class OrderDetailApprovalTable{
 
   dataSource = new MatTableDataSource<any>();
 
+  sortButton: any;
+
   @ViewChild(MatSort, {static: true}) sort: MatSort;                  //ソート
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;   //パージネタ
 
@@ -84,16 +86,21 @@ export class OrderDetailApprovalTable{
       
       //データを投入してから、ページャネタのページ切り替えメッゾドを呼びだす
       this.dataSource.paginator.page.next();
+
+      //ソートボタンのタブインデックスを設定する
+      this.sortButton = document.querySelector('button.mat-sort-header-button');
+      this.sortButton.setAttribute('tabIndex', '12');
+      this.sortButton.removeAttribute('disabled');
     }
 
   }
 
   ngOnChanges( ) {
     //ソートボタンのタブインデックスを設定する
-    let sortButton = document.querySelector('button.mat-sort-header-button');
-    if(sortButton != null){
-      sortButton.setAttribute('tabIndex', '12');
-      sortButton.removeAttribute('disabled');
+    this.sortButton = document.querySelector('button.mat-sort-header-button');
+    if(this.sortButton != null){
+      this.sortButton.setAttribute('tabIndex', '12');
+      this.sortButton.removeAttribute('disabled');
     }
 
     this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
@@ -104,8 +111,8 @@ export class OrderDetailApprovalTable{
     else{
       //データがない場合, ソートを非活性する
       this.sort.disabled = true;
-      if(sortButton != null){
-        sortButton.setAttribute('disabled', 'true');
+      if(this.sortButton != null){
+        this.sortButton.setAttribute('disabled', 'true');
       }
     }
     // ソートした状態が前の状態に戻らない,　降順ー昇順だけ

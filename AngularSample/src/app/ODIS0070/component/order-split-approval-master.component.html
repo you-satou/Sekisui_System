@@ -106,22 +106,22 @@
             <div style="position: relative; margin: 20px 0 50px 0">
                 <div style="float: left">
                     <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        (click)="onInsClick()" tabindex="6">明細追加</button>
+                        (click)="onInsClick()" tabindex="8">明細追加</button>
                 </div>
 
                 <div style="float: left">
                     <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        (click)="onUpdClick()" tabindex="7">明細更新</button>
+                        (click)="onUpdClick()" tabindex="9">明細更新</button>
                 </div>
 
                 <div>
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        (click)="onStopClick($event)" tabindex="8">中止</button>
+                        (click)="onStopClick($event)" tabindex="10">中止</button>
                 </div>
 
                 <div style="position: absolute; top: 0; right: 0">
                     <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        (click)="onDelClick()" tabindex="9">明細削除</button>
+                        (click)="onDelClick()" tabindex="11">明細削除</button>
                 </div>
             </div>
         </section>
@@ -134,7 +134,7 @@
 
                 <div style="left: 42px;" class="SC0070-bottomButton">
                     <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
-                        (click)="onBackClick($event)" tabindex="10">閉じる</button>
+                        (click)="onBackClick($event)" tabindex="12">閉じる</button>
                 </div>
             </div>
         </footer>
