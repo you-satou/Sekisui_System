@@ -2,16 +2,16 @@
     <loading-spinner></loading-spinner>
 </div>
 <div *ngIf="isInitFlg">
-    <div class="table-container">
+    <div class="table-container" [style.width.px]="tableWidth">
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
                     <th class="table-str text-center emplInfo">個人認証ＩＤ</th>
                     <th class="table-str td-b text-center emplInfo">従業員コード</th>
                     <th class="table-str td-b text-center emplName">従業員名</th>
-                    <th class="table-str td-b text-center permissions">承認１</th>
-                    <th class="table-str td-b text-center permissions">承認２</th>
-                    <th class="table-str td-b text-center permissions">承認３</th>
+                    <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 2">承認１</th>
+                    <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 3">承認２</th>
+                    <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 4">承認３</th>
                     <th class="table-str td-b text-center permissions">最終承認</th>
                     <th class="table-str td-b text-center permissions">削除</th>
                 </tr>
@@ -21,26 +21,26 @@
                     <td class="table-str td-b emplInfo">{{ data.personalID }}</td>
                     <td class="table-str td-b emplInfo">{{ data.employeeCode }}</td>
                     <td class="table-str td-b emplName">{{ data.employeeName }}</td>
-                    <td class="table-str td-b text-center permissions">{{ data.approval1 }}</td>
-                    <td class="table-str td-b text-center permissions">{{ data.approval2 }}</td>
-                    <td class="table-str td-b text-center permissions">{{ data.approval3 }}</td>
+                    <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 2">{{ data.approval1 }}</td>
+                    <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 3">{{ data.approval2 }}</td>
+                    <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 4">{{ data.approval3 }}</td>
                     <td class="table-str td-b text-center permissions">{{ data.approvalLast }}</td>
                     <td class="table-str td-b text-center permissions">{{ data.deleteFlag }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="table-body">
+    <div class="table-body" [style.width.px]="tableWidth">
         <div class="input-table">
-            <table class="table">
+            <table class="table" [style.width.px]="tableWidth">
                 <thead>
                     <tr>
                         <th class="table-str td-b text-center emplInfo">個人認証ＩＤ</th>
                         <th class="table-str td-b text-center emplInfo">従業員コード</th>
                         <th class="table-str td-b text-center emplName">従業員名</th>
-                        <th class="table-str td-b text-center permissions">承認１</th>
-                        <th class="table-str td-b text-center permissions">承認２</th>
-                        <th class="table-str td-b text-center permissions">承認３</th>
+                        <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 2">承認１</th>
+                        <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 3">承認２</th>
+                        <th class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 4">承認３</th>
                         <th class="table-str td-b text-center permissions">最終承認</th>
                         <th style="box-shadow: 0px 0px 0px 1px #CCD0D5 inset;"
                             class="table-str td-b text-center permissions">削除</th>
@@ -62,21 +62,21 @@
                         <td class="table-str td-b emplName">
                             <label type="text" maxlength="20">{{input.employeeName}}</label>
                         </td>
-                        <td class="table-str td-b text-center permissions">
+                        <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 2">
                             <select id="selApp1" tabindex="3">
                                 <option *ngFor="let type1 of appTypes" [ngValue]="type1.id">
                                     {{type1.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center permissions">
+                        <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 3">
                             <select id="selApp2" tabindex="4">
                                 <option *ngFor="let type2 of appTypes" [ngValue]="type2.id">
                                     {{type2.text}}
                                 </option>
                             </select>
                         </td>
-                        <td class="table-str td-b text-center permissions">
+                        <td class="table-str td-b text-center permissions" *ngIf="approvalUnit >= 4">
                             <select id="selApp3" tabindex="5">
                                 <option *ngFor="let type3 of appTypes" [ngValue]="type3.id">
                                     {{type3.text}}
@@ -132,7 +132,7 @@
             <div class="footer-container" style="position: inherit;">
 
 
-                <div style="left: 30px;" class="SC0070-bottomButton">
+                <div style="left: 42px;" class="SC0070-bottomButton">
                     <button mat-button id="btnClose " class="btn btn-secondary border mx-1 back-btn "
                         (click)="onBackClick($event)" tabindex="10">閉じる</button>
                 </div>

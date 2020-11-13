@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
 import { CommonComponent } from 'app/common/common.component';
@@ -38,6 +38,18 @@ const DEL_TYPE: DropDownList[] =[
   styleUrls: ['./order-split-approval-master.component.css']
 })
 export class OrderSplitApprovalMasterComponent implements OnInit {
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event){
+    let isSmall: boolean;
+    if(window.innerWidth < 840) {
+      isSmall = true
+      this.setTableSize(isSmall);
+    } else {
+      isSmall = false
+      this.setTableSize(isSmall);
+    }
+  }
 
   // 承認 ドロップダウン 設定
   appTypes = APPROVAL_TYPE;
@@ -85,6 +97,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   dataSource: any;
 
+  //表示する承認の数の設定
+  approvalUnit: number;
+
+  tableWidth: number;
+
   /**
    * コンストラクタ
    *
@@ -111,6 +128,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.setPageButtonDisplay(false, true, false, true);
     //データ取得
     this.getOrderSplitApproval();
+    this.onResize('$event');
+
+    this.approvalUnit = this.appComponent.approvalLevels;
   }
 
   /**
@@ -246,21 +266,24 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.employeeName = selectedItem.employeeName;
     // 承認１ ドロップダウン 設定
     for(var data of APPROVAL_TYPE){
-      if(data.text === this.commonComponent.setValue(selectedItem.approval1)){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval1) &&
+      this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels){
         this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = data.id;
       }
     }
 
     // 承認２ ドロップダウン 設定
     for(var data of APPROVAL_TYPE){
-      if(data.text === this.commonComponent.setValue(selectedItem.approval2)){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval2) &&
+      this.appComponent.approvalLevels >= Const.ApprovalLevel.ThreeLevels){
         this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = data.id;
       }
     }
 
     // 承認３ ドロップダウン 設定
     for(var data of APPROVAL_TYPE){
-      if(data.text === this.commonComponent.setValue(selectedItem.approval3)){
+      if(data.text === this.commonComponent.setValue(selectedItem.approval3) &&
+      this.appComponent.approvalLevels >= Const.ApprovalLevel.FourLevels){
         this.view.element.nativeElement.querySelector('#selApp3').selectedIndex = data.id;
       }
     }
@@ -325,9 +348,25 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
     // TODO
     this.input.officeCode = '204006';
-    this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
-    this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
-    this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+
+    switch(this.appComponent.approvalLevels) {
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+        this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        break;
+    }
+
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     
@@ -375,9 +414,24 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
     // TODO
     this.input.officeCode = '204006';
-    this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
-    this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
-    this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+
+    switch(this.appComponent.approvalLevels) {
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+        this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
+        break;
+    }
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
@@ -465,9 +519,24 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.deleteFlag = ''
     this.paramUserInfo = new ODIS0070Form();
     // ドロップダウン初期化
-    this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
-    this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
-    this.view.element.nativeElement.querySelector('#selApp3').selectedIndex = 0;
+
+    switch(this.appComponent.approvalLevels) {
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
+        this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
+        this.view.element.nativeElement.querySelector('#selApp3').selectedIndex = 0;
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
+        this.view.element.nativeElement.querySelector('#selApp2').selectedIndex = 0;
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.view.element.nativeElement.querySelector('#selApp1').selectedIndex = 0;
+        break;
+    }
     this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex = 0;
     this.view.element.nativeElement.querySelector('#selDel').selectedIndex = 0;
 
@@ -479,4 +548,34 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
   }
+
+  setTableSize(isSmall: boolean) {
+    switch(this.appComponent.approvalLevels) {
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.tableWidth = 756;
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.tableWidth = 679;
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.tableWidth = 602;
+        break;
+      case Const.ApprovalLevel.OneLevel:
+        this.tableWidth = 525;
+        break;
+    }
+
+    if(isSmall) {
+      switch(this.appComponent.approvalLevels) {
+        //承認人数が4人で設定する
+        case Const.ApprovalLevel.FourLevels:
+          this.tableWidth = 684;
+          break;
+      }
+    }
+  }
+
 }
