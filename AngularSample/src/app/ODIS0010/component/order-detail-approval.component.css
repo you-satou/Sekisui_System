@@ -19,12 +19,19 @@
     height: 30px;
 }
 
+.input-group-prepend {
+    height: 30px;
+}
+
 .input-group-text {
     color: black;
     font-weight: bolder;
     background-color: transparent;
     border: none;
     font-size: 1rem !important;
+    height: 30px;
+    width: 80px;
+    text-align: right;
 }
 
 
@@ -96,7 +103,7 @@
 .SC0010-bottomButton {
     position: fixed;
     z-index: 2;
-    bottom: 8px;
+    bottom: 5px;
     white-space: nowrap;
 }
 

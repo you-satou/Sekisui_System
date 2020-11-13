@@ -1,9 +1,9 @@
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortAndPageChangeEvent($event)" class="detail-table table table-hover table-sm">
         <ng-container matColumnDef="detail">
-            <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>詳細</th>
-            <td style="width: 5%; text-align: center;" mat-cell *matCellDef="let element">
-                <button class="btn btn-link" (click) = "switchToOrderInputPage(element)" style="text-align: center;" tabindex="10">詳細</button>
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>詳細</th>
+            <td style="width: 3%; text-align: center;" mat-cell *matCellDef="let element">
+                <button class="btn btn-link" (click) = "switchToOrderInputPage(element)" style="text-align: center; padding: 5.25px 0;" tabindex="13">詳細</button>
             </td>
         </ng-container>
         <ng-container matColumnDef="contractNum">
@@ -31,20 +31,28 @@
             <td style="width: 10%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.receivedAmount|number}} </td>
         </ng-container>
         <ng-container matColumnDef="progressRate">
-            <th style="width: 6%; text-align: center;" mat-header-cell *matHeaderCellDef> 進捗率 </th>
-            <td style="width: 6%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.progressRate}} </td>
+            <th style="width: 4%; text-align: center;" mat-header-cell *matHeaderCellDef> 進捗率 </th>
+            <td style="width: 4%; text-align: right; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.progressRate}} </td>
         </ng-container>
         <ng-container matColumnDef="createdDetail">
-            <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>明</th>
-            <td style="width: 5%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.createdDetail}} </td>
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>明</th>
+            <td style="width: 3%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.createdDetail}} </td>
         </ng-container>
         <ng-container matColumnDef="approval_1">
-            <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>承1</th>
-            <td style="width: 5%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_1}} </td>
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>承1</th>
+            <td style="width: 3%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_1}} </td>
         </ng-container>
         <ng-container matColumnDef="approval_2">
-            <th style="width: 5%; text-align: center;" mat-header-cell *matHeaderCellDef>承2</th>
-            <td style="width: 5%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_2}} </td>
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>承2</th>
+            <td style="width: 3%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_2}} </td>
+        </ng-container>
+        <ng-container matColumnDef="approval_3">
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>承3</th>
+            <td style="width: 3%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_3}} </td>
+        </ng-container>
+        <ng-container matColumnDef="approval_last">
+            <th style="width: 3%; text-align: center;" mat-header-cell *matHeaderCellDef>終承</th>
+            <td style="width: 3%; text-align: center; vertical-align:middle;" mat-cell *matCellDef="let element"> {{element.approval_last}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>

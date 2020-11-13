@@ -77,7 +77,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
     this.rend.setAttribute(inputIndex, 'type', 'tel');
     this.rend.setAttribute(inputIndex, 'disabled', 'true');
     this.rend.setAttribute(inputIndex, 'id', 'pageIndex');
-    this.rend.setAttribute(inputIndex, 'tabIndex', '13');
+    this.rend.setAttribute(inputIndex, 'tabIndex', '16');
     //ＥＮＴＥＲキーを押下する時のエベントハンドラーを設定する
     this.rend.listen(inputIndex, 'keypress', ($event) => {
       this.switchPage($event);
@@ -114,13 +114,14 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
   //各ボタンにBOOTSTRAPクラスに追加する
   setNewClass(){
     let buttonNodes = document.querySelectorAll('div.mat-paginator-range-actions > button');
-    let btnTabIndex = 11;
+    let btnTabIndex = 14;
     buttonNodes.forEach(element => {
 
       element.classList.add('btn');
       element.classList.add('btn-link');
-      if(btnTabIndex === 13) btnTabIndex++;
-      element.setAttribute('tabIndex', (btnTabIndex).toString())
+      element.classList.add('pagButtonsFocused');
+      if(btnTabIndex === 16) btnTabIndex++;
+      element.setAttribute('tabIndex', (btnTabIndex).toString());
       btnTabIndex++;
     });
   }

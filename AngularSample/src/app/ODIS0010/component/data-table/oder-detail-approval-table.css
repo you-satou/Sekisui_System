@@ -100,3 +100,7 @@ mat-paginator.mat-stroked-button {
 .mat-sort-header-container > button{
     margin: auto;
 }
+
+.pagButtonsFocused:focus {
+    outline: 5px auto -webkit-focus-ring-color !important;
+}

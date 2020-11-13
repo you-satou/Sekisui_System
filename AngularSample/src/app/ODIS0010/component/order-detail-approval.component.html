@@ -6,11 +6,11 @@
         <section class="search-area form-group">
             <div class="input-group row" style="height: 30px;">
                 <div class="input-group-prepend">
-                    <p class="input-group-text" style="width: 80px; text-align: right;">契約番号</p>
+                    <p class="input-group-text">契約番号</p>
                 </div>
                 <input type="tel" id="contractNumFrom" maxlength='11' [(ngModel)]="inputment.contractNumFrom" tabindex="1"
                     style="ime-mode:disabled" (keyup)="onKeyUpNumFrom($event)" (change)="onKeyUpNumFrom($event)" autofocus>
-                <div style="width: 3%; text-align: center;">
+                <div style="width: 3%; height:30px; text-align: center;">
                     <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
                 </div>
                 <input type="tel" id="contractNumTo" maxlength='11' [(ngModel)]="inputment.contractNumTo" tabindex="2"
@@ -19,11 +19,11 @@
 
             <div class="input-group row" style="height: 30px;">
                 <div class="input-group-prepend">
-                    <p class="input-group-text" style="width: 80px; text-align: right;">物件名</p>
+                    <p class="input-group-text">物件名</p>
                 </div>
                 <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
                     style="ime-mode:active" (blur)="toZenkakuPropName($event)" (change)="toZenkakuPropName($event)">
-                <div style="width: 3%;"></div>
+                <div style="width: 3%; height:30px;"></div>
                 <div class="input-group-append radio-container ">
                     <p class="radioCheckbox">
                         <input [value]="true" type="radio" [(ngModel)]="inputment._checked" tabindex="4" name="options"
@@ -51,13 +51,17 @@
                 </div>
                 <div style="width: 5%;"></div>
                 <div class="input-group-append">
-                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
+                    <p class="radioCheckbox" *ngIf="approvalUnit >= 2"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
                             autocomplete="off">承認１</p>
-                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
+                    <p class="radioCheckbox" *ngIf="approvalUnit >= 3"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
                             autocomplete="off">承認２</p>
+                    <p class="radioCheckbox" *ngIf="approvalUnit >= 4"><input [(ngModel)]="inputment.approval_3" type="checkbox" tabindex="9" id=""
+                            autocomplete="off">承認３</p>
+                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_last" type="checkbox" tabindex="10" id=""
+                            autocomplete="off">最終承認</p>
                 </div>
                 <div style="position: absolute; right: 0px;">
-                    <button style="margin-top: 5px;" class="btn btn-primary float-right autoMargin" type="submit" tabindex="9"
+                    <button style="margin-top: 5px;" class="btn btn-primary float-right autoMargin" type="submit" tabindex="11"
                         (click)="getSearchRequest()">検索</button>
                 </div>
             </div>
@@ -71,11 +75,11 @@
         </section>
     </div>
     <div class="footer-container-approval">
-        <div class="SC0010-bottomButton ">
-            <button type="button" class="btn btn-secondary autoMargin" (click)="onCloseClick();" tabindex="16">閉じる</button>
+        <div class="SC0010-bottomButton">
+            <button mat-button type="button" class="btn btn-secondary border mx-1 back-btn" (click)="onCloseClick();" tabindex="19">閉じる</button>
         </div>
-        <div class="SC0010-bottomButton" style="right: 40px;">
-            <button type="submit" class="btn btn-primary float-right autoMargin" (click)="toApproveMaster();" tabindex="17">発注承認者マスタ</button>
+        <div class="SC0010-bottomButton" style="right: 42px;">
+            <button mat-button type="submit" class="btn btn-primary border mx-1" (click)="toApproveMaster();" tabindex="20">発注承認者マスタ</button>
         </div>
     </div>
 </div>

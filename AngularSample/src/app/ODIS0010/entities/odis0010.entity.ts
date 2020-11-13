@@ -41,4 +41,9 @@ export class ODIS0010OrderDetail {
     /**  承認２（済・未）*/
     approval_2: string;
 
+    /**　承認３（済・未） */
+    approval_3: string;
+    
+    /**  最終承認（済・未）*/
+    approval_last: string;
 }

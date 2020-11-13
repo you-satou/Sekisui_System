@@ -1,9 +1,11 @@
 import { EventEmitter } from '@angular/core';
 import { Component, ViewChild, Input, Output, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { CommonComponent } from './../../../common/common.component';
+import { AppComponent } from './../../../app.component';
+import { Const } from './../../../common/const';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material';
+import { MatSort, MatSortHeader } from '@angular/material';
 import { Router} from '@angular/router';
 import { ODIS0010OrderDetail } from '../../entities/odis0010.entity';
 import { TableStatus } from 'app/ODIS0010/entities/odis001.session.entity';
@@ -16,6 +18,8 @@ import { TableStatus } from 'app/ODIS0010/entities/odis001.session.entity';
 })
 
 export class OrderDetailApprovalTable{
+
+  approvalUnit: number;
 
   @Input() resultData: ODIS0010OrderDetail[];
   //セッションから取得するページＮｏ
@@ -34,8 +38,10 @@ export class OrderDetailApprovalTable{
       'receivedAmount',
       'progressRate',
       'createdDetail',
-      'approval_1',
-      'approval_2',
+      // 'approval_1',
+      // 'approval_2',
+      // 'approval_3',
+      'approval_last',
   ];
 
   dataSource = new MatTableDataSource<any>();
@@ -47,10 +53,27 @@ export class OrderDetailApprovalTable{
     private router: Router,
     private baseComm : CommonComponent,
     private changeDetector: ChangeDetectorRef,
+    private appComponent: AppComponent,
   ) {}
 
   ngOnInit() {
     
+    this.approvalUnit = this.appComponent.approvalLevels;
+    switch(this.approvalUnit){
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
+        this.displayedColumns.splice((this.displayedColumns.indexOf('createdDetail')+1),0,"approval_1","approval_2","approval_3");
+        break;
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.displayedColumns.splice((this.displayedColumns.indexOf('createdDetail')+1),0,"approval_1","approval_2");
+        break;
+      //承認人数が2人で設定する
+      case Const.ApprovalLevel.TwoLevels:
+        this.displayedColumns.splice((this.displayedColumns.indexOf('createdDetail')+1),0,"approval_1");
+        break;
+    }
+
     //初期化、テーブルのソートを非活性する
     this.dataSource.sort.disabled = true;
     //セッションからデータがあれば、展開する。
@@ -66,6 +89,13 @@ export class OrderDetailApprovalTable{
   }
 
   ngOnChanges( ) {
+    //ソートボタンのタブインデックスを設定する
+    let sortButton = document.querySelector('button.mat-sort-header-button');
+    if(sortButton != null){
+      sortButton.setAttribute('tabIndex', '12');
+      sortButton.removeAttribute('disabled');
+    }
+
     this.dataSource = new MatTableDataSource<ODIS0010OrderDetail>(this.resultData);
     if(this.dataSource.data.length > 0){
       //データがある場合, ソートを活性化する
@@ -74,6 +104,9 @@ export class OrderDetailApprovalTable{
     else{
       //データがない場合, ソートを非活性する
       this.sort.disabled = true;
+      if(sortButton != null){
+        sortButton.setAttribute('disabled', 'true');
+      }
     }
     // ソートした状態が前の状態に戻らない,　降順ー昇順だけ
     this.sort.disableClear = true;

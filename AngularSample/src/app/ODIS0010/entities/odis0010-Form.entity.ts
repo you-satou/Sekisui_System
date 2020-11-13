@@ -32,4 +32,10 @@ export class ODIS0010Form{
 
 	/** 承認２ */
 	approval_2:boolean = false;
+
+	/** 承認３ */
+	approval_3:boolean = false;
+
+	/** 最終承認 */
+	approval_last:boolean = false;
 }

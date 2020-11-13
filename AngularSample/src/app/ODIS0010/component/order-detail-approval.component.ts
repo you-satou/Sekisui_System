@@ -37,6 +37,9 @@ export class OrderDetailApprovalComponent implements OnInit {
   
   //明細一覧をソート、またはページ切り替えたときにページナンバーを保持するなパラメタ―
   _pgIndex: number = -1;
+
+  //表示する承認の数の設定
+  approvalUnit: number;
   
   constructor(
     private appComponent: AppComponent,
@@ -52,6 +55,7 @@ export class OrderDetailApprovalComponent implements OnInit {
       Const.LinKSetting.L0000
     );
     this.setStartPage();
+    this.approvalUnit = this.appComponent.approvalLevels;
     
     // Search ボタンの初期位置を設定する
     this.screenSize = window.innerWidth;
@@ -114,6 +118,8 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.detailNone      = false;
     this.inputment.approval_1      = false;
     this.inputment.approval_2      = false;
+    this.inputment.approval_3      = false;
+    this.inputment.approval_last   = false;
   }
 
   /** 
