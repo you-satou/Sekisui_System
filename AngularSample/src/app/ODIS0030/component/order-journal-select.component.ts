@@ -76,7 +76,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
    this.initScroll.changes.subscribe(t => {
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
 
-     if(this.selectVal !== '' && this.commonComponent.setValue(this.selectRow) != ''){
+     if(this.selectVal !== ''){
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
      
      var wTr = wTbody.rows[this.selectRow];

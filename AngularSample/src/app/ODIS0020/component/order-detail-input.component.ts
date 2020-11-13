@@ -96,6 +96,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   btnStop: boolean;
   btnDelete: boolean;
 
+  btnSupplierPatern: boolean;
+
   // 初期表示 パラメータ
   paramInit = new ODIS0020Form();
 
@@ -593,7 +595,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
 
-  orderJournalSelect(selectVal) {
+  orderJournalSelect($event, selectVal) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
@@ -605,7 +607,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @memberof AppComponent
   */
 
-  orderSupplierSelect(selectVal) {
+  orderSupplierSelect($event, selectVal) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
@@ -1005,6 +1007,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     //グロバール明細追加制御を設定する。
     this.disableIns = false;
+    this.btnSupplierPatern = false;
 
     //一括依頼がある場合：追加活性・更新非活性・削除非活性
     if(bulkRequest.length > 0){
@@ -1013,6 +1016,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //一括承認がある場合：追加非活性・更新非活性・削除非活性
     if(bulkApproval.length > 0){
       this.disableIns = true;
+
+      //一括承認がある場合、発注先パターンボタンを非活性
+      this.btnSupplierPatern = true;
     }
     //ボタン制御設定
     this.setPageButtonDisplay(this.disableIns,true,false,true);
