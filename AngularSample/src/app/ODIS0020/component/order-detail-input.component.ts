@@ -618,7 +618,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-  supplierPattern() {
+  supplierPattern($event) {
     this.modal = SupplierPatternComponent;
   }
 
@@ -725,12 +725,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private reDetailNo(datas: ODIS0020OrderDetaiSplitBean[]){
     // 初期化
+    var tmpNo:string = '';
     var cnt: number = 0;
 
     // 再連番
     for(var i = 0; i < datas.length; i++){
       // 仕訳コードに値が入っている場合、連番をカウントアップ
       if(this.baseCompnt.setValue(datas[i].splitNo) === '1'){
+        tmpNo = datas[i].detailNo;
         cnt++;
       }
 
@@ -1288,7 +1290,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
   }
 
-  backToApprovalPage(){
+  backToApprovalPage($event){
     
     //警告メッセージを表示する
     let confirm = window.confirm(Const.WarningMsg.W0003);
