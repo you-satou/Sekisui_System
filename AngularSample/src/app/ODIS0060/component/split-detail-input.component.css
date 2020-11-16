@@ -113,11 +113,9 @@
 /*****             分割データを表示するテーブル.              ****/
 /*************************************************************/
 .bunkatsu-table {
-    width: 1436px;
-    display: block;
     position: relative;
-    box-shadow: -1px 0px 0px 0px #dee2e6 inset;
     margin: 0px;
+    width: max-content;
 }
 
 .bunkatsu-table>thead>tr>th {
@@ -157,6 +155,8 @@
 
 .bunkatsu-table>tbody>tr.mat-row {
     height: 31px;
+    box-shadow: -1px 0px 0px 0px #dee2e6 inset;
+    
 }
 
 /*************************************************************/
@@ -258,7 +258,6 @@
     overflow-x: auto;
     overflow-y: auto;
     max-height: 302px;
-    min-width: 820px;
 }
 
 /*************************************************************/
@@ -280,6 +279,8 @@
 
 .add-div {
     position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .add-div>table>tbody>tr {
@@ -296,12 +297,12 @@
     width: 821px;
 }
 
-.shiwake-table>thead>tr>th {
-    height: 30px;
+.shiwake-table>thead>tr.mat-header-row {
+    max-height: 10px !important;
 }
 
 .shiwake-table>tbody>tr.mat-row {
-    height: 30px;
+    max-height: 10px !important;
     vertical-align: middle !important;
 }
 
@@ -311,6 +312,7 @@
 
 .shiwake-table>tbody>tr>td {
     border: 1px solid #dee2e6 !important;
+    padding: 5px !important;
 }
 
 .SC0060-bottomButton {

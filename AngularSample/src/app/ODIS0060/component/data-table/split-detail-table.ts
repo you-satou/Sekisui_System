@@ -18,14 +18,42 @@ export class SplitOrderDetailTable {
 
   //仕訳テーブルのカラム
   shiwakeColumns: string[] = [
-    'journalCode',
-    'accountCode',
-    'journalName',
-    'orderSupplierCode',
-    'orderSupplierName',
+    'shiwakeCode',
+    'keiriCode',
+    'shiwakeName',
+    'hacchuSaki',
+    "ikkatsuIrai",
+    "ikkatsuShounin",
+    'yoteiKingaku',
+    'bunkatsuGoukei',
+    'sagaku',
+  ];
+
+  /** 仕訳テーブルのヘッダーの2行目のカラム */
+  subHeaderCols: string[] = [
+    'bulkRequestDate',
+    'bulkRequester',
+    'bulkApprovalDate',
+    'bulkApprovalPerson',
+  ];
+
+  /**
+   * 行のカラムの定義
+   */
+  bodyColumns: string[] = [
+    "journalCode",
+    "accountCode",
+    "journalName",
+    "orderSupplierCode",
+    "orderSupplierName",
+    "bulkRequestDate",
+    "bulkRequester",
+    "bulkApprovalDate",
+    "bulkApprovalPerson",
     'orderPlanAmount',
     'totalSplitAmount',
     'amountDifference',
+    
   ];
 
   dataSource: any;
