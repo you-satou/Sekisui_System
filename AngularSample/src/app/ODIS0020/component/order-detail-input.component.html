@@ -205,7 +205,7 @@
         </mat-tab-group>
     </section>
 
-    <section>
+    <!-- <section>
         <table class="table-small table-bordered approval-table">
             <tr >
                 <th class="request">依頼日</th>
@@ -224,23 +224,31 @@
                 </td>
             </tr>
         </table>
-    </section>
+    </section> -->
 
     <section style="margin-top: 10px;">
         <table class="insert-table table-sm table-bordered">
             <tr>
-                <th style="width: 60px;">
+                <th style="min-width: 60px; width: 60px;" rowspan="2">
                     <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal"
                         data-target="#M_ODIS0030" tabindex="5"
                         (click)="orderJournalSelect($event,this.addInput.journalCode);">仕訳<br>コード</button>
                 </th>
-                <th style="width: 40px;">経理<br>分類</th>
-                <th style="width: 150px;">仕訳名称</th>
-                <th style="width: 210px;" colspan="2">
+                <th style="min-width: 40px; width: 40px;" rowspan="2">経理<br>分類</th>
+                <th style="min-width: 150px; width: 150px;" rowspan="2">仕訳名称</th>
+                <th style="min-width: 260px; width: 210px;" colspan="2" rowspan="2">
                     <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040"
                     tabindex="6" (click)="orderSupplierSelect($event,this.addInput.orderSupplierCode);">発注先</button>
                 </th>
-                <th style="width: 120px;">発注予定金額</th>
+                <th style="min-width: 120px; width: 120px;" rowspan="2">発注予定金額</th>
+                <th class="color-input-2" colspan="2">依頼</th>
+                <th class="color-input-3" colspan="2">承認</th>
+            </tr>
+            <tr>
+                <th style="min-width: 75px; width: 75px;">依頼日</th>
+                <th style="min-width: 100px; width: 100px;">依頼者</th>
+                <th class="color-input-4" style="min-width: 75px; width: 75px;">承認日</th>
+                <th class="color-input-4" style="min-width: 100px; width: 100px;">承認者</th>
             </tr>
             <tbody>
                 <tr>
@@ -265,12 +273,16 @@
                             [(ngModel)]="addInput.orderSupplierCode" style="ime-mode:disabled; text-align:left;"
                             tabindex="10" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
-                    <td class="add-supplierName" style="text-align: left;">{{addInput.orderSupplierName}}</td>
+                    <td class="add-supplierName" style="text-align: left; min-width: 220px;">{{addInput.orderSupplierName}}</td>
                     <td class="add-planAmount">
                         <input type="tel" maxlength="11" id="txtAddAmount" name="orderPlansKin"
                             [(ngModel)]="addInput.orderPlanAmount" tabindex="11" (focus)="commonFocusPA($event)"
                             (keyup)="toHanPricePA($event)" (change)="toHanPricePA($event)" (blur)="commonBlurPA($event)">
                     </td>
+                    <td class="bulkRequestDate" style="text-align: left; background-color: whitesmoke;"></td>
+                    <td class="bulkRequester" style="text-align: left; background-color: whitesmoke;"></td>
+                    <td class="bulkApprovalDate" style="text-align: left; background-color: whitesmoke;"></td>
+                    <td class="bulkApprove" style="text-align: left; background-color: whitesmoke;"></td>
                 </tr>
             </tbody>
         </table>

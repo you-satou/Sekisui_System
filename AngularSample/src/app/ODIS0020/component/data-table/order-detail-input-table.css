@@ -107,9 +107,9 @@
 }
 
 .journal-table>tfoot>tr>td {
-    padding-top: 20px;
-    padding-right: 5px;
+    padding: 0 5px;
     text-align: right;
+    vertical-align: middle;
 }
 .journal-table>tfoot>tr>td.goukie {
     text-align: center !important;

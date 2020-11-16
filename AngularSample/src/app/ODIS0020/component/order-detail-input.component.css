@@ -363,4 +363,17 @@
     width: 110px;
 }
 
+.color-input-2 {
+    background-color: #95B3D7 !important;
+    text-align: center;
+}
 
+.color-input-3 {
+    background-color: #FABF8F !important;
+    height: 30px;
+}
+
+.color-input-4 {
+    background-color: #FDE9D9 !important;
+    height: 30px;
+}

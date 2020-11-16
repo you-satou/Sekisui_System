@@ -16,6 +16,16 @@
         <ng-container matColumnDef="hacchuSaki">
             <th style="min-width: 260px; width: 260px;" class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2" [attr.colSpan]="2">発注先</th>
         </ng-container>
+
+        <!--承認日-->
+        <ng-container matColumnDef="bulkIraiBi">
+            <th style="min-width: 75px; width: 75px; " class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">依頼日</th>
+        </ng-container>
+        <!--承認日-->
+        <ng-container matColumnDef="bulkShouninBi">
+            <th style="min-width: 75px; width: 75px; " class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">承認日</th>
+        </ng-container>
+
         <!--発注予定金額-->
         <ng-container matColumnDef="hacchuKingaku">
             <th style="min-width: 120px; width: 120px; " class="color-input-1" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">発注予定金額</th>
@@ -100,8 +110,26 @@
         <ng-container matColumnDef="orderSupplierName">
             <th style="min-width: 220x; width: 220px; " mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 220px; width: 220px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSupplierName}} </td>
+            <!-- <td mat-footer-cell *matFooterCellDef class="goukie">合計</td> -->
+            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+                <button style="height: 32px; width: 80px; line-height: 10px; top: 1px; padding: 0;" mat-button class="btn btn-primary btn-small">一括依頼</button>
+                <button style="margin: 0 20px; height: 32px; width: 80px; line-height: 10px; top: 1px; padding: 0;" mat-button class="btn btn-success">一括承認</button>
+            </td>
+        </ng-container>
+
+        <!--承認日-->
+        <ng-container matColumnDef="bulkRequestDate">
+            <th style="min-width: 75px; width: 75px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
+            <td style="min-width: 75x; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element"> {{element.bulkRequestDate}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+        <!--承認日-->
+        <ng-container matColumnDef="bulkApprovalDate">
+            <th style="min-width: 75px; width: 75px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
+            <td style="min-width: 75px; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element"> {{element.bulkApprovalDate}} </td>
             <td mat-footer-cell *matFooterCellDef class="goukie">合計</td>
         </ng-container>
+        
         <!--発注予定金額-->
         <ng-container matColumnDef="orderPlanAmount">
             <th style="min-width: 120px; width: 120px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>

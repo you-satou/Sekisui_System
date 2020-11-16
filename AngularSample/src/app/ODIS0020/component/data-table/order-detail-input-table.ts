@@ -33,6 +33,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "keiriCode",
     "shiwakeName",
     "hacchuSaki",
+    "bulkIraiBi",
+    "bulkShouninBi",
     "hacchuKingaku",
     "hanei",
     "bunkatsu",
@@ -78,6 +80,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "journalName",
     "orderSupplierCode",
     "orderSupplierName",
+    "bulkRequestDate",
+    "bulkApprovalDate",
     "orderPlanAmount",
     "display",
     "split",
@@ -582,15 +586,15 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
             tr = skBody.rows[ind];
           
             //➡　ボタンを非表示させる
-            btn = tr.cells[6].getElementsByTagName('button');
+            btn = tr.cells[8].getElementsByTagName('button');
             btn[0].setAttribute('disabled',true);
             
             //分　ボタンを非表示させる
-            btn = tr.cells[7].getElementsByTagName('button');
+            btn = tr.cells[9].getElementsByTagName('button');
             btn[0].setAttribute('disabled',true);
             
             //依頼　ボタンを非表示させる
-            btn = tr.cells[11].getElementsByTagName('button');
+            btn = tr.cells[13].getElementsByTagName('button');
             // ボタンが存在すれば以下の処理を実施
             if(btn[0] !== undefined){
               btn[0].style.display = 'none';
