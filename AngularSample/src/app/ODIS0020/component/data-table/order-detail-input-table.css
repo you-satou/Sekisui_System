@@ -120,6 +120,23 @@
     margin: 0;
     padding: 0;
 }
+
+.btnBulkRequest{
+    height: 32px !important;
+    width: 80px !important; 
+    line-height: 10px !important; 
+    top: 1px !important; 
+    padding: 0 !important;
+}
+
+.btnBulkApproval{
+    margin: 0 20px !important;
+    height: 32px !important;
+    width: 80px !important; 
+    line-height: 10px !important; 
+    top: 1px !important; 
+    padding: 0 !important;
+}
 /*************************************************************/
 /*****                                                    ****/
 /*****                   TABLE SCROLL                     ****/

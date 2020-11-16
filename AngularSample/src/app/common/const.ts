@@ -128,11 +128,13 @@ export namespace Const{
     /** 背景の色のコード */
     export namespace HighLightColour{
 
-        export const None = 'white';
+        export const None = 'White';
         export const Black = 'Black';
         export const Selected = '#CCFFFF';
         export const Modified = '#F57C00';
         export const Inserted = '#40a8c4';
+        export const GrayOut = '#e9ecef';
+        export const Red = 'Red';
 
     }
 

@@ -24,6 +24,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
+  
+  grayOut = Const.HighLightColour.GrayOut;
 
   /**
    * テーブルヘッダーのカラムを定義する。
@@ -42,11 +44,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "bunkatsuHacchusaki",
     "comment1",
     "irai",
-    //2020/11/09 11月中の要望対応
-    // "shounin_lv1",
-    // "shounin_lv2",
-    // "shounin_lv3",
-    //2020/11/09 11月中の要望対応
     "shounin_saishuu",
     "hacChu",
     "ukeIre",
@@ -59,14 +56,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   subHeaderColumns: string[] = [
     "requestDate",
     "requester",
-    //2020/11/09 11月中の要望対応
-    // "approvalDate_lv1",
-    // "approvalPerson_lv1",
-    // "approvalDate_lv2",
-    // "approvalPerson_lv2",
-    // "approvalDate_lv3",
-    // "approvalPerson_lv3",
-    //2020/11/09 11月中の要望対応
     "approvalDate_final",
     "approvalPerson_final",
   ];
@@ -91,14 +80,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "comment",
     "requestDate",
     "requester",
-    //2020/11/09 11月中の要望対応
-    // "approvalDate_lv1",
-    // "approvalPerson_lv1",
-    // "approvalDate_lv2",
-    // "approvalPerson_lv2",
-    // "approvalDate_lv3",
-    // "approvalPerson_lv3",
-    //2020/11/09 11月中の要望対応
     "approvalDate_final",
     "approvalPerson_final",
     "orderSupplierDate",
@@ -138,6 +119,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1");
         this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
         this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
+        break;
+      
+      //承認者数枠が4人のため、デフォルトが承認者数が4人を設定する。
+      default:
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2","shounin_lv3");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
         break;
     }
     //2020/11/09 11月中の要望対応 Add End
@@ -232,6 +220,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param element 
    */
   isReflectFlg(element:ODIS0020OrderDetaiSplitBean){
+
+    //一括承認データが入らない場合、非活性する。
+    if(this.comCompnt.setValue(element.bulkApprovalPerson) === ''){
+      return true;
+    }
+
     // 発注予定金額画空白の場合、非活性にする。
     if(this.comCompnt.setValue(element.orderPlanAmount) === ''){
       // 非活性
@@ -264,6 +258,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param element 
    */
   isSplitFlg(element:ODIS0020OrderDetaiSplitBean){
+
+    //一括承認データが入らない場合、非活性する。
+    if (this.comCompnt.setValue(element.bulkApprovalPerson) === '') {
+      return true;
+    }
     
     // 発注予定金額画空白の場合、非活性にする。
     if(this.comCompnt.setValue(element.orderPlanAmount) === ''){
@@ -375,7 +374,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    */
   onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
     
-    this.comCompnt.CommonOnSelHight($event);
+    this.setSelect($event, value);
 
     // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
@@ -394,40 +393,9 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let isCanNotUpd: boolean = false;
     let isCanNotDel: boolean = false;
 
-    //一括依頼データがある場合、削除非活性
-    if((this.comCompnt.setValue(value.bulkRequester) != '')){
-      isCanNotDel = true;
-    }
-    ////一括承認データがある場合、更新非活性
-    if((this.comCompnt.setValue(value.bulkApprovalPerson) !='')){
+    //一括承認データがある場合、更新・削除ができない
+    if(this.comCompnt.setValue(value.bulkApprovalPerson) != ''){
       isCanNotUpd = true;
-    }
-
-    let approval1List: ODIS0020OrderDetaiSplitBean[] = [];
-    //承認人数が1人以上の場合 承認1 済 抽出
-    if(this.approvalUnit >= 2){
-      approval1List = filter.filter(element => {
-        if (this.comCompnt.setValue(element.approvalPerson_lv1) !== '') {
-          return element;
-        }
-      });
-    }
-    //承認人数が1人の場合、 最終承認 済 抽出
-    if(this.approvalUnit == 1){
-        approval1List = filter.filter(element => {
-        if (this.comCompnt.setValue(element.approvalDate_final) !== '') {
-          return element;
-        }
-      });
-    }
-
-    // 抽出データ == 済データが一致した場合は、更新ボタン 非活性
-    if (approval1List.length === filter.length) {
-      isCanNotUpd = true;
-    }
-
-    // 済みのデータが1件以上の場合、削除ボタン 非活性
-    if (approval1List.length >= 1) {
       isCanNotDel = true;
     }
 
@@ -450,6 +418,76 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
 
     this.sendOrderData.emit(this.dataEmitter);
+
+
+  }
+
+  setSelect(event: any, value: ODIS0020OrderDetaiSplitBean){
+
+    //クリックされたエレメント名を取得する
+    var nodeName = event.target.nodeName;
+    //テーブルのBody
+    var wTbody: HTMLTableElement;
+    //クリックされた行
+    var wTr: any;
+
+    switch (nodeName) {
+      case 'TR':
+        wTr = event.path[0];
+        wTbody = event.path[1];
+        break;
+      case 'TD':
+        wTr = event.path[1];
+        wTbody = event.path[2];
+        break;
+      case 'MAT-ICON':
+        wTr = event.path[4];
+        wTbody = event.path[5];
+        break;
+      case 'LABEL':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
+
+      //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
+      case 'SPAN':
+        wTr = event.path[3];
+        wTbody = event.path[4];
+        break;
+      case 'BUTTON':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
+    }
+
+    for(var i = 0; i < this.orderData.length; i++){
+      //一括承認データが入っている行はグレーアウトする。
+      if(this.comCompnt.setValue(this.orderData[i].bulkApprovalPerson) != ''){
+        var tr = wTbody.rows[i];
+        for (var j = 0; j < tr.cells.length; j++) {
+          var td = tr.cells[j];
+          if (j <= 7) {
+            td.style.backgroundColor = this.grayOut;
+          }
+          else {
+            td.style.backgroundColor = Const.HighLightColour.None;
+          }
+        }
+      }
+      //一括承認データが入らない行は白色をする。
+      else{
+        var tr = wTbody.rows[i];
+        for (var j = 0; j < tr.cells.length; j++) {
+          var td = tr.cells[j];  
+          td.style.backgroundColor = Const.HighLightColour.None;
+        }
+      }
+    }
+    //選択されている行の背景色を変える
+    for (var j = 0; j < wTr.cells.length; j++) {
+      var cell = wTr.cells[j];
+      cell.style.backgroundColor = Const.HighLightColour.Selected;
+    }
   }
 
 
@@ -460,20 +498,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    */
   setRequest(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    // let btn: HTMLButtonElement = null;
-    // if (event.target.nodeName === 'SPAN') {
-    //   btn = event.target.parentElement;
-    // }
-    // else {
-    //   btn = event.target;
-    // }
-
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
 
     //TODO: ログイン情報を取得
-    dt.requester = '積水　次郎';
+    dt.requester = this.appComponent.loginUser;
   }
 
   /**
@@ -483,20 +513,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    */
   setApprovalFirstLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    // let btn: HTMLButtonElement = null;
-    // if (event.target.nodeName === 'SPAN') {
-    //   btn = event.target.parentElement;
-    // }
-    // else {
-    //   btn = event.target;
-    // }
-
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv1 = requestTime;
 
     //TODO: ログイン情報を取得
-    dt.approvalPerson_lv1 = '積水　次郎';
+    dt.approvalPerson_lv1 = this.appComponent.loginUser;
   }
 
   /**
@@ -506,18 +528,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
  */
   setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-    // let btn: HTMLButtonElement = null;
-    // if (event.target.nodeName === 'SPAN') {
-    //   btn = event.target.parentElement;
-    // }
-    // else {
-    //   btn = event.target;
-    // }
-
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
-    dt.approvalPerson_lv2 = '積水　次郎';
+    dt.approvalPerson_lv2 = this.appComponent.loginUser;
 
   }
 
@@ -528,18 +542,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
  */
 setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
   
-  let btn: HTMLButtonElement = null;
-  if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-  }
-
   let currTime = Date.now();
   let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
   dt.approvalDate_lv3 = requestTime;
-  dt.approvalPerson_lv3 = '積水　次郎';
+  dt.approvalPerson_lv3 = this.appComponent.loginUser;
 
 }
 
@@ -550,18 +556,10 @@ setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
  */
 setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
   
-  let btn: HTMLButtonElement = null;
-  if (event.target.nodeName === 'SPAN') {
-      btn = event.target.parentElement;
-    }
-    else {
-      btn = event.target;
-  }
-
   let currTime = Date.now();
   let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
   dt.approvalDate_final = requestTime;
-  dt.approvalPerson_final = '積水　次郎';
+  dt.approvalPerson_final = this.appComponent.loginUser;
 }
 
   /**
@@ -582,25 +580,25 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
       if (element.journalName == 'ハウス材' ||
           element.journalName == '運賃・荷造・保管料' ||
           element.journalName == '労災') {
-          
-            tr = skBody.rows[ind];
-          
-            //➡　ボタンを非表示させる
-            btn = tr.cells[8].getElementsByTagName('button');
-            btn[0].setAttribute('disabled',true);
-            
-            //分　ボタンを非表示させる
-            btn = tr.cells[9].getElementsByTagName('button');
-            btn[0].setAttribute('disabled',true);
-            
-            //依頼　ボタンを非表示させる
-            btn = tr.cells[13].getElementsByTagName('button');
-            // ボタンが存在すれば以下の処理を実施
-            if(btn[0] !== undefined){
-              btn[0].style.display = 'none';
-            }
 
-            //承認ボタンは既に非表示されているため、再非表示する必要なし。
+        tr = skBody.rows[ind];
+
+        //➡　ボタンを非表示させる
+        btn = tr.cells[8].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', true);
+
+        //分　ボタンを非表示させる
+        btn = tr.cells[9].getElementsByTagName('button');
+        btn[0].setAttribute('disabled', true);
+
+        //依頼　ボタンを非表示させる
+        btn = tr.cells[13].getElementsByTagName('button');
+        // ボタンが存在すれば以下の処理を実施
+        if (btn[0] !== undefined) {
+          btn[0].style.display = 'none';
+        }
+
+        //承認ボタンは既に非表示されているため、再非表示する必要なし。
       }
     });
 
@@ -615,12 +613,12 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     // フォント色
     if(element.splitNo == '1'){
       // 初期化
-      var isFont = 'black';
+      var isFont = Const.HighLightColour.Black;
 
       // 色 設定
       switch(element.insKubun){
         case Const.InsKubun.Normal: 
-          isFont = 'black';
+          isFont = Const.HighLightColour.Black;
           break;
         case Const.InsKubun.Ins:
           isFont = Const.HighLightColour.Inserted;
@@ -654,7 +652,7 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
       // 差額がある場合はフォントを赤字にする。
       if(totalAmount != Number(element.orderPlanAmount)){
-        isFont = 'red';
+        isFont = Const.HighLightColour.Red;
       }
       return isFont;
     }
@@ -676,7 +674,72 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         tr.cells[3].style.color = 'transparent';
         tr.cells[4].style.color = 'transparent';
         tr.cells[5].style.color = 'transparent';
+        tr.cells[6].style.color = 'transparent';
+        tr.cells[7].style.color = 'transparent';
       }
     }
+  }
+
+  bulkRequestInfo(){
+    //一括依頼データを抽出
+    var requestInfo = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
+        return value;
+      }
+    })
+    //一括依頼が済の場合、一括依頼ボタンを非活性する。
+    if (requestInfo.length == this.orderData.length) {
+      return true;
+    }
+    return false;
+  }
+
+  bulkApprovalInfo(){
+    //一括依頼データを抽出
+    var requestInfo = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
+        return value;
+      }
+    })
+    //一括承認データを抽出
+    var approvalInfo = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkApprovalDate) != '') {
+        return value;
+      }
+    })
+    //一括依頼済の時、一括承認ボタンを活性する。
+    if (requestInfo.length == this.orderData.length && approvalInfo.length != this.orderData.length) {
+      return false;
+    }
+    return true;
+
+  }
+
+  oneClickRequest($event){
+
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+
+    //TODO: ログイン情報
+    this.orderData.forEach(element=>{
+      if(this.comCompnt.setValue(element.bulkRequestDate) ==''){
+        element.bulkRequestDate = requestTime;
+        element.bulkRequester   = this.appComponent.loginUser;
+      }
+    })
+  }
+
+  oneClickApproval($event){
+
+    let currTime = Date.now();
+    let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+
+    //TODO: ログイン情報
+    this.orderData.forEach(element=>{
+      if(this.comCompnt.setValue(element.bulkApprovalDate) ==''){
+        element.bulkApprovalDate   = approvalTime;
+        element.bulkApprovalPerson = this.appComponent.loginUser;
+      }
+    })
   }
 }

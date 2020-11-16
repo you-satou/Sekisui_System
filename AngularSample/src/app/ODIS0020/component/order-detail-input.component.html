@@ -205,28 +205,7 @@
         </mat-tab-group>
     </section>
 
-    <!-- <section>
-        <table class="table-small table-bordered approval-table">
-            <tr >
-                <th class="request">依頼日</th>
-                <td class="td-date td-date">{{bulkReAppStatus.bulkRequestDate}}</td>
-                <th class="request">依頼者</th>
-                <td class="td-name">
-                    <label *ngIf="bulkReAppStatus.bulkRequester != ''">{{bulkReAppStatus.bulkRequester}}</label>
-                    <button class="btn btn-outline-primary" *ngIf="bulkReAppStatus.bulkRequester == ''" (click)="oneClickRequest($event)">依頼</button>
-                </td>
-                <th class="approval">承認日</th>
-                <td class="td-date">{{bulkReAppStatus.bulkApprovalDate}}</td>
-                <th class="approval">承認者</th>
-                <td class="td-name">
-                    <label *ngIf="bulkReAppStatus.bulkApprovalPerson != ''">{{bulkReAppStatus.bulkApprovalPerson}}</label>
-                    <button class="btn btn-outline-success" *ngIf="bulkReAppStatus.bulkRequester != '' && bulkReAppStatus.bulkApprovalPerson == ''" (click)="oneClickApproval($event)">承認</button>
-                </td>
-            </tr>
-        </table>
-    </section> -->
-
-    <section style="margin-top: 10px;">
+    <section style="margin-top: 10px;" class="modifyTbl">
         <table class="insert-table table-sm table-bordered">
             <tr>
                 <th style="min-width: 60px; width: 60px;" rowspan="2">
@@ -279,10 +258,10 @@
                             [(ngModel)]="addInput.orderPlanAmount" tabindex="11" (focus)="commonFocusPA($event)"
                             (keyup)="toHanPricePA($event)" (change)="toHanPricePA($event)" (blur)="commonBlurPA($event)">
                     </td>
-                    <td class="bulkRequestDate" style="text-align: left; background-color: whitesmoke;"></td>
-                    <td class="bulkRequester" style="text-align: left; background-color: whitesmoke;"></td>
-                    <td class="bulkApprovalDate" style="text-align: left; background-color: whitesmoke;"></td>
-                    <td class="bulkApprove" style="text-align: left; background-color: whitesmoke;"></td>
+                    <td class="grayOut">{{addInput.bulkRequestDate}}</td>
+                    <td class="grayOut">{{addInput.bulkRequester}}</td>
+                    <td class="grayOut">{{addInput.bulkApprovalDate}}</td>
+                    <td class="grayOut">{{addInput.bulkApprovalPerson}}</td>
                 </tr>
             </tbody>
         </table>
@@ -308,7 +287,7 @@
                 tabindex="16" (click)="backToApprovalPage($event);" >更新せず終了</button>
             </div>
             <div style="margin-left: 130px; bottom: 5px;" class="SC0020-bottomButton">
-                <button disabled={{btnSupplierPatern}} mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
+                <button mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
                     data-target="#M_ODIS0050" (click)="supplierPattern($event);" tabindex="17">発注先パターン選択</button>
             </div>
             <div class="middleButtons">
@@ -319,7 +298,7 @@
                     <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" tabindex="19">工事台帳</button>
                 </div>
                 <div style="transform: translateX(226%);" class="SC0020-bottomButton">
-                    <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="20">明細一覧</button>
+                    <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="20" (click)="downloadOrderDetailExportFile($event)">明細一覧</button>
                 </div>
             </div>
             <div style="right: 42px;" class="SC0020-bottomButton">

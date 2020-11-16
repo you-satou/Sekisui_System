@@ -56,8 +56,9 @@ export class CommonComponent {
     
     switch (nodeName) {
       case 'TR':
-        wTr = event.path[1];
-        wTbody = event.path[2];
+        wTr = event.path[0];
+        wTbody = event.path[1];
+        break;
       case 'TD':
         wTr = event.path[1];
         wTbody = event.path[2];
@@ -356,7 +357,7 @@ export class CommonComponent {
 
     for (var i = 0; i < body.rows.length; i++) {
       if (i == rIndex) {
-        var tr = body.rows[i];
+         var tr = body.rows[i];
         //明細追加または変更した時に、フォント色を変える
         if (action == Const.Action.A0001 || action == Const.Action.A0002) {
           tr.style.color = this.getColor(action);

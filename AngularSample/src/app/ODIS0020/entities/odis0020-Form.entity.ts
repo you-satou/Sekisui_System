@@ -68,4 +68,19 @@ export class ODIS0020Form{
 
     /** 発注予定金額 */
     orderPlanAmount: string;
-} 
+
+    /** 承認者数 */
+    approvalLevel: string;
+}
+
+// export class BulkRequestAndApproval{
+
+//     bulkRequestDate : string = '';
+  
+//     bulkRequester: string = '';
+  
+//     bulkApprovalDate: string = '';
+    
+//     bulkApprovalPerson: string = '';
+  
+//   }

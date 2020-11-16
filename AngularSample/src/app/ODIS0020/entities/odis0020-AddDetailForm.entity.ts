@@ -25,6 +25,17 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     /** 発注予定金額 */
     orderPlanAmount: string;
 
+    /** 一括依頼日 */
+    bulkRequestDate : string = '';
+    /** 一括依頼者 */
+    bulkRequester: string = '';
+    /** 一括承認日 */
+    bulkApprovalDate: string = '';
+    /** 一括承認日 */
+    bulkApprovalPerson: string = '';
+  
+
+
     shiwakeData: ODIS0020OrderDetaiSplitBean;
 
     get isBlank (): boolean {
@@ -72,19 +83,27 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.orderSupplierCode  = '';
         this.orderSupplierName  = '';
         this.orderPlanAmount    = '';
+        this.bulkRequestDate    = '';
+        this.bulkRequester      = '';
+        this.bulkApprovalDate   = '';
+        this.bulkApprovalPerson = '';
         this.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
     }
 
     setInput(input: ODIS0020OrderDetaiSplitBean) {
 
         //編集テーブルの各セルに選択された行の値を挿入
-        this.journalCode       = input.journalCode;
-        this.journalName       = input.journalName;
-        this.accountCode       = input.accountCode;
-        this.orderSupplierCode = input.orderSupplierCode;
-        this.orderSupplierName = input.orderSupplierName;
-        this.orderPlanAmount   = this.addCommas(input.orderPlanAmount);
-        this.shiwakeData       = input;
+        this.journalCode        = input.journalCode;
+        this.journalName        = input.journalName;
+        this.accountCode        = input.accountCode;
+        this.orderSupplierCode  = input.orderSupplierCode;
+        this.orderSupplierName  = input.orderSupplierName;
+        this.orderPlanAmount    = this.addCommas(input.orderPlanAmount);
+        this.bulkRequestDate    = input.bulkRequestDate;
+        this.bulkRequester      = input.bulkRequester;
+        this.bulkApprovalDate   = input.bulkApprovalDate;
+        this.bulkApprovalPerson = input.bulkApprovalPerson;
+        this.shiwakeData        = input;
     }
 
     /**
@@ -102,14 +121,18 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 
                 // 登録区分 通常の場合に更新に変更する。
                 if(output[i].insKubun === Const.InsKubun.Normal){
-                    output[i].insKubun      = Const.InsKubun.Upd;
+                    output[i].insKubun       = Const.InsKubun.Upd;
                 }
-                output[i].journalCode       = this.journalCode;
-                output[i].journalName       = this.journalName;
-                output[i].accountCode       = this.accountCode;
-                output[i].orderSupplierCode = this.orderSupplierCode;
-                output[i].orderSupplierName = this.orderSupplierName;
-                output[i].orderPlanAmount   = this.removeCommas(this.orderPlanAmount);
+                output[i].journalCode        = this.journalCode;
+                output[i].journalName        = this.journalName;
+                output[i].accountCode        = this.accountCode;
+                output[i].orderSupplierCode  = this.orderSupplierCode;
+                output[i].orderSupplierName  = this.orderSupplierName;
+                output[i].orderPlanAmount    = this.removeCommas(this.orderPlanAmount);
+                output[i].bulkRequestDate    = this.bulkRequestDate;
+                output[i].bulkRequester      = this.bulkRequester;
+                output[i].bulkApprovalDate   = this.bulkApprovalDate;
+                output[i].bulkApprovalPerson = this.bulkApprovalPerson;
             }            
         }
         return output;

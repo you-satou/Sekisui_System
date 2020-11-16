@@ -27,6 +27,11 @@ export class DataEmitter {
     this.data.orderSupplierCode  = key.orderSupplierCode;
     this.data.orderSupplierName  = key.orderSupplierName;
     this.data.orderPlanAmount    = key.orderPlanAmount;
+
+    this.data.bulkRequestDate    = key.bulkRequestDate;
+    this.data.bulkRequester      = key.bulkRequester;
+    this.data.bulkApprovalDate   = key.bulkApprovalDate;
+    this.data.bulkApprovalPerson = key.bulkApprovalPerson;
   }
    /**
     * 明細のステータスを設定する

@@ -85,61 +85,71 @@
         <!--仕訳コード-->
         <ng-container matColumnDef="journalCode">
             <th style="min-width: 60px; width: 60px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 60px; width: 60px; " class="font-s" mat-cell *matCellDef="let element "> {{element.journalCode}} </td>
+            <td style="min-width: 60px; width: 60px; " class="font-s" mat-cell *matCellDef="let element " 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.journalCode}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--経理分類-->
         <ng-container matColumnDef="accountCode">
             <th style="min-width: 40px; width: 40px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 40px; width: 40px; " class="font-s" mat-cell *matCellDef="let element "> {{element.accountCode}} </td>
+            <td style="min-width: 40px; width: 40px; " class="font-s" mat-cell *matCellDef="let element " 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.accountCode}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--仕訳名称-->
         <ng-container matColumnDef="journalName">
             <th style="min-width: 150px; width: 150px; " class="color-input-2 " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 150px; width: 150px; " class="font-s" mat-cell *matCellDef="let element "> {{element.journalName}} </td>
+            <td style="min-width: 150px; width: 150px; " class="font-s" mat-cell *matCellDef="let element " 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.journalName}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--発注先コード-->
         <ng-container matColumnDef="orderSupplierCode">
             <th style="min-width: 40px; width: 40px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 40px; width: 40px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSupplierCode}} </td>
+            <td style="min-width: 40px; width: 40px; " class="font-s" mat-cell *matCellDef="let element " 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.orderSupplierCode}} </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--発注先名称-->
         <ng-container matColumnDef="orderSupplierName">
             <th style="min-width: 220x; width: 220px; " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 220px; width: 220px; " class="font-s" mat-cell *matCellDef="let element "> {{element.orderSupplierName}} </td>
+            <td style="min-width: 220px; width: 220px; " class="font-s" mat-cell *matCellDef="let element " 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.orderSupplierName}} </td>
             <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
-                <button style="height: 32px; width: 80px; line-height: 10px; top: 1px; padding: 0;" mat-button class="btn btn-primary btn-small">一括依頼</button>
-                <button style="margin: 0 20px; height: 32px; width: 80px; line-height: 10px; top: 1px; padding: 0;" mat-button class="btn btn-success">一括承認</button>
+                <button mat-button disabled={{bulkRequestInfo()}} class="btn btn-primary btn-small btnBulkRequest" (click)="oneClickRequest($event)">一括依頼</button>
+                <button mat-button disabled={{bulkApprovalInfo()}} class="btn btn-success btnBulkApproval" (click)="oneClickApproval($event)">一括承認</button>
             </td>
         </ng-container>
 
-        <!--承認日-->
+        <!--一括依頼日-->
         <ng-container matColumnDef="bulkRequestDate">
             <th style="min-width: 75px; width: 75px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 75x; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element"> {{element.bulkRequestDate}} </td>
+            <td style="min-width: 75x; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element" 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}">{{element.bulkRequestDate}}</td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
-        <!--承認日-->
+        <!--一括承認日-->
         <ng-container matColumnDef="bulkApprovalDate">
             <th style="min-width: 75px; width: 75px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
-            <td style="min-width: 75px; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element"> {{element.bulkApprovalDate}} </td>
+            <td style="min-width: 75px; width: 75px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element" 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}">{{element.bulkApprovalDate}}</td>
             <td mat-footer-cell *matFooterCellDef class="goukie">合計</td>
         </ng-container>
         
         <!--発注予定金額-->
         <ng-container matColumnDef="orderPlanAmount">
             <th style="min-width: 120px; width: 120px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
-            <td id="txtPlanAmount{{i}}" style="min-width: 120px; width: 120px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element; let i = index" style.color="{{ getFontColor(element) }}"> {{element.orderPlanAmount | number}} </td>
+            <td id="txtPlanAmount{{i}}" style="min-width: 120px; width: 120px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element; let i = index" style.color="{{getFontColor(element)}}" 
+            [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson)!= '' ? this.grayOut :'white'}"> {{element.orderPlanAmount | number}} </td>
             <td mat-footer-cell *matFooterCellDef>{{getTotalPlanAmount() | number}}</td>
         </ng-container>
         <!--反映-->
         <ng-container matColumnDef="display">
             <th style="min-width: 35px; width: 35px;" class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 35px; width: 35px; box-shadow: 1px 0px 0px 0px #dee2e6 inset; padding: 0 !important;" class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)><mat-icon>➡</mat-icon></button>
+                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)>
+                    <mat-icon>➡</mat-icon>
+                </button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
         </ng-container>
@@ -147,7 +157,7 @@
         <ng-container matColumnDef="split">
             <th style="min-width: 35px; width: 35px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 35px; width: 35px; text-align: center; padding: 0 !important;" mat-cell *matCellDef="let element ">
-                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isSplitFlg(element)}}" mat-button (click) = 'moveToSliptDetailInput($event,element)'>分</button>
+                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isSplitFlg(element)}}" mat-button (click)="moveToSliptDetailInput($event,element)">分</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -187,7 +197,8 @@
             <td style="min-width: 100px; width: 100px; text-align: center; " mat-cell *matCellDef="let element">
                 <label *ngIf="this.comCompnt.setValue(element.requester) != ''">{{element.requester}}</label>
                 <!-- 発注金額が入力あり AND 依頼日が空白の場合にボタンを表示 -->
-                <button *ngIf="this.comCompnt.setValue(element.orderSplitAmount) != '' && this.comCompnt.setValue(element.requester) == ''"(click) = "setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
+                <button *ngIf="this.comCompnt.setValue(element.orderSplitAmount) != '' 
+                            && this.comCompnt.setValue(element.requester) == ''"(click)="setRequest($event,element)" mat-button class="btn btn-outline-primary btn-small">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
@@ -203,8 +214,9 @@
             <td style="min-width: 100px; width: 100px; text-align: center;" mat-cell *matCellDef = "let element">
                 <label *ngIf=" approvalUnit >= 2 && this.comCompnt.setValue(element.approvalPerson_lv1) !=''">{{element.approvalPerson_lv1}}</label>
                 <!-- 依頼日が入力あり AND ログイン者が「承認１:可」(TODO)の場合）にボタンを表示 -->
-                <button
-                    *ngIf="approvalUnit >= 2 && this.comCompnt.setValue(element.requester) !='' && this.comCompnt.setValue(element.approvalPerson_lv1) ==''"
+                <button *ngIf="approvalUnit >= 2 
+                           && this.comCompnt.setValue(element.requester) !='' 
+                           && this.comCompnt.setValue(element.approvalPerson_lv1) ==''"
                     (click)="setApprovalFirstLevel($event,element)" mat-button class="btn btn-outline-success">承認</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>

@@ -43,15 +43,21 @@ export class AppComponent implements OnInit {
 
   approvalLevels: number;
 
+  loginUser: string;
+  branchName: string;
+
   constructor( 
     private router: Router, 
     private location: Location,
-    ) {  }
+    ) { 
+      //TODO:　アプリ起動する時、承認者数を取得する。
+      this.approvalLevels = 2;
+      //TODO: ログイン情報取得。
+      this.loginUser = '積水　次郎';
+      this.branchName = '大阪北支店';
+    }
 
   ngOnInit() {
-
-    //TODO:　アプリ起動する時、承認者数を取得する。
-    this.approvalLevels = 2;
 
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。

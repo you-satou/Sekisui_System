@@ -308,6 +308,14 @@
     height: auto !important;
 }
 
+.grayOut{
+    text-align: left; 
+    background-color: whitesmoke;
+}
+
+.modifyTbl{
+    overflow-x: auto;
+}
 /*************************************************************/
 /*****                                                    ****/
 /*****                   TABLE APPROVAL                   ****/
