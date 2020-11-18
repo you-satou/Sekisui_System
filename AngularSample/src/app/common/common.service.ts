@@ -1,8 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { ApiResponseBody } from './ApiResponseBody'
+
+declare var require: any;
+const FileSaver = require('file-saver');
 
 @Injectable()
 export class CommonService{
@@ -55,6 +58,13 @@ export class CommonService{
             return response;
         })
         .catch(this.handleError);        
+    }
+
+    getDownLoad(urlName: string, data: any):Observable<any>{
+        let headers: HttpHeaders = new HttpHeaders();
+        headers = headers.set('Content-Type','application/json; charset=utf-8')
+        let httpOptions = { observe:'response' as 'body', responseType: 'blob' as 'json', headers};
+        return this.http.post(this.baseUrl + `/${urlName}/`, data, httpOptions);
     }
 
 

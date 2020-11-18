@@ -23,6 +23,10 @@ import { ODIS0020JournalCode } from '../entities/odis0020-JournalCode.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity';
 import { ODIS0020UpdForm } from '../entities/odis0020-UpdForm.entity';
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entity';
+import { HttpResponse } from '@angular/common/http';
+
+declare var require: any;
+const FileSaver = require('file-saver');
 
 @Component({
   selector: 'order-detail-input',
@@ -1296,17 +1300,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     //TODO: 承認人数
     this.paramInit.approvalLevel = this.appComponent.approvalLevels.toString();
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderDetailFile,this.paramInit)
-    .then(
-      (response) => {
-        if(response.result === Const.ConnectResult.R0001){  
-          //ダウンロードが成功した場合、メッセージを表示する
-          alert(response.message);
-        }else{
-          //ダウンロードが失敗した場合、エラーメッセージを表示する
-          alert(response.message);
-        }
-        this.isLoading = false;
+    this.orderService.getDownLoad(Const.UrlLinkName.S0002_GetOrderDetailFile,this.paramInit)
+    .subscribe((response:HttpResponse<any>) => {
+        let fielNm:string = response.headers.get('Content-Disposition').replace('attachment; filename=','');
+        let blob: Blob = new Blob([response.body], {type: response.headers.get('content-type')})
+        FileSaver.saveAs(blob, fielNm);
       }
     );
   } 
