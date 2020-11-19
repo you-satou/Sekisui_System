@@ -786,8 +786,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       for(var data of dataTable) {
         // 同一仕訳コードが存在する場合
         if (insBk.journalCode === data.journalCode) {
-          // 承認日１が空白の場合
-          if (this.baseCompnt.setValue(data.approvalPerson_lv1) === '') {
+          // 一括承認日が空白の場合
+          if (this.baseCompnt.setValue(data.bulkApprovalDate) === '') {
             // 対象データ（同一発注連番）を上書きする
             for(var tempDt of dataTable){
               if(data.detailNo === tempDt.detailNo){

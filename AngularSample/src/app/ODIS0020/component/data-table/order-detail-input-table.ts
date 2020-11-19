@@ -681,6 +681,12 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
   }
 
   bulkRequestInfo(){
+
+    //明細が選択されている時、一括依頼処理を行わない
+    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+      return true;
+    }
+
     //一括依頼データを抽出
     var requestInfo = this.orderData.filter(value => {
       if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
@@ -695,7 +701,13 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
   }
 
   bulkApprovalInfo(){
-    //一括依頼データを抽出
+
+    //明細が選択されている時、一括承認処理を行わない
+    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+      return true;
+    }
+
+    //一括承認データを抽出
     var requestInfo = this.orderData.filter(value => {
       if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
         return value;

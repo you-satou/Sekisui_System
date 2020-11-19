@@ -121,3 +121,7 @@
 .text-right {
     white-space: nowrap;
 }
+
+::ng-deep .mat-ripple-element {
+    display: none;
+}

@@ -114,7 +114,3 @@
 #propertyName{
     width: 23%;
 }
-
-div.mat-paginator-range-actions > button > div.mat-ripple.mat-button-ripple {
-    display: none !important;
-}
