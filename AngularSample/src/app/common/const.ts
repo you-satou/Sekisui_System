@@ -51,6 +51,7 @@ export namespace Const{
         export const S0002_GetJournalCode = '/ODIS0020/getJournalCode';
         export const S0002_UPDATE = '/ODIS0020/update';
         export const S0002_GetOrderDetailFile = '/ODIS0020/download';
+        export const S0002_UpdateAndDownload = '/ODIS0020/updateAndDownload';
         export const S0003_Init = '/ODIS0030/init';
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
@@ -165,6 +166,7 @@ export namespace Const{
         export const E0018 = '編集途中のデータがあります。';
         export const E0019 = '「ハウス材」「運賃・荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
         export const E0020 = '予期せぬエラーが発生しました。\n管理者に問い合わせて下さい。';
+
     }
     /**
      * 警告メッセージ
@@ -175,6 +177,7 @@ export namespace Const{
         export const W0002 = '通信中。。。';
         export const W0003 = '承認処理画面に戻ります。\n保存されていないデータは破棄されますが、よろしいでしょうか';
         export const W0004 = '編集途中のデータがあります。\n編集途中のデータは破棄されますが、更新処理を行いますか？';
+        export const W0005 = '表示されているデータをデータベースに登録しますが\nよろしいでしょうか？';
     }
 
     /**

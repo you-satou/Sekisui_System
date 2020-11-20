@@ -1320,7 +1320,80 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.isLoading = false;
           }
      })
-  } 
+  }
+
+  /**
+   * ダウンロードする前に、一回登録してから帳票を出力する
+   * @param $event 
+   */
+  updateDownloadOrderDetailExportFile($event){	  
+  
+    //登録警告を表示する。
+    let confirm = window.confirm(Const.WarningMsg.W0005);
+    if(!confirm){
+      return;    
+    }
+    
+    // 入力チェック(「設計」タブ)
+    if(this.updCheck(this.childSekkei.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「本体」タブ)
+    if(this.updCheck(this.childHontai.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「解体」タブ)
+    if(this.updCheck(this.childKaitai.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // 入力チェック(「追加」タブ)
+    if(this.updCheck(this.childTsuika.orderData)){
+      this.isLoading = false;
+      return 
+    }
+    // ローディング開始
+    this.isLoading = true;
+
+    //サーバに更新データを送る。
+    var tmp: ODIS0020OrderDetaiSplitBean[] = [];
+    // 受注枝番 マージ
+    this.createOrderData(tmp, this.childSekkei.orderData);    // 設計
+    this.createOrderData(tmp, this.childHontai.orderData);    // 本体
+    this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
+    this.createOrderData(tmp, this.childTsuika.orderData);    // 追加
+
+    this.paramUpd.approvalLevels = this.appComponent.approvalLevels.toString();
+    this.paramUpd.propertyNo = this.paramInit.propertyNo;
+    this.paramUpd.officeCode = this.paramInit.officeCode;
+    this.paramUpd.contractNum = this.paramInit.contractNum;
+    this.paramUpd.orderDetailList = tmp;    
+
+    this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload,this.paramUpd)
+    .subscribe((response:HttpResponse<any>) => {
+          try{
+            //ファイル名を取得する。
+            let fileName = response.headers.get('Content-Disposition').replace('attachment; filename=','');
+            //デイコード 
+            fileName = decodeURI(fileName);            
+            //ダウンロードデータを取得する。
+            let dataStream: Blob = new Blob([response.body], {type: response.headers.get('Content-Type')});
+            //保存する。
+            FileSaver.saveAs(dataStream, fileName);
+          }
+          catch(error){
+            //エラーが発生した場合、エラーメッセージを表示する。
+            alert(Const.ErrorMsg.E0020);
+          }
+          finally{
+            this.isLoading = false;
+          }
+     })    
+
+  }
+
 
   //#endregion
 
