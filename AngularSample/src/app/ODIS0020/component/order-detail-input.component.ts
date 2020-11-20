@@ -1302,11 +1302,24 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramInit.approvalLevel = this.appComponent.approvalLevels.toString();
     this.orderService.getDownLoad(Const.UrlLinkName.S0002_GetOrderDetailFile,this.paramInit)
     .subscribe((response:HttpResponse<any>) => {
-        let fielNm:string = response.headers.get('Content-Disposition').replace('attachment; filename=','');
-        let blob: Blob = new Blob([response.body], {type: response.headers.get('content-type')})
-        FileSaver.saveAs(blob, fielNm);
-      }
-    );
+          try{
+            //ファイル名を取得する。
+            let fileName = response.headers.get('Content-Disposition').replace('attachment; filename=','');
+            //デイコード 
+            fileName = decodeURI(fileName);            
+            //ダウンロードデータを取得する。
+            let dataStream: Blob = new Blob([response.body], {type: response.headers.get('Content-Type')});
+            //保存する。
+            FileSaver.saveAs(dataStream, fileName);
+          }
+          catch(error){
+            //エラーが発生した場合、エラーメッセージを表示する。
+            alert(Const.ErrorMsg.E0020);
+          }
+          finally{
+            this.isLoading = false;
+          }
+     })
   } 
 
   //#endregion
