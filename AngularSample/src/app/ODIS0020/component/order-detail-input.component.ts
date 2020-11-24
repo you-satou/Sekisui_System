@@ -276,8 +276,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.router.navigate([Const.UrlSetting.U0001]);
             }
             //ロード画面を解除する。
-            this.isLoading = false;          
-
+            this.isLoading = false;
           }
         );
   }
@@ -1156,7 +1155,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           return;
         }
     }
-
     // 入力チェック(「設計」タブ)
     if(this.updCheck(this.childSekkei.orderData)){
       this.isLoading = false;
@@ -1338,22 +1336,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 入力チェック(「設計」タブ)
     if(this.updCheck(this.childSekkei.orderData)){
       this.isLoading = false;
-      return 
+      return;
     }
     // 入力チェック(「本体」タブ)
     if(this.updCheck(this.childHontai.orderData)){
       this.isLoading = false;
-      return 
+      return;
     }
     // 入力チェック(「解体」タブ)
     if(this.updCheck(this.childKaitai.orderData)){
       this.isLoading = false;
-      return 
+      return;
     }
     // 入力チェック(「追加」タブ)
     if(this.updCheck(this.childTsuika.orderData)){
       this.isLoading = false;
-      return 
+      return;
     }
     // ローディング開始
     this.isLoading = true;
@@ -1367,10 +1365,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childTsuika.orderData);    // 追加
 
     this.paramUpd.approvalLevels = this.appComponent.approvalLevels.toString();
-    this.paramUpd.propertyNo = this.paramInit.propertyNo;
-    this.paramUpd.officeCode = this.paramInit.officeCode;
-    this.paramUpd.contractNum = this.paramInit.contractNum;
-    this.paramUpd.orderDetailList = tmp;    
+    this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ
+    this.paramUpd.officeCode = this.paramInit.officeCode;     // 事業所コード
+    this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
+    this.paramUpd.orderDetailList = tmp;                      // 一覧データ
 
     this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload,this.paramUpd)
     .subscribe((response:HttpResponse<any>) => {

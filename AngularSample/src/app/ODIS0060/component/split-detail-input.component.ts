@@ -33,9 +33,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'bunkatsuHachuuSaki',
     'comment',
     'irai',
-    // 'shounin_1',
-    // 'shounin_2',
-    // 'shounin_3',
     'saishuu_shounin',
     'order',
     'received',
@@ -46,12 +43,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   subHeaderCols: string[] = [
     'requestDate',
     'requester',
-    // 'approvalDate_lv1',
-    // 'approvalPerson_lv1',
-    // 'approvalDate_lv2',
-    // 'approvalPerson_lv2',
-    // 'approvalDate_lv3',
-    // 'approvalPerson_lv3',
     'approvalDate_final',
     'approvalPerson_final',
   ];
@@ -65,12 +56,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'comment1',
     'requestDate',
     'requester',
-    // 'approvalDate_lv1',
-    // 'approvalPerson_lv1',
-    // 'approvalDate_lv2',
-    // 'approvalPerson_lv2',
-    // 'approvalDate_lv3',
-    // 'approvalPerson_lv3',
     'approvalDate_final',
     'approvalPerson_final',
     'orderDate',
@@ -180,20 +165,27 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //2020/11/09 11月中の要望対応
   setApprovalLevelColumns(unit: number){
     switch(unit){
-      case Const.ApprovalLevel.FourLevels:
         this.mainHeaderCols.splice((this.mainHeaderCols.indexOf('irai')+1),0,'shounin_1','shounin_2','shounin_3');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
-        this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2','approvalDate_lv3','approvalPerson_lv3');
+      case Const.ApprovalLevel.OneLevel:
         break;
-      case Const.ApprovalLevel.ThreeLevels:
-        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai')+1,0,'shounin_1','shounin_2');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
-        this.totalColumns.splice(7,0,'approvalDate_lv1','approvalPerson_lv1','approvalDate_lv2','approvalPerson_lv2');
-        break;
+
       case Const.ApprovalLevel.TwoLevels:
-        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai')+1,0,'shounin_1');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
-        this.totalColumns.splice((this.totalColumns.indexOf('requester')+1),0,'approvalDate_lv1','approvalPerson_lv1');
+        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai') + 1, 0, 'shounin_1');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1');
+        this.totalColumns.splice((this.totalColumns.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1');
+        break;
+
+      case Const.ApprovalLevel.ThreeLevels:
+        this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai') + 1, 0, 'shounin_1', 'shounin_2');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2');
+        this.totalColumns.splice(7, 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2');
+        break;
+
+      case Const.ApprovalLevel.FourLevels:
+      default:
+        this.mainHeaderCols.splice((this.mainHeaderCols.indexOf('irai') + 1), 0, 'shounin_1', 'shounin_2', 'shounin_3');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2', 'approvalDate_lv3', 'approvalPerson_lv3');
+        this.totalColumns.splice((this.totalColumns.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2', 'approvalDate_lv3', 'approvalPerson_lv3');
         break;
     }
   }
@@ -534,8 +526,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     //TODO: ログイン情報を取得 
     this.input.requestDate = requestTime;
     this.input.requester = '積水　次郎';
-    //依頼ボタンを非表示する
-    // this.btnSubIrai.style.display = 'none';
 
   }
   
@@ -545,7 +535,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   resetAddTable() {
     this.input.Clear();
     this.rowStatus.Reset();
-    // this.btnSubIrai.style.display = 'inherit';
     this.paramOrderCode = new ODIS0060Form();
   }
 
@@ -577,11 +566,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 「戻る」ボタンの押下
    */
   backToOrderDetailInput() {
-
-    // if(!(this.input.isBlank)){
-    //   alert(Const.ErrorMsg.E0018);
-    // }
-    // else{
 
     this.toSaveShiwakeData();
     this.router.navigate([Const.UrlSetting.U0002]);

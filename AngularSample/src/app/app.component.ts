@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
     private location: Location,
     ) { 
       //TODO:　アプリ起動する時、承認者数を取得する。
-      this.approvalLevels = 2;
+      this.approvalLevels = 1;
       //TODO: ログイン情報取得。
       this.loginUser = '積水　次郎';
       this.branchName = '大阪北支店';

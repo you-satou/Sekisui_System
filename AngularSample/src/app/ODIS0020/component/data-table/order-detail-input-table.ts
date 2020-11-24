@@ -102,31 +102,34 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     //2020/11/09 11月中の要望対応　Add Start
     this.approvalUnit = this.appComponent.approvalLevels;
     switch(this.approvalUnit){
-      //承認人数が4人で設定する
-      case Const.ApprovalLevel.FourLevels:
-        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2","shounin_lv3");
-        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
-        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
+ 
+      //承認人数が1人で設定する
+      case Const.ApprovalLevel.OneLevel:
         break;
-      //承認人数が3人で設定する
-      case Const.ApprovalLevel.ThreeLevels:
-        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2");
-        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2");
-        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2");
-        break;
+
       //承認人数が2人で設定する
       case Const.ApprovalLevel.TwoLevels:
-        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1");
-        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
-        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1");
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai') + 1), 0, "shounin_lv1");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1");
         break;
-      
+
+      //承認人数が3人で設定する
+      case Const.ApprovalLevel.ThreeLevels:
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai') + 1), 0, "shounin_lv1", "shounin_lv2");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1", "approvalDate_lv2", "approvalPerson_lv2");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1", "approvalDate_lv2", "approvalPerson_lv2");
+        break;
+
+      //承認人数が4人で設定する
+      case Const.ApprovalLevel.FourLevels:
       //承認者数枠が4人のため、デフォルトが承認者数が4人を設定する。
       default:
-        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai')+1),0,"shounin_lv1","shounin_lv2","shounin_lv3");
-        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
-        this.bodyColumns.splice((this.bodyColumns.indexOf('requester')+1),0,"approvalDate_lv1","approvalPerson_lv1","approvalDate_lv2","approvalPerson_lv2","approvalDate_lv3","approvalPerson_lv3");
+        this.mainHeaderColumns.splice((this.mainHeaderColumns.indexOf('irai') + 1), 0, "shounin_lv1", "shounin_lv2", "shounin_lv3");
+        this.subHeaderColumns.splice((this.subHeaderColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1", "approvalDate_lv2", "approvalPerson_lv2", "approvalDate_lv3", "approvalPerson_lv3");
+        this.bodyColumns.splice((this.bodyColumns.indexOf('requester') + 1), 0, "approvalDate_lv1", "approvalPerson_lv1", "approvalDate_lv2", "approvalPerson_lv2", "approvalDate_lv3", "approvalPerson_lv3");
         break;
+
     }
     //2020/11/09 11月中の要望対応 Add End
   }
