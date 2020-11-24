@@ -153,7 +153,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-    // this.btnSubIrai = document.getElementById('btnSubIrai'); 
     this.setTableBunkatsuButtonDisplay(this.bunkatsuData);
     let firstIndex = document.getElementsByClassName('mat-tab-label-active');
     firstIndex[0].setAttribute('tabindex','-1');
@@ -165,7 +164,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //2020/11/09 11月中の要望対応
   setApprovalLevelColumns(unit: number){
     switch(unit){
-        this.mainHeaderCols.splice((this.mainHeaderCols.indexOf('irai')+1),0,'shounin_1','shounin_2','shounin_3');
       case Const.ApprovalLevel.OneLevel:
         break;
 
