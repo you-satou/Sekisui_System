@@ -841,6 +841,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // 初期化
     this.setDefaultDisplay();
+    this.rowStatus.Clear();
   }
   
   /**

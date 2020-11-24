@@ -55,7 +55,7 @@ export class OrderJournalSelectService {
   * 戻り値をセットして、モーダルを閉じる
   */
   public requestChooseVal(resVal:OrderJournalSelectType) {
-    this.setVal(resVal)
+    this.setVal(resVal);
     this.closeEventSubject.next();
   }
 
