@@ -249,7 +249,7 @@
         <ng-container matColumnDef="approvalPerson_lv3">
             <th style="min-width: 100px; width: 100px; " class="color-input-4 sticky" mat-header-cell *matHeaderCellDef>承認者</th>
             <td style="min-width: 100px; width: 100px; text-align: center;" class="font-s-center" mat-cell *matCellDef="let element">
-                <label *ngIf="approvalUnit == 4 && this.comCompnt.setValue(element.approvalDate_lv3) !=''">{{element.approvalDate_lv3}}</label>
+                <label *ngIf="approvalUnit == 4 && this.comCompnt.setValue(element.approvalPerson_lv3) !=''">{{element.approvalPerson_lv3}}</label>
                 <!-- 承認３承認ボタンの表示制御 -->
                 <!-- 「承認人数が３を設定」と「ログイン：承認３可」と「承認2承認済」の時に表示する -->
                 <button

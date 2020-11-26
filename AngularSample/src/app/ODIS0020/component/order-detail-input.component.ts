@@ -1133,11 +1133,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           break;
         case Const.InsKubun.Ins:
           // 登録
-          this.baseCompnt.setRowColor(Const.Action.A0001,body,i);
+          this.baseCompnt.setRowColor(Const.Action.A0001,body,i,tmpTbl[i].bulkApprovalPerson);
           break;
         case Const.InsKubun.Upd:
           // 更新
-          this.baseCompnt.setRowColor(Const.Action.A0002,body,i);
+          this.baseCompnt.setRowColor(Const.Action.A0002,body,i,tmpTbl[i].bulkApprovalPerson);
           break;
       }
     }

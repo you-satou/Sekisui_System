@@ -331,16 +331,19 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     }
 
     //分割明細のボタンの活用性を設定する
-    this.journalDataApprovalChecker(rowDt);
+    this.journalDataApprovalChecker(rowDt, nodeName);
   }
 
   /**
    * 分割明細 制限チェック
    * @param rowData 
    */
-  journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu){
+  journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu, nodeName: any){
     
     switch(true){
+      case (nodeName == 'SPAN' || nodeName == 'BUTTON'):
+        this.setPageButtonDisplay(false, true, false, true);
+        break;
       //依頼未・承認未
       case (rowData.requester == '' && rowData.approvalPerson_lv1 == ''):
         this.setPageButtonDisplay(true, false, false, false);
@@ -506,6 +509,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let btn = document.getElementById(name);
     // 処理後ボタンを　削除する。
     btn.style.display = 'none';
+    this.resetAddTable();
   }
 
   /**

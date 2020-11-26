@@ -86,12 +86,16 @@ export class CommonComponent {
     //テーブルの背景色をクリアする。
     for (var i = 0; i < wTbody.rows.length; i++) {
       var tr = wTbody.rows[i];
-      tr.style.backgroundColor = Const.HighLightColour.None;
+      for(var j = 0; j < tr.cells.length; j++) {
+        var td = tr.cells[j];
+        td.style.backgroundColor = Const.HighLightColour.None;
+      }
     }
-
     // クリックされた行の背景色を変える。
-    wTr.style.backgroundColor = Const.HighLightColour.Selected;
-
+    for(var i = 0; i < wTr.cells.length; i++) {
+      var wTd = wTr.cells[i];
+      wTd.style.backgroundColor = Const.HighLightColour.Selected;
+    }
   }
 
   /**
@@ -352,23 +356,45 @@ export class CommonComponent {
   * @param action 追加・変更・未選択・選択
   * @param body 
   * @param rIndex row Index 
+  * @param bulkApprovalPerson 一括承認
   */
-  setRowColor(action: string, body: any, rIndex: number) {
+  setRowColor(action: string, body: any, rIndex: number, bulkApprovalPerson?: any) {
 
     for (var i = 0; i < body.rows.length; i++) {
-      if (i == rIndex) {
-         var tr = body.rows[i];
-        //明細追加または変更した時に、フォント色を変える
-        if (action == Const.Action.A0001 || action == Const.Action.A0002) {
-          tr.style.color = this.getColor(action);
-          tr.style.backgroundColor = '';
-        }
-        else {
-          tr.style.backgroundColor = this.getColor(action);
+      const tr = body.rows[i];
+      //TODO: 中止ボタンを押下した場合、追加・更新されていない行の背景色を白にする
+      if (this.setValue(rIndex) == '' && action == Const.Action.A0006) {
+        for (var j = 0; j < tr.cells.length; j++) {
+          var td = tr.cells[j];
+          td.style.backgroundColor = this.getColor(action);
         }
       }
-    }
+      //追加・更新されている行のフォント色・背景色を変える
+      if (i == rIndex) {
+        if (action == Const.Action.A0001 || action == Const.Action.A0002) {
+          tr.style.color = this.getColor(action);
+          for (var j = 0; j < tr.cells.length; j++) {
+            var td = tr.cells[j];
+            //フォント色が赤か透明じゃない文字を青か黄色にする
+            if (td.style.color != Const.HighLightColour.Red && td.style.color != 'transparent') {
+              td.style.color = this.getColor(action);
+            }
+            //承認されていない明細の背景色をしろにする
+            if (this.setValue(bulkApprovalPerson) == '') {
+              td.style.backgroundColor = '';
+            }
+          }
+        } else {
+          //分割画面から詳細入力画面に戻る場合、遷移する前に選択された行の背景色を青にする
+          //中止ボタンを押下した場合、行の背景色を白にする（詳細入力画面を除く）
+          for (var j = 0; j < tr.cells.length; j++) {
+            var td = tr.cells[j];
+            td.style.backgroundColor = this.getColor(action);
+          }
+        }
 
+      }
+    }
   }
 
   getColor(action: string): string {

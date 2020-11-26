@@ -377,7 +377,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    */
   onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
     
-    this.setSelect($event, value);
+    this.setSelect($event);
 
     // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
@@ -425,7 +425,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   }
 
-  setSelect(event: any, value: ODIS0020OrderDetaiSplitBean){
+  setSelect(event: any){
 
     //クリックされたエレメント名を取得する
     var nodeName = event.target.nodeName;
