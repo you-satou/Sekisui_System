@@ -72,12 +72,17 @@ export class CommonComponent {
         wTbody = event.path[3];
         break;
 
-        // //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
+        // //依頼・承認ボタン・分割注文書発行区分チェックボックスを押下した後、明細変更テーブルにデータを表示しない。
       case 'SPAN':
         wTr = event.path[3];
         wTbody = event.path[4];
         break;
       case 'BUTTON':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
+
+      case 'INPUT':
         wTr = event.path[2];
         wTbody = event.path[3];
         break;
