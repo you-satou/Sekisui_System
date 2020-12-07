@@ -30,8 +30,15 @@ export class DataEmitter {
 
     this.data.bulkRequestDate    = key.bulkRequestDate;
     this.data.bulkRequester      = key.bulkRequester;
-    this.data.bulkApprovalDate   = key.bulkApprovalDate;
-    this.data.bulkApprovalPerson = key.bulkApprovalPerson;
+
+    this.data.bulkApprovalDate_lv1     = key.bulkApprovalDate_lv1;
+    this.data.bulkApprovalPerson_lv1   = key.bulkApprovalPerson_lv1;
+    this.data.bulkApprovalDate_lv2     = key.bulkApprovalDate_lv2;
+    this.data.bulkApprovalPerson_lv2   = key.bulkApprovalPerson_lv2;
+    this.data.bulkApprovalDate_lv3     = key.bulkApprovalDate_lv3;
+    this.data.bulkApprovalPerson_lv3   = key.bulkApprovalPerson_lv3;
+    this.data.bulkApprovalDate_final   = key.bulkApprovalDate_final;
+    this.data.bulkApprovalPerson_final = key.bulkApprovalPerson_final;
   }
    /**
     * 明細のステータスを設定する

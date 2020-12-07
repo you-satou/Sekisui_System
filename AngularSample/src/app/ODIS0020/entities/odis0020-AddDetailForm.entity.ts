@@ -25,16 +25,41 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     /** 発注予定金額 */
     orderPlanAmount: string;
 
-    /** 一括依頼日 */
-    bulkRequestDate : string = '';
-    /** 一括依頼者 */
-    bulkRequester: string = '';
-    /** 一括承認日 */
-    bulkApprovalDate: string = '';
-    /** 一括承認日 */
-    bulkApprovalPerson: string = '';
-  
+    /** 受注管理枝番 */
+    orderBranchNo: string = '';
 
+    /** 注文書発行区分 */
+    orderReceipt: string;
+
+    /** 発注依頼日 */
+    bulkRequestDate: string;
+
+    /** 発注依頼者 */
+    bulkRequester: string;
+
+    /** 発注承認１日 */
+    bulkApprovalDate_lv1: string;
+
+    /** 発注承認１者 */
+    bulkApprovalPerson_lv1: string;
+
+    /** 発注承認２日 */
+    bulkApprovalDate_lv2: string;
+
+    /** 発注承認２者 */
+    bulkApprovalPerson_lv2: string;
+
+    /** 発注承認３日 */
+    bulkApprovalDate_lv3: string;
+
+    /** 発注承認３者 */
+    bulkApprovalPerson_lv3: string;
+
+    /** 発注最終承認日 */
+    bulkApprovalDate_final: string;
+
+    /** 発注最終承認者 */
+    bulkApprovalPerson_final: string; 
 
     shiwakeData: ODIS0020OrderDetaiSplitBean;
 
@@ -77,32 +102,51 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     }
 
     Clear(){
-        this.journalCode        = '';
-        this.accountCode        = '';
-        this.journalName        = '';
-        this.orderSupplierCode  = '';
-        this.orderSupplierName  = '';
-        this.orderPlanAmount    = '';
-        this.bulkRequestDate    = '';
-        this.bulkRequester      = '';
-        this.bulkApprovalDate   = '';
-        this.bulkApprovalPerson = '';
+        this.orderBranchNo            = '';
+        this.journalCode              = '';
+        this.accountCode              = '';
+        this.journalName              = '';
+        this.orderSupplierCode        = '';
+        this.orderSupplierName        = '';
+        this.orderReceipt             = '';
+        this.orderPlanAmount          = '';
+        this.bulkRequestDate          = '';
+        this.bulkRequester            = '';
+        this.bulkApprovalDate_lv1     = '';
+        this.bulkApprovalPerson_lv1   = '';
+        this.bulkApprovalDate_lv2     = '';
+        this.bulkApprovalPerson_lv2   = '';
+        this.bulkApprovalDate_lv3     = '';
+        this.bulkApprovalPerson_lv3   = '';
+        this.bulkApprovalDate_final   = '';
+        this.bulkApprovalPerson_final = '';
+
         this.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
     }
 
     setInput(input: ODIS0020OrderDetaiSplitBean) {
 
         //編集テーブルの各セルに選択された行の値を挿入
+        this.orderBranchNo      = input.orderBranchNo;
         this.journalCode        = input.journalCode;
         this.journalName        = input.journalName;
         this.accountCode        = input.accountCode;
         this.orderSupplierCode  = input.orderSupplierCode;
         this.orderSupplierName  = input.orderSupplierName;
+        this.orderReceipt       = input.orderReceipt;
         this.orderPlanAmount    = this.addCommas(input.orderPlanAmount);
         this.bulkRequestDate    = input.bulkRequestDate;
         this.bulkRequester      = input.bulkRequester;
-        this.bulkApprovalDate   = input.bulkApprovalDate;
-        this.bulkApprovalPerson = input.bulkApprovalPerson;
+        this.bulkApprovalDate_lv1     = input.bulkApprovalDate_lv1;
+        this.bulkApprovalPerson_lv1   = input.bulkApprovalPerson_lv1;
+        this.bulkApprovalDate_lv2     = input.bulkApprovalDate_lv2;
+        this.bulkApprovalPerson_lv2   = input.bulkApprovalPerson_lv2;
+        this.bulkApprovalDate_lv3     = input.bulkApprovalDate_lv3;
+        this.bulkApprovalPerson_lv3   = input.bulkApprovalPerson_lv3;
+        this.bulkApprovalDate_final   = input.bulkApprovalDate_final;
+        this.bulkApprovalPerson_final = input.bulkApprovalPerson_final;
+
+        
         this.shiwakeData        = input;
     }
 
@@ -131,11 +175,28 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 output[i].orderPlanAmount    = this.removeCommas(this.orderPlanAmount);
                 output[i].bulkRequestDate    = this.bulkRequestDate;
                 output[i].bulkRequester      = this.bulkRequester;
-                output[i].bulkApprovalDate   = this.bulkApprovalDate;
-                output[i].bulkApprovalPerson = this.bulkApprovalPerson;
+                output[i].bulkApprovalDate_lv1     = this.bulkApprovalDate_lv1;
+                output[i].bulkApprovalPerson_lv1   = this.bulkApprovalPerson_lv1;
+                output[i].bulkApprovalDate_lv2     = this.bulkApprovalDate_lv2;
+                output[i].bulkApprovalPerson_lv2   = this.bulkApprovalPerson_lv2;
+                output[i].bulkApprovalDate_lv3     = this.bulkApprovalDate_lv3;
+                output[i].bulkApprovalPerson_lv3   = this.bulkApprovalPerson_lv3;
+                output[i].bulkApprovalDate_final   = this.bulkApprovalDate_final;
+                output[i].bulkApprovalPerson_final = this.bulkApprovalPerson_final;
             }            
         }
         return output;
     }
+
+}
+
+/**
+ * 受注枝番ドロップダウンリスト
+ */
+export class BranchDropDownList{
+
+    value: string;
+
+    text: string;
 
 }

@@ -376,7 +376,7 @@ export class CommonComponent {
           for (var j = 0; j < tr.cells.length; j++) {
             var td = tr.cells[j];
             //フォント色が赤か透明じゃない文字を青か黄色にする
-            if (td.style.color != Const.HighLightColour.Red && td.style.color != 'transparent') {
+            if (td.style.color != Const.HighLightColour.Red && td.style.color != Const.HighLightColour.Transparent) {
               td.style.color = this.getColor(action);
             }
             //承認されていない明細の背景色をしろにする

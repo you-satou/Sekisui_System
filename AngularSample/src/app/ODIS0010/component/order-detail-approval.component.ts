@@ -139,7 +139,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment.searchByName = this.getPropertyKubun();
     
     // 発注明細入力_承認処理取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
+    //TODO: 認証ＩＤ
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)    
       .then(
         (response) => {
           if(response.result === Const.ConnectResult.R0001){

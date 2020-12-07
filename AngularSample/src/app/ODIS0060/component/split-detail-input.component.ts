@@ -614,8 +614,14 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.orderPlanAmount      = this.shiwakeData[0].orderPlanAmount;
       dt.bulkRequestDate      = this.shiwakeData[0].bulkRequestDate;
       dt.bulkRequester        = this.shiwakeData[0].bulkRequester;
-      dt.bulkApprovalDate     = this.shiwakeData[0].bulkApprovalDate;
-      dt.bulkApprovalPerson   = this.shiwakeData[0].bulkApprovalPerson;
+      dt.bulkApprovalDate_lv1     = this.shiwakeData[0].bulkApprovalDate_lv1;
+      dt.bulkApprovalPerson_lv1   = this.shiwakeData[0].bulkApprovalPerson_lv1;
+      dt.bulkApprovalDate_lv2     = this.shiwakeData[0].bulkApprovalDate_lv2;
+      dt.bulkApprovalPerson_lv2   = this.shiwakeData[0].bulkApprovalPerson_lv2;
+      dt.bulkApprovalDate_lv3     = this.shiwakeData[0].bulkApprovalDate_lv3;
+      dt.bulkApprovalPerson_lv3   = this.shiwakeData[0].bulkApprovalPerson_lv3;
+      dt.bulkApprovalDate_final   = this.shiwakeData[0].bulkApprovalDate_final;
+      dt.bulkApprovalPerson_final = this.shiwakeData[0].bulkApprovalPerson_final;
       dt.splitNo              = (i + 1).toString();
       dt.orderSplitAmount     = this.bunkatsuData[i].orderSplitAmount;
       dt.splitSupplierCode    = this.bunkatsuData[i].splitSupplierCode;

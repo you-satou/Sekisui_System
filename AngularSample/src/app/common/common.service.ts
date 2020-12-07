@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResponseBody } from './ApiResponseBody'
+import { ShHttpClientConst, ShRedirectService , ShHttpClientService, LoggerService } from 'sh-http-client';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -15,6 +16,7 @@ export class CommonService{
     private searchUrl: string;
 
     constructor(
+        private shApiService: ShHttpClientService,
         private http: HttpClient,
     ){}
 
@@ -74,7 +76,18 @@ export class CommonService{
           console.log(error.error);
           return of(result as T)
         };
-      }
+    }
+
+    getAuthorizationSearch(url: string, data: any): Promise<ApiResponseBody<any>>{
+        return this.shApiService.post<any[]>(this.baseUrl + `/${url}/`, data)
+        .then((res => {
+            const response: any = res;
+            return response;
+        }))
+        .catch(this.handleError);
+        // .toPromise();
+
+    }
 
     
 

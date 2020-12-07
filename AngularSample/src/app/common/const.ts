@@ -61,7 +61,7 @@ export namespace Const{
         export const S0007_Insert = '/ODIS0070/insert';
         export const S0007_Update = '/ODIS0070/update';
         export const S0007_Delete = '/ODIS0070/delete';
-
+        export const S0008_Init = '/ODIS0080/init';
         
     }
 
@@ -136,7 +136,7 @@ export namespace Const{
         export const Inserted = '#40a8c4';
         export const GrayOut = '#e9ecef';
         export const Red = 'red';
-
+        export const Transparent = 'transparent';
     }
 
     /** 登録区分 */
@@ -199,6 +199,7 @@ export namespace Const{
         export const TabIndex_1 = '1'
         export const TabIndex_2 = '2'
         export const TabIndex_3 = '3'
+        
     }
 
     /**
@@ -216,5 +217,16 @@ export namespace Const{
         export const TwoLevels = 2
         export const ThreeLevels = 3
         export const FourLevels = 4
+    }
+
+    export namespace OrderReceiptCheckType {
+        export const Checked = '8';
+        export const UnCheck = '0';
+    }
+
+    export namespace BranchValue{
+        export const VAL_0 ='09';
+        export const VAL_1 ='00';
+
     }
 }

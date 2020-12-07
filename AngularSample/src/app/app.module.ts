@@ -26,6 +26,7 @@ import { OrderSplitApprovalMasterService } from './ODIS0070/services/order-split
 import { OrderDetailShiwakeTable } from './ODIS0020/component/data-table/order-detail-input-table';
 import { OrderDetailApprovalComponent } from './ODIS0010/component/order-detail-approval.component';
 import { LoadingSpinner } from './common/progressingSpinner/common.spinner';
+import { OrderGrossProfitMarginComponent } from './ODIS0080/component/order-gross-profit-margin.component';
 
 const appRoute: Routes = [
   { path: '', component: IndexComponent },
@@ -36,6 +37,7 @@ const appRoute: Routes = [
   { path: 'OrderDetailInput', component: OrderDetailInputComponent},
   { path: 'OrderSupplierSelect', component: OrderSupplierSelectComponent},
   { path: 'OrderSplitApprovalMaster', component: OrderSplitApprovalMasterComponent},
+  { path: 'GrossProfitMargin', component: OrderGrossProfitMarginComponent},
 ];
 
 @NgModule({
@@ -54,6 +56,7 @@ const appRoute: Routes = [
     OrderDetailShiwakeTable,
     SplitOrderDetailTable,
     LoadingSpinner,
+    OrderGrossProfitMarginComponent,
 
   ],
   imports: [

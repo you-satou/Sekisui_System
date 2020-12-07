@@ -1,3 +1,4 @@
+import { BranchDropDownList } from './../entities/odis0020-AddDetailForm.entity';
 import { ODIS0020Session, ODIS0020Form} from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,6 +28,23 @@ import { HttpResponse } from '@angular/common/http';
 
 declare var require: any;
 const FileSaver = require('file-saver');
+
+const BranchDDL: BranchDropDownList[] = [{
+    value: '00',
+    text: '00',
+  },
+  {
+    value: '01',
+    text: '01',
+  },
+  {
+    value: '02',
+    text: '02',
+  },
+  {
+    value: '02',
+    text: '02',
+  }]
 
 @Component({
   selector: 'order-detail-input',
@@ -118,6 +136,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   //初期画面のレンダー
   isInitFlg: boolean = false;
 
+  approvalUnit:number;
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -129,7 +149,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     private baseCompnt: CommonComponent,
     private changeDetectorRef: ChangeDetectorRef,
     private actvRoute: ActivatedRoute,
-  ) { }
+  ) {  }
 
   //#region  --------------- ▼▼ 初期表示処理 ▼▼ -----------------------------------
   /**
@@ -142,6 +162,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
+    this.approvalUnit = this.appComponent.approvalLevels;
     // セッション情報が存在する場合
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       // セッション情報 設定
@@ -195,6 +216,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
 
+          //FIXME: 注文・受注枝番
           temp.insKubun           = Const.InsKubun.Ins;
           temp.propertyNo         = this.paramInit.propertyNo;
           temp.detailKind         = this.tabValue.toString();
@@ -207,8 +229,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
           temp.bulkRequestDate    = '';
           temp.bulkRequester      = '';
-          temp.bulkApprovalDate   = '';
-          temp.bulkApprovalPerson = '';
+          temp.bulkApprovalDate_lv1     = '';
+          temp.bulkApprovalPerson_lv1   = '';
+          temp.bulkApprovalDate_lv2     = '';
+          temp.bulkApprovalPerson_lv2   = '';
+          temp.bulkApprovalDate_lv3     = '';
+          temp.bulkApprovalPerson_lv3   = '';
+          temp.bulkApprovalDate_final   = '';
+          temp.bulkApprovalPerson_final = '';
 
           bucketDt.push(temp);
         });
@@ -327,6 +355,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var initData: ODIS0020OrderDetaiSplitBean[] = [];
     var dt: ODIS0020OrderDetaiSplitBean;
 
+    //FIXME: 注文・受注枝番注文
     // ハウス材
     dt = new ODIS0020OrderDetaiSplitBean();
     dt.insKubun           = Const.InsKubun.Normal;
@@ -341,8 +370,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
-    dt.bulkApprovalDate   = '';
-    dt.bulkApprovalPerson = '';
+    dt.bulkApprovalDate_lv1     = '';
+    dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalDate_lv2     = '';
+    dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalDate_lv3     = '';
+    dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalDate_final   = '';
+    dt.bulkApprovalPerson_final = '';
     initData.push(dt);
 
     // 運賃・荷造・保管料
@@ -359,8 +394,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
-    dt.bulkApprovalDate   = '';
-    dt.bulkApprovalPerson = '';
+    dt.bulkApprovalDate_lv1     = '';
+    dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalDate_lv2     = '';
+    dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalDate_lv3     = '';
+    dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalDate_final   = '';
+    dt.bulkApprovalPerson_final = '';
     initData.push(dt);
 
     // 労災
@@ -377,8 +418,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
-    dt.bulkApprovalDate   = '';
-    dt.bulkApprovalPerson = '';
+    dt.bulkApprovalDate_lv1     = '';
+    dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalDate_lv2     = '';
+    dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalDate_lv3     = '';
+    dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalDate_final   = '';
+    dt.bulkApprovalPerson_final = '';
     initData.push(dt);
 
     return initData;
@@ -498,6 +545,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private createData(data: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean{
     let temp = new ODIS0020OrderDetaiSplitBean();
 
+    //FIXME: 受注枝番注文
     temp.insKubun              = this.baseCompnt.setValue(data.insKubun);
     temp.propertyNo            = this.baseCompnt.setValue(data.propertyNo);
     temp.detailKind            = this.baseCompnt.setValue(data.detailKind);
@@ -508,14 +556,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.journalName           = this.baseCompnt.setValue(data.journalName);
     temp.orderSupplierCode     = this.baseCompnt.setValue(data.orderSupplierCode);
     temp.orderSupplierName     = this.baseCompnt.setValue(data.orderSupplierName);
+    temp.orderReceipt          = this.baseCompnt.setValue(data.orderReceipt);
     temp.bulkRequestDate       = this.baseCompnt.setValue(data.bulkRequestDate);
     temp.bulkRequester         = this.baseCompnt.setValue(data.bulkRequester);
-    temp.bulkApprovalDate      = this.baseCompnt.setValue(data.bulkApprovalDate);
-    temp.bulkApprovalPerson    = this.baseCompnt.setValue(data.bulkApprovalPerson);
+    temp.bulkApprovalDate_lv1     = this.baseCompnt.setValue(data.bulkApprovalDate_lv1);
+    temp.bulkApprovalPerson_lv1   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv1);
+    temp.bulkApprovalDate_lv2     = this.baseCompnt.setValue(data.bulkApprovalDate_lv2);
+    temp.bulkApprovalPerson_lv2   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv2);
+    temp.bulkApprovalDate_lv3     = this.baseCompnt.setValue(data.bulkApprovalDate_lv3);
+    temp.bulkApprovalPerson_lv3   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv3);
+    temp.bulkApprovalDate_final   = this.baseCompnt.setValue(data.bulkApprovalDate_final);
+    temp.bulkApprovalPerson_final = this.baseCompnt.setValue(data.bulkApprovalPerson_final);
     temp.orderPlanAmount       = this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSplitAmount      = this.baseCompnt.setValue(data.orderSplitAmount);
     temp.splitSupplierCode     = this.baseCompnt.setValue(data.splitSupplierCode);
     temp.splitSupplierName     = this.baseCompnt.setValue(data.splitSupplierName);
+    temp.splitOrderReceipt     = this.baseCompnt.setValue(data.splitOrderReceipt);
     temp.comment               = this.baseCompnt.setValue(data.comment);
     temp.requestDate           = this.baseCompnt.setValue(data.requestDate);
     temp.requester             = this.baseCompnt.setValue(data.requester);
@@ -583,7 +639,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 初期化
     this.Clear();
     // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
+    // 「追加工事」タブを選択される場合、追加・変更・削除が不可
+    if(this.selectedTab === Const.TabName.TabName_3){
+      this.setPageButtonDisplay(true, true, false, true);
+    }
+    else{
+      this.setPageButtonDisplay(false, true, false, true);
+    }
+    
   }
 
   /**
@@ -653,8 +716,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.orderPlanAmount    = this.addInput.orderPlanAmount;
     temp.bulkRequestDate    = '';
     temp.bulkRequester      = '';
-    temp.bulkApprovalDate   = '';
-    temp.bulkApprovalPerson = '';
+    temp.bulkApprovalDate_lv1     = '';
+    temp.bulkApprovalPerson_lv1   = '';
+    temp.bulkApprovalDate_lv2     = '';
+    temp.bulkApprovalPerson_lv2   = '';
+    temp.bulkApprovalDate_lv3     = '';
+    temp.bulkApprovalPerson_lv3   = '';
+    temp.bulkApprovalDate_final   = '';
+    temp.bulkApprovalPerson_final = '';
 
     this.insertToDataTable(temp);
 
@@ -786,7 +855,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // 同一仕訳コードが存在する場合
         if (insBk.journalCode === data.journalCode) {
           // 一括承認日が空白の場合
-          if (this.baseCompnt.setValue(data.bulkApprovalDate) === '') {
+          //FIXME: 発注先パターン 追加/上書き
+          if (this.baseCompnt.setValue(data.bulkApprovalDate_final) === '') {
             // 対象データ（同一発注連番）を上書きする
             for(var tempDt of dataTable){
               if(data.detailNo === tempDt.detailNo){
@@ -939,7 +1009,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //テーブルの背景色を設定する。
     for(var i = 0; i < dt.length; i++){
       //一括承認データが入っている行はグレーアウトする。
-      if(this.baseCompnt.setValue(dt[i].bulkApprovalPerson) != ''){
+      //FIXME:選択されている明細を解除する 
+      if(this.baseCompnt.setValue(dt[i].bulkApprovalPerson_final) != ''){
         var tr = body.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
@@ -1008,11 +1079,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * タブ切り替え イベント
    * @param event 
    */
+  //FIXME: タブが追加の場合、一覧がRead Only
   setSelectTabChanged(event: any) {
     // タブ設定
     this.selectedTab = event.tab.textLabel;
     // 初期化
-    this.setDefaultDisplay();    
+    this.setDefaultDisplay();
   }
 
   /**
@@ -1027,8 +1099,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.orderPlanAmount    = '';
     this.addInput.bulkRequestDate    = '';
     this.addInput.bulkRequester      = '';
-    this.addInput.bulkApprovalDate   = '';
-    this.addInput.bulkApprovalPerson = '';
+
+    this.addInput.bulkApprovalDate_lv1     = '';
+    this.addInput.bulkApprovalPerson_lv1   = '';
+    this.addInput.bulkApprovalDate_lv2     = '';
+    this.addInput.bulkApprovalPerson_lv2   = '';
+    this.addInput.bulkApprovalDate_lv3     = '';
+    this.addInput.bulkApprovalPerson_lv3   = '';
+    this.addInput.bulkApprovalDate_final   = '';
+    this.addInput.bulkApprovalPerson_final = '';
+
     this.addInput.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
     this.paramJournalCode            = new ODIS0020Form();
     this.paramOrderCode              = new ODIS0020Form();
@@ -1038,6 +1118,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 子供コンポーネントから渡されたデータを取得する
    * @param emitterData 
    */
+  //FIXME: 追加工事選択されている場合、依頼・承認ができるかどうか
   getEmitter(emitterData: DataEmitter) {
     switch(emitterData.action){
       //明細を選択する
@@ -1133,11 +1214,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           break;
         case Const.InsKubun.Ins:
           // 登録
-          this.baseCompnt.setRowColor(Const.Action.A0001,body,i,tmpTbl[i].bulkApprovalPerson);
+          //FIXME:
+          this.baseCompnt.setRowColor(Const.Action.A0001,body,i,tmpTbl[i].bulkApprovalPerson_final);
           break;
         case Const.InsKubun.Upd:
           // 更新
-          this.baseCompnt.setRowColor(Const.Action.A0002,body,i,tmpTbl[i].bulkApprovalPerson);
+          this.baseCompnt.setRowColor(Const.Action.A0002,body,i,tmpTbl[i].bulkApprovalPerson_final);
           break;
       }
     }
