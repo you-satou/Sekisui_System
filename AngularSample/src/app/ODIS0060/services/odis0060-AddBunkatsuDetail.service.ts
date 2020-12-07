@@ -16,6 +16,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     /** 発注分割発注先名称 */
     splitSupplierName: string;
 
+    splitOrderReceipt: string;
+
     /** 備考 */
     comment: string;
 
@@ -24,6 +26,22 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
     /** 依頼者 */
     requester: string;
+
+    approvalDate_lv1: string;
+
+    approvalPerson_lv1: string;
+    
+    approvalDate_lv2: string;
+
+    approvalPerson_lv2: string;
+    
+    approvalDate_lv3: string;
+
+    approvalPerson_lv3: string;
+
+    approvalDate_final: string;
+
+    approvalPerson_final: string;
 
     bunkatsu: ODIS0060OrderDetailBunkatsu;
 
@@ -34,7 +52,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
             this.splitSupplierName != '' ||
             this.comment != '' ||
             this.requestDate != '' ||
-            this.requester != ''
+            this.requester != '' ||
+            this.splitOrderReceipt != ''
         ) {
             return false;
         }
@@ -54,7 +73,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
             this.splitSupplierName != this.bunkatsu.splitSupplierName ||
             this.comment != this.bunkatsu.comment ||
             this.requestDate != this.bunkatsu.requestDate ||
-            this.requester != this.bunkatsu.requester) {
+            this.requester != this.bunkatsu.requester ||
+            this.splitOrderReceipt != this.bunkatsu.splitOrderReceipt) {
 
             return true;
         }
@@ -74,9 +94,14 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         this.orderSplitAmount = '';
         this.splitSupplierCode = '';
         this.splitSupplierName = '';
+        this.splitOrderReceipt = '';
         this.comment = '';
         this.requestDate = '';
         this.requester = '';
+        this.approvalDate_lv1 = '';
+        this.approvalDate_lv2 = '';
+        this.approvalDate_lv3 = '';
+        this.approvalDate_final = '';
         this.bunkatsu = null;
     }
 
@@ -88,9 +113,18 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
         //編集テーブルの各セルに選択された行の値を挿入
         this.orderSplitAmount = this.addCommas(input.orderSplitAmount);
+        this.splitOrderReceipt = input.splitOrderReceipt;
         this.comment = input.comment;
         this.requestDate = input.requestDate;
         this.requester = input.requester;
+        this.approvalDate_lv1 = input.approvalDate_lv1;
+        this.approvalPerson_lv1 = input.approvalPerson_lv1;
+        this.approvalDate_lv2 = input.approvalDate_lv2;
+        this.approvalPerson_lv2 = input.approvalPerson_lv2;
+        this.approvalDate_lv3 = input.approvalDate_lv3;
+        this.approvalPerson_lv3 = input.approvalPerson_lv3;
+        this.approvalDate_final = input.approvalDate_final;
+        this.approvalPerson_final = input.approvalPerson_final;
         this.splitSupplierCode = input.splitSupplierCode;
         this.splitSupplierName = input.splitSupplierName;
 
@@ -109,6 +143,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         output.splitSupplierCode = this.setValue(this.splitSupplierCode);
         output.splitSupplierName = this.setValue(this.splitSupplierName);
         output.comment = this.setValue(this.comment);
+        output.splitOrderReceipt = this.setValue(this.splitOrderReceipt);
         switch(action){
             case Const.Action.A0001:
                 output.requestDate = this.setValue(this.requestDate);

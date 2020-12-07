@@ -31,6 +31,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'no',
     'orderPlanAmount',
     'bunkatsuHachuuSaki',
+    "bunkatsuChumon",
     'comment',
     'irai',
     'saishuu_shounin',
@@ -42,9 +43,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   /** 仕訳テーブルのヘッダーの2行目のカラム */
   subHeaderCols: string[] = [
     'requestDate',
-    'requester',
     'approvalDate_final',
-    'approvalPerson_final',
   ];
 
   /** テーブルの全カラム */
@@ -53,11 +52,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     'orderPlanAmount1',
     'splitSupplierCode',
     'splitSupplierName',
+    "splitOrderReceipt",
     'comment1',
     'requestDate',
-    'requester',
     'approvalDate_final',
-    'approvalPerson_final',
     'orderDate',
     'orderAmount',
     'receivedDate',
@@ -105,6 +103,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public modal: any = null;
 
+  //承認人数
+  approvalUnit: number;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -124,9 +125,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
 
+    this.approvalUnit = this.appComponent.approvalLevels;
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
-    this.setApprovalLevelColumns(this.appComponent.approvalLevels);
-    this.setModel();
+    this.setApprovalLevelColumns(this.approvalUnit);
+    this.setModal();
     //セッションにデータがあるかどうか
     if(sessionStorage.getItem(Const.ScreenName.S0006EN) != null){
 
@@ -164,26 +166,30 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //2020/11/09 11月中の要望対応
   setApprovalLevelColumns(unit: number){
     switch(unit){
+      //承認人数が1人で設定する
       case Const.ApprovalLevel.OneLevel:
         break;
 
+      //承認人数が2人で設定する
       case Const.ApprovalLevel.TwoLevels:
         this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai') + 1, 0, 'shounin_1');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1');
-        this.totalColumns.splice((this.totalColumns.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requestDate') + 1), 0, 'approvalDate_lv1');
+        this.totalColumns.splice((this.totalColumns.indexOf('requestDate') + 1), 0, 'approvalDate_lv1');
         break;
 
+      //承認人数が3人で設定する
       case Const.ApprovalLevel.ThreeLevels:
         this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai') + 1, 0, 'shounin_1', 'shounin_2');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2');
-        this.totalColumns.splice(7, 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requestDate') + 1), 0, 'approvalDate_lv1', 'approvalDate_lv2');
+        this.totalColumns.splice(6, 0, 'approvalDate_lv1', 'approvalDate_lv2');
         break;
 
+      //承認人数が4人で設定する
       case Const.ApprovalLevel.FourLevels:
       default:
         this.mainHeaderCols.splice((this.mainHeaderCols.indexOf('irai') + 1), 0, 'shounin_1', 'shounin_2', 'shounin_3');
-        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2', 'approvalDate_lv3', 'approvalPerson_lv3');
-        this.totalColumns.splice((this.totalColumns.indexOf('requester') + 1), 0, 'approvalDate_lv1', 'approvalPerson_lv1', 'approvalDate_lv2', 'approvalPerson_lv2', 'approvalDate_lv3', 'approvalPerson_lv3');
+        this.subHeaderCols.splice((this.subHeaderCols.indexOf('requestDate') + 1), 0, 'approvalDate_lv1', 'approvalDate_lv2', 'approvalDate_lv3',);
+        this.totalColumns.splice((this.totalColumns.indexOf('requestDate') + 1), 0, 'approvalDate_lv1', 'approvalDate_lv2', 'approvalDate_lv3',);
         break;
     }
   }
@@ -207,7 +213,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  setModel() {
+  setModal() {
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
@@ -313,7 +319,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.baseCompnt.CommonOnSelHight($event);
 
     var nodeName = $event.target.nodeName;
-    if(nodeName != 'SPAN' && nodeName != 'BUTTON')
+    if(nodeName != 'SPAN' && nodeName != 'BUTTON' && nodeName != 'INPUT')
     {
       let index = this.bunkatsuData.indexOf(rowDt);
       this.rowStatus.setRowStatus(true, index);
@@ -341,7 +347,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu, nodeName: any){
     
     switch(true){
-      case (nodeName == 'SPAN' || nodeName == 'BUTTON'):
+      case (nodeName == 'SPAN' || nodeName == 'BUTTON' || nodeName == 'INPUT'):
         this.setPageButtonDisplay(false, true, false, true);
         break;
       //依頼未・承認未
@@ -513,6 +519,24 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * 分割明細テーブルにチェックボックスを押下する時
+   * @param event 
+   * @param dt 
+   */
+  mainTableCheckBoxChange(event: any, dt: ODIS0060OrderDetailBunkatsu) {
+    let isChecked = event.currentTarget.checked;
+    switch(isChecked){
+      case false:
+        dt.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck;
+        break;
+      case true:
+        dt.splitOrderReceipt = Const.OrderReceiptCheckType.Checked;
+        break;
+    }
+    this.resetAddTable();
+  }
+
+  /**
    * 入力テーブルに「依頼」ボタンを押下する時。
    * @param event 
    */
@@ -529,6 +553,22 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.input.requestDate = requestTime;
     this.input.requester = '積水　次郎';
 
+  }
+
+  /**
+   * 入力テーブルにチェックボックスを押下する時。
+   * @param event 
+   */
+  subTableCheckBoxChange(event: any) {
+    let isChecked = event.currentTarget.checked;
+    switch(isChecked){
+      case false:
+        this.input.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck;
+        break;
+      case true:
+        this.input.splitOrderReceipt = Const.OrderReceiptCheckType.Checked;
+        break;
+    }
   }
   
   /**
@@ -626,6 +666,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.orderSplitAmount     = this.bunkatsuData[i].orderSplitAmount;
       dt.splitSupplierCode    = this.bunkatsuData[i].splitSupplierCode;
       dt.splitSupplierName    = this.bunkatsuData[i].splitSupplierName;
+      dt.splitOrderReceipt    = this.bunkatsuData[i].splitOrderReceipt;
       dt.comment              = this.bunkatsuData[i].comment;
       dt.requestDate          = this.bunkatsuData[i].requestDate;
       dt.requester            = this.bunkatsuData[i].requester;
