@@ -14,6 +14,9 @@ export class ODIS0060OrderShiwake {
     /** 明細連番 */
     detailNo: string;
 
+    /** 受注管理枝番 */
+    orderBranchNo: string = '';
+
     /** 仕訳コード */
     journalCode: string;
 
@@ -29,6 +32,9 @@ export class ODIS0060OrderShiwake {
     /** 発注先名 */
     orderSupplierName: string;
 
+    /** 注文書発行区分 */
+    orderReceipt: string = '';
+
     /** 発注予定金額 */
     orderPlanAmount: string;
 
@@ -38,11 +44,29 @@ export class ODIS0060OrderShiwake {
     /** 発注依頼者 */
     bulkRequester: string = '';
 
-    /** 発注承認日 */
-    bulkApprovalDate: string = '';
+    /** 発注承認１日 */
+    bulkApprovalDate_lv1: string = '';
 
-    /** 発注承認者 */
-    bulkApprovalPerson: string = '';
+    /** 発注承認１者 */
+    bulkApprovalPerson_lv1: string = '';
+
+    /** 発注承認２日 */
+    bulkApprovalDate_lv2: string = '';
+
+    /** 発注承認２者 */
+    bulkApprovalPerson_lv2: string = '';
+
+    /** 発注承認３日 */
+    bulkApprovalDate_lv3: string = '';
+
+    /** 発注承認３者 */
+    bulkApprovalPerson_lv3: string = '';
+
+    /** 発注最終承認日 */
+    bulkApprovalDate_final: string = '';
+
+    /** 発注最終承認者 */
+    bulkApprovalPerson_final: string = '';
 
     constructor() { }
 
@@ -65,6 +89,9 @@ export class ODIS0060OrderDetailBunkatsu {
 
     /** 発注分割発注先名称*/
     splitSupplierName: string;
+
+    /** 分割注文書発行区分 */
+    splitOrderReceipt: string = '';
 
     /** コメント */
     comment: string;
