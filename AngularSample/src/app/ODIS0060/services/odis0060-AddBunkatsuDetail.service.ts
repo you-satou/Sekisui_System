@@ -144,7 +144,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         output.splitSupplierName = this.setValue(this.splitSupplierName);
         output.comment = this.setValue(this.comment);
         if(this.splitOrderReceipt == ''){
-            output.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck
+            output.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck;
         } else {
             output.splitOrderReceipt = this.setValue(this.splitOrderReceipt);
         }
