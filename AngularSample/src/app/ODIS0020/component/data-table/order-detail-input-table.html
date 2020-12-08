@@ -195,17 +195,17 @@
                     class="btn btn-link" 
                     *ngIf="this.comCompnt.setValue(element.splitNo)=='1'" 
                     disabled="{{isRejectFlg(element)}}" 
-                    (click)="approvalReject($event,element,'1')">却</button>
+                    (click)="approvalReject($event,element,'0')">却</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
         <!--一括依頼日-->
         <ng-container matColumnDef="bulkRequestDate">
             <th style="min-width: 75px; width: 75px; " class="color-input-1 sticky" mat-header-cell *matHeaderCellDef>依頼日</th>
-            <td style="min-width: 75x; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
+            <td style="min-width: 75px; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
                 [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white',
                             'color':this.comCompnt.setValue(element.splitNo) !== '1' ? this.transparent : this.black}">{{element.bulkRequestDate}}</td>
-            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+            <td style="padding: 0;text-align: center;" mat-footer-cell *matFooterCellDef="let element">
                 <button mat-button disabled={{bulkRequestInfo()}} class="btn btn-primary btn-small btnBulkRequest" (click)="oneClickRequest($event)">依頼</button>
             </td>
         </ng-container>
@@ -215,7 +215,7 @@
             <td style="min-width: 75px; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
                 [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white',
                             'color':this.comCompnt.setValue(element.splitNo) !== '1' ? this.transparent : this.black}">{{element.bulkApprovalDate_lv1}}</td>
-            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+            <td style="padding: 0; text-align: center;" mat-footer-cell *matFooterCellDef="let element">
                 <button mat-button disabled={{bulkApprovalLv1Info()}} class="btn btn-success btnBulkApproval" (click)="oneClickApprovalLv1($event)">承認１</button>
             </td>
         </ng-container>
@@ -225,7 +225,7 @@
             <td style="min-width: 75px; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
                 [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white',
                             'color':this.comCompnt.setValue(element.splitNo) !== '1' ? this.transparent : this.black}">{{element.bulkApprovalDate_lv2}}</td>
-            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+            <td style="padding: 0; text-align: center;" mat-footer-cell *matFooterCellDef="let element">
                 <button mat-button disabled={{bulkApprovalLv2Info()}} class="btn btn-success btnBulkApproval" (click)="oneClickApprovalLv2($event)">承認２</button>
             </td>
         </ng-container>
@@ -235,7 +235,7 @@
             <td style="min-width: 75px; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
                 [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white',
                             'color':this.comCompnt.setValue(element.splitNo) !== '1' ? this.transparent : this.black}">{{element.bulkApprovalDate_lv3}}</td>
-            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+            <td style="padding: 0; text-align: center;" mat-footer-cell *matFooterCellDef="let element">
                 <button mat-button disabled={{bulkApprovalLv3Info()}} class="btn btn-success btnBulkApproval" (click)="oneClickApprovalLv3($event)">承認３</button>
             </td>
         </ng-container>
@@ -245,7 +245,7 @@
             <td style="min-width: 75px; width: 75px;" class="font-s-right" mat-cell *matCellDef="let element" 
                 [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white',
                             'color':this.comCompnt.setValue(element.splitNo) !== '1' ? this.transparent : this.black}">{{element.bulkApprovalDate_final}}</td>
-            <td style="padding: 0;" mat-footer-cell *matFooterCellDef="let element">
+            <td style="padding: 0; text-align: center;" mat-footer-cell *matFooterCellDef="let element">
                 <button mat-button disabled={{bulkApprovalFinalInfo()}} class="btn btn-success btnBulkApproval" (click)="oneClickApprovalFinal($event)">最終承認</button>
             </td>
         </ng-container>
@@ -381,13 +381,13 @@
             
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container> 
-        <!--却下-->
+        <!--分割却下-->
         <ng-container matColumnDef="splitReject">
             <th style="min-width: 30px; width: 30px; " mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 30px; width: 30px; " class="font-s" mat-cell *matCellDef="let element " >
                     <button mat-button style="min-width: 35px; padding: 0;" class="btn btn-link" 
                     disabled="{{isRejectFlg(element)}}" 
-                    (click)="approvalReject($event,element,'0')">却</button>
+                    (click)="approvalReject($event,element,'1')">却</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container> 

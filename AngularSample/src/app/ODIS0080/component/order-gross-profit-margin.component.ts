@@ -1,4 +1,3 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
@@ -66,11 +65,22 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
   ngOnInit() {
 
+    //URLのパラメーターを消す
+    history.replaceState({}, '', Const.UrlSetting.U0002);
+
+    //詳細入力画面から遷移された時のパラメータを取得する
+    this.actvRoute.queryParams.subscribe(params =>{
+    
+      this.initParam.propertyManagerCd = params.prop;    //物件管理番号
+      this.initParam.contractNum = params.cntr;          //契約番号      
+      this.initParam.officeCode = params.offCd;          //契約番号      
+    });
+
     this.isGetting = true;
-    //TODO: init Param設定
-    this.initParam.officeCode = "402000";
-    this.initParam.contractNum = "504660066";
-    this.initParam.propertyManagerCd = "60256";
+    // //TODO: init Param設定
+    // this.initParam.officeCode = "402000";
+    // this.initParam.contractNum = "504660066";
+    // this.initParam.propertyManagerCd = "60256";
 
      
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init,this.initParam)    

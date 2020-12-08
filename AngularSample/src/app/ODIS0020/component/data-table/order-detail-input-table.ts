@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
-import { Component, ViewChild, Input, ViewEncapsulation, Output, EventEmitter, OnInit,　AfterViewInit, ViewContainerRef } from "@angular/core";
-import { MatTable } from "@angular/material";
+import { Component, Input, ViewEncapsulation, Output, EventEmitter, OnInit,　AfterViewInit, ViewContainerRef, ViewChild} from "@angular/core";
 import { CommonComponent } from "app/common/common.component";
 import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
 import { AppComponent } from 'app/app.component';
+import { MatTable } from '@angular/material';
 
 @Component({
   selector: "shiwake-table",
@@ -16,9 +16,12 @@ import { AppComponent } from 'app/app.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
-  @Input() orderData: ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
+  @Input() orderData: ODIS0020OrderDetaiSplitBean[] = [];
   @Input() tabName:string;
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
+  
+  //親から観察されている
+  @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
   
   //承認人数
   approvalUnit: number;
@@ -556,6 +559,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         wTr = event.path[2];
         wTbody = event.path[3];
         break;
+
+      case 'INPUT':
+        wTr = event.path[2];
+        wTbody = event.path[3];
+        break;
     }
 
     for(var i = 0; i < this.orderData.length; i++){
@@ -768,14 +776,17 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     for (let i = 0; i < dt.length; i++) {
       if(dt[i].splitNo !== '1'){
         let tr = skBody.rows[i];
-        tr.cells[0].style.color = 'transparent';
-        tr.cells[1].style.color = 'transparent';
-        tr.cells[2].style.color = 'transparent';
-        tr.cells[3].style.color = 'transparent';
-        tr.cells[4].style.color = 'transparent';
-        tr.cells[5].style.color = 'transparent';
-        tr.cells[6].style.color = 'transparent';
-        tr.cells[7].style.color = 'transparent';
+        for(var j = 0; i <= this.cellNumber; i++){
+          tr.cells[j].style.color = 'transparent';
+        }
+        // tr.cells[0].style.color = 'transparent';
+        // tr.cells[1].style.color = 'transparent';
+        // tr.cells[2].style.color = 'transparent';
+        // tr.cells[3].style.color = 'transparent';
+        // tr.cells[4].style.color = 'transparent';
+        // tr.cells[5].style.color = 'transparent';
+        // tr.cells[6].style.color = 'transparent';
+        // tr.cells[7].style.color = 'transparent';
       }
     }
   }
@@ -1036,22 +1047,41 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     if(!confirm){
       return false;
     }
-
-    //TODO:
     switch(type){
+      //左側の却下
       case '0':
-        
+        this.orderData.forEach(element => {
+          if(element.detailNo == dt.detailNo){
+
+            element.bulkRequestDate = '';
+            element.bulkRequester = '';
+            element.bulkApprovalDate_lv1 = '';
+            element.bulkApprovalPerson_lv1 = '';
+            element.bulkApprovalDate_lv2 = '';
+            element.bulkApprovalPerson_lv2 = '';
+            element.bulkApprovalDate_lv3 = '';
+            element.bulkApprovalPerson_lv3 = '';
+            element.bulkApprovalDate_final = '';
+            element.bulkApprovalPerson_final = '';            
+          }          
+        });
+
+
         break;
+      
+      //右側の却下
       case '1':
-        dt.requestDate = '';
-        dt.requester   = '';
-        dt.approvalDate_lv1 = '';
-        dt.requestDate = '';
-        dt.approvalDate_lv2 = '';
-        dt.requestDate = '';
-        dt.approvalDate_lv3 = '';
-        dt.requestDate = '';
+        dt.requestDate        = '';
+        dt.requester          = '';
+        dt.approvalDate_lv1   = '';
+        dt.requestDate        = '';
+        dt.approvalDate_lv2   = '';
+        dt.requestDate        = '';
+        dt.approvalDate_lv3   = '';
+        dt.requestDate        = '';
         dt.approvalDate_final = '';
+
+
         break;
     }
 
@@ -1064,11 +1094,11 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         if(element.detailNo == dt.detailNo){
           if(isChecked){
             element.orderReceipt == '8';
-            element.splitOrderReceipt == '8'
+            element.splitOrderReceipt == '8';
           }
           else{
             element.orderReceipt == '0';
-            element.splitOrderReceipt == '0'
+            element.splitOrderReceipt == '0';
           }
           
         }

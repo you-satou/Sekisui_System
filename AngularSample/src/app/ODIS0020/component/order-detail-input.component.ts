@@ -382,6 +382,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             return dt;
         }
       });
+      
       var temp2 = dt.filter(dt => {
         if(dt.journalName == 'ハウス材' ||
           dt.journalName == '運賃・荷造・保管料' ||
@@ -389,6 +390,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             return dt;
         }
       });
+      
       // マージ（データ並び順を設定）
       dt = temp1.concat(temp2);
     }
@@ -854,6 +856,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.reDetailNo(this.childTsuika.orderData);
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         break;
+      case this.tabName5:
+        insertIndex = this.countDefaultData(this.childZouEn1.orderData);
+        this.childZouEn1.orderData.splice(insertIndex, 0, insertDt);
+        this.reDetailNo(this.childZouEn1.orderData);
+        tblBody = this.childZouEn1.viewRef.element.nativeElement.querySelector('tbody');
+        break;
+      case this.tabName6:
+        insertIndex = this.countDefaultData(this.childZouEn2.orderData);
+        this.childZouEn2.orderData.splice(insertIndex, 0, insertDt);
+        this.reDetailNo(this.childZouEn2.orderData);
+        tblBody = this.childZouEn2.viewRef.element.nativeElement.querySelector('tbody');
+        break;
     }
 
     // 文字色設定
@@ -930,6 +944,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         let dataTsuika = this.childTsuika.orderData;
         this.insertProcess(insertBucket,dataTsuika);
         this.childTsuika.tableShiwake.renderRows();
+        break;
+
+      case this.tabName5:
+        let dataZouen1 = this.childZouEn1.orderData;
+        this.insertProcess(insertBucket,dataZouen1);
+        this.childZouEn1.tableShiwake.renderRows();
+        break;
+
+      case this.tabName6:
+        let dataZouen2 = this.childZouEn2.orderData;
+        this.insertProcess(insertBucket,dataZouen2);
+        this.childZouEn2.tableShiwake.renderRows();
         break;
     }
   }
@@ -1276,6 +1302,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.childHontai.tableShiwake.renderRows();   // 本体
     this.childKaitai.tableShiwake.renderRows();   // 解体
     this.childTsuika.tableShiwake.renderRows();   // 追加
+    this.childZouEn1.tableShiwake.renderRows();   // 造園①
+    this.childZouEn2.tableShiwake.renderRows();   // 造園②
 
     // 文字色 設定
     // 「設計」タブ
@@ -1291,6 +1319,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 「追加」タブ
     this.setColor(this.childTsuika.orderData,
                   this.childTsuika.viewRef.element.nativeElement.querySelector('tbody'));
+
+    // 「造園①」タブ
+    this.setColor(this.childZouEn1.orderData,
+                  this.childZouEn1.viewRef.element.nativeElement.querySelector('tbody'));
+    // 「造園②」タブ
+    this.setColor(this.childZouEn2.orderData,
+                  this.childZouEn2.viewRef.element.nativeElement.querySelector('tbody'));
 
   }
 
@@ -1777,6 +1812,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         );
       }
     }
+  }
+
+  /**
+   * 粗利率画面に遷移します
+   * @param $event 
+   */
+  moveToOrderGrossProfitPage($event){
+
+    this.router.navigate(['GrossProfitMargin'],{ queryParams: {prop: this.paramInit.propertyNo, cntr: this.paramInit.contractNum, offCd: this.paramInit.officeCode},skipLocationChange: false, replaceUrl: false});
   }
   //#endregion
 }
