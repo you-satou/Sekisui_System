@@ -5,7 +5,6 @@ import { Const } from '../../../common/const';
 
 @Component({
   selector: 'split-detail-table',
-  // styleUrls: ['split-detail-table.css'],
   styleUrls: ['../split-detail-input.component.css'],
   templateUrl: './split-detail-table.html',
   encapsulation: ViewEncapsulation.None,
@@ -17,6 +16,7 @@ export class SplitOrderDetailTable {
   @Input() shiwakeData: ODIS0060OrderShiwake[];
   @Input() amountDeference: number = 0;
   @Input() totalSplitAmount: number = 0;
+  @Input() bunkatsuCheckBox: string = Const.OrderReceiptCheckType.UnCheck;
 
   //仕訳テーブルのカラム
   shiwakeColumns: string[] = [
@@ -70,9 +70,8 @@ export class SplitOrderDetailTable {
   ngOnInit() {
 
     this.approvalUnit = this.appComponent.approvalLevels;
-
-    //承認人数が1人で設定する
     switch(this.approvalUnit){
+      //承認人数が1人で設定する
       case Const.ApprovalLevel.OneLevel:
         break;
 
@@ -116,4 +115,12 @@ export class SplitOrderDetailTable {
     amount.style.color = color;
   }
 
+  isDetailChecked(){
+    switch(this.bunkatsuCheckBox){
+      case Const.OrderReceiptCheckType.UnCheck:
+        return false;
+      case Const.OrderReceiptCheckType.Checked:
+        return true;
+    }
+  }
 }

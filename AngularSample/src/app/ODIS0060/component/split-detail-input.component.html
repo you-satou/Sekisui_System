@@ -3,7 +3,7 @@
         <mat-tab-group class="shiwake-tab-group" disableRipple = "true">
             <mat-tab label="{{ tabName }}">
                 <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference]="getAmountDeference()"
-                    [totalSplitAmount]="totalAmount()">
+                    [totalSplitAmount]="totalAmount()" [bunkatsuCheckBox]="orderReceiptCheckStt">
                 </split-detail-table>
                 <div class="bunkatsu-table-responsive" style="margin-top: 20px;">
                     <table mat-table [dataSource]="bunkatsuData" class="bunkatsu-table table table-hover table-sm"

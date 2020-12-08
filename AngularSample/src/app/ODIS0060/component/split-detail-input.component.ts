@@ -106,6 +106,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //承認人数
   approvalUnit: number;
 
+  //仕訳テーブルのチェックボックス
+  orderReceiptCheckStt: string = Const.OrderReceiptCheckType.UnCheck;
+
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -238,6 +241,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
     this.bunkatsuData = this.splitService.getDetailTableData();
+    this.orderReceiptCheckStt = this.shiwakeData[0].orderReceipt;
 
 
     this.saveDataToSession();
@@ -403,6 +407,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     //修正完了フラグ ON
     this.isEditFlg = true;
 
+    //仕訳テーブルのチェックボックスを変える
+    this.setSplitCheckBox();
+
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
     this.resetAddTable();
@@ -429,6 +436,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
+
+    //仕訳テーブルのチェックボックスを変える
+    this.setSplitCheckBox();
     
     //最後にページ初期化する
     this.resetAddTable();
@@ -478,6 +488,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     //修正完了フラグ ON
     this.isEditFlg = true;
+
+    //仕訳テーブルのチェックボックスを変える
+    this.setSplitCheckBox();
+
     // ボタン制御
     this.setPageButtonDisplay(false, true, false, true);
     this.resetAddTable();
@@ -533,7 +547,24 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         dt.splitOrderReceipt = Const.OrderReceiptCheckType.Checked;
         break;
     }
+
+    //仕訳テーブルのチェックボックスを変える
+    this.setSplitCheckBox();
     this.resetAddTable();
+  }
+
+  /**
+   * 仕訳テーブルのチェックボックスを変える
+   */
+  setSplitCheckBox(){
+    for(let i = 0; i < this.bunkatsuData.length; i++){
+      if(this.bunkatsuData[i].splitOrderReceipt == Const.OrderReceiptCheckType.Checked){
+        this.orderReceiptCheckStt = Const.OrderReceiptCheckType.Checked;
+        return;
+      } else {
+        this.orderReceiptCheckStt = Const.OrderReceiptCheckType.UnCheck;
+      }
+    }
   }
 
   /**
@@ -645,12 +676,14 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       }
       dt.propertyNo           = this.shiwakeData[0].propertyNo;
       dt.detailKind           = this.shiwakeData[0].detailKind;
-      dt.detailNo             = this.shiwakeData[0].detailNo
+      dt.detailNo             = this.shiwakeData[0].detailNo;
+      dt.orderBranchNo        = this.shiwakeData[0].orderBranchNo;
       dt.journalCode          = this.shiwakeData[0].journalCode;
       dt.accountCode          = this.shiwakeData[0].accountCode;
       dt.journalName          = this.shiwakeData[0].journalName;
       dt.orderSupplierCode    = this.shiwakeData[0].orderSupplierCode;
       dt.orderSupplierName    = this.shiwakeData[0].orderSupplierName;
+      dt.orderReceipt         = this.orderReceiptCheckStt;
       dt.orderPlanAmount      = this.shiwakeData[0].orderPlanAmount;
       dt.bulkRequestDate      = this.shiwakeData[0].bulkRequestDate;
       dt.bulkRequester        = this.shiwakeData[0].bulkRequester;
