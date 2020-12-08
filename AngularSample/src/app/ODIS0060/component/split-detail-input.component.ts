@@ -16,6 +16,7 @@ import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-suppl
 import { ODIS0060Form} from '../entities/odis0060-Form.entity';
 import { ODIS0060OrderCode} from '../entities/odis0060-OrderCode.entitiy';
 import { CommonService } from '../../common/common.service';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Component({
   selector: 'split-detail-input',
@@ -241,8 +242,17 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.shiwakeData = this.splitService.getSplitTableData();
     this.tabName = this.getTabName(this.shiwakeData[0].detailKind);
     this.bunkatsuData = this.splitService.getDetailTableData();
+
+    //詳細のチェックボックスの値を変数に入れる
     this.orderReceiptCheckStt = this.shiwakeData[0].orderReceipt;
 
+    //分割のチェックボックスの値が０かつ８でないばあい、０にする
+    for(let i = 0; i < this.bunkatsuData.length; i++){
+      let dt = this.bunkatsuData[i].splitOrderReceipt;
+      if(dt != Const.OrderReceiptCheckType.Checked && dt != Const.OrderReceiptCheckType.UnCheck){
+        this.bunkatsuData[i].splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck
+      }
+    }
 
     this.saveDataToSession();
 
