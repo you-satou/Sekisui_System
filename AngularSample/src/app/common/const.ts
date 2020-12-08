@@ -178,6 +178,8 @@ export namespace Const{
         export const W0003 = '承認処理画面に戻ります。\n保存されていないデータは破棄されますが、よろしいでしょうか';
         export const W0004 = '編集途中のデータがあります。\n編集途中のデータは破棄されますが、更新処理を行いますか？';
         export const W0005 = '表示されているデータをデータベースに登録しますが\nよろしいでしょうか？';
+
+        export const W0006 = '却下しますか？';
     }
 
     /**
@@ -191,14 +193,15 @@ export namespace Const{
     } 
 
     /**
-     * 受注枝番
+     * タブIndex設定
      */
-    export namespace JutyuEdaban{
-
-        export const TabIndex_0 = '0'
-        export const TabIndex_1 = '1'
-        export const TabIndex_2 = '2'
-        export const TabIndex_3 = '3'
+    export namespace TabIndex{
+        export const TabIndex_0 = '0'   //タブ設計
+        export const TabIndex_1 = '1'   //タブハウス(本体)
+        export const TabIndex_2 = '2'   //タブ解体
+        export const TabIndex_3 = '3'   //タブ造園１
+        export const TabIndex_4 = '4'   //タブ造園２
+        export const TabIndex_5 = '5'   //タブ追加工事
         
     }
 
@@ -206,12 +209,30 @@ export namespace Const{
      * 受注枝番
      */
     export namespace TabName{
-        export const TabName_0 = '設計'
-        export const TabName_1 = 'ハウス・外構'
-        export const TabName_2 = '解体'
-        export const TabName_3 = '追加工事'
+        export const TabName_Sekkei = '設計'
+        export const TabName_Hontai = 'ハウス'
+        export const TabName_Kaitai = '解体'        
+        export const TabName_Tsuika = '追加工事'
+        export const TabName_Zouen1 = '造園①'
+        export const TabName_Zouen2 = '造園②'
+
+    }
+
+    /**
+     * 明細種類
+     */
+    export namespace JuuChuuEdaban{
+        export const Hontai = '0'
+        export const Sekkei = '1'
+        export const Tsuika = '2'
+        export const Kaitai = '3'
+        export const Zouen1 = '4'
+        export const Zouen2 = '5'        
     }
     
+    /**
+     * 承認者数
+     */
     export namespace ApprovalLevel{
         export const OneLevel = 1
         export const TwoLevels = 2
@@ -219,14 +240,25 @@ export namespace Const{
         export const FourLevels = 4
     }
 
+    /**
+     * 注文書発行区分
+     */
     export namespace OrderReceiptCheckType {
         export const Checked = '8';
         export const UnCheck = '0';
     }
 
+    /**
+     * 
+     */
     export namespace BranchValue{
-        export const VAL_0 ='09';
-        export const VAL_1 ='00';
+        export const Sekkei ='';
+        export const Hontai ='00';
+        export const Kaitai ='30';
+        export const Zouen1 ='31';
+        export const Zouen2 ='32';
+        //FIXME: 追加工事の受注枝番が３６～４８
+        export const Tsuika ='36';
 
     }
 }
