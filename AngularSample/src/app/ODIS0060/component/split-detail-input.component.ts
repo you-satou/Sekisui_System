@@ -250,23 +250,23 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.isInitFlg = true;
   }
 
-  /**
+ /**
    * タブ名 取得
    */
   private getTabName(val: string){
     var resVal: string = '';
     switch(val){
-      case Const.JutyuEdaban.TabIndex_0:
-        resVal = Const.TabName.TabName_0;
+      case Const.TabIndex.TabIndex_0:
+        resVal = Const.TabName.TabName_Sekkei;
         break;
-      case Const.JutyuEdaban.TabIndex_1:
-        resVal = Const.TabName.TabName_1;
+      case Const.TabIndex.TabIndex_1:
+        resVal = Const.TabName.TabName_Hontai;
         break;
-      case Const.JutyuEdaban.TabIndex_2:
-        resVal = Const.TabName.TabName_2;
+      case Const.TabIndex.TabIndex_2:
+        resVal = Const.TabName.TabName_Kaitai;
         break;
-      case Const.JutyuEdaban.TabIndex_3:
-        resVal = Const.TabName.TabName_3;
+      case Const.TabIndex.TabIndex_3:
+        resVal = Const.TabName.TabName_Tsuika;
         break;
     }
     return resVal;
