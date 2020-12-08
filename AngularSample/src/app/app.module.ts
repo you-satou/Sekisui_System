@@ -65,7 +65,7 @@ const appRoute: Routes = [
     HttpClientModule,
     NgbModule,
     FormsModule,
-    RouterModule.forRoot(appRoute),
+    RouterModule.forRoot(appRoute, {useHash:true}),
     MaterialModules,
   ],
   providers: [
