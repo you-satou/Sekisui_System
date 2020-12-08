@@ -29,23 +29,6 @@ import { HttpResponse } from '@angular/common/http';
 declare var require: any;
 const FileSaver = require('file-saver');
 
-const BranchDDL: BranchDropDownList[] = [{
-    value: '00',
-    text: '00',
-  },
-  {
-    value: '01',
-    text: '01',
-  },
-  {
-    value: '02',
-    text: '02',
-  },
-  {
-    value: '02',
-    text: '02',
-  }]
-
 @Component({
   selector: 'order-detail-input',
   templateUrl: './order-detail-input.component.html',
@@ -59,28 +42,84 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabHontai', { static: false }) childHontai: any
   @ViewChild('tabKaitai', { static: false }) childKaitai: any
   @ViewChild('tabTsuika', { static: false }) childTsuika: any
+  @ViewChild('tabZouen1', { static: false }) childZouEn1: any
+  @ViewChild('tabZouen2', { static: false }) childZouEn2: any
 
   // タッブの初期値
-  protected selectedTab: string = Const.TabName.TabName_0;
+  protected selectedTab: string = Const.TabName.TabName_Sekkei;
 
   //  タッブの名前
-  private tabNo1: string = Const.TabName.TabName_0;
-  private tabNo2: string = Const.TabName.TabName_1;
-  private tabNo3: string = Const.TabName.TabName_2;
-  private tabNo4: string = Const.TabName.TabName_3;
+  tabName1: string = Const.TabName.TabName_Sekkei;   //設計
+  tabName2: string = Const.TabName.TabName_Hontai;   //ハウス
+  tabName3: string = Const.TabName.TabName_Kaitai;   //解体
+  tabName4: string = Const.TabName.TabName_Tsuika;   //追加工事
+  tabName5: string = Const.TabName.TabName_Zouen1;   //造園①
+  tabName6: string = Const.TabName.TabName_Zouen2;   //造園②
 
-  get tabValue(){
+  //　選択されたタブのIndexを取得
+  get tabIndexValue(){
     switch(this.selectedTab){
-      case this.tabNo1:
-        return Number(Const.JutyuEdaban.TabIndex_0);
-      case this.tabNo2:
-        return Number(Const.JutyuEdaban.TabIndex_1);
-      case this.tabNo3:
-        return Number(Const.JutyuEdaban.TabIndex_2);
-      case this.tabNo4:
-        return Number(Const.JutyuEdaban.TabIndex_3);
-    }
+      case this.tabName1:
+        return Number(Const.TabIndex.TabIndex_0);
+      case this.tabName2:
+        return Number(Const.TabIndex.TabIndex_1);
+      case this.tabName3:
+        return Number(Const.TabIndex.TabIndex_2);
+      case this.tabName4:
+        return Number(Const.TabIndex.TabIndex_5);
+      case this.tabName5:
+        return Number(Const.TabIndex.TabIndex_3);
+      case this.tabName6:
+        return Number(Const.TabIndex.TabIndex_4);
 
+    }
+  }
+
+  get tabOrderKind(){
+    switch(this.selectedTab){
+      case this.tabName1:
+        return Const.JuuChuuEdaban.Sekkei;
+      case this.tabName2:
+        return Const.JuuChuuEdaban.Hontai;
+      case this.tabName3:
+        return Const.JuuChuuEdaban.Kaitai;
+      case this.tabName4:
+        return Const.JuuChuuEdaban.Zouen1;
+      case this.tabName5:
+        return Const.JuuChuuEdaban.Zouen2;
+      case this.tabName6:
+        return Const.JuuChuuEdaban.Tsuika;
+    }
+  }
+
+  get currentBranchNo(){
+    switch(this.selectedTab){
+      case this.tabName1:
+        return Const.BranchValue.Sekkei;
+      case this.tabName2:
+        return Const.BranchValue.Hontai;
+      case this.tabName3:
+        return Const.BranchValue.Kaitai;
+      case this.tabName4:
+        return Const.BranchValue.Tsuika;
+      case this.tabName5:
+        return Const.BranchValue.Zouen1;
+      case this.tabName6:
+        return Const.BranchValue.Zouen2;
+    }
+  }
+
+  get cellNumber(){
+    switch(this.approvalUnit){
+      case 1:
+        return 10;
+      case 2:
+        return 11;
+      case 3:
+        return 12;
+      case 4:
+        return 13;
+    }
   }
 
   loaderText: string = Const.WarningMsg.W0002;
@@ -97,10 +136,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
-  tblSekkei : ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
-  tblHontai : ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
-  tblKaitai : ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
-  tblTsuika : ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
+  tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
+  tblHouse : ODIS0020OrderDetaiSplitBean[] = [];
+  tblKaitai : ODIS0020OrderDetaiSplitBean[] = [];
+  tblTsuika : ODIS0020OrderDetaiSplitBean[] = [];
+  tblZouen1 : ODIS0020OrderDetaiSplitBean[] = [];
+  tblZouen2 : ODIS0020OrderDetaiSplitBean[] = [];
 
   // モーダルダイアログが閉じた際のイベントをキャッチするための subscription
   private subscription: Subscription;
@@ -216,14 +257,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
 
-          //FIXME: 注文・受注枝番
-          temp.insKubun           = Const.InsKubun.Ins;
+          temp.insKubun           = Const.InsKubun.Ins;         
           temp.propertyNo         = this.paramInit.propertyNo;
-          temp.detailKind         = this.tabValue.toString();
+          temp.detailKind         = this.tabOrderKind;
+          temp.orderBranchNo      = this.getOrderBranchValue(this.tabOrderKind);
           temp.splitNo            = '1';
           temp.journalCode        = element.journalCode;
           temp.accountCode        = element.accountingCategory;
           temp.journalName        = element.journalName;
+          temp.orderReceipt       = '0';
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
 
@@ -280,17 +322,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
 
               // 「設計」タブ
-              this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_0);
+              this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Sekkei);
               
-              // 「本体」タブ
-              this.tblHontai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_1);
+              // 「ハウス」タブ
+              this.tblHouse = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Hontai);
               
               // 「解体」タブ
-              this.tblKaitai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_2);
+              this.tblKaitai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Kaitai);
 
               // 「追加」タブ
-              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JutyuEdaban.TabIndex_3);
+              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Tsuika);
               
+              // 「造園①」タブ
+              this.tblZouen1 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen1);
+              
+              // 「造園②」タブ
+              this.tblZouen2 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen2);
+
               // 画面をレンダーする
               this.isInitFlg = true;
 
@@ -312,19 +360,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 受注枝番 データ 仕訳
    * @param listOrderDetail
-   * @param tabIndex
+   * @param edaBan
    */
-  private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], tabIndex: string){
+  private splitOrderDetail(listOrderDetail: ODIS0020OrderDetaiSplitBean[], edaBan: string){
     // データ フィルタ
     var dt = listOrderDetail.filter(val =>{
-      if(this.baseCompnt.setValue(val.detailKind) == tabIndex){
+      if(this.baseCompnt.setValue(val.detailKind) == edaBan){
         return val;
       }
     });
 
     // 取得件数が0件の場合に、初期設定を行う
     if(dt.length === 0){
-      dt = this.getInitData(tabIndex);
+      dt = this.getInitData(edaBan);
     }else{
       // ハウス材等を一番下に加工
       var temp1 = dt.filter(dt => {
@@ -351,7 +399,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 初期データ 設定
    */
-  private getInitData(tabIndex: string): ODIS0020OrderDetaiSplitBean[]{
+  private getInitData(edaBan: string): ODIS0020OrderDetaiSplitBean[]{
     var initData: ODIS0020OrderDetaiSplitBean[] = [];
     var dt: ODIS0020OrderDetaiSplitBean;
 
@@ -360,9 +408,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt = new ODIS0020OrderDetaiSplitBean();
     dt.insKubun           = Const.InsKubun.Normal;
     dt.propertyNo         = this.paramInit.propertyNo;
-    dt.detailKind         = tabIndex;
+    dt.detailKind         = edaBan;
     dt.detailNo           = '1';
     dt.splitNo            = '1';
+    dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
     dt.journalCode        = '0100';
     dt.accountCode        = '010';
     dt.journalName        = 'ハウス材';
@@ -384,9 +433,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt = new ODIS0020OrderDetaiSplitBean();
     dt.insKubun           = Const.InsKubun.Normal;
     dt.propertyNo         = this.paramInit.propertyNo;
-    dt.detailKind         = tabIndex;
+    dt.detailKind         = edaBan;
     dt.detailNo           = '2';
     dt.splitNo            = '1';
+    dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
     dt.journalCode        = '9100';
     dt.accountCode        = '910';
     dt.journalName        = '運賃・荷造・保管料';
@@ -408,9 +458,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt = new ODIS0020OrderDetaiSplitBean();
     dt.insKubun           = Const.InsKubun.Normal;
     dt.propertyNo         = this.paramInit.propertyNo;
-    dt.detailKind         = tabIndex;
+    dt.detailKind         = edaBan;
     dt.detailNo           = '3';
     dt.splitNo            = '1';
+    dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
     dt.journalCode        = '9300';
     dt.accountCode        = '930';
     dt.journalName        = '労災';
@@ -432,6 +483,33 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * 明細種類により受注枝番の設定値を返却する
+   * @param detailKind 
+   */
+  getOrderBranchValue(detailKind: string){
+
+    switch(detailKind){
+      case Const.JuuChuuEdaban.Hontai:
+        return Const.BranchValue.Hontai;
+
+      case Const.JuuChuuEdaban.Sekkei:
+        return Const.BranchValue.Sekkei;
+
+      case Const.JuuChuuEdaban.Kaitai:
+        return Const.BranchValue.Kaitai;
+
+      case Const.JuuChuuEdaban.Zouen1:
+        return Const.BranchValue.Zouen1;
+
+      case Const.JuuChuuEdaban.Zouen2:
+        return Const.BranchValue.Zouen2;
+      
+      case Const.JuuChuuEdaban.Tsuika:
+        return Const.BranchValue.Tsuika;
+    }
+  }
+
+  /**
    * 初期表示時 セッションデータ 取得
    * @param dt
    * @param tabName 
@@ -445,7 +523,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblMainOrder = savedData.mainOrderInfo;
     this.tblInsertedOrder = savedData.insertedOrderInfo;
     this.tblSekkei = savedData.SekkeiData;
-    this.tblHontai = savedData.HontaiData;
+    this.tblHouse = savedData.HontaiData;
     this.tblKaitai = savedData.KaitaiData;
     this.tblTsuika = savedData.TsuikaData;
     this.paramInit = savedData.paramInit;
@@ -456,21 +534,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 分割データ 1件以上の場合、以降の処理を実施
     if(returnDt.length >= 1){
       // タブ設定
+      //FIXME:
       this.selectedTab = this.getTabName(returnDt[0].detailKind);
       switch (returnDt[0].detailKind) {
-        case Const.JutyuEdaban.TabIndex_0:
+        case Const.TabIndex.TabIndex_0:
           this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
           break;
   
-        case Const.JutyuEdaban.TabIndex_1:
-          this.tblHontai = this.mergeData(savedData.HontaiData, returnDt);
+        case Const.TabIndex.TabIndex_1:
+          this.tblHouse = this.mergeData(savedData.HontaiData, returnDt);
           break;
 
-        case Const.JutyuEdaban.TabIndex_2:
+        case Const.TabIndex.TabIndex_2:
           this.tblKaitai = this.mergeData(savedData.KaitaiData, returnDt);
           break;
-  
-        case Const.JutyuEdaban.TabIndex_3:
+
+        case Const.TabIndex.TabIndex_3:
           this.tblTsuika = this.mergeData(savedData.TsuikaData, returnDt);
           break;
       }
@@ -485,20 +564,26 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * タブ名 取得
    */
-  private getTabName(val: string){
+  private getTabName(detailKind: string){
     var resVal: string = '';
-    switch(val){
-      case Const.JutyuEdaban.TabIndex_0:
-        resVal = Const.TabName.TabName_0;
+    switch(detailKind){
+      case Const.JuuChuuEdaban.Sekkei:
+        resVal = Const.TabName.TabName_Sekkei;
         break;
-      case Const.JutyuEdaban.TabIndex_1:
-        resVal = Const.TabName.TabName_1;
+      case Const.JuuChuuEdaban.Hontai:
+        resVal = Const.TabName.TabName_Hontai;
         break;
-      case Const.JutyuEdaban.TabIndex_2:
-        resVal = Const.TabName.TabName_2;
+      case Const.JuuChuuEdaban.Kaitai:
+        resVal = Const.TabName.TabName_Kaitai;
         break;
-      case Const.JutyuEdaban.TabIndex_3:
-        resVal = Const.TabName.TabName_3;
+      case Const.JuuChuuEdaban.Zouen1:
+        resVal = Const.TabName.TabName_Zouen1;
+        break;
+      case Const.JuuChuuEdaban.Zouen2:
+        resVal = Const.TabName.TabName_Zouen2;
+        break;
+      case Const.JuuChuuEdaban.Tsuika:
+        resVal = Const.TabName.TabName_Tsuika;
         break;
     }
     return resVal;
@@ -545,12 +630,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private createData(data: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean{
     let temp = new ODIS0020OrderDetaiSplitBean();
 
-    //FIXME: 受注枝番注文
     temp.insKubun              = this.baseCompnt.setValue(data.insKubun);
     temp.propertyNo            = this.baseCompnt.setValue(data.propertyNo);
     temp.detailKind            = this.baseCompnt.setValue(data.detailKind);
     temp.detailNo              = this.baseCompnt.setValue(data.detailNo);
     temp.splitNo               = this.baseCompnt.setValue(data.splitNo);
+    temp.orderBranchNo         = this.baseCompnt.setValue(data.orderBranchNo);    //受注枝番
     temp.journalCode           = this.baseCompnt.setValue(data.journalCode);
     temp.accountCode           = this.baseCompnt.setValue(data.accountCode)
     temp.journalName           = this.baseCompnt.setValue(data.journalName);
@@ -588,7 +673,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.receivedDate          = this.baseCompnt.setValue(data.receivedDate);
     temp.receivedAmount        = this.baseCompnt.setValue(data.receivedAmount);
     temp.paymentDate           = this.baseCompnt.setValue(data.paymentDate);
-    temp.paymentAmount         = this.baseCompnt.setValue(data.paymentAmount);    
+    temp.paymentAmount         = this.baseCompnt.setValue(data.paymentAmount);
+
     return temp;
   }
 
@@ -604,20 +690,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
       var body: any
       switch (this.ODIS0020Service.ReturnedSplitData[0].detailKind) {
-        case Const.JutyuEdaban.TabIndex_0:
+        case Const.TabIndex.TabIndex_0:
           body = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
           break;
   
-        case Const.JutyuEdaban.TabIndex_1:
+        case Const.TabIndex.TabIndex_1:
           body = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
           break;
 
-        case Const.JutyuEdaban.TabIndex_2:
+        case Const.TabIndex.TabIndex_2:
           body = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
           break;
   
-        case Const.JutyuEdaban.TabIndex_3:
-          body = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
+        case Const.TabIndex.TabIndex_3:
+          body = this.childZouEn1.viewRef.element.nativeElement.querySelector('tbody');
+          break;
+        case Const.TabIndex.TabIndex_4:
+          body = this.childZouEn2.viewRef.element.nativeElement.querySelector('tbody');
           break;
       }
 
@@ -640,7 +729,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.Clear();
     // ボタン制御
     // 「追加工事」タブを選択される場合、追加・変更・削除が不可
-    if(this.selectedTab === Const.TabName.TabName_3){
+    if(this.selectedTab === Const.TabName.TabName_Tsuika){
       this.setPageButtonDisplay(true, true, false, true);
     }
     else{
@@ -706,8 +795,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     let temp = new ODIS0020OrderDetaiSplitBean();
     temp.insKubun           = Const.InsKubun.Ins;
     temp.propertyNo         = this.paramInit.propertyNo;
-    temp.detailKind         = this.tabValue.toString();
+    temp.detailKind         = this.tabOrderKind;
     temp.splitNo            = '1';
+    temp.orderBranchNo      = this.getOrderBranchValue(this.tabOrderKind);
     temp.journalCode        = this.addInput.journalCode;
     temp.accountCode        = this.addInput.accountCode;
     temp.journalName        = this.addInput.journalName;
@@ -735,29 +825,30 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private insertToDataTable(insertDt: ODIS0020OrderDetaiSplitBean) {
     var insertIndex: number = 0;
     var tblBody;
+    //FIXME:
     switch (this.selectedTab) {
-      case this.tabNo1:
+      case this.tabName1:
         insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
         this.reDetailNo(this.childSekkei.orderData);
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
-      case this.tabNo2:
+      case this.tabName2:
         insertIndex = this.countDefaultData(this.childHontai.orderData);
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
         this.reDetailNo(this.childHontai.orderData);
         tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
-      case this.tabNo3:
+      case this.tabName3:
         insertIndex = this.countDefaultData(this.childKaitai.orderData);
         this.childKaitai.orderData.splice(insertIndex, 0, insertDt);
         this.reDetailNo(this.childKaitai.orderData);
         tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
-      case this.tabNo4:
+      case this.tabName4:
         insertIndex = this.countDefaultData(this.childTsuika.orderData);
         this.childTsuika.orderData.splice(insertIndex, 0, insertDt);
         this.reDetailNo(this.childTsuika.orderData);
@@ -816,25 +907,26 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private insertDataFromSupplier(insertBucket:ODIS0020OrderDetaiSplitBean[]){
     switch (this.selectedTab) {
-      case this.tabNo1:
+      //FIXME:
+      case this.tabName1:
         let dataSekkei = this.childSekkei.orderData;
         this.insertProcess(insertBucket,dataSekkei);
         this.childSekkei.tableShiwake.renderRows();
         break;
 
-      case this.tabNo2:
+      case this.tabName2:
         let dataHontai = this.childHontai.orderData;
         this.insertProcess(insertBucket,dataHontai);
         this.childHontai.tableShiwake.renderRows();
         break;
 
-      case this.tabNo3:
+      case this.tabName3:
         let dataKaitai = this.childKaitai.orderData;
         this.insertProcess(insertBucket,dataKaitai);
         this.childTsuika.tableShiwake.renderRows();
         break;
 
-      case this.tabNo4:
+      case this.tabName4:
         let dataTsuika = this.childTsuika.orderData;
         this.insertProcess(insertBucket,dataTsuika);
         this.childTsuika.tableShiwake.renderRows();
@@ -888,19 +980,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     };
     var key = this.rowStatus.keyIndex;
     switch (this.selectedTab) {
-      case this.tabNo1:
+      case this.tabName1:
         this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key);
         break;
 
-      case this.tabNo2:
+      case this.tabName2:
         this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key);
         break;
 
-      case this.tabNo3:
+      case this.tabName3:
         this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key);
         break;
 
-      case this.tabNo4:
+      case this.tabName4:
         this.childTsuika.orderData = this.addInput.getInput(this.childTsuika.orderData,key);
         break;
     }
@@ -974,19 +1066,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     var tblBody: any;
     var tblData: ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
     switch (this.selectedTab) {
-      case this.tabNo1:
+      case this.tabName1:
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         tblData = this.childSekkei.orderData;
         break;
-      case this.tabNo2:
+      case this.tabName2:
         tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         tblData = this.childHontai.orderData;
         break;
-      case this.tabNo3:
+      case this.tabName3:
         tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
         tblData = this.childKaitai.orderData;
         break;
-      case this.tabNo4:
+      case this.tabName4:
         tblBody = this.childTsuika.viewRef.element.nativeElement.querySelector('tbody');
         tblData = this.childTsuika.orderData;
         break;
@@ -1014,7 +1106,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         var tr = body.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
-          if (j <= 7) {
+          if (j <= this.cellNumber) {
             td.style.backgroundColor = Const.HighLightColour.GrayOut;
           }
           else {
@@ -1046,22 +1138,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // 明細削除
     switch (this.selectedTab) {
-      case this.tabNo1:
+      case this.tabName1:
         this.childSekkei.orderData.splice(key, len);
         this.childSekkei.tableShiwake.renderRows();
         this.reDetailNo(this.childSekkei.orderData);
         break;
-      case this.tabNo2:
+      case this.tabName2:
         this.childHontai.orderData.splice(key, len);
         this.childHontai.tableShiwake.renderRows();
         this.reDetailNo(this.childHontai.orderData);
         break;
-      case this.tabNo3:
+      case this.tabName3:
         this.childKaitai.orderData.splice(key, len);
         this.childKaitai.tableShiwake.renderRows();
         this.reDetailNo(this.childKaitai.orderData);
         break;
-      case this.tabNo4:
+      case this.tabName4:
         this.childTsuika.orderData.splice(key, len);
         this.childTsuika.tableShiwake.renderRows();
         this.reDetailNo(this.childTsuika.orderData);
@@ -1078,10 +1170,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * タブ切り替え イベント
    * @param event 
-   */
-  //FIXME: タブが追加の場合、一覧がRead Only
+   */  
   setSelectTabChanged(event: any) {
-    // タブ設定
+
+    // タブIndex とタブ value が合わないため、タブ名称を取得
     this.selectedTab = event.tab.textLabel;
     // 初期化
     this.setDefaultDisplay();
@@ -1351,7 +1443,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     saveDt.insertedOrderInfo = this.tblInsertedOrder;
     saveDt.orderDetailList   = this.orderDetaiSplitlList;
     saveDt.SekkeiData        = this.tblSekkei;
-    saveDt.HontaiData        = this.tblHontai;
+    saveDt.HontaiData        = this.tblHouse;
     saveDt.KaitaiData        = this.tblKaitai;
     saveDt.TsuikaData        = this.tblTsuika;
     saveDt.paramInit         = this.paramInit;
