@@ -219,13 +219,18 @@
     bottom: 2px;
 }
 
+.SC0020-bottomButton>button {
+        padding: 0 10px!important;
+        width: fit-content !important;
+}
+
 .button-container {
     width: 581px;
     margin-left: 0;
 }
 
 .middleButtons {
-    left: 43%;
+    left: 38%;
     right: 50%;
     width: 320px;
     margin: auto;
@@ -236,13 +241,13 @@
     z-index: 2;
 }
 
-@media screen and (max-width: 804px){
+@media screen and (max-width: 845px){
     .middleButtons {
-        left:45%;
+        left:40%;
     }
 
     .SC0020-bottomButton>button {
-        padding: 0 10px!important;
+        padding: 0 5px!important;
         width: fit-content !important;
     }
 

@@ -315,7 +315,7 @@
                 <button mat-button id="btnBack" class="btn btn-secondary m-1 border mx-1 back-btn" 
                 tabindex="16" (click)="backToApprovalPage($event);" >更新せず終了</button>
             </div>
-            <div style="margin-left: 130px; bottom: 5px;" class="SC0020-bottomButton">
+            <div style="margin-left: 115px; bottom: 5px;" class="SC0020-bottomButton">
                 <button mat-button id="btnHSakiPatern" class="btn btn-secondary border mx-1 back-btn " data-toggle="modal"
                     data-target="#M_ODIS0050" 
                     (click)="supplierPattern($event);" 
@@ -324,13 +324,16 @@
                     >発注先パターン選択</button>
             </div>
             <div class="middleButtons">
-                <div class="SC0020-bottomButton" style="display: none;">
+                <div class="SC0020-bottomButton" >
+                    <button mat-button class="btn btn-info m-1 border mx-1" tabindex="18">粗利率確認</button>
+                </div>
+                <div style="transform: translateX(102%); display: none;" class="SC0020-bottomButton" >
                     <button mat-button id="btnTokuiSaki" class="btn btn-info m-1 border mx-1" tabindex="18">得意先元帳</button>
                 </div>
-                <div style="transform: translateX(120%); display: none;" class="SC0020-bottomButton">
+                <div style="transform: translateX(238%); display: none;" class="SC0020-bottomButton">
                     <button mat-button id="btnKoujiDaichou" class="btn btn-info m-1 border" tabindex="19">工事台帳</button>
                 </div>
-                <div style="transform: translateX(226%);" class="SC0020-bottomButton">
+                <div style="transform: translateX(341%);" class="SC0020-bottomButton">
                     <button mat-button id="btnMeisaiIchiran" class="btn btn-info m-1 border" tabindex="20" (click)="updateDownloadOrderDetailExportFile($event)">明細一覧</button>
                 </div>
             </div>
