@@ -1,6 +1,7 @@
 import { Const } from 'app/common/const';
 import { CommonComponent } from 'app/common/common.component';
 import { ODIS0060OrderDetailBunkatsu } from '../entities/odis0060-SplitDetail.entity';
+import { ODIS0060SuchOAP } from '../entities/odis0060-SuchOAP.entity'
 
 /**
  * 発注明細に追加サービス
@@ -145,7 +146,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
      * @param action 追加・変更
      * @param rowIndex 行番号
      */
-    getInput(output: ODIS0060OrderDetailBunkatsu, action: string): ODIS0060OrderDetailBunkatsu{
+    getInput(output: ODIS0060OrderDetailBunkatsu, action: string, res: ODIS0060SuchOAP): ODIS0060OrderDetailBunkatsu{
         output.orderSplitAmount = this.removeCommas(this.orderSplitAmount);
         output.splitSupplierCode = this.setValue(this.splitSupplierCode);
         output.splitSupplierName = this.setValue(this.splitSupplierName);
@@ -167,12 +168,12 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 output.approvalPerson_lv3 = '';
                 output.approvalDate_final = '';
                 output.approvalPerson_final = '';
-                output.orderDate = '';
-                output.orderAmount = '';
-                output.receivedDate = '';
-                output.receivedAmount = '';
-                output.paymentDate = '';
-                output.paymentAmount = '';
+                output.orderDate = res.orderDate;
+                output.orderAmount = res.orderAmount;
+                output.receivedDate = res.receivedDate;
+                output.receivedAmount = res.receivedAmount;
+                output.paymentDate = res.paymentDate;
+                output.paymentAmount = res.paymentAmount;
 
                 break;
             case Const.Action.A0002:

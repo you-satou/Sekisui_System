@@ -57,6 +57,7 @@ export namespace Const{
         export const S0004_Init = '/ODIS0040/init';
         export const S0005_Init = '/ODIS0050/init';
         export const S0006_GetOrderCode = '/ODIS0060/getOrderCode';
+        export const S0006_GetSuchOAP = '/ODIS0060/getSuchOAP';
         export const S0007_Init = '/ODIS0070/init';
         export const S0007_GetUser = '/ODIS0070/getUser';
         export const S0007_Insert = '/ODIS0070/insert';

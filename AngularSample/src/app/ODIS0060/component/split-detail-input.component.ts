@@ -15,6 +15,7 @@ import { OrderSupplierSelectService } from '../../ODIS0040/services/order-suppli
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
 import { ODIS0060Form} from '../entities/odis0060-Form.entity';
 import { ODIS0060OrderCode} from '../entities/odis0060-OrderCode.entitiy';
+import { ODIS0060SuchOAP} from '../entities/odis0060-SuchOAP.entity';
 import { CommonService } from '../../common/common.service';
 
 @Component({
@@ -100,6 +101,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   paramOrderCode = new ODIS0060Form();
   // 発注先コード レスポンス
   resOrderCode = new ODIS0060OrderCode();
+
+  // 発注、受入、仕入 パラメータ
+  paramSuchOAP = new ODIS0060Form();
+  // 発注、受入、仕入 レスポンス
+  resSuchOAP : ODIS0060SuchOAP;
+
   private subscription: Subscription;
   public modal: any = null;
 
@@ -392,42 +399,59 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     if(!this.inputCheck('0')){
       return;
     }
-    //入力情報 値 保存
-    let insertDt = new ODIS0060OrderDetailBunkatsu();
+
+    // 発注、受入、支払データ取得
+    this.paramSuchOAP.propertyNo = this.shiwakeData[0].propertyNo;      // 物件管理ＮＯ
+    this.paramSuchOAP.accountCode = this.shiwakeData[0].accountCode;    // 経理分類コード
+    this.paramSuchOAP.orderSupplierCode = this.input.splitSupplierCode; // 発注先コード
     
-    //　明細に追加する位置
-    let rowIndex: number = this.bunkatsuData.length;
+    // 発注、受入、支払 データ取得
+    this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
+    .then(
+      (response) => {
+        if(response.result === Const.ConnectResult.R0001){
+          // データ取得
+          this.resSuchOAP = response.applicationData;
 
-    // データ追加　設定
-    insertDt = this.input.getInput(insertDt,Const.Action.A0001);
+          //入力情報 値 保存
+          let insertDt = new ODIS0060OrderDetailBunkatsu();
+          
+          //　明細に追加する位置
+          let rowIndex: number = this.bunkatsuData.length;
 
-    //分割明細は１件もない場合
-    if(rowIndex === 1 && this.baseCompnt.setValue(this.bunkatsuData[0].orderSplitAmount) === ''){
-      this.bunkatsuData.splice(0, 1, insertDt);
-      rowIndex = 0;
-    }
-    else{
-      //明細に追加する位置を取得
-      this.bunkatsuData.splice(rowIndex, 0, insertDt);
-    }
+          // データ追加　設定
+          insertDt = this.input.getInput(insertDt, Const.Action.A0001, this.resSuchOAP);
 
-    this.table.renderRows();
+          //分割明細は１件もない場合
+          if(rowIndex === 1 && this.baseCompnt.setValue(this.bunkatsuData[0].orderSplitAmount) === ''){
+            this.bunkatsuData.splice(0, 1, insertDt);
+            rowIndex = 0;
+          }
+          else{
+            //明細に追加する位置を取得
+            this.bunkatsuData.splice(rowIndex, 0, insertDt);
+          }
 
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    //明細の背景色を変える
-    this.baseCompnt.setRowColor(Const.Action.A0001, tbody, rowIndex);
-    this.setAutoScroll(tbody,rowIndex);
+          this.table.renderRows();
 
-    //修正完了フラグ ON
-    this.isEditFlg = true;
+          let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
+          //明細の背景色を変える
+          this.baseCompnt.setRowColor(Const.Action.A0001, tbody, rowIndex);
+          this.setAutoScroll(tbody,rowIndex);
 
-    //仕訳テーブルのチェックボックスを変える
-    this.setSplitCheckBox();
+          //修正完了フラグ ON
+          this.isEditFlg = true;
 
-    // ボタン制御
-    this.setPageButtonDisplay(false, true, false, true);
-    this.resetAddTable();
-    this.saveDataToSession();
+          //仕訳テーブルのチェックボックスを変える
+          this.setSplitCheckBox();
+
+          // ボタン制御
+          this.setPageButtonDisplay(false, true, false, true);
+          this.resetAddTable();
+          this.saveDataToSession();
+        }
+      }
+    );
   }
 
   /**
@@ -442,25 +466,41 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let i: number = this.rowStatus.rowIndex;
+    // 発注、受入、支払データ取得
+    this.paramSuchOAP.propertyNo = this.shiwakeData[0].propertyNo;      // 物件管理ＮＯ
+    this.paramSuchOAP.accountCode = this.shiwakeData[0].accountCode;    // 経理分類コード
+    this.paramSuchOAP.orderSupplierCode = this.input.splitSupplierCode; // 発注先コード
 
-    this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i], Const.Action.A0002);
+    // 発注、受入、支払 データ取得
+    this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
+    .then(
+      (response) => {
+        if(response.result === Const.ConnectResult.R0001){
+          // データ取得
+          this.resSuchOAP = response.applicationData;
 
-    this.table.renderRows();
+          let i: number = this.rowStatus.rowIndex;
 
-    let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
-    this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
+          this.bunkatsuData[i] = this.input.getInput(this.bunkatsuData[i], Const.Action.A0002, this.resSuchOAP);
 
-    //仕訳テーブルのチェックボックスを変える
-    this.setSplitCheckBox();
-    
-    //最後にページ初期化する
-    this.resetAddTable();
-    this.setPageButtonDisplay(false, true, false, true);
+          this.table.renderRows();
 
-    //修正完了フラグ ON
-    this.isEditFlg = true;
-    this.saveDataToSession();
+          let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
+          this.baseCompnt.setRowColor(Const.Action.A0002, tbody, i);
+
+          //仕訳テーブルのチェックボックスを変える
+          this.setSplitCheckBox();
+          
+          //最後にページ初期化する
+          this.resetAddTable();
+          this.setPageButtonDisplay(false, true, false, true);
+
+          //修正完了フラグ ON
+          this.isEditFlg = true;
+          this.saveDataToSession();
+        }
+      }
+    );
   }
 
   /**
@@ -657,7 +697,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 「戻る」ボタンの押下
+   * 「閉じる」ボタンの押下
    */
   backToOrderDetailInput() {
 
