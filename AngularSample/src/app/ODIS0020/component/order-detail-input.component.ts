@@ -169,6 +169,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   // 発注先コード レスポンス
   resOrderCode : ODIS0020OrderCode;
 
+  // 発注、受入、仕入 パラメータ
+  paramSuchOAP = new ODIS0020Form();
+  // 発注、受入、仕入 レスポンス
+  resSuchOAP : ODIS0020OrderDetaiSplitBean;
+
   // 更新情報 パラメータ
   paramUpd = new ODIS0020UpdForm();
 
@@ -797,40 +802,61 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return;
     };
 
-    // 追加データ 設定
-    let temp = new ODIS0020OrderDetaiSplitBean();
-    temp.insKubun           = Const.InsKubun.Ins;
-    temp.propertyNo         = this.paramInit.propertyNo;
-    temp.detailKind         = this.tabOrderKind;
-    temp.splitNo            = '1';
-    temp.journalCode        = this.addInput.journalCode;
-    temp.accountCode        = this.addInput.accountCode;
-    temp.journalName        = this.addInput.journalName;
-    temp.orderSupplierCode  = this.addInput.orderSupplierCode;
-    temp.orderSupplierName  = this.addInput.orderSupplierName;
-    temp.orderPlanAmount    = this.addInput.orderPlanAmount;
-    
-    temp.orderBranchNo      = this.currentBranchNo;
-    temp.orderReceipt       = this.addInput.orderReceipt;
-    temp.bulkRequestDate    = '';
-    temp.bulkRequester      = '';
-    temp.bulkApprovalDate_lv1     = '';
-    temp.bulkApprovalPerson_lv1   = '';
-    temp.bulkApprovalDate_lv2     = '';
-    temp.bulkApprovalPerson_lv2   = '';
-    temp.bulkApprovalDate_lv3     = '';
-    temp.bulkApprovalPerson_lv3   = '';
-    temp.bulkApprovalDate_final   = '';
-    temp.bulkApprovalPerson_final = '';
-
     //TODO: 発注・受入・支払データを取得
+    this.isLoading = true;
+    this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;               // 物件管理ＮＯ
+    this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
+    this.paramSuchOAP.orderSupplierCode = this.addInput.orderSupplierCode;  // 発注先コード
 
-    console.log(temp);
-    this.insertToDataTable(temp);
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+      .then(
+        (response) => {
+          if(response.result === Const.ConnectResult.R0001){
+            // 結果取得
+            this.resSuchOAP = response.applicationData;
 
-    // 初期化
-    this.setDefaultDisplay();
+            // 追加データ 設定
+            let temp = new ODIS0020OrderDetaiSplitBean();
+            temp.insKubun           = Const.InsKubun.Ins;
+            temp.propertyNo         = this.paramInit.propertyNo;
+            temp.detailKind         = this.tabOrderKind;
+            temp.splitNo            = '1';
+            temp.journalCode        = this.addInput.journalCode;
+            temp.accountCode        = this.addInput.accountCode;
+            temp.journalName        = this.addInput.journalName;
+            temp.orderSupplierCode  = this.addInput.orderSupplierCode;
+            temp.orderSupplierName  = this.addInput.orderSupplierName;
+            temp.orderPlanAmount    = this.addInput.orderPlanAmount;
+            
+            temp.orderBranchNo      = this.currentBranchNo;
+            temp.orderReceipt       = this.addInput.orderReceipt;
+            temp.bulkRequestDate    = '';
+            temp.bulkRequester      = '';
+            temp.bulkApprovalDate_lv1     = '';
+            temp.bulkApprovalPerson_lv1   = '';
+            temp.bulkApprovalDate_lv2     = '';
+            temp.bulkApprovalPerson_lv2   = '';
+            temp.bulkApprovalDate_lv3     = '';
+            temp.bulkApprovalPerson_lv3   = '';
+            temp.bulkApprovalDate_final   = '';
+            temp.bulkApprovalPerson_final = '';
+            temp.orderDate = this.baseCompnt.setValue(this.resSuchOAP.orderDate);
+            temp.orderAmount = this.baseCompnt.setValue(this.resSuchOAP.orderAmount);
+            temp.receivedDate = this.baseCompnt.setValue(this.resSuchOAP.receivedDate);
+            temp.receivedAmount = this.baseCompnt.setValue(this.resSuchOAP.receivedAmount);
+            temp.paymentDate = this.baseCompnt.setValue(this.resSuchOAP.paymentDate);
+            temp.paymentAmount = this.baseCompnt.setValue(this.resSuchOAP.paymentAmount);
 
+            console.log(temp);
+            this.insertToDataTable(temp);
+
+            // 初期化
+            this.setDefaultDisplay();
+          }
+          // ローディング解除
+          this.isLoading = false;
+        }
+      )
   }
   /** テーブルに明細を追加 */
   private insertToDataTable(insertDt: ODIS0020OrderDetaiSplitBean) {
@@ -998,36 +1024,55 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(!this.inputCheck('1')){
       return;
     };
-    var key = this.rowStatus.keyIndex;
-    switch (this.selectedTab) {
-      //設計
-      case this.tabName1:
-        this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key);
-        break;
-      //ハウス
-      case this.tabName2:
-        this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key);
-        break;
-      //解体
-      case this.tabName3:
-        this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key);
-        break;
-      //造園１
-      case this.tabName4:
-        this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn1.orderData,key);
-        break;
-      //造園２
-      case this.tabName5:
-        this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn2.orderData,key);
-        break;
-    }
 
-    // 文字色設定
-    this.setAfterViewFont();
+    //TODO: 発注・受入・支払データを取得
+    this.isLoading = true;
+    this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;               // 物件管理ＮＯ
+    this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
+    this.paramSuchOAP.orderSupplierCode = this.addInput.orderSupplierCode;  // 発注先コード
 
-    // 初期化
-    this.setDefaultDisplay();
-    this.rowStatus.Clear();
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+      .then(
+        (response) => {
+          if(response.result === Const.ConnectResult.R0001){
+            // 結果取得
+            this.resSuchOAP = response.applicationData;
+
+            var key = this.rowStatus.keyIndex;
+            switch (this.selectedTab) {
+              //設計
+              case this.tabName1:
+                this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key, this.resSuchOAP);
+                break;
+              //ハウス
+              case this.tabName2:
+                this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key, this.resSuchOAP);
+                break;
+              //解体
+              case this.tabName3:
+                this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key, this.resSuchOAP);
+                break;
+              //造園１
+              case this.tabName4:
+                this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn1.orderData,key, this.resSuchOAP);
+                break;
+              //造園２
+              case this.tabName5:
+                this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn2.orderData,key, this.resSuchOAP);
+                break;
+            }
+
+            // 文字色設定
+            this.setAfterViewFont();
+
+            // 初期化
+            this.setDefaultDisplay();
+            this.rowStatus.Clear();
+          }
+          // ローディング解除
+          this.isLoading = false;
+        }
+      )
   }
   
   /**

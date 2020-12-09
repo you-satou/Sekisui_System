@@ -158,7 +158,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
      * @param value 
      * @param action 
      */
-    getInput(output: ODIS0020OrderDetaiSplitBean[], key:number): ODIS0020OrderDetaiSplitBean[]{
+    getInput(output: ODIS0020OrderDetaiSplitBean[], key:number, res: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean[]{
         
         // 発注連番に紐づくデータをすべて更新
         for(var i=0; i<output.length; i++){
@@ -168,12 +168,13 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 if(output[i].insKubun === Const.InsKubun.Normal){
                     output[i].insKubun       = Const.InsKubun.Upd;
                 }
-
+                output[i].orderBranchNo      = this.orderBranchNo;
                 output[i].journalCode        = this.journalCode;
                 output[i].journalName        = this.journalName;
                 output[i].accountCode        = this.accountCode;
                 output[i].orderSupplierCode  = this.orderSupplierCode;
                 output[i].orderSupplierName  = this.orderSupplierName;
+                output[i].orderReceipt       = this.orderReceipt;
                 output[i].orderPlanAmount    = this.removeCommas(this.orderPlanAmount);
                 output[i].bulkRequestDate    = this.bulkRequestDate;
                 output[i].bulkRequester      = this.bulkRequester;
@@ -185,12 +186,12 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 output[i].bulkApprovalPerson_lv3   = this.bulkApprovalPerson_lv3;
                 output[i].bulkApprovalDate_final   = this.bulkApprovalDate_final;
                 output[i].bulkApprovalPerson_final = this.bulkApprovalPerson_final;
-
-                output[i].orderBranchNo           = this.orderBranchNo;
-                output[i].orderReceipt            = this.orderReceipt;
-                if(this.setValue(output[i].orderSplitAmount) != ''){
-                    output[i].splitOrderReceipt       = this.orderReceipt;
-                }                
+                output[i].orderDate = res.orderDate;
+                output[i].orderAmount = res.orderAmount;
+                output[i].receivedDate = res.receivedDate;
+                output[i].receivedAmount = res.receivedAmount;
+                output[i].paymentDate = res.paymentDate;
+                output[i].paymentAmount = res.paymentAmount;
             }            
         }
         return output;
