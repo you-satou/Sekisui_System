@@ -25,29 +25,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   
   //承認人数
   approvalUnit: number;
-
-  get defaultBranchVal(){
-    switch(this.tabName){
-      case Const.TabName.TabName_Sekkei:
-        return Const.BranchValue.Sekkei;
-
-      case Const.TabName.TabName_Hontai:
-        return Const.BranchValue.Hontai;
-
-      case Const.TabName.TabName_Kaitai:
-        return Const.BranchValue.Kaitai;
-
-      case Const.TabName.TabName_Tsuika:
-        return Const.BranchValue.Zouen1;
-
-      case Const.TabName.TabName_Zouen1:
-        return Const.BranchValue.Zouen2;
-
-      case Const.TabName.TabName_Zouen2:
-        return Const.BranchValue.Tsuika;
-    }
-  }
-
   systemDate: Date = new Date();
   dataEmitter = new DataEmitter();
  
@@ -125,12 +102,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "paymentDate",            // 支払日
     "paymentAmount",          // 支払金額
   ];
-
-  //発注注文書発行区分
-  receiptCheck: boolean;
-
-  //分割注文書発行区分
-  splitReceiptCheck: boolean;
 
   constructor(
     public comCompnt: CommonComponent,
@@ -403,37 +374,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   }
 
   /**
-   * チェックボックスの状態を設定
-   * @param dt 
-   * @param type 
-   */
-  isCheckStt(dt: ODIS0020OrderDetaiSplitBean, type:string){
-    switch(type){
-      //左側
-      case 'order':
-        if(this.receiptCheck){
-          return true;
-        }
-        //データが８の場合、チェック
-        if(this.comCompnt.setValue(dt.orderReceipt)==Const.OrderReceiptCheckType.Checked){
-          return true;
-        }        
-        return false;
-        //右側
-      case 'spit':
-        if(this.splitReceiptCheck){
-          return true;
-        }
-        //データが８の場合、チェック
-        if(this.comCompnt.setValue(dt.splitOrderReceipt)==Const.OrderReceiptCheckType.Checked){
-          return true;
-        }        
-        return false;
-    }
-
-  }
-
-  /**
    *➡ボタンを押下して、 発注金額を設定する
    * @param $event
    * @param dataDetail
@@ -537,23 +477,24 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     
     this.setSelect($event);
 
+    // 選択されたデータのインデックス
+    let rowIndex: number = this.orderData.indexOf(value);
+
     // 明細連番 対象データ抽出
     let filter = this.orderData.filter(element =>{
       if(element.detailNo == value.detailNo){
         return element;
       }
     });
-
     //先頭データのインデックスを取得する
     let keyIndex = this.orderData.indexOf(filter[0]);
-    // 選択されたデータのインデックス
-    let rowIndex: number = this.orderData.indexOf(value);
+
     //明細件数を取得
     let totalLength: number = filter.length;
 
+    
     let isCanNotUpd: boolean = false;
     let isCanNotDel: boolean = false;
-
     //一括承認データがある場合、更新・削除ができない
     if(this.comCompnt.setValue(value.bulkApprovalPerson_final) != ''){
       isCanNotUpd = true;
@@ -569,6 +510,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //追加工事タブを選択されている時、全ボタンを非活性する
     if(this.tabName === this.readonlyTab){
+      keyIndex = rowIndex;
       isCanNotUpd = true;
       isCanNotDel = true;
     }
@@ -583,11 +525,15 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       isCanNotUpd = true;
       isCanNotDel = true; 
     }
-    this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
+    if(this.tabName === this.readonlyTab){
+      this.dataEmitter.setEmitterData(value);     //明細のデータ
+    }else{
+      this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
+    }
+    
     this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
 
     this.sendOrderData.emit(this.dataEmitter);
-
 
   }
 
