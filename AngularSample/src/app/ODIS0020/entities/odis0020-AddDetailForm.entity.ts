@@ -26,7 +26,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     orderPlanAmount: string;
 
     /** 受注管理枝番 */
-    orderBranchNo: string = '';
+    orderBranchNo: string;
 
     /** 注文書発行区分 */
     orderReceipt: string;

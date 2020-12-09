@@ -212,7 +212,7 @@ export namespace Const{
         export const TabName_Sekkei = '設計'
         export const TabName_Hontai = 'ハウス'
         export const TabName_Kaitai = '解体'        
-        export const TabName_Tsuika = '追加工事'
+        export const TabName_Tsuika = '追加'
         export const TabName_Zouen1 = '造園①'
         export const TabName_Zouen2 = '造園②'
 

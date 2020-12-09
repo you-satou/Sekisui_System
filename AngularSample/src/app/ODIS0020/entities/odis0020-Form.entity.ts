@@ -31,7 +31,13 @@ export class ODIS0020Session{
     KaitaiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 追加データ */
-    TsuikaData: ODIS0020OrderDetaiSplitBean[]
+    TsuikaData: ODIS0020OrderDetaiSplitBean[];
+
+    /** 造園①データ */
+    ZouEn1Data: ODIS0020OrderDetaiSplitBean[];
+
+    /** 造園②データ */
+    ZouEn2Data: ODIS0020OrderDetaiSplitBean[];
 
     /** パラメータ設定 */
     paramInit: ODIS0020Form;
