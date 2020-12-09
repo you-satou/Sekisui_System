@@ -66,6 +66,13 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         }
         return true;
     }
+    /**発注先コードがないとき「True」を返却する */
+    get supplierCodeIsBlank(): boolean {
+        if (this.splitSupplierCode != '') {
+            return false;
+        }
+        return true;
+    }
 
     get isChanged(){
         if (this.removeCommas(this.orderSplitAmount) != this.bunkatsu.orderSplitAmount ||

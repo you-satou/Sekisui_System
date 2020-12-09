@@ -241,7 +241,7 @@
                             (change)="onlyHanPrice($event)" />
                     </td>
                     <td style="width: 40px">
-                        <input type="tel" maxlength="3" name="supplierCode"
+                        <input type="tel" maxlength="3" name="supplierCode" id="txtSupplierCode"
                             [(ngModel)]="input.splitSupplierCode" style="ime-mode:disabled; text-align:right;"
                             tabindex="3" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>

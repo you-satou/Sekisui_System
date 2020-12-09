@@ -638,6 +638,13 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       return false;
     }
 
+    //発注先コードが未入力かどうか
+    if (this.input.supplierCodeIsBlank) {
+      this.baseCompnt.setFocus('txtSupplierCode');
+      alert(Const.ErrorMsg.E0005);
+      return false;
+    }
+
     // 「明細更新」ボタン処理の場合
     if(val === '1'){
       // 値が変更されていない場合
