@@ -89,6 +89,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.journalName         != this.shiwakeData.journalName ||
         this.orderSupplierCode   != this.shiwakeData.orderSupplierCode||
         this.orderSupplierName   != this.shiwakeData.orderSupplierName ||
+        this.orderReceipt        != this.shiwakeData.orderReceipt ||
         this.removeCommas(this.orderPlanAmount) != this.shiwakeData.orderPlanAmount
         ){
             return false;
@@ -108,7 +109,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.journalName              = '';
         this.orderSupplierCode        = '';
         this.orderSupplierName        = '';
-        this.orderReceipt             = '';
+        this.orderReceipt             = '0';
         this.orderPlanAmount          = '';
         this.bulkRequestDate          = '';
         this.bulkRequester            = '';
@@ -167,6 +168,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 if(output[i].insKubun === Const.InsKubun.Normal){
                     output[i].insKubun       = Const.InsKubun.Upd;
                 }
+
                 output[i].journalCode        = this.journalCode;
                 output[i].journalName        = this.journalName;
                 output[i].accountCode        = this.accountCode;
@@ -183,20 +185,15 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 output[i].bulkApprovalPerson_lv3   = this.bulkApprovalPerson_lv3;
                 output[i].bulkApprovalDate_final   = this.bulkApprovalDate_final;
                 output[i].bulkApprovalPerson_final = this.bulkApprovalPerson_final;
+
+                output[i].orderBranchNo           = this.orderBranchNo;
+                output[i].orderReceipt            = this.orderReceipt;
+                if(this.setValue(output[i].orderSplitAmount) != ''){
+                    output[i].splitOrderReceipt       = this.orderReceipt;
+                }                
             }            
         }
         return output;
     }
-
-}
-
-/**
- * 受注枝番ドロップダウンリスト
- */
-export class BranchDropDownList{
-
-    value: string;
-
-    text: string;
 
 }

@@ -249,7 +249,8 @@
             <tbody>
                 <tr>
                     <td style="width: 40px; text-align: center;">
-                        <label style="text-align: center;">{{this.addInput.orderBranchNo?this.addInput.orderBranchNo:this.currentBranchNo}}</label>
+                        <label style="text-align: center; margin: 0" *ngIf="this.addInput.orderBranchNo==''">{{this.currentBranchNo}}</label>
+                        <label style="text-align: center; margin: 0" *ngIf="this.addInput.orderBranchNo!=''">{{this.addInput.orderBranchNo}}</label>
                     </td>
                     <td style="width: 60px;">
                         <input type="tel" maxlength="4" class="add-journalCode" id="txtAddJCode" name="journalCode"
@@ -274,7 +275,9 @@
                     </td>
                     <td class="add-supplierName" style="text-align: left; min-width: 220px;">{{addInput.orderSupplierName}}</td>
                     <td>
-                        <input type="checkbox">
+                        <input type="checkbox"
+                        [checked]="this.addInput.orderReceipt == '8'"
+                        (change)="changeOrderReceiptStt($event)">
                     </td>
                     <td class="add-planAmount">
                         <input type="tel" maxlength="11" id="txtAddAmount" name="orderPlansKin"

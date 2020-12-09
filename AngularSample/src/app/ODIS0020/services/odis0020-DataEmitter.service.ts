@@ -27,6 +27,7 @@ export class DataEmitter {
     this.data.orderSupplierCode  = key.orderSupplierCode;
     this.data.orderSupplierName  = key.orderSupplierName;
     this.data.orderPlanAmount    = key.orderPlanAmount;
+    
 
     this.data.bulkRequestDate    = key.bulkRequestDate;
     this.data.bulkRequester      = key.bulkRequester;
@@ -39,6 +40,10 @@ export class DataEmitter {
     this.data.bulkApprovalPerson_lv3   = key.bulkApprovalPerson_lv3;
     this.data.bulkApprovalDate_final   = key.bulkApprovalDate_final;
     this.data.bulkApprovalPerson_final = key.bulkApprovalPerson_final;
+
+    this.data.orderBranchNo      = key.orderBranchNo;
+    this.data.orderReceipt       = key.orderReceipt;
+
   }
    /**
     * 明細のステータスを設定する

@@ -26,20 +26,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   //承認人数
   approvalUnit: number;
 
-  //テーブルGrayOut のセール数が承認者数でを設定する
-  get cellNumber(){
-    switch(this.approvalUnit){
-      case 1:
-        return 10;
-      case 2:
-        return 11;
-      case 3:
-        return 12;
-      case 4:
-        return 13;
-    }
-  }
-
   get defaultBranchVal(){
     switch(this.tabName){
       case Const.TabName.TabName_Sekkei:
@@ -140,6 +126,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     "paymentAmount",          // 支払金額
   ];
 
+  //発注注文書発行区分
+  receiptCheck: boolean;
+
+  //分割注文書発行区分
+  splitReceiptCheck: boolean;
+
   constructor(
     public comCompnt: CommonComponent,
     private viewRef: ViewContainerRef,
@@ -207,9 +199,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-    //TODO: Khong dung thi xoa.
-    // this.setTableButtonDisplay(this.orderData);
-    // this.setFontWhite(this.orderData);
+
+    this.setFontWhite(this.orderData);
   }
 
   /**
@@ -288,7 +279,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   }
 
   /**
-   * ボタン活性フラグ(分割リンクボタン)
+   * 「反映」ボタン活性フラグ
    * @param element 
    */
   isReflectFlg(element:ODIS0020OrderDetaiSplitBean){
@@ -329,15 +320,59 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     return false;
   }
 
-  isRejectFlg(element:ODIS0020OrderDetaiSplitBean){
+  /**
+   * 「却下」ボタンの活性か設定
+   * @param element 
+   * @param type 
+   */
+  isRejectFlg(element:ODIS0020OrderDetaiSplitBean, type?:string){
+    //「追加」タブを選択される場合、非活性する
     if(this.tabName === this.readonlyTab){
       return true;
+    }
+    // 左側の却下ボタンには、一括最終承認が入る場合、非活性する
+    if(type == 'order'){
+      if(this.comCompnt.setValue(element.bulkApprovalPerson_final) != ''){
+        return true;
+      }
+    }
+    // 右側の却下ボタンには、最終承認が入る場合、非活性する
+    if(type == 'split'){
+      if(this.comCompnt.setValue(element.approvalPerson_final) != ''){
+        return true;
+      }
+    }
+        
+    return false;
+  }
+
+  /**
+   * チェックボックスの活性か設定
+   * @param element 
+   * @param type 
+   */
+  isCheckBoxFlg(element:ODIS0020OrderDetaiSplitBean, type:string){
+    //「追加」タブを選択される場合、非活性する
+    if(this.tabName === this.readonlyTab){
+      return true;
+    }
+    // 左側の却下ボタンには、一括最終承認が入る場合、非活性する
+    if(type == 'order'){
+      if(this.comCompnt.setValue(element.bulkApprovalPerson_final) != ''){
+        return true;
+      }
+    }
+    // 右側の却下ボタンには、最終承認が入る場合、非活性する
+    if(type == 'split'){
+      if(this.comCompnt.setValue(element.approvalPerson_final) != ''){
+        return true;
+      }
     }
     return false;
   }
 
   /**
-   * ボタン活性フラグ(分割リンクボタン)
+   * 「分割」ボタン活性フラグ
    * @param element 
    */
   isSplitFlg(element:ODIS0020OrderDetaiSplitBean){
@@ -365,6 +400,37 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     // 活性
     return false;
+  }
+
+  /**
+   * チェックボックスの状態を設定
+   * @param dt 
+   * @param type 
+   */
+  isCheckStt(dt: ODIS0020OrderDetaiSplitBean, type:string){
+    switch(type){
+      //左側
+      case 'order':
+        if(this.receiptCheck){
+          return true;
+        }
+        //データが８の場合、チェック
+        if(this.comCompnt.setValue(dt.orderReceipt)==Const.OrderReceiptCheckType.Checked){
+          return true;
+        }        
+        return false;
+        //右側
+      case 'spit':
+        if(this.splitReceiptCheck){
+          return true;
+        }
+        //データが８の場合、チェック
+        if(this.comCompnt.setValue(dt.splitOrderReceipt)==Const.OrderReceiptCheckType.Checked){
+          return true;
+        }        
+        return false;
+    }
+
   }
 
   /**
@@ -496,8 +562,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     // ハウス材、運賃・荷造・保管料、労災の場合は削除不可
     if (value.journalName == 'ハウス材' ||
-      value.journalName == '運賃・荷造・保管料' ||
-      value.journalName == '労災') {
+        value.journalName == '運賃・荷造・保管料' ||
+        value.journalName == '労災') {
       isCanNotDel = true;
     }
 
@@ -512,8 +578,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //依頼・承認ボタンを押下した場合、設定する
     var nodeName = $event.target.nodeName;
-    if(nodeName === 'SPAN' || nodeName === 'BUTTON'){
-      this.dataEmitter.action = Const.Action.A0008; 
+    if(nodeName === 'SPAN' || nodeName === 'BUTTON' || nodeName === 'INPUT'){
+      this.dataEmitter.action = Const.Action.A0008;
+      isCanNotUpd = true;
+      isCanNotDel = true; 
     }
     this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
     this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
@@ -523,6 +591,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * 一覧にて、明細を選択する時、発生する
+   * @param event 
+   */
   setSelect(event: any){
 
     //クリックされたエレメント名を取得する
@@ -560,10 +632,21 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         wTbody = event.path[3];
         break;
 
+      //チェックボックス
       case 'INPUT':
         wTr = event.path[2];
         wTbody = event.path[3];
         break;
+    }
+  
+    let row = wTbody.rows[0];
+    let bulkApprovalCell = 0;
+    //一括最終承認のセールまで数える
+    for(var i = 0; i < row.cells.length; i++){
+      bulkApprovalCell++;
+      if(row.children[i].id == "bulkApprovalFinal"){
+        break;
+      }
     }
 
     for(var i = 0; i < this.orderData.length; i++){
@@ -572,7 +655,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         var tr = wTbody.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
-          if (j <= this.cellNumber) {
+          //一括最終承認のセールまでグレイアウトする
+          if (j <= bulkApprovalCell) {
             td.style.backgroundColor = this.grayOut;
           }
           else {
@@ -628,10 +712,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   }
 
   /**
- * 承認２を実行する
- * @param event 
- * @param dt 
- */
+  * 承認２を実行する
+  * @param event
+  * @param dt
+  */
   setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
@@ -641,73 +725,31 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   }
 
-    /**
- * 承認３を実行する
- * @param event 
- * @param dt 
- */
-setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
-  
-  let currTime = Date.now();
-  let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
-  dt.approvalDate_lv3 = requestTime;
-  dt.approvalPerson_lv3 = this.appComponent.loginUser;
+  /**
+  * 承認３を実行する
+  * @param event 
+  * @param dt 
+  */
+  setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-}
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_lv3 = requestTime;
+    dt.approvalPerson_lv3 = this.appComponent.loginUser;
+
+  }
 
   /**
  * 最終承認を実行する
  * @param event 
  * @param dt 
  */
-setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
-  
-  let currTime = Date.now();
-  let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
-  dt.approvalDate_final = requestTime;
-  dt.approvalPerson_final = this.appComponent.loginUser;
-}
+  setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
-  /**
-   * 明細テーブルに初期表の時、ボタン活動性を設定する。
-   *↓↓↓　ボタン名　↓↓↓
-   * 「依頼」「承認」「承認」
-   * 
-   * @param dt 
-   * 
-   */
-  setTableButtonDisplay(dt: ODIS0020OrderDetaiSplitBean[]) {
-    let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-    let tr: HTMLTableRowElement;
-    let btn: any;
-    dt.forEach(element => {
-      let ind = dt.indexOf(element);
-      // 固定行にボンタンを表示させない。
-      if (element.journalName == 'ハウス材' ||
-          element.journalName == '運賃・荷造・保管料' ||
-          element.journalName == '労災') {
-
-        tr = skBody.rows[ind];
-
-        //➡　ボタンを非表示させる
-        btn = tr.cells[8].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', true);
-
-        //分　ボタンを非表示させる
-        btn = tr.cells[9].getElementsByTagName('button');
-        btn[0].setAttribute('disabled', true);
-
-        //依頼　ボタンを非表示させる
-        btn = tr.cells[13].getElementsByTagName('button');
-        // ボタンが存在すれば以下の処理を実施
-        if (btn[0] !== undefined) {
-          btn[0].style.display = 'none';
-        }
-
-        //承認ボタンは既に非表示されているため、再非表示する必要なし。
-      }
-    });
-
+    let currTime = Date.now();
+    let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+    dt.approvalDate_final = requestTime;
+    dt.approvalPerson_final = this.appComponent.loginUser;
   }
 
   /**
@@ -772,25 +814,29 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
    */
   private setFontWhite(dt: ODIS0020OrderDetaiSplitBean[]){
     let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
+    const tr = skBody.rows[0];
+    var bulkApprovalCell = 0;
 
+    for(var i = 0; i < tr.cells.length; i++){
+      //最終承認セールまで数える
+      bulkApprovalCell++;
+      if(tr.childNodes[i].id == "bulkApprovalFinal"){
+        break;
+      }
+    }
     for (let i = 0; i < dt.length; i++) {
       if(dt[i].splitNo !== '1'){
-        let tr = skBody.rows[i];
-        for(var j = 0; i <= this.cellNumber; i++){
-          tr.cells[j].style.color = 'transparent';
+        var row = skBody.rows[i];
+        for(var j = 0; j <= bulkApprovalCell; j++){
+          row.cells[j].style.color = Const.HighLightColour.Transparent;
         }
-        // tr.cells[0].style.color = 'transparent';
-        // tr.cells[1].style.color = 'transparent';
-        // tr.cells[2].style.color = 'transparent';
-        // tr.cells[3].style.color = 'transparent';
-        // tr.cells[4].style.color = 'transparent';
-        // tr.cells[5].style.color = 'transparent';
-        // tr.cells[6].style.color = 'transparent';
-        // tr.cells[7].style.color = 'transparent';
       }
     }
   }
 
+  /**
+   * 一括依頼ボタンの制御
+   */
   bulkRequestInfo(){
 
     if(this.tabName === this.readonlyTab){
@@ -815,8 +861,10 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     return false;
   }
 
+  /**
+   * 一括承認１ボタンの制御
+   */
   bulkApprovalLv1Info(){
-
     if(this.tabName === this.readonlyTab){
       return true;
     }
@@ -846,6 +894,9 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
   }
 
+  /**
+   * 一括承認２ボタンの制御
+   */
   bulkApprovalLv2Info(){
  
     if(this.tabName === this.readonlyTab){
@@ -877,6 +928,9 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     return true;
   }
 
+  /**
+   * 一括承認３ボタンの制御
+   */
   bulkApprovalLv3Info(){
  
     if(this.tabName === this.readonlyTab){
@@ -909,6 +963,9 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
   }
 
+  /**
+   * 一括最終承認ボタンの制御
+   */
   bulkApprovalFinalInfo(){
 
     if(this.tabName === this.readonlyTab){
@@ -952,19 +1009,23 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         return value;
       }
     })
-
+    
+    //承認人数が一人・依頼済・最終承認が承認中の時⇒活性する
     if(this.approvalUnit == 1 && requestInfo.length == this.orderData.length && approvalFinal.length != this.orderData.length){
       return false;
     }
-
+    
+    //承認人数が二人・承認１済・最終承認が承認中の時⇒活性する
     if(this.approvalUnit == 2 && approvalLv1.length == this.orderData.length && approvalFinal.length != this.orderData.length){
       return false;
     }
-
+    
+    //承認人数が三人・承認２済・最終承認が承認中の時⇒活性する
     if(this.approvalUnit == 3 && approvalLv2.length == this.orderData.length && approvalFinal.length != this.orderData.length){
       return false;
     }
 
+    //承認人数が四人・承認３済・最終承認が承認中の時⇒活性する
     if(this.approvalUnit == 4 && approvalLv3.length == this.orderData.length && approvalFinal.length != this.orderData.length){
       return false;
     }
@@ -973,7 +1034,10 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
   }
 
-
+  /**
+   * 一括最依頼
+   * @param $event 
+   */
   oneClickRequest($event){
 
     let currTime = Date.now();
@@ -988,6 +1052,10 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     })
   }
 
+  /**
+   * 一括最承認１
+   * @param $event 
+   */
   oneClickApprovalLv1($event) {
 
       let currTime = Date.now();
@@ -1001,7 +1069,10 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         }
       })
   }
-
+  /**
+   * 一括最承認２
+   * @param $event 
+   */
   oneClickApprovalLv2($event) {
 
       let currTime = Date.now();
@@ -1015,6 +1086,11 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         }
       })
   }
+
+  /**
+   * 一括最承認３
+   * @param $event 
+   */
   oneClickApprovalLv3($event) {
 
       let currTime = Date.now();
@@ -1028,6 +1104,10 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         }
       })
   }
+  /**
+   * 一括最終承認
+   * @param $event 
+   */
   oneClickApprovalFinal($event) {
 
       let currTime = Date.now();
@@ -1041,6 +1121,12 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
         }
       })
   }
+  /**
+   * 却下ボタンを押下する時
+   * @param $event 
+   * @param dt 
+   * @param type 
+   */
   approvalReject($event, dt: ODIS0020OrderDetaiSplitBean, type:string){
 
     var confirm = window.confirm(Const.WarningMsg.W0006);
@@ -1049,69 +1135,103 @@ setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
     }
     switch(type){
       //左側の却下
-      case '0':
+      case 'order':
         this.orderData.forEach(element => {
           if(element.detailNo == dt.detailNo){
-
-            element.bulkRequestDate = '';
-            element.bulkRequester = '';
-            element.bulkApprovalDate_lv1 = '';
-            element.bulkApprovalPerson_lv1 = '';
-            element.bulkApprovalDate_lv2 = '';
-            element.bulkApprovalPerson_lv2 = '';
-            element.bulkApprovalDate_lv3 = '';
-            element.bulkApprovalPerson_lv3 = '';
-            element.bulkApprovalDate_final = '';
+            element.bulkRequestDate          = '';
+            element.bulkRequester            = '';
+            element.bulkApprovalDate_lv1     = '';
+            element.bulkApprovalPerson_lv1   = '';
+            element.bulkApprovalDate_lv2     = '';
+            element.bulkApprovalPerson_lv2   = '';
+            element.bulkApprovalDate_lv3     = '';
+            element.bulkApprovalPerson_lv3   = '';
+            element.bulkApprovalDate_final   = '';
             element.bulkApprovalPerson_final = '';            
           }          
         });
 
-
         break;
       
       //右側の却下
-      case '1':
-        dt.requestDate        = '';
-        dt.requester          = '';
-        dt.approvalDate_lv1   = '';
-        dt.requestDate        = '';
-        dt.approvalDate_lv2   = '';
-        dt.requestDate        = '';
-        dt.approvalDate_lv3   = '';
-        dt.requestDate        = '';
-        dt.approvalDate_final = '';
-
+      case 'split':
+        dt.requestDate          = '';
+        dt.requester            = '';
+        dt.approvalDate_lv1     = '';
+        dt.approvalPerson_lv1   = '';
+        dt.approvalDate_lv2     = '';
+        dt.approvalPerson_lv2   = '';
+        dt.approvalDate_lv3     = '';
+        dt.approvalPerson_lv3   = '';
+        dt.approvalPerson_final = '';
+        dt.approvalDate_final   = '';
 
         break;
     }
 
   }
 
+  /**
+   * チェックエベント
+   * @param $event 
+   * @param dt 
+   * @param type 
+   */
   setOrderReceiptStt($event,dt: ODIS0020OrderDetaiSplitBean, type: string){
     var isChecked = $event.currentTarget.checked;
-    if(type=='0'){
+    var value: string = '0';
+    if(isChecked){
+      value = Const.OrderReceiptCheckType.Checked;
+    }
+    else{
+      value = Const.OrderReceiptCheckType.UnCheck;
+    }
+    //発注注文書区分
+    if(type=='order'){
       this.orderData.forEach(element => {
         if(element.detailNo == dt.detailNo){
-          if(isChecked){
-            element.orderReceipt == '8';
-            element.splitOrderReceipt == '8';
-          }
-          else{
-            element.orderReceipt == '0';
-            element.splitOrderReceipt == '0';
-          }
-          
+          element.orderReceipt = value;
+          if(this.comCompnt.setValue(dt.orderSplitAmount) != ''){
+            element.splitOrderReceipt = value;
+          }          
+
         }
-        
       });
     }
-    if(type=='1'){
-      if(isChecked){
-        dt.splitOrderReceipt = '8';
+    //分割注文書区分
+    if(type=='split'){
+      if(this.comCompnt.setValue(dt.orderSplitAmount) == ''){
+        $event.currentTarget.checked = false;
+        return;
       }
-      else{
-        dt.splitOrderReceipt = '0';
-      }
+      var cnt: number = 0;
+      var unCheck: number = 0; 
+      this.orderData.forEach(element => {
+        if(element.detailNo == dt.detailNo){
+          //同じ明細連番のデータを数える。
+          cnt++;
+          if(element.splitNo == dt.splitNo){
+            //チェックされた明細の注文区分を変える
+            element.splitOrderReceipt = value;
+          }
+          //チェックしない明細連番を数える
+          if(element.splitOrderReceipt == Const.OrderReceiptCheckType.UnCheck){
+            unCheck ++;
+          }
+        }
+      })
+      //分割データは全体が未チェック場合、発注注文発行区分が未チェックする
+      this.orderData.forEach(element => {
+        if(element.detailNo == dt.detailNo){
+          if(cnt == unCheck){
+            element.orderReceipt = Const.OrderReceiptCheckType.UnCheck;
+          }
+          else{
+            element.orderReceipt = Const.OrderReceiptCheckType.Checked;
+          }
+       }
+      })
+
     }
 
   }
