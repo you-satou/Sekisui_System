@@ -24,6 +24,7 @@ import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSpl
 import { ODIS0020UpdForm } from '../entities/odis0020-UpdForm.entity';
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entity';
 import { HttpResponse } from '@angular/common/http';
+import { ODIS0020OrderDetaiSplitBeanSUB } from '../entities/odis0020-OrderDetailSplit_Sub.entity';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -132,6 +133,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblMainOrder: ODIS0020MainOrderEdaBan[];
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
   orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
+
+  orderDetailSplitSub: ODIS0020OrderDetaiSplitBeanSUB[];
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
@@ -322,7 +325,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.order0DateInfo = this.pageTotalInfo.dateInfo;                    // 契約日付
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
-              this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
+              this.orderDetailSplitSub = this.pageTotalInfo.orderDetailList;
+              this.orderDetaiSplitlList = this.reSortTheData(this.orderDetailSplitSub);    // 発注明細分割
 
               // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Sekkei);
@@ -358,6 +362,74 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             this.isLoading = false;
           }
         );
+  }
+
+  private reSortTheData(dt: ODIS0020OrderDetaiSplitBeanSUB[]):ODIS0020OrderDetaiSplitBean[]{
+
+    var sorted:ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
+
+    dt.forEach(data => {
+      var temp = new ODIS0020OrderDetaiSplitBean();
+
+      temp.insKubun              = data.insKubun;
+      temp.propertyNo            = data.propertyNo;
+      temp.detailKind            = data.detailKind;
+      temp.detailNo              = data.detailNo;
+      temp.splitNo               = data.splitNo;
+      temp.orderBranchNo         = data.orderBranchNo;
+      temp.journalCode           = data.journalCode;
+      temp.accountCode           = data.accountCode
+      temp.journalName           = data.journalName;
+      temp.orderSupplierCode     = data.orderSupplierCode;
+      temp.orderSupplierName     = data.orderSupplierName;
+      //発注注文書発行区分が空白場合'0'を設定する
+      temp.orderReceipt          = data.orderReceipt;
+      temp.bulkRequestDate       = data.bulkRequestDate;
+      temp.bulkRequester         = data.bulkRequester;
+      temp.bulkApprovalDate_lv1     = data.bulkApprovalDate_lv1;
+      temp.bulkApprovalPerson_lv1   = data.bulkApprovalPerson_lv1;
+      temp.bulkApprovalDate_lv2     = data.bulkApprovalDate_lv2;
+      temp.bulkApprovalPerson_lv2   = data.bulkApprovalPerson_lv2;
+      temp.bulkApprovalDate_lv3     = data.bulkApprovalDate_lv3;
+      temp.bulkApprovalPerson_lv3   = data.bulkApprovalPerson_lv3;
+      temp.bulkApprovalDate_final   = data.bulkApprovalDate_final;
+      temp.bulkApprovalPerson_final = data.bulkApprovalPerson_final;
+      temp.orderPlanAmount       = data.orderPlanAmount;
+      temp.orderSplitAmount      = data.orderSplitAmount;
+      temp.splitSupplierCode     = data.splitSupplierCode;
+      temp.splitSupplierName     = data.splitSupplierName;
+      //分割注文書発行区分が空白場合'0'を設定する
+      temp.splitOrderReceipt     = data.splitOrderReceipt;
+      temp.comment               = data.comment;
+      temp.requestDate           = data.requestDate;
+      temp.requester             = data.requester;
+      temp.approvalDate_lv1      = data.approvalDate_lv1;
+      temp.approvalPerson_lv1    = data.approvalPerson_lv1;
+      temp.approvalDate_lv2      = data.approvalDate_lv2;
+      temp.approvalPerson_lv2    = data.approvalPerson_lv2;
+      temp.approvalDate_lv3      = data.approvalDate_lv3;
+      temp.approvalPerson_lv3    = data.approvalPerson_lv3;
+      temp.approvalDate_final    = data.approvalDate_final;
+      temp.approvalPerson_final  = data.approvalPerson_final;
+      temp.orderDate             = data.orderDate_1;
+      temp.orderAmount           = data.orderAmount_1;
+      temp.receivedDate          = data.receivedDate_1;
+      temp.receivedAmount        = data.receivedAmount_1;
+      temp.paymentDate           = data.paymentDate_1;
+      temp.paymentAmount         = data.paymentAmount_1;
+
+      if(this.baseCompnt.setValue(data.splitSupplierCode)!= ''){
+        temp.orderDate        = data.orderDate_2;
+        temp.orderAmount      = data.orderAmount_2;
+        temp.receivedDate     = data.receivedDate_2;
+        temp.receivedAmount   = data.receivedAmount_2;
+        temp.paymentDate      = data.paymentDate_2;
+        temp.paymentAmount    = data.paymentAmount_2;
+      }
+      sorted.push(temp);
+    });
+
+    return sorted;
   }
 
   /**
@@ -1058,7 +1130,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
                 break;
               //造園２
               case this.tabName5:
-                this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn2.orderData,key, this.resSuchOAP);
+                this.childZouEn2.orderData = this.addInput.getInput(this.childZouEn2.orderData,key, this.resSuchOAP);
                 break;
             }
 

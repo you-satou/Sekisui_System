@@ -192,12 +192,14 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 output.approvalPerson_lv3   = this.bunkatsu.approvalPerson_lv3;
                 output.approvalDate_final   = this.bunkatsu.approvalDate_final;
                 output.approvalPerson_final = this.bunkatsu.approvalPerson_final;
-                output.orderDate            = this.bunkatsu.orderDate;
-                output.orderAmount          = this.bunkatsu.orderAmount;
-                output.receivedDate         = this.bunkatsu.receivedDate;
-                output.receivedAmount       = this.bunkatsu.receivedAmount;
-                output.paymentDate          = this.bunkatsu.paymentDate;
-                output.paymentAmount        = this.bunkatsu.paymentAmount;
+
+                //クアン　2020/12/11　修正　分割データを更新する時も発注・受入・支払データを再取得する
+                output.orderDate            = res.orderDate;
+                output.orderAmount          = res.orderAmount;
+                output.receivedDate         = res.receivedDate;
+                output.receivedAmount       = res.receivedAmount;
+                output.paymentDate          = res.paymentDate;
+                output.paymentAmount        = res.paymentAmount;
                 break;
         }
         return output

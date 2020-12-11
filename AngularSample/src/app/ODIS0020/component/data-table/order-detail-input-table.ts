@@ -510,13 +510,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       isCanNotDel = true;
     }
 
-    //追加工事タブを選択されている時、全ボタンを非活性する
-    if(this.tabName === this.readonlyTab){
-      keyIndex = rowIndex;
-      isCanNotUpd = true;
-      isCanNotDel = true;
-    }
-
     //渡すデータを設定する。
     this.dataEmitter.action = Const.Action.A0004;   //行を選択
 
@@ -532,6 +525,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     //FIXME:　追加データがUNIONから取得ので、明細連番と分割連番が「１」に固定される
     if(this.tabName === this.readonlyTab){
       this.dataEmitter.setEmitterData(value);          //明細のデータ
+    
+      //追加工事タブを選択されている時、全ボタンを非活性する
+      keyIndex = rowIndex;
+      isCanNotUpd = true;
+      isCanNotDel = true;
     }else{
       this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
     }

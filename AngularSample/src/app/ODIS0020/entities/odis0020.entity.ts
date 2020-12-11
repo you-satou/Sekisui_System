@@ -1,3 +1,4 @@
+import { ODIS0020OrderDetaiSplitBeanSUB } from './odis0020-OrderDetailSplit_Sub.entity';
 import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entity'
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from './odis0020-OrderInformation.entity'
@@ -20,8 +21,11 @@ export class ODIS0020OrderDetailTotalInfo{
     /** 追加工事受注枝番テーブル */
     insertedOrderInfo: ODIS0020InsertedOrderEdaBan[];
 
+    // /** 発注明細一覧 */
+    // orderDetailList: ODIS0020OrderDetaiSplitBean[];
+
     /** 発注明細一覧 */
-    orderDetailList: ODIS0020OrderDetaiSplitBean[];
+    orderDetailList: ODIS0020OrderDetaiSplitBeanSUB[];
 
     constructor() {}
 

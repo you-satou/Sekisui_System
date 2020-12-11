@@ -91,7 +91,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
            this.grossProfitData = this.totalData.grossProfitData;
          }else{
            //返却データがない場合、データテーブルを初期化にする。
-           this.totalData = new ODIS0080TotalData();
+           this.router.navigate([Const.UrlSetting.U0002]);
          }
          //ロード中を解除する。
          this.isGetting = false;
