@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ODIS0080TotalData } from './../entities/odis0080.entity';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
 import { CommonComponent } from 'app/common/common.component';
 import { CommonService } from 'app/common/common.service';
 import { Const } from 'app/common/const';
-import { ODIS0080GrossProfitBean, ODIS0080InitParam } from '../entities/ODIS0080.entity';
+import { ODIS0080InitParam } from '../entities/odis0080.form.entity';
+import { ODIS0080GrossProfitBean } from '../entities/odis0080.GrossProfit.entity';
+import { ODIS0080OrderInfoBean } from '../entities/odis0080.OrderInfo.entity';
 
 @Component({
   selector: 'gross-profit-margin',
@@ -13,9 +16,9 @@ import { ODIS0080GrossProfitBean, ODIS0080InitParam } from '../entities/ODIS0080
 })
 export class OrderGrossProfitMarginComponent implements OnInit {
 
-
-  @Input() dataSource: ODIS0080GrossProfitBean[] = [new ODIS0080GrossProfitBean()];
-
+  totalData: ODIS0080TotalData;
+  grossProfitData: ODIS0080GrossProfitBean[] = [new ODIS0080GrossProfitBean()];
+  orderInfo: ODIS0080OrderInfoBean = new ODIS0080OrderInfoBean();
   /** テーブルの全カラム */
   mainColumns:string[] = [
     'keiyakuNo',      // 契約
@@ -31,7 +34,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'unChin',         // 運賃
     'nizouHokan',     // 荷造保管
   ];
-
   /** テーブルの全カラム */
   totalColumns:string[] = [
     'contractNo',
@@ -50,7 +52,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   ];
 
   initParam:ODIS0080InitParam = new ODIS0080InitParam();
-
   isGetting = false;
   isInitFlg = false;
 
@@ -65,6 +66,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
   ngOnInit() {
 
+    //ヘッダー設定
+    this.appComponent.setHeader(Const.ScreenName.S0008, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
     //URLのパラメーターを消す
     history.replaceState({}, '', Const.UrlSetting.U0002);
 
@@ -73,24 +76,22 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     
       this.initParam.propertyManagerCd = params.prop;    //物件管理番号
       this.initParam.contractNum = params.cntr;          //契約番号      
-      this.initParam.officeCode = params.offCd;          //契約番号      
+      this.initParam.officeCode = params.offCd;          //事業所コード      
     });
 
     this.isGetting = true;
-    // //TODO: init Param設定
-    // this.initParam.officeCode = "402000";
-    // this.initParam.contractNum = "504660066";
-    // this.initParam.propertyManagerCd = "60256";
-
      
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init,this.initParam)    
      .then(
        (response) => {
          if(response.result === Const.ConnectResult.R0001){
-           this.dataSource = response.applicationData;
+           this.totalData = response.applicationData;
+
+           this.orderInfo = this.totalData.orderInfo;
+           this.grossProfitData = this.totalData.grossProfitData;
          }else{
            //返却データがない場合、データテーブルを初期化にする。
-           this.dataSource = [];
+           this.totalData = new ODIS0080TotalData();
          }
          //ロード中を解除する。
          this.isGetting = false;
@@ -99,9 +100,13 @@ export class OrderGrossProfitMarginComponent implements OnInit {
      );
   }  
 
+  /**
+   * 発注明細入力＿詳細入力画面に戻る
+   * @param $event 
+   */
   backToPreviousPage($event){
 
-    this.router.navigate(['']);
+    this.router.navigate([Const.UrlSetting.U0002]);
   }
 
 }

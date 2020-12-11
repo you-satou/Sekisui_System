@@ -11,6 +11,7 @@ export namespace Const{
         export const S0005 = '発注先マスタ選択';
         export const S0006 = '発注明細入力_分割明細入力';
         export const S0007 = '発注承認者マスタ';
+        export const S0008 = '発注明細入力_粗利率確認';
 
         export const S0001EN = 'OrderDetailApproval';
         export const S0002EN = 'OrderDetailInput';
@@ -19,6 +20,8 @@ export namespace Const{
         export const S0005EN = 'SupplierPattern';
         export const S0006EN = 'SplitDetailInput';
         export const S0007EN = 'OrderSplitApprovalMaster';
+        export const S0008EN = 'OrderGrossProfitMargin';
+
     }
 
     /** リンク */
@@ -92,6 +95,9 @@ export namespace Const{
 
         /** 発注承認者マスタ */
         export const U0007 = '/OrderSplitApprovalMaster';
+
+        /** 発注明細入力＿粗利率 */
+        export const U0008 = '/OrderGrossProfitMargin';
 
     }
 

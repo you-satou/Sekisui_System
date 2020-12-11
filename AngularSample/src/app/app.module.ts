@@ -37,7 +37,7 @@ const appRoute: Routes = [
   { path: 'OrderDetailInput', component: OrderDetailInputComponent},
   { path: 'OrderSupplierSelect', component: OrderSupplierSelectComponent},
   { path: 'OrderSplitApprovalMaster', component: OrderSplitApprovalMasterComponent},
-  { path: 'GrossProfitMargin', component: OrderGrossProfitMarginComponent},
+  { path: 'OrderGrossProfitMargin', component: OrderGrossProfitMarginComponent},
 ];
 
 @NgModule({

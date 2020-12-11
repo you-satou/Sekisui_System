@@ -93,6 +93,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
   //初期画面のレンダー
   isInitFlg: boolean = false;
+  //ビジーカーソル
+  isLoading: boolean = false;
 
   // 編集フラグ
   isEditFlg = false;
@@ -351,14 +353,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       
       //編集テーブルの各セルに選択された行の値を挿入
       this.input.setInput(rowDt);
-
-      // //明細追加テーブルの依頼ボタンの表示を設定
-      // if (rowDt.requester != '') {
-      //   this.btnSubIrai.style.display = 'none';
-      // }
-      // else {
-      //   this.btnSubIrai.style.display = 'inherit';
-      // }
+ 
     }
 
     //分割明細のボタンの活用性を設定する
@@ -399,7 +394,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     if(!this.inputCheck('0')){
       return;
     }
-
+    this.isLoading = true;
     // 発注、受入、支払データ取得
     this.paramSuchOAP.propertyNo = this.shiwakeData[0].propertyNo;      // 物件管理ＮＯ
     this.paramSuchOAP.accountCode = this.shiwakeData[0].accountCode;    // 経理分類コード
@@ -449,9 +444,12 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
           this.setPageButtonDisplay(false, true, false, true);
           this.resetAddTable();
           this.saveDataToSession();
+
+          this.isLoading =false;
         }
       }
-    );
+    )  
+    
   }
 
   /**
@@ -465,6 +463,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     if(!this.inputCheck('1')){
       return;
     }
+    this.isLoading = true;
+    
 
     // 発注、受入、支払データ取得
     this.paramSuchOAP.propertyNo = this.shiwakeData[0].propertyNo;      // 物件管理ＮＯ
@@ -498,6 +498,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
           //修正完了フラグ ON
           this.isEditFlg = true;
           this.saveDataToSession();
+          this.isLoading = false;
         }
       }
     );
@@ -576,13 +577,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
     //TODO: ログイン情報を取得
-    dt.requester = '積水　次郎';
+    dt.requester = this.appComponent.loginUser;
 
-    //ボタンのIDを取得。
-    let name = "btnIrai"+this.bunkatsuData.indexOf(dt);
-    let btn = document.getElementById(name);
-    // 処理後ボタンを　削除する。
-    btn.style.display = 'none';
     this.resetAddTable();
   }
 
@@ -636,7 +632,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     //TODO: ログイン情報を取得 
     this.input.requestDate = requestTime;
-    this.input.requester = '積水　次郎';
+    this.input.requester = this.appComponent.loginUser;
 
   }
 
@@ -703,7 +699,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     this.toSaveShiwakeData();
     this.router.navigate([Const.UrlSetting.U0002]);
-    // }
+    
   }
 
   /**

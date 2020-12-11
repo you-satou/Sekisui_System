@@ -374,18 +374,21 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   }
 
   /**
-   *➡ボタンを押下して、 発注金額を設定する
+   *「反映」ボタンを押下して、 発注金額を設定する
    * @param $event
    * @param dataDetail
    */
   getDisplayData($event,data: ODIS0020OrderDetaiSplitBean) {
     // 発注予定金額を発注金額に設定
     data.orderSplitAmount = this.comCompnt.removeCommas(data.orderPlanAmount);
+    //左も注文書発行区分がチェックされたら、分割の注文書発行区分もチェックする
+    if(data.orderReceipt == Const.OrderReceiptCheckType.Checked){
+      data.splitOrderReceipt = Const.OrderReceiptCheckType.Checked;
+    }
 
     let i = this.orderData.indexOf(data);
-
     let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
-    let tr = skBody.rows[i];
+    
     // 通常データの場合は更新データに変更する
     if(data.insKubun == Const.InsKubun.Normal){
       // 登録区分：更新に設定
@@ -492,7 +495,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     //明細件数を取得
     let totalLength: number = filter.length;
 
-    
     let isCanNotUpd: boolean = false;
     let isCanNotDel: boolean = false;
     //一括承認データがある場合、更新・削除ができない
@@ -523,10 +525,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(nodeName === 'SPAN' || nodeName === 'BUTTON' || nodeName === 'INPUT'){
       this.dataEmitter.action = Const.Action.A0008;
       isCanNotUpd = true;
-      isCanNotDel = true; 
+      isCanNotDel = true;
+      //ボタン・チェックボックスをクリックする時、RowIndexを設定不要なので、ＮＵＬＬにする
+      rowIndex = null;
     }
+    //FIXME:　追加データがUNIONから取得ので、明細連番と分割連番が「１」に固定される
     if(this.tabName === this.readonlyTab){
-      this.dataEmitter.setEmitterData(value);     //明細のデータ
+      this.dataEmitter.setEmitterData(value);          //明細のデータ
     }else{
       this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
     }
@@ -585,8 +590,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         break;
     }
   
-    let row = wTbody.rows[0];
-    let bulkApprovalCell = 0;
+    const row = wTbody.rows[0];
+    var bulkApprovalCell = 0;
     //一括最終承認のセールまで数える
     for(var i = 0; i < row.cells.length; i++){
       bulkApprovalCell++;
@@ -637,8 +642,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
-
-    //TODO: ログイン情報を取得
     dt.requester = this.appComponent.loginUser;
   }
 
@@ -652,8 +655,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv1 = requestTime;
-
-    //TODO: ログイン情報を取得
     dt.approvalPerson_lv1 = this.appComponent.loginUser;
   }
 
@@ -989,7 +990,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-    //TODO: ログイン情報
     this.orderData.forEach(element=>{
       if(this.comCompnt.setValue(element.bulkRequestDate) ==''){
         element.bulkRequestDate = requestTime;
@@ -1007,7 +1007,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-      //TODO: ログイン情報
       this.orderData.forEach(element=>{
         if(this.comCompnt.setValue(element.bulkApprovalDate_lv1) ==''){
           element.bulkApprovalDate_lv1   = approvalTime;
@@ -1024,7 +1023,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-      //TODO: ログイン情報
       this.orderData.forEach(element=>{
         if(this.comCompnt.setValue(element.bulkApprovalDate_lv2) ==''){
           element.bulkApprovalDate_lv2   = approvalTime;
@@ -1042,7 +1040,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-      //TODO: ログイン情報
       this.orderData.forEach(element=>{
         if(this.comCompnt.setValue(element.bulkApprovalDate_lv3) ==''){
           element.bulkApprovalDate_lv3   = approvalTime;
@@ -1059,7 +1056,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-      //TODO: ログイン情報
       this.orderData.forEach(element=>{
         if(this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_final   = approvalTime;

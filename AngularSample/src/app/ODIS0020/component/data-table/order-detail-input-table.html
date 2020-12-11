@@ -4,7 +4,7 @@
         <!--　▼▼▼▼▼▼▼▼　HEADER設定　▼▼▼▼▼▼▼▼ -->
         <!--受注枝番-->
         <ng-container matColumnDef="juchuEdaban">
-            <th style="min-width: 60px; width: 60px; " class="color-input-1 " style="padding: 0 !important;" mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">受注<br>枝番</th>
+            <th style="min-width: 60px; width: 60px; " class="color-input-1 " mat-header-cell *matHeaderCellDef [attr.rowSpan]="2">受注<br>枝番</th>
         </ng-container> 
         <!--仕訳コード-->
         <ng-container matColumnDef="shiwakeCode">
@@ -119,8 +119,7 @@
         <!--受注枝番-->
         <ng-container matColumnDef="orderBranchNo">
             <th style="min-width: 60px; width: 60px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
-            <!-- FIXME: 設定値　0埋め -->
-            <td style="min-width: 60px; width: 60px; " class="font-s" mat-cell *matCellDef="let element " 
+            <td style="min-width: 60px; width: 60px; text-align: center;" class="font-s" mat-cell *matCellDef="let element " 
             [ngStyle]="{'backgroundColor': this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white'}"> {{element.orderBranchNo|number:'2.0-2'}}</td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>

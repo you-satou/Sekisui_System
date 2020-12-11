@@ -91,7 +91,7 @@ export class ODIS0060OrderDetailBunkatsu {
     splitSupplierName: string;
 
     /** 分割注文書発行区分 */
-    splitOrderReceipt: string = '';
+    splitOrderReceipt: string;
 
     /** コメント */
     comment: string;

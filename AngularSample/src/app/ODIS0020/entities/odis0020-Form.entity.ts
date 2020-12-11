@@ -78,15 +78,3 @@ export class ODIS0020Form{
     /** 承認者数 */
     approvalLevel: string;
 }
-
-// export class BulkRequestAndApproval{
-
-//     bulkRequestDate : string = '';
-  
-//     bulkRequester: string = '';
-  
-//     bulkApprovalDate: string = '';
-    
-//     bulkApprovalPerson: string = '';
-  
-//   }

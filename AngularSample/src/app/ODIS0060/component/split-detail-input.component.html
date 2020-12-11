@@ -1,3 +1,4 @@
+<loading-spinner *ngIf="isLoading"></loading-spinner>
 <div *ngIf="isInitFlg">
     <div>
         <mat-tab-group class="shiwake-tab-group" disableRipple = "true">
@@ -83,7 +84,7 @@
                             <td style="width: 75px; min-width: 75px; text-align: center" mat-cell
                                 *matCellDef="let element; let i = index">
                                 <label *ngIf="element.requestDate != ''">{{element.requestDate}}</label>
-                                <button *ngIf="element.requestDate == ''" id="btnIrai{{i}}"
+                                <button *ngIf="element.requestDate == ''"
                                     (click)="mainTableRequest($event, element)" mat-button
                                     class="btn btn-outline-primary" tabindex="1">依頼</button>
                             </td>

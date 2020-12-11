@@ -1470,8 +1470,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
     this.paramUpd.orderDetailList = tmp;
 
-    console.log(tmp);
-
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE,this.paramUpd)
         .then(
           (response) => {
@@ -1906,7 +1904,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   moveToOrderGrossProfitPage($event){
 
-    this.router.navigate(['GrossProfitMargin'],{ queryParams: {prop: this.paramInit.propertyNo, cntr: this.paramInit.contractNum, offCd: this.paramInit.officeCode},skipLocationChange: false, replaceUrl: false});
+    this.router.navigate([Const.UrlSetting.U0008],{ queryParams: {prop: this.paramInit.propertyNo, cntr: this.paramInit.contractNum, offCd: this.paramInit.officeCode},skipLocationChange: false, replaceUrl: false});
   }
 
   changeOrderReceiptStt($event){

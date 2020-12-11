@@ -12,17 +12,17 @@
         </thead>
         <tbody>
             <tr>
-                <td rowspan="2" style="text-align: center;">70116997700</td>
-                <td >ｶﾌﾞｼｷｶﾞｲｼｬｾｷｽｲﾊﾅｺ　ｼｬｲﾝﾘｮｳ</td>
+                <td rowspan="2" style="text-align: center;">{{orderInfo.contractNum}}</td>
+                <td >{{orderInfo.constructionKata}}</td>
             </tr>
             <tr>
-                <td >株式会社積水花子　社員寮</td>
+                <td >{{orderInfo.constructionHira}}</td>
             </tr>
         </tbody>
         </table>
     </div>
     <div class="grossInformation" style="margin-top: 20px;">
-        <table mat-table [dataSource]="dataSource" class="tblGrossDataInfo table table-hover table-bordered">
+        <table mat-table [dataSource]="grossProfitData" class="tblGrossDataInfo table table-hover table-bordered">
             <!--Header 契約 -->
             <ng-container matColumnDef="keiyakuNo">
                 <th mat-header-cell *matHeaderCellDef >契約</th>            
