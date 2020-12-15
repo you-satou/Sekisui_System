@@ -78,8 +78,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
       this.initParam.propertyManagerCd = params.prop;    // 物件管理番号
       this.initParam.contractNum = params.cntr;          // 契約番号      
       this.initParam.officeCode = params.offCd;          // 事業所コード
-      
-      this.initParam.branchOfficeCode = params.BOCode;   // 支店毎コード
     });
 
     this.isLoading = true;

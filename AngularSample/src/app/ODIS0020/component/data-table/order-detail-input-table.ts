@@ -8,6 +8,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
 import { AppComponent } from 'app/app.component';
 import { MatTable } from '@angular/material';
+import { ODIS0020Service } from 'app/ODIS0020/services/odis0020-service';
 
 @Component({
   selector: "shiwake-table",
@@ -109,11 +110,14 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     private odis0060Service: ODIS0060SplitDetailService,
     private datePipe: DatePipe,
     private appComponent: AppComponent,
+    private odis0020Service: ODIS0020Service,
   ) {  }
 
   ngOnInit(): void {
     
     this.approvalUnit = this.appComponent.approvalLevels;
+
+    this.TabChangeSubscriber();
     
     switch(this.approvalUnit){
  
@@ -172,6 +176,80 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
 
     this.setFontWhite(this.orderData);
+  }
+
+  //　詳細入力画面でタブ切り替える場合、テーブルの背景色を初期化させる
+  private TabChangeSubscriber(){
+    this.odis0020Service.tabChange$.subscribe(
+      (tabName)=>{
+        const wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
+        this.resetTableBackGroundColor(wTbody, tabName);
+
+      }
+    )
+  }
+
+  private resetTableBackGroundColor(wTbody: any, tabName: string){
+
+    const row = wTbody.rows[0];
+
+    var bulkApprovalCell = 0;
+    //一括最終承認のセールまで数える
+    for(var i = 0; i < row.cells.length; i++){
+      bulkApprovalCell++;
+      if(row.children[i].id == "bulkApprovalFinal"){
+        break;
+      }
+    }
+    var approvalCell = 0;
+    //一括最終承認のセールまで数える
+    for(var i = 0; i < row.cells.length; i++){
+      approvalCell++;
+      if(row.children[i].id == "approvalFinal"){
+        break;
+      }
+    }
+
+    for (var i = 0; i < this.orderData.length; i++) {
+      //「追加」タブを選択される場合
+      if (tabName == this.readonlyTab) {            
+        var tr = wTbody.rows[i];
+        for (var j = 0; j < tr.cells.length; j++) {
+          var td = tr.cells[j];
+          if ((j > bulkApprovalCell) && (j <= approvalCell)) {
+            td.style.backgroundColor = this.grayOut;
+          }
+          else {
+            td.style.backgroundColor = Const.HighLightColour.None;
+          }
+        }
+      }
+      //「追加」タブ　以外　を選択される場合
+      else {
+        //一括承認データが入っている行はグレーアウトする。
+        if (this.comCompnt.setValue(this.orderData[i].bulkApprovalPerson_final) != '') {
+          var tr = wTbody.rows[i];
+          for (var j = 0; j < tr.cells.length; j++) {
+            var td = tr.cells[j];
+            //一括最終承認のセールまでグレイアウトする
+            if (j <= bulkApprovalCell) {
+              td.style.backgroundColor = this.grayOut;
+            }
+            else {
+              td.style.backgroundColor = Const.HighLightColour.None;
+            }
+          }
+        }
+        //一括承認データが入らない行は白色をする。
+        else {
+          var tr = wTbody.rows[i];
+          for (var j = 0; j < tr.cells.length; j++) {
+            var td = tr.cells[j];
+            td.style.backgroundColor = Const.HighLightColour.None;
+          }
+        }
+      }
+    } 
   }
 
   /**
@@ -588,40 +666,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         break;
     }
   
-    const row = wTbody.rows[0];
-    var bulkApprovalCell = 0;
-    //一括最終承認のセールまで数える
-    for(var i = 0; i < row.cells.length; i++){
-      bulkApprovalCell++;
-      if(row.children[i].id == "bulkApprovalFinal"){
-        break;
-      }
-    }
+    this.resetTableBackGroundColor(wTbody, this.tabName);
 
-    for(var i = 0; i < this.orderData.length; i++){
-      //一括承認データが入っている行はグレーアウトする。
-      if(this.comCompnt.setValue(this.orderData[i].bulkApprovalPerson_final) != ''){
-        var tr = wTbody.rows[i];
-        for (var j = 0; j < tr.cells.length; j++) {
-          var td = tr.cells[j];
-          //一括最終承認のセールまでグレイアウトする
-          if (j <= bulkApprovalCell) {
-            td.style.backgroundColor = this.grayOut;
-          }
-          else {
-            td.style.backgroundColor = Const.HighLightColour.None;
-          }
-        }
-      }
-      //一括承認データが入らない行は白色をする。
-      else{
-        var tr = wTbody.rows[i];
-        for (var j = 0; j < tr.cells.length; j++) {
-          var td = tr.cells[j];  
-          td.style.backgroundColor = Const.HighLightColour.None;
-        }
-      }
-    }
     //選択されている行の背景色を変える
     for (var j = 0; j < wTr.cells.length; j++) {
       var cell = wTr.cells[j];

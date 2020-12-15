@@ -1288,6 +1288,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 初期化
     this.setDefaultDisplay();
     this.rowStatus.Clear();
+    this.ODIS0020Service.tabChange.next(this.selectedTab);
   }
 
   /**
@@ -1941,9 +1942,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     var param = { prop: this.paramInit.propertyNo,  // 物件管理Ｎｏ
                   cntr: this.paramInit.contractNum, // 契約番号
-                  offCd: this.paramInit.officeCode, // 事業所コード
-                  //FIXME: 支店毎コードを取得
-                  BOCode: "000000"};                //  支店毎コード
+                  offCd: this.paramInit.officeCode} // 事業所コード
     //画面遷移
     this.router.navigate([Const.UrlSetting.U0008],{ queryParams: param,skipLocationChange: false, replaceUrl: false});
   }

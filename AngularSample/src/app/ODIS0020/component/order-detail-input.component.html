@@ -226,7 +226,7 @@
                     <button style="margin: 0; padding: 0; border: 0;" class="btn btn-link" data-toggle="modal" data-target="#M_ODIS0040"
                     tabindex="6" (click)="orderSupplierSelect($event,this.addInput.orderSupplierCode);">発注先</button>
                 </th>
-                <th style="min-width: 20px; width: 20px;" rowspan="2">注</th>
+                <th style="min-width: 40px; width: 40px;" rowspan="2">注文</th>
                 <th style="min-width: 120px; width: 120px;" rowspan="2">発注予定金額</th>
                 <th class="color-input-2" colspan="2">依頼</th>
                 <th *ngIf="this.approvalUnit>=2" class="color-input-3" colspan="2">承認１</th>
@@ -274,7 +274,7 @@
                             tabindex="10" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
                     <td class="add-supplierName" style="text-align: left; min-width: 220px;">{{addInput.orderSupplierName}}</td>
-                    <td>
+                    <td style="text-align: center; min-width: 30px; width: 30px;">
                         <input type="checkbox"
                         [checked]="this.addInput.orderReceipt == '8'"
                         (change)="changeOrderReceiptStt($event)">
@@ -301,14 +301,18 @@
 
     <section style="margin-top: 10px;">
         <div class="button-container">
-            <button disabled={{btnInsert}} mat-button (click)="insertOrderDetail()"
-                class="btn btn-success border m-1" tabindex="12">明細追加</button>
-            <button disabled={{btnUpdate}} mat-button (click)="updateOrderDetail()"
-                class="btn btn-info m-1 border" tabindex="13">明細更新</button>
-            <button disabled={{btnStop}} mat-button (click)="stopUpdateOrderDetail()"
-                class="btn btn-danger border m-1" tabindex="14">中止</button>
-            <button disabled={{btnDelete}} mat-button style="float: right;" (click)="deleteOrderDetail()"
-                class="btn btn-danger border m-1" tabindex="15">明細削除</button>
+            <button disabled={{btnInsert}} mat-button class="btn btn-success border m-1" tabindex="12"
+                (click)="insertOrderDetail()"
+                *ngIf="this.selectedTab != this.tabName6">明細追加</button>
+            <button disabled={{btnUpdate}} mat-button class="btn btn-info m-1 border" tabindex="13"
+                (click)="updateOrderDetail()"
+                *ngIf="this.selectedTab != this.tabName6">明細更新</button>
+            <button disabled={{btnStop}} mat-button class="btn btn-danger border m-1" tabindex="14"
+                (click)="stopUpdateOrderDetail()"
+                *ngIf="this.selectedTab != this.tabName6">中止</button>
+            <button disabled={{btnDelete}} mat-button style="float: right;" class="btn btn-danger border m-1" tabindex="15"
+                (click)="deleteOrderDetail()"
+                *ngIf="this.selectedTab != this.tabName6">明細削除</button>
         </div>
     </section>
     <br>

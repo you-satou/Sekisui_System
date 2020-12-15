@@ -12,7 +12,7 @@ export class CommonService{
 
     private baseUrl: string = "http://localhost:8080/api";
 
-    // private baseUrl: string = "http://FJDSU101:28498/ODIS";
+    // private baseUrl: string = "http://FJDSU101:28498/ODIS/api";
 
     constructor(
         private shApiService: ShHttpClientService,
@@ -21,7 +21,7 @@ export class CommonService{
 
     // POST通信。
     getSearchRequest(urlName: string, data: any): Promise<ApiResponseBody<any>>{
-        return this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
+         return this.http.post<any[]>(this.baseUrl + `/${urlName}/`, data)
         .toPromise()
         .then((res) => {
             const response: any = res;
@@ -32,7 +32,7 @@ export class CommonService{
 
     getDownLoad(urlName: string, data: any):Observable<any>{
         let headers: HttpHeaders = new HttpHeaders();
-        headers = headers.set('Content-Type','application/json; charset=utf-8')
+        headers = headers.set('Content-Type','application/json; charset=utf-8');
         let httpOptions = { observe:'response' as 'body', responseType: 'blob' as 'json', headers};
         return this.http.post(this.baseUrl + `/${urlName}/`, data, httpOptions);
     }

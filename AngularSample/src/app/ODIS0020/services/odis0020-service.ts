@@ -12,7 +12,8 @@ import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSpl
 export class ODIS0020Service {
 
   // データの変更を通知するためのオブジェクト
-  private closeEventSubject = new Subject<string>();
+  public tabChange = new Subject<string>();
+  public tabChange$ = this.tabChange.asObservable();
 
   /**
   * コンストラクタ
