@@ -213,7 +213,7 @@
 
 .tdLeft {
     text-align: left;
-    padding: 5px ;
+    padding: 5px !important;
     white-space: nowrap;
     
 }

@@ -8,4 +8,7 @@ export class ODIS0080InitParam{
 
     /** 発注番号 */
     contractNum: string;
+
+    /** 支店毎コード */
+    branchOfficeCode: string;
 }

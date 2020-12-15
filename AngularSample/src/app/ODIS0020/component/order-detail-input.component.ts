@@ -24,7 +24,6 @@ import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSpl
 import { ODIS0020UpdForm } from '../entities/odis0020-UpdForm.entity';
 import { ODIS0020OrderCode } from '../entities/odis0020-OrderCode.entity';
 import { HttpResponse } from '@angular/common/http';
-import { ODIS0020OrderDetaiSplitBeanSUB } from '../entities/odis0020-OrderDetailSplit_Sub.entity';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -134,8 +133,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
   orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
 
-  orderDetailSplitSub: ODIS0020OrderDetaiSplitBeanSUB[];
-
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
   tblHouse : ODIS0020OrderDetaiSplitBean[] = [];
@@ -215,10 +212,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       // セッション情報 設定
       this.getOrderInputDataFromSession();
 
-      // 画面をレンダーする
-      this.isInitFlg = true;
-      // 再描画
-      this.changeDetectorRef.detectChanges();
     }
     else{
       // 初期設定
@@ -325,8 +318,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.order0DateInfo = this.pageTotalInfo.dateInfo;                    // 契約日付
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
-              this.orderDetailSplitSub = this.pageTotalInfo.orderDetailList;
-              this.orderDetaiSplitlList = this.reSortTheData(this.orderDetailSplitSub);    // 発注明細分割
+              this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
 
               // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Sekkei);
@@ -363,75 +355,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           }
         );
   }
-
-  private reSortTheData(dt: ODIS0020OrderDetaiSplitBeanSUB[]):ODIS0020OrderDetaiSplitBean[]{
-
-    var sorted:ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
-
-    dt.forEach(data => {
-      var temp = new ODIS0020OrderDetaiSplitBean();
-
-      temp.insKubun              = data.insKubun;
-      temp.propertyNo            = data.propertyNo;
-      temp.detailKind            = data.detailKind;
-      temp.detailNo              = data.detailNo;
-      temp.splitNo               = data.splitNo;
-      temp.orderBranchNo         = data.orderBranchNo;
-      temp.journalCode           = data.journalCode;
-      temp.accountCode           = data.accountCode
-      temp.journalName           = data.journalName;
-      temp.orderSupplierCode     = data.orderSupplierCode;
-      temp.orderSupplierName     = data.orderSupplierName;
-      //発注注文書発行区分が空白場合'0'を設定する
-      temp.orderReceipt          = data.orderReceipt;
-      temp.bulkRequestDate       = data.bulkRequestDate;
-      temp.bulkRequester         = data.bulkRequester;
-      temp.bulkApprovalDate_lv1     = data.bulkApprovalDate_lv1;
-      temp.bulkApprovalPerson_lv1   = data.bulkApprovalPerson_lv1;
-      temp.bulkApprovalDate_lv2     = data.bulkApprovalDate_lv2;
-      temp.bulkApprovalPerson_lv2   = data.bulkApprovalPerson_lv2;
-      temp.bulkApprovalDate_lv3     = data.bulkApprovalDate_lv3;
-      temp.bulkApprovalPerson_lv3   = data.bulkApprovalPerson_lv3;
-      temp.bulkApprovalDate_final   = data.bulkApprovalDate_final;
-      temp.bulkApprovalPerson_final = data.bulkApprovalPerson_final;
-      temp.orderPlanAmount       = data.orderPlanAmount;
-      temp.orderSplitAmount      = data.orderSplitAmount;
-      temp.splitSupplierCode     = data.splitSupplierCode;
-      temp.splitSupplierName     = data.splitSupplierName;
-      //分割注文書発行区分が空白場合'0'を設定する
-      temp.splitOrderReceipt     = data.splitOrderReceipt;
-      temp.comment               = data.comment;
-      temp.requestDate           = data.requestDate;
-      temp.requester             = data.requester;
-      temp.approvalDate_lv1      = data.approvalDate_lv1;
-      temp.approvalPerson_lv1    = data.approvalPerson_lv1;
-      temp.approvalDate_lv2      = data.approvalDate_lv2;
-      temp.approvalPerson_lv2    = data.approvalPerson_lv2;
-      temp.approvalDate_lv3      = data.approvalDate_lv3;
-      temp.approvalPerson_lv3    = data.approvalPerson_lv3;
-      temp.approvalDate_final    = data.approvalDate_final;
-      temp.approvalPerson_final  = data.approvalPerson_final;
-      temp.orderDate             = data.orderDate_1;
-      temp.orderAmount           = data.orderAmount_1;
-      temp.receivedDate          = data.receivedDate_1;
-      temp.receivedAmount        = data.receivedAmount_1;
-      temp.paymentDate           = data.paymentDate_1;
-      temp.paymentAmount         = data.paymentAmount_1;
-
-      if(this.baseCompnt.setValue(data.splitSupplierCode)!= ''){
-        temp.orderDate        = data.orderDate_2;
-        temp.orderAmount      = data.orderAmount_2;
-        temp.receivedDate     = data.receivedDate_2;
-        temp.receivedAmount   = data.receivedAmount_2;
-        temp.paymentDate      = data.paymentDate_2;
-        temp.paymentAmount    = data.paymentAmount_2;
-      }
-      sorted.push(temp);
-    });
-
-    return sorted;
-  }
-
   /**
    * 受注枝番 データ 仕訳
    * @param listOrderDetail
@@ -587,7 +510,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt
    * @param tabName 
    */
-  private getOrderInputDataFromSession(){
+  private async getOrderInputDataFromSession(){
+
+    // ロード画面を解除する。
+    this.isInitFlg = false;
+    this.isLoading = true;
 
     // セッションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
@@ -596,7 +523,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblMainOrder = savedData.mainOrderInfo;
     this.tblInsertedOrder = savedData.insertedOrderInfo;
     this.tblSekkei = savedData.SekkeiData;
-    this.tblHouse  = savedData.HontaiData;
+    this.tblHouse = savedData.HontaiData;
     this.tblKaitai = savedData.KaitaiData;
     this.tblTsuika = savedData.TsuikaData;
     this.tblZouen1 = savedData.ZouEn1Data;
@@ -606,16 +533,31 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     
     // 分割明細画面から渡されたパラメータを取得する
     let returnDt = this.ODIS0020Service.ReturnedSplitData;
-
     // 分割データ 1件以上の場合、以降の処理を実施
-    if(returnDt.length >= 1){
+    if (returnDt.length >= 1) {
+      //返却されたデータが分割データが全件削除された場合、「発注」「受入」「支払」を再取得する。
+      if (returnDt.length == 1 && this.baseCompnt.setValue(returnDt[0].orderSplitAmount) == '') {
+        
+        const fetchDt = await this.fetchData(returnDt[0]);
+        
+        if (fetchDt.result === Const.ConnectResult.R0001) {
+          const resSuchOAP = fetchDt.applicationData;
+          returnDt[0].orderDate = this.baseCompnt.setValue(resSuchOAP.orderDate);
+          returnDt[0].orderAmount = this.baseCompnt.setValue(resSuchOAP.orderAmount);
+          returnDt[0].receivedDate = this.baseCompnt.setValue(resSuchOAP.receivedDate);
+          returnDt[0].receivedAmount = this.baseCompnt.setValue(resSuchOAP.receivedAmount);
+          returnDt[0].paymentDate = this.baseCompnt.setValue(resSuchOAP.paymentDate);
+          returnDt[0].paymentAmount = this.baseCompnt.setValue(resSuchOAP.paymentAmount);
+        }
+      }
+
       // タブ設定
       this.selectedTab = this.getTabName(returnDt[0].detailKind);
       switch (returnDt[0].detailKind) {
         case Const.JuuChuuEdaban.Sekkei:
           this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
           break;
-  
+
         case Const.JuuChuuEdaban.Hontai:
           this.tblHouse = this.mergeData(savedData.HontaiData, returnDt);
           break;
@@ -626,18 +568,42 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
         case Const.JuuChuuEdaban.Zouen1:
           this.tblZouen1 = this.mergeData(savedData.ZouEn1Data, returnDt);
-           break;
+          break;
 
         case Const.JuuChuuEdaban.Zouen2:
           this.tblZouen2 = this.mergeData(savedData.ZouEn2Data, returnDt);
           break;
+
       }
     }
-    // セッション保存
-    this.saveTemporaryData();
-    // ロード画面を解除する。
-    this.isLoading = false;
-  
+      //データを保持する
+      this.saveTemporaryData();
+      //画面ロッカーを解除
+      this.isLoading = false;
+      this.isInitFlg = true;
+      //テーブル再レンダリングさせる。
+      this.changeDetectorRef.detectChanges();
+      // レンダリングの後、タブ毎の色・背景色を設定する
+      this.setFontColorAfterRender();
+
+  }
+  /**
+   * 発注・受入・支払デーだを取得する
+   * @param returnDt 
+   */
+  private async fetchData(returnDt: ODIS0020OrderDetaiSplitBean): Promise<any>{
+
+    this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;             // 物件管理ＮＯ
+    this.paramSuchOAP.accountCode = returnDt.accountCode;              // 経理分類
+    this.paramSuchOAP.orderSupplierCode = returnDt.orderSupplierCode;  // 発注先コード
+
+    const response = await this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+      .then(
+        (response) => {
+          return response;
+        }
+    )
+    return response;
   }
 
   /**
@@ -760,14 +726,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 初期表示後処理実施
+   * レンダリングの後、タブ毎の色・背景色を設定する
    */
-  ngAfterViewInit(): void {
-
-    if(!this.isInitFlg){
-      return;
-    }
-
+  private setFontColorAfterRender(){
     if(this.ODIS0020Service.ReturnedSplitData.length >0 ){
       var body: any
       switch (this.ODIS0020Service.ReturnedSplitData[0].detailKind) {
@@ -794,12 +755,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
       // 文字色設定
       this.setAfterViewFont();
-      var t = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
+      var i = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
     
-      this.setAutoScroll(body, t);
-      this.baseCompnt.setRowColor(Const.Action.A0004,body,t);
-    }    
+      this.setAutoScroll(body, i);
+      this.baseCompnt.setRowColor(Const.Action.A0004,body,i);
+    }
   }
+   
   //#endregion
 
   //#region ---------------- ▼▼ 各画面設定 ▼▼ --------------------------------------
@@ -867,14 +829,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 明細追加ボタン
    */
-  //FIXME:
   insertOrderDetail() {
     // 入力チェック
     if(!this.inputCheck('0')){
       return;
     };
-
-    //TODO: 発注・受入・支払データを取得
     this.isLoading = true;
     this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;               // 物件管理ＮＯ
     this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
@@ -899,7 +858,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             temp.orderSupplierCode  = this.addInput.orderSupplierCode;
             temp.orderSupplierName  = this.addInput.orderSupplierName;
             temp.orderPlanAmount    = this.addInput.orderPlanAmount;
-            
             temp.orderBranchNo      = this.currentBranchNo;
             temp.orderReceipt       = this.addInput.orderReceipt;
             temp.bulkRequestDate    = '';
@@ -912,14 +870,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             temp.bulkApprovalPerson_lv3   = '';
             temp.bulkApprovalDate_final   = '';
             temp.bulkApprovalPerson_final = '';
-            temp.orderDate = this.baseCompnt.setValue(this.resSuchOAP.orderDate);
-            temp.orderAmount = this.baseCompnt.setValue(this.resSuchOAP.orderAmount);
-            temp.receivedDate = this.baseCompnt.setValue(this.resSuchOAP.receivedDate);
-            temp.receivedAmount = this.baseCompnt.setValue(this.resSuchOAP.receivedAmount);
-            temp.paymentDate = this.baseCompnt.setValue(this.resSuchOAP.paymentDate);
-            temp.paymentAmount = this.baseCompnt.setValue(this.resSuchOAP.paymentAmount);
+            temp.orderDate          = this.baseCompnt.setValue(this.resSuchOAP.orderDate);
+            temp.orderAmount        = this.baseCompnt.setValue(this.resSuchOAP.orderAmount);
+            temp.receivedDate       = this.baseCompnt.setValue(this.resSuchOAP.receivedDate);
+            temp.receivedAmount     = this.baseCompnt.setValue(this.resSuchOAP.receivedAmount);
+            temp.paymentDate        = this.baseCompnt.setValue(this.resSuchOAP.paymentDate);
+            temp.paymentAmount      = this.baseCompnt.setValue(this.resSuchOAP.paymentAmount);
 
-            console.log(temp);
             this.insertToDataTable(temp);
 
             // 初期化
@@ -1096,8 +1053,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(!this.inputCheck('1')){
       return;
     };
-
-    //TODO: 発注・受入・支払データを取得
     this.isLoading = true;
     this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;               // 物件管理ＮＯ
     this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
@@ -1486,6 +1441,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   finalUpdateProgress(){
 
+    this.isLoading = true;
     //明細追加テーブルにて、入力途中項目があるかどうかを検証する。
     if(!this.addInput.isBlank){
         var confirm = window.confirm(Const.WarningMsg.W0004);
@@ -1536,7 +1492,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
     this.createOrderData(tmp, this.childZouEn1.orderData);    // 追加
     this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園１
-    // this.createOrderData(tmp, this.childTsuika.orderData);    // 造園２
 
     // データ更新
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
@@ -1558,10 +1513,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               alert(response.message);
             }
 
-            //ロード画面を解除する。
+            // //ロード画面を解除する。
             // this.isLoading = false;
           }
-        );
+        )
+        .finally(
+          ()=>{
+            //ロード画面を解除する。
+            this.isLoading = false;
+          }
+        )
   }
 
   /**
@@ -1671,7 +1632,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           finally{
             this.isLoading = false;
           }
-     })
+    })
   }
 
   /**
@@ -1729,7 +1690,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
     this.createOrderData(tmp, this.childZouEn1.orderData);    // 追加
     this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園１
-    // this.createOrderData(tmp, this.childTsuika.orderData);    // 造園２
 
     this.paramUpd.approvalLevels = this.appComponent.approvalLevels.toString();
     this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ
@@ -1976,7 +1936,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   moveToOrderGrossProfitPage($event){
 
-    this.router.navigate([Const.UrlSetting.U0008],{ queryParams: {prop: this.paramInit.propertyNo, cntr: this.paramInit.contractNum, offCd: this.paramInit.officeCode},skipLocationChange: false, replaceUrl: false});
+    //一時データを保持する
+    this.saveTemporaryData();
+
+    var param = { prop: this.paramInit.propertyNo,  // 物件管理Ｎｏ
+                  cntr: this.paramInit.contractNum, // 契約番号
+                  offCd: this.paramInit.officeCode, // 事業所コード
+                  //FIXME: 支店毎コードを取得
+                  BOCode: "000000"};                //  支店毎コード
+    //画面遷移
+    this.router.navigate([Const.UrlSetting.U0008],{ queryParams: param,skipLocationChange: false, replaceUrl: false});
   }
 
   changeOrderReceiptStt($event){

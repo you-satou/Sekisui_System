@@ -49,7 +49,7 @@
                         </ng-container>
                         <!-- Body 発注分割発注先名称 -->
                         <ng-container matColumnDef="splitSupplierName">
-                            <td style="width: 220px; min-width: 220px;" class="tdRight" mat-cell *matCellDef="let element">{{element.splitSupplierName}}</td>
+                            <td style="width: 220px; min-width: 220px;" class="tdLeft" mat-cell *matCellDef="let element">{{element.splitSupplierName}}</td>
                         </ng-container>
 
                         <!--分割注文書発行区分-->
@@ -246,7 +246,7 @@
                             [(ngModel)]="input.splitSupplierCode" style="ime-mode:disabled; text-align:right;"
                             tabindex="3" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>
-                    <td style="text-align: left;">{{input.splitSupplierName}}</td>
+                    <td class="tdLeft">{{input.splitSupplierName}}</td>
                     <td>
                         <input type="checkbox" [checked]="input.splitOrderReceipt == '8'" (click)="subTableCheckBoxChange($event)">
                     </td>

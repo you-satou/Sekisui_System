@@ -1,4 +1,4 @@
-<div *ngIf="isGetting">
+<div *ngIf="isLoading">
     <loading-spinner></loading-spinner>
 </div>
 <div *ngIf="isInitFlg">
@@ -77,7 +77,7 @@
             </ng-container>
 
             <!--Header 粗利率 -->
-            <ng-container matColumnDef="shiritsu">
+            <ng-container matColumnDef="riritsu">
                 <th mat-header-cell *matHeaderCellDef >粗利率</th>
             </ng-container>
             <ng-container matColumnDef="grossProfit">

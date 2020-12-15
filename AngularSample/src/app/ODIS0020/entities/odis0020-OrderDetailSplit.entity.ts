@@ -135,5 +135,4 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 発注最終承認者 */
   bulkApprovalPerson_final: string = '';
 
-
 }

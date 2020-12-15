@@ -1131,15 +1131,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       this.orderData.forEach(element => {
         if(element.detailNo == dt.detailNo){
           element.orderReceipt = value;
-          if(this.comCompnt.setValue(dt.orderSplitAmount) != ''){
-            element.splitOrderReceipt = value;
-          }          
-
+          element.splitOrderReceipt = value; 
         }
       });
     }
     //分割注文書区分
     if(type=='split'){
+      //分割明細金額がない場合、チェックしないようにする
       if(this.comCompnt.setValue(dt.orderSplitAmount) == ''){
         $event.currentTarget.checked = false;
         return;

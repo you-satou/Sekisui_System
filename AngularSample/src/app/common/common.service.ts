@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { ApiResponseBody } from './ApiResponseBody'
-import { ShHttpClientConst, ShRedirectService , ShHttpClientService, LoggerService } from 'sh-http-client';
+import { ShHttpClientService, } from 'sh-http-client';
 
 declare var require: any;
 const FileSaver = require('file-saver');
@@ -54,10 +53,7 @@ export class CommonService{
             return response;
         }))
         .catch(this.handleError);
-        // .toPromise();
 
     }
-
-    
 
 }

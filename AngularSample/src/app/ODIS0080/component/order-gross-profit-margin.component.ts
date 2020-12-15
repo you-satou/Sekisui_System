@@ -1,5 +1,5 @@
 import { ODIS0080TotalData } from './../entities/odis0080.entity';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
 import { CommonComponent } from 'app/common/common.component';
@@ -27,7 +27,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'keiyakuYmd',     // 契約日
     'keiyakuKin',     // 契約金額
     'hachuuKin',      // 発注金額
-    'shiritsu',       // 粗利率
+    'riritsu',       // 粗利率
     'rousaiKin',      // 労災金額
     'koujiHi',        // 工事費
     'houseZai',       // ハウス材
@@ -52,7 +52,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   ];
 
   initParam:ODIS0080InitParam = new ODIS0080InitParam();
-  isGetting = false;
+  isLoading = false;
   isInitFlg = false;
 
 
@@ -62,6 +62,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     private router: Router,
     private baseCompnt: CommonComponent,
     private actvRoute: ActivatedRoute,
+    private changeDetector : ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -74,12 +75,15 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     //詳細入力画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
     
-      this.initParam.propertyManagerCd = params.prop;    //物件管理番号
-      this.initParam.contractNum = params.cntr;          //契約番号      
-      this.initParam.officeCode = params.offCd;          //事業所コード      
+      this.initParam.propertyManagerCd = params.prop;    // 物件管理番号
+      this.initParam.contractNum = params.cntr;          // 契約番号      
+      this.initParam.officeCode = params.offCd;          // 事業所コード
+      
+      this.initParam.branchOfficeCode = params.BOCode;   // 支店毎コード
     });
 
-    this.isGetting = true;
+    this.isLoading = true;
+    this.isInitFlg = false;
      
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init,this.initParam)    
      .then(
@@ -93,11 +97,17 @@ export class OrderGrossProfitMarginComponent implements OnInit {
            //返却データがない場合、データテーブルを初期化にする。
            this.router.navigate([Const.UrlSetting.U0002]);
          }
-         //ロード中を解除する。
-         this.isGetting = false;
-         this.isInitFlg = true;
        }
-     );
+     )
+     .finally(
+       ()=>{
+         //ロード中を解除する。
+         this.isLoading = false;
+         this.isInitFlg = true;
+
+         this.changeDetector.detectChanges();
+       }
+     )
   }  
 
   /**
@@ -106,6 +116,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    */
   backToPreviousPage($event){
 
+    //画面遷移
     this.router.navigate([Const.UrlSetting.U0002]);
   }
 
