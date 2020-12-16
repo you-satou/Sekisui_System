@@ -23,7 +23,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   
   //親から観察されている
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
-  
+
   //承認人数
   approvalUnit: number;
   systemDate: Date = new Date();
@@ -174,16 +174,22 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * テーブルをレンダー後に走るメゾッド
    */
   ngAfterViewInit(): void {
-
-    this.setFontWhite(this.orderData);
+  
+    //データがない場合、テーブルの背景色が変更しない。
+    if(this.orderData.length > 0){
+      this.setFontWhite(this.orderData);
+    }
   }
 
   //　詳細入力画面でタブ切り替える場合、テーブルの背景色を初期化させる
   private TabChangeSubscriber(){
     this.odis0020Service.tabChange$.subscribe(
       (tabName)=>{
-        const wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
-        this.resetTableBackGroundColor(wTbody, tabName);
+        //データがない場合、テーブルの背景色が変更しない。
+        if(this.orderData.length > 0){
+          const wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
+          this.resetTableBackGroundColor(wTbody, tabName);
+        }
 
       }
     )
@@ -192,6 +198,9 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   private resetTableBackGroundColor(wTbody: any, tabName: string){
 
     const row = wTbody.rows[0];
+    if(row == undefined || row == null ){
+      return;
+    }
 
     var bulkApprovalCell = 0;
     //一括最終承認のセールまで数える
@@ -752,6 +761,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(element.splitNo == '1'){
       // 初期化
       var isFont = Const.HighLightColour.Black;
+      // 追加タブを選択される場合、フォント色を変えない。
+      if(this.tabName == this.readonlyTab){
+        return isFont;
+      }
 
       // 色 設定
       switch(element.insKubun){
@@ -806,6 +819,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   private setFontWhite(dt: ODIS0020OrderDetaiSplitBean[]){
     let skBody = this.viewRef.element.nativeElement.querySelector('tbody');
     const tr = skBody.rows[0];
+    if(tr == undefined || tr == null){
+      return;
+    }
+
     var bulkApprovalCell = 0;
 
     for(var i = 0; i < tr.cells.length; i++){
