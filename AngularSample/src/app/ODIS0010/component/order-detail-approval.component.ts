@@ -133,7 +133,8 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.inputment.officeCode = '402000';
+    // this.inputment.officeCode = '402000';
+    this.inputment.officeCode = '827007';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();

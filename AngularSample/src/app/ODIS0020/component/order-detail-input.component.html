@@ -211,7 +211,8 @@
         </mat-tab-group> 
     </section>
 
-    <section style="margin-top: 10px;" class="modifyTbl">
+    <section style="margin-top: 10px;" class="modifyTbl"
+        *ngIf="this.selectedTab != this.tabName6">
         <table class="insert-table table-sm table-bordered">
             <tr>
                 <th style="min-width: 60px; width: 60px;" rowspan="2">受注<br>枝番</th>
@@ -299,20 +300,16 @@
         </table>
     </section>
 
-    <section style="margin-top: 10px;">
+    <section style="margin-top: 10px;" *ngIf="this.selectedTab != this.tabName6">
         <div class="button-container">
             <button disabled={{btnInsert}} mat-button class="btn btn-success border m-1" tabindex="12"
-                (click)="insertOrderDetail()"
-                *ngIf="this.selectedTab != this.tabName6">明細追加</button>
+                (click)="insertOrderDetail()">明細追加</button>
             <button disabled={{btnUpdate}} mat-button class="btn btn-info m-1 border" tabindex="13"
-                (click)="updateOrderDetail()"
-                *ngIf="this.selectedTab != this.tabName6">明細更新</button>
+                (click)="updateOrderDetail()">明細更新</button>
             <button disabled={{btnStop}} mat-button class="btn btn-danger border m-1" tabindex="14"
-                (click)="stopUpdateOrderDetail()"
-                *ngIf="this.selectedTab != this.tabName6">中止</button>
+                (click)="stopUpdateOrderDetail()">中止</button>
             <button disabled={{btnDelete}} mat-button style="float: right;" class="btn btn-danger border m-1" tabindex="15"
-                (click)="deleteOrderDetail()"
-                *ngIf="this.selectedTab != this.tabName6">明細削除</button>
+                (click)="deleteOrderDetail()">明細削除</button>
         </div>
     </section>
     <br>

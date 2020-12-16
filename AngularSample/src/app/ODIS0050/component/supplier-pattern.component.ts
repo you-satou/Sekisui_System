@@ -115,7 +115,8 @@ export class SupplierPatternComponent implements OnInit {
   getInputData(){
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '201005';
+    // this.param.officeCode = '201005';
+    this.param.officeCode = '827007';
 
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)

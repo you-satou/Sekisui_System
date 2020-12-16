@@ -156,7 +156,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = '827007';
 
     // 発注承認者マスタ 取得
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
@@ -239,7 +240,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
         // TODO
-        this.input.officeCode = '204006';
+        // this.input.officeCode = '204006';
+        this.input.officeCode = '827007';
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
@@ -365,7 +367,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = '827007';
 
     //承認人数が2人で設定する
     if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
@@ -426,7 +429,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = '827007';
     this.input.approval1 = DENY;
     this.input.approval2 = DENY;
     this.input.approval3 = DENY;
@@ -501,7 +505,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
     
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = '827007';
+
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
     .then(
       (response) => {

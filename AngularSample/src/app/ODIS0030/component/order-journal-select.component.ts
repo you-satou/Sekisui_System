@@ -132,7 +132,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '701000';
+    // this.param.officeCode = '701000';
+    this.param.officeCode = '827007';
 
     //入力された値
     this.selectVal = this.ODIS0020Service.getVal();
