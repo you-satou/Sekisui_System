@@ -1466,23 +1466,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       return 
     }
-    // 入力チェック(「追加」タブ)
+    // 入力チェック(「造園①」タブ)
     if(this.updCheck(this.childZouEn1.orderData)){
       this.isLoading = false;
       return 
     }
 
-    // 入力チェック(「追加」タブ)
+    // 入力チェック(「造園②」タブ)
     if(this.updCheck(this.childZouEn2.orderData)){
       this.isLoading = false;
       return 
     }
 
-    // 入力チェック(「追加」タブ)
-    if(this.updCheck(this.childTsuika.orderData)){
-      this.isLoading = false;
-      return 
-    }
 
     // ローディング開始
     // this.isLoading = true;
@@ -1664,20 +1659,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       return;
     }
-    // 入力チェック(「追加」タブ)
+    // 入力チェック(「造園①」タブ)
     if(this.updCheck(this.childZouEn1.orderData)){
       this.isLoading = false;
       return 
     }
 
-    // 入力チェック(「追加」タブ)
+    // 入力チェック(「造園②」タブ)
     if(this.updCheck(this.childZouEn2.orderData)){
-      this.isLoading = false;
-      return 
-    }
-
-    // 入力チェック(「追加」タブ)
-    if(this.updCheck(this.childTsuika.orderData)){
       this.isLoading = false;
       return 
     }
