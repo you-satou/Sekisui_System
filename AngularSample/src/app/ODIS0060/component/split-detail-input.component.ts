@@ -193,7 +193,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       case Const.ApprovalLevel.ThreeLevels:
         this.mainHeaderCols.splice(this.mainHeaderCols.indexOf('irai') + 1, 0, 'shounin_1', 'shounin_2');
         this.subHeaderCols.splice((this.subHeaderCols.indexOf('requestDate') + 1), 0, 'approvalDate_lv1', 'approvalDate_lv2');
-        this.totalColumns.splice(6, 0, 'approvalDate_lv1', 'approvalDate_lv2');
+        this.totalColumns.splice((this.totalColumns.indexOf('requestDate') + 1), 0, 'approvalDate_lv1', 'approvalDate_lv2');
         break;
 
       //承認人数が4人で設定する

@@ -184,8 +184,8 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                     output.requestDate = '';
                     output.requester   = '';
                 }
-                output.approvalDate_lv1     = this.bunkatsu.approvalDate_lv2;
-                output.approvalPerson_lv1   = this.bunkatsu.approvalDate_lv2;
+                output.approvalDate_lv1     = this.bunkatsu.approvalDate_lv1;
+                output.approvalPerson_lv1   = this.bunkatsu.approvalPerson_lv1;
                 output.approvalDate_lv2     = this.bunkatsu.approvalDate_lv2;
                 output.approvalPerson_lv2   = this.bunkatsu.approvalPerson_lv2;
                 output.approvalDate_lv3     = this.bunkatsu.approvalDate_lv3;
