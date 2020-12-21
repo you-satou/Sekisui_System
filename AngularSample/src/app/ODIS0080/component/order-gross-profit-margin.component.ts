@@ -53,8 +53,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   isLoading = false;
   isInitFlg = false;
 
-  grossProfitMargin: string;
-
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -79,7 +77,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0008EN));
       this.orderInfo = savedDt.orderInfoData;
       this.grossProfitData = savedDt.grossProfitListData;
-      this.getGrossProfit(this.grossProfitData);
       
       // 画面をレンダーする
       this.isInitFlg = true;
@@ -111,7 +108,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
            this.orderInfo = this.totalData.orderInfoData;
            this.grossProfitData = this.totalData.grossProfitListData;
-           this.getGrossProfit(this.grossProfitData);
          }else{
            //返却データがない場合、データテーブルを初期化にする。
            this.router.navigate([Const.UrlSetting.U0002]);
@@ -156,14 +152,13 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.router.navigate([Const.UrlSetting.U0002]);
   }
 
-  getGrossProfit(grossProfitData: ODIS0080GrossProfitBean[]) {
-
-    grossProfitData.forEach(element => {
+  getGrossProfit(element: ODIS0080GrossProfitBean) {
       let contractAmountInt = Number(this.baseCompnt.setValue(element.contractAmount));
       let orderAmountInt = Number(this.baseCompnt.setValue(element.orderAmount));
-      this.grossProfitMargin = ((contractAmountInt - orderAmountInt) / contractAmountInt).toString();
-      element.grossProfit = this.grossProfitMargin
-    });
+      if(contractAmountInt != 0) {
+        element.grossProfit = ((contractAmountInt - orderAmountInt) / contractAmountInt).toString();
+      }
+      return element.grossProfit;
   }
 
   getTotalContractAmount() {
@@ -193,7 +188,10 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   getTotalGrossProfit() {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
-    let totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
+    let totalGrossProfit = '';
+    if(totalContractAmount != 0) {
+      totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
+    }
     return totalGrossProfit;
   }
 

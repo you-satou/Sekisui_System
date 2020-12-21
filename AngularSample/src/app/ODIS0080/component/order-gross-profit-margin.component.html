@@ -88,8 +88,8 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >粗利率</th>
             </ng-container>
             <ng-container matColumnDef="grossProfit">
-                <td class="grossProfitStyle" mat-cell *matCellDef="let element">{{element.grossProfit|percent}}</td>
-                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent}}</td>
+                <td class="grossProfitStyle" mat-cell *matCellDef="let element">{{getGrossProfit(element)|percent: '2.2-2'}}</td>
+                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent: '2.2-2'}}</td>
             </ng-container>
 
             <!--Header 労災金額 -->
