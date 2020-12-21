@@ -32,7 +32,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'koujiHi',        // 工事費
     'houseZai',       // ハウス材
     'unChin',         // 運賃
-    'nizouHokan',     // 荷造保管
   ];
   /** テーブルの全カラム */
   totalColumns:string[] = [
@@ -47,14 +46,14 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'accidentAmount',
     'constructionCost',
     'houseMaterial',
-    'freightRates',
-    'packingStorage',
+    'freightAndPacking',
   ];
 
   initParam:ODIS0080InitParam = new ODIS0080InitParam();
   isLoading = false;
   isInitFlg = false;
 
+  grossProfitMargin: string;
 
   constructor(
     private appComponent: AppComponent,
@@ -68,9 +67,31 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   ngOnInit() {
 
     //ヘッダー設定
-    this.appComponent.setHeader(Const.ScreenName.S0008, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
+    this.appComponent.setHeader(Const.ScreenName.S0008, Const.LinKSetting.L0000 + Const.LinKSetting.L0008);
     //URLのパラメーターを消す
-    history.replaceState({}, '', '#' + Const.UrlSetting.U0002);
+    history.replaceState({}, '', '#' + Const.UrlSetting.U0008);
+
+    this.isInitFlg = false;
+
+    //セッションにデータがあるかどうか
+    if(sessionStorage.getItem(Const.ScreenName.S0008EN) != null){
+
+      let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0008EN));
+      this.orderInfo = savedDt.orderInfoData;
+      this.grossProfitData = savedDt.grossProfitListData;
+      this.getGrossProfit(this.grossProfitData);
+      
+      // 画面をレンダーする
+      this.isInitFlg = true;
+      
+    }
+    else{ 
+      //初期表示
+      this.setDisplayData();
+  　 }
+  }  
+
+  setDisplayData(){
 
     //詳細入力画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
@@ -81,7 +102,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     });
 
     this.isLoading = true;
-    this.isInitFlg = false;
      
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init,this.initParam)    
      .then(
@@ -89,8 +109,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
          if(response.result === Const.ConnectResult.R0001){
            this.totalData = response.applicationData;
 
-           this.orderInfo = this.totalData.orderInfo;
-           this.grossProfitData = this.totalData.grossProfitData;
+           this.orderInfo = this.totalData.orderInfoData;
+           this.grossProfitData = this.totalData.grossProfitListData;
+           this.getGrossProfit(this.grossProfitData);
          }else{
            //返却データがない場合、データテーブルを初期化にする。
            this.router.navigate([Const.UrlSetting.U0002]);
@@ -99,6 +120,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
      )
      .finally(
        ()=>{
+
+        this.saveDataToSession();
+
          //ロード中を解除する。
          this.isLoading = false;
          this.isInitFlg = true;
@@ -106,7 +130,19 @@ export class OrderGrossProfitMarginComponent implements OnInit {
          this.changeDetector.detectChanges();
        }
      )
-  }  
+  }
+
+  /**
+   * 一時的なデータをセッションに保持する
+   */
+  private saveDataToSession(){
+
+    let saveDt = new ODIS0080TotalData();
+    saveDt.orderInfoData = this.orderInfo;
+    saveDt.grossProfitListData = this.grossProfitData;
+
+    sessionStorage.setItem(Const.ScreenName.S0008EN, JSON.stringify(saveDt));
+  }
 
   /**
    * 発注明細入力＿詳細入力画面に戻る
@@ -114,8 +150,51 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    */
   backToPreviousPage($event){
 
+    //発注詳細入力画面に戻る前に、セッションを削除する
+    sessionStorage.removeItem(Const.ScreenName.S0008EN);
     //画面遷移
     this.router.navigate([Const.UrlSetting.U0002]);
+  }
+
+  getGrossProfit(grossProfitData: ODIS0080GrossProfitBean[]) {
+
+    grossProfitData.forEach(element => {
+      let contractAmountInt = Number(this.baseCompnt.setValue(element.contractAmount));
+      let orderAmountInt = Number(this.baseCompnt.setValue(element.orderAmount));
+      this.grossProfitMargin = ((contractAmountInt - orderAmountInt) / contractAmountInt).toString();
+      element.grossProfit = this.grossProfitMargin
+    });
+  }
+
+  getTotalContractAmount() {
+    if (this.grossProfitData.length != 0) {
+      return this.grossProfitData
+        .map((t) => {
+          if (this.baseCompnt.setValue(t.contractAmount) != '') {
+            return Number(t.contractAmount);
+          }else{ return 0}
+        })
+        .reduce((acc, value) => acc + value, 0);
+    }
+  }
+
+  getTotalOrderAmount() {
+    if (this.grossProfitData.length != 0) {
+      return this.grossProfitData
+        .map((t) => {
+          if (this.baseCompnt.setValue(t.orderAmount) != '') {
+            return Number(t.orderAmount);
+          }else{ return 0}
+        })
+        .reduce((acc, value) => acc + value, 0);
+    }
+  }
+
+  getTotalGrossProfit() {
+    let totalContractAmount = this.getTotalContractAmount();
+    let totalOrderAmount = this.getTotalOrderAmount();
+    let totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
+    return totalGrossProfit;
   }
 
 }

@@ -34,6 +34,7 @@ export namespace Const{
         export const L0005 = '<a href="/OrderSupplierSelect">発注先マスタ選択</a> > ';
         export const L0006 = '<a href="/SplitDetailInput">発注明細入力_分割明細入力</a> > ';
         export const L0007 = '<a href="/OrderSplitApprovalMaster">発注承認者マスタ</a> > ';
+        export const L0008 = '<a href="/OrderGrossProfitMargin">発注明細入力_粗利率確認</a> > ';
     }
 
     /** リンクの定義 */

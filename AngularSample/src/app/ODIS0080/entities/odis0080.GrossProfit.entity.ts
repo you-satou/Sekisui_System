@@ -1,28 +1,16 @@
 export class ODIS0080GrossProfitBean{
 
-    /** 受注管理枝番 */
-	manageBranchCd: string;
-
 	/** 物件管理ＮＯ */
 	propertyManageCd: string;
 
 	/** 追加工事種類 */
 	constructModel: string;
 
-	/** 追加工事種類名 */
-	constructModelName: string;
-
 	/** 追加工事区分 */
 	constructType: string;
 
-	/** 追加工事区分_byte */
-	constructTypeByte: string;
-
-	/** 追加工事Ｂ区分 */
-	constructBType: string;
-
     /** 受注管理枝番 */
-	managerBranchCode: string;
+	manageBranchCd: string;
 
 	/** 枝番 */
 	branchNo: string;
@@ -33,16 +21,29 @@ export class ODIS0080GrossProfitBean{
 	/** 契約金額 */
 	contractAmount: string;
 
-	/** 契約金額２ */
-	contractAmount2: string;
+	/** 発注合計金額 */
+	orderAmount: string;
 
-	/** 発注状況 */
-	orderStatus: string;
+	grossProfit: string;
 
-	/** 売上状況 */
-	salesStatus: string;
+    /** 労災金額 */
+	accidentAmount: string;
 
-	/** 売上年月日 */
-    salesYmd: string;
-    
+	/** 工事費金額 */
+	constructionCost: string;
+
+	/** ハウス材金額 */
+	houseMaterial: string;
+
+	/** 運賃荷造保管料金額 */
+	freightAndPacking: string;
+
+	/** 労災金額 */
+	accidentAmount1: string;
+
+	/** 総受注金額 */
+	totalManageAmount: string;
+
+	/** 労災率 */
+	accidentPercent: string;
 }
