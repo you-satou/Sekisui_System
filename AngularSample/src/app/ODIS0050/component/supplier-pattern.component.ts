@@ -47,6 +47,9 @@ export class SupplierPatternComponent implements OnInit {
   // ローディング 判定
   isLoading: boolean = true;
 
+  //物件管理ＮＯ
+  propertyNo: string = "";
+
   /**
   *コンストラクタ
   *
@@ -117,6 +120,8 @@ export class SupplierPatternComponent implements OnInit {
     // 事業区分コード設定
     // this.param.officeCode = '201005';
     this.param.officeCode = '827007';
+
+    this.param.propertyNo = this.modalService.getPropertyNo();
 
     // 発注仕訳マスタ取得
     this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)

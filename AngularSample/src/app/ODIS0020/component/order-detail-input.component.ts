@@ -202,7 +202,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     //URLのパラメーターを消す
-    history.replaceState({}, '', Const.UrlSetting.U0002);
+    history.replaceState({}, '', '#' + Const.UrlSetting.U0002);
     // 各モダール 
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
@@ -267,7 +267,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.orderReceipt       = '0';
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
-
+          temp.orderDate = element.orderDate;
+          temp.orderAmount = element.orderAmount;
+          temp.receivedDate = element.receivedDate;
+          temp.receivedAmount = element.receivedAmount;
+          temp.paymentDate = element.paymentDate;
+          temp.paymentAmount = element.paymentAmount;
           temp.bulkRequestDate    = '';
           temp.bulkRequester      = '';
           temp.bulkApprovalDate_lv1     = '';
@@ -813,6 +818,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
   supplierPattern($event) {
+    this.SupplierPatternService.setPropertyNo(this.paramInit.propertyNo);
     this.modal = SupplierPatternComponent;
   }
 
@@ -1837,8 +1843,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode = new ODIS0020Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        // this.paramJournalCode.officeCode = '701000';
-        this.paramJournalCode.officeCode = '827007';
+        this.paramJournalCode.officeCode = '701000';
+        // this.paramJournalCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramJournalCode.journalCode = strJournalCode;
@@ -1899,8 +1905,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramOrderCode = new ODIS0020Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        // this.paramOrderCode.officeCode = '701000';
-        this.paramOrderCode.officeCode = '827007';
+        this.paramOrderCode.officeCode = '701000';
+        // this.paramOrderCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;

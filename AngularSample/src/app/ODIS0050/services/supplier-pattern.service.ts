@@ -57,5 +57,15 @@ export class SupplierPatternService {
    this.setVal(null);
    this.closeEventSubject.next();
   }
+
+  private _propertyNo: string = '';
+
+  public setPropertyNo(val: string) {
+    this._propertyNo = val;
+  }
+
+  public getPropertyNo() {
+    return this._propertyNo;
+  }
  
 }

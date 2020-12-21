@@ -70,7 +70,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     //ヘッダー設定
     this.appComponent.setHeader(Const.ScreenName.S0008, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
     //URLのパラメーターを消す
-    history.replaceState({}, '', Const.UrlSetting.U0002);
+    history.replaceState({}, '', '#' + Const.UrlSetting.U0002);
 
     //詳細入力画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
