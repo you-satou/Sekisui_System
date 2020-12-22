@@ -156,12 +156,11 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   }
 
   getGrossProfit(element: ODIS0080GrossProfitBean) {
-      let contractAmountInt = Number(this.baseCompnt.setValue(element.contractAmount));
-      let orderAmountInt = Number(this.baseCompnt.setValue(element.orderAmount));
-      if(contractAmountInt != 0) {
-        element.grossProfit = ((contractAmountInt - orderAmountInt) / contractAmountInt).toString();
-      }
-      return element.grossProfit;
+    let grossProfit = '0';
+    if (this.baseCompnt.setValue(element.grossProfit) != '') {
+      grossProfit = (Number(element.grossProfit) / 100).toString();
+    }
+    return grossProfit;
   }
 
   getTotalContractAmount() {
@@ -191,7 +190,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   getTotalGrossProfit() {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
-    let totalGrossProfit = '';
+    let totalGrossProfit = '0';
     if(totalContractAmount != 0) {
       totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
     }

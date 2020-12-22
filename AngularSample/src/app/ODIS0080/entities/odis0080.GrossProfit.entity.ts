@@ -24,6 +24,9 @@ export class ODIS0080GrossProfitBean{
 	/** 発注合計金額 */
 	orderAmount: string;
 
+	/** 粗利率 */
+	grossProfit: string;
+
     /** 労災金額 */
 	accidentAmount: string;
 
@@ -44,7 +47,4 @@ export class ODIS0080GrossProfitBean{
 
 	/** 労災率 */
 	accidentPercent: string;
-	
-	/** 粗利率 */
-	grossProfit: string;
 }
