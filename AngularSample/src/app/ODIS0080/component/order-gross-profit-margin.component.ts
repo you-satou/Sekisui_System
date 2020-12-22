@@ -1,3 +1,4 @@
+import { ODIS0080Session } from './../entities/odis0080.session.entity';
 import { ODIS0080TotalData } from './../entities/odis0080.entity';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -75,6 +76,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     if(sessionStorage.getItem(Const.ScreenName.S0008EN) != null){
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0008EN));
+      this.initParam = savedDt.initParam;
       this.orderInfo = savedDt.orderInfoData;
       this.grossProfitData = savedDt.grossProfitListData;
       
@@ -108,6 +110,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
            this.orderInfo = this.totalData.orderInfoData;
            this.grossProfitData = this.totalData.grossProfitListData;
+
+           this.saveDataToSession();
          }else{
            //返却データがない場合、データテーブルを初期化にする。
            this.router.navigate([Const.UrlSetting.U0002]);
@@ -116,8 +120,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
      )
      .finally(
        ()=>{
-
-        this.saveDataToSession();
 
          //ロード中を解除する。
          this.isLoading = false;
@@ -133,7 +135,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    */
   private saveDataToSession(){
 
-    let saveDt = new ODIS0080TotalData();
+    let saveDt = new ODIS0080Session();
+    saveDt.initParam = this.initParam;
     saveDt.orderInfoData = this.orderInfo;
     saveDt.grossProfitListData = this.grossProfitData;
 
