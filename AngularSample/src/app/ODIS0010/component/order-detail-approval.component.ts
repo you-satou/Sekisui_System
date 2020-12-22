@@ -20,10 +20,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   // パラメータ
   inputment　= new ODIS0010Form();
 
-  pixel: number;
-
-  screenSize: any;
-
   //検索値
   value = '';
   loaderText = Const.WarningMsg.W0002;
@@ -57,10 +53,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.setStartPage();
     this.approvalUnit = this.appComponent.approvalLevels;
     
-    // Search ボタンの初期位置を設定する
-    this.screenSize = window.innerWidth;
-    this.pixel = this.screenSize  - 408;
-
     // 初期画面をレンダーする
     this.isInitFlg = true;
 
@@ -80,6 +72,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     }
   }
 
+  /**
+   * 閉じるボタンを押下する
+   */
   onCloseClick(){
 
     // 既にセッションが格納されている場合は除去する
@@ -89,21 +84,14 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  /**
+   * 発注承認マスタ画面に遷移する
+   */
   toApproveMaster(){
 
     this.saveTemporaryData();
 
-    this.router.navigate(['OrderSplitApprovalMaster']);
-  }
-
-  //ページ広さを調整する時にボタンの位置も調整する
-  @HostListener('window:resize', ['$event'])
-  onResize($event) {
-    this.screenSize = window.innerWidth;
-    if(this.screenSize <= 1284){
-      return;
-    }
-    this.pixel = this.screenSize  - 408;
+    this.router.navigate([Const.UrlSetting.U0007]);
   }
 
   /** 

@@ -38,9 +38,6 @@ export class OrderDetailApprovalTable{
       'receivedAmount',
       'progressRate',
       'createdDetail',
-      // 'approval_1',
-      // 'approval_2',
-      // 'approval_3',
       'approval_last',
   ];
 
@@ -136,7 +133,7 @@ export class OrderDetailApprovalTable{
   switchToOrderInputPage(data: ODIS0010OrderDetail){
 
     //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
-    this.router.navigate(['OrderDetailInput'],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum},skipLocationChange: false, replaceUrl: false});
+    this.router.navigate([Const.UrlSetting.U0002],{ queryParams: {prop: data.propertyManagerCd, cntrt: data.contractNum},skipLocationChange: false, replaceUrl: false});
     
   }
 
