@@ -89,7 +89,7 @@
             </ng-container>
             <ng-container matColumnDef="grossProfit">
                 <td class="grossProfitStyle" mat-cell *matCellDef="let element">{{getGrossProfit(element)|percent}}</td>
-                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent}}</td>
+                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent: '1.0-2'}}</td>
             </ng-container>
 
             <!--Header 労災金額 -->

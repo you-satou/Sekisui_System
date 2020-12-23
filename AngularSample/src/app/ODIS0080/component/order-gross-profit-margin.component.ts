@@ -114,6 +114,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
            this.saveDataToSession();
          }else{
            //返却データがない場合、データテーブルを初期化にする。
+           alert(response.message);
            this.router.navigate([Const.UrlSetting.U0002]);
          }
        }
