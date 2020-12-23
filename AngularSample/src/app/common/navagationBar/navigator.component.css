@@ -6,6 +6,7 @@
 .menu-button{
     background-color: transparent;
     color: #ffffff;
+    width: 24px;
 }
 .button-child{
     background-color: #f8f9fa;
@@ -21,17 +22,22 @@
 } */
 
 ::ng-deep div.mat-menu-panel{
-    /* bottom: calc(100% - calc(100vh - 48px)); */
-    margin-left: calc(100% - 180px);
-    min-width: 112px;
-    max-width: max-content;
-    overflow: auto;
-    /* -webkit-overflow-scrolling: touch; */
-    /* max-height: calc(100vh - 48px); */
-    border-radius: 4px;
-    /* outline: 0; */
-    min-height: 64px;
-    border: #305496;
-    position: relative;
-    z-index: 99;
+    position: absolute;
+    top: 56px;
+    right: 0;
+    border: 1px solid #CCD0D5;
+    background-color: #f8f9fa;
+    padding: 0;
+}
+
+::ng-deep div.mat-menu-content {
+    padding: 0 !important;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box{
+    height: 0px !important;
+}
+
+.navbar-nav {
+    flex-direction: unset;
 }

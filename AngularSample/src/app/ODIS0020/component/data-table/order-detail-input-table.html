@@ -241,8 +241,8 @@
         <ng-container matColumnDef="display">
             <th style="min-width: 35px; width: 35px;" class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 35px; width: 35px; box-shadow: 1px 0px 0px 0px #dee2e6 inset; padding: 0 !important;" class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)>
-                    <mat-icon>➡</mat-icon>
+                <button style="min-width: 35px; padding: 0; text-decoration: none;" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)>
+                    <span style="font-size: 1rem;">➡</span>
                 </button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>

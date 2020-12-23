@@ -64,7 +64,7 @@ mat-paginator {
     order: 6;
 }
 
-mat-paginator.mat-button,
+/* mat-paginator.mat-button,
 mat-paginator.mat-flat-button,
 mat-paginator.mat-icon-button,
 mat-paginator.mat-stroked-button {
@@ -89,7 +89,7 @@ mat-paginator.mat-stroked-button {
     padding: 0 16px;
     border-radius: 1px;
     overflow: visible;
-}
+} */
 
 .keiyaku-bango {
     color: blue;

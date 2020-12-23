@@ -27,11 +27,11 @@ export class AppNavigator implements OnInit{
     /**
     * ロカールに時刻を取得する
     */
-   public ngAfterViewInit(){
+   ngAfterViewInit(){
     setInterval(() => {
       this.systemDate = new Date();
       this.displayDate = this.getSystemDate();
-    }, 60000);
+    }, 20000);
   }
   /**
    * システム日付を取得する

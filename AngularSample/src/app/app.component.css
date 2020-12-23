@@ -45,7 +45,7 @@
 
 
 
-/* #app {
+#app {
     position: relative;
     margin-bottom: -60px;
 }
@@ -119,7 +119,7 @@
 
 .text-right {
     white-space: nowrap;
-} */
+}
 
 ::ng-deep .mat-ripple-element {
     display: none;
