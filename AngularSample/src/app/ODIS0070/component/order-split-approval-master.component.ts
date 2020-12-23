@@ -115,7 +115,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private view: ViewContainerRef,
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
-    private service: CommonService,
     private router: Router,
     private CommonService: CommonService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -156,14 +155,13 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   getOrderSplitApproval() {
     // TODO
-    // this.input.officeCode = '204006';
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
+    // this.input.officeCode = '827007';
 
     // 発注承認者マスタ 取得
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
       .then(
         (response) => {
-
           if(response.result === Const.ConnectResult.R0001){
             this.orderApprovalData = response.applicationData;
           }else{
@@ -231,17 +229,17 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       val = val.substr(0,maxLen);
     }
     // 空白以外の場合に処理を実行
-    if(val.trim().length >= 1){
+    if  (val.trim().length >= 1){
       // 前回の個人認証ＩＤと異なる場合に以降の処理を実施
-      if(this.paramUserInfo.personalID !== val.trim()){
+      if (this.paramUserInfo.personalID !== val.trim()) {
         // ビジー開始
         this.isLoading = true;
 
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
         // TODO
-        // this.input.officeCode = '204006';
-        this.input.officeCode = '827007';
+        this.input.officeCode = '204006';
+        // this.input.officeCode = '827007';
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
@@ -367,8 +365,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    // this.input.officeCode = '204006';
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
+    // this.input.officeCode = '827007';
 
     //承認人数が2人で設定する
     if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
@@ -429,8 +427,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    // this.input.officeCode = '204006';
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
+    // this.input.officeCode = '827007';
     this.input.approval1 = DENY;
     this.input.approval2 = DENY;
     this.input.approval3 = DENY;
@@ -505,8 +503,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
     
     // TODO
-    // this.input.officeCode = '204006';
-    this.input.officeCode = '827007';
+    this.input.officeCode = '204006';
+    // this.input.officeCode = '827007';
 
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
     .then(

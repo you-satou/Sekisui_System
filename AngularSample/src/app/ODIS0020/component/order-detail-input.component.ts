@@ -55,9 +55,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tabName5: string = Const.TabName.TabName_Zouen2;   //造園②
   tabName6: string = Const.TabName.TabName_Tsuika;   //追加工事
 
+  returnTabName: string;
   //　選択されたタブのIndexを取得
   get tabIndexValue(){
-    switch(this.selectedTab){
+    // switch(this.selectedTab){
+    switch(this.returnTabName){
       case this.tabName1:
         return 0;
       case this.tabName2:
@@ -70,6 +72,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         return 4;
       case this.tabName6:
         return 5;
+      default:
+        return 0;
     }
   }
 
@@ -107,18 +111,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  get cellNumber(){
-    switch(this.approvalUnit){
-      case 1:
-        return 10;
-      case 2:
-        return 11;
-      case 3:
-        return 12;
-      case 4:
-        return 13;
-    }
-  }
 
   loaderText: string = Const.WarningMsg.W0002;
   isLoading: boolean = true;
@@ -267,12 +259,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.orderReceipt       = '0';
           temp.orderSupplierCode  = element.supplierCode;
           temp.orderSupplierName  = element.supplierName;
-          temp.orderDate = element.orderDate;
-          temp.orderAmount = element.orderAmount;
-          temp.receivedDate = element.receivedDate;
-          temp.receivedAmount = element.receivedAmount;
-          temp.paymentDate = element.paymentDate;
-          temp.paymentAmount = element.paymentAmount;
+          temp.orderDate          = element.orderDate;
+          temp.orderAmount        = element.orderAmount;
+          temp.receivedDate       = element.receivedDate;
+          temp.receivedAmount     = element.receivedAmount;
+          temp.paymentDate        = element.paymentDate;
+          temp.paymentAmount      = element.paymentAmount;
           temp.bulkRequestDate    = '';
           temp.bulkRequester      = '';
           temp.bulkApprovalDate_lv1     = '';
@@ -309,11 +301,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // データ取得
     // TODO
-    // this.paramInit.officeCode = '402000';
-    this.paramInit.officeCode = '827007';
-
-    // this.paramInit.propertyNo = '55664';
-    // this.paramInit.contractNum = '000000122';
+    this.paramInit.officeCode = '402000';
+    // this.paramInit.officeCode = '827007';
 
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
@@ -548,17 +537,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         
         if (fetchDt.result === Const.ConnectResult.R0001) {
           const resSuchOAP = fetchDt.applicationData;
-          returnDt[0].orderDate = this.baseCompnt.setValue(resSuchOAP.orderDate);
-          returnDt[0].orderAmount = this.baseCompnt.setValue(resSuchOAP.orderAmount);
-          returnDt[0].receivedDate = this.baseCompnt.setValue(resSuchOAP.receivedDate);
+          returnDt[0].orderDate      = this.baseCompnt.setValue(resSuchOAP.orderDate);
+          returnDt[0].orderAmount    = this.baseCompnt.setValue(resSuchOAP.orderAmount);
+          returnDt[0].receivedDate   = this.baseCompnt.setValue(resSuchOAP.receivedDate);
           returnDt[0].receivedAmount = this.baseCompnt.setValue(resSuchOAP.receivedAmount);
-          returnDt[0].paymentDate = this.baseCompnt.setValue(resSuchOAP.paymentDate);
-          returnDt[0].paymentAmount = this.baseCompnt.setValue(resSuchOAP.paymentAmount);
+          returnDt[0].paymentDate    = this.baseCompnt.setValue(resSuchOAP.paymentDate);
+          returnDt[0].paymentAmount  = this.baseCompnt.setValue(resSuchOAP.paymentAmount);
         }
       }
 
       // タブ設定
-      this.selectedTab = this.getTabName(returnDt[0].detailKind);
+      // this.selectedTab = this.getTabName(returnDt[0].detailKind);
+      this.returnTabName = this.getTabName(returnDt[0].detailKind);
       switch (returnDt[0].detailKind) {
         case Const.JuuChuuEdaban.Sekkei:
           this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
@@ -616,28 +606,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * タブ名 取得
    */
   private getTabName(detailKind: string){
-    var resVal: string = '';
     switch(detailKind){
       case Const.JuuChuuEdaban.Sekkei:
-        resVal = Const.TabName.TabName_Sekkei;
-        break;
+        return Const.TabName.TabName_Sekkei;
+
       case Const.JuuChuuEdaban.Hontai:
-        resVal = Const.TabName.TabName_Hontai;
-        break;
+        return Const.TabName.TabName_Hontai;
+
       case Const.JuuChuuEdaban.Kaitai:
-        resVal = Const.TabName.TabName_Kaitai;
-        break;
+        return Const.TabName.TabName_Kaitai;
+
       case Const.JuuChuuEdaban.Zouen1:
-        resVal = Const.TabName.TabName_Zouen1;
-        break;
+        return Const.TabName.TabName_Zouen1;
+
       case Const.JuuChuuEdaban.Zouen2:
-        resVal = Const.TabName.TabName_Zouen2;
-        break;
+        return Const.TabName.TabName_Zouen2;
+
       case Const.JuuChuuEdaban.Tsuika:
-        resVal = Const.TabName.TabName_Tsuika;
-        break;
+        return Const.TabName.TabName_Tsuika;
     }
-    return resVal;
   }
 
     /**
@@ -1210,6 +1197,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt 
    */
   setRowUnselected(body:any, dt: ODIS0020OrderDetaiSplitBean[]){
+    const row = body.rows[0];
+    if(row == undefined || row == null ){
+      return;
+    }
+    var bulkApprovalCell = 0;
+    //一括最終承認のセールまで数える
+    for(var i = 0; i < row.cells.length; i++){
+      if(row.children[i].id == "bulkApprovalFinal"){
+        bulkApprovalCell = i;
+        break;
+      }
+    }
     //テーブルの背景色を設定する。
     for(var i = 0; i < dt.length; i++){
       //一括承認データが入っている行はグレーアウトする。
@@ -1217,7 +1216,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         var tr = body.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
-          if (j <= this.cellNumber) {
+          if (j <= bulkApprovalCell) {
             td.style.backgroundColor = Const.HighLightColour.GrayOut;
           }
           else {

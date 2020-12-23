@@ -896,8 +896,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         this.paramOrderCode = new ODIS0060Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        // this.paramOrderCode.officeCode = '701000';
-        this.paramOrderCode.officeCode = '827007';
+        this.paramOrderCode.officeCode = '701000';
+        // this.paramOrderCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;

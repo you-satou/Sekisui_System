@@ -205,16 +205,18 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     var bulkApprovalCell = 0;
     //一括最終承認のセールまで数える
     for(var i = 0; i < row.cells.length; i++){
-      bulkApprovalCell++;
+      
       if(row.children[i].id == "bulkApprovalFinal"){
+        bulkApprovalCell = i;
         break;
       }
     }
     var approvalCell = 0;
     //一括最終承認のセールまで数える
     for(var i = 0; i < row.cells.length; i++){
-      approvalCell++;
+      
       if(row.children[i].id == "approvalFinal"){
+        approvalCell = i;
         break;
       }
     }

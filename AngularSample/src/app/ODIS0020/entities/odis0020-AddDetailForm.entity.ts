@@ -186,12 +186,12 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
                 output[i].bulkApprovalPerson_lv3   = this.bulkApprovalPerson_lv3;
                 output[i].bulkApprovalDate_final   = this.bulkApprovalDate_final;
                 output[i].bulkApprovalPerson_final = this.bulkApprovalPerson_final;
-                output[i].orderDate = res.orderDate;
-                output[i].orderAmount = res.orderAmount;
-                output[i].receivedDate = res.receivedDate;
-                output[i].receivedAmount = res.receivedAmount;
-                output[i].paymentDate = res.paymentDate;
-                output[i].paymentAmount = res.paymentAmount;
+                output[i].orderDate         = res.orderDate;
+                output[i].orderAmount       = res.orderAmount;
+                output[i].receivedDate      = res.receivedDate;
+                output[i].receivedAmount    = res.receivedAmount;
+                output[i].paymentDate       = res.paymentDate;
+                output[i].paymentAmount     = res.paymentAmount;
             }            
         }
         return output;
