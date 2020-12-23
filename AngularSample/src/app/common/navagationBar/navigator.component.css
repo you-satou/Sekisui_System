@@ -1,0 +1,37 @@
+.navbar-color{
+    background-color:#305496;
+    display: flex; 
+    flex-wrap: nowrap;
+}
+.menu-button{
+    background-color: transparent;
+    color: #ffffff;
+}
+.button-child{
+    background-color: #f8f9fa;
+    width: 180px !important;
+}
+/* button.button-child :hover{
+    background-color: #f8f9fac9;
+    cursor: pointer;
+} */
+
+/* .menu-list{
+    float: right !important;
+} */
+
+::ng-deep div.mat-menu-panel{
+    /* bottom: calc(100% - calc(100vh - 48px)); */
+    margin-left: calc(100% - 180px);
+    min-width: 112px;
+    max-width: max-content;
+    overflow: auto;
+    /* -webkit-overflow-scrolling: touch; */
+    /* max-height: calc(100vh - 48px); */
+    border-radius: 4px;
+    /* outline: 0; */
+    min-height: 64px;
+    border: #305496;
+    position: relative;
+    z-index: 99;
+}

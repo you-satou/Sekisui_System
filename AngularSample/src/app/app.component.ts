@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Location } from '@angular/common'
+import { CommonService } from './common/common.service';
 
 const openClose = trigger('openClose', [
   state('open', style({
@@ -37,9 +38,7 @@ export class AppComponent implements OnInit {
   errorMessages: String[];
   errorFlg: boolean;
   mode: number;
-  systemDate: Date = new Date();
 
-  day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
   approvalLevels: number;
 
@@ -49,12 +48,16 @@ export class AppComponent implements OnInit {
   constructor( 
     private router: Router, 
     private location: Location,
+    private commService: CommonService,
     ) { 
       //TODO:　アプリ起動する時、承認者数を取得する。
       this.approvalLevels = 3;
       //TODO: ログイン情報取得。
-      this.loginUser = '積水　次郎';
-      this.branchName = '大阪北支店';
+      // this.loginUser = '積水　次郎';
+      // this.branchName = '大阪北支店';
+
+      
+
     }
 
   ngOnInit() {
@@ -99,6 +102,31 @@ export class AppComponent implements OnInit {
         return false;
       }
     };
+
+    // const loginInfo = this.GetLoginInfo();
+  }
+
+
+  setLoginInformation(){
+    // // 認可コードの取得
+    // if (window.location.search != null && window.location.search !== "" && window.location.search.indexOf("authCd") > 0) {
+
+    //   let authCd = window.location.search.substr(window.location.search.indexOf("=") + 1);
+    //   if (authCd != null && authCd !== "") {
+    //     sessionStorage.setItem(ShHttpClientConst.AUTHORIZATION_TOKEN, authCd);
+    //   }
+    // }
+
+    // if (sessionStorage.getItem(ShHttpClientConst.AUTHORIZATION_TOKEN) != null
+    //   && sessionStorage.getItem(ShHttpClientConst.AUTHORIZATION_TOKEN) !== "") {
+    //   this.additionInfoService.init();
+    // }
+  }
+
+  private async GetLoginInfo(){
+    const response = await this.commService.getLoginInformation('ODIS0000/login');
+
+    return response;
   }
   /**
    * ヘッダー 設定
@@ -108,13 +136,6 @@ export class AppComponent implements OnInit {
   setHeader(strTitle:string, strPath:string = "") {
     this.displayTitle = strTitle;
     this.rootPath = strPath;
-  }
-
-  /**
-   * ロカールに時刻を取得する
-   */
-  getSystemDate(): string {
-    return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
   }
 
   ngOnDestroy(): void {

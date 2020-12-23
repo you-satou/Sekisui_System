@@ -56,4 +56,12 @@ export class CommonService{
 
     }
 
+    getLoginInformation(url: string) {
+        return this.http.get(this.baseUrl + `/${url}/`)
+        .toPromise()
+        .then((res)=>{
+            return res;
+        })
+    }
+
 }

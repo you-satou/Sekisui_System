@@ -45,14 +45,13 @@
 
 
 
-#app {
+/* #app {
     position: relative;
     margin-bottom: -60px;
 }
 
 .footer {
     position: fixed;
-    /* position: relative; */
     display: inline-block;
     bottom: 0;
     width: 100%;
@@ -120,7 +119,7 @@
 
 .text-right {
     white-space: nowrap;
-}
+} */
 
 ::ng-deep .mat-ripple-element {
     display: none;
