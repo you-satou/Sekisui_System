@@ -53,10 +53,6 @@ export class AppComponent implements OnInit {
       //TODO:　アプリ起動する時、承認者数を取得する。
       this.approvalLevels = 3;
       //TODO: ログイン情報取得。
-      // this.loginUser = '積水　次郎';
-      // this.branchName = '大阪北支店';
-
-      
 
     }
 
