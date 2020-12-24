@@ -69,7 +69,7 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >契約金額</th>
             </ng-container>
             <ng-container matColumnDef="contractAmount">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.contractAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.contractAmount)|number}}</td>
                 <td class="amountStyle" mat-footer-cell *matFooterCellDef>{{getTotalContractAmount() | number}}</td>
             </ng-container>
 
@@ -79,7 +79,7 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >発注金額</th>
             </ng-container>
             <ng-container matColumnDef="orderAmount">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.orderAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.orderAmount)|number}}</td>
                 <td class="amountStyle" mat-footer-cell *matFooterCellDef>{{getTotalOrderAmount() | number}}</td>
             </ng-container>
 
@@ -89,7 +89,7 @@
             </ng-container>
             <ng-container matColumnDef="grossProfit">
                 <td class="grossProfitStyle" mat-cell *matCellDef="let element">{{getGrossProfit(element)|percent}}</td>
-                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent}}</td>
+                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent: '1.0-2'}}</td>
             </ng-container>
 
             <!--Header 労災金額 -->
@@ -97,7 +97,7 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >労災金額</th>
             </ng-container>
             <ng-container matColumnDef="accidentAmount">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.accidentAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.accidentAmount)|number}}</td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -106,7 +106,7 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >工事費</th>
             </ng-container>
             <ng-container matColumnDef="constructionCost">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.constructionCost|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.constructionCost)|number}}</td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -115,7 +115,7 @@
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef >ハウス材</th>
             </ng-container>
             <ng-container matColumnDef="houseMaterial">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.houseMaterial|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.houseMaterial)|number}}</td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -123,8 +123,17 @@
             <ng-container matColumnDef="unChin">
                 <th class="color-input-1" mat-header-cell *matHeaderCellDef>運賃</th>
             </ng-container>
-            <ng-container matColumnDef="freightAndPacking">
-                <td class="amountStyle" mat-cell *matCellDef="let element">{{element.freightAndPacking|number}}</td>
+            <ng-container matColumnDef="transCost">
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.transportationCost)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            
+            <!--Header 荷造り -->
+            <ng-container matColumnDef="niTsukuri">
+                <th class="color-input-1" mat-header-cell *matHeaderCellDef>荷造保管</th>
+            </ng-container>
+            <ng-container matColumnDef="packingAmount">
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.packingAmount)|number}}</td>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 

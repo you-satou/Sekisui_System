@@ -35,9 +35,12 @@ export class ODIS0080GrossProfitBean{
 
 	/** ハウス材金額 */
 	houseMaterial: string;
+	
+	/** 運搬費金額 */
+	transportationCost: string;
 
-	/** 運賃荷造保管料金額 */
-	freightAndPacking: string;
+	/** 荷造保管料金額 */
+	packingAmount: string;
 
 	/** 労災金額 */
 	accidentAmount1: string;
