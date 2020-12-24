@@ -32,19 +32,15 @@
 /* ↓↓↓ GrossInformation ↓↓↓ */
 
 .grossInformation {
-    /* width: fit-content; */
     height: fit-content;
     max-height: 419px;
-    width: 100%;
     min-width: 684px;
-    max-width: 1158px;
-    overflow-x: auto;
-    overflow-y: scroll;
+    max-width: max-content;
+    overflow: auto; 
     margin-bottom: 50px;
 }
 
 .tblGrossDataInfo {
-    width: 1141px;
     margin: 0;
     border-top: 0;
 }

@@ -33,6 +33,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'koujiHi',        // 工事費
     'houseZai',       // ハウス材
     'unChin',         // 運賃
+    'niTsukuri',         // 荷造り
   ];
   /** テーブルの全カラム */
   totalColumns:string[] = [
@@ -47,7 +48,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'accidentAmount',
     'constructionCost',
     'houseMaterial',
-    'freightAndPacking',
+    'transCost',
+    'packingAmount'
   ];
 
   initParam:ODIS0080InitParam = new ODIS0080InitParam();
@@ -150,8 +152,10 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    */
   backToPreviousPage($event){
 
-    //発注詳細入力画面に戻る前に、セッションを削除する
-    sessionStorage.removeItem(Const.ScreenName.S0008EN);
+    if (sessionStorage.getItem(Const.ScreenName.S0008EN) != null){
+      //発注詳細入力画面に戻る前に、セッションを削除する
+      sessionStorage.removeItem(Const.ScreenName.S0008EN);
+    }
     //画面遷移
     this.router.navigate([Const.UrlSetting.U0002]);
   }
@@ -186,6 +190,17 @@ export class OrderGrossProfitMarginComponent implements OnInit {
         })
         .reduce((acc, value) => acc + value, 0);
     }
+  }
+
+  setValue(val: any) {
+    //金額が０の場合、空白で表示する
+    if (this.baseCompnt.setValue(val) == '0') {
+      return '';
+    }
+    else{
+      return val;
+    }
+
   }
 
   getTotalGrossProfit() {
