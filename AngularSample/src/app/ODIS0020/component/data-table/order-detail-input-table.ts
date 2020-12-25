@@ -35,6 +35,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   readonlyTab = Const.TabName.TabName_Tsuika;
 
+  userApprovalPerm: string = '3';
+
   /**
    * テーブルヘッダーのカラムを定義する。
    */
@@ -884,20 +886,33 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //一括依頼データを抽出
     var requestInfo = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
+      if (this.comCompnt.setValue(value.bulkRequestDate) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
     //一括承認データを抽出
     var approvalLv1 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv1) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_lv1) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
-    //一括承認１済の時、ボタン非活性する。
-    if (requestInfo.length == this.orderData.length && approvalLv1.length != this.orderData.length) {
+
+    //一括承認データを抽出
+    var approvalFinal = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
+        return value;
+      }
+    })
+
+    //一括依頼済の時、ボタン活性する。
+    if (requestInfo.length == approvalFinal.length &&
+        approvalLv1.length != approvalFinal.length &&
+        this.userApprovalPerm == '0') {
       return false;
     }
+
     return true;
 
   }
@@ -918,19 +933,30 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //一括承認データを抽出
     var approvalLv1 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv1) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_lv1) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
 
     //一括承認データを抽出
     var approvalLv2 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv2) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_lv2) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
+
+    var approvalFinal = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
+        return value;
+      }
+    })
+
     //一括承認２済の時、ボタン非活性する。
-    if (approvalLv1.length == this.orderData.length && approvalLv2.length != this.orderData.length) {
+      if (approvalLv1.length == approvalFinal.length &&
+          approvalLv2.length != approvalFinal.length &&
+          this.userApprovalPerm == '1') {
       return false;
     }
     return true;
@@ -952,19 +978,30 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //一括承認データを抽出
     var approvalLv2 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv2) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_lv2) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
 
     //一括承認データを抽出
     var approvalLv3 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv3) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_lv3) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
+
+    var approvalFinal = this.orderData.filter(value => {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
+        return value;
+      }
+    })
+
     //一括承認２済の時、ボタン非活性する。
-    if (approvalLv2.length == this.orderData.length && approvalLv3.length != this.orderData.length) {
+    if (approvalLv2.length == approvalFinal.length &&
+        approvalLv3.length != approvalFinal.length &&
+        this.userApprovalPerm == '2') {
       return false;
     }
     return true;
@@ -987,54 +1024,23 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
     //一括承認データを抽出
     var requestInfo = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkRequestDate) != '') {
-        return value;
-      }
-    })
-    //一括承認データを抽出
-    var approvalLv1 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv1) != '') {
-        return value;
-      }
-    })
-    //一括承認データを抽出
-    var approvalLv2 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv2) != '') {
-        return value;
-      }
-    })
-
-    //一括承認データを抽出
-    var approvalLv3 = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_lv3) != '') {
+      if (this.comCompnt.setValue(value.bulkRequestDate) != '' &&
+          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
 
     //一括承認データを抽出
     var approvalFinal = this.orderData.filter(value => {
-      if (this.comCompnt.setValue(value.bulkApprovalDate_final) != '') {
+      if (this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
         return value;
       }
     })
     
     //承認人数が一人・依頼済・最終承認が承認中の時⇒活性する
-    if(this.approvalUnit == 1 && requestInfo.length == this.orderData.length && approvalFinal.length != this.orderData.length){
-      return false;
-    }
-    
-    //承認人数が二人・承認１済・最終承認が承認中の時⇒活性する
-    if(this.approvalUnit == 2 && approvalLv1.length == this.orderData.length && approvalFinal.length != this.orderData.length){
-      return false;
-    }
-    
-    //承認人数が三人・承認２済・最終承認が承認中の時⇒活性する
-    if(this.approvalUnit == 3 && approvalLv2.length == this.orderData.length && approvalFinal.length != this.orderData.length){
-      return false;
-    }
-
-    //承認人数が四人・承認３済・最終承認が承認中の時⇒活性する
-    if(this.approvalUnit == 4 && approvalLv3.length == this.orderData.length && approvalFinal.length != this.orderData.length){
+    if(requestInfo.length == approvalFinal.length &&
+       approvalFinal.length > 0 &&
+       this.userApprovalPerm == '3'){
       return false;
     }
 
@@ -1069,7 +1075,9 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
       this.orderData.forEach(element=>{
-        if(this.comCompnt.setValue(element.bulkApprovalDate_lv1) ==''){
+        if(this.comCompnt.setValue(element.bulkRequestDate) != '' && 
+           this.comCompnt.setValue(element.bulkApprovalDate_lv1) == '' && 
+           this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv1   = approvalTime;
           element.bulkApprovalPerson_lv1 = this.appComponent.loginUser;
         }
@@ -1085,7 +1093,9 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
       this.orderData.forEach(element=>{
-        if(this.comCompnt.setValue(element.bulkApprovalDate_lv2) ==''){
+        if(this.comCompnt.setValue(element.bulkApprovalDate_lv1) != '' &&
+           this.comCompnt.setValue(element.bulkApprovalDate_lv2) == '' &&
+           this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv2   = approvalTime;
           element.bulkApprovalPerson_lv2 = this.appComponent.loginUser;
         }
@@ -1102,7 +1112,9 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
       this.orderData.forEach(element=>{
-        if(this.comCompnt.setValue(element.bulkApprovalDate_lv3) ==''){
+        if(this.comCompnt.setValue(element.bulkApprovalDate_lv2) !=''&&
+           this.comCompnt.setValue(element.bulkApprovalDate_lv3) ==''&&
+           this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_lv3   = approvalTime;
           element.bulkApprovalPerson_lv3 = this.appComponent.loginUser;
         }
