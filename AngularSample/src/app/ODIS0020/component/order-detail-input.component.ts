@@ -310,7 +310,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
-    // this.paramInit.officeCode = '827007';
 
     // this.paramInit.propertyNo = '55664';
     // this.paramInit.contractNum = '000000122';
@@ -1844,7 +1843,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
         this.paramJournalCode.officeCode = '701000';
-        // this.paramJournalCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramJournalCode.journalCode = strJournalCode;
@@ -1906,7 +1904,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
         this.paramOrderCode.officeCode = '701000';
-        // this.paramOrderCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
