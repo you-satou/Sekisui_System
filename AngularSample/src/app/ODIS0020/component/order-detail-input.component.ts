@@ -309,8 +309,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // データ取得
     // TODO
-    // this.paramInit.officeCode = '402000';
-    this.paramInit.officeCode = '827007';
+    this.paramInit.officeCode = '402000';
+    // this.paramInit.officeCode = '827007';
 
     // this.paramInit.propertyNo = '55664';
     // this.paramInit.contractNum = '000000122';
