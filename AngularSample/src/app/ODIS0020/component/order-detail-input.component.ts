@@ -303,9 +303,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // TODO
     this.paramInit.officeCode = '402000';
 
-    // this.paramInit.propertyNo = '55664';
-    // this.paramInit.contractNum = '000000122';
-
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
           (response) => {
@@ -1551,8 +1548,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               alert(response.message);
             }
 
-            // //ロード画面を解除する。
-            // this.isLoading = false;
           }
         )
         .finally(

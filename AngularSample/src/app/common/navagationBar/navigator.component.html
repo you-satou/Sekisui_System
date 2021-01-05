@@ -1,7 +1,7 @@
 <nav class="navbar text-white p-2 navbar-color">
     <ul class="navbar-nav mr-auto">
         <label class="navbar-brand text-white" style="margin: 0;">
-            <img src="../../../assets/logo.png" class="d-inline-block align-top">
+            <img src="../../../assets/logo.png" class="d-inline-block align-top system-logo" (click)="logoClick($event)">
             <span class="mx-3 fs-big">発注承認処理</span>
             <span class="mx-1 fs-small">v 1.0.0</span>
         </label>
@@ -12,13 +12,12 @@
                 <span class="mx-2 fs-small">{{this.branchName}}</span>
                 <span class="mx-2 fs-small">{{this.loginUser}}</span>
             </div>
-            <div class="collapse fs-small" id="collapseExample">
-            </div>
+            <div class="collapse fs-small" id="collapseExample"></div>
             <span class="mx-2 fs-small">{{this.displayDate}}</span>
         </div>
         <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample" style="font-weight:bold">
             <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
+                <mat-icon class="more_vert">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu" class="menu-list">
                 <button mat-menu-item class="button-child">

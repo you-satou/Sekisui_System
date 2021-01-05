@@ -498,7 +498,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // ビジー開始
     this.isLoading = true;
     
-    // TODO
+    // TODO:
     this.input.officeCode = '204006';
 
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)

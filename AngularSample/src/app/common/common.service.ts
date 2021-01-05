@@ -56,12 +56,18 @@ export class CommonService{
 
     }
 
-    getLoginInformation(url: string) {
-        return this.http.get(this.baseUrl + `/${url}/`)
-        .toPromise()
-        .then((res)=>{
-            return res;
-        })
+    /**
+     * ログイン情報を取得する
+     * @param url 
+     * @param data 
+     */
+    getLoginInformation(url: string, data: any = null): Promise<ApiResponseBody<any>> {
+        return this.shApiService.post<any[]>(this.baseUrl + `/${url}/`,data)
+        .then((res => {
+            const response: any = res;
+            return response;
+        }))
+
     }
 
 }

@@ -1,3 +1,7 @@
+.system-logo{
+    cursor: pointer;
+}
+
 .navbar-color{
     background-color:#305496;
     display: flex; 
@@ -12,14 +16,10 @@
     background-color: #f8f9fa;
     width: 180px !important;
 }
-/* button.button-child :hover{
-    background-color: #f8f9fac9;
-    cursor: pointer;
-} */
 
-/* .menu-list{
-    float: right !important;
-} */
+.more_vert{
+    font-size: 15px;
+}
 
 ::ng-deep div.mat-menu-panel{
     position: absolute;

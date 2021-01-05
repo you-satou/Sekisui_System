@@ -15,7 +15,11 @@ export class AppNavigator implements OnInit{
     day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
     time = new Date();
-        
+    
+    constructor(){
+      
+    }
+    
     ngOnInit(): void {
     
         this.loginUser = '積水　次郎';
@@ -31,13 +35,17 @@ export class AppNavigator implements OnInit{
     setInterval(() => {
       this.systemDate = new Date();
       this.displayDate = this.getSystemDate();
-    }, 20000);
+    }, 1000);
   }
   /**
    * システム日付を取得する
    */
-  public getSystemDate(): string {
+  getSystemDate(): string {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
+  }
+
+  logoClick($event){
+
   }
 
 } 
