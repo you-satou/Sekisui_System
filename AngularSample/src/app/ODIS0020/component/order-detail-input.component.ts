@@ -15,9 +15,9 @@ import { ODIS0020InsertedOrderEdaBan } from '../entities/odis0020-InsertedOrderE
 import { ODIS0020MainOrderEdaBan } from '../entities/odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from '../entities/odis0020-OrderInformation.entity'
 import { ODIS0020OrderDetailTotalInfo } from '../entities/odis0020.entity';
-import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { ODIS0020AddOrderDetailService } from '../services/odis0020-AddOrderDetail.service';
 import { ODIS0020Service } from '../services/odis0020-service';
-import { DataEmitter, RowStatus } from '../services/odis0020-DataEmitter.service';
+import { DataEmitter, ODIS0020RowStatus } from '../services/odis0020-DataEmitter.service';
 import { CommonComponent } from 'app/common/common.component';
 import { ODIS0020JournalCode } from '../entities/odis0020-JournalCode.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity';
@@ -139,8 +139,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   public modal: any = null;
 
   // 明細追加専用クラス
-  addInput = new ODIS0020AddOrderDetail();
-  rowStatus = new RowStatus();
+  addInput = new ODIS0020AddOrderDetailService();
+  rowStatus = new ODIS0020RowStatus();
 
   // ボタン制御
   btnInsert: boolean;
@@ -248,25 +248,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         returnValues.forEach(element => {
           let temp = new ODIS0020OrderDetaiSplitBean();
 
-          temp.insKubun           = Const.InsKubun.Ins;         
-          temp.propertyNo         = this.paramInit.propertyNo;
-          temp.detailKind         = this.tabOrderKind;
-          temp.orderBranchNo      = this.getOrderBranchValue(this.tabOrderKind);
-          temp.splitNo            = '1';
-          temp.journalCode        = element.journalCode;
-          temp.accountCode        = element.accountingCategory;
-          temp.journalName        = element.journalName;
-          temp.orderReceipt       = '0';
-          temp.orderSupplierCode  = element.supplierCode;
-          temp.orderSupplierName  = element.supplierName;
-          temp.orderDate          = element.orderDate;
-          temp.orderAmount        = element.orderAmount;
-          temp.receivedDate       = element.receivedDate;
-          temp.receivedAmount     = element.receivedAmount;
-          temp.paymentDate        = element.paymentDate;
-          temp.paymentAmount      = element.paymentAmount;
-          temp.bulkRequestDate    = '';
-          temp.bulkRequester      = '';
+          temp.insKubun                 = Const.InsKubun.Ins;         
+          temp.propertyNo               = this.paramInit.propertyNo;
+          temp.detailKind               = this.tabOrderKind;
+          temp.orderBranchNo            = this.getOrderBranchValue(this.tabOrderKind);
+          temp.splitNo                  = '1';
+          temp.journalCode              = element.journalCode;
+          temp.accountCode              = element.accountingCategory;
+          temp.journalName              = element.journalName;
+          temp.orderReceipt             = '0';
+          temp.orderSupplierCode        = element.supplierCode;
+          temp.orderSupplierName        = element.supplierName;
+          temp.orderDate                = element.orderDate;
+          temp.orderAmount              = element.orderAmount;
+          temp.receivedDate             = element.receivedDate;
+          temp.receivedAmount           = element.receivedAmount;
+          temp.paymentDate              = element.paymentDate;
+          temp.paymentAmount            = element.paymentAmount;
+          temp.bulkRequestDate          = '';
+          temp.bulkRequester            = '';
           temp.bulkApprovalDate_lv1     = '';
           temp.bulkApprovalPerson_lv1   = '';
           temp.bulkApprovalDate_lv2     = '';
@@ -302,7 +302,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ取得
     // TODO
     this.paramInit.officeCode = '402000';
-    // this.paramInit.officeCode = '827007';
+
+    // this.paramInit.propertyNo = '55664';
+    // this.paramInit.contractNum = '000000122';
 
     this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
         .then(
@@ -514,11 +516,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // セッションからデータを取得する。 
     let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
     this.orderCustomerInfo = savedData.CustomerInfo;
-    this.order0DateInfo = savedData.DateInfo;
-    this.tblMainOrder = savedData.mainOrderInfo;
-    this.tblInsertedOrder = savedData.insertedOrderInfo;
+    this.order0DateInfo    = savedData.DateInfo;
+    this.tblMainOrder      = savedData.mainOrderInfo;
+    this.tblInsertedOrder  = savedData.insertedOrderInfo;
     this.tblSekkei = savedData.SekkeiData;
-    this.tblHouse = savedData.HontaiData;
+    this.tblHouse  = savedData.HontaiData;
     this.tblKaitai = savedData.KaitaiData;
     this.tblTsuika = savedData.TsuikaData;
     this.tblZouen1 = savedData.ZouEn1Data;
@@ -589,7 +591,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private async fetchData(returnDt: ODIS0020OrderDetaiSplitBean): Promise<any>{
 
-    this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;             // 物件管理ＮＯ
+    this.paramSuchOAP.propertyNo = this.paramInit.propertyNo;          // 物件管理ＮＯ
     this.paramSuchOAP.accountCode = returnDt.accountCode;              // 経理分類
     this.paramSuchOAP.orderSupplierCode = returnDt.orderSupplierCode;  // 発注先コード
 
@@ -605,23 +607,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * タブ名 取得
    */
-  private getTabName(detailKind: string){
+  private getTabName(detailKind: string) {
     switch(detailKind){
       case Const.JuuChuuEdaban.Sekkei:
         return Const.TabName.TabName_Sekkei;
-
       case Const.JuuChuuEdaban.Hontai:
         return Const.TabName.TabName_Hontai;
-
       case Const.JuuChuuEdaban.Kaitai:
         return Const.TabName.TabName_Kaitai;
-
       case Const.JuuChuuEdaban.Zouen1:
         return Const.TabName.TabName_Zouen1;
-
       case Const.JuuChuuEdaban.Zouen2:
         return Const.TabName.TabName_Zouen2;
-
       case Const.JuuChuuEdaban.Tsuika:
         return Const.TabName.TabName_Tsuika;
     }
@@ -642,8 +639,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     })
     // 位置取得
     let indx = savedDt.indexOf(fDt[0]);
-    this.rowStatus.keyIndex = indx;
-    this.rowStatus.detailLength = returnDt.length;
+    this.rowStatus.rowBegin = indx;
+    this.rowStatus.dataLength = returnDt.length;
 
     // 対象外データ抽出
     var tempDt = savedDt.filter(value =>{
@@ -748,7 +745,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
       // 文字色設定
       this.setAfterViewFont();
-      var i = this.rowStatus.detailLength + this.rowStatus.keyIndex -1;
+      var i = this.rowStatus.dataLength + this.rowStatus.rowBegin -1;
     
       this.setAutoScroll(body, i);
       this.baseCompnt.setRowColor(Const.Action.A0004,body,i);
@@ -884,39 +881,39 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /** テーブルに明細を追加 */
   private insertToDataTable(insertDt: ODIS0020OrderDetaiSplitBean) {
     var insertIndex: number = 0;
-    var tblBody;
+    var tblBody: any;
     switch (this.selectedTab) {
       case this.tabName1:
         insertIndex = this.countDefaultData(this.childSekkei.orderData);
         this.childSekkei.orderData.splice(insertIndex, 0, insertDt);
-        this.reDetailNo(this.childSekkei.orderData);
+        this.reCountDetailNo(this.childSekkei.orderData);
         tblBody = this.childSekkei.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabName2:
         insertIndex = this.countDefaultData(this.childHontai.orderData);
         this.childHontai.orderData.splice(insertIndex, 0, insertDt);
-        this.reDetailNo(this.childHontai.orderData);
+        this.reCountDetailNo(this.childHontai.orderData);
         tblBody = this.childHontai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabName3:
         insertIndex = this.countDefaultData(this.childKaitai.orderData);
         this.childKaitai.orderData.splice(insertIndex, 0, insertDt);
-        this.reDetailNo(this.childKaitai.orderData);
+        this.reCountDetailNo(this.childKaitai.orderData);
         tblBody = this.childKaitai.viewRef.element.nativeElement.querySelector('tbody');
         break;
 
       case this.tabName4:
         insertIndex = this.countDefaultData(this.childZouEn1.orderData);
         this.childZouEn1.orderData.splice(insertIndex, 0, insertDt);
-        this.reDetailNo(this.childZouEn1.orderData);
+        this.reCountDetailNo(this.childZouEn1.orderData);
         tblBody = this.childZouEn1.viewRef.element.nativeElement.querySelector('tbody');
         break;
       case this.tabName5:
         insertIndex = this.countDefaultData(this.childZouEn2.orderData);
         this.childZouEn2.orderData.splice(insertIndex, 0, insertDt);
-        this.reDetailNo(this.childZouEn2.orderData);
+        this.reCountDetailNo(this.childZouEn2.orderData);
         tblBody = this.childZouEn2.viewRef.element.nativeElement.querySelector('tbody');
         break;
     }
@@ -949,15 +946,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 明細連番 再連番 設定
    * @param data 
    */
-  private reDetailNo(datas: ODIS0020OrderDetaiSplitBean[]){
+  private reCountDetailNo(datas: ODIS0020OrderDetaiSplitBean[]){
     // 初期化
-    var tmpNo:string = '';
     var cnt: number = 0;
-
     for(var i = 0; i < datas.length; i++){
       // 仕訳コードに値が入っている場合、連番をカウントアップ
       if(this.baseCompnt.setValue(datas[i].splitNo) === '1'){
-        tmpNo = datas[i].detailNo;
         cnt++;
       }
 
@@ -1036,7 +1030,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.insertToDataTable(insBk);
       }
     }
-    this.reDetailNo(dataTable);
+    this.reCountDetailNo(dataTable);
   }
 
   /**
@@ -1059,27 +1053,28 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             // 結果取得
             this.resSuchOAP = response.applicationData;
 
-            var key = this.rowStatus.keyIndex;
+            var detailNo = this.rowStatus.detailNo;
+
             switch (this.selectedTab) {
               //設計
               case this.tabName1:
-                this.childSekkei.orderData = this.addInput.getInput(this.childSekkei.orderData,key, this.resSuchOAP);
+                this.childSekkei.orderData = this.setUpdateData(this.childSekkei.orderData, detailNo, this.resSuchOAP);
                 break;
               //ハウス
               case this.tabName2:
-                this.childHontai.orderData = this.addInput.getInput(this.childHontai.orderData,key, this.resSuchOAP);
+                this.childHontai.orderData = this.setUpdateData(this.childHontai.orderData, detailNo, this.resSuchOAP);
                 break;
               //解体
               case this.tabName3:
-                this.childKaitai.orderData = this.addInput.getInput(this.childKaitai.orderData,key, this.resSuchOAP);
+                this.childKaitai.orderData = this.setUpdateData(this.childKaitai.orderData, detailNo, this.resSuchOAP);
                 break;
               //造園１
               case this.tabName4:
-                this.childZouEn1.orderData = this.addInput.getInput(this.childZouEn1.orderData,key, this.resSuchOAP);
+                this.childZouEn1.orderData = this.setUpdateData(this.childZouEn1.orderData, detailNo, this.resSuchOAP);
                 break;
               //造園２
               case this.tabName5:
-                this.childZouEn2.orderData = this.addInput.getInput(this.childZouEn2.orderData,key, this.resSuchOAP);
+                this.childZouEn2.orderData = this.setUpdateData(this.childZouEn2.orderData, detailNo, this.resSuchOAP);
                 break;
             }
 
@@ -1095,6 +1090,46 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         }
       )
   }
+
+  private setUpdateData(dt: ODIS0020OrderDetaiSplitBean[], detailNo: String, res: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean[]{
+    
+    // 発注連番に紐づくデータをすべて更新
+    for (var i = 0; i < dt.length; i++) {
+      if (dt[i].detailNo === detailNo) {
+
+        // 登録区分 通常の場合に更新に変更する。
+        if (dt[i].insKubun === Const.InsKubun.Normal) {
+          dt[i].insKubun = Const.InsKubun.Upd;
+        }
+        dt[i].orderBranchNo            = this.addInput.orderBranchNo;
+        dt[i].journalCode              = this.addInput.journalCode;
+        dt[i].journalName              = this.addInput.journalName;
+        dt[i].accountCode              = this.addInput.accountCode;
+        dt[i].orderSupplierCode        = this.addInput.orderSupplierCode;
+        dt[i].orderSupplierName        = this.addInput.orderSupplierName;
+        dt[i].orderReceipt             = this.addInput.orderReceipt;
+        dt[i].orderPlanAmount          = this.baseCompnt.removeCommas(this.addInput.orderPlanAmount);
+        dt[i].bulkRequestDate          = this.addInput.bulkRequestDate;
+        dt[i].bulkRequester            = this.addInput.bulkRequester;
+        dt[i].bulkApprovalDate_lv1     = this.addInput.bulkApprovalDate_lv1;
+        dt[i].bulkApprovalPerson_lv1   = this.addInput.bulkApprovalPerson_lv1;
+        dt[i].bulkApprovalDate_lv2     = this.addInput.bulkApprovalDate_lv2;
+        dt[i].bulkApprovalPerson_lv2   = this.addInput.bulkApprovalPerson_lv2;
+        dt[i].bulkApprovalDate_lv3     = this.addInput.bulkApprovalDate_lv3;
+        dt[i].bulkApprovalPerson_lv3   = this.addInput.bulkApprovalPerson_lv3;
+        dt[i].bulkApprovalDate_final   = this.addInput.bulkApprovalDate_final;
+        dt[i].bulkApprovalPerson_final = this.addInput.bulkApprovalPerson_final;
+        dt[i].orderDate                = res.orderDate;
+        dt[i].orderAmount              = res.orderAmount;
+        dt[i].receivedDate             = res.receivedDate;
+        dt[i].receivedAmount           = res.receivedAmount;
+        dt[i].paymentDate              = res.paymentDate;
+        dt[i].paymentAmount            = res.paymentAmount;
+      }
+    }
+
+    return dt;
+  }
   
   /**
    * 入力チェック
@@ -1102,7 +1137,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private inputCheck(val: string){
 
-    let rowData = this.rowStatus.rowData;
+    let rowData = this.addInput.tmpDt;
     // 明細更新ボタン押下された場合は以下処理を実施
     if(val === '1'){
      
@@ -1240,38 +1275,38 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   deleteOrderDetail() {
     // 警告メッセージ
-    var confirm = window.confirm(Const.WarningMsg.W0001);
+    const confirm = window.confirm(Const.WarningMsg.W0001);
     if (!confirm) { return; };
 
-    let key = this.rowStatus.keyIndex;
-    let len = this.rowStatus.detailLength;
+    const key = this.rowStatus.rowBegin;
+    const len = this.rowStatus.dataLength;
 
     // 明細削除
     switch (this.selectedTab) {
       case this.tabName1:
         this.childSekkei.orderData.splice(key, len);
         this.childSekkei.tableShiwake.renderRows();
-        this.reDetailNo(this.childSekkei.orderData);
+        this.reCountDetailNo(this.childSekkei.orderData);
         break;
       case this.tabName2:
         this.childHontai.orderData.splice(key, len);
         this.childHontai.tableShiwake.renderRows();
-        this.reDetailNo(this.childHontai.orderData);
+        this.reCountDetailNo(this.childHontai.orderData);
         break;
       case this.tabName3:
         this.childKaitai.orderData.splice(key, len);
         this.childKaitai.tableShiwake.renderRows();
-        this.reDetailNo(this.childKaitai.orderData);
+        this.reCountDetailNo(this.childKaitai.orderData);
         break;
       case this.tabName4:
         this.childZouEn1.orderData.splice(key, len);
         this.childZouEn1.tableShiwake.renderRows();
-        this.reDetailNo(this.childZouEn1.orderData);
+        this.reCountDetailNo(this.childZouEn1.orderData);
         break;
       case this.tabName5:
         this.childZouEn2.orderData.splice(key, len);
         this.childZouEn2.tableShiwake.renderRows();
-        this.reDetailNo(this.childZouEn2.orderData);
+        this.reCountDetailNo(this.childZouEn2.orderData);
         break;
 
     }
@@ -1301,43 +1336,25 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 初期化
    */
   private Clear(){
-    this.addInput.journalCode        = '';
-    this.addInput.accountCode        = '';
-    this.addInput.journalName        = '';
-    this.addInput.orderSupplierCode  = '';
-    this.addInput.orderSupplierName  = '';
-    this.addInput.orderPlanAmount    = '';
-    this.addInput.bulkRequestDate    = '';
-    this.addInput.bulkRequester      = '';
-    this.addInput.orderReceipt       = '0';
-    this.addInput.orderBranchNo      = '';
 
-    this.addInput.bulkApprovalDate_lv1     = '';
-    this.addInput.bulkApprovalPerson_lv1   = '';
-    this.addInput.bulkApprovalDate_lv2     = '';
-    this.addInput.bulkApprovalPerson_lv2   = '';
-    this.addInput.bulkApprovalDate_lv3     = '';
-    this.addInput.bulkApprovalPerson_lv3   = '';
-    this.addInput.bulkApprovalDate_final   = '';
-    this.addInput.bulkApprovalPerson_final = '';
-
-    this.addInput.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
-    this.paramJournalCode            = new ODIS0020Form();
-    this.paramOrderCode              = new ODIS0020Form();
+    // 入力パラメータを初期化
+    this.addInput.Clear();
+    this.paramJournalCode  = new ODIS0020Form();
+    this.paramOrderCode    = new ODIS0020Form();
   } 
 
   /**
    * 子供コンポーネントから渡されたデータを取得する
-   * @param emitterData 
+   * @param dt 
    */
-  getEmitter(emitterData: DataEmitter) {
-    switch(emitterData.action){
+  getEmitter(dt: DataEmitter) {
+    switch(dt.action){
       //明細を選択する
       case Const.Action.A0004:
         // 値設定
-        this.rowStatus = emitterData.getRowStatus();
-        this.addInput.setInput(emitterData.getEmitterData());
-        this.setPageButtonDisplay(true,this.rowStatus.update,false,this.rowStatus.delete);
+        this.rowStatus = dt.getRowStatus();
+        this.addInput.setInput(dt.getEmitterData());
+        this.setButtonEnabledBySelectedData(dt.getEmitterData());
         break;
 
       //分割明細画面に遷移する
@@ -1356,9 +1373,27 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus.Clear();
         this.addInput.Clear();
         //各ボタンの制御を設定する。
-        this.setPageButtonDisplay(false,this.rowStatus.update,false,this.rowStatus.delete);
-        
+        this.setButtonEnabledBySelectedData();
         break;
+    }
+  }
+
+  private setButtonEnabledBySelectedData(dt: ODIS0020OrderDetaiSplitBean = null){
+
+    this.setPageButtonDisplay(true, true, false, true);
+
+    if (dt != null) {
+      if (dt.journalName == 'ハウス材' ||
+        dt.journalName == '運賃・荷造・保管料' ||
+        dt.journalName == '労災') {
+        this.setPageButtonDisplay(true, false, false, true);
+      }
+      if (this.baseCompnt.setValue(dt.bulkApprovalPerson_final) != ''){
+        this.setPageButtonDisplay(true, true, false, true);
+      }
+      else {
+        this.setPageButtonDisplay(true, false, false, false);
+      }
     }
   }
  
@@ -1451,8 +1486,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     //明細追加テーブルにて、入力途中項目があるかどうかを検証する。
     if(!this.addInput.isBlank){
-        var confirm = window.confirm(Const.WarningMsg.W0004);
+        const confirm = window.confirm(Const.WarningMsg.W0004);
         if(!confirm){
+          this.isLoading = false;    
           return;
         }
     }
@@ -1843,7 +1879,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
         this.paramJournalCode.officeCode = '701000';
-        // this.paramJournalCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramJournalCode.journalCode = strJournalCode;
@@ -1852,7 +1887,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetJournalCode,this.paramJournalCode)
         .then(
           (response) => {
-
             if(response.result === Const.ConnectResult.R0001){
               this.resJournalCode = response.applicationData;
               this.addInput.journalCode = strJournalCode;   // 仕訳コード
@@ -1872,7 +1906,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param event 
    */
   blurAccountCode($event){
-    if(!($event.target.value == '')){ 
+    if (!($event.target.value == '')){ 
       var maxLen:number = $event.target.maxLength;
       var val = $event.target.value;
       if(val.length > maxLen){
@@ -1890,12 +1924,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
-    if(val.length > maxLen){
+    if (val.length > maxLen){
       val = val.substr(0,maxLen);
     }
 
     // 空白以外の場合に処理を実行
-    if(val.trim().length >= 1){
+    if (val.trim().length >= 1){
       // 0パディング 設定
       var strOrderCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
@@ -1905,7 +1939,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
         this.paramOrderCode.officeCode = '701000';
-        // this.paramOrderCode.officeCode = '827007';
 
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
@@ -1914,7 +1947,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderCode,this.paramOrderCode)
         .then(
           (response) => {
-
             if(response.result === Const.ConnectResult.R0001){
               this.resOrderCode = response.applicationData;
               this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード

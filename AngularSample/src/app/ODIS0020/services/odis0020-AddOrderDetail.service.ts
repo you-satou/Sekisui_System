@@ -1,11 +1,10 @@
 import { CommonComponent } from 'app/common/common.component';
-import { Const } from 'app/common/const';
-import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity';
+import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity';
 
 /**
  * 発注明細に追加するの定義
  */
-export class ODIS0020AddOrderDetail extends CommonComponent{
+export class ODIS0020AddOrderDetailService extends CommonComponent {
 
     /** 仕訳コード */
     journalCode: string;
@@ -61,7 +60,8 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
     /** 発注最終承認者 */
     bulkApprovalPerson_final: string; 
 
-    shiwakeData: ODIS0020OrderDetaiSplitBean;
+    /** 一時保持なデータ */
+    tmpDt: ODIS0020OrderDetaiSplitBean;
 
     get isBlank (): boolean {
         if(this.journalCode      != '' ||
@@ -76,21 +76,14 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         return true;
     } 
 
-    get journalCodeIsBlank(): boolean{
-        if(this.journalCode != ''){
-            return false;
-        }
-        return true;
-    }
-
-    get isUnchanged():boolean{
-        if(this.journalCode      != this.shiwakeData.journalCode ||
-        this.accountCode         != this.shiwakeData.accountCode ||
-        this.journalName         != this.shiwakeData.journalName ||
-        this.orderSupplierCode   != this.shiwakeData.orderSupplierCode||
-        this.orderSupplierName   != this.shiwakeData.orderSupplierName ||
-        this.orderReceipt        != this.shiwakeData.orderReceipt ||
-        this.removeCommas(this.orderPlanAmount) != this.shiwakeData.orderPlanAmount
+    get isUnchanged(): boolean{
+        if(this.journalCode      != this.tmpDt.journalCode ||
+        this.accountCode         != this.tmpDt.accountCode ||
+        this.journalName         != this.tmpDt.journalName ||
+        this.orderSupplierCode   != this.tmpDt.orderSupplierCode||
+        this.orderSupplierName   != this.tmpDt.orderSupplierName ||
+        this.orderReceipt        != this.tmpDt.orderReceipt ||
+        this.removeCommas(this.orderPlanAmount) != this.tmpDt.orderPlanAmount
         ){
             return false;
         }
@@ -99,10 +92,10 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
 
     constructor() {
         super();
-        this.Clear();
-    }
+     }
 
-    Clear(){
+    public Clear(): void{
+
         this.orderBranchNo            = '';
         this.journalCode              = '';
         this.accountCode              = '';
@@ -121,11 +114,11 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.bulkApprovalPerson_lv3   = '';
         this.bulkApprovalDate_final   = '';
         this.bulkApprovalPerson_final = '';
-
-        this.shiwakeData        = new ODIS0020OrderDetaiSplitBean();
+        this.tmpDt                    = new ODIS0020OrderDetaiSplitBean();
     }
 
-    setInput(input: ODIS0020OrderDetaiSplitBean) {
+    public setInput(input: ODIS0020OrderDetaiSplitBean): void {
+        this.tmpDt  = input;
 
         //編集テーブルの各セルに選択された行の値を挿入
         this.orderBranchNo      = input.orderBranchNo;
@@ -146,55 +139,7 @@ export class ODIS0020AddOrderDetail extends CommonComponent{
         this.bulkApprovalPerson_lv3   = input.bulkApprovalPerson_lv3;
         this.bulkApprovalDate_final   = input.bulkApprovalDate_final;
         this.bulkApprovalPerson_final = input.bulkApprovalPerson_final;
-
         
-        this.shiwakeData        = input;
-    }
-
-    /**
-     * 
-     * @param output 
-     * @param key 
-     * @param value 
-     * @param action 
-     */
-    getInput(output: ODIS0020OrderDetaiSplitBean[], key:number, res: ODIS0020OrderDetaiSplitBean): ODIS0020OrderDetaiSplitBean[]{
-        
-        // 発注連番に紐づくデータをすべて更新
-        for(var i=0; i<output.length; i++){
-            if(output[i].detailNo === output[key].detailNo){
-                
-                // 登録区分 通常の場合に更新に変更する。
-                if(output[i].insKubun === Const.InsKubun.Normal){
-                    output[i].insKubun       = Const.InsKubun.Upd;
-                }
-                output[i].orderBranchNo      = this.orderBranchNo;
-                output[i].journalCode        = this.journalCode;
-                output[i].journalName        = this.journalName;
-                output[i].accountCode        = this.accountCode;
-                output[i].orderSupplierCode  = this.orderSupplierCode;
-                output[i].orderSupplierName  = this.orderSupplierName;
-                output[i].orderReceipt       = this.orderReceipt;
-                output[i].orderPlanAmount    = this.removeCommas(this.orderPlanAmount);
-                output[i].bulkRequestDate    = this.bulkRequestDate;
-                output[i].bulkRequester      = this.bulkRequester;
-                output[i].bulkApprovalDate_lv1     = this.bulkApprovalDate_lv1;
-                output[i].bulkApprovalPerson_lv1   = this.bulkApprovalPerson_lv1;
-                output[i].bulkApprovalDate_lv2     = this.bulkApprovalDate_lv2;
-                output[i].bulkApprovalPerson_lv2   = this.bulkApprovalPerson_lv2;
-                output[i].bulkApprovalDate_lv3     = this.bulkApprovalDate_lv3;
-                output[i].bulkApprovalPerson_lv3   = this.bulkApprovalPerson_lv3;
-                output[i].bulkApprovalDate_final   = this.bulkApprovalDate_final;
-                output[i].bulkApprovalPerson_final = this.bulkApprovalPerson_final;
-                output[i].orderDate         = res.orderDate;
-                output[i].orderAmount       = res.orderAmount;
-                output[i].receivedDate      = res.receivedDate;
-                output[i].receivedAmount    = res.receivedAmount;
-                output[i].paymentDate       = res.paymentDate;
-                output[i].paymentAmount     = res.paymentAmount;
-            }            
-        }
-        return output;
     }
 
 }

@@ -173,7 +173,7 @@
         </ng-container>
         <!--発注予定金額-->
         <ng-container matColumnDef="orderPlanAmount">
-            <th style="min-width: 120px; width: 120px; " class="color-input-3 " mat-header-cell *matHeaderCellDef></th>
+            <th style="min-width: 120px; width: 120px; " class="color-input-3" mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 120px; width: 120px; text-align: right;" class="font-s-right" mat-cell *matCellDef="let element;" 
              style.color="{{getFontColor(element)}}" 
              [ngStyle]="{'backgroundColor': this.tabName != this.readonlyTab?(this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white'):'white'}"> {{element.orderPlanAmount | number}} </td>
@@ -184,7 +184,7 @@
             <th style="min-width: 30px; width: 30px; " mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 30px; width: 30px; " class="font-s" mat-cell *matCellDef="let element " 
             [ngStyle]="{'backgroundColor': this.tabName != this.readonlyTab?(this.comCompnt.setValue(element.bulkApprovalPerson_final)!= '' ? this.grayOut :'white'):'white'}">
-                    <button style="min-width: 30px; width: 30px; padding: 0;" mat-button class="btn btn-link" 
+                    <button style="min-width: 30px; width: 30px; padding: 0;" mat-button class="btn btn-link"
                     *ngIf="this.comCompnt.setValue(element.splitNo)=='1'" 
                     disabled="{{isRejectFlg(element,'order')}}" 
                     (click)="approvalReject($event,element,'order')">却</button>
@@ -247,10 +247,6 @@
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
         </ng-container>
-
-
-
-        <!-- //FIXME: -->
         <!--分割リンク-->
         <ng-container matColumnDef="split">
             <th style="min-width: 35px; width: 35px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
@@ -324,7 +320,9 @@
                 <button mat-button class="btn btn-outline-success"
                         *ngIf="approvalUnit >= 2 
                            && this.comCompnt.setValue(element.requester) !='' 
-                           && this.comCompnt.setValue(element.approvalPerson_lv1) ==''"
+                           && this.comCompnt.setValue(element.approvalPerson_lv1) ==''
+                           && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                           && this.userApprovalPerm == '0'"
                         (click)="setApprovalFirstLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -339,8 +337,10 @@
                 <!-- 承認１が入力あり AND ログイン者が「承認２:可」(TODO)の場合）にボタンを表示 -->
                 <button mat-button class="btn btn-outline-success"
                     *ngIf="approvalUnit >= 3 
-                    && this.comCompnt.setValue(element.approvalPerson_lv1) !='' 
-                    && this.comCompnt.setValue(element.approvalPerson_lv2) ==''"
+                    && this.comCompnt.setValue(element.approvalPerson_lv1) !=''
+                    && this.comCompnt.setValue(element.approvalPerson_lv2) ==''
+                    && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                    && this.userApprovalPerm == '1'"
                     (click)="setApprovalNextLevel($event,element)" 
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
 
@@ -358,7 +358,9 @@
                     <button mat-button class="btn btn-outline-success"
                         *ngIf="approvalUnit == 4 
                         && this.comCompnt.setValue(element.approvalPerson_lv2) !='' 
-                        && this.comCompnt.setValue(element.approvalPerson_lv3) ==''"
+                        && this.comCompnt.setValue(element.approvalPerson_lv3) ==''
+                        && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                        && this.userApprovalPerm == '2'"
                         (click)="setApprovalThirdLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -377,14 +379,13 @@
                 <!-- 承認人数は３が設定された場合、ログイン：「最終承認可」と「承認２承認済」と「最終承認未済」の時に表示される -->
                 <!-- 承認人数は４が設定された場合、ログイン：「最終承認可」と「承認３承認済」と「最終承認未済」の時に表示される -->
                 <button mat-button class="btn btn-outline-success"
-                    *ngIf="(approvalUnit == 1 && this.comCompnt.setValue(element.requester) !='' && this.comCompnt.setValue(element.approvalPerson_final) =='')
-                            ||(approvalUnit == 2 && this.comCompnt.setValue(element.approvalPerson_lv1) !='' && this.comCompnt.setValue(element.approvalPerson_final) =='')
-                            ||(approvalUnit == 3 && this.comCompnt.setValue(element.approvalPerson_lv2) !='' && this.comCompnt.setValue(element.approvalPerson_final) =='')
-                            ||(approvalUnit == 4 && this.comCompnt.setValue(element.approvalPerson_lv3) !='' && this.comCompnt.setValue(element.approvalPerson_final) =='')"
+                    *ngIf="(this.comCompnt.setValue(element.requester) !='' &&
+                            this.comCompnt.setValue(element.approvalPerson_final) =='' &&
+                            this.userApprovalPerm == '3')"
                     (click)="setApprovalFinalLevel($event,element)"
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
-            
+                
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container> 
         <!--分割却下-->

@@ -208,7 +208,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
 }
 
-export class RowStatus {
+export class ODIS0060RowStatus {
 
     /** 明細の位置 */
     rowIndex: number;
