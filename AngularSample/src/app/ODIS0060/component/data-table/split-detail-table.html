@@ -60,7 +60,7 @@
         <ng-container matColumnDef="orderBranchNo">
             <th style="min-width: 60px; width: 60px; " class="color-input-1 " mat-header-cell *matHeaderCellDef></th>
             <!-- FIXME: 設定値　0埋め -->
-            <td style="min-width: 60px; width: 60px; " class="font-s" mat-cell *matCellDef="let element"> {{element.orderBranchNo|number:'2.0-2'}}</td>
+            <td style="min-width: 60px; width: 60px; text-align: center;" class="font-s" mat-cell *matCellDef="let element"> {{element.orderBranchNo|number:'2.0-2'}}</td>
             <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
@@ -125,22 +125,22 @@
 
         <ng-container matColumnDef="bulkApprovalDate_1">
             <th style="min-width: 75px; width: 75px; padding: 5px;" class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
-            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_1}}</td>
+            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_lv1}}</td>
         </ng-container>
 
         <ng-container matColumnDef="bulkApprovalDate_2">
             <th style="min-width: 75px; width: 75px; padding: 5px;" class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
-            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_2}}</td>
+            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_lv2}}</td>
         </ng-container>
 
         <ng-container matColumnDef="bulkApprovalDate_3">
             <th style="min-width: 75px; width: 75px; padding: 5px;" class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
-            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_3}}</td>
+            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_lv3}}</td>
         </ng-container>
 
         <ng-container matColumnDef="bulkApprovalDate_Final">
             <th style="min-width: 75px; width: 75px; padding: 5px;" class="color-input-4" mat-header-cell *matHeaderCellDef>承認日</th>
-            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_Final}}</td>
+            <td class="tdRight" mat-cell *matCellDef="let element">{{element.bulkApprovalDate_final}}</td>
         </ng-container>
 
         <tr style="height: 10px" mat-header-row *matHeaderRowDef="shiwakeColumns"></tr>

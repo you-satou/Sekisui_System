@@ -9,7 +9,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake, ODIS0060Session } fr
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderDetaiSplitBean } from './../../ODIS0020/entities/odis0020-OrderDetailSplit.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
-import { ODIS0020BunkatsuInsertService, RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
+import { ODIS0020BunkatsuInsertService, ODIS0060RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
@@ -79,7 +79,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
   amountDeference: number = 0;
 
-  rowStatus = new RowStatus()
+  rowStatus = new ODIS0060RowStatus();
 
   //タブネーム
   tabName: string = '';
@@ -88,8 +88,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   btnHenkou: boolean;
   btnChuushi: boolean;
   btnSakujo: boolean;
-
-  fixed:number = 500;
 
   //初期画面のレンダー
   isInitFlg: boolean = false;
