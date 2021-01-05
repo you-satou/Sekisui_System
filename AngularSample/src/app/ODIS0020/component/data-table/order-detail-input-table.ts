@@ -1,3 +1,4 @@
+import { ODIS0020RowStatus } from './../../../ODIS0020/services/odis0020-DataEmitter.service';
 import { DatePipe } from '@angular/common';
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
 import { Component, Input, ViewEncapsulation, Output, EventEmitter, OnInit,　AfterViewInit, ViewContainerRef, ViewChild} from "@angular/core";
@@ -32,10 +33,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   grayOut = Const.HighLightColour.GrayOut;
   transparent = Const.HighLightColour.Transparent;
   black = Const.HighLightColour.Black;
-
   readonlyTab = Const.TabName.TabName_Tsuika;
 
-  userApprovalPerm: string = '3';
+  /** 明細にクリックされた位置 */
+  private clickedPosition:number = -1;
+
+  userApprovalPerm: string = '1';
 
   /**
    * テーブルヘッダーのカラムを定義する。
@@ -207,16 +210,16 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     var bulkApprovalCell = 0;
     //一括最終承認のセールまで数える
     for(var i = 0; i < row.cells.length; i++){
-      bulkApprovalCell++;
-      if(row.children[i].id == "bulkApprovalFinal"){
+      if(row.children[i].id == 'bulkApprovalFinal'){
+        bulkApprovalCell = i;
         break;
       }
     }
     var approvalCell = 0;
     //一括最終承認のセールまで数える
     for(var i = 0; i < row.cells.length; i++){
-      approvalCell++;
-      if(row.children[i].id == "approvalFinal"){
+      if(row.children[i].id == 'approvalFinal'){
+        approvalCell = i;
         break;
       }
     }
@@ -563,80 +566,60 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   /**
    * 選択された行の背景色を変える。
-   * @param $event
+   * @param event
    */
-  onSelectHighLight($event, value: ODIS0020OrderDetaiSplitBean) {
+  onSelectHighLight(event: any, value: ODIS0020OrderDetaiSplitBean) {
+
+    this.setSelect(event);
     
-    this.setSelect($event);
+    const nodeName = event.target.nodeName;
+    // チェックボックス・ボタンを押下する時、エミッタ―データを送らない。
+    if (nodeName == 'INPUT' || nodeName == 'MAT-ICON') { return; }
+  
+    this.sendEmitter(value, nodeName);
+  }
 
-    // 選択されたデータのインデックス
-    let rowIndex: number = this.orderData.indexOf(value);
-
+  /**
+   * 親元にデータを送る。
+   * @param value 
+   * @param nodeName 
+   */
+  private sendEmitter(value: ODIS0020OrderDetaiSplitBean, nodeName: string = null) {
     // 明細連番 対象データ抽出
-    let filter = this.orderData.filter(element =>{
-      if(element.detailNo == value.detailNo){
+    let dtList = this.orderData.filter(element => {
+      if (element.detailNo == value.detailNo) {
         return element;
       }
     });
-    //先頭データのインデックスを取得する
-    let keyIndex = this.orderData.indexOf(filter[0]);
 
-    //明細件数を取得
-    let totalLength: number = filter.length;
+    let rowStt = new ODIS0020RowStatus();
+    rowStt.rowBegin = this.orderData.indexOf(dtList[0]);
+    rowStt.detailNo = value.detailNo;
+    rowStt.splitNo = value.splitNo;
+    rowStt.dataLength = dtList.length;
 
-    let isCanNotUpd: boolean = false;
-    let isCanNotDel: boolean = false;
-    //一括承認データがある場合、更新・削除ができない
-    if(this.comCompnt.setValue(value.bulkApprovalPerson_final) != ''){
-      isCanNotUpd = true;
-      isCanNotDel = true;
+    this.dataEmitter.action = Const.Action.A0004;
+
+    // 依頼・承認ボタンを押下した場合、
+    if (nodeName === 'SPAN' || nodeName === 'BUTTON') {
+      if (this.clickedPosition >= 11) {
+        this.dataEmitter.action = Const.Action.A0008;
+      }
     }
 
-    // ハウス材、運賃・荷造・保管料、労災の場合は削除不可
-    if (value.journalName == 'ハウス材' ||
-        value.journalName == '運賃・荷造・保管料' ||
-        value.journalName == '労災') {
-      isCanNotDel = true;
-    }
-
-    //渡すデータを設定する。
-    this.dataEmitter.action = Const.Action.A0004;   //行を選択
-
-    //依頼・承認ボタンを押下した場合、設定する
-    var nodeName = $event.target.nodeName;
-    if(nodeName === 'SPAN' || nodeName === 'BUTTON' || nodeName === 'INPUT'){
-      this.dataEmitter.action = Const.Action.A0008;
-      isCanNotUpd = true;
-      isCanNotDel = true;
-      //ボタン・チェックボックスをクリックする時、RowIndexを設定不要なので、ＮＵＬＬにする
-      rowIndex = null;
-    }
-    //FIXME:　追加データがUNIONから取得ので、明細連番と分割連番が「１」に固定される
-    if(this.tabName === this.readonlyTab){
-      this.dataEmitter.setEmitterData(value);          //明細のデータ
-    
-      //追加工事タブを選択されている時、全ボタンを非活性する
-      keyIndex = rowIndex;
-      isCanNotUpd = true;
-      isCanNotDel = true;
-    }else{
-      this.dataEmitter.setEmitterData(filter[0]);     //明細のデータ
-    }
-    
-    this.dataEmitter.setRowStatus(keyIndex,rowIndex,totalLength,isCanNotUpd,isCanNotDel,value); //明細ステータス
-
+    this.dataEmitter.setRowStatus(rowStt);
+    this.dataEmitter.setEmitterData(value);
     this.sendOrderData.emit(this.dataEmitter);
-
   }
 
   /**
    * 一覧にて、明細を選択する時、発生する
    * @param event 
    */
-  setSelect(event: any){
+  private setSelect(event: any){
 
     //クリックされたエレメント名を取得する
-    var nodeName = event.target.nodeName;
+    const nodeName = event.target.nodeName;
     //テーブルのBody
     var wTbody: HTMLTableElement;
     //クリックされた行
@@ -654,36 +637,44 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       case 'MAT-ICON':
         wTr = event.path[4];
         wTbody = event.path[5];
+        this.clickedPosition = event.path[3].cellIndex;
         break;
+
       case 'LABEL':
         wTr = event.path[2];
         wTbody = event.path[3];
+        this.clickedPosition = event.path[1].cellIndex;
         break;
 
       //依頼・承認ボタンを押下した後、明細変更テーブルにデータを表示しない。
       case 'SPAN':
         wTr = event.path[3];
         wTbody = event.path[4];
+        this.clickedPosition = event.path[2].cellIndex;
         break;
+
       case 'BUTTON':
         wTr = event.path[2];
         wTbody = event.path[3];
+        this.clickedPosition = event.path[1].cellIndex;
         break;
 
       //チェックボックス
       case 'INPUT':
         wTr = event.path[2];
         wTbody = event.path[3];
+        this.clickedPosition = event.path[1].cellIndex;
         break;
     }
   
     this.resetTableBackGroundColor(wTbody, this.tabName);
 
     //選択されている行の背景色を変える
-    for (var j = 0; j < wTr.cells.length; j++) {
-      var cell = wTr.cells[j];
+    for (var i = 0; i < wTr.cells.length; i++) {
+      var cell = wTr.cells[i];
       cell.style.backgroundColor = Const.HighLightColour.Selected;
     }
+
   }
 
 
@@ -854,7 +845,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //明細が選択されている時、一括依頼処理を行わない
-    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+    if (this.dataEmitter.getRowStatus().isSelected) {
       return true;
     }
 
@@ -880,7 +871,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //明細が選択されている時、一括承認処理を行わない
-    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+    if (this.dataEmitter.getRowStatus().isSelected) {
       return true;
     }
 
@@ -927,7 +918,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //明細が選択されている時、一括承認処理を行わない
-    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+    if (this.dataEmitter.getRowStatus().isSelected) {
       return true;
     }
 
@@ -972,7 +963,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //明細が選択されている時、一括承認処理を行わない
-    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+    if (this.dataEmitter.getRowStatus().isSelected) {
       return true;
     }
 
@@ -1018,7 +1009,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //明細が選択されている時、一括承認処理を行わない
-    if (this.dataEmitter.getRowStatus().rowIndex != null) {
+    if (this.dataEmitter.getRowStatus().isSelected) {
       return true;
     }
 
@@ -1120,6 +1111,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         }
       })
   }
+
   /**
    * 一括最終承認
    * @param $event 
@@ -1136,18 +1128,28 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         }
       })
   }
+  
   /**
    * 却下ボタンを押下する時
-   * @param $event 
+   * @param event 
    * @param dt 
    * @param type 
    */
-  approvalReject($event, dt: ODIS0020OrderDetaiSplitBean, type:string){
+  approvalReject(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string){
 
     var confirm = window.confirm(Const.WarningMsg.W0006);
     if(!confirm){
       return false;
     }
+    // console.log(event.currentTarget.id);
+    // var id = event.currentTarget.id;
+    // // if(id === ''){
+    // //   id = event.target.offsetTarget.id;
+    // // }
+
+    // console.log(event.currentTarget);
+    
+
     switch(type){
       //左側の却下
       case 'order':
@@ -1165,6 +1167,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
             element.bulkApprovalPerson_final = '';            
           }          
         });
+
+        // TODO: Gui Emitter cho parent.
 
         break;
       
@@ -1187,22 +1191,22 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   }
 
   /**
-   * チェックエベント
-   * @param $event 
+   * 注文区分をチェックする
+   * @param event 
    * @param dt 
    * @param type 
    */
-  setOrderReceiptStt($event,dt: ODIS0020OrderDetaiSplitBean, type: string){
-    var isChecked = $event.currentTarget.checked;
+  setOrderReceiptStt(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string): Promise<any>{
+    const checkValue = event.currentTarget.checked;
     var value: string = '0';
-    if(isChecked){
+    if(checkValue){
       value = Const.OrderReceiptCheckType.Checked;
     }
     else{
       value = Const.OrderReceiptCheckType.UnCheck;
     }
     //発注注文書区分
-    if(type=='order'){
+    if(type =='order'){
       this.orderData.forEach(element => {
         if(element.detailNo == dt.detailNo){
           element.orderReceipt = value;
@@ -1211,10 +1215,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       });
     }
     //分割注文書区分
-    if(type=='split'){
+    if(type =='split'){
       //分割明細金額がない場合、チェックしないようにする
       if(this.comCompnt.setValue(dt.orderSplitAmount) == ''){
-        $event.currentTarget.checked = false;
+        event.currentTarget.checked = false;
         return;
       }
       var cnt: number = 0;
@@ -1246,6 +1250,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       })
 
     }
+    // 最後にエミッタ―データを送る。
+    this.sendEmitter(dt);
 
   }
 }
