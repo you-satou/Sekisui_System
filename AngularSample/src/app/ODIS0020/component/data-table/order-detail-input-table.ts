@@ -7,7 +7,7 @@ import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
-import { AppComponent } from 'app/app.component';
+import { AppComponent, UserApprovalLevels } from 'app/app.component';
 import { MatTable } from '@angular/material';
 import { ODIS0020Service } from 'app/ODIS0020/services/odis0020-service';
 
@@ -39,7 +39,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   private clickedPosition:number = -1;
 
   //ユーザの承認権限
-  userApprovalUnit: string[];
+  userApprovalUnit: UserApprovalLevels;
 
   //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
   approvalLastNumber: number;
@@ -126,7 +126,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     
     this.approvalUnit = this.appComponent.approvalLevels;
     // TODO:　(クアン)　Entityの形で取得　↓↓↓↓↓↓↓
-    this.userApprovalUnit = this.appComponent.userAprrovalLevel;
+    this.userApprovalUnit = this.appComponent.userApprovalLevels;
     this.approvalLastNumber = this.appComponent.approvalSubtract;
 
     this.TabChangeSubscriber();
@@ -911,7 +911,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
         //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
         // TODO:　(クアン)　文字列で返さずに、Entityでのため、ソース修正してください。他も同様
-        this.userApprovalUnit[Const.UserApproval.First] == Const.ApprovalValue.Allow) {
+        this.userApprovalUnit.approvalLv1 == Const.ApprovalValue.Allow) {
       return false;
     }
 
@@ -961,7 +961,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           //承認者の数が３以上の場合
           this.approvalUnit >= Const.ApprovalLevel.ThreeLevels &&
           //ユーザーが承認２の権限を持つ場合、ボタンを活性にする
-          this.userApprovalUnit[Const.UserApproval.Second] == Const.ApprovalValue.Allow) {
+          this.userApprovalUnit.approvalLv2 == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1008,7 +1008,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         approvalLv3.length != approvalFinal.length &&
         this.approvalUnit >= Const.ApprovalLevel.FourLevels &&
         //ユーザーが承認３の権限を持つ場合、ボタンを活性にする
-        this.userApprovalUnit[Const.UserApproval.Third] == Const.ApprovalValue.Allow) {
+        this.userApprovalUnit.approvalLv3 == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1048,7 +1048,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(requestInfo.length == approvalFinal.length &&
        approvalFinal.length > 0 &&
        //ユーザーが最終承認の権限を持つ場合、ボタンを活性にする
-       this.userApprovalUnit[Const.UserApproval.Last - this.approvalLastNumber] == Const.ApprovalValue.Allow){
+       this.userApprovalUnit.approvalFinal == Const.ApprovalValue.Allow){
       return false;
     }
 

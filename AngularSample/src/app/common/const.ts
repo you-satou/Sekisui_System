@@ -249,19 +249,6 @@ export namespace Const{
         export const FourLevels = 4
     }
 
-    // TODO:　(クアン)不要ので、削除してください。↓↓↓↓↓
-    /**
-     * 承認者
-     */
-    export namespace UserApproval{
-        export const First = 0;
-        export const Second = 1;
-        export const Third = 2;
-        export const Last = 3;
-    }
-
-    // ↑↑↑↑↑↑
-
     /**
      * 承認権限
      */

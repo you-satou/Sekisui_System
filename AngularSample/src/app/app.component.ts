@@ -18,6 +18,27 @@ const openClose = trigger('openClose', [
   ]),
 ])
 
+//↓↓↓↓↓↓↓↓↓↓↓↓↓
+//TODO: エンティティーを別のファイルに移動する
+/**
+ * ユーザーの権限情報
+ */
+export class UserApprovalLevels {
+  
+  //承認１の権限
+  approvalLv1: string;
+  
+  //承認２の権限
+  approvalLv2: string;
+  
+  //承認３の権限
+  approvalLv3: string;
+  
+  //最終承認の権限
+  approvalFinal: string;
+}
+//↑↑↑↑↑↑↑↑↑↑↑↑
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -46,7 +67,7 @@ export class AppComponent implements OnInit {
   loginUser: string;
   branchName: string;
   //承認数
-  userAprrovalLevel: string[];
+  userApprovalLevels: UserApprovalLevels;
   //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
   approvalSubtract: number;
 
@@ -62,7 +83,12 @@ export class AppComponent implements OnInit {
     this.loginUser = '積水　次郎';
     this.branchName = '大阪北支店';
     //TODO: ログイン情報から権限のデータを取得する
-    this.userAprrovalLevel　= ['1', '1', '1', '1'];
+    this.userApprovalLevels = {
+      approvalLv1: '1',
+      approvalLv2: '1',
+      approvalLv3: '1',
+      approvalFinal: '1'
+    }
     //最終承認の権限と文字列の値を紐付く
     this.approvalSubtract = 4 - this.approvalLevels;
 
