@@ -100,8 +100,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.actvRoute.queryParams.subscribe(params =>{
     
       this.initParam.propertyNo = params.prop;    // 物件管理番号
-      this.initParam.contractNum = params.cntr;          // 契約番号   
-      this.initParam.officeCode = params.offCd;          // 事業所コード
+      this.initParam.contractNum = params.cntr;   // 契約番号   
+      this.initParam.officeCode = params.offCd;   // 事業所コード
     });
 
     this.isLoading = true;

@@ -125,6 +125,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   ngOnInit(): void {
     
     this.approvalUnit = this.appComponent.approvalLevels;
+    // TODO:　(クアン)　Entityの形で取得　↓↓↓↓↓↓↓
     this.userApprovalUnit = this.appComponent.userAprrovalLevel;
     this.approvalLastNumber = this.appComponent.approvalSubtract;
 
@@ -909,6 +910,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         //承認者の数が２以上の場合
         this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
         //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
+        // TODO:　(クアン)　文字列で返さずに、Entityでのため、ソース修正してください。他も同様
         this.userApprovalUnit[Const.UserApproval.First] == Const.ApprovalValue.Allow) {
       return false;
     }
