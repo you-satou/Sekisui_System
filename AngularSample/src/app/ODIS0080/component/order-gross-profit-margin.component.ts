@@ -62,7 +62,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     private router: Router,
     private baseCompnt: CommonComponent,
     private actvRoute: ActivatedRoute,
-    private changeDetector : ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -107,7 +106,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.isLoading = true;
      
     //サーバーに接続し、データを取得する
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init,this.initParam)    
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init, this.initParam)    
      .then(
        (response) => {
          if(response.result === Const.ConnectResult.R0001){
@@ -126,7 +125,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
      )
      .finally(
        ()=>{
-
          //ロード中を解除する。
          this.isLoading = false;
          this.isInitFlg = true;
@@ -214,7 +212,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     else{
       return val;
     }
-
   }
 
   /**
@@ -224,7 +221,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
     let totalGrossProfit = '0';
-    if(totalContractAmount != 0) {
+    if (totalContractAmount != 0) {
       totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
     }
     return totalGrossProfit;
