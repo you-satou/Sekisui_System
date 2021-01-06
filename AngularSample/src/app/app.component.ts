@@ -68,8 +68,6 @@ export class AppComponent implements OnInit {
   branchName: string;
   //承認数
   userApprovalLevels: UserApprovalLevels;
-  //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
-  approvalSubtract: number;
 
   constructor( 
     private router: Router, 
@@ -89,8 +87,6 @@ export class AppComponent implements OnInit {
       approvalLv3: '1',
       approvalFinal: '1'
     }
-    //最終承認の権限と文字列の値を紐付く
-    this.approvalSubtract = 4 - this.approvalLevels;
 
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。

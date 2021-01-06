@@ -41,9 +41,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   //ユーザの承認権限
   userApprovalUnit: UserApprovalLevels;
 
-  //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
-  approvalLastNumber: number;
-
   /**
    * テーブルヘッダーのカラムを定義する。
    */
@@ -127,7 +124,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     this.approvalUnit = this.appComponent.approvalLevels;
     // TODO:　(クアン)　Entityの形で取得　↓↓↓↓↓↓↓
     this.userApprovalUnit = this.appComponent.userApprovalLevels;
-    this.approvalLastNumber = this.appComponent.approvalSubtract;
 
     this.TabChangeSubscriber();
     
