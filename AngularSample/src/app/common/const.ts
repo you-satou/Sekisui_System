@@ -205,12 +205,12 @@ export namespace Const{
      * タブIndex設定
      */
     export namespace TabIndex{
-        export const TabIndex_0 = '0'   //タブ設計
-        export const TabIndex_1 = '1'   //タブハウス(本体)
-        export const TabIndex_2 = '2'   //タブ解体
-        export const TabIndex_3 = '3'   //タブ造園１
-        export const TabIndex_4 = '4'   //タブ造園２
-        export const TabIndex_5 = '5'   //タブ追加工事
+        export const TabIndex_0 = '0';   //タブ設計
+        export const TabIndex_1 = '1';   //タブハウス(本体)
+        export const TabIndex_2 = '2';   //タブ解体
+        export const TabIndex_3 = '3';   //タブ造園１
+        export const TabIndex_4 = '4';   //タブ造園２
+        export const TabIndex_5 = '5';   //タブ追加工事
         
     }
 
@@ -218,12 +218,12 @@ export namespace Const{
      * 受注枝番
      */
     export namespace TabName{
-        export const TabName_Sekkei = '設計'
-        export const TabName_Hontai = 'ハウス'
-        export const TabName_Kaitai = '解体'        
-        export const TabName_Tsuika = '追加'
-        export const TabName_Zouen1 = '造園①'
-        export const TabName_Zouen2 = '造園②'
+        export const TabName_Sekkei = '設計';
+        export const TabName_Hontai = 'ハウス';
+        export const TabName_Kaitai = '解体';        
+        export const TabName_Tsuika = '追加';
+        export const TabName_Zouen1 = '造園①';
+        export const TabName_Zouen2 = '造園②';
 
     }
 
@@ -231,22 +231,22 @@ export namespace Const{
      * 明細種類
      */
     export namespace JuuChuuEdaban{
-        export const Hontai = '0'
-        export const Sekkei = '1'
-        export const Tsuika = '2'
-        export const Kaitai = '3'
-        export const Zouen1 = '4'
-        export const Zouen2 = '5'        
+        export const Hontai = '0';
+        export const Sekkei = '1';
+        export const Tsuika = '2';
+        export const Kaitai = '3';
+        export const Zouen1 = '4';
+        export const Zouen2 = '5';
     }
     
     /**
      * 承認者数
      */
     export namespace ApprovalLevel{
-        export const OneLevel = 1
-        export const TwoLevels = 2
-        export const ThreeLevels = 3
-        export const FourLevels = 4
+        export const OneLevel = 1;
+        export const TwoLevels = 2;
+        export const ThreeLevels = 3;
+        export const FourLevels = 4;
     }
 
     // TODO:　(クアン)不要ので、削除してください。↓↓↓↓↓
@@ -287,7 +287,6 @@ export namespace Const{
         export const Kaitai ='30';
         export const Zouen1 ='31';
         export const Zouen2 ='32';
-        //FIXME: 追加工事の受注枝番が３６～４８
         export const Tsuika ='36';
 
     }
