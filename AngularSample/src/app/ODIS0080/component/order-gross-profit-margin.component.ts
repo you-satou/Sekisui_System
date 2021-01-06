@@ -78,7 +78,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     if(sessionStorage.getItem(Const.ScreenName.S0008EN) != null){
 
       let savedDt = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0008EN));
-      this.initParam = savedDt.initParam;
       this.orderInfo = savedDt.orderInfoData;
       this.grossProfitData = savedDt.grossProfitListData;
       
@@ -92,19 +91,23 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   　 }
   }  
 
+  /**
+   * 粗利率のデータを取得する
+   */
   setDisplayData(){
 
     //詳細入力画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
     
-      this.initParam.propertyManagerCd = params.prop;    // 物件管理番号
-      this.initParam.contractNum = params.cntr;          // 契約番号      
+      this.initParam.propertyNo = params.prop;    // 物件管理番号
+      this.initParam.contractNum = params.cntr;          // 契約番号   
       this.initParam.officeCode = params.offCd;          // 事業所コード
     });
 
     this.isLoading = true;
      
-    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init,this.initParam)    
+    //サーバーに接続し、データを取得する
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init,this.initParam)    
      .then(
        (response) => {
          if(response.result === Const.ConnectResult.R0001){
@@ -115,7 +118,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
            this.saveDataToSession();
          }else{
-           //返却データがない場合、データテーブルを初期化にする。
+           //返却データがない場合、詳細入力画面に戻る。
            alert(response.message);
            this.router.navigate([Const.UrlSetting.U0002]);
          }
@@ -128,7 +131,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
          this.isLoading = false;
          this.isInitFlg = true;
 
-         this.changeDetector.detectChanges();
        }
      )
   }
@@ -139,7 +141,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   private saveDataToSession(){
 
     let saveDt = new ODIS0080Session();
-    saveDt.initParam = this.initParam;
     saveDt.orderInfoData = this.orderInfo;
     saveDt.grossProfitListData = this.grossProfitData;
 
@@ -160,6 +161,10 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.router.navigate([Const.UrlSetting.U0002]);
   }
 
+  /**
+   * 各明細の粗利率を計算する
+   * @param element 各明細のデータ 
+   */
   getGrossProfit(element: ODIS0080GrossProfitBean) {
     let grossProfit = '0';
     if (this.baseCompnt.setValue(element.grossProfit) != '') {
@@ -168,6 +173,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     return grossProfit;
   }
 
+  /**
+   * 合計の契約金額を計算する
+   */
   getTotalContractAmount() {
     if (this.grossProfitData.length != 0) {
       return this.grossProfitData
@@ -180,6 +188,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     }
   }
 
+  /**
+   * 合計の発注金額を計算する
+   */
   getTotalOrderAmount() {
     if (this.grossProfitData.length != 0) {
       return this.grossProfitData
@@ -192,8 +203,11 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     }
   }
 
+  /**
+   * 金額が０の場合、空白で表示する
+   * @param val 戻り値
+   */
   setValue(val: any) {
-    //金額が０の場合、空白で表示する
     if (this.baseCompnt.setValue(val) == '0') {
       return '';
     }
@@ -203,6 +217,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
   }
 
+  /**
+   * 合計の粗利率を計算する
+   */
   getTotalGrossProfit() {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();

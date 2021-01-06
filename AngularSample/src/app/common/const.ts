@@ -250,6 +250,24 @@ export namespace Const{
     }
 
     /**
+     * 承認者
+     */
+    export namespace UserApproval{
+        export const First = 0;
+        export const Second = 1;
+        export const Third = 2;
+        export const Last = 3;
+    }
+
+    /**
+     * 承認権限
+     */
+    export namespace ApprovalValue{
+        export const Deny = '0';
+        export const Allow = '1';
+    }
+
+    /**
      * 注文書発行区分
      */
     export namespace OrderReceiptCheckType {

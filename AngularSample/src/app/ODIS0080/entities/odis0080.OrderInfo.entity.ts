@@ -1,7 +1,7 @@
 export class ODIS0080OrderInfoBean{
     
     /** 物件管理番号 */
-    propertyManagerCd: string;
+    propertyNo: string;
 
     /** 発注番号 */
     contractNum: string;

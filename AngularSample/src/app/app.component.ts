@@ -45,19 +45,26 @@ export class AppComponent implements OnInit {
 
   loginUser: string;
   branchName: string;
+  //承認数
+  userAprrovalLevel: string[];
+  //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
+  approvalSubtract: number;
 
   constructor( 
     private router: Router, 
     private location: Location,
-    ) { 
-      //TODO:　アプリ起動する時、承認者数を取得する。
-      this.approvalLevels = 3;
-      //TODO: ログイン情報取得。
-      this.loginUser = '積水　次郎';
-      this.branchName = '大阪北支店';
-    }
+    ) {}
 
   ngOnInit() {
+    //TODO:　アプリ起動する時、承認者数を取得する。
+    this.approvalLevels = 4;
+    //TODO: ログイン情報取得。
+    this.loginUser = '積水　次郎';
+    this.branchName = '大阪北支店';
+    //TODO: ログイン情報から権限のデータを取得する
+    this.userAprrovalLevel　= ['1', '1', '1', '1'];
+    //最終承認の権限と文字列の値を紐付く
+    this.approvalSubtract = 4 - this.approvalLevels;
 
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。

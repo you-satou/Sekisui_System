@@ -38,7 +38,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /** 明細にクリックされた位置 */
   private clickedPosition:number = -1;
 
-  userApprovalPerm: string = '1';
+  //ユーザの承認権限
+  userApprovalUnit: string[];
+
+  //取得する承認の数によって、文字列の承認ＮＯと値を紐づく
+  approvalLastNumber: number;
 
   /**
    * テーブルヘッダーのカラムを定義する。
@@ -121,6 +125,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   ngOnInit(): void {
     
     this.approvalUnit = this.appComponent.approvalLevels;
+    this.userApprovalUnit = this.appComponent.userAprrovalLevel;
+    this.approvalLastNumber = this.appComponent.approvalSubtract;
 
     this.TabChangeSubscriber();
     
@@ -897,10 +903,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       }
     })
 
-    //一括依頼済の時、ボタン活性する。
+    //一括依頼済の時、かつ承認１未済の場合、ボタン活性する。
     if (requestInfo.length == approvalFinal.length &&
         approvalLv1.length != approvalFinal.length &&
-        this.userApprovalPerm == '0') {
+        //承認者の数が２以上の場合
+        this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
+        //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
+        this.userApprovalUnit[Const.UserApproval.First] == Const.ApprovalValue.Allow) {
       return false;
     }
 
@@ -944,10 +953,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       }
     })
 
-    //一括承認２済の時、ボタン非活性する。
+    //一括承認１済の時、かつ承認２未済の場合、ボタン非活性する。
       if (approvalLv1.length == approvalFinal.length &&
           approvalLv2.length != approvalFinal.length &&
-          this.userApprovalPerm == '1') {
+          //承認者の数が３以上の場合
+          this.approvalUnit >= Const.ApprovalLevel.ThreeLevels &&
+          //ユーザーが承認２の権限を持つ場合、ボタンを活性にする
+          this.userApprovalUnit[Const.UserApproval.Second] == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -989,10 +1001,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       }
     })
 
-    //一括承認２済の時、ボタン非活性する。
+    //一括承認２済の時、かつ承認３未済の場合、ボタン非活性する。
     if (approvalLv2.length == approvalFinal.length &&
         approvalLv3.length != approvalFinal.length &&
-        this.userApprovalPerm == '2') {
+        this.approvalUnit >= Const.ApprovalLevel.FourLevels &&
+        //ユーザーが承認３の権限を持つ場合、ボタンを活性にする
+        this.userApprovalUnit[Const.UserApproval.Third] == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1028,10 +1042,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       }
     })
     
-    //承認人数が一人・依頼済・最終承認が承認中の時⇒活性する
+    //一括依頼済の時、かつ最終承認未済の場合、ボタン活性する。
     if(requestInfo.length == approvalFinal.length &&
        approvalFinal.length > 0 &&
-       this.userApprovalPerm == '3'){
+       //ユーザーが最終承認の権限を持つ場合、ボタンを活性にする
+       this.userApprovalUnit[Const.UserApproval.Last - this.approvalLastNumber] == Const.ApprovalValue.Allow){
       return false;
     }
 

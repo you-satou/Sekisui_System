@@ -32,10 +32,6 @@ const DEL_TYPE: DropDownList[] =[
   }
 ];
 
-//承認権限の有無
-const DENY: string = '0'; 
-const ALLOW: string = '1';
-
 @Component({
   selector: 'app-order-split-approval-master',
   templateUrl: './order-split-approval-master.component.html',
@@ -47,10 +43,10 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   onResize(event){
     let isSmall: boolean;
     if(window.innerWidth < 840) {
-      isSmall = true
+      isSmall = true;
       this.setTableSize(isSmall);
     } else {
-      isSmall = false
+      isSmall = false;
       this.setTableSize(isSmall);
     }
   }
@@ -427,9 +423,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
     // TODO
     this.input.officeCode = '204006';
-    this.input.approval1 = DENY;
-    this.input.approval2 = DENY;
-    this.input.approval3 = DENY;
+    this.input.approval1 = Const.ApprovalValue.Deny;
+    this.input.approval2 = Const.ApprovalValue.Deny;
+    this.input.approval3 = Const.ApprovalValue.Deny;
     //承認人数が2人で設定する
     if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
       this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
