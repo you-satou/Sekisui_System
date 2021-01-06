@@ -6,7 +6,7 @@
                 <split-detail-table #ShiwakeData [shiwakeData]="shiwakeData" [amountDeference]="getAmountDeference()"
                     [totalSplitAmount]="totalAmount()" [bunkatsuCheckBox]="orderReceiptCheckStt">
                 </split-detail-table>
-                <div class="bunkatsu-table-responsive" style="margin-top: 20px;">
+                <div class="bunkatsu-table-responsive" style="margin-top: 10px;">
                     <table mat-table [dataSource]="bunkatsuData" class="bunkatsu-table table table-hover table-sm"
                         id="bunkatsuTable">
                         <!--Header 番号 -->
@@ -200,7 +200,7 @@
         </mat-tab-group>
     </div>
 
-    <div class="add-div" style="margin-top: 20px;">
+    <div class="add-div" style="margin-top: 40px;">
         <table class="tsuika-table table table-bordered">
             <thead>
                 <tr>
@@ -278,31 +278,32 @@
             </tbody>
         </table>
     </div>
-
-        <section>
-            <div style="position: relative; margin: 20px 0 50px 0">
-                <div style="float: left">
-                    <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}"
-                        tabindex="6"(click)="insertBunkatsuOrderDetail($event)" >明細追加</button>
-                </div>
-
-                <div style="float: left">
-                    <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}"
-                        tabindex="7"(click)="updateBunkatsuOrderDetail($event)">明細更新</button>
-                </div>
-
-                <div>
-                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}"
-                        tabindex="8"(click)="stopModifyDetail($event)">中止</button>
-                </div>
-
-                <div style="position: absolute; top: 0; left: 380px">
-                    <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}"
-                        tabindex="9"(click)="deleteOrderDetail($event)">明細削除</button>
-                </div>
+    
+    <section>
+        <div style="position: relative; margin: 10px 0 50px 0">
+            <div style="float: left">
+                <button mat-button class="btn btn-success border mx-1 back-btn" disabled="{{ btnTsuika }}" tabindex="6"
+                    (click)="insertBunkatsuOrderDetail($event)">明細追加</button>
             </div>
-        </section>
-        <ng-container *ngComponentOutlet="modal"></ng-container>
+    
+            <div style="float: left">
+                <button mat-button class="btn btn-info border mx-1 back-btn" disabled="{{ btnHenkou }}" tabindex="7"
+                    (click)="updateBunkatsuOrderDetail($event)">明細更新</button>
+            </div>
+    
+            <div>
+                <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnChuushi }}" tabindex="8"
+                    (click)="stopModifyDetail($event)">中止</button>
+            </div>
+    
+            <div style="position: absolute; top: 0; left: 380px">
+                <button mat-button class="btn btn-danger border mx-1 back-btn" disabled="{{ btnSakujo }}" tabindex="9"
+                    (click)="deleteOrderDetail($event)">明細削除</button>
+            </div>
+        </div>
+    </section>
+    
+    <ng-container *ngComponentOutlet="modal"></ng-container>
     
 
     <div class="footer-container-split">
