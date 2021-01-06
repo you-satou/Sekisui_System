@@ -4,70 +4,70 @@
 <div *ngIf="isInitFlg">
     <div id="orderDetailApproval">
         <section class="search-area form-group">
-            <div class="input-group row" style="height: 30px;">
+            <div class="input-group row">
                 <div class="input-group-prepend">
-                    <p class="input-group-text">契約番号</p>
+                    <label class="input-group-text ">契約番号</label>
                 </div>
                 <input type="tel" id="contractNumFrom" maxlength='11' [(ngModel)]="inputment.contractNumFrom" tabindex="1"
                     style="ime-mode:disabled" (keyup)="onKeyUpNumFrom($event)" (change)="onKeyUpNumFrom($event)" autofocus>
-                <div style="width: 3%; height:30px; text-align: center;">
-                    <p style="margin-top: 9px; margin-bottom: 9px;">~</p>
+                <div style="width: 3%; text-align: center;">
+                    <label style="margin-top: 3px;">~</label>
                 </div>
                 <input type="tel" id="contractNumTo" maxlength='11' [(ngModel)]="inputment.contractNumTo" tabindex="2"
                     style="ime-mode:disabled;" (keyup)="onKeyUpNumTo($event)" (change)="onKeyUpNumTo($event)">
             </div>
 
-            <div class="input-group row" style="height: 30px;">
+            <div class="input-group row">
                 <div class="input-group-prepend">
-                    <p class="input-group-text">物件名</p>
+                    <label class="input-group-text ">物件名</label>
                 </div>
                 <input type="text" id="propertyName" maxlength='20' [(ngModel)]="inputment.propertyName" tabindex="3"
                     style="ime-mode:active" (blur)="toZenkakuPropName($event)" (change)="toZenkakuPropName($event)">
-                <div style="width: 3%; height:30px;"></div>
+                <div style="width: 30px;"></div>
                 <div class="input-group-append radio-container ">
-                    <p class="radioCheckbox">
+                    <div class="radioCheckbox">
                         <input [value]="true" type="radio" [(ngModel)]="inputment._checked" tabindex="4" name="options"
-                            id="startFromName" autocomplete="off">で始まる</p>
-                    <p class="radioCheckbox">
+                            id="startFromName" autocomplete="off">で始まる</div>
+                    <div class="radioCheckbox">
                         <input [value]="false" type="radio" [(ngModel)]="inputment._checked" name="options"
-                            id="includeProName" autocomplete="off">を含む</p>
+                            id="includeProName" autocomplete="off">を含む</div>
                 </div>
             </div>
-            <div class="input-group row" style="height: 30px;">
+            <div class="input-group row">
                 <div class="input-group-prepend">
-                    <p class="input-group-text" style="width: 80px;text-align: right;">明細作成</p>
+                    <label class="input-group-text " style="width: 80px; text-align: right;">明細作成</label>
                 </div>
-                <div style="width: 5%;"></div>
+                <div style="width: 30px;"></div>
                 <div class="input-group-append">
-                    <p class="radioCheckbox"><input [(ngModel)]="inputment.detailCreated" type="checkbox" tabindex="5"
-                            id="detailNone" autocomplete="off">明細作成なし</p>
-                    <p class="radioCheckbox"><input [(ngModel)]="inputment.detailNone" type="checkbox" tabindex="6"
-                            id="detailCreated" autocomplete="off">明細作成あり</p>
+                    <div class="radioCheckbox"><input [(ngModel)]="inputment.detailCreated" type="checkbox" tabindex="5"
+                            id="detailNone" autocomplete="off">明細作成なし</div>
+                    <div class="radioCheckbox"><input [(ngModel)]="inputment.detailNone" type="checkbox" tabindex="6"
+                            id="detailCreated" autocomplete="off">明細作成あり</div>
                 </div>
             </div>
-            <div id="btnSearch" class="input-group row" style="height: 40px;">
+            <div id="btnSearch" class="input-group row">
                 <div class="input-group-prepend ">
-                    <p class="input-group-text" style="width: 80px; text-align: right;">未承認</p>
+                    <label class="input-group-text " style="width: 80px; text-align: right;">未承認</label>
                 </div>
-                <div style="width: 5%;"></div>
+                <div style="width: 30px;"></div>
                 <div class="input-group-append">
-                    <p class="radioCheckbox" *ngIf="approvalUnit >= 2"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
-                            autocomplete="off">承認１</p>
-                    <p class="radioCheckbox" *ngIf="approvalUnit >= 3"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
-                            autocomplete="off">承認２</p>
-                    <p class="radioCheckbox" *ngIf="approvalUnit >= 4"><input [(ngModel)]="inputment.approval_3" type="checkbox" tabindex="9" id=""
-                            autocomplete="off">承認３</p>
-                    <p class="radioCheckbox"><input [(ngModel)]="inputment.approval_last" type="checkbox" tabindex="10" id=""
-                            autocomplete="off">最終承認</p>
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 2"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
+                            autocomplete="off">承認１</div>
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 3"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
+                            autocomplete="off">承認２</div>
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 4"><input [(ngModel)]="inputment.approval_3" type="checkbox" tabindex="9" id=""
+                            autocomplete="off">承認３</div>
+                    <div class="radioCheckbox"><input [(ngModel)]="inputment.approval_last" type="checkbox" tabindex="10" id=""
+                            autocomplete="off">最終承認</div>
                 </div>
-                <div style="position: absolute; right: 0px;">
-                    <button style="margin-top: 5px;" class="btn btn-primary float-right autoMargin" type="submit" tabindex="11"
+                <div style="position: absolute; right: 0px; vertical-align: middle;">
+                    <button class="btn btn-primary autoMargin btnSearch" type="submit" tabindex="11"
                         (click)="getSearchRequest()">検索</button>
                 </div>
             </div>
         </section>
         <div style="margin-top:5px; height: 30px; white-space: nowrap;">
-            <p>結果件数：{{orderDetailData?.length|number}}件</p>
+            <label>結果件数：{{orderDetailData?.length|number}}件</label>
         </div>
         <section id="data-display" style="margin-bottom: 5px;">
             <order-detail-approval-table [resultData]="orderDetailData" [pgIndex]="currPageIndex" (sendEmitter)="getEmitter($event)" id='order-detail-approval-table'>
