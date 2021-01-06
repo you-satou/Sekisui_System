@@ -121,12 +121,11 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     
+    this.TabChangeSubscriber();
+
     this.approvalUnit = this.appComponent.approvalLevels;
-    // TODO:　(クアン)　Entityの形で取得　↓↓↓↓↓↓↓
     this.userApprovalUnit = this.appComponent.userApprovalLevels;
 
-    this.TabChangeSubscriber();
-    
     switch(this.approvalUnit){
  
       //承認人数が1人で設定する
@@ -175,7 +174,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         break;
 
     }
-    //2020/11/09 11月中の要望対応 Add End
   }
 
   /**
@@ -906,8 +904,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         //承認者の数が２以上の場合
         this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
         //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
-        // TODO:　(クアン)　文字列で返さずに、Entityでのため、ソース修正してください。他も同様
-        this.userApprovalUnit.approvalLv1 == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.userApprovalUnit.approvalLv1) == Const.ApprovalValue.Allow) {
       return false;
     }
 
@@ -957,7 +954,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           //承認者の数が３以上の場合
           this.approvalUnit >= Const.ApprovalLevel.ThreeLevels &&
           //ユーザーが承認２の権限を持つ場合、ボタンを活性にする
-          this.userApprovalUnit.approvalLv2 == Const.ApprovalValue.Allow) {
+          this.comCompnt.setValue(this.userApprovalUnit.approvalLv2) == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1004,7 +1001,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         approvalLv3.length != approvalFinal.length &&
         this.approvalUnit >= Const.ApprovalLevel.FourLevels &&
         //ユーザーが承認３の権限を持つ場合、ボタンを活性にする
-        this.userApprovalUnit.approvalLv3 == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.userApprovalUnit.approvalLv3) == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1044,7 +1041,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(requestInfo.length == approvalFinal.length &&
        approvalFinal.length > 0 &&
        //ユーザーが最終承認の権限を持つ場合、ボタンを活性にする
-       this.userApprovalUnit.approvalFinal == Const.ApprovalValue.Allow){
+       this.comCompnt.setValue(this.userApprovalUnit.approvalFinal) == Const.ApprovalValue.Allow){
       return false;
     }
 
