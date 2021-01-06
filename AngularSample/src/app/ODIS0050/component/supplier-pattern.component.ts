@@ -119,7 +119,7 @@ export class SupplierPatternComponent implements OnInit {
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '201005';
-
+    //詳細入力画面から物件管理ＮＯを取得する
     this.param.propertyNo = this.modalService.getPropertyNo();
 
     // 発注仕訳マスタ取得

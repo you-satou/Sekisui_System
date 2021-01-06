@@ -18,6 +18,27 @@ const openClose = trigger('openClose', [
   ]),
 ])
 
+//↓↓↓↓↓↓↓↓↓↓↓↓↓
+//TODO: エンティティーを別のファイルに移動する
+/**
+ * ユーザーの権限情報
+ */
+export class UserApprovalLevels {
+  
+  //承認１の権限
+  approvalLv1: string;
+  
+  //承認２の権限
+  approvalLv2: string;
+  
+  //承認３の権限
+  approvalLv3: string;
+  
+  //最終承認の権限
+  approvalFinal: string;
+}
+//↑↑↑↑↑↑↑↑↑↑↑↑
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -45,19 +66,27 @@ export class AppComponent implements OnInit {
 
   loginUser: string;
   branchName: string;
+  //承認数
+  userApprovalLevels: UserApprovalLevels;
 
   constructor( 
     private router: Router, 
     private location: Location,
-    ) { 
-      //TODO:　アプリ起動する時、承認者数を取得する。
-      this.approvalLevels = 3;
-      //TODO: ログイン情報取得。
-      this.loginUser = '積水　次郎';
-      this.branchName = '大阪北支店';
-    }
+    ) {}
 
   ngOnInit() {
+    //TODO:　アプリ起動する時、承認者数を取得する。
+    this.approvalLevels = 4;
+    //TODO: ログイン情報取得。
+    this.loginUser = '積水　次郎';
+    this.branchName = '大阪北支店';
+    //TODO: ログイン情報から権限のデータを取得する
+    this.userApprovalLevels = {
+      approvalLv1: '1',
+      approvalLv2: '1',
+      approvalLv3: '1',
+      approvalFinal: '1'
+    }
 
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。
