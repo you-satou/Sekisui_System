@@ -3,6 +3,11 @@ import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Location } from '@angular/common'
 
+// ↓↓ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↓↓
+import { ShRedirectService} from 'sh-http-client';
+import { ShAppComponent } from "sh-form-control";
+// ↑↑ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↑↑
+
 const openClose = trigger('openClose', [
   state('open', style({
     margin: 0
@@ -26,7 +31,10 @@ const openClose = trigger('openClose', [
     openClose
   ]
 })
-export class AppComponent implements OnInit {
+// ↓↓ 修正 2021-01-06　アクセストークン登録の為ShAppComponentを継承する ↓↓ 
+//export class AppComponent implements OnInit {
+export class AppComponent extends ShAppComponent implements OnInit {
+// ↑↑ 修正 2021-01-06　アクセストークン登録の為ShAppComponentを継承する ↑↑
 
   // 初期化
   displayTitle: string = "";
@@ -49,7 +57,15 @@ export class AppComponent implements OnInit {
   constructor( 
     private router: Router, 
     private location: Location,
+// ↓↓ 追加 2021-01-06 アクセストークン追加に必要なクラスを追加 ↓↓
+    protected shRedirectService   : ShRedirectService
+// ↑↑ 追加 2021-01-06 アクセストークン追加に必要なクラスを追加 ↑↑
     ) { 
+
+// ↓↓ 追加 2021-01-06 親クラス(ShAppComponent)のコンストラクタ呼び出し ↓↓
+      super(shRedirectService);
+// ↑↑ 追加 2021-01-06 親クラス(ShAppComponent)のコンストラクタ呼び出し ↑↑
+
       //TODO:　アプリ起動する時、承認者数を取得する。
       this.approvalLevels = 3;
       //TODO: ログイン情報取得。
