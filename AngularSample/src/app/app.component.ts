@@ -70,7 +70,7 @@ export class AppComponent extends ShAppComponent implements OnInit {
       this.approvalLevels = 3;
       //TODO: ログイン情報取得。
       this.loginUser = '積水　次郎';
-      this.branchName = '大阪北支店';
+      this.branchName = '大阪北支店'; 
     }
 
   ngOnInit() {

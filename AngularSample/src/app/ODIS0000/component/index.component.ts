@@ -33,7 +33,7 @@ export class IndexComponent implements OnInit{
       // ヘッダー 設定
       this.appComponent.setHeader(Const.ScreenName.S0000);
 
-// ↓↓ 追加 2021-01-06 AD認証の為にリクエスト送信 ↓↓
+// ↓↓ 追加 2021-01-06 AD認証の為にリクエスト送信 ↓↓ 
       this.shHttpClient.post<any[]>("http://localhost:8080/api/ODIS0000/authorization", null)
         .then((res => {
           // AD認証処理のためのリクエストなのでレスポンス受信時の処理なし
