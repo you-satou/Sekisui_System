@@ -376,7 +376,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       // ハウス材等を一番下に加工
       var temp1 = dt.filter(dt => {
         if(dt.journalName != 'ハウス材' &&
-          dt.journalName != '運賃・荷造・保管料' &&
+          dt.journalName != '運賃' &&
+          dt.journalName != '荷造・保管料' &&
           dt.journalName != '労災'){
             return dt;
         }
