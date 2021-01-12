@@ -182,6 +182,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   approvalUnit:number;
 
+  /** 明細に固定さている明細名称 */
+  private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -379,19 +382,16 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }else{
       // ハウス材等を一番下に加工
       var temp1 = dt.filter(dt => {
-        if(dt.journalName != 'ハウス材' &&
-          dt.journalName != '運賃・荷造・保管料' &&
-          dt.journalName != '労災'){
-            return dt;
+        if (!this.FIXED_ROW.includes(dt.journalName)){
+          return dt;
         }
-      });      
+      })
+
       var temp2 = dt.filter(dt => {
-        if(dt.journalName == 'ハウス材' ||
-          dt.journalName == '運賃・荷造・保管料' ||
-          dt.journalName == '労災'){
-            return dt;
+        if (this.FIXED_ROW.includes(dt.journalName)) {
+          return dt;
         }
-      });
+      })
       
       // マージ（データ並び順を設定）
       dt = temp1.concat(temp2);
@@ -432,7 +432,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.bulkApprovalPerson_final = '';
     initData.push(dt);
 
-    // 運賃・荷造・保管料
+    // 荷造・保管料
     dt = new ODIS0020OrderDetaiSplitBean();
     dt.insKubun           = Const.InsKubun.Normal;
     dt.propertyNo         = this.paramInit.propertyNo;
@@ -442,7 +442,32 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
     dt.journalCode        = '9100';
     dt.accountCode        = '910';
-    dt.journalName        = '運賃・荷造・保管料';
+    dt.journalName        = '荷造・保管料';
+    dt.orderSupplierCode  = '';
+    dt.orderSupplierName  = '';
+    dt.bulkRequestDate    = '';
+    dt.bulkRequester      = '';
+    dt.bulkApprovalDate_lv1     = '';
+    dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalDate_lv2     = '';
+    dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalDate_lv3     = '';
+    dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalDate_final   = '';
+    dt.bulkApprovalPerson_final = '';
+    initData.push(dt);
+
+    // 運賃
+    dt = new ODIS0020OrderDetaiSplitBean();
+    dt.insKubun           = Const.InsKubun.Normal;
+    dt.propertyNo         = this.paramInit.propertyNo;
+    dt.detailKind         = edaBan;
+    dt.detailNo           = '3';
+    dt.splitNo            = '1';
+    dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
+    dt.journalCode        = '9200';
+    dt.accountCode        = '920';
+    dt.journalName        = '運賃';
     dt.orderSupplierCode  = '';
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
@@ -462,7 +487,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.insKubun           = Const.InsKubun.Normal;
     dt.propertyNo         = this.paramInit.propertyNo;
     dt.detailKind         = edaBan;
-    dt.detailNo           = '3';
+    dt.detailNo           = '4';
     dt.splitNo            = '1';
     dt.orderBranchNo      = this.getOrderBranchValue(edaBan);
     dt.journalCode        = '9300';
@@ -940,10 +965,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private countDefaultData(data: ODIS0020OrderDetaiSplitBean[]):number{
 
     var flt = data.filter(dt =>{
-      if(dt.journalName == 'ハウス材' ||
-        dt.journalName == '運賃・荷造・保管料' ||
-        dt.journalName == '労災'){
-          return dt;
+      if (this.FIXED_ROW.includes(dt.journalName)) {
+        return dt;
       }
     })
     return data.length - flt.length;
@@ -1147,10 +1170,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 明細更新ボタン押下された場合は以下処理を実施
     if(val === '1'){
      
-      //選択された明細は「ハウス材」「運賃・荷造・保管料」「労災」かどうかをチェックする
-      if(rowData.journalName === 'ハウス材' ||
-         rowData.journalName === '運賃・荷造・保管料' ||
-         rowData.journalName === '労災'){
+      //選択された明細は「ハウス材」「運賃」「荷造・保管料」「労災」かどうかをチェックする
+      if (this.FIXED_ROW.includes(rowData.journalName)) {
         //仕訳と発注先が変更されたかどうかをチェックする
         if (rowData.journalCode != this.addInput.journalCode ||
             rowData.accountCode != this.addInput.accountCode ||
@@ -1377,9 +1398,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setPageButtonDisplay(true, true, false, true);
 
     if (dt != null) {
-      if (dt.journalName == 'ハウス材' ||
-        dt.journalName == '運賃・荷造・保管料' ||
-        dt.journalName == '労災') {
+      if (this.FIXED_ROW.includes(dt.journalName)) {
         this.setPageButtonDisplay(true, false, false, true);
       }
       if (this.baseCompnt.setValue(dt.bulkApprovalPerson_final) != ''){
@@ -1557,12 +1576,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private updCheck(datas: ODIS0020OrderDetaiSplitBean[]):boolean{
     var tmp = datas.filter(dt => {
-      if(dt.journalName !== 'ハウス材' &&
-        dt.journalName !== '運賃・荷造・保管料' &&
-        dt.journalName !== '労災'){
+        if (!this.FIXED_ROW.includes(dt.journalName)) {
           return dt;
         }
-      });
+      }
+    )
     
     // 発注先コード、発注予定金額 空白チェック   
     for(var i=0; i<tmp.length; i++){
@@ -1649,29 +1667,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     
     // 入力チェック(「設計」タブ)
     if(this.updCheck(this.childSekkei.orderData)){
-      this.isLoading = false;
       return;
     }
     // 入力チェック(「本体」タブ)
     if(this.updCheck(this.childHontai.orderData)){
-      this.isLoading = false;
       return;
     }
     // 入力チェック(「解体」タブ)
     if(this.updCheck(this.childKaitai.orderData)){
-      this.isLoading = false;
       return;
     }
     // 入力チェック(「造園①」タブ)
     if(this.updCheck(this.childZouEn1.orderData)){
-      this.isLoading = false;
-      return 
+      return;
     }
-
     // 入力チェック(「造園②」タブ)
     if(this.updCheck(this.childZouEn2.orderData)){
-      this.isLoading = false;
-      return 
+      return;
     }
 
     // ローディング開始
@@ -1682,8 +1694,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childSekkei.orderData);    // 設計
     this.createOrderData(tmp, this.childHontai.orderData);    // 本体
     this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
-    this.createOrderData(tmp, this.childZouEn1.orderData);    // 追加
-    this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園１
+    this.createOrderData(tmp, this.childZouEn1.orderData);    // 造園１
+    this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園２
 
     this.paramUpd.approvalLevels = this.appComponent.approvalLevels.toString();
     this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ

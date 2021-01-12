@@ -77,15 +77,11 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
 
      if(this.selectVal !== ''){
-    //  wTbody.rows[this.selectRow].scrollIntoView(true);
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
      var wTr = wTbody.rows[this.selectRow];
      wTr.style.backgroundColor = Const.HighLightColour.Selected;
 
     }
-    // else{
-    //   wTbody.rows[this.selectRow].scrollIntoView(false);
-    // }
     });
   }
 

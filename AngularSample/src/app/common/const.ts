@@ -138,13 +138,13 @@ export namespace Const{
     /** 背景の色のコード */
     export namespace HighLightColour{
 
-        export const None = 'white';
-        export const Black = 'black';
+        export const None = '#ffffff';
+        export const Black = '#000000';
         export const Selected = '#CCFFFF';
         export const Modified = '#F57C00';
         export const Inserted = '#40a8c4';
         export const GrayOut = '#e9ecef';
-        export const Red = 'red';
+        export const Red = '#ff0000';
         export const Transparent = 'transparent';
     }
 
@@ -173,7 +173,7 @@ export namespace Const{
         export const E0016 = '個人認証ＩＤは必須入力です。';
         export const E0017 = '発注先コードは必須入力です。';
         export const E0018 = '編集途中のデータがあります。';
-        export const E0019 = '「ハウス材」「運賃・荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
+        export const E0019 = '「ハウス材」「運賃」「荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
         export const E0020 = '予期せぬエラーが発生しました。\n管理者に問い合わせて下さい。';
 
     }

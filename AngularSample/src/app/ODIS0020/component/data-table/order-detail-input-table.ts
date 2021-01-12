@@ -33,10 +33,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   grayOut = Const.HighLightColour.GrayOut;
   transparent = Const.HighLightColour.Transparent;
   black = Const.HighLightColour.Black;
-  readonlyTab = Const.TabName.TabName_Tsuika;
+  readonly readonlyTab = Const.TabName.TabName_Tsuika;
+  
+  /** 明細に固定さている明細名称 */
+  private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
 
   /** 明細にクリックされた位置 */
-  private clickedPosition:number = -1;
+  private clickedPosition: number = -1;
 
   //ユーザの承認権限
   userApprovalUnit: UserApprovalLevels;
@@ -373,12 +376,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       return true;
     }
 
-    // ハウス材、運賃・荷造・保管料、労災の場合は非活性
-    if(element.journalName == 'ハウス材' ||
-       element.journalName == '運賃・荷造・保管料' ||
-       element.journalName == '労災'){
-         return true;
-     }
+    // ハウス材、運賃、荷造・保管料、労災の場合は非活性
+    if (this.FIXED_ROW.includes(element.journalName)) {
+      return true;
+    }
 
     // 活性
     return false;
@@ -455,13 +456,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       return true;
     }
 
-    // ハウス材、運賃・荷造・保管料、労災の場合は非活性
-    if(element.journalName == 'ハウス材' ||
-       element.journalName == '運賃・荷造・保管料' ||
-       element.journalName == '労災'){
-         return true;
-     }
-
+    // ハウス材、運賃、荷造・保管料、労災の場合は非活性
+    if (this.FIXED_ROW.includes(element.journalName)) {
+      return true;
+    }
     // 活性
     return false;
   }
