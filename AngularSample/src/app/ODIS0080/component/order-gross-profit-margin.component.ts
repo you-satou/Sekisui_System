@@ -175,7 +175,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 合計の契約金額を計算する
    */
   public getTotalContractAmount() {
-    if (this.grossProfitData.length != 0) {
+    if (this.baseCompnt.setValue(this.grossProfitData).length != 0) {
       return this.grossProfitData
         .map((t) => {
           if (this.baseCompnt.setValue(t.contractAmount) != '') {
@@ -190,7 +190,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 合計の発注金額を計算する
    */
   public getTotalOrderAmount() {
-    if (this.grossProfitData.length != 0) {
+    if (this.baseCompnt.setValue(this.grossProfitData).length != 0) {
       return this.grossProfitData
         .map((t) => {
           if (this.baseCompnt.setValue(t.orderAmount) != '') {
@@ -221,6 +221,9 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
     let totalGrossProfit = '0';
+    if(this.baseCompnt.setValue(totalContractAmount) == '') {
+      return;
+    }
     if (totalContractAmount != 0) {
       totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
     }
