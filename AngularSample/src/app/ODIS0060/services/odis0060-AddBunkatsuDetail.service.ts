@@ -98,7 +98,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         this.Clear();
     }
 
-    Clear() {
+    public Clear() {
         this.orderSplitAmount = '';
         this.splitSupplierCode = '';
         this.splitSupplierName = '';
@@ -117,7 +117,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
      * 入力テーブルの表示する値を設定する
      * @param input 
      */
-    setInput(input: ODIS0060OrderDetailBunkatsu) {
+    public setInput(input: ODIS0060OrderDetailBunkatsu) {
 
         //編集テーブルの各セルに選択された行の値を挿入
         this.orderSplitAmount     = this.addCommas(input.orderSplitAmount);
@@ -146,7 +146,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
      * @param action 追加・変更
      * @param rowIndex 行番号
      */
-    getInput(output: ODIS0060OrderDetailBunkatsu, action: string, res: ODIS0060SuchOAP): ODIS0060OrderDetailBunkatsu{
+    public getInput(output: ODIS0060OrderDetailBunkatsu, action: string, res: ODIS0060SuchOAP): ODIS0060OrderDetailBunkatsu{
         output.orderSplitAmount  = this.removeCommas(this.orderSplitAmount);
         output.splitSupplierCode = this.setValue(this.splitSupplierCode);
         output.splitSupplierName = this.setValue(this.splitSupplierName);
@@ -192,17 +192,16 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 output.approvalPerson_lv3   = this.bunkatsu.approvalPerson_lv3;
                 output.approvalDate_final   = this.bunkatsu.approvalDate_final;
                 output.approvalPerson_final = this.bunkatsu.approvalPerson_final;
-
-                //クアン　2020/12/11　修正　分割データを更新する時も発注・受入・支払データを再取得する
                 output.orderDate            = res.orderDate;
                 output.orderAmount          = res.orderAmount;
                 output.receivedDate         = res.receivedDate;
                 output.receivedAmount       = res.receivedAmount;
                 output.paymentDate          = res.paymentDate;
                 output.paymentAmount        = res.paymentAmount;
+                
                 break;
         }
-        return output
+        return output;
     }
 
 
@@ -227,7 +226,7 @@ export class ODIS0060RowStatus {
         this.Reset();
     }
 
-    Reset() {
+    public Reset() {
         this.rowIndex = null;
         this.isSelected = false;
     }
@@ -237,7 +236,7 @@ export class ODIS0060RowStatus {
      * @param chosen 明細を選択するかどうか
      * @param rowIndex 選択されている行の位置
      */
-    setRowStatus(chosen: boolean, rowIndex: number) {
+    public setRowStatus(chosen: boolean, rowIndex: number) {
         this.rowIndex = rowIndex;
         this.isSelected = chosen;
     }

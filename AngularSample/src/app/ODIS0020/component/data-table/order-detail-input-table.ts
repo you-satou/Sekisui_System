@@ -270,7 +270,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 発注予定金額の合計
    */
-  getTotalPlanAmount() {
+  public getTotalPlanAmount() {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
@@ -285,7 +285,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 発注分割金額の合計
    */
-  getOrderSplitAmount() {
+  public getOrderSplitAmount() {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
@@ -300,7 +300,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    *  発注金額の合計
    */
-  getOrderAmount() {
+  public getOrderAmount() {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
@@ -315,7 +315,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    *  受入金額の合計
    */
-  getReceivedAmount() {
+  public getReceivedAmount() {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
@@ -330,7 +330,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    *  支払金額の合計
    */
-  getPaymentAmount() {
+  public getPaymentAmount() {
     if (this.orderData.length != 0) {
       return this.orderData
         .map((t) => {
@@ -346,7 +346,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 「反映」ボタン活性フラグ
    * @param element 
    */
-  isReflectFlg(element:ODIS0020OrderDetaiSplitBean){
+  public isReflectFlg(element:ODIS0020OrderDetaiSplitBean) {
 
     if(this.tabName === this.readonlyTab){
       return true;
@@ -389,7 +389,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param element 
    * @param type 
    */
-  isRejectFlg(element:ODIS0020OrderDetaiSplitBean, type?:string){
+  public isRejectFlg(element:ODIS0020OrderDetaiSplitBean, type?:string) {
     //「追加」タブを選択される場合、非活性する
     if(this.tabName === this.readonlyTab){
       return true;
@@ -415,7 +415,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param element 
    * @param type 
    */
-  isCheckBoxFlg(element:ODIS0020OrderDetaiSplitBean, type:string){
+  public isCheckBoxFlg(element:ODIS0020OrderDetaiSplitBean, type:string) {
     //「追加」タブを選択される場合、非活性する
     if(this.tabName === this.readonlyTab){
       return true;
@@ -439,7 +439,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 「分割」ボタン活性フラグ
    * @param element 
    */
-  isSplitFlg(element:ODIS0020OrderDetaiSplitBean){
+  public isSplitFlg(element:ODIS0020OrderDetaiSplitBean) {
     if(this.tabName === this.readonlyTab){
       return true;
     }
@@ -471,7 +471,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param $event
    * @param dataDetail
    */
-  getDisplayData($event,data: ODIS0020OrderDetaiSplitBean) {
+  public getDisplayData($event, data: ODIS0020OrderDetaiSplitBean) {
     // 発注予定金額を発注金額に設定
     data.orderSplitAmount = this.comCompnt.removeCommas(data.orderPlanAmount);
     //左も注文書発行区分がチェックされたら、分割の注文書発行区分もチェックする
@@ -496,7 +496,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param $event
    * @param data
    */
-  moveToSliptDetailInput($event, data: ODIS0020OrderDetaiSplitBean) {
+  public moveToSliptDetailInput($event, data: ODIS0020OrderDetaiSplitBean) {
 
     // 初期化
     var shiwakeDt: ODIS0060OrderShiwake[] = [new ODIS0060OrderShiwake()];
@@ -569,7 +569,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 選択された行の背景色を変える。
    * @param event
    */
-  onSelectHighLight(event: any, value: ODIS0020OrderDetaiSplitBean) {
+  public onSelectHighLight(event: any, value: ODIS0020OrderDetaiSplitBean) {
 
     this.setSelect(event);
     
@@ -684,7 +684,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param event
    * @param dt 
    */
-  setRequest(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  public setRequest(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -697,7 +697,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param event 
    * @param dt 
    */
-  setApprovalFirstLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  public setApprovalFirstLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -710,7 +710,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   * @param event
   * @param dt
   */
-  setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  public setApprovalNextLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -724,7 +724,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   * @param event 
   * @param dt 
   */
-  setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  public setApprovalThirdLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -738,7 +738,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
  * @param event 
  * @param dt 
  */
-  setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
+  public setApprovalFinalLevel(event: any, dt: ODIS0020OrderDetaiSplitBean) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -750,7 +750,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 差額がある場合、テキスト色を変える。
    * @param dt 
    */
-  getFontColor(element: ODIS0020OrderDetaiSplitBean){
+  public getFontColor(element: ODIS0020OrderDetaiSplitBean){
     // フォント色
     if(element.splitNo == '1'){
       // 初期化
@@ -839,7 +839,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 一括依頼ボタンの制御
    */
-  bulkRequestInfo(){
+  public bulkRequestInfo(){
 
     if(this.tabName === this.readonlyTab){
       return true;
@@ -866,7 +866,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 一括承認１ボタンの制御
    */
-  bulkApprovalLv1Info(){
+  public bulkApprovalLv1Info(){
     if(this.tabName === this.readonlyTab){
       return true;
     }
@@ -915,7 +915,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 一括承認２ボタンの制御
    */
-  bulkApprovalLv2Info(){
+  public bulkApprovalLv2Info(){
  
     if(this.tabName === this.readonlyTab){
       return true;
@@ -963,7 +963,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 一括承認３ボタンの制御
    */
-  bulkApprovalLv3Info(){
+  public bulkApprovalLv3Info(){
  
     if(this.tabName === this.readonlyTab){
       return true;
@@ -1011,7 +1011,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   /**
    * 一括最終承認ボタンの制御
    */
-  bulkApprovalFinalInfo(){
+  public bulkApprovalFinalInfo(){
 
     if(this.tabName === this.readonlyTab){
       return true;
@@ -1053,7 +1053,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 一括最依頼
    * @param $event 
    */
-  oneClickRequest($event){
+  public oneClickRequest($event){
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -1070,7 +1070,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 一括最承認１
    * @param $event 
    */
-  oneClickApprovalLv1($event) {
+  public oneClickApprovalLv1($event) {
 
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -1088,7 +1088,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 一括最承認２
    * @param $event 
    */
-  oneClickApprovalLv2($event) {
+  public oneClickApprovalLv2($event) {
 
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -1107,7 +1107,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 一括最承認３
    * @param $event 
    */
-  oneClickApprovalLv3($event) {
+  public oneClickApprovalLv3($event) {
 
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -1126,7 +1126,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * 一括最終承認
    * @param $event 
    */
-  oneClickApprovalFinal($event) {
+  public oneClickApprovalFinal($event) {
 
       let currTime = Date.now();
       let approvalTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -1145,20 +1145,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param dt 
    * @param type 
    */
-  approvalReject(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string){
+  public approvalReject(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string){
 
     var confirm = window.confirm(Const.WarningMsg.W0006);
     if(!confirm){
       return false;
     }
-    // console.log(event.currentTarget.id);
-    // var id = event.currentTarget.id;
-    // // if(id === ''){
-    // //   id = event.target.offsetTarget.id;
-    // // }
-
-    // console.log(event.currentTarget);
-    
 
     switch(type){
       //左側の却下
@@ -1177,8 +1169,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
             element.bulkApprovalPerson_final = '';            
           }          
         });
-
-        // TODO: Gui Emitter cho parent.
 
         break;
       
@@ -1206,7 +1196,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
    * @param dt 
    * @param type 
    */
-  setOrderReceiptStt(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string): Promise<any>{
+  public setOrderReceiptStt(event: any, dt: ODIS0020OrderDetaiSplitBean, type: string): Promise<any>{
     const checkValue = event.currentTarget.checked;
     var value: string = '0';
     if(checkValue){

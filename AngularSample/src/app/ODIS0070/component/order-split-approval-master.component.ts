@@ -39,18 +39,6 @@ const DEL_TYPE: DropDownList[] =[
 })
 export class OrderSplitApprovalMasterComponent implements OnInit {
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event){
-    let isSmall: boolean;
-    if(window.innerWidth < 840) {
-      isSmall = true;
-      this.setTableSize(isSmall);
-    } else {
-      isSmall = false;
-      this.setTableSize(isSmall);
-    }
-  }
-
   // 承認 ドロップダウン 設定
   appTypes = APPROVAL_TYPE;
 
@@ -85,15 +73,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   //初期画面のレンダー
   isInitFlg: boolean = false;
 
-  //発注承認者マスタテーブルのカラム
-  orderApprovalColumns: string[] = [
-    'personalID',
-    'employeeCode',
-    'employeeName',
-    'approvalLast',
-    'deleteFlag'
-  ];
-
   dataSource: any;
 
   //表示する承認の数の設定
@@ -111,7 +90,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     private view: ViewContainerRef,
     private appComponent: AppComponent,
     private commonComponent: CommonComponent,
-    private service: CommonService,
     private router: Router,
     private CommonService: CommonService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -122,20 +100,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.approvalUnit = this.appComponent.approvalLevels;
-
-    //承認人数が2人で設定する
-    if(this.approvalUnit >= Const.ApprovalLevel.TwoLevels) {
-      this.orderApprovalColumns.splice((this.orderApprovalColumns.indexOf('employeeName')+1),0,"approval_1");
-    }
-    //承認人数が3人で設定する
-    if(this.approvalUnit >= Const.ApprovalLevel.ThreeLevels) {
-      this.orderApprovalColumns.splice((this.orderApprovalColumns.indexOf('approval_1')+1),0,"approval_2");
-    }
-    //承認人数が4人で設定する
-    if(this.approvalUnit >= Const.ApprovalLevel.FourLevels) {
-      this.orderApprovalColumns.splice((this.orderApprovalColumns.indexOf('approval_2')+1),0,"approval_3");
-    }
-
     //ヘッダー設定
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
     // ボタン制御
@@ -145,12 +109,21 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.onResize('$event');
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event){
+    if(window.innerWidth < 840) {
+      this.setTableSize(true);
+    } else {
+      this.setTableSize(false);
+    }
+  }
+
   /**
    * 初期表示 データ取得
    *
    * @param $event イベント
    */
-  getOrderSplitApproval() {
+  private getOrderSplitApproval() {
     // TODO
     this.input.officeCode = '204006';
 
@@ -191,7 +164,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    *
    * @param $event イベント
    */
-  toABCNumPersonal($event){
+  public toABCNumPersonal($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -205,7 +178,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    *
    * @param $event イベント
    */
-  toABCNumEmployee($event){
+  public toABCNumEmployee($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -219,7 +192,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    *
    * @param $event イベント
    */
-  getEmployeeInfo($event){
+  public getEmployeeInfo($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -234,7 +207,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
-        // TODO
+        // TODO:
         this.input.officeCode = '204006';
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
@@ -268,7 +241,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    * @param selectedItem 行選択 値取得
    */
-  public onSelHighLight($event, selectedItem) {
+  public onSelHighLight($event, selectedItem: OrderSplitApprovalMasterTable) {
     // 背景色 設定
     this.commonComponent.CommonOnSelHight($event);
   
@@ -349,7 +322,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 明細追加ボタン
    */
-  onInsClick(){
+  public onInsClick(){
     // 入力チェック 個人認証ＩＤ 必須入力
     var strVal = this.commonComponent.setValue(this.input.personalID);
     if(strVal === ''){
@@ -417,11 +390,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 明細更新ボタン
    */
-  onUpdClick(){
+  public onUpdClick(){
     // ビジー開始
     this.isLoading = true;
 
-    // TODO
+    // TODO:
     this.input.officeCode = '204006';
     this.input.approval1 = Const.ApprovalValue.Deny;
     this.input.approval2 = Const.ApprovalValue.Deny;
@@ -439,9 +412,9 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
       this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
     }
     
-
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
+
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
     .then(
       (response) => {
@@ -481,7 +454,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 中止ボタン 
    */
-  onStopClick($event){
+  public onStopClick($event){
     let tbody = this.view.element.nativeElement.querySelector('tbody');
     //選択解除
     this.commonComponent.setRowColor(Const.Action.A0006, tbody, this.index);
@@ -492,11 +465,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 削除ボタン
    */
-  onDelClick(){
+  public onDelClick(){
     // ビジー開始
     this.isLoading = true;
     
-    // TODO
+    // TODO:
     this.input.officeCode = '204006';
 
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
@@ -518,7 +491,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 項目クリア
    */
-  clearItem(){
+  private clearItem(){
     // 格項目 初期化
     this.input.personalID = '';
     this.input.employeeCode = '';
@@ -556,7 +529,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.setPageButtonDisplay(false, true, false, true);
   }
 
-  setTableSize(isSmall: boolean) {
+  private setTableSize(isSmall: boolean) {
     switch(this.appComponent.approvalLevels) {
       //承認人数が4人で設定する
       case Const.ApprovalLevel.FourLevels:

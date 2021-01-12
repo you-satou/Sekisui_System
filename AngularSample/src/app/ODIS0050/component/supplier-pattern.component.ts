@@ -115,7 +115,7 @@ export class SupplierPatternComponent implements OnInit {
   /**
   * JSONファイルをdatasに格納
   */
-  getInputData(){
+  private getInputData(){
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
     this.param.officeCode = '201005';

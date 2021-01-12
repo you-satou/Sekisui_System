@@ -130,7 +130,7 @@ export class OrderDetailApprovalTable{
   }
  
   /**　ページに移動する */
-  switchToOrderInputPage(data: ODIS0010OrderDetail){
+  public switchToOrderInputPage(data: ODIS0010OrderDetail){
 
     //発注明細入力＿詳細入力画面に遷移する時、パラメータを設定する
     this.router.navigate([Const.UrlSetting.U0002],{ queryParams: {prop: data.propertyNo, cntrt: data.contractNum},skipLocationChange: false, replaceUrl: false});
@@ -138,7 +138,7 @@ export class OrderDetailApprovalTable{
   }
 
   /**ソートボタン、またはページ切り替えた時、イベントを発生して、親コンポネントに送る */
-  sortAndPageChangeEvent($event){
+  public sortAndPageChangeEvent($event){
     //テーブルをエミットする前に、パジネーターのコンポネントを先にレンダーする
     this.changeDetector.detectChanges();
 
@@ -160,7 +160,7 @@ export class OrderDetailApprovalTable{
    * ソートの矢印の表示を設定する。
    * @param val ０：非表示、１：表示
    */
-  hideSortArrow(val:string){
+  private hideSortArrow(val:string){
 
     //ソート矢印のエレメントを取得する
     let sortArrow: any = document.querySelector('div.mat-sort-header-arrow');
@@ -170,7 +170,7 @@ export class OrderDetailApprovalTable{
     }
   }
 
-  displayContractNum(data: ODIS0010OrderDetail){
+  public displayContractNum(data: ODIS0010OrderDetail){
 
     let customerNum = this.baseComm.setValue(data.customerNum);
     if(customerNum == ''){

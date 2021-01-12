@@ -298,7 +298,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * データを取得
    */
-  getOrderInputData() {
+  private getOrderInputData() {
 
     //承認処理画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
@@ -489,8 +489,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 明細種類により受注枝番の設定値を返却する
    * @param detailKind 
    */
-  getOrderBranchValue(detailKind: string){
-
+  private getOrderBranchValue(detailKind: string){
     switch(detailKind){
       case Const.JuuChuuEdaban.Hontai:
         return Const.BranchValue.Hontai;
@@ -614,7 +613,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * タブ名 取得
    */
-  private getTabName(detailKind: string) {
+  private getTabName(detailKind: string): string {
     switch(detailKind){
       case Const.JuuChuuEdaban.Sekkei:
         return Const.TabName.TabName_Sekkei;
@@ -765,7 +764,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 画面初期表示
    */
-  setDefaultDisplay(){
+  private setDefaultDisplay(): void {
     // 初期化
     this.Clear();
     // ボタン制御
@@ -785,7 +784,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @memberof AppComponent
    */
 
-  orderJournalSelect($event, selectVal) {
+  public orderJournalSelect($event, selectVal: any) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderJournalSelectComponent;
   }
@@ -797,7 +796,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   * @memberof AppComponent
   */
 
-  orderSupplierSelect($event, selectVal) {
+  public orderSupplierSelect($event, selectVal: any) {
     this.ODIS0020Service.setVal(selectVal);
     this.modal = OrderSupplierSelectComponent;
   }
@@ -808,7 +807,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param {*} $event イベント情報
    * @memberof AppComponent
    */
-  supplierPattern($event) {
+  public supplierPattern($event) {
     this.SupplierPatternService.setPropertyNo(this.paramInit.propertyNo);
     this.modal = SupplierPatternComponent;
   }
@@ -827,7 +826,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 明細追加ボタン
    */
-  insertOrderDetail() {
+  public insertOrderDetail() {
     // 入力チェック
     if(!this.inputCheck('0')){
       return;
@@ -885,6 +884,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         }
       )
   }
+
   /** テーブルに明細を追加 */
   private insertToDataTable(insertDt: ODIS0020OrderDetaiSplitBean) {
     var insertIndex: number = 0;
@@ -972,7 +972,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private insertDataFromSupplier(insertBucket:ODIS0020OrderDetaiSplitBean[]){
     switch (this.selectedTab) {
-
       case this.tabName1:
         let dataSekkei = this.childSekkei.orderData;
         this.insertProcess(insertBucket,dataSekkei);
@@ -1043,7 +1042,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 明細更新ボタン
    */
-  updateOrderDetail() {
+  public updateOrderDetail() {
     // 入力チェック
     if(!this.inputCheck('1')){
       return;
@@ -1194,7 +1193,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 変更中止ボタン
    */
-  stopUpdateOrderDetail() {
+  public stopUpdateOrderDetail() {
     // 初期化
     var tblBody: any;
     var tblData: ODIS0020OrderDetaiSplitBean[] = [new ODIS0020OrderDetaiSplitBean()];
@@ -1238,7 +1237,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param body 
    * @param dt 
    */
-  setRowUnselected(body:any, dt: ODIS0020OrderDetaiSplitBean[]){
+  private setRowUnselected(body:any, dt: ODIS0020OrderDetaiSplitBean[]){
     //テーブルの背景色を設定する。
     for(var i = 0; i < dt.length; i++){
       //一括承認データが入っている行はグレーアウトする。
@@ -1268,7 +1267,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 明細削除ボタン
    */
-  deleteOrderDetail() {
+  public deleteOrderDetail() {
     // 警告メッセージ
     const confirm = window.confirm(Const.WarningMsg.W0001);
     if (!confirm) { return; };
@@ -1317,7 +1316,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * タブ切り替え イベント
    * @param event 
    */  
-  setSelectTabChanged(event: any) {
+  public setSelectTabChanged(event: any) {
 
     // タブIndex とタブ value が合わないため、タブ名称を取得
     this.selectedTab = event.tab.textLabel;
@@ -1342,7 +1341,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 子供コンポーネントから渡されたデータを取得する
    * @param dt 
    */
-  getEmitter(dt: DataEmitter) {
+  public getEmitter(dt: DataEmitter) {
     switch(dt.action){
       //明細を選択する
       case Const.Action.A0004:
@@ -1476,7 +1475,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 更新終了ボタン
    */
-  finalUpdateProgress(){
+  public finalUpdateProgress(){
 
     this.isLoading = true;
     //明細追加テーブルにて、入力途中項目があるかどうかを検証する。
@@ -1514,9 +1513,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return 
     }
 
-
-    // ローディング開始
-    // this.isLoading = true;
     //サーバに更新データを送る。
     var tmp: ODIS0020OrderDetaiSplitBean[] = [];
     // 受注枝番 マージ
@@ -1545,9 +1541,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               //更新が失敗した場合、エラーメッセージを表示する
               alert(response.message);
             }
-
-            // //ロード画面を解除する。
-            // this.isLoading = false;
           }
         )
         .finally(
@@ -1605,7 +1598,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /**
    * 一時データを保持する
    */
-  saveTemporaryData(){
+  private saveTemporaryData(){
 
     // セッションに保持する
     let saveDt = new ODIS0020Session();
@@ -1629,7 +1622,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     sessionStorage.setItem(Const.ScreenName.S0002EN, JSON.stringify(saveDt));
   }
 
-  backToApprovalPage($event){
+  public backToApprovalPage($event){
     
     //警告メッセージを表示する
     let confirm = window.confirm(Const.WarningMsg.W0003);
@@ -1642,40 +1635,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.router.navigate([Const.UrlSetting.U0001]);
   }
 
-  /** ダウンロード処理 */
-  downloadOrderDetailExportFile($event){
-    this.isLoading = true;
-    this.paramInit.approvalLevel = this.appComponent.approvalLevels.toString();
-    this.orderService.getDownLoad(Const.UrlLinkName.S0002_GetOrderDetailFile,this.paramInit)
-    .subscribe((response:HttpResponse<any>) => {
-          try{
-            //ファイル名を取得する。
-            let fileName = response.headers.get('Content-Disposition').replace('attachment; filename=','');
-            //デイコード 
-            fileName = decodeURI(fileName);            
-            //ダウンロードデータを取得する。
-            let dataStream: Blob = new Blob([response.body], {type: response.headers.get('Content-Type')});
-            //保存する。
-            FileSaver.saveAs(dataStream, fileName);
-          }
-          catch(error){
-            //エラーが発生した場合、エラーメッセージを表示する。
-            alert(Const.ErrorMsg.E0020);
-          }
-          finally{
-            this.isLoading = false;
-          }
-    })
-  }
-
   /**
    * ダウンロードする前に、一回登録してから帳票を出力する
    * @param $event 
    */
-  updateDownloadOrderDetailExportFile($event){	  
+  public updateDownloadOrderDetailExportFile($event){	  
   
     //登録警告を表示する。
-    let confirm = window.confirm(Const.WarningMsg.W0005);
+    const confirm = window.confirm(Const.WarningMsg.W0005);
     if(!confirm){
       return;    
     }
@@ -1754,7 +1721,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   *
   * @param $event イベント
   */
-  toHanNumJC($event){
+  public toHanNumJC($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -1768,7 +1735,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     *
     * @param $event イベント
     */
- toHanNumAC($event){
+  public toHanNumAC($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -1782,7 +1749,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     *
     * @param $event イベント
     */
- toHanNumSC($event){
+  public toHanNumSC($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -1797,7 +1764,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     *
     * @param $event イベント
     */
-  toHanPricePA($event){
+  public toHanPricePA($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -1811,7 +1778,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  commonBlurPA($event){
+  public commonBlurPA($event){
     if(!($event.target.value == "")){
       var maxLen:number = $event.target.maxLength;
       var val = $event.target.value;
@@ -1830,7 +1797,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  commonFocusPA($event){
+  public commonFocusPA($event){
     // 表示内容
     $event.target.value = this.baseCompnt.removeCommas($event.target.value);
     // 実際値
@@ -1842,7 +1809,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   *
   * @param $event イベント
   */
-  toZenkakuJN($event){
+  public toZenkakuJN($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -1855,7 +1822,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 仕訳コード ロストフォーカス
    * @param event 
    */
-  getJournalCode($event){
+  public getJournalCode($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -1900,7 +1867,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 経理分類 ロストフォーカス
    * @param event 
    */
-  blurAccountCode($event){
+  public blurAccountCode($event){
     if (!($event.target.value == '')){ 
       var maxLen:number = $event.target.maxLength;
       var val = $event.target.value;
@@ -1915,7 +1882,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 発注先コード ロストフォーカス
    * @param event 
    */
-  getOrderCode($event){
+  public getOrderCode($event){
     
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -1959,7 +1926,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * 粗利率画面に遷移します
    * @param $event 
    */
-  moveToOrderGrossProfitPage($event){
+  public moveToOrderGrossProfitPage($event){
 
     //一時データを保持する
     this.saveTemporaryData();
@@ -1971,7 +1938,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.router.navigate([Const.UrlSetting.U0008],{ queryParams: param,skipLocationChange: false, replaceUrl: false});
   }
 
-  changeOrderReceiptStt($event){
+  public changeOrderReceiptStt($event){
     var isChecked = $event.currentTarget.checked;
 
     if(isChecked){

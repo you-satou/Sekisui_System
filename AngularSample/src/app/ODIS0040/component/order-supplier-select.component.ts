@@ -132,7 +132,7 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
   /**
   * JSONファイルをdatasに格納
   */
-  getOrderInputData(){
+  private getOrderInputData(){
 
      // Todo　システムログイン情報から取得すること！
      // 事業区分コード設定
@@ -159,7 +159,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
           }
         );
   }
-  onScroll(datas:OrderSupplierSelectType[],selectVal:any){
+
+  private onScroll(datas:OrderSupplierSelectType[],selectVal:any){
 
     //行数取得
     var row = 0;

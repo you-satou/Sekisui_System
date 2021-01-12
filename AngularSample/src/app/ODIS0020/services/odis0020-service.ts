@@ -50,7 +50,7 @@ export class ODIS0020Service {
   /**
   * フォーカス対象の値をセット
   */
-  public setVal(val:ODIS0020AddOrderDetailService) {
+  public setVal(val: ODIS0020AddOrderDetailService) {
     this._val = val;
   }
 

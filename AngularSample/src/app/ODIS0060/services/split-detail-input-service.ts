@@ -36,14 +36,14 @@ export class ODIS0060SplitDetailService {
    *
    * @param splitTable 分割テーブルのデータ
    */
-  setDetailTable(detailTable: ODIS0060OrderDetailBunkatsu[]) {
+  public setDetailTable(detailTable: ODIS0060OrderDetailBunkatsu[]) {
     this._bunkatsuData = detailTable;
   }
 
   /**
    * 詳細入力テーブルの選択された行の分割データの取得
    */
-  getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
+  public getDetailTableData(): ODIS0060OrderDetailBunkatsu[]{
     return this._bunkatsuData;
   }
 

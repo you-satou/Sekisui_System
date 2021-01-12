@@ -75,7 +75,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /**
    * 閉じるボタンを押下する
    */
-  onCloseClick(){
+  public onCloseClick(){
 
     // 既にセッションが格納されている場合は除去する
     if (sessionStorage.getItem(Const.ScreenName.S0001EN) != null) {
@@ -87,7 +87,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /**
    * 発注承認マスタ画面に遷移する
    */
-  toApproveMaster(){
+  public toApproveMaster(){
 
     this.saveTemporaryData();
 
@@ -97,7 +97,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * ページ初期化
    */
-  setStartPage() {
+  private setStartPage() {
     this.inputment.contractNumFrom = '';
     this.inputment.contractNumTo   = '';
     this.inputment.propertyName    = '';
@@ -113,7 +113,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 検索処理
    */
-  getSearchRequest() {
+  public getSearchRequest($event) {
 
     if (this.checkInput(this.inputment)) {
 
@@ -128,7 +128,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     
     // 発注明細入力_承認処理取得
     // this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-    //TODO: 認証ＩＤ
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)    
       .then(
         (response) => {
@@ -167,7 +166,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /**  
    * 入力検証
    */
-  checkInput(input: ODIS0010Form): boolean {
+  public checkInput(input: ODIS0010Form): boolean {
 
     if(!(input.contractNumFrom == "") && !(input.contractNumTo == "")){
 
@@ -185,7 +184,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 契約番号From　入力値チェック 
    */
-  onKeyUpNumFrom($event){
+  public onKeyUpNumFrom($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -200,7 +199,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 契約番号To　入力値チェック 
    */
-  onKeyUpNumTo($event){
+  public onKeyUpNumTo($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -215,7 +214,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 物件名　ロストフォーカスで半角⇒全角
    */
-  toZenkakuPropName($event){
+  public toZenkakuPropName($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -230,7 +229,7 @@ export class OrderDetailApprovalComponent implements OnInit {
    /**
    * 一時データを保持する
    */
-  saveTemporaryData(){
+  public saveTemporaryData(){
 
     var saveData = new ODIS0010Session();
 
@@ -257,7 +256,7 @@ export class OrderDetailApprovalComponent implements OnInit {
    * ソート・ページ切り替え毎、エベントを取得する
    * @param status 現在のソート順とページナンバー
    */
-  getEmitter(status: TableStatus){
+  public getEmitter(status: TableStatus){
 
    //現在のソート順とページナンバーを保持する。
    this._pgIndex = status.pgIndex;

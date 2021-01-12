@@ -1,6 +1,6 @@
 import { ODIS0080Session } from './../entities/odis0080.session.entity';
 import { ODIS0080TotalData } from './../entities/odis0080.entity';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'app/app.component';
 import { CommonComponent } from 'app/common/common.component';
@@ -28,12 +28,12 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'keiyakuYmd',     // 契約日
     'keiyakuKin',     // 契約金額
     'hachuuKin',      // 発注金額
-    'riritsu',       // 粗利率
+    'riritsu',        // 粗利率
     'rousaiKin',      // 労災金額
     'koujiHi',        // 工事費
     'houseZai',       // ハウス材
     'unChin',         // 運賃
-    'niTsukuri',         // 荷造り
+    'niTsukuri',      // 荷造り
   ];
   /** テーブルの全カラム */
   totalColumns:string[] = [
@@ -93,7 +93,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 粗利率のデータを取得する
    */
-  setDisplayData(){
+  private setDisplayData(){
 
     //詳細入力画面から遷移された時のパラメータを取得する
     this.actvRoute.queryParams.subscribe(params =>{
@@ -149,7 +149,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 発注明細入力＿詳細入力画面に戻る
    * @param $event 
    */
-  backToPreviousPage($event){
+  public backToPreviousPage($event){
 
     if (sessionStorage.getItem(Const.ScreenName.S0008EN) != null){
       //発注詳細入力画面に戻る前に、セッションを削除する
@@ -163,7 +163,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 各明細の粗利率を計算する
    * @param element 各明細のデータ 
    */
-  getGrossProfit(element: ODIS0080GrossProfitBean) {
+  public getGrossProfit(element: ODIS0080GrossProfitBean) {
     let grossProfit = '0';
     if (this.baseCompnt.setValue(element.grossProfit) != '') {
       grossProfit = (Number(element.grossProfit) / 100).toString();
@@ -174,7 +174,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 合計の契約金額を計算する
    */
-  getTotalContractAmount() {
+  public getTotalContractAmount() {
     if (this.grossProfitData.length != 0) {
       return this.grossProfitData
         .map((t) => {
@@ -189,7 +189,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 合計の発注金額を計算する
    */
-  getTotalOrderAmount() {
+  public getTotalOrderAmount() {
     if (this.grossProfitData.length != 0) {
       return this.grossProfitData
         .map((t) => {
@@ -205,7 +205,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 金額が０の場合、空白で表示する
    * @param val 戻り値
    */
-  setValue(val: any) {
+  public setValue(val: any) {
     if (this.baseCompnt.setValue(val) == '0') {
       return '';
     }
@@ -217,7 +217,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 合計の粗利率を計算する
    */
-  getTotalGrossProfit() {
+  public getTotalGrossProfit() {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
     let totalGrossProfit = '0';
