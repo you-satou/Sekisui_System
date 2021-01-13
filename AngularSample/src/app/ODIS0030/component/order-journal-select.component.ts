@@ -128,12 +128,11 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   /**
   * JSONファイルをdatasに格納
   */
-  getOrderInputData(){
+  private getOrderInputData(){
     
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    // this.param.officeCode = '701000';
-    this.param.officeCode = '827007';
+    this.param.officeCode = '701000';
 
     //入力された値
     this.selectVal = this.ODIS0020Service.getVal();
@@ -146,7 +145,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
           if(response.result === Const.ConnectResult.R0001){
           this.datas = response.applicationData;
             if(!(this.selectVal == undefined || this.selectVal == null)){
-              this.onScroll(this.datas,this.selectVal);
+              this.onScroll(this.datas, this.selectVal);
             }
           }else{
             alert(response.message);
@@ -157,7 +156,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     );
   }
 
-  onScroll(datas:OrderJournalSelectType[],selectVal:any){
+  private onScroll(datas:OrderJournalSelectType[], selectVal:any){
 
     //行数取得
     var row = 0;

@@ -6,17 +6,17 @@
         <table class="table-bordered tblGrossMainInfo">
             <thead>
             <tr>
-                <th >発注番号</th>
-                <th >工事名</th>
+                <th class="grossOrderNo color-input-1">発注番号</th>
+                <th class="grossConstructionName color-input-1" >工事名</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td rowspan="2" style="text-align: center;">{{orderInfo.contractNum}}</td>
-                <td >{{orderInfo.constructionKata}}</td>
+                <td>{{orderInfo.constructionKata}}</td>
             </tr>
             <tr>
-                <td >{{orderInfo.constructionHira}}</td>
+                <td> {{orderInfo.constructionHira}}</td>
             </tr>
         </tbody>
         </table>
@@ -25,107 +25,121 @@
         <table mat-table [dataSource]="grossProfitData" class="tblGrossDataInfo table table-hover table-bordered">
             <!--Header 契約 -->
             <ng-container matColumnDef="keiyakuNo">
-                <th mat-header-cell *matHeaderCellDef >契約</th>            
+                <th class="color-input-1 grossContractStyle" mat-header-cell *matHeaderCellDef >契約</th>            
             </ng-container>
             <ng-container matColumnDef="contractNo">
-                <td mat-cell *matCellDef="let element">{{element.contractNo}}</td>
-            </ng-container>       
+                <td class="grossContractStyle" mat-cell *matCellDef="let element">{{element.constructModel}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
 
             <!--Header 受注形態 -->
             <ng-container matColumnDef="keiyakuKeitai">            
-                <th mat-header-cell *matHeaderCellDef >受注形態</th>
+                <th class="color-input-1 grossContractKind" mat-header-cell *matHeaderCellDef >受注形態</th>
             </ng-container>
             <ng-container matColumnDef="contractKind">
-                <td mat-cell *matCellDef="let element">{{element.contractKind}}</td>
+                <td class="grossContractKind" mat-cell *matCellDef="let element">{{element.constructType}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!--Header 枝番 -->
             <ng-container matColumnDef="edaBan">
-                <th mat-header-cell *matHeaderCellDef colspan="2">枝番</th>
+                <th class="color-input-1" style="width: 70px; min-width: 70px;" mat-header-cell *matHeaderCellDef colspan="2">枝番</th>
             </ng-container>
             <ng-container matColumnDef="branch01">
-                <td mat-cell *matCellDef="let element">{{element.branch01}}</td>
+                <td class="branchStyle" mat-cell *matCellDef="let element">{{element.branch01}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
             <ng-container matColumnDef="branch02">            
-                <td mat-cell *matCellDef="let element">{{element.branch02}}</td>            
+                <td class="branchStyle" mat-cell *matCellDef="let element">{{element.branch02}}</td>            
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
             
             
             <!--Header 受注形態 -->
             <ng-container matColumnDef="keiyakuYmd">
-                <th mat-header-cell *matHeaderCellDef>契約日</th>            
+                <th class="color-input-1 grossContractStyle" mat-header-cell *matHeaderCellDef>契約日</th>            
             </ng-container>
             <ng-container matColumnDef="contractDate">
-                <td mat-cell *matCellDef="let element">{{element.contractDate}}</td>
+                <td class="grossContractStyle" mat-cell *matCellDef="let element">{{element.contractDate}}</td>
+                <td class="grossContractStyle" mat-footer-cell *matFooterCellDef>合計</td>
             </ng-container>
 
             <!--Header 契約金額 -->
             <ng-container matColumnDef="keiyakuKin">
-                <th mat-header-cell *matHeaderCellDef >契約金額</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef >契約金額</th>
             </ng-container>
             <ng-container matColumnDef="contractAmount">
-                <td mat-cell *matCellDef="let element">{{element.contractAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.contractAmount)|number}}</td>
+                <td class="amountStyle" mat-footer-cell *matFooterCellDef>{{getTotalContractAmount() | number}}</td>
             </ng-container>
 
 
             <!--Header 発注金額 -->
             <ng-container matColumnDef="hachuuKin">
-                <th mat-header-cell *matHeaderCellDef >発注金額</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef >発注金額</th>
             </ng-container>
             <ng-container matColumnDef="orderAmount">
-                <td mat-cell *matCellDef="let element">{{element.orderAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.orderAmount)|number}}</td>
+                <td class="amountStyle" mat-footer-cell *matFooterCellDef>{{getTotalOrderAmount() | number}}</td>
             </ng-container>
 
             <!--Header 粗利率 -->
             <ng-container matColumnDef="riritsu">
-                <th mat-header-cell *matHeaderCellDef >粗利率</th>
+                <th class="color-input-1 grossProfitStyle" mat-header-cell *matHeaderCellDef >粗利率</th>
             </ng-container>
             <ng-container matColumnDef="grossProfit">
-                <td mat-cell *matCellDef="let element">{{element.grossProfit|percent}}</td>
+                <td class="grossProfitStyle" mat-cell *matCellDef="let element">{{getGrossProfit(element)|percent: '1.0-1'}}</td>
+                <td class="grossProfitStyle" mat-footer-cell *matFooterCellDef>{{getTotalGrossProfit()|percent: '1.0-1'}}</td>
             </ng-container>
 
             <!--Header 労災金額 -->
             <ng-container matColumnDef="rousaiKin">
-                <th mat-header-cell *matHeaderCellDef >労災金額</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef >労災金額</th>
             </ng-container>
             <ng-container matColumnDef="accidentAmount">
-                <td mat-cell *matCellDef="let element">{{element.accidentAmount|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.accidentAmount)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!--Header 工事費 -->
             <ng-container matColumnDef="koujiHi">
-                <th mat-header-cell *matHeaderCellDef >工事費</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef >工事費</th>
             </ng-container>
             <ng-container matColumnDef="constructionCost">
-                <td mat-cell *matCellDef="let element">{{element.constructionCost|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.constructionCost)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!--Header ハウス材 -->
             <ng-container matColumnDef="houseZai">
-                <th mat-header-cell *matHeaderCellDef >ハウス材</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef >ハウス材</th>
             </ng-container>
             <ng-container matColumnDef="houseMaterial">
-                <td mat-cell *matCellDef="let element">{{element.houseMaterial|number}}</td>
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.houseMaterial)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <!--Header 運賃 -->
             <ng-container matColumnDef="unChin">
-                <th mat-header-cell *matHeaderCellDef>運賃</th>
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef>運賃</th>
             </ng-container>
-            <ng-container matColumnDef="freightRates">
-                <td mat-cell *matCellDef="let element">{{element.freightRates|number}}</td>
+            <ng-container matColumnDef="transCost">
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.transportationCost)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+            
+            <!--Header 荷造り -->
+            <ng-container matColumnDef="niTsukuri">
+                <th class="color-input-1 amountStyle" mat-header-cell *matHeaderCellDef>荷造保管</th>
+            </ng-container>
+            <ng-container matColumnDef="packingAmount">
+                <td class="amountStyle" mat-cell *matCellDef="let element">{{this.setValue(element.packingAmount)|number}}</td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
-            <!--Header 荷造保管 -->
-            <ng-container matColumnDef="nizouHokan">
-                <th mat-header-cell *matHeaderCellDef >荷造保管</th>
-            </ng-container>
-            <ng-container matColumnDef="packingStorage">
-                <td mat-cell *matCellDef="let element">{{element.packingStorage|number}}</td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="mainColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: totalColumns" ></tr>
+            <tr class="tblGrossOutline" mat-header-row *matHeaderRowDef="mainColumns; sticky: true"></tr>
+            <tr class="tblGrossMainBody" mat-row *matRowDef="let row; columns: totalColumns" ></tr>
+            <tr class="tblGrossMainFooter" mat-footer-row *matFooterRowDef="totalColumns; sticky: true">
         </table>
     </div>
 

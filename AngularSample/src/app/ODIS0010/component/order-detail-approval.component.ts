@@ -20,10 +20,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   // パラメータ
   inputment　= new ODIS0010Form();
 
-  pixel: number;
-
-  screenSize: any;
-
   //検索値
   value = '';
   loaderText = Const.WarningMsg.W0002;
@@ -57,10 +53,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.setStartPage();
     this.approvalUnit = this.appComponent.approvalLevels;
     
-    // Search ボタンの初期位置を設定する
-    this.screenSize = window.innerWidth;
-    this.pixel = this.screenSize  - 408;
-
     // 初期画面をレンダーする
     this.isInitFlg = true;
 
@@ -80,7 +72,10 @@ export class OrderDetailApprovalComponent implements OnInit {
     }
   }
 
-  onCloseClick(){
+  /**
+   * 閉じるボタンを押下する
+   */
+  public onCloseClick(){
 
     // 既にセッションが格納されている場合は除去する
     if (sessionStorage.getItem(Const.ScreenName.S0001EN) != null) {
@@ -89,27 +84,20 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  toApproveMaster(){
+  /**
+   * 発注承認マスタ画面に遷移する
+   */
+  public toApproveMaster(){
 
     this.saveTemporaryData();
 
-    this.router.navigate(['OrderSplitApprovalMaster']);
-  }
-
-  //ページ広さを調整する時にボタンの位置も調整する
-  @HostListener('window:resize', ['$event'])
-  onResize($event) {
-    this.screenSize = window.innerWidth;
-    if(this.screenSize <= 1284){
-      return;
-    }
-    this.pixel = this.screenSize  - 408;
+    this.router.navigate([Const.UrlSetting.U0007]);
   }
 
   /** 
    * ページ初期化
    */
-  setStartPage() {
+  private setStartPage() {
     this.inputment.contractNumFrom = '';
     this.inputment.contractNumTo   = '';
     this.inputment.propertyName    = '';
@@ -125,7 +113,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 検索処理
    */
-  getSearchRequest() {
+  public getSearchRequest($event) {
 
     if (this.checkInput(this.inputment)) {
 
@@ -133,15 +121,13 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    // this.inputment.officeCode = '402000';
-    this.inputment.officeCode = '827007';
+    this.inputment.officeCode = '402000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
     
     // 発注明細入力_承認処理取得
     // this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-    //TODO: 認証ＩＤ
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)    
       .then(
         (response) => {
@@ -180,7 +166,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /**  
    * 入力検証
    */
-  checkInput(input: ODIS0010Form): boolean {
+  public checkInput(input: ODIS0010Form): boolean {
 
     if(!(input.contractNumFrom == "") && !(input.contractNumTo == "")){
 
@@ -198,7 +184,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 契約番号From　入力値チェック 
    */
-  onKeyUpNumFrom($event){
+  public onKeyUpNumFrom($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -213,7 +199,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 契約番号To　入力値チェック 
    */
-  onKeyUpNumTo($event){
+  public onKeyUpNumTo($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -228,7 +214,7 @@ export class OrderDetailApprovalComponent implements OnInit {
   /** 
    * 物件名　ロストフォーカスで半角⇒全角
    */
-  toZenkakuPropName($event){
+  public toZenkakuPropName($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -243,7 +229,7 @@ export class OrderDetailApprovalComponent implements OnInit {
    /**
    * 一時データを保持する
    */
-  saveTemporaryData(){
+  public saveTemporaryData(){
 
     var saveData = new ODIS0010Session();
 
@@ -270,7 +256,7 @@ export class OrderDetailApprovalComponent implements OnInit {
    * ソート・ページ切り替え毎、エベントを取得する
    * @param status 現在のソート順とページナンバー
    */
-  getEmitter(status: TableStatus){
+  public getEmitter(status: TableStatus){
 
    //現在のソート順とページナンバーを保持する。
    this._pgIndex = status.pgIndex;

@@ -9,7 +9,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake, ODIS0060Session } fr
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderDetaiSplitBean } from './../../ODIS0020/entities/odis0020-OrderDetailSplit.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
-import { ODIS0020BunkatsuInsertService, RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
+import { ODIS0020BunkatsuInsertService, ODIS0060RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
@@ -79,7 +79,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
   amountDeference: number = 0;
 
-  rowStatus = new RowStatus()
+  rowStatus = new ODIS0060RowStatus();
 
   //タブネーム
   tabName: string = '';
@@ -88,8 +88,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   btnHenkou: boolean;
   btnChuushi: boolean;
   btnSakujo: boolean;
-
-  fixed:number = 500;
 
   //初期画面のレンダー
   isInitFlg: boolean = false;
@@ -175,8 +173,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     
   }
 
-  //2020/11/09 11月中の要望対応
-  setApprovalLevelColumns(unit: number){
+  private setApprovalLevelColumns(unit: number){
     switch(unit){
       //承認人数が1人で設定する
       case Const.ApprovalLevel.OneLevel:
@@ -205,7 +202,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         break;
     }
   }
-  //2020/11/09 11月中の要望対応
+
   /**
    * 明細テーブルに初期表の時、ボタン活動性を設定する。
    *↓↓↓　ボタン名　↓↓↓
@@ -225,7 +222,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  setModal() {
+  public setModal() {
     //ODIS0040発注先マスタ選択
     this.subscription = this.OrderSupplierSelectService.closeEventObservable$.subscribe(
       () => {
@@ -238,7 +235,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  splitSupplierSelect($event, selectVal) {
+  public splitSupplierSelect($event, selectVal) {
     this.odis0020Service.setVal(this.baseCompnt.setValue(selectVal));
     this.modal = OrderSupplierSelectComponent;
   }
@@ -314,7 +311,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * @param chuushi 中止ボタンの設定
    * @param sakujo 削除ボタンの設定
    */
-  setPageButtonDisplay(tsuika: boolean,henkou: boolean,chuushi: boolean,sakujo: boolean) {
+  private setPageButtonDisplay(tsuika: boolean,henkou: boolean,chuushi: boolean,sakujo: boolean) {
     this.btnTsuika = tsuika;
     this.btnHenkou = henkou;
     this.btnChuushi = chuushi;
@@ -324,13 +321,13 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   /**
    * 分割テーブルの合計金額の再計算
    */
-  totalAmount() {
+  public totalAmount() {
       return this.bunkatsuData.map(data => Number(data.orderSplitAmount)).reduce((acc, value) => (acc + value));
   }
   /**
    * 金額差
    */
-  getAmountDeference(){
+  public getAmountDeference(){
     return Number(this.shiwakeData[0].orderPlanAmount) - Number(this.totalAmount());
   }
 
@@ -340,7 +337,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * @param $event イベント
    * @param rowDt 選択さらた行の値
    */
-  selectRow($event, rowDt: ODIS0060OrderDetailBunkatsu) {
+  public selectRow($event, rowDt: ODIS0060OrderDetailBunkatsu) {
 
     //選択された行に背景色を変える
     this.baseCompnt.CommonOnSelHight($event);
@@ -364,7 +361,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 分割明細 制限チェック
    * @param rowData 
    */
-  journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu, nodeName: any){
+  private journalDataApprovalChecker(rowData: ODIS0060OrderDetailBunkatsu, nodeName: any){
     
     switch(true){
       case (nodeName == 'SPAN' || nodeName == 'BUTTON' || nodeName == 'INPUT'):
@@ -389,7 +386,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 「明細追加」ボタンの押下
    * @param $event イベント
    */
-  insertBunkatsuOrderDetail($event) {
+  public insertBunkatsuOrderDetail($event) {
     // 入力検証
     if(!this.inputCheck('0')){
       return;
@@ -457,7 +454,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  updateBunkatsuOrderDetail($event) {
+  public updateBunkatsuOrderDetail($event) {
 
     // 入力検証
     if(!this.inputCheck('1')){
@@ -509,7 +506,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  deleteOrderDetail($event) {
+  public deleteOrderDetail($event) {
 
     //行が選択された場合
     if (!this.rowStatus.isSelected) {
@@ -557,7 +554,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *  「中止」ボタンの押下
    * @param $event イベント
    */
-  stopModifyDetail($event) {
+  public stopModifyDetail($event) {
 
     let tbody = this.viewRef.element.nativeElement.querySelector('table.bunkatsu-table>tbody');
     //選択状態を抜ける
@@ -571,7 +568,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * @param event 
    * @param dt 
    */
-  mainTableRequest(event: any, dt: ODIS0060OrderDetailBunkatsu,) {
+  public mainTableRequest(event: any, dt: ODIS0060OrderDetailBunkatsu,) {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
@@ -587,7 +584,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * @param event 
    * @param dt 
    */
-  mainTableCheckBoxChange(event: any, dt: ODIS0060OrderDetailBunkatsu) {
+  public mainTableCheckBoxChange(event: any, dt: ODIS0060OrderDetailBunkatsu) {
     let isChecked = event.currentTarget.checked;
     switch(isChecked){
       case false:
@@ -606,7 +603,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   /**
    * 仕訳テーブルのチェックボックスを変える
    */
-  setSplitCheckBox(){
+  private setSplitCheckBox(){
     for(let i = 0; i < this.bunkatsuData.length; i++){
       if(this.bunkatsuData[i].splitOrderReceipt == Const.OrderReceiptCheckType.Checked){
         this.orderReceiptCheckStt = Const.OrderReceiptCheckType.Checked;
@@ -621,7 +618,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 入力テーブルに「依頼」ボタンを押下する時。
    * @param event 
    */
-  subTableRequest(event: any) {
+  public subTableRequest(event: any) {
     if(this.input.orderSplitAmount == ''){
       this.baseCompnt.setFocus('txtSplitAmount');
       alert(Const.ErrorMsg.E0012);
@@ -640,7 +637,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 入力テーブルにチェックボックスを押下する時。
    * @param event 
    */
-  subTableCheckBoxChange(event: any) {
+  public subTableCheckBoxChange(event: any) {
     let isChecked = event.currentTarget.checked;
     switch(isChecked){
       case false:
@@ -655,7 +652,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   /**
    * 分割明細追加テーブルを初期化する
    */
-  resetAddTable() {
+  private resetAddTable() {
     this.input.Clear();
     this.rowStatus.Reset();
     this.paramOrderCode = new ODIS0060Form();
@@ -695,7 +692,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   /**
    * 「閉じる」ボタンの押下
    */
-  backToOrderDetailInput() {
+  public backToOrderDetailInput() {
 
     this.toSaveShiwakeData();
     this.router.navigate([Const.UrlSetting.U0002]);
@@ -798,15 +795,16 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  commonFocus($event){
+  public commonFocus($event){
     this.input.orderSplitAmount = this.baseCompnt.removeCommas($event.target.value);
   }
+
   /**
    * blur処理（カンマ）
    *
    * @param $event イベント
    */
-  commonBlur($event){
+  public commonBlur($event){
     if(!($event.target.value == "")){
 
       var maxLen:number = $event.target.maxLength;
@@ -824,7 +822,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  onChangeZenkaku($event){
+  public onChangeZenkaku($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -840,7 +838,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    *
    * @param $event イベント
    */
-  onlyHanPrice($event){
+  public onlyHanPrice($event){
 
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -856,7 +854,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     *
     * @param $event イベント
     */
-  toHanNumSC($event){
+  public toHanNumSC($event){
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
     if(val.length > maxLen){
@@ -870,7 +868,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * @param body 
    * @param row
    */
-  setAutoScroll(body: any, row: number) {
+  private setAutoScroll(body: any, row: number) {
     body.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
   }
 
@@ -878,7 +876,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    * 発注先コード ロストフォーカス
    * @param event 
    */
-  getOrderCode($event){
+  public getOrderCode($event){
     
     var maxLen:number = $event.target.maxLength;
     var val = $event.target.value;
@@ -896,8 +894,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         this.paramOrderCode = new ODIS0060Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        // this.paramOrderCode.officeCode = '701000';
-        this.paramOrderCode.officeCode = '827007';
+        this.paramOrderCode.officeCode = '701000';
 
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;

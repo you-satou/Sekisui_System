@@ -112,7 +112,7 @@ export class OrderApprovalPaginator extends MatPaginatorIntl {
   }
 
   //各ボタンにBOOTSTRAPクラスに追加する
-  setNewClass(){
+  private setNewClass(){
     let buttonNodes = document.querySelectorAll('div.mat-paginator-range-actions > button');
     let btnTabIndex = 14;
     buttonNodes.forEach(element => {

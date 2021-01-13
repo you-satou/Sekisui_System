@@ -7,4 +7,7 @@ import { SupplierList } from '../entities/odis0050-SupplierList.entity'
 export class ODIS0050Form{
     /** 事業区分コード */
     officeCode: string;
+
+    //物件管理ＮＯ
+    propertyNo: string;
 }

@@ -110,12 +110,12 @@ export class SplitOrderDetailTable {
     
   }
 
-  changeAmountColor(color: string){
+  public changeAmountColor(color: string){
     var amount = document.getElementById('orderAmount');
     amount.style.color = color;
   }
 
-  isDetailChecked(){
+  public isDetailChecked(){
     switch(this.bunkatsuCheckBox){
       case Const.OrderReceiptCheckType.UnCheck:
         return false;

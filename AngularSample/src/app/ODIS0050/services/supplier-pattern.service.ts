@@ -57,5 +57,23 @@ export class SupplierPatternService {
    this.setVal(null);
    this.closeEventSubject.next();
   }
+
+  //物件管理ＮＯ
+  private _propertyNo: string = '';
+
+  /**
+  * 物件管理ＮＯの戻り値をセット
+  * @param val 物件管理ＮＯ
+  */
+  public setPropertyNo(val: string) {
+    this._propertyNo = val;
+  }
+
+  /**
+  * 物件管理ＮＯの戻り値を返す
+  */
+  public getPropertyNo() {
+    return this._propertyNo;
+  }
  
 }
