@@ -1,3 +1,4 @@
+import { LoginUserEntity } from './../../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { ODIS0020RowStatus } from './../../../ODIS0020/services/odis0020-DataEmitter.service';
 import { DatePipe } from '@angular/common';
 import { DataEmitter } from "../../services/odis0020-DataEmitter.service";
@@ -7,7 +8,7 @@ import { Const } from "app/common/const";
 import { ODIS0060SplitDetailService } from 'app/ODIS0060/services/split-detail-input-service';
 import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake } from 'app/ODIS0060/entities/odis0060-SplitDetail.entity';
 import { ODIS0020OrderDetaiSplitBean } from '../../entities/odis0020-OrderDetailSplit.entity'
-import { AppComponent, UserApprovalLevels } from 'app/app.component';
+import { AppComponent} from 'app/app.component';
 import { MatTable } from '@angular/material';
 import { ODIS0020Service } from 'app/ODIS0020/services/odis0020-service';
 
@@ -42,7 +43,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   private clickedPosition: number = -1;
 
   //ユーザの承認権限
-  userApprovalUnit: UserApprovalLevels;
+  loginInfo: LoginUserEntity;
 
   /**
    * テーブルヘッダーのカラムを定義する。
@@ -127,7 +128,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     this.TabChangeSubscriber();
 
     this.approvalUnit = this.appComponent.approvalLevels;
-    this.userApprovalUnit = this.appComponent.userApprovalLevels;
+    this.loginInfo = this.appComponent.loginInfo;
 
     switch(this.approvalUnit){
  
@@ -199,7 +200,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           const wTbody = this.viewRef.element.nativeElement.querySelector('tbody');
           this.resetTableBackGroundColor(wTbody, tabName);
         }
-
       }
     )
   }
@@ -687,7 +687,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
-    dt.requester = this.appComponent.loginUser;
+    dt.requester = this.loginInfo.empNmKnj;
   }
 
   /**
@@ -700,7 +700,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv1 = requestTime;
-    dt.approvalPerson_lv1 = this.appComponent.loginUser;
+    dt.approvalPerson_lv1 = this.loginInfo.empNmKnj;
   }
 
   /**
@@ -713,7 +713,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
-    dt.approvalPerson_lv2 = this.appComponent.loginUser;
+    dt.approvalPerson_lv2 = this.loginInfo.empNmKnj;
 
   }
 
@@ -727,7 +727,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv3 = requestTime;
-    dt.approvalPerson_lv3 = this.appComponent.loginUser;
+    dt.approvalPerson_lv3 = this.loginInfo.empNmKnj;
 
   }
 
@@ -741,7 +741,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_final = requestTime;
-    dt.approvalPerson_final = this.appComponent.loginUser;
+    dt.approvalPerson_final = this.loginInfo.empNmKnj;
   }
 
   /**
@@ -902,7 +902,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         //承認者の数が２以上の場合
         this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
         //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
-        this.comCompnt.setValue(this.userApprovalUnit.approvalLv1) == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.loginInfo.approvalLv1) == Const.ApprovalValue.Allow) {
       return false;
     }
 
@@ -952,7 +952,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           //承認者の数が３以上の場合
           this.approvalUnit >= Const.ApprovalLevel.ThreeLevels &&
           //ユーザーが承認２の権限を持つ場合、ボタンを活性にする
-          this.comCompnt.setValue(this.userApprovalUnit.approvalLv2) == Const.ApprovalValue.Allow) {
+          this.comCompnt.setValue(this.loginInfo.approvalLv2) == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -999,7 +999,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         approvalLv3.length != approvalFinal.length &&
         this.approvalUnit >= Const.ApprovalLevel.FourLevels &&
         //ユーザーが承認３の権限を持つ場合、ボタンを活性にする
-        this.comCompnt.setValue(this.userApprovalUnit.approvalLv3) == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.loginInfo.approvalLv3) == Const.ApprovalValue.Allow) {
       return false;
     }
     return true;
@@ -1039,7 +1039,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(requestInfo.length == approvalFinal.length &&
        approvalFinal.length > 0 &&
        //ユーザーが最終承認の権限を持つ場合、ボタンを活性にする
-       this.comCompnt.setValue(this.userApprovalUnit.approvalFinal) == Const.ApprovalValue.Allow){
+       this.comCompnt.setValue(this.loginInfo.approvalFinal) == Const.ApprovalValue.Allow){
       return false;
     }
 
@@ -1059,7 +1059,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     this.orderData.forEach(element=>{
       if(this.comCompnt.setValue(element.bulkRequestDate) ==''){
         element.bulkRequestDate = requestTime;
-        element.bulkRequester   = this.appComponent.loginUser;
+        element.bulkRequester   = this.loginInfo.empNmKnj;
       }
     })
   }
@@ -1078,7 +1078,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_lv1) == '' && 
            this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv1   = approvalTime;
-          element.bulkApprovalPerson_lv1 = this.appComponent.loginUser;
+          element.bulkApprovalPerson_lv1 = this.loginInfo.empNmKnj;
         }
       })
   }
@@ -1096,7 +1096,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_lv2) == '' &&
            this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv2   = approvalTime;
-          element.bulkApprovalPerson_lv2 = this.appComponent.loginUser;
+          element.bulkApprovalPerson_lv2 = this.loginInfo.empNmKnj;
         }
       })
   }
@@ -1115,7 +1115,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_lv3) ==''&&
            this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_lv3   = approvalTime;
-          element.bulkApprovalPerson_lv3 = this.appComponent.loginUser;
+          element.bulkApprovalPerson_lv3 = this.loginInfo.empNmKnj;
         }
       })
   }
@@ -1132,7 +1132,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       this.orderData.forEach(element=>{
         if(this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_final   = approvalTime;
-          element.bulkApprovalPerson_final = this.appComponent.loginUser;
+          element.bulkApprovalPerson_final = this.loginInfo.empNmKnj;
         }
       })
   }

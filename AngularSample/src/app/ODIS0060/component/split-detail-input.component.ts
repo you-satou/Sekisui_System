@@ -1,3 +1,4 @@
+import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ViewContainerRef} from '@angular/core';
 import { MatTable } from '@angular/material';
 import { AppComponent } from '../../app.component';
@@ -110,6 +111,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public modal: any = null;
 
+  loginInfo: LoginUserEntity;
   //承認人数
   approvalUnit: number;
 
@@ -136,6 +138,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.approvalUnit = this.appComponent.approvalLevels;
+    this.loginInfo = this.appComponent.loginInfo;
+
     this.appComponent.setHeader(Const.ScreenName.S0006, Const.LinKSetting.L0000 + Const.LinKSetting.L0002);
     this.setApprovalLevelColumns(this.approvalUnit);
     this.setModal();
@@ -574,7 +578,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
     //TODO: ログイン情報を取得
-    dt.requester = this.appComponent.loginUser;
+    dt.requester = this.loginInfo.empNmKnj;
 
     this.resetAddTable();
   }
@@ -629,7 +633,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     //TODO: ログイン情報を取得 
     this.input.requestDate = requestTime;
-    this.input.requester = this.appComponent.loginUser;
+    this.input.requester = this.loginInfo.empNmKnj;
 
   }
 
@@ -892,15 +896,17 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
         // 初期化
         this.paramOrderCode = new ODIS0060Form();
-        // Todo　システムログイン情報から取得すること！
+        // TODO:　システムログイン情報から取得すること！
         // 事業区分コード設定
-        this.paramOrderCode.officeCode = '701000';
+        // this.paramOrderCode.officeCode = '701000';
 
+        this.paramOrderCode.officeCode = this.loginInfo.jgyshCd;
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetOrderCode,this.paramOrderCode)
+        // this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetOrderCode,this.paramOrderCode)
+        this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetOrderCode, this.paramOrderCode)
         .then(
           (response) => {
 
@@ -909,7 +915,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
               this.input.splitSupplierCode = strOrderCode;   // 発注先コード
               this.input.splitSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
             }else{
-              alert(response.message);
+              // alert(response.message);
             }
           }
         );

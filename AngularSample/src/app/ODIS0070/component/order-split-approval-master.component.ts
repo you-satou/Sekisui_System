@@ -1,3 +1,4 @@
+import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, HostListener } from '@angular/core';
 import { AppComponent } from '../../app.component'
 import { Const } from '../../common/const'
@@ -80,6 +81,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   tableWidth: number;
 
+  loginInfo: LoginUserEntity;
+
   /**
    * コンストラクタ
    *
@@ -100,6 +103,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.approvalUnit = this.appComponent.approvalLevels;
+    this.loginInfo = this.appComponent.loginInfo;
+
     //ヘッダー設定
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
     // ボタン制御
@@ -125,17 +130,18 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   private getOrderSplitApproval() {
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = this.loginInfo.jgyshCd;
 
     // 発注承認者マスタ 取得
-    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
+    // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
+    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Init,this.input)
       .then(
         (response) => {
-
           if(response.result === Const.ConnectResult.R0001){
             this.orderApprovalData = response.applicationData;
           }else{
-            alert(response.message);
+//            alert(response.message);
           }
           // ビジー解除
           this.isLoading = false;
@@ -208,11 +214,14 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
         // TODO:
-        this.input.officeCode = '204006';
+        // this.input.officeCode = '204006';
+        this.input.officeCode = this.loginInfo.jgyshCd;
+
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
-        this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
+        // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
+        this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
@@ -223,7 +232,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
               // ボタン制御
               this.setPageButtonDisplay(false, true, false, true);
             }else{
-              alert(response.message);
+              // alert(response.message);
               // ボタン制御
               this.setPageButtonDisplay(true, true, false, true);
             }
@@ -334,7 +343,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = this.loginInfo.jgyshCd;
 
     //承認人数が2人で設定する
     if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
@@ -379,7 +389,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
            // 初期化
            this.clearItem();
          }else{
-           alert(response.message);
+          //  alert(response.message);
          }
          // ビジー解除
          this.isLoading = false;
@@ -395,7 +405,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
 
     // TODO:
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = this.loginInfo.jgyshCd;
     this.input.approval1 = Const.ApprovalValue.Deny;
     this.input.approval2 = Const.ApprovalValue.Deny;
     this.input.approval3 = Const.ApprovalValue.Deny;
@@ -415,7 +426,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
 
-    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
+    // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
+    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Update, this.input)
     .then(
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
@@ -443,7 +455,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
            this.clearItem();
 
          }else{
-           alert(response.message);
+          //  alert(response.message);
          }
          // ビジー解除
          this.isLoading = false;
@@ -470,7 +482,8 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
     
     // TODO:
-    this.input.officeCode = '204006';
+    // this.input.officeCode = '204006';
+    this.input.officeCode = this.loginInfo.jgyshCd;
 
     this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
     .then(
@@ -480,7 +493,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
            // 初期化
            this.clearItem();
          }else{
-           alert(response.message);
+          //  alert(response.message);
          }
          // ビジー解除
          this.isLoading = false;

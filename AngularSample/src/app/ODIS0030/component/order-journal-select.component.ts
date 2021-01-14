@@ -6,6 +6,8 @@ import { CommonService } from '../../common/common.service';
 import { ODIS0020Service } from '../../ODIS0020/services/odis0020-service';
 import { Const } from '../../common/const';
 import { ODIS0030Form } from '../entities/odis0030-Form.entity'
+import { AppComponent } from 'app/app.component';
+import { LoginUserEntity } from 'app/ODIS0000/entities/odis0000-loginInfo.entity';
 
 
 @Component({
@@ -44,6 +46,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   // ローディング 判定
   isLoading: boolean = true;
 
+  loginInfo: LoginUserEntity;
+
   /**
    * コンストラクタ
    *
@@ -56,6 +60,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     private modalService: OrderJournalSelectService,
     private orderService: CommonService,
     private ODIS0020Service: ODIS0020Service,
+    private appComponent: AppComponent,
   ) {}
   
  /**
@@ -63,6 +68,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   */
   ngOnInit() {
 
+    this.loginInfo = this.appComponent.loginInfo;
     this.getOrderInputData();
 
   }
@@ -132,13 +138,15 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     
     // Todo　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '701000';
+    // this.param.officeCode = '701000';
+    this.param.officeCode = this.loginInfo.jgyshCd;
 
     //入力された値
     this.selectVal = this.ODIS0020Service.getVal();
 
     // 発注仕訳マスタ取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0003_Init,this.param)
       .then(
         (response) => {
 
@@ -148,7 +156,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
               this.onScroll(this.datas, this.selectVal);
             }
           }else{
-            alert(response.message);
+            // alert(response.message);
           }
           //ロード画面を解除する。
           this.isLoading = false;

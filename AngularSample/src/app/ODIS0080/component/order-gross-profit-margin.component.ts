@@ -106,7 +106,8 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.isLoading = true;
      
     //サーバーに接続し、データを取得する
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init, this.initParam)    
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init, this.initParam)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init, this.initParam)
      .then(
        (response) => {
          if(response.result === Const.ConnectResult.R0001){
@@ -118,7 +119,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
            this.saveDataToSession();
          }else{
            //返却データがない場合、詳細入力画面に戻る。
-           alert(response.message);
+          //  alert(response.message);
            this.router.navigate([Const.UrlSetting.U0002]);
          }
        }
@@ -175,7 +176,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
    * 合計の契約金額を計算する
    */
   public getTotalContractAmount() {
-    if (this.baseCompnt.setValue(this.grossProfitData).length != 0) {
+    if (this.grossProfitData != null && this.grossProfitData.length != 0) {
       return this.grossProfitData
         .map((t) => {
           if (this.baseCompnt.setValue(t.contractAmount) != '') {
@@ -184,13 +185,14 @@ export class OrderGrossProfitMarginComponent implements OnInit {
         })
         .reduce((acc, value) => acc + value, 0);
     }
+  
   }
 
   /**
    * 合計の発注金額を計算する
    */
   public getTotalOrderAmount() {
-    if (this.baseCompnt.setValue(this.grossProfitData).length != 0) {
+    if (this.grossProfitData != null && this.grossProfitData.length != 0) {
       return this.grossProfitData
         .map((t) => {
           if (this.baseCompnt.setValue(t.orderAmount) != '') {
@@ -217,17 +219,13 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 合計の粗利率を計算する
    */
-  public getTotalGrossProfit() {
+  public getTotalGrossProfit(): string {
     let totalContractAmount = this.getTotalContractAmount();
     let totalOrderAmount = this.getTotalOrderAmount();
-    let totalGrossProfit = '0';
-    if(this.baseCompnt.setValue(totalContractAmount) == '') {
-      return;
+    
+    if (totalContractAmount != 0 && totalContractAmount.toString() != '') {
+      return ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
     }
-    if (totalContractAmount != 0) {
-      totalGrossProfit = ((totalContractAmount - totalOrderAmount) / totalContractAmount).toString();
-    }
-    return totalGrossProfit;
   }
 
 }

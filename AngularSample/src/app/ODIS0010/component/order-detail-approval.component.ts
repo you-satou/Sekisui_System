@@ -1,3 +1,5 @@
+import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
+import { IndexService } from './../../ODIS0000/services/index.service';
 import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
@@ -36,6 +38,8 @@ export class OrderDetailApprovalComponent implements OnInit {
 
   //表示する承認の数の設定
   approvalUnit: number;
+
+  loginInfo: LoginUserEntity;
   
   constructor(
     private appComponent: AppComponent,
@@ -56,8 +60,11 @@ export class OrderDetailApprovalComponent implements OnInit {
     // 初期画面をレンダーする
     this.isInitFlg = true;
 
+    this.loginInfo = this.appComponent.loginInfo;
+    
     
     if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
+
       let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0001EN));
 
       //ページャネタの初期表示ページ数を設定する
@@ -119,16 +126,18 @@ export class OrderDetailApprovalComponent implements OnInit {
 
       this.isGetting = true;
 
-    // Todo　システムログイン情報から取得すること！
-    // 事業区分コード設定
+    // FIXME: システムログイン情報から取得すること！
+    // this.inputment.officeCode = '402000';
+
+    this.inputment.officeCode = this.loginInfo.jgyshCd;
+
     this.inputment.officeCode = '402000';
 
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
     
     // 発注明細入力_承認処理取得
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0001_Search,this.inputment)
-    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)    
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)
       .then(
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
@@ -136,11 +145,11 @@ export class OrderDetailApprovalComponent implements OnInit {
           }else{
             //返却データがない場合、データテーブルを初期化にする。
             this.orderDetailData = [];
-
+            
             //メッセージを表示するまで、タイマーを設定する。
-            setTimeout(function() {
-              alert(response.message);
-            },300);
+            // setTimeout(function() {
+              // alert(response.message);
+            // },300);
           }
           this.currPageIndex = 0;
           this.saveTemporaryData();

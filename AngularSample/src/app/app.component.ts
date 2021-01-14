@@ -1,10 +1,11 @@
-import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { LoginUserEntity } from './ODIS0000/entities/odis0000-loginInfo.entity';
+import { LoginInfoRequestService } from './app.login-info-request.service';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Location } from '@angular/common'
 
 // ↓↓ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↓↓
-import { ShRedirectService} from 'sh-http-client';
+import { ShRedirectService } from 'sh-http-client';
 import { ShAppComponent } from "sh-form-control";
 // ↑↑ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↑↑
 
@@ -23,27 +24,6 @@ const openClose = trigger('openClose', [
   ]),
 ])
 
-//↓↓↓↓↓↓↓↓↓↓↓↓↓
-//TODO: エンティティーを別のファイルに移動する
-/**
- * ユーザーの権限情報
- */
-export class UserApprovalLevels {
-  
-  //承認１の権限
-  approvalLv1: string;
-  
-  //承認２の権限
-  approvalLv2: string;
-  
-  //承認３の権限
-  approvalLv3: string;
-  
-  //最終承認の権限
-  approvalFinal: string;
-}
-//↑↑↑↑↑↑↑↑↑↑↑↑
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -52,10 +32,8 @@ export class UserApprovalLevels {
     openClose
   ]
 })
-// ↓↓ 修正 2021-01-06　アクセストークン登録の為ShAppComponentを継承する ↓↓ 
-//export class AppComponent implements OnInit {
+
 export class AppComponent extends ShAppComponent implements OnInit {
-// ↑↑ 修正 2021-01-06　アクセストークン登録の為ShAppComponentを継承する ↑↑
 
   // 初期化
   displayTitle: string = "";
@@ -71,39 +49,35 @@ export class AppComponent extends ShAppComponent implements OnInit {
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
   approvalLevels: number;
-
   loginUser: string;
   branchName: string;
-  //承認数
-  userApprovalLevels: UserApprovalLevels;
+  loginInfo: LoginUserEntity;
 
-  constructor( 
-    private router: Router, 
+  isFetchDone = false;
+
+  constructor(
     private location: Location,
-// ↓↓ 追加 2021-01-06 アクセストークン追加に必要なクラスを追加 ↓↓
-    protected shRedirectService   : ShRedirectService
-// ↑↑ 追加 2021-01-06 アクセストークン追加に必要なクラスを追加 ↑↑
-    ) { 
+    protected shRedirectService: ShRedirectService,
+    private loginServices: LoginInfoRequestService,
+  ) {
+    super(shRedirectService);
+    this.loginServices.ngOnInit();
+  }
 
-// ↓↓ 追加 2021-01-06 親クラス(ShAppComponent)のコンストラクタ呼び出し ↓↓ 
-      super(shRedirectService);
-// ↑↑ 追加 2021-01-06 親クラス(ShAppComponent)のコンストラクタ呼び出し ↑↑
-      
-　   }
+
   ngOnInit() {
-    //TODO:　アプリ起動する時、承認者数を取得する。
-    this.approvalLevels = 4;
-    //TODO: ログイン情報取得。
-    this.loginUser = '積水　次郎';
-    this.branchName = '大阪北支店';
-    //TODO: ログイン情報から権限のデータを取得する
-    this.userApprovalLevels = {
-      approvalLv1: '1',
-      approvalLv2: '1',
-      approvalLv3: '1',
-      approvalFinal: '1'
-    }
 
+    this.loginServices.userInfoSubscriber$.subscribe((data)=>{
+      this.loginInfo = data;
+      this.loginUser = data.empNmKnj;
+      this.branchName = data.jgyshNm;
+      this.approvalLevels = Number(data.approvalUnit);
+
+      this.isFetchDone = true;
+    })
+    
+    
+    
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。
     this.location.onUrlChange((event) => {
@@ -113,7 +87,7 @@ export class AppComponent extends ShAppComponent implements OnInit {
     });
 
     //ブラウザーの戻るボタンを押下すると、historyにnullの情報を入れ、警告メッセージを表示。
-    window.onpopstate = function(event) {
+    window.onpopstate = function (event) {
       history.pushState(null, null, null);
       window.alert('前のページに戻る場合、閉じるボタンから戻ってください。');
 
@@ -150,7 +124,7 @@ export class AppComponent extends ShAppComponent implements OnInit {
    * @param strTitle 
    * @param strPath 
    */
-  setHeader(strTitle:string, strPath:string = "") {
+  setHeader(strTitle: string, strPath: string = "") {
     this.displayTitle = strTitle;
     this.rootPath = strPath;
   }
@@ -162,10 +136,14 @@ export class AppComponent extends ShAppComponent implements OnInit {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
   }
 
+  public fetchLoginInfo () {
+    this.loginServices.fetchLoginInfo();
+  }
+
   ngOnDestroy(): void {
 
     sessionStorage.clear();
-    
+
   }
 
 }

@@ -49,6 +49,8 @@ export namespace Const{
         export const L0006 = '/ODIS0060';
         export const L0007 = '/ODIS0070';
 
+        export const S0000_FetchUserInfo = '/ODIS0000/authorization';
+
         export const S0001_Search = '/ODIS0010/search';
         export const S0002_Init = '/ODIS0020/init';
         export const S0002_GetOrderCode = '/ODIS0020/getOrderCode';

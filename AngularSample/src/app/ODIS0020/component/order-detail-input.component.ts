@@ -1,3 +1,4 @@
+import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { ODIS0020Session, ODIS0020Form} from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -179,8 +180,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   //初期画面のレンダー
   isInitFlg: boolean = false;
-
-  approvalUnit:number;
+  approvalUnit: number;
+  loginInfo: LoginUserEntity;
 
   /** 明細に固定さている明細名称 */
   private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
@@ -210,6 +211,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
     this.approvalUnit = this.appComponent.approvalLevels;
+    this.loginInfo = this.appComponent.loginInfo;
     // セッション情報が存在する場合
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       // セッション情報 設定
@@ -311,13 +313,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     });
 
     // データ取得
-    // TODO
+    // TODO:
+    // this.paramInit.officeCode = '402000';
+    this.paramInit.officeCode = this.loginInfo.jgyshCd;
     this.paramInit.officeCode = '402000';
 
-    // this.paramInit.propertyNo = '55664';
-    // this.paramInit.contractNum = '000000122';
-
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_Init, this.paramInit)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
@@ -355,8 +357,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               // セッション保存
               this.saveTemporaryData();
             }else{
-              alert(response.message);
+              // alert(response.message);
               this.router.navigate([Const.UrlSetting.U0001]);
+              // this.router.navigate(['']);
             }
             //ロード画面を解除する。
             this.isLoading = false;
@@ -1545,7 +1548,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
     this.paramUpd.orderDetailList = tmp;
 
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE,this.paramUpd)
+    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){  
@@ -1905,20 +1908,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // 空白以外の場合に処理を実行
     if (val.trim().length >= 1){
       // 0パディング 設定
-      var strOrderCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+      const strOrderCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
       // 前回の仕訳コードと異なる場合に以降の処理を実施
       if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
         // 初期化
         this.paramOrderCode = new ODIS0020Form();
-        // Todo　システムログイン情報から取得すること！
+        // TODO:　システムログイン情報から取得すること！
         // 事業区分コード設定
-        this.paramOrderCode.officeCode = '701000';
-
+        // this.paramOrderCode.officeCode = '701000';
+        this.paramOrderCode.officeCode = this.loginInfo.jgyshCd;
+        
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderCode,this.paramOrderCode)
+        // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderCode, this.paramOrderCode)
+        this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetOrderCode, this.paramOrderCode)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
@@ -1926,7 +1931,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード
               this.addInput.orderSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
             }else{
-              alert(response.message);
+              // alert(response.message);
             }
           }
         );

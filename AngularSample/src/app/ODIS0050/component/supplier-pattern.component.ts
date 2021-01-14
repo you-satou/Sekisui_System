@@ -1,3 +1,4 @@
+import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { Component, OnInit } from '@angular/core';
 import { SupplierPatternService } from '../services/supplier-pattern.service';
 import { PatternList } from '.././entities/odis0050-PatternList.entity'
@@ -7,6 +8,7 @@ import { CommonComponent } from '../../common/common.component'
 import { CommonService } from '../../common/common.service';
 import { ODIS0050Form } from '.././entities/odis0050-Form.entity';
 import { Const } from '../../common/const';
+import { AppComponent } from 'app/app.component';
 
 @Component({
   selector: 'supplier-pattern',
@@ -50,6 +52,7 @@ export class SupplierPatternComponent implements OnInit {
   //物件管理ＮＯ
   propertyNo: string = "";
 
+  loginInfo: LoginUserEntity;
   /**
   *コンストラクタ
   *
@@ -60,12 +63,15 @@ export class SupplierPatternComponent implements OnInit {
     private modalService: SupplierPatternService,
     private commonComponent: CommonComponent,
     private orderService: CommonService,
+    private appComponent: AppComponent,
   ) { }
 
   /**
    * 初期処理
    */
   ngOnInit() {
+
+    this.loginInfo = this.appComponent.loginInfo;
 
     this.getInputData();
 
@@ -116,21 +122,24 @@ export class SupplierPatternComponent implements OnInit {
   * JSONファイルをdatasに格納
   */
   private getInputData(){
-    // Todo　システムログイン情報から取得すること！
+    // TODO:　システムログイン情報から取得すること！
     // 事業区分コード設定
-    this.param.officeCode = '201005';
+    // this.param.officeCode = '201005';
+    this.param.officeCode = this.loginInfo.jgyshCd;
+
     //詳細入力画面から物件管理ＮＯを取得する
     this.param.propertyNo = this.modalService.getPropertyNo();
 
     // 発注仕訳マスタ取得
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0005_Init,this.param)
       .then(
       (response) => {
 
         if(response.result === Const.ConnectResult.R0001){
           this.datas = response.applicationData;
         }else{
-          alert(response.message);
+          // alert(response.message);
         }
 
         //ロード画面を解除する。
