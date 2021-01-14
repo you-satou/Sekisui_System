@@ -12,8 +12,11 @@ export class ODIS0020UpdForm{
 	/** 契約番号 */
 	contractNum: string;
 
-	/** 承認者数*/
-	approvalLevels: string;
+	/** 承認者数 */
+    approvalLevels: string;
+    
+    /** 従業員名称 */
+    userName: string;
 	
     /** 発注明細データ */
     orderDetailList: ODIS0020OrderDetaiSplitBean[];

@@ -129,12 +129,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   private getOrderSplitApproval() {
-    // TODO
+    // TODO:
     // this.input.officeCode = '204006';
     this.input.officeCode = this.loginInfo.jgyshCd;
 
     // 発注承認者マスタ 取得
-    // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Init,this.input)
     this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Init,this.input)
       .then(
         (response) => {
@@ -220,7 +219,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
-        // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
         this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
         .then(
           (response) => {
@@ -345,6 +343,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // TODO
     // this.input.officeCode = '204006';
     this.input.officeCode = this.loginInfo.jgyshCd;
+    this.input.userName = this.loginInfo.empNmKnj;
 
     //承認人数が2人で設定する
     if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
@@ -362,7 +361,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
     
-    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Insert,this.input)
+    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Insert, this.input)
     .then(
       (response) => {
          if(response.result === Const.ConnectResult.R0001){
@@ -407,6 +406,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // TODO:
     // this.input.officeCode = '204006';
     this.input.officeCode = this.loginInfo.jgyshCd;
+    this.input.userName = this.loginInfo.empNmKnj;
     this.input.approval1 = Const.ApprovalValue.Deny;
     this.input.approval2 = Const.ApprovalValue.Deny;
     this.input.approval3 = Const.ApprovalValue.Deny;
@@ -426,7 +426,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
 
-    // this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Update,this.input)
     this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Update, this.input)
     .then(
       (response) => {
@@ -482,10 +481,10 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.isLoading = true;
     
     // TODO:
-    // this.input.officeCode = '204006';
     this.input.officeCode = this.loginInfo.jgyshCd;
+    // this.input.officeCode = '204006';
 
-    this.CommonService.getSearchRequest(Const.UrlLinkName.S0007_Delete,this.input)
+    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Delete, this.input)
     .then(
       (response) => {
          if(response.result === Const.ConnectResult.R0001){

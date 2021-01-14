@@ -1547,13 +1547,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ更新
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
     this.paramUpd.orderDetailList = tmp;
+    this.paramUpd.userName = this.loginInfo.empNmKnj;
 
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
+    // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){  
               //更新が成功した場合、メッセージを表示する
-              alert(response.message);
+              // alert(response.message);
               //セッションを削除する
               sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
@@ -1561,7 +1563,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.router.navigate([Const.UrlSetting.U0001]);
             }else{
               //更新が失敗した場合、エラーメッセージを表示する
-              alert(response.message);
+              // alert(response.message);
             }
           }
         )
@@ -1700,12 +1702,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childZouEn1.orderData);    // 造園１
     this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園２
 
-    this.paramUpd.approvalLevels = this.appComponent.approvalLevels.toString();
+    this.paramUpd.approvalLevels = this.loginInfo.approvalUnit;
     this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ
     this.paramUpd.officeCode = this.paramInit.officeCode;     // 事業所コード
     this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
+    this.paramUpd.userName = this.loginInfo.empNmKnj;         // ユーザー名称
     this.paramUpd.orderDetailList = tmp;                      // 一覧データ
 
+    //FIXME:
     this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload,this.paramUpd)
     .subscribe((response:HttpResponse<any>) => {
           try{
@@ -1855,7 +1859,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode = new ODIS0020Form();
         // Todo　システムログイン情報から取得すること！
         // 事業区分コード設定
-        this.paramJournalCode.officeCode = '701000';
+        // this.paramJournalCode.officeCode = '701000';
+        this.paramJournalCode.officeCode = this.loginInfo.jgyshCd;
 
         // 仕訳コード 設定
         this.paramJournalCode.journalCode = strJournalCode;

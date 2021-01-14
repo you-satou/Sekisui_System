@@ -141,7 +141,6 @@ export class AppComponent extends ShAppComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-
     sessionStorage.clear();
 
   }

@@ -28,4 +28,7 @@ export class ODIS0070Form{
 
     /** 削除 */
     deleteFlag: string;
+
+    /** ユーザー名称 */
+    userName: string;
 }
