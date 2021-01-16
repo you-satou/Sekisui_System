@@ -131,15 +131,12 @@ export class SupplierPatternComponent implements OnInit {
     this.param.propertyNo = this.modalService.getPropertyNo();
 
     // 発注仕訳マスタ取得
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0005_Init,this.param)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0005_Init,this.param)
       .then(
       (response) => {
 
         if(response.result === Const.ConnectResult.R0001){
           this.datas = response.applicationData;
-        }else{
-          // alert(response.message);
         }
 
         //ロード画面を解除する。

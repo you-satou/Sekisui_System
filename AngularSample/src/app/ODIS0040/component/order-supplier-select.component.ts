@@ -144,7 +144,6 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
      this.selectVal = this.ODIS0020Service.getVal();
 
      // 発注仕訳マスタ取得
-    //  this.orderService.getSearchRequest(Const.UrlLinkName.S0004_Init,this.param)
      this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0004_Init, this.param)
        .then(
          (response) => {
@@ -154,8 +153,6 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
                 if(!(this.selectVal == undefined || this.selectVal == null)){
                   this.onScroll(this.datas,this.selectVal);
                 }
-            }else{
-              // alert(response.message);
             }
             //ロード画面を解除する。
             this.isLoading = false;
