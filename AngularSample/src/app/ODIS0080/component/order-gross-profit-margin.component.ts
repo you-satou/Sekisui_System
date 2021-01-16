@@ -106,7 +106,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     this.isLoading = true;
      
     //サーバーに接続し、データを取得する
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0008_Init, this.initParam)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init, this.initParam)
      .then(
        (response) => {
@@ -118,8 +117,6 @@ export class OrderGrossProfitMarginComponent implements OnInit {
 
            this.saveDataToSession();
          }else{
-           //返却データがない場合、詳細入力画面に戻る。
-          //  alert(response.message);
            this.router.navigate([Const.UrlSetting.U0002]);
          }
        }

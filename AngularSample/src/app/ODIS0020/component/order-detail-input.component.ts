@@ -317,7 +317,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // this.paramInit.officeCode = '402000';
     this.paramInit.officeCode = this.loginInfo.jgyshCd;
 
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_Init, this.paramInit)
         .then(
           (response) => {
@@ -356,9 +355,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               // セッション保存
               this.saveTemporaryData();
             }else{
-              // alert(response.message);
+
               this.router.navigate([Const.UrlSetting.U0001]);
-              // this.router.navigate(['']);
             }
             //ロード画面を解除する。
             this.isLoading = false;
@@ -628,7 +626,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.accountCode = returnDt.accountCode;              // 経理分類
     this.paramSuchOAP.orderSupplierCode = returnDt.orderSupplierCode;  // 発注先コード
 
-    const response = await this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+    const response = await this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
       .then(
         (response) => {
           return response;
@@ -863,7 +861,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
     this.paramSuchOAP.orderSupplierCode = this.addInput.orderSupplierCode;  // 発注先コード
 
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
       .then(
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
@@ -1077,7 +1075,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.accountCode = this.addInput.accountCode;              // 経理分類
     this.paramSuchOAP.orderSupplierCode = this.addInput.orderSupplierCode;  // 発注先コード
 
-    this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
+    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetSuchOAP, this.paramSuchOAP)
       .then(
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
@@ -1548,21 +1546,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.orderDetailList = tmp;
     this.paramUpd.userName = this.loginInfo.empNmKnj;
 
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){  
-              //更新が成功した場合、メッセージを表示する
-              // alert(response.message);
               //セッションを削除する
               sessionStorage.removeItem(Const.ScreenName.S0002EN);
 
               // 承認処理画面に戻る
               this.router.navigate([Const.UrlSetting.U0001]);
-            }else{
-              //更新が失敗した場合、エラーメッセージを表示する
-              // alert(response.message);
             }
           }
         )
@@ -1865,7 +1857,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramJournalCode.journalCode = strJournalCode;
 
         // 仕訳コード取得
-        this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetJournalCode,this.paramJournalCode)
+        this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetJournalCode,this.paramJournalCode)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
@@ -1873,8 +1865,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.journalCode = strJournalCode;   // 仕訳コード
               this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
               this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
-            }else{
-              alert(response.message);
             }
           }
         );
@@ -1926,7 +1916,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_GetOrderCode, this.paramOrderCode)
         this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_GetOrderCode, this.paramOrderCode)
         .then(
           (response) => {
@@ -1934,8 +1923,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.resOrderCode = response.applicationData;
               this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード
               this.addInput.orderSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
-            }else{
-              // alert(response.message);
             }
           }
         );

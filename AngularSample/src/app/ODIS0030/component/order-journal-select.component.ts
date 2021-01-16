@@ -145,7 +145,6 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     this.selectVal = this.ODIS0020Service.getVal();
 
     // 発注仕訳マスタ取得
-    // this.orderService.getSearchRequest(Const.UrlLinkName.S0003_Init,this.param)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0003_Init,this.param)
       .then(
         (response) => {

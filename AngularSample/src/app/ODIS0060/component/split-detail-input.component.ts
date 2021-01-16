@@ -402,7 +402,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.orderSupplierCode = this.input.splitSupplierCode; // 発注先コード
     
     // 発注、受入、支払 データ取得
-    this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
+    this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
     .then(
       (response) => {
         if(response.result === Const.ConnectResult.R0001){
@@ -473,7 +473,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.orderSupplierCode = this.input.splitSupplierCode; // 発注先コード
 
     // 発注、受入、支払 データ取得
-    this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
+    this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
     .then(
       (response) => {
         if(response.result === Const.ConnectResult.R0001){
@@ -905,7 +905,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 
         // 仕訳コード取得
-        // this.commonService.getSearchRequest(Const.UrlLinkName.S0006_GetOrderCode,this.paramOrderCode)
         this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetOrderCode, this.paramOrderCode)
         .then(
           (response) => {
@@ -914,8 +913,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
               this.resOrderCode = response.applicationData;
               this.input.splitSupplierCode = strOrderCode;   // 発注先コード
               this.input.splitSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
-            }else{
-              // alert(response.message);
             }
           }
         );
