@@ -316,7 +316,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // TODO:
     // this.paramInit.officeCode = '402000';
     this.paramInit.officeCode = this.loginInfo.jgyshCd;
-    this.paramInit.officeCode = '402000';
 
     // this.orderService.getSearchRequest(Const.UrlLinkName.S0002_Init,this.paramInit)
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_Init, this.paramInit)

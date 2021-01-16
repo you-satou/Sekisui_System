@@ -131,8 +131,6 @@ export class OrderDetailApprovalComponent implements OnInit {
 
     this.inputment.officeCode = this.loginInfo.jgyshCd;
 
-    this.inputment.officeCode = '402000';
-
     // 物件名 設定
     this.inputment.searchByName = this.getPropertyKubun();
     
