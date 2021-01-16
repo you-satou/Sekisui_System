@@ -1,4 +1,3 @@
-import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { ODIS0020Session, ODIS0020Form} from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -121,7 +120,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  loaderText: string = Const.WarningMsg.W0002;
   isLoading: boolean = true;
 
   // レスポンスから取得する
@@ -181,7 +179,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   //初期画面のレンダー
   isInitFlg: boolean = false;
   approvalUnit: number;
-  loginInfo: LoginUserEntity;
 
   /** 明細に固定さている明細名称 */
   private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
@@ -211,7 +208,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.getDataFromModals();
     this.appComponent.setHeader(Const.ScreenName.S0002, Const.LinKSetting.L0000);
     this.approvalUnit = this.appComponent.approvalLevels;
-    this.loginInfo = this.appComponent.loginInfo;
     // セッション情報が存在する場合
     if(sessionStorage.getItem(Const.ScreenName.S0002EN)){
       // セッション情報 設定
@@ -312,11 +308,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.paramInit.contractNum = params.cntrt;  //契約番号      
     });
 
-    // データ取得
-    // TODO:
-    // this.paramInit.officeCode = '402000';
-    this.paramInit.officeCode = this.loginInfo.jgyshCd;
-
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_Init, this.paramInit)
         .then(
           (response) => {
@@ -354,7 +345,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               
               // セッション保存
               this.saveTemporaryData();
-            }else{
+            }
+            else {
 
               this.router.navigate([Const.UrlSetting.U0001]);
             }
@@ -546,17 +538,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     // セッションからデータを取得する。 
-    let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
-    this.orderCustomerInfo = savedData.CustomerInfo;
-    this.order0DateInfo    = savedData.DateInfo;
+    const savedData: ODIS0020Session = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
+    this.orderCustomerInfo = savedData.customerInfo;
+    this.order0DateInfo    = savedData.dateInfo;
     this.tblMainOrder      = savedData.mainOrderInfo;
     this.tblInsertedOrder  = savedData.insertedOrderInfo;
-    this.tblSekkei = savedData.SekkeiData;
-    this.tblHouse  = savedData.HontaiData;
-    this.tblKaitai = savedData.KaitaiData;
-    this.tblTsuika = savedData.TsuikaData;
-    this.tblZouen1 = savedData.ZouEn1Data;
-    this.tblZouen2 = savedData.ZouEn2Data;
+    this.tblSekkei = savedData.sekkeiData;
+    this.tblHouse  = savedData.hontaiData;
+    this.tblKaitai = savedData.kaitaiData;
+    this.tblTsuika = savedData.tsuikaData;
+    this.tblZouen1 = savedData.zouEn1Data;
+    this.tblZouen2 = savedData.zouEn2Data;
 
     this.paramInit = savedData.paramInit;
     
@@ -584,23 +576,23 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       this.selectedTab = this.getTabName(returnDt[0].detailKind);
       switch (returnDt[0].detailKind) {
         case Const.JuuChuuEdaban.Sekkei:
-          this.tblSekkei = this.mergeData(savedData.SekkeiData, returnDt);
+          this.tblSekkei = this.mergeData(savedData.sekkeiData, returnDt);
           break;
 
         case Const.JuuChuuEdaban.Hontai:
-          this.tblHouse = this.mergeData(savedData.HontaiData, returnDt);
+          this.tblHouse = this.mergeData(savedData.hontaiData, returnDt);
           break;
 
         case Const.JuuChuuEdaban.Kaitai:
-          this.tblKaitai = this.mergeData(savedData.KaitaiData, returnDt);
+          this.tblKaitai = this.mergeData(savedData.kaitaiData, returnDt);
           break;
 
         case Const.JuuChuuEdaban.Zouen1:
-          this.tblZouen1 = this.mergeData(savedData.ZouEn1Data, returnDt);
+          this.tblZouen1 = this.mergeData(savedData.zouEn1Data, returnDt);
           break;
 
         case Const.JuuChuuEdaban.Zouen2:
-          this.tblZouen2 = this.mergeData(savedData.ZouEn2Data, returnDt);
+          this.tblZouen2 = this.mergeData(savedData.zouEn2Data, returnDt);
           break;
 
       }
@@ -1544,7 +1536,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     // データ更新
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
     this.paramUpd.orderDetailList = tmp;
-    this.paramUpd.userName = this.loginInfo.empNmKnj;
 
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0002_UPDATE, this.paramUpd)
         .then(
@@ -1616,17 +1607,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     // セッションに保持する
     let saveDt = new ODIS0020Session();
-    saveDt.CustomerInfo      = this.orderCustomerInfo;
-    saveDt.DateInfo          = this.order0DateInfo;
+    saveDt.customerInfo      = this.orderCustomerInfo;
+    saveDt.dateInfo          = this.order0DateInfo;
     saveDt.mainOrderInfo     = this.tblMainOrder;
     saveDt.insertedOrderInfo = this.tblInsertedOrder;
     saveDt.orderDetailList   = this.orderDetaiSplitlList;
-    saveDt.SekkeiData        = this.tblSekkei;
-    saveDt.HontaiData        = this.tblHouse;
-    saveDt.KaitaiData        = this.tblKaitai;
-    saveDt.TsuikaData        = this.tblTsuika;
-    saveDt.ZouEn1Data        = this.tblZouen1;
-    saveDt.ZouEn2Data        = this.tblZouen2;
+    saveDt.sekkeiData        = this.tblSekkei;
+    saveDt.hontaiData        = this.tblHouse;
+    saveDt.kaitaiData        = this.tblKaitai;
+    saveDt.tsuikaData        = this.tblTsuika;
+    saveDt.zouEn1Data        = this.tblZouen1;
+    saveDt.zouEn2Data        = this.tblZouen2;
     saveDt.paramInit         = this.paramInit;
 
     // 既にセッションが格納されている場合は除去する
@@ -1693,16 +1684,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.createOrderData(tmp, this.childZouEn1.orderData);    // 造園１
     this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園２
 
-    this.paramUpd.approvalLevels = this.loginInfo.approvalUnit;
     this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ
-    this.paramUpd.officeCode = this.paramInit.officeCode;     // 事業所コード
     this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
-    this.paramUpd.userName = this.loginInfo.empNmKnj;         // ユーザー名称
     this.paramUpd.orderDetailList = tmp;                      // 一覧データ
 
     //FIXME:
-    this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload,this.paramUpd)
-    .subscribe((response:HttpResponse<any>) => {
+    this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload, this.paramUpd)
+    .then((response:HttpResponse<any>) => {
           try{
             //ファイル名を取得する。
             let fileName = response.headers.get('Content-Disposition').replace('attachment; filename=','');
@@ -1848,10 +1836,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       if(this.paramJournalCode.journalCode !== strJournalCode){
         // 初期化
         this.paramJournalCode = new ODIS0020Form();
-        // Todo　システムログイン情報から取得すること！
-        // 事業区分コード設定
-        // this.paramJournalCode.officeCode = '701000';
-        this.paramJournalCode.officeCode = this.loginInfo.jgyshCd;
 
         // 仕訳コード 設定
         this.paramJournalCode.journalCode = strJournalCode;
@@ -1907,10 +1891,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
         // 初期化
         this.paramOrderCode = new ODIS0020Form();
-        // TODO:　システムログイン情報から取得すること！
-        // 事業区分コード設定
-        // this.paramOrderCode.officeCode = '701000';
-        this.paramOrderCode.officeCode = this.loginInfo.jgyshCd;
         
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
@@ -1923,9 +1903,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.resOrderCode = response.applicationData;
               this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード
               this.addInput.orderSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
-            }
-          }
-        );
+            }})
       }
     }
   }
@@ -1940,8 +1918,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.saveTemporaryData();
 
     var param = { prop: this.paramInit.propertyNo,  // 物件管理Ｎｏ
-                  cntr: this.paramInit.contractNum, // 契約番号
-                  offCd: this.paramInit.officeCode} // 事業所コード
+                  cntr: this.paramInit.contractNum} // 契約番号
     //画面遷移
     this.router.navigate([Const.UrlSetting.U0008],{ queryParams: param,skipLocationChange: false, replaceUrl: false});
   }

@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
 import { ODIS0060Form} from '../entities/odis0060-Form.entity';
-import { ODIS0060OrderCode} from '../entities/odis0060-OrderCode.entitiy';
+import { ODIS0060OrderCode} from '../entities/odis0060-OrderCode.entity';
 import { ODIS0060SuchOAP} from '../entities/odis0060-SuchOAP.entity';
 import { CommonService } from '../../common/common.service';
 
@@ -402,7 +402,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.paramSuchOAP.orderSupplierCode = this.input.splitSupplierCode; // 発注先コード
     
     // 発注、受入、支払 データ取得
-    this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetSuchOAP,this.paramSuchOAP)
+    this.commonService.getAuthorizationSearch(Const.UrlLinkName.S0006_GetSuchOAP, this.paramSuchOAP)
     .then(
       (response) => {
         if(response.result === Const.ConnectResult.R0001){
@@ -577,7 +577,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
-    //TODO: ログイン情報を取得
     dt.requester = this.loginInfo.empNmKnj;
 
     this.resetAddTable();
@@ -631,7 +630,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
-    //TODO: ログイン情報を取得 
     this.input.requestDate = requestTime;
     this.input.requester = this.loginInfo.empNmKnj;
 
@@ -896,11 +894,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       if(this.paramOrderCode.orderSupplierCode !== strOrderCode){
         // 初期化
         this.paramOrderCode = new ODIS0060Form();
-        // TODO:　システムログイン情報から取得すること！
-        // 事業区分コード設定
-        // this.paramOrderCode.officeCode = '701000';
-
-        this.paramOrderCode.officeCode = this.loginInfo.jgyshCd;
         // 仕訳コード 設定
         this.paramOrderCode.orderSupplierCode = strOrderCode;
 

@@ -1,6 +1,4 @@
-import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
-import { IndexService } from './../../ODIS0000/services/index.service';
-import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
@@ -39,8 +37,6 @@ export class OrderDetailApprovalComponent implements OnInit {
   //表示する承認の数の設定
   approvalUnit: number;
 
-  loginInfo: LoginUserEntity;
-  
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -59,9 +55,6 @@ export class OrderDetailApprovalComponent implements OnInit {
     
     // 初期画面をレンダーする
     this.isInitFlg = true;
-
-    this.loginInfo = this.appComponent.loginInfo;
-    
     
     if(sessionStorage.getItem(Const.ScreenName.S0001EN) != null){
 
@@ -111,10 +104,10 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment._checked        = true;
     this.inputment.detailCreated   = false;
     this.inputment.detailNone      = false;
-    this.inputment.approval_1      = false;
-    this.inputment.approval_2      = false;
-    this.inputment.approval_3      = false;
-    this.inputment.approval_last   = false;
+    this.inputment.approvalLv1      = false;
+    this.inputment.approvalLv2      = false;
+    this.inputment.approvalLv3      = false;
+    this.inputment.approvalFinal   = false;
   }
 
   /** 
@@ -126,35 +119,25 @@ export class OrderDetailApprovalComponent implements OnInit {
 
       this.isGetting = true;
 
-    // FIXME: システムログイン情報から取得すること！
-    // this.inputment.officeCode = '402000';
+      // 物件名 設定
+      this.inputment.searchByName = this.getPropertyKubun();
 
-    this.inputment.officeCode = this.loginInfo.jgyshCd;
-
-    // 物件名 設定
-    this.inputment.searchByName = this.getPropertyKubun();
-    
-    // 発注明細入力_承認処理取得
-    this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search,this.inputment)
-      .then(
-        (response) => {
-          if(response.result === Const.ConnectResult.R0001){
-            this.orderDetailData = response.applicationData;
-          }else{
-            //返却データがない場合、データテーブルを初期化にする。
-            this.orderDetailData = [];
-            
-            //メッセージを表示するまで、タイマーを設定する。
-            // setTimeout(function() {
-              // alert(response.message);
-            // },300);
+      // 発注明細入力_承認処理取得
+      this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0001_Search, this.inputment)
+        .then(
+          (response) => {
+            if (response.result === Const.ConnectResult.R0001) {
+              this.orderDetailData = response.applicationData;
+            } else {
+              //返却データがない場合、データテーブルを初期化にする。
+              this.orderDetailData = [];
+            }
+            this.currPageIndex = 0;
+            this.saveTemporaryData();
+            //ロード中を解除する。
+            this.isGetting = false;
           }
-          this.currPageIndex = 0;
-          this.saveTemporaryData();
-          //ロード中を解除する。
-          this.isGetting = false;
-        }
-      );
+        );
     }
   }
   

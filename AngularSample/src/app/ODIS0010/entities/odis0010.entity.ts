@@ -36,14 +36,14 @@ export class ODIS0010OrderDetail {
     createdDetail: string;
 
     /**　承認１（済・未） */
-    approval_1: string;
+    approvalLv1: string;
     
     /**  承認２（済・未）*/
-    approval_2: string;
+    approvalLv2: string;
 
     /**　承認３（済・未） */
-    approval_3: string;
+    approvalLv3: string;
     
     /**  最終承認（済・未）*/
-    approval_last: string;
+    approvalFinal: string;
 }

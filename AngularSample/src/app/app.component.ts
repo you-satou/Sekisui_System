@@ -66,7 +66,12 @@ export class AppComponent extends ShAppComponent implements OnInit {
 
 
   ngOnInit() {
-
+    if (window.location.search != null && window.location.search !== "" && window.location.search.indexOf("authCd") > 0) {
+      let authCd = window.location.search.substr(window.location.search.indexOf("=") + 1);
+      if (authCd != null && authCd !== "") {
+        sessionStorage.setItem("AccessToken", authCd);
+      }
+    }
     this.loginServices.userInfoSubscriber$.subscribe((data)=>{
       this.loginInfo = data;
       this.loginUser = data.empNmKnj;
@@ -75,8 +80,6 @@ export class AppComponent extends ShAppComponent implements OnInit {
 
       this.isFetchDone = true;
     })
-    
-    
     
     //新しいページに移動した場合、historyには新しいnullの情報を挿入。
     //そうすると、ブラウザーの戻るボタンを押下したら、前のページではなく、現在のページに戻る。
@@ -141,6 +144,7 @@ export class AppComponent extends ShAppComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
+
     sessionStorage.clear();
 
   }

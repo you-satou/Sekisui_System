@@ -7,10 +7,10 @@ import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity'
 export class ODIS0020Session{
 
     /** 契約情報　*/
-    CustomerInfo: ODIS0020CustomerInfoBean;
+    customerInfo: ODIS0020CustomerInfoBean;
 
     /** 契約日付 */
-    DateInfo: ODIS0020DateInfoBean;
+    dateInfo: ODIS0020DateInfoBean;
 
     /** 本体受注枝番テーブル */
     mainOrderInfo: ODIS0020MainOrderEdaBan[];
@@ -22,22 +22,22 @@ export class ODIS0020Session{
     orderDetailList: ODIS0020OrderDetaiSplitBean[];
 
     /** 設計データ */
-    SekkeiData: ODIS0020OrderDetaiSplitBean[];
+    sekkeiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 本体データ */
-    HontaiData: ODIS0020OrderDetaiSplitBean[];
+    hontaiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 解体データ */
-    KaitaiData: ODIS0020OrderDetaiSplitBean[];
+    kaitaiData: ODIS0020OrderDetaiSplitBean[];
 
     /** 追加データ */
-    TsuikaData: ODIS0020OrderDetaiSplitBean[];
+    tsuikaData: ODIS0020OrderDetaiSplitBean[];
 
     /** 造園①データ */
-    ZouEn1Data: ODIS0020OrderDetaiSplitBean[];
+    zouEn1Data: ODIS0020OrderDetaiSplitBean[];
 
     /** 造園②データ */
-    ZouEn2Data: ODIS0020OrderDetaiSplitBean[];
+    zouEn2Data: ODIS0020OrderDetaiSplitBean[];
 
     /** パラメータ設定 */
     paramInit: ODIS0020Form;
@@ -47,9 +47,6 @@ export class ODIS0020Session{
 }
 
 export class ODIS0020Form{
-
-    /** 事業区分コード */
-    officeCode: string;
 
     /** 物件管理Ｎｏ */
     propertyNo: string;
@@ -72,9 +69,4 @@ export class ODIS0020Form{
     /** 発注先名 */
     orderSupplierName: string;
 
-    /** 発注予定金額 */
-    orderPlanAmount: string;
-
-    /** 承認者数 */
-    approvalLevel: string;
 }

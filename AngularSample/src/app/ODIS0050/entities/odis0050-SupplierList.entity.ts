@@ -1,4 +1,3 @@
-import {SupplierPatternList } from './odis0050-SuppierPattern.entity'
 /**
  * 仕訳コードエンティティ
  */

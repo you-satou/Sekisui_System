@@ -35,6 +35,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'unChin',         // 運賃
     'niTsukuri',      // 荷造り
   ];
+  
   /** テーブルの全カラム */
   totalColumns:string[] = [
     'contractNo',
@@ -52,7 +53,7 @@ export class OrderGrossProfitMarginComponent implements OnInit {
     'packingAmount'
   ];
 
-  initParam:ODIS0080InitParam = new ODIS0080InitParam();
+  initParam: ODIS0080InitParam = new ODIS0080InitParam();
   isLoading = false;
   isInitFlg = false;
 
@@ -93,42 +94,41 @@ export class OrderGrossProfitMarginComponent implements OnInit {
   /**
    * 粗利率のデータを取得する
    */
-  private setDisplayData(){
+  private setDisplayData() {
 
     //詳細入力画面から遷移された時のパラメータを取得する
-    this.actvRoute.queryParams.subscribe(params =>{
-    
+    this.actvRoute.queryParams.subscribe(params => {
+
       this.initParam.propertyNo = params.prop;    // 物件管理番号
       this.initParam.contractNum = params.cntr;   // 契約番号   
-      this.initParam.officeCode = params.offCd;   // 事業所コード
     });
 
     this.isLoading = true;
-     
-    //サーバーに接続し、データを取得する
+
     this.orderService.getAuthorizationSearch(Const.UrlLinkName.S0008_Init, this.initParam)
-     .then(
-       (response) => {
-         if(response.result === Const.ConnectResult.R0001){
-           this.totalData = response.applicationData;
+      .then(
+        (response) => {
+          if (response.result === Const.ConnectResult.R0001) {
+            this.totalData = response.applicationData;
 
-           this.orderInfo = this.totalData.orderInfoData;
-           this.grossProfitData = this.totalData.grossProfitListData;
+            this.orderInfo = this.totalData.orderInfoData;
+            this.grossProfitData = this.totalData.grossProfitListData;
 
-           this.saveDataToSession();
-         }else{
-           this.router.navigate([Const.UrlSetting.U0002]);
-         }
-       }
-     )
-     .finally(
-       ()=>{
-         //ロード中を解除する。
-         this.isLoading = false;
-         this.isInitFlg = true;
+            this.saveDataToSession();
+          } else {
+            //返却データがない場合、詳細入力画面に戻る。
+            this.router.navigate([Const.UrlSetting.U0002]);
+          }
+        }
+      )
+      .finally(
+        () => {
+          //ロード中を解除する。
+          this.isLoading = false;
+          this.isInitFlg = true;
 
-       }
-     )
+        }
+      )
   }
 
   /**

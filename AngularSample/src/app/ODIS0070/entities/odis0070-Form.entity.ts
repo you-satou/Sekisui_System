@@ -2,9 +2,7 @@
  * 発注承認者マスタ パラメータ
  */
 export class ODIS0070Form{
-    /** 事業区分コード */
-    officeCode: string;
-
+    
     /** 個人認証ＩＤ */
     personalID: string;
 
@@ -29,6 +27,4 @@ export class ODIS0070Form{
     /** 削除 */
     deleteFlag: string;
 
-    /** ユーザー名称 */
-    userName: string;
 }

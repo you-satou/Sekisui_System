@@ -3,9 +3,6 @@
  */
 export class ODIS0010Form{
 
-    /** 事業区分コード */
-    officeCode: string;
-
 	/** 契約番号From */
 	contractNumFrom: string;
 
@@ -29,14 +26,14 @@ export class ODIS0010Form{
 	detailNone:boolean = false;
 
 	/** 承認１ */
-	approval_1:boolean = false;
+	approvalLv1:boolean = false;
 
 	/** 承認２ */
-	approval_2:boolean = false;
+	approvalLv2:boolean = false;
 
 	/** 承認３ */
-	approval_3:boolean = false;
+	approvalLv3:boolean = false;
 
 	/** 最終承認 */
-	approval_last:boolean = false;
+	approvalFinal:boolean = false;
 }

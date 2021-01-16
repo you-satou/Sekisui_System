@@ -7,7 +7,7 @@ import { OrderSplitApprovalMasterTable, DropDownList } from '../entities/odis007
 import { Router } from '@angular/router';
 import { CommonService } from '../../common/common.service';
 import { ODIS0070Form } from '../entities/odis0070-Form.entity';
-import { UserInfo} from '../entities/odis0070-UserInfo.entitiy'
+import { UserInfo} from '../entities/odis0070-UserInfo.entity'
 
 // 承認 ドロップダウン 設定内容
 const APPROVAL_TYPE: DropDownList[] =[
@@ -81,14 +81,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
   tableWidth: number;
 
-  loginInfo: LoginUserEntity;
-
-  /**
-   * コンストラクタ
-   *
-   * @param {service} service
-   * @memberof OrderSplitApprovalMasterService
-   */
   constructor(
     private view: ViewContainerRef,
     private appComponent: AppComponent,
@@ -103,7 +95,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    */
   ngOnInit() {
     this.approvalUnit = this.appComponent.approvalLevels;
-    this.loginInfo = this.appComponent.loginInfo;
 
     //ヘッダー設定
     this.appComponent.setHeader(Const.ScreenName.S0007, Const.LinKSetting.L0000);
@@ -129,18 +120,13 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
    * @param $event イベント
    */
   private getOrderSplitApproval() {
-    // TODO:
-    // this.input.officeCode = '204006';
-    this.input.officeCode = this.loginInfo.jgyshCd;
 
     // 発注承認者マスタ 取得
-    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Init,this.input)
+    this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Init, this.input)
       .then(
         (response) => {
           if(response.result === Const.ConnectResult.R0001){
             this.orderApprovalData = response.applicationData;
-          }else{
-//            alert(response.message);
           }
           // ビジー解除
           this.isLoading = false;
@@ -212,14 +198,11 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
 
         // 初期化
         this.paramUserInfo = new ODIS0070Form();
-        // TODO:
-        // this.input.officeCode = '204006';
-        this.input.officeCode = this.loginInfo.jgyshCd;
 
         // 個人認証ＩＤ
         this.paramUserInfo.personalID = val.trim();
 
-        this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_GetUser,this.paramUserInfo)
+        this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_GetUser, this.paramUserInfo)
         .then(
           (response) => {
             if(response.result === Const.ConnectResult.R0001){
@@ -230,7 +213,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
               // ボタン制御
               this.setPageButtonDisplay(false, true, false, true);
             }else{
-              // alert(response.message);
               // ボタン制御
               this.setPageButtonDisplay(true, true, false, true);
             }
@@ -332,7 +314,7 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   public onInsClick(){
     // 入力チェック 個人認証ＩＤ 必須入力
     var strVal = this.commonComponent.setValue(this.input.personalID);
-    if(strVal === ''){
+    if (strVal === '') {
       alert(Const.ErrorMsg.E0016);
       return;
     }
@@ -340,60 +322,53 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // ビジー開始
     this.isLoading = true;
 
-    // TODO
-    // this.input.officeCode = '204006';
-    this.input.officeCode = this.loginInfo.jgyshCd;
-    this.input.userName = this.loginInfo.empNmKnj;
-
     //承認人数が2人で設定する
-    if(this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
+    if (this.appComponent.approvalLevels >= Const.ApprovalLevel.TwoLevels) {
       this.input.approval1 = this.view.element.nativeElement.querySelector('#selApp1').selectedIndex;
     }
     //承認人数が3人で設定する
-    if(this.appComponent.approvalLevels >= Const.ApprovalLevel.ThreeLevels) {
+    if (this.appComponent.approvalLevels >= Const.ApprovalLevel.ThreeLevels) {
       this.input.approval2 = this.view.element.nativeElement.querySelector('#selApp2').selectedIndex;
     }
     //承認人数が4人で設定する
-    if(this.appComponent.approvalLevels >= Const.ApprovalLevel.FourLevels) {
+    if (this.appComponent.approvalLevels >= Const.ApprovalLevel.FourLevels) {
       this.input.approval3 = this.view.element.nativeElement.querySelector('#selApp3').selectedIndex;
     }
 
     this.input.approvalLast = this.view.element.nativeElement.querySelector('#selAppLast').selectedIndex;
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
-    
+
     this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Insert, this.input)
-    .then(
-      (response) => {
-         if(response.result === Const.ConnectResult.R0001){
-           this.orderApprovalData = response.applicationData;
+      .then(
+        (response) => {
+          if (response.result === Const.ConnectResult.R0001) {
+            this.orderApprovalData = response.applicationData;
 
-           // 再描画
-          this.changeDetectorRef.detectChanges();
+            // 再描画
+            this.changeDetectorRef.detectChanges();
 
-          // 行 文字色 青 設定
-          var tbody = this.view.element.nativeElement.querySelector('tbody');
-          // 追加データ抽出
-          let filter = this.orderApprovalData.filter(element =>{
-            if(element.personalID == this.input.personalID){
-              return element;
-            }
-          });
-          // 行番号取得
-          let row = this.orderApprovalData.indexOf(filter[0]);
-          // 背景色 変更
-          this.commonComponent.setRowColor(Const.Action.A0001, tbody, row);
-          // 自動スクロール
-          tbody.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+            // 行 文字色 青 設定
+            var tbody = this.view.element.nativeElement.querySelector('tbody');
+            // 追加データ抽出
+            let filter = this.orderApprovalData.filter(element => {
+              if (element.personalID == this.input.personalID) {
+                return element;
+              }
+            });
+            // 行番号取得
+            let row = this.orderApprovalData.indexOf(filter[0]);
+            // 背景色 変更
+            this.commonComponent.setRowColor(Const.Action.A0001, tbody, row);
+            // 自動スクロール
+            tbody.rows[row].scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-           // 初期化
-           this.clearItem();
-         }else{
-          //  alert(response.message);
-         }
-         // ビジー解除
-         this.isLoading = false;
-       }
-     );
+            // 初期化
+            this.clearItem();
+          }
+          // ビジー解除
+          this.isLoading = false;
+        }
+      );
   }
 
   /**
@@ -403,10 +378,6 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     // ビジー開始
     this.isLoading = true;
 
-    // TODO:
-    // this.input.officeCode = '204006';
-    this.input.officeCode = this.loginInfo.jgyshCd;
-    this.input.userName = this.loginInfo.empNmKnj;
     this.input.approval1 = Const.ApprovalValue.Deny;
     this.input.approval2 = Const.ApprovalValue.Deny;
     this.input.approval3 = Const.ApprovalValue.Deny;
@@ -427,39 +398,37 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
     this.input.deleteFlag = this.view.element.nativeElement.querySelector('#selDel').selectedIndex;
 
     this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Update, this.input)
-    .then(
-      (response) => {
-         if(response.result === Const.ConnectResult.R0001){
-           this.orderApprovalData = response.applicationData;
+      .then(
+        (response) => {
+          if (response.result === Const.ConnectResult.R0001) {
+            this.orderApprovalData = response.applicationData;
 
-          // 再描画
-          this.changeDetectorRef.detectChanges();
+            // 再描画
+            this.changeDetectorRef.detectChanges();
 
-          // 行 文字色 青 設定
-          var tbody = this.view.element.nativeElement.querySelector('tbody');
-          // 追加データ抽出
-          let filter = this.orderApprovalData.filter(element =>{
-            if(element.personalID == this.input.personalID){
-              return element;
-            }
-          });
-          // 行番号取得
-          let row = this.orderApprovalData.indexOf(filter[0]);
-          // 背景色 変更
-          this.commonComponent.setRowColor(Const.Action.A0002, tbody, row);
-          // 自動スクロール
-          tbody.rows[row].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
+            // 行 文字色 青 設定
+            var tbody = this.view.element.nativeElement.querySelector('tbody');
+            // 追加データ抽出
+            let filter = this.orderApprovalData.filter(element => {
+              if (element.personalID == this.input.personalID) {
+                return element;
+              }
+            });
+            // 行番号取得
+            let row = this.orderApprovalData.indexOf(filter[0]);
+            // 背景色 変更
+            this.commonComponent.setRowColor(Const.Action.A0002, tbody, row);
+            // 自動スクロール
+            tbody.rows[row].scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-           // 初期化
-           this.clearItem();
+            // 初期化
+            this.clearItem();
 
-         }else{
-          //  alert(response.message);
-         }
-         // ビジー解除
-         this.isLoading = false;
-       }
-     );
+          }
+          // ビジー解除
+          this.isLoading = false;
+        }
+      );
   }
 
   /**
@@ -476,28 +445,22 @@ export class OrderSplitApprovalMasterComponent implements OnInit {
   /**
    * 削除ボタン
    */
-  public onDelClick(){
+  public onDelClick() {
     // ビジー開始
     this.isLoading = true;
-    
-    // TODO:
-    this.input.officeCode = this.loginInfo.jgyshCd;
-    // this.input.officeCode = '204006';
 
     this.CommonService.getAuthorizationSearch(Const.UrlLinkName.S0007_Delete, this.input)
-    .then(
-      (response) => {
-         if(response.result === Const.ConnectResult.R0001){
-           this.orderApprovalData = response.applicationData;
-           // 初期化
-           this.clearItem();
-         }else{
-          //  alert(response.message);
-         }
-         // ビジー解除
-         this.isLoading = false;
-       }
-     );
+      .then(
+        (response) => {
+          if (response.result === Const.ConnectResult.R0001) {
+            this.orderApprovalData = response.applicationData;
+            // 初期化
+            this.clearItem();
+          }
+          // ビジー解除
+          this.isLoading = false;
+        }
+      );
   }
 
   /**

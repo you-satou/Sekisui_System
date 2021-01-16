@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let data of orderApprovalData" (click)=onSelHighLight($event,data)>
+                <tr *ngFor="let data of orderApprovalData" (click)="onSelHighLight($event,data)">
                     <td class="table-str td-b emplInfo">{{ data.personalID }}</td>
                     <td class="table-str td-b emplInfo">{{ data.employeeCode }}</td>
                     <td class="table-str td-b emplName">{{ data.employeeName }}</td>

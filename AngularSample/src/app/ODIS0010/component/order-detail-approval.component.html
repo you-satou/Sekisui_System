@@ -51,13 +51,13 @@
                 </div>
                 <div style="width: 30px;"></div>
                 <div class="input-group-append">
-                    <div class="radioCheckbox" *ngIf="approvalUnit >= 2"><input [(ngModel)]="inputment.approval_1" type="checkbox" tabindex="7" id=""
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 2"><input [(ngModel)]="inputment.approvalLv1" type="checkbox" tabindex="7" id=""
                             autocomplete="off">承認１</div>
-                    <div class="radioCheckbox" *ngIf="approvalUnit >= 3"><input [(ngModel)]="inputment.approval_2" type="checkbox" tabindex="8" id=""
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 3"><input [(ngModel)]="inputment.approvalLv2" type="checkbox" tabindex="8" id=""
                             autocomplete="off">承認２</div>
-                    <div class="radioCheckbox" *ngIf="approvalUnit >= 4"><input [(ngModel)]="inputment.approval_3" type="checkbox" tabindex="9" id=""
+                    <div class="radioCheckbox" *ngIf="approvalUnit >= 4"><input [(ngModel)]="inputment.approvalLv3" type="checkbox" tabindex="9" id=""
                             autocomplete="off">承認３</div>
-                    <div class="radioCheckbox"><input [(ngModel)]="inputment.approval_last" type="checkbox" tabindex="10" id=""
+                    <div class="radioCheckbox"><input [(ngModel)]="inputment.approvalFinal" type="checkbox" tabindex="10" id=""
                             autocomplete="off">最終承認</div>
                 </div>
                 <div style="position: absolute; right: 0px; vertical-align: middle;">
