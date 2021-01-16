@@ -12,7 +12,7 @@ export class CommonService{
 
     private baseUrl: string = "http://localhost:8080/api";
 
-    // private baseUrl: string = "http://FJDSU101:28498/ODIS/api";
+    //private baseUrl: string = "http://FJDSU101:28498/ODIS/api";
 
     constructor(
         private shApiService: ShHttpClientService,
