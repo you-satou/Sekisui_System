@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ODIS0020AddOrderDetail } from '../entities/odis0020-AddDetailForm.entity';
+import { ODIS0020AddOrderDetailService } from './odis0020-AddOrderDetail.service';
 import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSplit.entity'
 
 @Injectable({
@@ -50,7 +50,7 @@ export class ODIS0020Service {
   /**
   * フォーカス対象の値をセット
   */
-  public setVal(val:ODIS0020AddOrderDetail) {
+  public setVal(val: ODIS0020AddOrderDetailService) {
     this._val = val;
   }
 

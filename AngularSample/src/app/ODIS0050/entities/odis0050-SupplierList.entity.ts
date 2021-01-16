@@ -16,6 +16,18 @@ export class SupplierList {
     supplierCode: string = '';
     /** 発注先名 */
     supplierName: string = '';
+    /** 発注年月日 */
+    orderDate: string = '';
+    /** 発注金額 */
+    orderAmount: string = '';
+    /** 発注年月日 */
+    receivedDate: string = '';
+    /** 受入金額 */
+    receivedAmount: string = '';
+    /** 受入金額 */
+    paymentDate: string = '';
+    /** 支払年月日 */
+    paymentAmount: string = '';
 
     constructor(){};
 }

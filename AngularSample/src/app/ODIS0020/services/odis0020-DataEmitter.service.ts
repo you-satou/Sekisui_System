@@ -5,11 +5,11 @@ import { ODIS0020OrderDetaiSplitBean } from '../entities/odis0020-OrderDetailSpl
  */
 export class DataEmitter {
 
-  action: string;
+  public action: string;
 
-  private data = new ODIS0020OrderDetaiSplitBean();
+  private _rowData = new ODIS0020OrderDetaiSplitBean();
   
-  private status = new RowStatus();
+  private _status = new ODIS0020RowStatus();
 
   /**
    * テーブルにクリックイベントを発生する時、対象データを渡す
@@ -19,106 +19,62 @@ export class DataEmitter {
   /** 
    *  渡すデータを設定する
    */
-  setEmitterData(key: ODIS0020OrderDetaiSplitBean) {
-    //仕訳データを設定する。
-    this.data.journalCode        = key.journalCode;
-    this.data.journalName        = key.journalName;
-    this.data.accountCode        = key.accountCode;
-    this.data.orderSupplierCode  = key.orderSupplierCode;
-    this.data.orderSupplierName  = key.orderSupplierName;
-    this.data.orderPlanAmount    = key.orderPlanAmount;
-    
-
-    this.data.bulkRequestDate    = key.bulkRequestDate;
-    this.data.bulkRequester      = key.bulkRequester;
-
-    this.data.bulkApprovalDate_lv1     = key.bulkApprovalDate_lv1;
-    this.data.bulkApprovalPerson_lv1   = key.bulkApprovalPerson_lv1;
-    this.data.bulkApprovalDate_lv2     = key.bulkApprovalDate_lv2;
-    this.data.bulkApprovalPerson_lv2   = key.bulkApprovalPerson_lv2;
-    this.data.bulkApprovalDate_lv3     = key.bulkApprovalDate_lv3;
-    this.data.bulkApprovalPerson_lv3   = key.bulkApprovalPerson_lv3;
-    this.data.bulkApprovalDate_final   = key.bulkApprovalDate_final;
-    this.data.bulkApprovalPerson_final = key.bulkApprovalPerson_final;
-
-    this.data.orderBranchNo      = key.orderBranchNo;
-    this.data.orderReceipt       = key.orderReceipt;
-
+  public setEmitterData(rowDt: ODIS0020OrderDetaiSplitBean): void{
+    this._rowData = rowDt;
   }
-   /**
-    * 明細のステータスを設定する
-    * @param key 先頭データのインデックス
-    * @param row 選択された明細のインデックス
-    * @param totalLength 総明細数
-    * @param add 明細追加
-    * @param upd 明細更新
-    * @param cancel 中止
-    * @param del 削除
-    * 
-    */
-  setRowStatus(key: number, row: number, totalLength:number, upd: boolean, del: boolean, value: ODIS0020OrderDetaiSplitBean){
-    this.status.keyIndex = key;
-    this.status.rowIndex = row;
-    this.status.detailLength = totalLength;
-
-    //ボタン制御を設定する。
-    this.status.update = upd;
-    this.status.delete = del;
-
-    this.status.rowData = value;
+  
+  /**
+   * 明細のデータを取得する  
+   */
+  public getEmitterData(){
+      return this._rowData;
   }
 
-  /* 明細ステータスを取得する */
-  getRowStatus():RowStatus{
-
-    return this.status;
+  /**
+   * 選択されたＲｏｗの状態を設定する
+   * @param rowStt 
+   */
+  public setRowStatus(rowStt: ODIS0020RowStatus){
+    this._status = rowStt;
   }
-  /*　明細のデータを取得する  */
-  getEmitterData(){
-    return this.data;
+  /**
+   * 選択されたＲｏｗの状態を取得する 
+   */
+  public getRowStatus():ODIS0020RowStatus{
+    return this._status;
   }
 
 }
 
-export class RowStatus {
+export class ODIS0020RowStatus {
 
-  /**先頭データのインデックス */
-  keyIndex: number;
-  
-  /**選択された明細のインデックス */
-  rowIndex: number;
+  /** 明細連番 */
+  detailNo: string;
+  /** 分割明細連番 */
+  splitNo: string;
+  /** 先頭データIndex */
+  rowBegin: number;
+  /** 明細数 */
+  dataLength: number;
 
-  /**総明細数 */
-  detailLength: number;
-
-  // ボタン制御
-
-  /* 明細更新ボタン */
-  update: boolean;
-
-  /* 明細削除ボタン */
-  delete: boolean;
-
-  /**明細データ */
-  rowData: ODIS0020OrderDetaiSplitBean;
-
-　 get isSelected(): boolean{
-    if(this.keyIndex >= 0 &&
-      this.rowIndex >= 0 && this.rowIndex != null){
-        return true;
+  /** 明細が選択される状態を返却する */
+  public get isSelected(): boolean {
+    if (this.detailNo != null && this.detailNo != '' &&
+      this.splitNo != '' && this.splitNo != null) {
+      return true;
     }
     return false;
   };
 
-  constructor() {
+  constructor(){
     this.Clear();
   }
 
-  Clear() {
-    this.rowIndex = null;
-    this.keyIndex = null;
-    this.detailLength = 0;
-    this.rowData = new ODIS0020OrderDetaiSplitBean();
+  public Clear() {
+    this.splitNo = null;
+    this.detailNo = null;
+    this.rowBegin = -1;
+    this.dataLength = -1;
   }
 
 }

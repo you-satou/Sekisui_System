@@ -34,6 +34,7 @@ export namespace Const{
         export const L0005 = '<a href="/OrderSupplierSelect">発注先マスタ選択</a> > ';
         export const L0006 = '<a href="/SplitDetailInput">発注明細入力_分割明細入力</a> > ';
         export const L0007 = '<a href="/OrderSplitApprovalMaster">発注承認者マスタ</a> > ';
+        export const L0008 = '<a href="/OrderGrossProfitMargin">発注明細入力_粗利率確認</a> > ';
     }
 
     /** リンクの定義 */
@@ -137,13 +138,13 @@ export namespace Const{
     /** 背景の色のコード */
     export namespace HighLightColour{
 
-        export const None = 'white';
-        export const Black = 'black';
+        export const None = '#ffffff';
+        export const Black = '#000000';
         export const Selected = '#CCFFFF';
         export const Modified = '#F57C00';
         export const Inserted = '#40a8c4';
         export const GrayOut = '#e9ecef';
-        export const Red = 'red';
+        export const Red = '#ff0000';
         export const Transparent = 'transparent';
     }
 
@@ -172,7 +173,7 @@ export namespace Const{
         export const E0016 = '個人認証ＩＤは必須入力です。';
         export const E0017 = '発注先コードは必須入力です。';
         export const E0018 = '編集途中のデータがあります。';
-        export const E0019 = '「ハウス材」「運賃・荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
+        export const E0019 = '「ハウス材」「運賃」「荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
         export const E0020 = '予期せぬエラーが発生しました。\n管理者に問い合わせて下さい。';
 
     }
@@ -204,12 +205,12 @@ export namespace Const{
      * タブIndex設定
      */
     export namespace TabIndex{
-        export const TabIndex_0 = '0'   //タブ設計
-        export const TabIndex_1 = '1'   //タブハウス(本体)
-        export const TabIndex_2 = '2'   //タブ解体
-        export const TabIndex_3 = '3'   //タブ造園１
-        export const TabIndex_4 = '4'   //タブ造園２
-        export const TabIndex_5 = '5'   //タブ追加工事
+        export const TabIndex_0 = '0';   //タブ設計
+        export const TabIndex_1 = '1';   //タブハウス(本体)
+        export const TabIndex_2 = '2';   //タブ解体
+        export const TabIndex_3 = '3';   //タブ造園１
+        export const TabIndex_4 = '4';   //タブ造園２
+        export const TabIndex_5 = '5';   //タブ追加工事
         
     }
 
@@ -217,12 +218,12 @@ export namespace Const{
      * 受注枝番
      */
     export namespace TabName{
-        export const TabName_Sekkei = '設計'
-        export const TabName_Hontai = 'ハウス'
-        export const TabName_Kaitai = '解体'        
-        export const TabName_Tsuika = '追加'
-        export const TabName_Zouen1 = '造園①'
-        export const TabName_Zouen2 = '造園②'
+        export const TabName_Sekkei = '設計';
+        export const TabName_Hontai = 'ハウス';
+        export const TabName_Kaitai = '解体';        
+        export const TabName_Tsuika = '追加';
+        export const TabName_Zouen1 = '造園①';
+        export const TabName_Zouen2 = '造園②';
 
     }
 
@@ -230,22 +231,30 @@ export namespace Const{
      * 明細種類
      */
     export namespace JuuChuuEdaban{
-        export const Hontai = '0'
-        export const Sekkei = '1'
-        export const Tsuika = '2'
-        export const Kaitai = '3'
-        export const Zouen1 = '4'
-        export const Zouen2 = '5'        
+        export const Hontai = '0';
+        export const Sekkei = '1';
+        export const Tsuika = '2';
+        export const Kaitai = '3';
+        export const Zouen1 = '4';
+        export const Zouen2 = '5';
     }
     
     /**
      * 承認者数
      */
     export namespace ApprovalLevel{
-        export const OneLevel = 1
-        export const TwoLevels = 2
-        export const ThreeLevels = 3
-        export const FourLevels = 4
+        export const OneLevel = 1;
+        export const TwoLevels = 2;
+        export const ThreeLevels = 3;
+        export const FourLevels = 4;
+    }
+
+    /**
+     * 承認権限
+     */
+    export namespace ApprovalValue{
+        export const Deny = '0';
+        export const Allow = '1';
     }
 
     /**
@@ -265,7 +274,6 @@ export namespace Const{
         export const Kaitai ='30';
         export const Zouen1 ='31';
         export const Zouen2 ='32';
-        //FIXME: 追加工事の受注枝番が３６～４８
         export const Tsuika ='36';
 
     }

@@ -4,7 +4,7 @@
 export class ODIS0020CustomerInfoBean {
 
     /** 物件管理番号 */
-    propertyManagerCd: string;
+    propertyNo: string;
 
     /** 得意先番号 */
     customerNum: string;

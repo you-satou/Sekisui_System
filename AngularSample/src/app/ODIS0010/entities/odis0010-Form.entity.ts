@@ -2,6 +2,7 @@
  * 発注明細入力_承認処理フォームの定義
  */
 export class ODIS0010Form{
+
     /** 事業区分コード */
     officeCode: string;
 

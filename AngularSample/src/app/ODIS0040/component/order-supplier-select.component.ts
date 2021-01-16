@@ -77,15 +77,11 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
      var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
 
      if(this.selectVal !== ''){
-    //  wTbody.rows[this.selectRow].scrollIntoView(true);
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
      var wTr = wTbody.rows[this.selectRow];
      wTr.style.backgroundColor = Const.HighLightColour.Selected;
 
     }
-    // else{
-    //   wTbody.rows[this.selectRow].scrollIntoView(false);
-    // }
     });
   }
 
@@ -132,12 +128,11 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
   /**
   * JSONファイルをdatasに格納
   */
-  getOrderInputData(){
+  private getOrderInputData(){
 
      // Todo　システムログイン情報から取得すること！
      // 事業区分コード設定
-    //  this.param.officeCode = '701000';
-     this.param.officeCode = '827007';
+     this.param.officeCode = '701000';
 
      //入力された値
      this.selectVal = this.ODIS0020Service.getVal();
@@ -160,7 +155,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
           }
         );
   }
-  onScroll(datas:OrderSupplierSelectType[],selectVal:any){
+
+  private onScroll(datas:OrderSupplierSelectType[],selectVal:any){
 
     //行数取得
     var row = 0;

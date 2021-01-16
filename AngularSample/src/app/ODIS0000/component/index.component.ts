@@ -34,10 +34,11 @@ export class IndexComponent implements OnInit{
       this.appComponent.setHeader(Const.ScreenName.S0000);
 
 // ↓↓ 追加 2021-01-06 AD認証の為にリクエスト送信 ↓↓ 
-      this.shHttpClient.post<any[]>("http://localhost:8080/api/ODIS0000/authorization", null)
+      // this.shHttpClient.post<any[]>("http://localhost:8080/api/ODIS0000/authorization", null)
       //this.shHttpClient.post<any[]>("http://FJDSU101:28498/api/ODIS0000/authorization", null)
       this.shHttpClient.post<any[]>("http://10.96.8.123:80/ODISApi/api/ODIS0000/authorization", null)
-      .then((res => {
+      // this.shHttpClient.post<any[]>("http://FJDSU101:28498/ODIS/api/ODIS0000/authorization", null)
+        .then((res => {
           // AD認証処理のためのリクエストなのでレスポンス受信時の処理なし
         }))
         .catch(error => {

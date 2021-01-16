@@ -41,6 +41,7 @@
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
+    height: 120px;
 }
 
 /*************************************************************/
@@ -258,6 +259,7 @@
     overflow-x: auto;
     overflow-y: auto;
     max-height: 302px;
+    max-width: max-content;
 }
 
 /*************************************************************/
@@ -281,6 +283,7 @@
     position: relative;
     overflow-x: auto;
     overflow-y: hidden;
+    height: 120px;
 }
 
 .add-div>table>tbody>tr {
