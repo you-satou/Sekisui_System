@@ -191,22 +191,22 @@
         <mat-tab-group disableRipple = "true" animationDuration="700ms" (selectedTabChange)="setSelectTabChanged($event)"
             [selectedIndex]="this.tabIndexValue">
             <mat-tab class="sekkei" tabindex="1" label="{{this.tabName1}}">
-                <shiwake-table #tabSekkei [orderData]="tblSekkei" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabSekkei [orderData]="tblSekkei" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="hontai" tabindex="2" label="{{this.tabName2}}">
-                <shiwake-table #tabHontai [orderData]="tblHouse" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabHontai [orderData]="tblHouse" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="kaitai" tabindex="3" label="{{this.tabName3}}">
-                <shiwake-table #tabKaitai [orderData]="tblKaitai" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabKaitai [orderData]="tblKaitai" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="zouEn1" tabindex="4" label="{{this.tabName4}}">
-                <shiwake-table #tabZouen1 [orderData]="tblZouen1" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabZouen1 [orderData]="tblZouen1" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="zouEn2" tabindex="5" label="{{this.tabName5}}">
-                <shiwake-table #tabZouen2 [orderData]="tblZouen2" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabZouen2 [orderData]="tblZouen2" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
             <mat-tab class="tsuika" tabindex="6" label="{{this.tabName6}}">
-                <shiwake-table #tabTsuika [orderData]="tblTsuika" [tabName]="this.selectedTab" (sendOrderData)="getEmitter($event)"></shiwake-table>
+                <shiwake-table #tabTsuika [orderData]="tblTsuika" [tabName]="this.selectedTab" [permission]="this.approvalPermission" (sendOrderData)="getEmitter($event)"></shiwake-table>
             </mat-tab>
         </mat-tab-group> 
     </section>

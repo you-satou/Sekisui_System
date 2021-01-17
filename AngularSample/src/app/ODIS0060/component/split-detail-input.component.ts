@@ -383,6 +383,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       case (rowData.requester != '' && rowData.approvalPerson_lv1 != ''):
         this.setPageButtonDisplay(true, true, false, true);
         break;
+      // 最終承認済
+      case (rowData.approvalPerson_final != ''):
+        this.setPageButtonDisplay(true, true, false, true);
+        break;
     };
   }
 

@@ -1,3 +1,4 @@
+import { ODIS0020UserApprovalPermission } from './../entities/odis0020-ApprovalPermission.entity';
 import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { ODIS0020Session, ODIS0020Form} from './../entities/odis0020-Form.entity';
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
@@ -133,6 +134,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   tblMainOrder: ODIS0020MainOrderEdaBan[];
   tblInsertedOrder: ODIS0020InsertedOrderEdaBan[];
   orderDetaiSplitlList: ODIS0020OrderDetaiSplitBean[];
+  approvalPermission = new ODIS0020UserApprovalPermission();
 
   // 明細テーブルにデータを渡す引数 (連動タブを使ったら削除予定)
   tblSekkei : ODIS0020OrderDetaiSplitBean[] = [];
@@ -327,6 +329,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.tblMainOrder = this.pageTotalInfo.mainOrderInfo;                 // 本体受注枝番
               this.tblInsertedOrder = this.pageTotalInfo.insertedOrderInfo;         // 追加工事
               this.orderDetaiSplitlList = this.pageTotalInfo.orderDetailList;       // 発注明細分割
+              this.approvalPermission = this.pageTotalInfo.approvalPermission;
 
               // 「設計」タブ
               this.tblSekkei = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Sekkei);
@@ -546,11 +549,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     // セッションからデータを取得する。 
-    let savedData = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
+    const savedData: ODIS0020Session = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0002EN));
+    
     this.orderCustomerInfo = savedData.CustomerInfo;
     this.order0DateInfo    = savedData.DateInfo;
     this.tblMainOrder      = savedData.mainOrderInfo;
     this.tblInsertedOrder  = savedData.insertedOrderInfo;
+    this.approvalPermission = savedData.approvalPermission;
     this.tblSekkei = savedData.SekkeiData;
     this.tblHouse  = savedData.HontaiData;
     this.tblKaitai = savedData.KaitaiData;
@@ -1628,6 +1633,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     saveDt.ZouEn1Data        = this.tblZouen1;
     saveDt.ZouEn2Data        = this.tblZouen2;
     saveDt.paramInit         = this.paramInit;
+    saveDt.approvalPermission = this.approvalPermission;
 
     // 既にセッションが格納されている場合は除去する
     if (sessionStorage.getItem(Const.ScreenName.S0002EN) != null) {

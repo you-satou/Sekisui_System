@@ -1,3 +1,4 @@
+import { ODIS0020UserApprovalPermission } from './../../entities/odis0020-ApprovalPermission.entity';
 import { LoginUserEntity } from './../../../ODIS0000/entities/odis0000-loginInfo.entity';
 import { ODIS0020RowStatus } from './../../../ODIS0020/services/odis0020-DataEmitter.service';
 import { DatePipe } from '@angular/common';
@@ -22,6 +23,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   @Input() orderData: ODIS0020OrderDetaiSplitBean[] = [];
   @Input() tabName:string;
   @Output() sendOrderData = new EventEmitter<DataEmitter>();
+  @Input() permission: ODIS0020UserApprovalPermission = new ODIS0020UserApprovalPermission();
   
   //親から観察されている
   @ViewChild(MatTable, { static: false }) tableShiwake: MatTable<any>;
@@ -902,10 +904,12 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         //承認者の数が２以上の場合
         this.approvalUnit >= Const.ApprovalLevel.TwoLevels &&
         //ユーザーが承認１の権限を持つ場合、ボタンを活性にする
-        this.comCompnt.setValue(this.loginInfo.approvalLv1) == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.permission.approvalLv1) == Const.ApprovalValue.Allow &&
+        this.comCompnt.setValue(this.permission.deleteFlag) != '1') {
       return false;
     }
 
+    
     return true;
 
   }
@@ -952,7 +956,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           //承認者の数が３以上の場合
           this.approvalUnit >= Const.ApprovalLevel.ThreeLevels &&
           //ユーザーが承認２の権限を持つ場合、ボタンを活性にする
-          this.comCompnt.setValue(this.loginInfo.approvalLv2) == Const.ApprovalValue.Allow) {
+          this.comCompnt.setValue(this.permission.approvalLv2) == Const.ApprovalValue.Allow &&
+          this.comCompnt.setValue(this.permission.deleteFlag) != '1') {
       return false;
     }
     return true;
@@ -999,7 +1004,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         approvalLv3.length != approvalFinal.length &&
         this.approvalUnit >= Const.ApprovalLevel.FourLevels &&
         //ユーザーが承認３の権限を持つ場合、ボタンを活性にする
-        this.comCompnt.setValue(this.loginInfo.approvalLv3) == Const.ApprovalValue.Allow) {
+        this.comCompnt.setValue(this.permission.approvalLv3) == Const.ApprovalValue.Allow && 
+        this.comCompnt.setValue(this.permission.deleteFlag) != '1') {
       return false;
     }
     return true;
@@ -1039,7 +1045,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     if(requestInfo.length == approvalFinal.length &&
        approvalFinal.length > 0 &&
        //ユーザーが最終承認の権限を持つ場合、ボタンを活性にする
-       this.comCompnt.setValue(this.loginInfo.approvalFinal) == Const.ApprovalValue.Allow){
+       this.comCompnt.setValue(this.permission.approvalFinal) == Const.ApprovalValue.Allow &&
+       this.comCompnt.setValue(this.permission.deleteFlag) != '1'){
       return false;
     }
 
