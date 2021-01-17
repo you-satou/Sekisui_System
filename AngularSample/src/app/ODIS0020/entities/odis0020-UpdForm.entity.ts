@@ -17,6 +17,9 @@ export class ODIS0020UpdForm{
     
     /** 従業員名称 */
     userName: string;
+
+    /** アクセストークン */
+    token: string;
 	
     /** 発注明細データ */
     orderDetailList: ODIS0020OrderDetaiSplitBean[];
