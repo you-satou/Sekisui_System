@@ -322,7 +322,8 @@
                            && this.comCompnt.setValue(element.requester) !='' 
                            && this.comCompnt.setValue(element.approvalPerson_lv1) ==''
                            && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                           && this.comCompnt.setValue(this.loginInfo.approvalLv1) == '1'"
+                           && this.comCompnt.setValue(this.permission.approvalLv1) == '1'
+                           && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                         (click)="setApprovalFirstLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -340,7 +341,8 @@
                     && this.comCompnt.setValue(element.approvalPerson_lv1) !=''
                     && this.comCompnt.setValue(element.approvalPerson_lv2) ==''
                     && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                    && this.comCompnt.setValue(this.loginInfo.approvalLv2) == '1'"
+                    && this.comCompnt.setValue(this.permission.approvalLv2) == '1'
+                    && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                     (click)="setApprovalNextLevel($event,element)" 
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
 
@@ -360,7 +362,8 @@
                         && this.comCompnt.setValue(element.approvalPerson_lv2) !='' 
                         && this.comCompnt.setValue(element.approvalPerson_lv3) ==''
                         && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                        && this.comCompnt.setValue(this.loginInfo.approvalLv3) == '1'"
+                        && this.comCompnt.setValue(this.permission.approvalLv3) == '1'
+                        && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                         (click)="setApprovalThirdLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -381,7 +384,8 @@
                 <button mat-button class="btn btn-outline-success"
                     *ngIf="(this.comCompnt.setValue(element.requester) !='' &&
                             this.comCompnt.setValue(element.approvalPerson_final) =='' &&
-                            this.comCompnt.setValue(this.loginInfo.approvalFinal) == '1')"
+                            this.comCompnt.setValue(this.permission.approvalFinal) == '1' &&
+                            this.comCompnt.setValue(this.permission.deleteFlag) != '1')"
                     (click)="setApprovalFinalLevel($event,element)"
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>

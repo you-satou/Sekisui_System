@@ -3,6 +3,7 @@ import { ODIS0020InsertedOrderEdaBan} from './odis0020-InsertedOrderEdaBan.entit
 import { ODIS0020MainOrderEdaBan } from './odis0020-MainOrderEdaBan.entity'
 import { ODIS0020CustomerInfoBean, ODIS0020DateInfoBean } from './odis0020-OrderInformation.entity'
 import { ODIS0020OrderDetaiSplitBean } from './odis0020-OrderDetailSplit.entity'
+import { ODIS0020UserApprovalPermission } from './odis0020-ApprovalPermission.entity';
 
 export class ODIS0020Session{
 
@@ -41,6 +42,8 @@ export class ODIS0020Session{
 
     /** パラメータ設定 */
     paramInit: ODIS0020Form;
+
+    approvalPermission: ODIS0020UserApprovalPermission;
 
     constructor() {}
 
