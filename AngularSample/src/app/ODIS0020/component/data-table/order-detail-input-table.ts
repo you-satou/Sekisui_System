@@ -515,14 +515,19 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     shiwakeDt[0].orderPlanAmount   = data.orderPlanAmount;
     shiwakeDt[0].bulkRequestDate      = this.comCompnt.setValue(data.bulkRequestDate);
     shiwakeDt[0].bulkRequester        = this.comCompnt.setValue(data.bulkRequester);
+    shiwakeDt[0].bulkRequesterID      = this.comCompnt.setValue(data.bulkRequesterID);
     shiwakeDt[0].bulkApprovalDate_lv1     = this.comCompnt.setValue(data.bulkApprovalDate_lv1);
     shiwakeDt[0].bulkApprovalPerson_lv1   = this.comCompnt.setValue(data.bulkApprovalPerson_lv1);
+    shiwakeDt[0].bulkApprovalPersonID_lv1 = this.comCompnt.setValue(data.bulkApprovalPersonID_lv1);
     shiwakeDt[0].bulkApprovalDate_lv2     = this.comCompnt.setValue(data.bulkApprovalDate_lv2);
     shiwakeDt[0].bulkApprovalPerson_lv2   = this.comCompnt.setValue(data.bulkApprovalPerson_lv2);
+    shiwakeDt[0].bulkApprovalPersonID_lv2 = this.comCompnt.setValue(data.bulkApprovalPersonID_lv2);
     shiwakeDt[0].bulkApprovalDate_lv3     = this.comCompnt.setValue(data.bulkApprovalDate_lv3);
     shiwakeDt[0].bulkApprovalPerson_lv3   = this.comCompnt.setValue(data.bulkApprovalPerson_lv3);
+    shiwakeDt[0].bulkApprovalPersonID_lv3 = this.comCompnt.setValue(data.bulkApprovalPersonID_lv3);
     shiwakeDt[0].bulkApprovalDate_final   = this.comCompnt.setValue(data.bulkApprovalDate_final);
     shiwakeDt[0].bulkApprovalPerson_final = this.comCompnt.setValue(data.bulkApprovalPerson_final);
+    shiwakeDt[0].bulkApprovalPersonID_final = this.comCompnt.setValue(data.bulkApprovalPersonID_final);
     
     this.orderData.forEach(dt => {
       if (dt.detailNo === data.detailNo) {
@@ -535,14 +540,19 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         newSplit.comment              = this.comCompnt.setValue(dt.comment);
         newSplit.requestDate          = this.comCompnt.setValue(dt.requestDate);
         newSplit.requester            = this.comCompnt.setValue(dt.requester);
+        newSplit.requesterID          = this.comCompnt.setValue(dt.requesterID);
         newSplit.approvalDate_lv1     = this.comCompnt.setValue(dt.approvalDate_lv1);
         newSplit.approvalPerson_lv1   = this.comCompnt.setValue(dt.approvalPerson_lv1);
+        newSplit.approvalPersonID_lv1 = this.comCompnt.setValue(dt.approvalPersonID_lv1);
         newSplit.approvalDate_lv2     = this.comCompnt.setValue(dt.approvalDate_lv2);
         newSplit.approvalPerson_lv2   = this.comCompnt.setValue(dt.approvalPerson_lv2);
+        newSplit.approvalPersonID_lv2 = this.comCompnt.setValue(dt.approvalPersonID_lv2);
         newSplit.approvalDate_lv3     = this.comCompnt.setValue(dt.approvalDate_lv3);
         newSplit.approvalPerson_lv3   = this.comCompnt.setValue(dt.approvalPerson_lv3);
+        newSplit.approvalPersonID_lv3 = this.comCompnt.setValue(dt.approvalPersonID_lv3);
         newSplit.approvalDate_final   = this.comCompnt.setValue(dt.approvalDate_final);
         newSplit.approvalPerson_final = this.comCompnt.setValue(dt.approvalPerson_final);
+        newSplit.approvalPersonID_final = this.comCompnt.setValue(dt.approvalPersonID_final);
         newSplit.orderDate            = this.comCompnt.setValue(dt.orderDate);
         newSplit.orderAmount          = this.comCompnt.setValue(dt.orderAmount);
         newSplit.receivedDate         = this.comCompnt.setValue(dt.receivedDate);
@@ -690,6 +700,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
     dt.requester = this.loginInfo.empNmKnj;
+    dt.requesterID = this.loginInfo.personAuthID;
   }
 
   /**
@@ -703,6 +714,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv1 = requestTime;
     dt.approvalPerson_lv1 = this.loginInfo.empNmKnj;
+    dt.approvalPersonID_lv1 = this.loginInfo.personAuthID;
   }
 
   /**
@@ -716,6 +728,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv2 = requestTime;
     dt.approvalPerson_lv2 = this.loginInfo.empNmKnj;
+    dt.approvalPersonID_lv2 = this.loginInfo.personAuthID;
 
   }
 
@@ -730,6 +743,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_lv3 = requestTime;
     dt.approvalPerson_lv3 = this.loginInfo.empNmKnj;
+    dt.approvalPersonID_lv3 = this.loginInfo.personAuthID;
 
   }
 
@@ -744,6 +758,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.approvalDate_final = requestTime;
     dt.approvalPerson_final = this.loginInfo.empNmKnj;
+    dt.approvalPersonID_final = this.loginInfo.personAuthID;
   }
 
   /**
@@ -1066,6 +1081,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       if(this.comCompnt.setValue(element.bulkRequestDate) ==''){
         element.bulkRequestDate = requestTime;
         element.bulkRequester   = this.loginInfo.empNmKnj;
+        element.bulkRequesterID   = this.loginInfo.personAuthID;
       }
     })
   }
@@ -1085,6 +1101,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv1   = approvalTime;
           element.bulkApprovalPerson_lv1 = this.loginInfo.empNmKnj;
+          element.bulkApprovalPersonID_lv1 = this.loginInfo.personAuthID;
         }
       })
   }
@@ -1103,6 +1120,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
           element.bulkApprovalDate_lv2   = approvalTime;
           element.bulkApprovalPerson_lv2 = this.loginInfo.empNmKnj;
+          element.bulkApprovalPersonID_lv2 = this.loginInfo.personAuthID;
         }
       })
   }
@@ -1122,6 +1140,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
            this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_lv3   = approvalTime;
           element.bulkApprovalPerson_lv3 = this.loginInfo.empNmKnj;
+          element.bulkApprovalPersonID_lv3 = this.loginInfo.personAuthID;
         }
       })
   }
@@ -1139,6 +1158,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         if(this.comCompnt.setValue(element.bulkApprovalDate_final) ==''){
           element.bulkApprovalDate_final   = approvalTime;
           element.bulkApprovalPerson_final = this.loginInfo.empNmKnj;
+          element.bulkApprovalPersonID_final = this.loginInfo.personAuthID;
         }
       })
   }
@@ -1163,14 +1183,19 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
           if(element.detailNo == dt.detailNo){
             element.bulkRequestDate          = '';
             element.bulkRequester            = '';
+            element.bulkRequesterID          = '';
             element.bulkApprovalDate_lv1     = '';
             element.bulkApprovalPerson_lv1   = '';
+            element.bulkApprovalPersonID_lv1 = '';
             element.bulkApprovalDate_lv2     = '';
             element.bulkApprovalPerson_lv2   = '';
+            element.bulkApprovalPersonID_lv2 = '';
             element.bulkApprovalDate_lv3     = '';
             element.bulkApprovalPerson_lv3   = '';
+            element.bulkApprovalPersonID_lv3 = '';
             element.bulkApprovalDate_final   = '';
-            element.bulkApprovalPerson_final = '';            
+            element.bulkApprovalPerson_final = '';
+            element.bulkApprovalPersonID_final = '';
           }          
         });
 
@@ -1180,14 +1205,19 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       case 'split':
         dt.requestDate          = '';
         dt.requester            = '';
+        dt.requesterID          = '';
         dt.approvalDate_lv1     = '';
         dt.approvalPerson_lv1   = '';
+        dt.approvalPersonID_lv1 = '';
         dt.approvalDate_lv2     = '';
         dt.approvalPerson_lv2   = '';
+        dt.approvalPersonID_lv2 = '';
         dt.approvalDate_lv3     = '';
         dt.approvalPerson_lv3   = '';
-        dt.approvalPerson_final = '';
+        dt.approvalPersonID_lv3 = '';
         dt.approvalDate_final   = '';
+        dt.approvalPerson_final = '';
+        dt.approvalPersonID_final = '';
 
         break;
     }

@@ -10,7 +10,7 @@ import { ODIS0060OrderDetailBunkatsu, ODIS0060OrderShiwake, ODIS0060Session } fr
 import { ODIS0020Service } from './../../ODIS0020/services/odis0020-service';
 import { ODIS0020OrderDetaiSplitBean } from './../../ODIS0020/entities/odis0020-OrderDetailSplit.entity';
 import { ODIS0060SplitDetailService } from '../services/split-detail-input-service';
-import { ODIS0020BunkatsuInsertService, ODIS0060RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
+import { ODIS0060BunkatsuInsertService, ODIS0060RowStatus } from '../services/odis0060-AddBunkatsuDetail.service';
 import { Subscription } from 'rxjs';
 import { OrderSupplierSelectService } from '../../ODIS0040/services/order-supplier-select.service';
 import { OrderSupplierSelectComponent } from 'app/ODIS0040/component/order-supplier-select.component';
@@ -76,7 +76,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //分割テーブルのデータ
   bunkatsuData: ODIS0060OrderDetailBunkatsu[] = [];
   //分割明細追加サービス
-  input = new ODIS0020BunkatsuInsertService();
+  input = new ODIS0060BunkatsuInsertService();
 
   amountDeference: number = 0;
 
@@ -346,7 +346,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     //選択された行に背景色を変える
     this.baseCompnt.CommonOnSelHight($event);
 
-    var nodeName = $event.target.nodeName;
+    const nodeName = $event.target.nodeName;
     if(nodeName != 'SPAN' && nodeName != 'BUTTON' && nodeName != 'INPUT')
     {
       let index = this.bunkatsuData.indexOf(rowDt);
@@ -582,6 +582,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
     dt.requestDate = requestTime;
     dt.requester = this.loginInfo.empNmKnj;
+    dt.requesterID = this.loginInfo.personAuthID;
 
     this.resetAddTable();
   }
@@ -636,6 +637,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     this.input.requestDate = requestTime;
     this.input.requester = this.loginInfo.empNmKnj;
+    this.input.requesterID = this.loginInfo.personAuthID;
 
   }
 

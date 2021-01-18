@@ -51,6 +51,51 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 分割注文書発行区分 */
   splitOrderReceipt: string = '';
 
+  /** 発注依頼日 */
+  bulkRequestDate: string = '';
+
+  /** 発注依頼者 */
+  bulkRequester: string = '';
+
+  /** 発注依頼者ID */
+  bulkRequesterID: string = '';
+
+  /** 発注承認１日 */
+  bulkApprovalDate_lv1: string = '';
+
+  /** 発注承認１者 */
+  bulkApprovalPerson_lv1: string = '';
+
+  /** 発注承認１者ID */
+  bulkApprovalPersonID_lv1: string = '';
+
+  /** 発注承認２日 */
+  bulkApprovalDate_lv2: string = '';
+
+  /** 発注承認２者 */
+  bulkApprovalPerson_lv2: string = '';
+
+  /** 発注承認２者ID */
+  bulkApprovalPersonID_lv2: string = '';
+
+  /** 発注承認３日 */
+  bulkApprovalDate_lv3: string = '';
+
+  /** 発注承認３者 */
+  bulkApprovalPerson_lv3: string = '';
+
+  /** 発注承認３者ID */
+  bulkApprovalPersonID_lv3: string = '';
+
+  /** 発注最終承認日 */
+  bulkApprovalDate_final: string = '';
+
+  /** 発注最終承認者 */
+  bulkApprovalPerson_final: string = '';
+
+  /** 発注最終承認者ID */
+  bulkApprovalPersonID_final: string = '';
+
   /** コメント */
   comment: string = '';
 
@@ -63,17 +108,26 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 依頼者 */
   requester: string = '';
 
+  /** 依頼者ID */
+  requesterID: string = '';
+
   /** 承認日 一回目 */
   approvalDate_lv1: string = '';
 
   /** 承認者 一回目 */
   approvalPerson_lv1: string = '';
 
+  /** 承認者ID 一回目 */
+  approvalPersonID_lv1: string = '';
+
   /** 承認日 ニ回目 */
   approvalDate_lv2: string = '';
 
-  /** 承認者 ニ回目*/
+  /** 承認者 ニ回目 */
   approvalPerson_lv2: string = '';
+
+  /** 承認者ID ニ回目 */
+  approvalPersonID_lv2: string = '';
 
   /** 承認日 三回目 */
   approvalDate_lv3: string = '';
@@ -81,11 +135,17 @@ export class ODIS0020OrderDetaiSplitBean{
   /** 承認者 三回目*/
   approvalPerson_lv3: string = '';
 
+  /** 承認者ID 三回目 */
+  approvalPersonID_lv3: string = '';
+
   /** 最終承認日 */
   approvalDate_final: string = '';
 
   /** 最終承認者*/
   approvalPerson_final: string = '';
+
+  /** 最終承認者ID*/
+  approvalPersonID_final: string = '';
 
   /** 発注年月日 */
   orderDate: string = '';
@@ -104,35 +164,5 @@ export class ODIS0020OrderDetaiSplitBean{
 
   /** 支払金額 */
   paymentAmount: string = '';
-
-  /** 発注依頼日 */
-  bulkRequestDate: string = '';
-
-  /** 発注依頼者 */
-  bulkRequester: string = '';
-
-  /** 発注承認１日 */
-  bulkApprovalDate_lv1: string = '';
-
-  /** 発注承認１者 */
-  bulkApprovalPerson_lv1: string = '';
-
-  /** 発注承認２日 */
-  bulkApprovalDate_lv2: string = '';
-
-  /** 発注承認２者 */
-  bulkApprovalPerson_lv2: string = '';
-
-  /** 発注承認３日 */
-  bulkApprovalDate_lv3: string = '';
-
-  /** 発注承認３者 */
-  bulkApprovalPerson_lv3: string = '';
-
-  /** 発注最終承認日 */
-  bulkApprovalDate_final: string = '';
-
-  /** 発注最終承認者 */
-  bulkApprovalPerson_final: string = '';
 
 }

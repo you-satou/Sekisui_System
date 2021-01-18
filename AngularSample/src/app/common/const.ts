@@ -223,9 +223,9 @@ export namespace Const{
         export const TabName_Sekkei = '設計';
         export const TabName_Hontai = 'ハウス';
         export const TabName_Kaitai = '解体';        
-        export const TabName_Tsuika = '追加';
         export const TabName_Zouen1 = '造園①';
         export const TabName_Zouen2 = '造園②';
+        export const TabName_Tsuika = '追加';
 
     }
 
@@ -233,12 +233,13 @@ export namespace Const{
      * 明細種類
      */
     export namespace JuuChuuEdaban{
-        export const Hontai = '0';
-        export const Sekkei = '1';
-        export const Tsuika = '2';
-        export const Kaitai = '3';
+        export const Sekkei = '0';
+        export const Hontai = '1';
+        export const Kaitai = '2';
         export const Zouen1 = '4';
         export const Zouen2 = '5';
+        export const Tsuika = '9';
+
     }
     
     /**

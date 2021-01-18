@@ -99,12 +99,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         return Const.BranchValue.Hontai;
       case this.tabName3:
         return Const.BranchValue.Kaitai;
-      case this.tabName6:
-        return Const.BranchValue.Tsuika;
       case this.tabName4:
         return Const.BranchValue.Zouen1;
       case this.tabName5:
         return Const.BranchValue.Zouen2;
+      case this.tabName6:
+        return Const.BranchValue.Tsuika;
     }
   }
 
@@ -265,14 +265,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.paymentAmount            = element.paymentAmount;
           temp.bulkRequestDate          = '';
           temp.bulkRequester            = '';
+          temp.bulkRequesterID          = '';
           temp.bulkApprovalDate_lv1     = '';
           temp.bulkApprovalPerson_lv1   = '';
+          temp.bulkApprovalPersonID_lv1 = '';
           temp.bulkApprovalDate_lv2     = '';
           temp.bulkApprovalPerson_lv2   = '';
+          temp.bulkApprovalPersonID_lv2 = '';
           temp.bulkApprovalDate_lv3     = '';
           temp.bulkApprovalPerson_lv3   = '';
+          temp.bulkApprovalPersonID_lv3 = '';
           temp.bulkApprovalDate_final   = '';
           temp.bulkApprovalPerson_final = '';
+          temp.bulkApprovalPersonID_final = '';
 
           bucketDt.push(temp);
         });
@@ -317,15 +322,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               
               // 「解体」タブ
               this.tblKaitai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Kaitai);
-
-              // 「追加」タブ
-              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Tsuika);
               
               // 「造園①」タブ
               this.tblZouen1 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen1);
               
               // 「造園②」タブ
               this.tblZouen2 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen2);
+
+              // 「追加」タブ
+              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Tsuika);
 
               // 画面をレンダーする
               this.isInitFlg = true;
@@ -404,14 +409,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
+    dt.bulkRequesterID    = '';
     dt.bulkApprovalDate_lv1     = '';
     dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalPersonID_lv1 = '';
     dt.bulkApprovalDate_lv2     = '';
     dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalPersonID_lv2 = '';
     dt.bulkApprovalDate_lv3     = '';
     dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalPersonID_lv3 = '';
     dt.bulkApprovalDate_final   = '';
     dt.bulkApprovalPerson_final = '';
+    dt.bulkApprovalPersonID_final = '';
     initData.push(dt);
 
     // 荷造・保管料
@@ -429,14 +439,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
+    dt.bulkRequesterID    = '';
     dt.bulkApprovalDate_lv1     = '';
     dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalPersonID_lv1 = '';
     dt.bulkApprovalDate_lv2     = '';
     dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalPersonID_lv2 = '';
     dt.bulkApprovalDate_lv3     = '';
     dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalPersonID_lv3 = '';
     dt.bulkApprovalDate_final   = '';
     dt.bulkApprovalPerson_final = '';
+    dt.bulkApprovalPersonID_final = '';
     initData.push(dt);
 
     // 運賃
@@ -454,14 +469,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
+    dt.bulkRequesterID    = '';
     dt.bulkApprovalDate_lv1     = '';
     dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalPersonID_lv1 = '';
     dt.bulkApprovalDate_lv2     = '';
     dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalPersonID_lv2 = '';
     dt.bulkApprovalDate_lv3     = '';
     dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalPersonID_lv3 = '';
     dt.bulkApprovalDate_final   = '';
     dt.bulkApprovalPerson_final = '';
+    dt.bulkApprovalPersonID_final = '';
     initData.push(dt);
 
     // 労災
@@ -479,14 +499,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.orderSupplierName  = '';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
+    dt.bulkRequesterID    = '';
     dt.bulkApprovalDate_lv1     = '';
     dt.bulkApprovalPerson_lv1   = '';
+    dt.bulkApprovalPersonID_lv1 = '';
     dt.bulkApprovalDate_lv2     = '';
     dt.bulkApprovalPerson_lv2   = '';
+    dt.bulkApprovalPersonID_lv2 = '';
     dt.bulkApprovalDate_lv3     = '';
     dt.bulkApprovalPerson_lv3   = '';
+    dt.bulkApprovalPersonID_lv3 = '';
     dt.bulkApprovalDate_final   = '';
     dt.bulkApprovalPerson_final = '';
+    dt.bulkApprovalPersonID_final = '';
     initData.push(dt);
 
     return initData;
@@ -694,37 +719,47 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.orderReceipt          = this.baseCompnt.setValue(data.orderReceipt)!=''?this.baseCompnt.setValue(data.orderReceipt):'0';
     temp.bulkRequestDate       = this.baseCompnt.setValue(data.bulkRequestDate);
     temp.bulkRequester         = this.baseCompnt.setValue(data.bulkRequester);
+    temp.bulkRequesterID          = this.baseCompnt.setValue(data.bulkRequesterID);
     temp.bulkApprovalDate_lv1     = this.baseCompnt.setValue(data.bulkApprovalDate_lv1);
     temp.bulkApprovalPerson_lv1   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv1);
+    temp.bulkApprovalPersonID_lv1 = this.baseCompnt.setValue(data.bulkApprovalPersonID_lv1);
     temp.bulkApprovalDate_lv2     = this.baseCompnt.setValue(data.bulkApprovalDate_lv2);
     temp.bulkApprovalPerson_lv2   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv2);
+    temp.bulkApprovalPersonID_lv2 = this.baseCompnt.setValue(data.bulkApprovalPersonID_lv2);
     temp.bulkApprovalDate_lv3     = this.baseCompnt.setValue(data.bulkApprovalDate_lv3);
     temp.bulkApprovalPerson_lv3   = this.baseCompnt.setValue(data.bulkApprovalPerson_lv3);
+    temp.bulkApprovalPersonID_lv3 = this.baseCompnt.setValue(data.bulkApprovalPersonID_lv3);
     temp.bulkApprovalDate_final   = this.baseCompnt.setValue(data.bulkApprovalDate_final);
     temp.bulkApprovalPerson_final = this.baseCompnt.setValue(data.bulkApprovalPerson_final);
-    temp.orderPlanAmount       = this.baseCompnt.setValue(data.orderPlanAmount);
-    temp.orderSplitAmount      = this.baseCompnt.setValue(data.orderSplitAmount);
-    temp.splitSupplierCode     = this.baseCompnt.setValue(data.splitSupplierCode);
-    temp.splitSupplierName     = this.baseCompnt.setValue(data.splitSupplierName);
+    temp.bulkApprovalPersonID_final = this.baseCompnt.setValue(data.bulkApprovalPersonID_final);
+    temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount);
+    temp.orderSplitAmount       = this.baseCompnt.setValue(data.orderSplitAmount);
+    temp.splitSupplierCode      = this.baseCompnt.setValue(data.splitSupplierCode);
+    temp.splitSupplierName      = this.baseCompnt.setValue(data.splitSupplierName);
     //分割注文書発行区分が空白場合'0'を設定する
-    temp.splitOrderReceipt     = this.baseCompnt.setValue(data.splitOrderReceipt)!=''?this.baseCompnt.setValue(data.splitOrderReceipt):'0';
-    temp.comment               = this.baseCompnt.setValue(data.comment);
-    temp.requestDate           = this.baseCompnt.setValue(data.requestDate);
-    temp.requester             = this.baseCompnt.setValue(data.requester);
-    temp.approvalDate_lv1      = this.baseCompnt.setValue(data.approvalDate_lv1);
-    temp.approvalPerson_lv1    = this.baseCompnt.setValue(data.approvalPerson_lv1);
-    temp.approvalDate_lv2      = this.baseCompnt.setValue(data.approvalDate_lv2);
-    temp.approvalPerson_lv2    = this.baseCompnt.setValue(data.approvalPerson_lv2);
-    temp.approvalDate_lv3      = this.baseCompnt.setValue(data.approvalDate_lv3);
-    temp.approvalPerson_lv3    = this.baseCompnt.setValue(data.approvalPerson_lv3);
-    temp.approvalDate_final    = this.baseCompnt.setValue(data.approvalDate_final);
-    temp.approvalPerson_final  = this.baseCompnt.setValue(data.approvalPerson_final);
-    temp.orderDate             = this.baseCompnt.setValue(data.orderDate);
-    temp.orderAmount           = this.baseCompnt.setValue(data.orderAmount);
-    temp.receivedDate          = this.baseCompnt.setValue(data.receivedDate);
-    temp.receivedAmount        = this.baseCompnt.setValue(data.receivedAmount);
-    temp.paymentDate           = this.baseCompnt.setValue(data.paymentDate);
-    temp.paymentAmount         = this.baseCompnt.setValue(data.paymentAmount);
+    temp.splitOrderReceipt      = this.baseCompnt.setValue(data.splitOrderReceipt)!=''?this.baseCompnt.setValue(data.splitOrderReceipt):'0';
+    temp.comment                = this.baseCompnt.setValue(data.comment);
+    temp.requestDate            = this.baseCompnt.setValue(data.requestDate);
+    temp.requester              = this.baseCompnt.setValue(data.requester);
+    temp.requesterID            = this.baseCompnt.setValue(data.requesterID);
+    temp.approvalDate_lv1       = this.baseCompnt.setValue(data.approvalDate_lv1);
+    temp.approvalPerson_lv1     = this.baseCompnt.setValue(data.approvalPerson_lv1);
+    temp.approvalPersonID_lv1   = this.baseCompnt.setValue(data.approvalPersonID_lv1);
+    temp.approvalDate_lv2       = this.baseCompnt.setValue(data.approvalDate_lv2);
+    temp.approvalPerson_lv2     = this.baseCompnt.setValue(data.approvalPerson_lv2);
+    temp.approvalPersonID_lv2   = this.baseCompnt.setValue(data.approvalPersonID_lv2);
+    temp.approvalDate_lv3       = this.baseCompnt.setValue(data.approvalDate_lv3);
+    temp.approvalPerson_lv3     = this.baseCompnt.setValue(data.approvalPerson_lv3);
+    temp.approvalPersonID_lv3   = this.baseCompnt.setValue(data.approvalPersonID_lv3);
+    temp.approvalDate_final     = this.baseCompnt.setValue(data.approvalDate_final);
+    temp.approvalPerson_final   = this.baseCompnt.setValue(data.approvalPerson_final);
+    temp.approvalPersonID_final = this.baseCompnt.setValue(data.approvalPersonID_final);
+    temp.orderDate              = this.baseCompnt.setValue(data.orderDate);
+    temp.orderAmount            = this.baseCompnt.setValue(data.orderAmount);
+    temp.receivedDate           = this.baseCompnt.setValue(data.receivedDate);
+    temp.receivedAmount         = this.baseCompnt.setValue(data.receivedAmount);
+    temp.paymentDate            = this.baseCompnt.setValue(data.paymentDate);
+    temp.paymentAmount          = this.baseCompnt.setValue(data.paymentAmount);
 
     return temp;
   }
@@ -853,28 +888,34 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
             // 追加データ 設定
             let temp = new ODIS0020OrderDetaiSplitBean();
-            temp.insKubun           = Const.InsKubun.Ins;
-            temp.propertyNo         = this.paramInit.propertyNo;
-            temp.detailKind         = this.tabOrderKind;
-            temp.splitNo            = '1';
-            temp.journalCode        = this.addInput.journalCode;
-            temp.accountCode        = this.addInput.accountCode;
-            temp.journalName        = this.addInput.journalName;
-            temp.orderSupplierCode  = this.addInput.orderSupplierCode;
-            temp.orderSupplierName  = this.addInput.orderSupplierName;
-            temp.orderPlanAmount    = this.addInput.orderPlanAmount;
-            temp.orderBranchNo      = this.currentBranchNo;
-            temp.orderReceipt       = this.addInput.orderReceipt;
-            temp.bulkRequestDate    = '';
-            temp.bulkRequester      = '';
-            temp.bulkApprovalDate_lv1     = '';
-            temp.bulkApprovalPerson_lv1   = '';
-            temp.bulkApprovalDate_lv2     = '';
-            temp.bulkApprovalPerson_lv2   = '';
-            temp.bulkApprovalDate_lv3     = '';
-            temp.bulkApprovalPerson_lv3   = '';
-            temp.bulkApprovalDate_final   = '';
-            temp.bulkApprovalPerson_final = '';
+            temp.insKubun                   = Const.InsKubun.Ins;
+            temp.propertyNo                 = this.paramInit.propertyNo;
+            temp.detailKind                 = this.tabOrderKind;
+            temp.splitNo                    = '1';
+            temp.journalCode                = this.addInput.journalCode;
+            temp.accountCode                = this.addInput.accountCode;
+            temp.journalName                = this.addInput.journalName;
+            temp.orderSupplierCode          = this.addInput.orderSupplierCode;
+            temp.orderSupplierName          = this.addInput.orderSupplierName;
+            temp.orderPlanAmount            = this.addInput.orderPlanAmount;
+            temp.orderBranchNo              = this.currentBranchNo;
+            temp.orderReceipt               = this.addInput.orderReceipt;
+            temp.bulkRequestDate            = '';
+            temp.bulkRequester              = '';
+            temp.bulkRequesterID            = '';
+            temp.bulkApprovalDate_lv1       = '';
+            temp.bulkApprovalPerson_lv1     = '';
+            temp.bulkApprovalPersonID_lv1   = '';
+            temp.bulkApprovalDate_lv2       = '';
+            temp.bulkApprovalPerson_lv2     = '';
+            temp.bulkApprovalPersonID_lv2   = '';
+            temp.bulkApprovalDate_lv3       = '';
+            temp.bulkApprovalPerson_lv3     = '';
+            temp.bulkApprovalPersonID_lv3   = '';
+            temp.bulkApprovalDate_final     = '';
+            temp.bulkApprovalPerson_final   = '';
+            temp.bulkApprovalPersonID_final = '';
+            
             temp.orderDate          = this.baseCompnt.setValue(this.resSuchOAP.orderDate);
             temp.orderAmount        = this.baseCompnt.setValue(this.resSuchOAP.orderAmount);
             temp.receivedDate       = this.baseCompnt.setValue(this.resSuchOAP.receivedDate);
@@ -1123,14 +1164,19 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         dt[i].orderPlanAmount          = this.baseCompnt.removeCommas(this.addInput.orderPlanAmount);
         dt[i].bulkRequestDate          = this.addInput.bulkRequestDate;
         dt[i].bulkRequester            = this.addInput.bulkRequester;
+        dt[i].bulkRequesterID          = this.addInput.bulkRequesterID;
         dt[i].bulkApprovalDate_lv1     = this.addInput.bulkApprovalDate_lv1;
         dt[i].bulkApprovalPerson_lv1   = this.addInput.bulkApprovalPerson_lv1;
+        dt[i].bulkApprovalPersonID_lv1 = this.addInput.bulkApprovalPersonID_lv1;
         dt[i].bulkApprovalDate_lv2     = this.addInput.bulkApprovalDate_lv2;
         dt[i].bulkApprovalPerson_lv2   = this.addInput.bulkApprovalPerson_lv2;
+        dt[i].bulkApprovalPersonID_lv2 = this.addInput.bulkApprovalPersonID_lv2;
         dt[i].bulkApprovalDate_lv3     = this.addInput.bulkApprovalDate_lv3;
         dt[i].bulkApprovalPerson_lv3   = this.addInput.bulkApprovalPerson_lv3;
+        dt[i].bulkApprovalPersonID_lv3 = this.addInput.bulkApprovalPersonID_lv3;
         dt[i].bulkApprovalDate_final   = this.addInput.bulkApprovalDate_final;
         dt[i].bulkApprovalPerson_final = this.addInput.bulkApprovalPerson_final;
+        dt[i].bulkApprovalPersonID_final = this.addInput.bulkApprovalPersonID_final;
         dt[i].orderDate                = res.orderDate;
         dt[i].orderAmount              = res.orderAmount;
         dt[i].receivedDate             = res.receivedDate;
@@ -1692,6 +1738,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.propertyNo = this.paramInit.propertyNo;     // 物件管理Ｎｏ
     this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
     this.paramUpd.orderDetailList = tmp;                      // 一覧データ
+    // アクセストークン取得
+    this.paramUpd.token = sessionStorage.getItem("AccessToken");
 
     this.paramUpd.token = sessionStorage.getItem(Const.General.AccessToken);
 

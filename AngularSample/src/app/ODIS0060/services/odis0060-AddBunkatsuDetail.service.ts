@@ -6,7 +6,7 @@ import { ODIS0060SuchOAP } from '../entities/odis0060-SuchOAP.entity'
 /**
  * 発注明細に追加サービス
  */
-export class ODIS0020BunkatsuInsertService extends CommonComponent {
+export class ODIS0060BunkatsuInsertService extends CommonComponent {
 
     /** 発注金額 */
     orderSplitAmount: string;
@@ -28,6 +28,9 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     /** 依頼者 */
     requester: string;
 
+    /** 依頼者ID */
+    requesterID: string;
+
     approvalDate_lv1: string;
 
     approvalPerson_lv1: string;
@@ -46,20 +49,6 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
 
     bunkatsu: ODIS0060OrderDetailBunkatsu;
 
-    /**未入力の場合、「True」を返却する */
-    get isBlank(): boolean {
-        if (this.orderSplitAmount != '' ||
-            this.splitSupplierCode != '' ||
-            this.splitSupplierName != '' ||
-            this.comment != '' ||
-            this.requestDate != '' ||
-            this.requester != '' ||
-            this.splitOrderReceipt != ''
-        ) {
-            return false;
-        }
-        return true;
-    }
     /**発注金額がないとき「True」を返却する */
     get amountIsBlank(): boolean {
         if (this.orderSplitAmount != '') {
@@ -82,11 +71,10 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
             this.comment != this.bunkatsu.comment ||
             this.requestDate != this.bunkatsu.requestDate ||
             this.requester != this.bunkatsu.requester ||
+            this.requesterID != this.bunkatsu.requesterID ||
             this.splitOrderReceipt != this.bunkatsu.splitOrderReceipt) {
-
             return true;
         }
-        
         return false;
     }
 
@@ -99,6 +87,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
     }
 
     public Clear() {
+
         this.orderSplitAmount = '';
         this.splitSupplierCode = '';
         this.splitSupplierName = '';
@@ -106,6 +95,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         this.comment = '';
         this.requestDate = '';
         this.requester = '';
+        this.requesterID = '';
         this.approvalDate_lv1 = '';
         this.approvalDate_lv2 = '';
         this.approvalDate_lv3 = '';
@@ -125,6 +115,7 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
         this.comment              = input.comment;
         this.requestDate          = input.requestDate;
         this.requester            = input.requester;
+        this.requesterID          = input.requesterID;
         this.approvalDate_lv1     = input.approvalDate_lv1;
         this.approvalPerson_lv1   = input.approvalPerson_lv1;
         this.approvalDate_lv2     = input.approvalDate_lv2;
@@ -160,14 +151,19 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
             case Const.Action.A0001:
                 output.requestDate          = this.setValue(this.requestDate);
                 output.requester            = this.setValue(this.requester);
+                output.requesterID          = this.setValue(this.requesterID);
                 output.approvalDate_lv1     = '';
                 output.approvalPerson_lv1   = '';
+                output.approvalPersonID_lv1 = '';
                 output.approvalDate_lv2     = '';
                 output.approvalPerson_lv2   = '';
+                output.approvalPersonID_lv2 = '';
                 output.approvalDate_lv3     = '';
                 output.approvalPerson_lv3   = '';
+                output.approvalPersonID_lv3 = '';
                 output.approvalDate_final   = '';
                 output.approvalPerson_final = '';
+                output.approvalPersonID_final = '';
                 output.orderDate            = res.orderDate;
                 output.orderAmount          = res.orderAmount;
                 output.receivedDate         = res.receivedDate;
@@ -180,24 +176,30 @@ export class ODIS0020BunkatsuInsertService extends CommonComponent {
                 if(output.requestDate ==''){
                     output.requestDate = this.setValue(this.requestDate);
                     output.requester   = this.setValue(this.requester);
+                    output.requesterID = this.setValue(this.requesterID);
                 }else{
                     output.requestDate = '';
                     output.requester   = '';
+                    output.requesterID = '';
                 }
-                output.approvalDate_lv1     = this.bunkatsu.approvalDate_lv1;
-                output.approvalPerson_lv1   = this.bunkatsu.approvalPerson_lv1;
-                output.approvalDate_lv2     = this.bunkatsu.approvalDate_lv2;
-                output.approvalPerson_lv2   = this.bunkatsu.approvalPerson_lv2;
-                output.approvalDate_lv3     = this.bunkatsu.approvalDate_lv3;
-                output.approvalPerson_lv3   = this.bunkatsu.approvalPerson_lv3;
-                output.approvalDate_final   = this.bunkatsu.approvalDate_final;
-                output.approvalPerson_final = this.bunkatsu.approvalPerson_final;
-                output.orderDate            = res.orderDate;
-                output.orderAmount          = res.orderAmount;
-                output.receivedDate         = res.receivedDate;
-                output.receivedAmount       = res.receivedAmount;
-                output.paymentDate          = res.paymentDate;
-                output.paymentAmount        = res.paymentAmount;
+                output.approvalDate_lv1       = this.bunkatsu.approvalDate_lv1;
+                output.approvalPerson_lv1     = this.bunkatsu.approvalPerson_lv1;
+                output.approvalPersonID_lv1   = this.bunkatsu.approvalPersonID_lv1;
+                output.approvalDate_lv2       = this.bunkatsu.approvalDate_lv2;
+                output.approvalPerson_lv2     = this.bunkatsu.approvalPerson_lv2;
+                output.approvalPersonID_lv2   = this.bunkatsu.approvalPersonID_lv2;
+                output.approvalDate_lv3       = this.bunkatsu.approvalDate_lv3;
+                output.approvalPerson_lv3     = this.bunkatsu.approvalPerson_lv3;
+                output.approvalPersonID_lv3   = this.bunkatsu.approvalPersonID_lv3;
+                output.approvalDate_final     = this.bunkatsu.approvalDate_final;
+                output.approvalPerson_final   = this.bunkatsu.approvalPerson_final;
+                output.approvalPersonID_final = this.bunkatsu.approvalPersonID_final;
+                output.orderDate              = res.orderDate;
+                output.orderAmount            = res.orderAmount;
+                output.receivedDate           = res.receivedDate;
+                output.receivedAmount         = res.receivedAmount;
+                output.paymentDate            = res.paymentDate;
+                output.paymentAmount          = res.paymentAmount;
                 
                 break;
         }
