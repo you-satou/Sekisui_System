@@ -17,8 +17,6 @@
 }
 
 .footer {
-    /* position: fixed ;
-    display: fixed ; */
     background-color: #F5F5F5 ;
     z-index: 1;
     height: 50px ;
@@ -220,8 +218,8 @@
 }
 
 .SC0020-bottomButton>button {
-        padding: 0 10px!important;
-        width: fit-content !important;
+    padding: 0 10px!important;
+    width: fit-content !important;
 }
 
 .button-container {
@@ -234,7 +232,6 @@
     right: 50%;
     width: 320px;
     margin: auto;
-    /* border: 1px solid red;  */
     height: 50px; 
     position: fixed;
     bottom: 0;
@@ -329,7 +326,6 @@
 /*************************************************************/
 
 .approval-table{
-    /* min-width: 700px; */
     margin-bottom: 1rem;
     margin-top: 5px;
     max-width: 768px;
@@ -353,7 +349,6 @@
     padding: 0;
     text-align: center;
     vertical-align: middle;
-    /* width: 100px; */
 }
 .approval-table >tr>td>button{
     width: 70px;
@@ -361,18 +356,13 @@
     border: 0;
 }
 .approval-table >tr>td>label{
-    /* width: 70px; */
-    /* height: 35px !important; */
-    /* border: 0; */
     margin-bottom: 0;
 }
 
 .approval-table >tr>.td-date{
-    /* min-width: 75px; */
     width: 80px;
 }
 .approval-table >tr>.td-name{
-    /* min-width: 100px; */
     width: 110px;
 }
 

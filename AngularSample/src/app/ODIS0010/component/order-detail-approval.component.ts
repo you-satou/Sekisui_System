@@ -1,6 +1,5 @@
 import { LoginUserEntity } from './../../ODIS0000/entities/odis0000-loginInfo.entity';
-import { IndexService } from './../../ODIS0000/services/index.service';
-import { Component, HostListener, OnInit, ViewEncapsulation,} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation,} from "@angular/core";
 import { Router } from '@angular/router';
 import { AppComponent } from "../../app.component";
 import { ODIS0010Form } from "../entities/odis0010-Form.entity";
