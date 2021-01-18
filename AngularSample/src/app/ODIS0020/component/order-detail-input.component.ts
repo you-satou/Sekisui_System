@@ -100,12 +100,12 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         return Const.BranchValue.Hontai;
       case this.tabName3:
         return Const.BranchValue.Kaitai;
-      case this.tabName6:
-        return Const.BranchValue.Tsuika;
       case this.tabName4:
         return Const.BranchValue.Zouen1;
       case this.tabName5:
         return Const.BranchValue.Zouen2;
+      case this.tabName6:
+        return Const.BranchValue.Tsuika;
     }
   }
 
@@ -186,7 +186,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   loginInfo: LoginUserEntity;
 
   /** 明細に固定さている明細名称 */
-  private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
+  private readonly FIXED_ROW = ['0100','9100','9200','9300'];
 
   constructor(
     private appComponent: AppComponent,
@@ -339,15 +339,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               
               // 「解体」タブ
               this.tblKaitai = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Kaitai);
-
-              // 「追加」タブ
-              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Tsuika);
               
               // 「造園①」タブ
               this.tblZouen1 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen1);
               
               // 「造園②」タブ
               this.tblZouen2 = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Zouen2);
+
+              // 「追加」タブ
+              this.tblTsuika = this.splitOrderDetail(this.orderDetaiSplitlList, Const.JuuChuuEdaban.Tsuika);
 
               // 画面をレンダーする
               this.isInitFlg = true;
@@ -385,13 +385,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }else{
       // ハウス材等を一番下に加工
       var temp1 = dt.filter(dt => {
-        if (!this.FIXED_ROW.includes(dt.journalName)){
+        if (!this.FIXED_ROW.includes(dt.journalCode)){
           return dt;
         }
       })
 
       var temp2 = dt.filter(dt => {
-        if (this.FIXED_ROW.includes(dt.journalName)) {
+        if (this.FIXED_ROW.includes(dt.journalCode)) {
           return dt;
         }
       })
@@ -970,7 +970,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private countDefaultData(data: ODIS0020OrderDetaiSplitBean[]):number{
 
     var flt = data.filter(dt =>{
-      if (this.FIXED_ROW.includes(dt.journalName)) {
+      if (this.FIXED_ROW.includes(dt.journalCode)) {
         return dt;
       }
     })
@@ -1176,7 +1176,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(val === '1'){
      
       //選択された明細は「ハウス材」「運賃」「荷造・保管料」「労災」かどうかをチェックする
-      if (this.FIXED_ROW.includes(rowData.journalName)) {
+      if (this.FIXED_ROW.includes(rowData.journalCode)) {
         //仕訳と発注先が変更されたかどうかをチェックする
         if (rowData.journalCode != this.addInput.journalCode ||
             rowData.accountCode != this.addInput.accountCode ||
@@ -1403,7 +1403,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setPageButtonDisplay(true, true, false, true);
 
     if (dt != null) {
-      if (this.FIXED_ROW.includes(dt.journalName)) {
+      if (this.FIXED_ROW.includes(dt.journalCode)) {
         this.setPageButtonDisplay(true, false, false, true);
       }
       if (this.baseCompnt.setValue(dt.bulkApprovalPerson_final) != ''){
@@ -1577,7 +1577,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private updCheck(datas: ODIS0020OrderDetaiSplitBean[]):boolean{
     var tmp = datas.filter(dt => {
-        if (!this.FIXED_ROW.includes(dt.journalName)) {
+        if (!this.FIXED_ROW.includes(dt.journalCode)) {
           return dt;
         }
       }
