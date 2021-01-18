@@ -7,6 +7,7 @@ import { Location } from '@angular/common'
 // ↓↓ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↓↓
 import { ShRedirectService } from 'sh-http-client';
 import { ShAppComponent } from "sh-form-control";
+import { Const } from './common/const';
 // ↑↑ 追加 2021-01-06 アクセストークン追加に必要なクラスをインポート↑↑
 
 const openClose = trigger('openClose', [
@@ -38,19 +39,11 @@ export class AppComponent extends ShAppComponent implements OnInit {
   // 初期化
   displayTitle: string = "";
   rootPath: string = "";
-  frmPath: string = "";
-  show: boolean = false;
   message_str: String = "";
   errorMessages: String[];
   errorFlg: boolean;
-  mode: number;
-  systemDate: Date = new Date();
-
-  day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
 
   approvalLevels: number;
-  loginUser: string;
-  branchName: string;
   loginInfo: LoginUserEntity;
 
   isFetchDone = false;
@@ -67,15 +60,14 @@ export class AppComponent extends ShAppComponent implements OnInit {
 
   ngOnInit() {
     if (window.location.search != null && window.location.search !== "" && window.location.search.indexOf("authCd") > 0) {
-      let authCd = window.location.search.substr(window.location.search.indexOf("=") + 1);
+      const authCd = window.location.search.substr(window.location.search.indexOf("=") + 1);
       if (authCd != null && authCd !== "") {
-        sessionStorage.setItem("AccessToken", authCd);
+        sessionStorage.setItem(Const.General.AccessToken, authCd);
       }
     }
     this.loginServices.userInfoSubscriber$.subscribe((data)=>{
       this.loginInfo = data;
-      this.loginUser = data.empNmKnj;
-      this.branchName = data.jgyshNm;
+
       this.approvalLevels = Number(data.approvalUnit);
 
       this.isFetchDone = true;
@@ -131,17 +123,7 @@ export class AppComponent extends ShAppComponent implements OnInit {
     this.displayTitle = strTitle;
     this.rootPath = strPath;
   }
-
-  /**
-   * ロカールに時刻を取得する
-   */
-  getSystemDate(): string {
-    return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
-  }
-
-  public fetchLoginInfo () {
-    this.loginServices.fetchLoginInfo();
-  }
+  
 
   ngOnDestroy(): void {
 

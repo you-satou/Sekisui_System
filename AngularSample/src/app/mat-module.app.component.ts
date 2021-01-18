@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
@@ -21,6 +22,7 @@ import { PaginatorResultLabel } from './ODIS0010/component/paginator/order-pagin
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    MatMenuModule,
   ],
   providers: [
     {provide:MatPaginatorIntl, useValue:PaginatorResultLabel()}

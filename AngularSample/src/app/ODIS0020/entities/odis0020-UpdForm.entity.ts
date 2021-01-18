@@ -7,7 +7,10 @@ export class ODIS0020UpdForm{
     propertyNo: string;
 
 	/** 契約番号 */
-	contractNum: string;
+    contractNum: string;
+    
+    /** アクセストークン */
+    token: string;
 
 	/** 発注明細データ */
     orderDetailList: ODIS0020OrderDetaiSplitBean[];

@@ -1,0 +1,44 @@
+.system-logo{
+    cursor: pointer;
+}
+
+.navbar-color{
+    background-color:#305496;
+    display: flex; 
+    flex-wrap: nowrap;
+}
+.menu-button{
+    background-color: transparent;
+    color: #ffffff;
+    width: 24px;
+}
+.button-child{
+    background-color: #f8f9fa;
+    width: 180px !important;
+}
+
+.more_vert{
+    font-size: 15px;
+    
+}
+
+::ng-deep div.mat-menu-panel{
+    position: absolute;
+    top: 56px;
+    right: 0;
+    border: 1px solid #CCD0D5;
+    background-color: #f8f9fa;
+    padding: 0;
+}
+
+::ng-deep div.mat-menu-content {
+    padding: 0 !important;
+}
+
+::ng-deep .cdk-overlay-connected-position-bounding-box{
+    height: 0px !important;
+}
+
+.navbar-nav {
+    flex-direction: unset;
+}

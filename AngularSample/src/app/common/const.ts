@@ -50,6 +50,7 @@ export namespace Const{
         export const L0007 = '/ODIS0070';
 
         export const S0000_FetchUserInfo = '/ODIS0000/authorization';
+        export const S0000_LogOut = '/ODIS0000/logOut';
 
         export const S0001_Search = '/ODIS0010/search';
         export const S0002_Init = '/ODIS0020/init';
@@ -189,7 +190,6 @@ export namespace Const{
         export const W0003 = '承認処理画面に戻ります。\n保存されていないデータは破棄されますが、よろしいでしょうか';
         export const W0004 = '編集途中のデータがあります。\n編集途中のデータは破棄されますが、更新処理を行いますか？';
         export const W0005 = '表示されているデータをデータベースに登録しますが\nよろしいでしょうか？';
-
         export const W0006 = '却下しますか？';
     }
 
@@ -277,6 +277,13 @@ export namespace Const{
         export const Zouen1 ='31';
         export const Zouen2 ='32';
         export const Tsuika ='36';
+
+    }
+
+    export namespace General {
+        
+        export const AccessToken = 'AccessToken';
+        
 
     }
 }

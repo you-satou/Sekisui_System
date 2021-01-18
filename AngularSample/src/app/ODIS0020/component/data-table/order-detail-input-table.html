@@ -241,8 +241,8 @@
         <ng-container matColumnDef="display">
             <th style="min-width: 35px; width: 35px;" class="col-display dis-play" mat-header-cell *matHeaderCellDef></th>
             <td style="min-width: 35px; width: 35px; box-shadow: 1px 0px 0px 0px #dee2e6 inset; padding: 0 !important;" class="font-s" class="col-display" mat-cell *matCellDef="let element ">
-                <button style="min-width: 35px; padding: 0;" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)>
-                    <mat-icon>➡</mat-icon>
+                <button style="min-width: 35px; padding: 0; text-decoration: none" class="btn btn-link" disabled="{{isReflectFlg(element)}}" mat-button (click)=getDisplayData($event,element)>
+                    <mat-icon style="font-size: 14px; vertical-align: text-top;">➡</mat-icon>
                 </button>
             </td>
             <td mat-footer-cell *matFooterCellDef class="col-display-footer"></td>
@@ -305,7 +305,9 @@
                 <!-- 発注金額が入力あり AND 依頼日が空白の場合にボタンを表示 -->
                 <button mat-button class="btn btn-outline-primary btn-small"
                         *ngIf="this.comCompnt.setValue(element.orderSplitAmount) != '' 
-                            && this.comCompnt.setValue(element.requester) == ''"(click)="setRequest($event,element)"
+                            && this.comCompnt.setValue(element.bulkApprovalPerson_final) !=''
+                            && this.comCompnt.setValue(element.requester) == ''"
+                        (click)="setRequest($event,element)"
                         disabled="{{this.tabName === this.readonlyTab}}">依頼</button>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
@@ -319,11 +321,12 @@
                 <!-- 依頼日が入力あり AND ログイン者が「承認１:可」(TODO)の場合）にボタンを表示 -->
                 <button mat-button class="btn btn-outline-success"
                         *ngIf="this.approvalUnit >= 2 
-                           && this.comCompnt.setValue(element.requester) !='' 
-                           && this.comCompnt.setValue(element.approvalPerson_lv1) ==''
-                           && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                           && this.comCompnt.setValue(this.permission.approvalLv1) == '1'
-                           && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
+                            && this.comCompnt.setValue(element.bulkApprovalPerson_final) !=''
+                            && this.comCompnt.setValue(element.requester) !=''
+                            && this.comCompnt.setValue(element.approvalPerson_lv1) ==''
+                            && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                            && this.comCompnt.setValue(this.permission.approvalLv1) == '1'
+                            && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                         (click)="setApprovalFirstLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -338,11 +341,12 @@
                 <!-- 承認１が入力あり AND ログイン者が「承認２:可」(TODO)の場合）にボタンを表示 -->
                 <button mat-button class="btn btn-outline-success"
                     *ngIf="this.approvalUnit >= 3 
-                    && this.comCompnt.setValue(element.approvalPerson_lv1) !=''
-                    && this.comCompnt.setValue(element.approvalPerson_lv2) ==''
-                    && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                    && this.comCompnt.setValue(this.permission.approvalLv2) == '1'
-                    && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
+                        && this.comCompnt.setValue(element.bulkApprovalPerson_final) !=''
+                        && this.comCompnt.setValue(element.approvalPerson_lv1) !=''
+                        && this.comCompnt.setValue(element.approvalPerson_lv2) ==''
+                        && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                        && this.comCompnt.setValue(this.permission.approvalLv2) == '1'
+                        && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                     (click)="setApprovalNextLevel($event,element)" 
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
 
@@ -359,11 +363,12 @@
                     <!-- 「承認人数が３を設定」と「ログイン：承認３可」と「承認2承認済」の時に表示する -->
                     <button mat-button class="btn btn-outline-success"
                         *ngIf="this.approvalUnit == 4 
-                        && this.comCompnt.setValue(element.approvalPerson_lv2) !='' 
-                        && this.comCompnt.setValue(element.approvalPerson_lv3) ==''
-                        && this.comCompnt.setValue(element.approvalPerson_final) == ''
-                        && this.comCompnt.setValue(this.permission.approvalLv3) == '1'
-                        && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
+                            && this.comCompnt.setValue(element.bulkApprovalPerson_final) !=''
+                            && this.comCompnt.setValue(element.approvalPerson_lv2) !='' 
+                            && this.comCompnt.setValue(element.approvalPerson_lv3) ==''
+                            && this.comCompnt.setValue(element.approvalPerson_final) == ''
+                            && this.comCompnt.setValue(this.permission.approvalLv3) == '1'
+                            && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                         (click)="setApprovalThirdLevel($event,element)" 
                         disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>
@@ -382,10 +387,11 @@
                 <!-- 承認人数は３が設定された場合、ログイン：「最終承認可」と「承認２承認済」と「最終承認未済」の時に表示される -->
                 <!-- 承認人数は４が設定された場合、ログイン：「最終承認可」と「承認３承認済」と「最終承認未済」の時に表示される -->
                 <button mat-button class="btn btn-outline-success"
-                    *ngIf="(this.comCompnt.setValue(element.requester) !='' &&
-                            this.comCompnt.setValue(element.approvalPerson_final) =='' &&
-                            this.comCompnt.setValue(this.permission.approvalFinal) == '1' &&
-                            this.comCompnt.setValue(this.permission.deleteFlag) != '1')"
+                    *ngIf="this.comCompnt.setValue(element.bulkApprovalPerson_final) !=''
+                        && this.comCompnt.setValue(element.requester) !=''
+                        && this.comCompnt.setValue(element.approvalPerson_final) ==''
+                        && this.comCompnt.setValue(this.permission.approvalFinal) == '1'
+                        && this.comCompnt.setValue(this.permission.deleteFlag) != '1'"
                     (click)="setApprovalFinalLevel($event,element)"
                     disabled="{{this.tabName === this.readonlyTab}}">承認</button>
             </td>

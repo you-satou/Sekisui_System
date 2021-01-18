@@ -38,8 +38,4 @@ export class LoginInfoRequestService implements OnInit {
         
     }
 
-    public fetchLoginInfo(){
-        this.sendRequestUserInfo();
-    }
-
 }

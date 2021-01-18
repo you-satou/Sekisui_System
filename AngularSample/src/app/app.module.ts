@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
 import { AppComponent } from './app.component';
-import { MaterialModules } from './mat-module.app.componet';
+import { MaterialModules } from './mat-module.app.component';
 import { CommonComponent } from './common/common.component';
 import { CommonService } from './common/common.service';
 import { IndexComponent } from './ODIS0000/component/index.component';
@@ -26,6 +26,7 @@ import { OrderDetailShiwakeTable } from './ODIS0020/component/data-table/order-d
 import { OrderDetailApprovalComponent } from './ODIS0010/component/order-detail-approval.component';
 import { LoadingSpinner } from './common/progressingSpinner/common.spinner';
 import { OrderGrossProfitMarginComponent } from './ODIS0080/component/order-gross-profit-margin.component';
+import { AppNavigator } from './common/navigationBar/navigator.component';
 
 const appRoute: Routes = [
   { path: '', component: IndexComponent },
@@ -56,6 +57,7 @@ const appRoute: Routes = [
     SplitOrderDetailTable,
     LoadingSpinner,
     OrderGrossProfitMarginComponent,
+    AppNavigator,
 
   ],
   imports: [

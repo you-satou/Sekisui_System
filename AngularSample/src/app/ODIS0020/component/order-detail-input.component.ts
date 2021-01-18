@@ -108,19 +108,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }
   }
 
-  get cellNumber(){
-    switch(this.approvalUnit){
-      case 1:
-        return 10;
-      case 2:
-        return 11;
-      case 3:
-        return 12;
-      case 4:
-        return 13;
-    }
-  }
-
   isLoading: boolean = true;
 
   // レスポンスから取得する
@@ -183,7 +170,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   approvalUnit: number;
 
   /** 明細に固定さている明細名称 */
-  private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
+  private readonly FIXED_ROW = ['0100','9100','9200','9300'];
 
   constructor(
     private appComponent: AppComponent,
@@ -377,13 +364,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     }else{
       // ハウス材等を一番下に加工
       var temp1 = dt.filter(dt => {
-        if (!this.FIXED_ROW.includes(dt.journalName)){
+        if (!this.FIXED_ROW.includes(dt.journalCode)){
           return dt;
         }
       })
 
       var temp2 = dt.filter(dt => {
-        if (this.FIXED_ROW.includes(dt.journalName)) {
+        if (this.FIXED_ROW.includes(dt.journalCode)) {
           return dt;
         }
       })
@@ -554,6 +541,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.tblZouen2 = savedData.zouEn2Data;
 
     this.paramInit = savedData.paramInit;
+    this.approvalPermission = savedData.approvalPermission;
     
     // 分割明細画面から渡されたパラメータを取得する
     let returnDt = this.ODIS0020Service.ReturnedSplitData;
@@ -960,7 +948,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   private countDefaultData(data: ODIS0020OrderDetaiSplitBean[]):number{
 
     var flt = data.filter(dt =>{
-      if (this.FIXED_ROW.includes(dt.journalName)) {
+      if (this.FIXED_ROW.includes(dt.journalCode)) {
         return dt;
       }
     })
@@ -1166,7 +1154,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     if(val === '1'){
      
       //選択された明細は「ハウス材」「運賃」「荷造・保管料」「労災」かどうかをチェックする
-      if (this.FIXED_ROW.includes(rowData.journalName)) {
+      if (this.FIXED_ROW.includes(rowData.journalCode)) {
         //仕訳と発注先が変更されたかどうかをチェックする
         if (rowData.journalCode != this.addInput.journalCode ||
             rowData.accountCode != this.addInput.accountCode ||
@@ -1254,6 +1242,18 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    * @param dt 
    */
   private setRowUnselected(body:any, dt: ODIS0020OrderDetaiSplitBean[]){
+
+    var bulkApprovalCell = 0;
+
+    const row = body.rows[0];
+    for(var i = 0; i < row.cells.length; i++){
+      //最終承認セールまで数える
+      
+      if(row.childNodes[i].id == "bulkApprovalFinal"){
+        bulkApprovalCell = i;
+        break;
+      }
+    }
     //テーブルの背景色を設定する。
     for(var i = 0; i < dt.length; i++){
       //一括承認データが入っている行はグレーアウトする。
@@ -1261,7 +1261,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         var tr = body.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
-          if (j <= this.cellNumber) {
+          // if (j <= this.cellNumber) {
+          if (j <= bulkApprovalCell) {
             td.style.backgroundColor = Const.HighLightColour.GrayOut;
           }
           else {
@@ -1393,7 +1394,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setPageButtonDisplay(true, true, false, true);
 
     if (dt != null) {
-      if (this.FIXED_ROW.includes(dt.journalName)) {
+      if (this.FIXED_ROW.includes(dt.journalCode)) {
         this.setPageButtonDisplay(true, false, false, true);
       }
       if (this.baseCompnt.setValue(dt.bulkApprovalPerson_final) != ''){
@@ -1566,7 +1567,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
    */
   private updCheck(datas: ODIS0020OrderDetaiSplitBean[]):boolean{
     var tmp = datas.filter(dt => {
-        if (!this.FIXED_ROW.includes(dt.journalName)) {
+        if (!this.FIXED_ROW.includes(dt.journalCode)) {
           return dt;
         }
       }
@@ -1692,9 +1693,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
     this.paramUpd.orderDetailList = tmp;                      // 一覧データ
 
-    //FIXME:
+    this.paramUpd.token = sessionStorage.getItem(Const.General.AccessToken);
+
     this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload, this.paramUpd)
-    .then((response:HttpResponse<any>) => {
+    .subscribe((response:HttpResponse<any>) => {
           try{
             //ファイル名を取得する。
             let fileName = response.headers.get('Content-Disposition').replace('attachment; filename=','');

@@ -39,7 +39,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
   readonly readonlyTab = Const.TabName.TabName_Tsuika;
   
   /** 明細に固定さている明細名称 */
-  private readonly FIXED_ROW = ['ハウス材','荷造・保管料','運賃','労災'];
+  private readonly FIXED_ROW = ['0100','9100','9200','9300'];
 
   /** 明細にクリックされた位置 */
   private clickedPosition: number = -1;
@@ -379,7 +379,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     // ハウス材、運賃、荷造・保管料、労災の場合は非活性
-    if (this.FIXED_ROW.includes(element.journalName)) {
+    if (this.FIXED_ROW.includes(element.journalCode)) {
       return true;
     }
 
@@ -459,7 +459,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     // ハウス材、運賃、荷造・保管料、労災の場合は非活性
-    if (this.FIXED_ROW.includes(element.journalName)) {
+    if (this.FIXED_ROW.includes(element.journalCode)) {
       return true;
     }
     // 活性
@@ -818,11 +818,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     var bulkApprovalCell = 0;
-
     for(var i = 0; i < tr.cells.length; i++){
       //最終承認セールまで数える
-      bulkApprovalCell++;
       if(tr.childNodes[i].id == "bulkApprovalFinal"){
+        bulkApprovalCell = i;
         break;
       }
     }

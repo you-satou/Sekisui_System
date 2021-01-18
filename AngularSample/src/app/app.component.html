@@ -1,33 +1,12 @@
 <section *ngIf="this.isFetchDone">
     <title>{{displayTitle}}</title>
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <div id="app">
-        <nav class="navbar text-white p-2" style="background-color:#305496; display: flex; flex-wrap: nowrap;">
-            <ul class="navbar-nav mr-auto">
-                <label class="navbar-brand text-white" style="margin: 0;">
-                    <img src="./assets/logo.png" class="d-inline-block align-top">
-                    <span class="mx-3 fs-big">発注承認処理</span>
-                    <span class="mx-1 fs-small">v 1.0.0</span>
-                </label>
-            </ul>
-            <ul class="navbar-nav">
-                <div class="text-right">
-                    <div>
-                        <span class="mx-2 fs-small">{{this.branchName}}</span>
-                        <span class="mx-2 fs-small">{{this.loginUser}}</span>
-                        <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample"
-                            style="font-weight:bold">
-                            <mat-button-toggle-group mat-icon="expand" mat-button mat-icon onclick="window.alert()">︙
-                            </mat-button-toggle-group>
-                        </a>
-                    </div>
-                    <div class="collapse fs-small" id="collapseExample">
-                        304005　304005　19780351
-                    </div>
-                    <span class="mx-2 fs-small">{{getSystemDate()}}　</span>
-                </div>
-            </ul>
-        </nav>
+        <div>
+            <app-navigator [loginInfo]="this.loginInfo"></app-navigator>
+        </div>
+        
         <nav class="bg-light border" style="white-space: nowrap;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#"
                 aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation"
@@ -38,11 +17,6 @@
             <a class="header-title text-left fs-small">{{displayTitle}}</a>
             <div class="px-5 pt-1">
                 <h4 class="header-title text-left fs-big">{{displayTitle}}</h4>
-            </div>
-            <div class="collapse" id="navbarToggleExternalContent">
-                <div class="bg-light p-4">
-                    <span class="text-muted">contents</span>
-                </div>
             </div>
         </nav>
 
