@@ -9,11 +9,11 @@
     <ul class="navbar-nav">
         <div class="text-right">
             <div>
+                <span class="mx-2 fs-small">{{this.loginInfo.jgyshNm}}</span>
                 <span class="mx-2 fs-small">{{this.loginInfo.empNmKnj}}</span>
-                <span class="mx-2 fs-small">{{this.loginInfo.officeNm}}</span>
             </div>
             <div class="collapse fs-small" id="collapseExample"></div>
-            <span class="mx-2 fs-small">{{this.displayDate}}</span>
+            <span class="mx-2 fs-small">{{this.currentTime}}</span>
         </div>
         <a data-toggle="collapse" data-target="#" aria-expanded="false" aria-controls="collapseExample" style="font-weight:bold">
             <button mat-icon-button class="menu-button" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">

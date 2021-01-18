@@ -14,13 +14,10 @@ export class AppNavigator implements OnInit {
 
   @Input() loginInfo: LoginUserEntity;
 
-  displayDate: any;
+  currentTime: any;
   systemDate: Date = new Date();
   
   day: string[] = ["日", "月", "火", "水", "木", "金", "土"];
-  time = new Date();
-
-
 
   constructor(
     private commonService: CommonService,
@@ -31,7 +28,7 @@ export class AppNavigator implements OnInit {
 
   ngOnInit(): void {
 
-    this.displayDate = this.getSystemDate();
+    this.currentTime = this.getSystemDate();
   }
 
   /**
@@ -40,13 +37,13 @@ export class AppNavigator implements OnInit {
   ngAfterViewInit() {
     setInterval(() => {
       this.systemDate = new Date();
-      this.displayDate = this.getSystemDate();
+      this.currentTime = this.getSystemDate();
     }, 1000);
   }
   /**
    * システム日付を取得する
    */
-  getSystemDate(): string {
+  private getSystemDate(): string {
     return `${this.systemDate.toLocaleDateString()}(${this.day[this.systemDate.getDay()]}) ${this.systemDate.toLocaleTimeString().slice(0, -3)}`;
   }
 
