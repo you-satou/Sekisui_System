@@ -33,8 +33,6 @@ export class LoginInfoRequestService implements OnInit {
             this._loginInfo = res.applicationData;
             this.loginUserInfo.next(this._loginInfo);
         }
-
-        console.log(res);
         
     }
 

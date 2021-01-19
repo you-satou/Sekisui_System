@@ -97,9 +97,13 @@ export class ODIS0060BunkatsuInsertService extends CommonComponent {
         this.requester = '';
         this.requesterID = '';
         this.approvalDate_lv1 = '';
+        this.approvalPerson_lv1 = '';
         this.approvalDate_lv2 = '';
+        this.approvalPerson_lv2 = '';
         this.approvalDate_lv3 = '';
+        this.approvalPerson_lv3 = '';
         this.approvalDate_final = '';
+        this.approvalPerson_final = '';
         this.bunkatsu = null;
     }
 

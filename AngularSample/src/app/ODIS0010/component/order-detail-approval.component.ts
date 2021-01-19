@@ -104,9 +104,9 @@ export class OrderDetailApprovalComponent implements OnInit {
     this.inputment._checked        = true;
     this.inputment.detailCreated   = false;
     this.inputment.detailNone      = false;
-    this.inputment.approvalLv1      = false;
-    this.inputment.approvalLv2      = false;
-    this.inputment.approvalLv3      = false;
+    this.inputment.approvalLv1     = false;
+    this.inputment.approvalLv2     = false;
+    this.inputment.approvalLv3     = false;
     this.inputment.approvalFinal   = false;
   }
 

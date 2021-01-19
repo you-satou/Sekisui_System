@@ -1739,8 +1739,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.paramUpd.contractNum = this.paramInit.contractNum;   // 契約書番号
     this.paramUpd.orderDetailList = tmp;                      // 一覧データ
     // アクセストークン取得
-    this.paramUpd.token = sessionStorage.getItem("AccessToken");
-
+    
     this.paramUpd.token = sessionStorage.getItem(Const.General.AccessToken);
 
     this.orderService.getDownLoad(Const.UrlLinkName.S0002_UpdateAndDownload, this.paramUpd)

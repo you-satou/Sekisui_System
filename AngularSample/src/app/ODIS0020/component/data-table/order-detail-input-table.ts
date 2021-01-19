@@ -399,13 +399,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
     // 左側の却下ボタンには、一括最終承認が入る場合、非活性する
     if(type == 'order'){
-      if(this.comCompnt.setValue(element.bulkApprovalPerson_final) != ''){
+      if(this.comCompnt.setValue(element.bulkApprovalDate_final) != ''){
         return true;
       }
     }
     // 右側の却下ボタンには、最終承認が入る場合、非活性する
     if(type == 'split'){
-      if(this.comCompnt.setValue(element.approvalPerson_final) != ''){
+      if(this.comCompnt.setValue(element.approvalDate_final) != ''){
         return true;
       }
     }
@@ -425,13 +425,13 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
     // 左側の却下ボタンには、一括最終承認が入る場合、非活性する
     if(type == 'order'){
-      if(this.comCompnt.setValue(element.bulkApprovalPerson_final) != ''){
+      if(this.comCompnt.setValue(element.bulkApprovalDate_final) != ''){
         return true;
       }
     }
     // 右側の却下ボタンには、最終承認が入る場合、非活性する
     if(type == 'split'){
-      if(this.comCompnt.setValue(element.approvalPerson_final) != ''){
+      if(this.comCompnt.setValue(element.approvalDate_final) != ''){
         return true;
       }
     }
@@ -448,7 +448,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //一括承認データが入らない場合、非活性する。
-    if (this.comCompnt.setValue(element.bulkApprovalPerson_final) === '') {
+    if (this.comCompnt.setValue(element.bulkApprovalDate_final) === '') {
       return true;
     }
     
@@ -1081,7 +1081,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       if(this.comCompnt.setValue(element.bulkRequestDate) ==''){
         element.bulkRequestDate = requestTime;
         element.bulkRequester   = this.loginInfo.empNmKnj;
-        element.bulkRequesterID   = this.loginInfo.personAuthID;
+        element.bulkRequesterID = this.loginInfo.personAuthID;
       }
     })
   }
@@ -1099,8 +1099,8 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         if(this.comCompnt.setValue(element.bulkRequestDate) != '' && 
            this.comCompnt.setValue(element.bulkApprovalDate_lv1) == '' && 
            this.comCompnt.setValue(element.bulkApprovalDate_final) == ''){
-          element.bulkApprovalDate_lv1   = approvalTime;
-          element.bulkApprovalPerson_lv1 = this.loginInfo.empNmKnj;
+          element.bulkApprovalDate_lv1     = approvalTime;
+          element.bulkApprovalPerson_lv1   = this.loginInfo.empNmKnj;
           element.bulkApprovalPersonID_lv1 = this.loginInfo.personAuthID;
         }
       })

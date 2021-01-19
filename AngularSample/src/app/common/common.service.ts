@@ -4,14 +4,10 @@ import { Observable, of } from 'rxjs';
 import { ApiResponseBody } from './ApiResponseBody';
 import { ShHttpClientService, } from 'sh-http-client';
 
-declare var require: any;
-const FileSaver = require('file-saver');
-
 @Injectable()
 export class CommonService {
-    private versions: { keyUrl: string, version: string }[] = [];
-
-    private readonly BASE_URL: string = 'http://localhost:8080/api/';
+    
+    private readonly BASE_URL: string = 'http://localhost:8080/api';
 
     // private readonly BASE_URL: string = 'http://FJDSU101:28498/ODIS/api';
 
@@ -21,7 +17,7 @@ export class CommonService {
     ) { }
 
     public getAuthorizationSearch(url: string, data: any = null): Promise<ApiResponseBody<any>> {
-        return this.shApiService.post<any[]>(this.BASE_URL + `/${url}/`, data)
+        return this.shApiService.post<any[]>(this.BASE_URL + `${url}/`, data)
             .then((res => {
                 const response: any = res;
                 return response;

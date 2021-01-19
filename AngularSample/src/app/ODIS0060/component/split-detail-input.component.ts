@@ -372,19 +372,19 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         this.setPageButtonDisplay(false, true, false, true);
         break;
       //依頼未・承認未
-      case (rowData.requester == '' && rowData.approvalPerson_lv1 == ''):
+      case (rowData.requestDate == '' && rowData.approvalDate_lv1 == ''):
         this.setPageButtonDisplay(true, false, false, false);
         break;
       //依頼済・承認未
-      case (rowData.requester != '' && rowData.approvalPerson_lv1 == ''):
+      case (rowData.requestDate != '' && rowData.approvalDate_lv1 == ''):
         this.setPageButtonDisplay(true, false, false, false);
         break;
       //依頼済・承認済
-      case (rowData.requester != '' && rowData.approvalPerson_lv1 != ''):
+      case (rowData.requestDate != '' && rowData.approvalDate_lv1 != ''):
         this.setPageButtonDisplay(true, true, false, true);
         break;
       // 最終承認済
-      case (rowData.approvalPerson_final != ''):
+      case (rowData.approvalDate_final != ''):
         this.setPageButtonDisplay(true, true, false, true);
         break;
     };
@@ -470,7 +470,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     
-
     // 発注、受入、支払データ取得
     this.paramSuchOAP.propertyNo = this.shiwakeData[0].propertyNo;      // 物件管理ＮＯ
     this.paramSuchOAP.accountCode = this.shiwakeData[0].accountCode;    // 経理分類コード
@@ -580,8 +579,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
 
     let currTime = Date.now();
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
+
     dt.requestDate = requestTime;
-    dt.requester = this.loginInfo.empNmKnj;
+    dt.requester   = this.loginInfo.empNmKnj;
     dt.requesterID = this.loginInfo.personAuthID;
 
     this.resetAddTable();
@@ -618,6 +618,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         return;
       } else {
         this.orderReceiptCheckStt = Const.OrderReceiptCheckType.UnCheck;
+        return;
       }
     }
   }
@@ -636,7 +637,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     let requestTime = this.datePipe.transform(currTime, "yy/MM/dd").toString();
 
     this.input.requestDate = requestTime;
-    this.input.requester = this.loginInfo.empNmKnj;
+    this.input.requester   = this.loginInfo.empNmKnj;
     this.input.requesterID = this.loginInfo.personAuthID;
 
   }
@@ -647,6 +648,10 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    */
   public subTableCheckBoxChange(event: any) {
     let isChecked = event.currentTarget.checked;
+    if(this.baseCompnt.setValue(this.input.orderSplitAmount) == ''){
+      event.currentTarget.checked = false;
+      return;
+    }
     switch(isChecked){
       case false:
         this.input.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck;
@@ -749,14 +754,19 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.orderPlanAmount      = this.shiwakeData[0].orderPlanAmount;
       dt.bulkRequestDate      = this.shiwakeData[0].bulkRequestDate;
       dt.bulkRequester        = this.shiwakeData[0].bulkRequester;
+      dt.bulkRequesterID      = this.shiwakeData[0].bulkRequesterID;
       dt.bulkApprovalDate_lv1     = this.shiwakeData[0].bulkApprovalDate_lv1;
       dt.bulkApprovalPerson_lv1   = this.shiwakeData[0].bulkApprovalPerson_lv1;
+      dt.bulkApprovalPersonID_lv1 = this.shiwakeData[0].bulkApprovalPersonID_lv1;
       dt.bulkApprovalDate_lv2     = this.shiwakeData[0].bulkApprovalDate_lv2;
       dt.bulkApprovalPerson_lv2   = this.shiwakeData[0].bulkApprovalPerson_lv2;
+      dt.bulkApprovalPersonID_lv2 = this.shiwakeData[0].bulkApprovalPersonID_lv2;
       dt.bulkApprovalDate_lv3     = this.shiwakeData[0].bulkApprovalDate_lv3;
       dt.bulkApprovalPerson_lv3   = this.shiwakeData[0].bulkApprovalPerson_lv3;
+      dt.bulkApprovalPersonID_lv3 = this.shiwakeData[0].bulkApprovalPersonID_lv3;
       dt.bulkApprovalDate_final   = this.shiwakeData[0].bulkApprovalDate_final;
       dt.bulkApprovalPerson_final = this.shiwakeData[0].bulkApprovalPerson_final;
+      dt.bulkApprovalPersonID_final = this.shiwakeData[0].bulkApprovalPersonID_final;
       dt.splitNo              = (i + 1).toString();
       dt.orderSplitAmount     = this.bunkatsuData[i].orderSplitAmount;
       dt.splitSupplierCode    = this.bunkatsuData[i].splitSupplierCode;
@@ -765,14 +775,19 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       dt.comment              = this.bunkatsuData[i].comment;
       dt.requestDate          = this.bunkatsuData[i].requestDate;
       dt.requester            = this.bunkatsuData[i].requester;
+      dt.requesterID          = this.bunkatsuData[i].requesterID;
       dt.approvalDate_lv1     = this.bunkatsuData[i].approvalDate_lv1;
       dt.approvalPerson_lv1   = this.bunkatsuData[i].approvalPerson_lv1;
+      dt.approvalPersonID_lv1 = this.bunkatsuData[i].approvalPersonID_lv1;
       dt.approvalDate_lv2     = this.bunkatsuData[i].approvalDate_lv2;
       dt.approvalPerson_lv2   = this.bunkatsuData[i].approvalPerson_lv2;
+      dt.approvalPersonID_lv2 = this.bunkatsuData[i].approvalPersonID_lv2;
       dt.approvalDate_lv3     = this.bunkatsuData[i].approvalDate_lv3;
       dt.approvalPerson_lv3   = this.bunkatsuData[i].approvalPerson_lv3;
+      dt.approvalPersonID_lv3 = this.bunkatsuData[i].approvalPersonID_lv3;
       dt.approvalDate_final   = this.bunkatsuData[i].approvalDate_final;
       dt.approvalPerson_final = this.bunkatsuData[i].approvalPerson_final;
+      dt.approvalPersonID_final = this.bunkatsuData[i].approvalPersonID_final;
       dt.orderDate            = this.bunkatsuData[i].orderDate;
       dt.orderAmount          = this.bunkatsuData[i].orderAmount;
       dt.receivedDate         = this.bunkatsuData[i].receivedDate;
