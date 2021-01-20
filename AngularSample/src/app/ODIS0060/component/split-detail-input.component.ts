@@ -371,22 +371,15 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
       case (nodeName == 'SPAN' || nodeName == 'BUTTON' || nodeName == 'INPUT'):
         this.setPageButtonDisplay(false, true, false, true);
         break;
-      //依頼未・承認未
-      case (rowData.requestDate == '' && rowData.approvalDate_lv1 == ''):
-        this.setPageButtonDisplay(true, false, false, false);
-        break;
       //依頼済・承認未
-      case (rowData.requestDate != '' && rowData.approvalDate_lv1 == ''):
+      case (rowData.approvalDate_lv1 == '' && rowData.approvalDate_final == ''):
         this.setPageButtonDisplay(true, false, false, false);
         break;
       //依頼済・承認済
-      case (rowData.requestDate != '' && rowData.approvalDate_lv1 != ''):
+      case (rowData.approvalDate_lv1 != '' || rowData.approvalDate_final != ''):
         this.setPageButtonDisplay(true, true, false, true);
         break;
-      // 最終承認済
-      case (rowData.approvalDate_final != ''):
-        this.setPageButtonDisplay(true, true, false, true);
-        break;
+      
     };
   }
 
@@ -608,6 +601,18 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
     this.resetAddTable();
   }
 
+    /**
+   * チェックボックスの活性か設定
+   * @param element 
+   * @param type 
+   */
+  public isCheckBoxFlg(element:ODIS0020OrderDetaiSplitBean) {
+    if (this.baseCompnt.setValue(element.approvalDate_final) != '') {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * 仕訳テーブルのチェックボックスを変える
    */
@@ -618,7 +623,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         return;
       } else {
         this.orderReceiptCheckStt = Const.OrderReceiptCheckType.UnCheck;
-        return;
       }
     }
   }
@@ -648,10 +652,6 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
    */
   public subTableCheckBoxChange(event: any) {
     let isChecked = event.currentTarget.checked;
-    if(this.baseCompnt.setValue(this.input.orderSplitAmount) == ''){
-      event.currentTarget.checked = false;
-      return;
-    }
     switch(isChecked){
       case false:
         this.input.splitOrderReceipt = Const.OrderReceiptCheckType.UnCheck;
