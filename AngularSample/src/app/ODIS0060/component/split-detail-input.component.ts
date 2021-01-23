@@ -928,13 +928,15 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
               this.input.splitSupplierCode = strOrderCode;   // 発注先コード
               this.input.splitSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
             }else{
+              // 発注先コード フォーカス 設定
+              var txtAddSupplierCode = document.getElementById("txtSupplierCode");
+              txtAddSupplierCode.focus();
+              
               // 項目クリア
               this.paramOrderCode.orderSupplierCode = "";
               this.input.splitSupplierCode = "";  // 発注先コード
               this.input.splitSupplierName = "";  // 発注先名称
-              // 発注先コード フォーカス 設定
-              var txtAddSupplierCode = document.getElementById("txtSupplierCode");
-              txtAddSupplierCode.focus();
+
             }
           }
         );

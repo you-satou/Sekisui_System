@@ -270,7 +270,7 @@
                             (blur)="toZenkakuJN($event)" (change)="toZenkakuJN($event)">
                     </td>
                     <td>
-                        <input type="tel" maxlength="3" class="add-supplierCode" name="supplierCode"
+                        <input type="tel" maxlength="3" class="add-supplierCode" id="txtAddSupplierCode" name="supplierCode"
                             [(ngModel)]="addInput.orderSupplierCode" style="ime-mode:disabled; text-align:left;"
                             tabindex="10" (keyup)="toHanNumSC($event)" (change)="toHanNumSC($event)" (blur)="getOrderCode($event)">
                     </td>

@@ -900,6 +900,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             temp.orderPlanAmount            = this.addInput.orderPlanAmount;
             temp.orderBranchNo              = this.currentBranchNo;
             temp.orderReceipt               = this.addInput.orderReceipt;
+            temp.splitOrderReceipt          = this.addInput.orderReceipt;
             temp.bulkRequestDate            = '';
             temp.bulkRequester              = '';
             temp.bulkRequesterID            = '';
@@ -1903,6 +1904,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
               this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
             }
+            else{
+              var txtJournalCd = document.getElementById("txtAddJCode");
+              txtJournalCd.focus();  
+
+              this.addInput.journalCode = "";   // 仕訳コード
+              this.addInput.accountCode = "";   // 経理分類
+              this.addInput.journalName = "";   // 仕訳名称
+              this.paramJournalCode.journalCode = "";
+            }
           }
         );
       }
@@ -1956,7 +1966,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.resOrderCode = response.applicationData;
               this.addInput.orderSupplierCode = strOrderCode;   // 発注先コード
               this.addInput.orderSupplierName = this.resOrderCode.orderSupplierName;   // 発注先名称
-            }})
+            }
+            else{
+              var txtAddSupplierCode = document.getElementById("txtAddSupplierCode");
+              txtAddSupplierCode.focus();
+
+              this.addInput.orderSupplierCode = "";
+              this.addInput.orderSupplierName = "";
+              this.paramOrderCode.orderSupplierCode = "";
+            }
+          }
+        )
       }
     }
   }
