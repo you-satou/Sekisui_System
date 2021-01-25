@@ -236,6 +236,8 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
         if (!this.baseCompnt.isEmpty(this.OrderSupplierSelectService.getVal())) {
           this.input.splitSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
           this.input.splitSupplierName = this.OrderSupplierSelectService.getVal().supplierJournalName;
+          // 前回の値を取得
+          this.paramOrderCode.orderSupplierCode = this.OrderSupplierSelectService.getVal().supplierCode;
         }
         this.modal = null;
       }
@@ -944,6 +946,11 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
           }
         );
       }
+    }else{
+      // 項目クリア
+      this.paramOrderCode.orderSupplierCode = "";
+      this.input.splitSupplierCode = "";  // 発注先コード
+      this.input.splitSupplierName = "";  // 発注先名称
     }
   }
   
