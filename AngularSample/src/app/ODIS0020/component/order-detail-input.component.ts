@@ -1915,6 +1915,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       val = val.substr(0,maxLen);
     }
 
+    // 固定箇所（ハウス材、荷造り・保管料、運賃、労災）の場合は何もしない
+    if(this.FIXED_ROW.includes(this.addInput.journalCode)){
+      return;
+    }
+
     // 空白以外の場合に処理を実行
     if(val.trim().length >= 1){
       // 0パディング 設定
@@ -1939,9 +1944,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.beforeStr = this.resJournalCode.accountCode;
             }
             else{
-              var txtJournalCd = document.getElementById("txtAddJCode");
-              txtJournalCd.focus();  
-
               this.addInput.journalCode = "";   // 仕訳コード
               this.addInput.accountCode = "";   // 経理分類
               this.addInput.journalName = "";   // 仕訳名称
@@ -1974,8 +1976,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
         }else{
           alert(Const.ErrorMsg.E0021);
-          var txtAddAccCd = document.getElementById("txtAddAccCode");
-          txtAddAccCd.focus();
           this.addInput.accountCode = this.baseCompnt.getZeroPadding(this.beforeStr.trim(), 3);
         }
       }else{
