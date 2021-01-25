@@ -178,6 +178,8 @@ export namespace Const{
         export const E0018 = '編集途中のデータがあります。';
         export const E0019 = '「ハウス材」「運賃」「荷造・保管料」「労災」は、仕訳または発注先の変更ができません。';
         export const E0020 = '予期せぬエラーが発生しました。\n管理者に問い合わせて下さい。';
+        // TODO
+        export const E0021 = '経理分類を以下の範囲で入力してください。\n・「020」～「499」\n・「580」～「899」';
 
     }
     /**
@@ -282,9 +284,14 @@ export namespace Const{
     }
 
     export namespace General {
-        
         export const AccessToken = 'AccessToken';
-        
+    }
 
+    // 経理分類コード 境界値
+    export namespace AccCodeBoundary{
+        export const accCodeStart1 = '020';
+        export const accCodeEnd1 = '499';
+        export const accCodeStart2 = '580';
+        export const accCodeEnd2 = '899';
     }
 }
