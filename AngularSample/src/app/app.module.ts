@@ -29,8 +29,8 @@ import { OrderGrossProfitMarginComponent } from './ODIS0080/component/order-gros
 import { AppNavigator } from './common/navigationBar/navigator.component';
 
 const appRoute: Routes = [
-  { path: '', component: IndexComponent },
-  { path: 'OrderDetailApproval', component: OrderDetailApprovalComponent },
+  // { path: '', component: IndexComponent },
+  { path: '', component: OrderDetailApprovalComponent },
   { path: 'OrderJournalSelect', component: OrderJournalSelectComponent },
   { path: 'SupplierPattern', component: SupplierPatternComponent},
   { path: 'SplitDetailInput', component: SplitOrderDetailComponent},

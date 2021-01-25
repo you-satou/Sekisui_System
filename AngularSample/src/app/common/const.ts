@@ -80,7 +80,7 @@ export namespace Const{
         export const U0000 = '/';
 
         /** 発注明細入力_承認処理 */
-        export const U0001 = '/OrderDetailApproval';
+        export const U0001 = '/';
 
         /** 発注明細入力_明細入力 */
         export const U0002 = '/OrderDetailInput';
