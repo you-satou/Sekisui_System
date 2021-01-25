@@ -1594,12 +1594,20 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
     //サーバに更新データを送る。
     var tmp: ODIS0020OrderDetaiSplitBean[] = [];
+
+    // 再連番 設定
+    this.reCountDetailNo(this.childSekkei.orderData);   // 設計
+    this.reCountDetailNo(this.childHontai.orderData);   // 本体
+    this.reCountDetailNo(this.childKaitai.orderData);   // 解体
+    this.reCountDetailNo(this.childZouEn1.orderData);   // 造園１
+    this.reCountDetailNo(this.childZouEn2.orderData);   // 造園２
+
     // 受注枝番 マージ
     this.createOrderData(tmp, this.childSekkei.orderData);    // 設計
     this.createOrderData(tmp, this.childHontai.orderData);    // 本体
     this.createOrderData(tmp, this.childKaitai.orderData);    // 解体
-    this.createOrderData(tmp, this.childZouEn1.orderData);    // 追加
-    this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園１
+    this.createOrderData(tmp, this.childZouEn1.orderData);    // 造園１
+    this.createOrderData(tmp, this.childZouEn2.orderData);    // 造園２
 
     // データ更新
     this.paramUpd.propertyNo = this.paramInit.propertyNo;
@@ -1746,6 +1754,14 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     //サーバに更新データを送る。
     var tmp: ODIS0020OrderDetaiSplitBean[] = [];
+
+    // 再連番 設定
+    this.reCountDetailNo(this.childSekkei.orderData);   // 設計
+    this.reCountDetailNo(this.childHontai.orderData);   // 本体
+    this.reCountDetailNo(this.childKaitai.orderData);   // 解体
+    this.reCountDetailNo(this.childZouEn1.orderData);   // 造園１
+    this.reCountDetailNo(this.childZouEn2.orderData);   // 造園２
+
     // 受注枝番 マージ
     this.createOrderData(tmp, this.childSekkei.orderData);    // 設計
     this.createOrderData(tmp, this.childHontai.orderData);    // 本体
