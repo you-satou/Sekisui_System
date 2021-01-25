@@ -1944,10 +1944,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.beforeStr = this.resJournalCode.accountCode;
             }
             else{
-              this.addInput.journalCode = "";   // 仕訳コード
-              this.addInput.accountCode = "";   // 経理分類
-              this.addInput.journalName = "";   // 仕訳名称
-              this.paramJournalCode.journalCode = "";
+              this.addInput.journalCode = '';   // 仕訳コード
+              this.addInput.accountCode = '';   // 経理分類
+              this.addInput.journalName = '';   // 仕訳名称
+              this.paramJournalCode.journalCode = '';
               this.beforeStr = '';
             }
           }
