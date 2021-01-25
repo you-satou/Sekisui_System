@@ -2037,6 +2037,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
 
   public changeOrderReceiptStt($event){
     var isChecked = $event.currentTarget.checked;
+    if(this.FIXED_ROW.includes(this.addInput.journalCode)){
+      $event.currentTarget.checked = false;
+      return;
+    }
 
     if(isChecked){
       this.addInput.orderReceipt = Const.OrderReceiptCheckType.Checked;
