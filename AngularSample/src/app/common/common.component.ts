@@ -361,9 +361,9 @@ export class CommonComponent {
   * @param action 追加・変更・未選択・選択
   * @param body 
   * @param rIndex row Index 
-  * @param bulkApprovalPerson 一括承認
+  * @param bulkApproval 一括承認
   */
-  setRowColor(action: string, body: any, rIndex: number, bulkApprovalPerson?: any) {
+  setRowColor(action: string, body: any, rIndex: number, bulkApproval?: any) {
 
     for (var i = 0; i < body.rows.length; i++) {
       const tr = body.rows[i];
@@ -385,7 +385,7 @@ export class CommonComponent {
               td.style.color = this.getColor(action);
             }
             //承認されていない明細の背景色をしろにする
-            if (this.setValue(bulkApprovalPerson) == '') {
+            if (this.setValue(bulkApproval) == '') {
               td.style.backgroundColor = '';
             }
           }

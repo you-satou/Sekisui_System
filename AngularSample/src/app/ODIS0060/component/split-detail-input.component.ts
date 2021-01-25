@@ -118,6 +118,9 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   //仕訳テーブルのチェックボックス
   orderReceiptCheckStt: string = Const.OrderReceiptCheckType.UnCheck;
 
+  /** 金額０でも更新可とする発注先コード */
+  private readonly IGNORE_SUPPLIER = ['998'];
+  
   constructor(
     private appComponent: AppComponent,
     private baseCompnt: CommonComponent,
@@ -678,7 +681,7 @@ export class SplitOrderDetailComponent implements OnInit, OnDestroy {
   private inputCheck(val: string): boolean {
     
     //発注予定金額が未入力かどうか
-    if (this.input.amountIsBlank) {
+    if (this.input.amountIsBlank && !this.IGNORE_SUPPLIER.includes(this.input.splitSupplierCode)) {
       this.baseCompnt.setFocus('txtSplitAmount');
       alert(Const.ErrorMsg.E0006);
       return false;

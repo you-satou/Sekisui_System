@@ -247,7 +247,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
       //「追加」タブ　以外　を選択される場合
       else {
         //一括承認データが入っている行はグレーアウトする。
-        if (this.comCompnt.setValue(this.orderData[i].bulkApprovalPerson_final) != '') {
+        if (this.comCompnt.setValue(this.orderData[i].bulkApprovalDate_final) != '') {
           var tr = wTbody.rows[i];
           for (var j = 0; j < tr.cells.length; j++) {
             var td = tr.cells[j];
@@ -358,7 +358,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
 
     //一括承認データが入らない場合、非活性する。
-    if(this.comCompnt.setValue(element.bulkApprovalPerson_final) === ''){
+    if(this.comCompnt.setValue(element.bulkApprovalDate_final) === ''){
       return true;
     }
 
@@ -409,7 +409,6 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
         return true;
       }
     }
-        
     return false;
   }
 
@@ -893,7 +892,7 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     //一括依頼データを抽出
     var requestInfo = this.orderData.filter(value => {
       if (this.comCompnt.setValue(value.bulkRequestDate) != '' &&
-          this.comCompnt.setValue(value.bulkApprovalDate_final) == '') {
+          this.comCompnt.setValue(value.bulkApprovalPerson_final) == '') {
         return value;
       }
     })

@@ -51,7 +51,7 @@ export class ODIS0060BunkatsuInsertService extends CommonComponent {
 
     /**発注金額がないとき「True」を返却する */
     get amountIsBlank(): boolean {
-        if (this.orderSplitAmount != '') {
+        if (this.orderSplitAmount != '' && this.orderSplitAmount != '0') {
             return false;
         }
         return true;
@@ -142,7 +142,7 @@ export class ODIS0060BunkatsuInsertService extends CommonComponent {
      * @param rowIndex 行番号
      */
     public getInput(output: ODIS0060OrderDetailBunkatsu, action: string, res: ODIS0060SuchOAP): ODIS0060OrderDetailBunkatsu{
-        output.orderSplitAmount  = this.removeCommas(this.orderSplitAmount);
+        output.orderSplitAmount  = this.removeCommas(this.orderSplitAmount) == ''?'0':this.removeCommas(this.orderSplitAmount);
         output.splitSupplierCode = this.setValue(this.splitSupplierCode);
         output.splitSupplierName = this.setValue(this.splitSupplierName);
         output.comment = this.setValue(this.comment);

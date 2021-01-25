@@ -172,6 +172,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /** 明細に固定さている明細名称 */
   private readonly FIXED_ROW = ['0100','9100','9200','9300'];
 
+  /** 金額０でも更新可とする発注先コード */
+  private readonly IGNORE_SUPPLIER = ['998'];
+
+  // TODO 経理分類 設定前 値
+  private beforeStr: string = '';
+  // TODO End
+
   constructor(
     private appComponent: AppComponent,
     private orderService: CommonService,
@@ -221,9 +228,13 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       () => {
         //モーダルから返却データを取得して、展開する。
         if (!this.baseCompnt.isEmpty(this.OrderJournalSelectService.getVal())) {
-        this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-        this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
-        this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+          this.addInput.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+          this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
+          this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
+          this.paramJournalCode.journalCode = this.OrderJournalSelectService.getVal().journalCode;
+          // TODO Start
+          this.beforeStr = this.OrderJournalSelectService.getVal().accountingCategory;
+          // TODO End
         }
         this.modal = null;
       }
@@ -278,6 +289,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.bulkApprovalDate_final   = '';
           temp.bulkApprovalPerson_final = '';
           temp.bulkApprovalPersonID_final = '';
+          // TODO: '998'
+          //temp.orderPlanAmount          = this.IGNORE_SUPPLIER.includes(element.supplierCode)?'0':'';
 
           bucketDt.push(temp);
         });
@@ -407,6 +420,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.journalName        = 'ハウス材';
     dt.orderSupplierCode  = '';
     dt.orderSupplierName  = '';
+    dt.orderPlanAmount    = '0';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
     dt.bulkRequesterID    = '';
@@ -437,6 +451,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.journalName        = '荷造・保管料';
     dt.orderSupplierCode  = '';
     dt.orderSupplierName  = '';
+    dt.orderPlanAmount    = '0';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
     dt.bulkRequesterID    = '';
@@ -467,6 +482,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.journalName        = '運賃';
     dt.orderSupplierCode  = '';
     dt.orderSupplierName  = '';
+    dt.orderPlanAmount    = '0';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
     dt.bulkRequesterID    = '';
@@ -497,6 +513,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     dt.journalName        = '労災';
     dt.orderSupplierCode  = '';
     dt.orderSupplierName  = '';
+    dt.orderPlanAmount    = '0';
     dt.bulkRequestDate    = '';
     dt.bulkRequester      = '';
     dt.bulkRequesterID    = '';
@@ -732,7 +749,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.bulkApprovalDate_final   = this.baseCompnt.setValue(data.bulkApprovalDate_final);
     temp.bulkApprovalPerson_final = this.baseCompnt.setValue(data.bulkApprovalPerson_final);
     temp.bulkApprovalPersonID_final = this.baseCompnt.setValue(data.bulkApprovalPersonID_final);
-    temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount);
+    // TODO: '998'
+    // temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount);
+    temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount) =='' && this.IGNORE_SUPPLIER.includes(this.baseCompnt.setValue(data.orderSupplierCode))?'0':this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSplitAmount       = this.baseCompnt.setValue(data.orderSplitAmount);
     temp.splitSupplierCode      = this.baseCompnt.setValue(data.splitSupplierCode);
     temp.splitSupplierName      = this.baseCompnt.setValue(data.splitSupplierName);
@@ -865,6 +884,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
+  // TODO:
   //#region ---------------- ▼▼ 各ボタン 処理 ▼▼ ------------------------------------
   /**
    * 明細追加ボタン
@@ -897,7 +917,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             temp.journalName                = this.addInput.journalName;
             temp.orderSupplierCode          = this.addInput.orderSupplierCode;
             temp.orderSupplierName          = this.addInput.orderSupplierName;
-            temp.orderPlanAmount            = this.addInput.orderPlanAmount;
+            temp.orderPlanAmount            = this.addInput.orderPlanAmount == ''?'0':this.addInput.orderPlanAmount;
             temp.orderBranchNo              = this.currentBranchNo;
             temp.orderReceipt               = this.addInput.orderReceipt;
             temp.splitOrderReceipt          = this.addInput.orderReceipt;
@@ -1162,7 +1182,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         dt[i].orderSupplierCode        = this.addInput.orderSupplierCode;
         dt[i].orderSupplierName        = this.addInput.orderSupplierName;
         dt[i].orderReceipt             = this.addInput.orderReceipt;
-        dt[i].orderPlanAmount          = this.baseCompnt.removeCommas(this.addInput.orderPlanAmount);
+        dt[i].orderPlanAmount          = this.baseCompnt.setValue(this.addInput.orderPlanAmount) == ''?'0':this.baseCompnt.removeCommas(this.addInput.orderPlanAmount);
         dt[i].bulkRequestDate          = this.addInput.bulkRequestDate;
         dt[i].bulkRequester            = this.addInput.bulkRequester;
         dt[i].bulkRequesterID          = this.addInput.bulkRequesterID;
@@ -1210,8 +1230,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
             rowData.orderSupplierName != this.addInput.orderSupplierName) {
             //変更された場合、エラーメッセージを表示する。
             alert(Const.ErrorMsg.E0019);
-            return false;
+          return false;
         }
+
       }
 
       //明細が変更したかどうかチェックする
@@ -1233,7 +1254,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       return false;
     }
     // 発注予定金額が0の場合
-    if(Number(this.baseCompnt.setValue(this.addInput.orderPlanAmount)) == 0){
+    if(Number(this.baseCompnt.setValue(this.addInput.orderPlanAmount)) == 0 
+      && !this.IGNORE_SUPPLIER.includes(this.addInput.orderSupplierCode) 
+      && !this.FIXED_ROW.includes(rowData.journalCode)){
       alert(Const.ErrorMsg.E0006);
       this.baseCompnt.setFocus('txtAddAmount');
       return false;
@@ -1304,11 +1327,10 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     //テーブルの背景色を設定する。
     for(var i = 0; i < dt.length; i++){
       //一括承認データが入っている行はグレーアウトする。
-      if(this.baseCompnt.setValue(dt[i].bulkApprovalPerson_final) != ''){
+      if(this.baseCompnt.setValue(dt[i].bulkApprovalDate_final) != ''){
         var tr = body.rows[i];
         for (var j = 0; j < tr.cells.length; j++) {
           var td = tr.cells[j];
-          // if (j <= this.cellNumber) {
           if (j <= bulkApprovalCell) {
             td.style.backgroundColor = Const.HighLightColour.GrayOut;
           }
@@ -1399,6 +1421,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.Clear();
     this.paramJournalCode  = new ODIS0020Form();
     this.paramOrderCode    = new ODIS0020Form();
+    // TODO Start
+    this.beforeStr = '';
+    // TODO End
   } 
 
   /**
@@ -1413,6 +1438,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus = dt.getRowStatus();
         this.addInput.setInput(dt.getEmitterData());
         this.setButtonEnabledBySelectedData(dt.getEmitterData());
+        // TODO Start
+        this.beforeStr = this.addInput.accountCode;
+        // TODO End
         break;
 
       //分割明細画面に遷移する
@@ -1441,14 +1469,15 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.setPageButtonDisplay(true, true, false, true);
 
     if (dt != null) {
-      if (this.FIXED_ROW.includes(dt.journalCode)) {
-        this.setPageButtonDisplay(true, false, false, true);
-      }
-      if (this.baseCompnt.setValue(dt.bulkApprovalPerson_final) != ''){
+      if (this.baseCompnt.setValue(dt.bulkApprovalDate_final) != ''){
         this.setPageButtonDisplay(true, true, false, true);
       }
       else {
         this.setPageButtonDisplay(true, false, false, false);
+
+        if (this.FIXED_ROW.includes(dt.journalCode)) {
+          this.setPageButtonDisplay(true, false, false, true);
+        }
       }
     }
   }
@@ -1524,11 +1553,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           break;
         case Const.InsKubun.Ins:
           // 登録
-          this.baseCompnt.setRowColor(Const.Action.A0001,body,i,tmpTbl[i].bulkApprovalPerson_final);
+          this.baseCompnt.setRowColor(Const.Action.A0001,body,i,tmpTbl[i].bulkApprovalDate_final);
           break;
         case Const.InsKubun.Upd:
           // 更新
-          this.baseCompnt.setRowColor(Const.Action.A0002,body,i,tmpTbl[i].bulkApprovalPerson_final);
+          this.baseCompnt.setRowColor(Const.Action.A0002,body,i,tmpTbl[i].bulkApprovalDate_final);
           break;
       }
     }
@@ -1629,7 +1658,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         return true;
       }
       // 発注予定金額
-      if(this.baseCompnt.setValue(tmp[i].orderPlanAmount) === ''){
+      if(this.baseCompnt.setValue(tmp[i].orderPlanAmount) === '' && !this.IGNORE_SUPPLIER.includes(tmp[i].orderSupplierCode)) {
         var tabName = '「' + this.getTabName(tmp[i].detailKind) + '」';
         alert(tabName + (i+1).toString()+ '行目：' + Const.ErrorMsg.E0006);
         return true;
@@ -1903,6 +1932,9 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.journalCode = strJournalCode;   // 仕訳コード
               this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
               this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
+              // TODO Start
+              this.beforeStr = this.resJournalCode.accountCode;
+              // TODO End
             }
             else{
               var txtJournalCd = document.getElementById("txtAddJCode");
@@ -1912,6 +1944,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.accountCode = "";   // 経理分類
               this.addInput.journalName = "";   // 仕訳名称
               this.paramJournalCode.journalCode = "";
+              this.beforeStr = '';
             }
           }
         );
@@ -1930,7 +1963,17 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       if(val.length > maxLen){
         val = val.substr(0,maxLen);
       }
-      this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3)
+      // TODO 入力チェック(020～499, 580～899)
+      if((val >= Const.AccCodeBoundary.accCodeStart1 && val <= Const.AccCodeBoundary.accCodeEnd1) || 
+         (val >= Const.AccCodeBoundary.accCodeStart2 && val <= Const.AccCodeBoundary.accCodeEnd2)){
+        this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+      }else{
+        alert(Const.ErrorMsg.E0021);
+        var txtAddAccCd = document.getElementById("txtAddAccCode");
+        txtAddAccCd.focus();
+        this.addInput.accountCode = this.baseCompnt.getZeroPadding(this.beforeStr.trim(), 3);
+      }
+      // TODO End
     }
   }
 
