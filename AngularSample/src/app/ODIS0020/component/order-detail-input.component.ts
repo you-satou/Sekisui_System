@@ -175,9 +175,8 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   /** 金額０でも更新可とする発注先コード */
   private readonly IGNORE_SUPPLIER = ['998'];
 
-  // TODO 経理分類 設定前 値
+  // 経理分類 設定前 値
   private beforeStr: string = '';
-  // TODO End
 
   constructor(
     private appComponent: AppComponent,
@@ -232,9 +231,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           this.addInput.accountCode = this.OrderJournalSelectService.getVal().accountingCategory;
           this.addInput.journalName = this.OrderJournalSelectService.getVal().orderJournalName;
           this.paramJournalCode.journalCode = this.OrderJournalSelectService.getVal().journalCode;
-          // TODO Start
           this.beforeStr = this.OrderJournalSelectService.getVal().accountingCategory;
-          // TODO End
         }
         this.modal = null;
       }
@@ -289,8 +286,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           temp.bulkApprovalDate_final   = '';
           temp.bulkApprovalPerson_final = '';
           temp.bulkApprovalPersonID_final = '';
-          // TODO: '998'
-          //temp.orderPlanAmount          = this.IGNORE_SUPPLIER.includes(element.supplierCode)?'0':'';
 
           bucketDt.push(temp);
         });
@@ -749,8 +744,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     temp.bulkApprovalDate_final   = this.baseCompnt.setValue(data.bulkApprovalDate_final);
     temp.bulkApprovalPerson_final = this.baseCompnt.setValue(data.bulkApprovalPerson_final);
     temp.bulkApprovalPersonID_final = this.baseCompnt.setValue(data.bulkApprovalPersonID_final);
-    // TODO: '998'
-    // temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderPlanAmount        = this.baseCompnt.setValue(data.orderPlanAmount) =='' && this.IGNORE_SUPPLIER.includes(this.baseCompnt.setValue(data.orderSupplierCode))?'0':this.baseCompnt.setValue(data.orderPlanAmount);
     temp.orderSplitAmount       = this.baseCompnt.setValue(data.orderSplitAmount);
     temp.splitSupplierCode      = this.baseCompnt.setValue(data.splitSupplierCode);
@@ -884,7 +877,6 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   }
   //#endregion
 
-  // TODO:
   //#region ---------------- ▼▼ 各ボタン 処理 ▼▼ ------------------------------------
   /**
    * 明細追加ボタン
@@ -1421,9 +1413,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
     this.addInput.Clear();
     this.paramJournalCode  = new ODIS0020Form();
     this.paramOrderCode    = new ODIS0020Form();
-    // TODO Start
     this.beforeStr = '';
-    // TODO End
   } 
 
   /**
@@ -1438,9 +1428,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         this.rowStatus = dt.getRowStatus();
         this.addInput.setInput(dt.getEmitterData());
         this.setButtonEnabledBySelectedData(dt.getEmitterData());
-        // TODO Start
         this.beforeStr = this.addInput.accountCode;
-        // TODO End
         break;
 
       //分割明細画面に遷移する
@@ -1932,9 +1920,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
               this.addInput.journalCode = strJournalCode;   // 仕訳コード
               this.addInput.accountCode = this.resJournalCode.accountCode;   // 経理分類
               this.addInput.journalName = this.resJournalCode.journalName;   // 仕訳名称
-              // TODO Start
               this.beforeStr = this.resJournalCode.accountCode;
-              // TODO End
             }
             else{
               var txtJournalCd = document.getElementById("txtAddJCode");
@@ -1963,17 +1949,22 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
       if(val.length > maxLen){
         val = val.substr(0,maxLen);
       }
-      // TODO 入力チェック(020～499, 580～899)
-      if((val >= Const.AccCodeBoundary.accCodeStart1 && val <= Const.AccCodeBoundary.accCodeEnd1) || 
-         (val >= Const.AccCodeBoundary.accCodeStart2 && val <= Const.AccCodeBoundary.accCodeEnd2)){
-        this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+      // 固定箇所（ハウス材、荷造り・保管料、運賃、労災）以外は以下の処理を実施
+      if(!this.FIXED_ROW.includes(this.addInput.journalCode))
+      {
+        // 入力チェック(020～499, 580～899)
+        if((val >= Const.AccCodeBoundary.accCodeStart1 && val <= Const.AccCodeBoundary.accCodeEnd1) || 
+          (val >= Const.AccCodeBoundary.accCodeStart2 && val <= Const.AccCodeBoundary.accCodeEnd2)){
+          this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
+        }else{
+          alert(Const.ErrorMsg.E0021);
+          var txtAddAccCd = document.getElementById("txtAddAccCode");
+          txtAddAccCd.focus();
+          this.addInput.accountCode = this.baseCompnt.getZeroPadding(this.beforeStr.trim(), 3);
+        }
       }else{
-        alert(Const.ErrorMsg.E0021);
-        var txtAddAccCd = document.getElementById("txtAddAccCode");
-        txtAddAccCd.focus();
-        this.addInput.accountCode = this.baseCompnt.getZeroPadding(this.beforeStr.trim(), 3);
+        this.addInput.accountCode = this.baseCompnt.getZeroPadding(val.trim(), 3);
       }
-      // TODO End
     }
   }
 
@@ -2021,6 +2012,11 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
           }
         )
       }
+    }else{
+      // 空白の場合はクリア
+      this.addInput.orderSupplierCode = "";
+      this.addInput.orderSupplierName = "";
+      this.paramOrderCode.orderSupplierCode = "";
     }
   }
 
