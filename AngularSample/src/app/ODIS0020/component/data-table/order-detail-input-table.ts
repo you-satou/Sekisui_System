@@ -399,7 +399,10 @@ export class OrderDetailShiwakeTable implements OnInit, AfterViewInit {
     }
     // 左側の却下ボタンには、一括最終承認が入る場合、非活性する
     if(type == 'order'){
-      if(this.comCompnt.setValue(element.bulkApprovalDate_final) != ''){
+      // if(this.comCompnt.setValue(element.bulkApprovalDate_final) != ''){
+      //   return true;
+      // }
+      if (this.comCompnt.setValue(element.orderSplitAmount) != '') {
         return true;
       }
     }
