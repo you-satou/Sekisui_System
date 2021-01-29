@@ -1174,6 +1174,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
         dt[i].orderSupplierCode        = this.addInput.orderSupplierCode;
         dt[i].orderSupplierName        = this.addInput.orderSupplierName;
         dt[i].orderReceipt             = this.addInput.orderReceipt;
+        dt[i].splitOrderReceipt        = this.addInput.orderReceipt;
         dt[i].orderPlanAmount          = this.baseCompnt.setValue(this.addInput.orderPlanAmount) == ''?'0':this.baseCompnt.removeCommas(this.addInput.orderPlanAmount);
         dt[i].bulkRequestDate          = this.addInput.bulkRequestDate;
         dt[i].bulkRequester            = this.addInput.bulkRequester;
