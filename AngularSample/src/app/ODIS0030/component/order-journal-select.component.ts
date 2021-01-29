@@ -39,6 +39,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
   // ローディング 判定
   isLoading: boolean = true;
 
+  filterParam = new OrderJournalSelectType();
+
   /**
    * コンストラクタ
    *
@@ -61,29 +63,31 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
     this.getOrderInputData();
   }
 
- /**
-  * レンダリング後（自動スクロール）
-  */
- @ViewChildren('initScroll')
- initScroll: QueryList<any>;
- ngAfterViewInit(){
-   this.initScroll.changes.subscribe(t => {
-     var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
+  /**
+   * レンダリング後（自動スクロール）
+   */
+  @ViewChildren('initScroll')
+  initScroll: QueryList<any>;
+  ngAfterViewInit() {
+    this.initScroll.changes.subscribe(t => {
+      var wTbody = this.view.element.nativeElement.querySelector('#shiwakeTbl > tbody');
 
-     if(this.selectVal !== ''){
-     wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
-     
-     var wTr = wTbody.rows[this.selectRow];
-     wTr.style.backgroundColor = Const.HighLightColour.Selected;
-    }
+      if (this.selectVal !== '') {
+        wTbody.rows[this.selectRow].scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
 
-  });
- }
+        var wTr = wTbody.rows[this.selectRow];
+        wTr.style.backgroundColor = Const.HighLightColour.Selected;
+      }
+
+    });
+  }
 
   /**
   * 終了時
   */
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.deleteSession();
+  }
 
  /**
   * テーブル クリック 選択背景 設定
@@ -136,6 +140,9 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
             if (!(this.selectVal == undefined || this.selectVal == null)) {
               this.onScroll(this.datas, this.selectVal);
             }
+            
+            // データを保持する。
+            this.saveDataToSession();
           }
           //ロード画面を解除する。
           this.isLoading = false;
@@ -156,4 +163,195 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
       row += 1;
     }
   }
+
+  private saveDataToSession(){
+    if (!sessionStorage.getItem(Const.ScreenName.S0003EN)) {
+      sessionStorage.removeItem(Const.ScreenName.S0003EN);
+    }
+
+    let saveDt = [new OrderJournalSelectType()];
+    saveDt = this.datas;
+    sessionStorage.setItem(Const.ScreenName.S0003EN, JSON.stringify(saveDt));
+  }
+
+  private deleteSession(){
+    sessionStorage.removeItem(Const.ScreenName.S0003EN);
+  }
+
+  //#region  --------------- ▼▼ フォーカス系 処理 ▼▼ --------------------------------
+  /**
+  * keyUp処理 半角数字のみ(仕訳コード)
+  *
+  * @param $event イベント
+  */
+  public toHanNumJC($event) {
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+    this.filterParam.journalCode = this.commonComponent.onlyHanNumber(val);
+  }
+
+  /**
+    * keyUp処理 半角数字のみ(経理分類コード)
+    *
+    * @param $event イベント
+    */
+  public toHanNumAC($event) {
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+    this.filterParam.accountingCategory = this.commonComponent.onlyHanNumber(val);
+  }
+
+
+  /**
+  * blur処理 半角⇒全角(仕訳名称)
+  *
+  * @param $event イベント
+  */
+  public toZenkaku($event, isJournalName: boolean) {
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+
+    if(isJournalName) {
+      this.filterParam.orderJournalName = this.commonComponent.onChangeZenkaku(val);
+    }
+    else{
+      this.filterParam.other = this.commonComponent.onChangeZenkaku(val);
+    }
+    
+  }
+
+  /**
+   * 仕訳コード ロストフォーカス
+   * @param event 
+   */
+  public filterByJournalCode($event) {
+    
+    if (this.filterParam.accountingCategory != '' ||
+        this.filterParam.orderJournalName != '' ||
+        this.filterParam.other != '' ) {
+      return;
+    }
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+
+    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
+    if (this.commonComponent.setValue(this.filterParam.journalCode) != '') {
+      var tempDt = source.filter((dt)=>{
+        if (this.commonComponent.setValue(dt.journalCode) == this.filterParam.journalCode) {
+          return dt;
+        }
+      })
+      this.datas = tempDt;
+    }
+    else{
+      this.datas = source; 
+    }
+    
+  }
+
+    /**
+   * 仕訳名称 ロストフォーカス
+   * @param event 
+   */
+  public filterByJournalName($event) {
+
+    if (this.filterParam.accountingCategory != '' ||
+        this.filterParam.journalCode != '' ||
+        this.filterParam.other != '') {
+      return;
+    }
+
+    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
+    if (this.commonComponent.setValue(this.filterParam.orderJournalName) != '') {
+      var tempDt = source.filter((dt) => {
+        if (this.commonComponent.setValue(dt.orderJournalName).includes(this.filterParam.orderJournalName)) {
+          return dt;
+        }
+      })
+      this.datas = tempDt;
+    }
+    else{
+      this.datas = source;
+    }
+  }
+
+  /**
+   * 経理分類 ロストフォーカス
+   * @param event 
+   */
+  public filterByAccountantCode($event) {
+
+    if (this.filterParam.journalCode != '' ||
+        this.filterParam.orderJournalName != '' ||
+        this.filterParam.other != '') {
+      return;
+    }
+
+    if (!($event.target.value == '')) {
+      var maxLen: number = $event.target.maxLength;
+      var val = $event.target.value;
+      if (val.length > maxLen) {
+        val = val.substr(0, maxLen);
+      }
+    }
+
+    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
+    if (this.commonComponent.setValue(this.filterParam.accountingCategory) != '') {
+      var tempDt = source.filter((dt) => {
+        if (this.commonComponent.setValue(dt.accountingCategory) == this.filterParam.accountingCategory) {
+          return dt;
+        }
+      })
+      this.datas = tempDt;
+    }
+    else {
+      this.datas = source;
+    }
+
+  }
+
+  /**
+   * 其他 ロストフォーカス
+   * @param event 
+   */
+  public filterByOther($event) {
+
+    if (this.filterParam.journalCode != '' ||
+        this.filterParam.orderJournalName != '' ||
+        this.filterParam.accountingCategory != '') {
+      return;
+    }
+
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
+    if (this.commonComponent.setValue(this.filterParam.other) != '') {
+      var tempDt = source.filter((dt) => {
+        if (this.commonComponent.setValue(dt.other).includes(this.filterParam.other)) {
+          return dt;
+        }
+      })
+      this.datas = tempDt;
+    }
+    else{
+      this.datas = source;
+    }
+  }
+  //#endregion
+
 }

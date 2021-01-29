@@ -6,9 +6,44 @@
             <div class="modal-header">
                 <label id="header_label">{{title}}</label>
             </div>
-            <div class="modal-body">    
+            <div class="modal-body">
+                <div>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th class="table-s td-b text-center">発注先<br>コード</th>
+                                <th class="table-m td-b text-center">発注先名</th>
+                                <th class="table-s td-b text-center">納品</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-s td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 130px;" maxlength="3"
+                                    [(ngModel)]="filterParam.supplierCode"
+                                    (keyup)="toHanNumSC($event)"
+                                    (change)="toHanNumSC($event)"
+                                    (blur)="filterBySupplierCode($event)">
+                                </td>
+                                <td class="table-m td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 270px;" maxlength="10"
+                                    [(ngModel)]="filterParam.supplierJournalName"                                  
+                                    (change)="toZenkaku($event, true)"
+                                    (blur)="filterBySupplierName($event)" >
+                                </td>
+                                <td class="table-s td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 130px;" maxlength="10"
+                                    [(ngModel)]="filterParam.delivery"
+                                    (change)="toZenkaku($event, false)"
+                                    (blur)="filterByDelivery($event)"
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table-container">
-                    <table class="table table-hover">
+                    <table id="mainTbl" class="table table-hover table-bordered ">
                         <thead>
                             <tr>
                                 <th class="table-s td-b text-center">発注先<br>コード</th>

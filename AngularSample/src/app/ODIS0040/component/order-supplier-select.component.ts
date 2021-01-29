@@ -24,7 +24,7 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
   datas: OrderSupplierSelectType[];
 
   // 戻り値
-  resVal:OrderSupplierSelectType;
+  resVal: OrderSupplierSelectType;
 
   // エラーメッセージ
   errormsg:string ="";
@@ -37,6 +37,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
 
   // ローディング 判定
   isLoading: boolean = true;
+
+  filterParam = new OrderSupplierSelectType();
 
   /**
    * コンストラクタ
@@ -69,7 +71,7 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
  initScroll: QueryList<any>;
  ngAfterViewInit(){
    this.initScroll.changes.subscribe(t => {
-     var wTbody = this.view.element.nativeElement.querySelector('.table > tbody');
+     var wTbody = this.view.element.nativeElement.querySelector('#mainTbl > tbody');
 
      if(this.selectVal !== ''){
      wTbody.rows[this.selectRow].scrollIntoView({behavior: "auto", block: "center", inline: "nearest"});
@@ -83,7 +85,9 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
   /**
    * 終了時
   */
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.deleteSession();
+  }
 
    /**
    * テーブル クリック 選択背景 設定
@@ -136,6 +140,8 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
             if (!(this.selectVal == undefined || this.selectVal == null)) {
               this.onScroll(this.datas, this.selectVal);
             }
+             // データを保持する。
+             this.saveDataToSession();
           }
           //ロード画面を解除する。
           this.isLoading = false;
@@ -158,5 +164,148 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
       row += 1;
     }
   }
+
+  private saveDataToSession(){
+    if (!sessionStorage.getItem(Const.ScreenName.S0004EN)) {
+      sessionStorage.removeItem(Const.ScreenName.S0004EN);
+    }
+
+    let saveDt = [new OrderSupplierSelectType()];
+    saveDt = this.datas;
+    sessionStorage.setItem(Const.ScreenName.S0004EN, JSON.stringify(saveDt));
+  }
+
+  private deleteSession(){
+    sessionStorage.removeItem(Const.ScreenName.S0004EN);
+  }
+
+  //#region  --------------- ▼▼ フォーカス系 処理 ▼▼ --------------------------------
+  /**
+  * keyUp処理 半角数字のみ(発注先コード)
+  *
+  * @param $event イベント
+  */
+ public toHanNumSC($event) {
+  var maxLen: number = $event.target.maxLength;
+  var val = $event.target.value;
+  if (val.length > maxLen) {
+    val = val.substr(0, maxLen);
+  }
+  this.filterParam.supplierCode = this.commonComponent.onlyHanNumber(val);
+}
+
+
+/**
+* blur処理 半角⇒全角(名称)
+*
+* @param $event イベント
+*/
+public toZenkaku($event, isSupplier: boolean) {
+  var maxLen: number = $event.target.maxLength;
+  var val = $event.target.value;
+  if (val.length > maxLen) {
+    val = val.substr(0, maxLen);
+  }
+
+  if(isSupplier) {
+    this.filterParam.supplierJournalName = this.commonComponent.onChangeZenkaku(val);
+  }
+  else{
+    this.filterParam.delivery = this.commonComponent.onChangeZenkaku(val);
+  }
+  
+}
+
+
+  /**
+ * 発注先名称 ロストフォーカス
+ * @param event 
+ */
+public filterBySupplierName($event) {
+
+  if (this.filterParam.supplierCode != '' ||
+      this.filterParam.delivery != '') {
+    return;
+  }
+
+  const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
+  if (this.commonComponent.setValue(this.filterParam.supplierJournalName) != '') {
+    var tempDt = source.filter((dt) => {
+      if (this.commonComponent.setValue(dt.supplierJournalName).includes(this.filterParam.supplierJournalName)) {
+        return dt;
+      }
+    })
+    this.datas = tempDt;
+  }
+  else{
+    this.datas = source;
+  }
+}
+
+/**
+ * 発注先コード ロストフォーカス
+ * @param event 
+ */
+public filterBySupplierCode($event) {
+
+  if (this.filterParam.supplierJournalName != '' ||
+      this.filterParam.delivery != '') {
+    return;
+  }
+
+  if (!($event.target.value == '')) {
+    var maxLen: number = $event.target.maxLength;
+    var val = $event.target.value;
+    if (val.length > maxLen) {
+      val = val.substr(0, maxLen);
+    }
+  }
+
+  const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
+  if (this.commonComponent.setValue(this.filterParam.supplierCode) != '') {
+    var tempDt = source.filter((dt) => {
+      if (this.commonComponent.setValue(dt.supplierCode) == this.filterParam.supplierCode) {
+        return dt;
+      }
+    })
+    this.datas = tempDt;
+  }
+  else {
+    this.datas = source;
+  }
+
+}
+
+/**
+ * 納品 ロストフォーカス
+ * @param event 
+ */
+public filterByDelivery($event) {
+
+  if (this.filterParam.supplierCode != '' ||
+      this.filterParam.supplierJournalName != '') {
+    return;
+  }
+
+  var maxLen: number = $event.target.maxLength;
+  var val = $event.target.value;
+  if (val.length > maxLen) {
+    val = val.substr(0, maxLen);
+  }
+  const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
+  if (this.commonComponent.setValue(this.filterParam.delivery) != '') {
+    var tempDt = source.filter((dt) => {
+      if (this.commonComponent.setValue(dt.delivery).includes(this.filterParam.delivery)) {
+        return dt;
+      }
+    })
+    this.datas = tempDt;
+  }
+  else{
+    this.datas = source;
+  }
+}
+//#endregion
+
 
 }

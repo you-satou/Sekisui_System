@@ -7,8 +7,51 @@
                 <label id="header_label">{{title}}</label>
             </div>
             <div class="modal-body">
+                <div>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th class="td-b text-center">仕訳<br>コード</th>
+                                <th class="td-b text-center">経理<br>コード</th>
+                                <th class="td-b text-center">仕訳名称</th>
+                                <th class="td-b text-center">其他</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table-str td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 90px;" maxlength="4" 
+                                    [(ngModel)]="filterParam.journalCode"
+                                    (keyup)="toHanNumJC($event)" 
+                                    (change)="toHanNumJC($event)" 
+                                    (blur)="filterByJournalCode($event)">
+                                </td>
+                                <td class="table-str td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 90px;" maxlength="3"
+                                    [(ngModel)]="filterParam.accountingCategory"
+                                    (keyup)="toHanNumAC($event)"
+                                    (change)="toHanNumAC($event)"
+                                    (blur)="filterByAccountantCode($event)">
+                                </td>
+                                <td class="table-l td-b" style="margin: 0; padding: 5px 5px; width: max-content">
+                                    <input type="text" style="width: 270px;" maxlength="10"
+                                    [(ngModel)]="filterParam.orderJournalName"                                  
+                                    (change)="toZenkaku($event, true)"
+                                    (blur)="filterByJournalName($event)" >
+                                </td>
+                                <td class="table-str td-b" style="margin: 0; padding: 5px 5px; width: max-content;">
+                                    <input type="text" style="width: 70px;" maxlength="10"
+                                    [(ngModel)]="filterParam.other"
+                                    (change)="toZenkaku($event, false)"
+                                    (blur)="filterByOther($event)"
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="table-container">
-                    <table class="table table-hover " id="tbl1">
+                    <table id="shiwakeTbl" class="table table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th class="table-str td-b text-center">仕訳<br>コード</th>
@@ -31,7 +74,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                     (click)="onCloseClick();" tabindex="1">閉じる</button>
-                <label class="errormsg">{{errormsg}}</label>
+                <label class="errormsg">{{errorMsg}}</label>
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
                     (click)="onChooseClick($event);" tabindex="2">選択</button>
             </div>
