@@ -46,7 +46,7 @@ export class OrderDetailInputComponent implements OnInit, OnDestroy {
   @ViewChild('tabZouen2', { static: false }) childZouEn2: any
 
   // タッブの初期値
-  protected selectedTab: string = Const.TabName.TabName_Sekkei;
+  public selectedTab: string = Const.TabName.TabName_Sekkei;
 
   //  タッブの名前
   tabName1: string = Const.TabName.TabName_Sekkei;   //設計
