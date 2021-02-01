@@ -40,6 +40,15 @@ export class OrderSupplierSelectComponent implements OnInit, AfterViewInit {
 
   filterParam = new OrderSupplierSelectType();
 
+  get isFiltering(){
+    if(this.filterParam.supplierCode != ''
+    || this.filterParam.supplierJournalName != ''
+    || this.filterParam.delivery != ''){
+      return true;
+    }
+    return false;
+  }
+
   /**
    * コンストラクタ
    *
@@ -223,23 +232,7 @@ public toZenkaku($event, isSupplier: boolean) {
  */
 public filterBySupplierName($event) {
 
-  if (this.filterParam.supplierCode != '' ||
-      this.filterParam.delivery != '') {
-    return;
-  }
-
-  const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
-  if (this.commonComponent.setValue(this.filterParam.supplierJournalName) != '') {
-    var tempDt = source.filter((dt) => {
-      if (this.commonComponent.setValue(dt.supplierJournalName).includes(this.filterParam.supplierJournalName)) {
-        return dt;
-      }
-    })
-    this.datas = tempDt;
-  }
-  else{
-    this.datas = source;
-  }
+  this.filterData();
 }
 
 /**
@@ -248,32 +241,7 @@ public filterBySupplierName($event) {
  */
 public filterBySupplierCode($event) {
 
-  if (this.filterParam.supplierJournalName != '' ||
-      this.filterParam.delivery != '') {
-    return;
-  }
-
-  if (!($event.target.value == '')) {
-    var maxLen: number = $event.target.maxLength;
-    var val = $event.target.value;
-    if (val.length > maxLen) {
-      val = val.substr(0, maxLen);
-    }
-  }
-
-  const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
-  if (this.commonComponent.setValue(this.filterParam.supplierCode) != '') {
-    var tempDt = source.filter((dt) => {
-      if (this.commonComponent.setValue(dt.supplierCode) == this.filterParam.supplierCode) {
-        return dt;
-      }
-    })
-    this.datas = tempDt;
-  }
-  else {
-    this.datas = source;
-  }
-
+  this.filterData();
 }
 
 /**
@@ -281,25 +249,21 @@ public filterBySupplierCode($event) {
  * @param event 
  */
 public filterByDelivery($event) {
+  
+  this.filterData();
+}
 
-  if (this.filterParam.supplierCode != '' ||
-      this.filterParam.supplierJournalName != '') {
-    return;
-  }
-
-  var maxLen: number = $event.target.maxLength;
-  var val = $event.target.value;
-  if (val.length > maxLen) {
-    val = val.substr(0, maxLen);
-  }
+private filterData(){
   const source: OrderSupplierSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0004EN));
-  if (this.commonComponent.setValue(this.filterParam.delivery) != '') {
-    var tempDt = source.filter((dt) => {
-      if (this.commonComponent.setValue(dt.delivery).includes(this.filterParam.delivery)) {
-        return dt;
-      }
-    })
-    this.datas = tempDt;
+  if(this.isFiltering){
+      var tempDt = source.filter((dt) => {
+        if (this.commonComponent.setValue(dt.supplierCode).includes(this.filterParam.supplierCode) 
+        && this.commonComponent.setValue(dt.supplierJournalName).includes(this.filterParam.supplierJournalName)
+        && this.commonComponent.setValue(dt.delivery).includes(this.filterParam.delivery)) {
+          return dt;
+        }
+      })
+      this.datas = tempDt;
   }
   else{
     this.datas = source;

@@ -41,6 +41,16 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
 
   filterParam = new OrderJournalSelectType();
 
+  get isFiltering(){
+    if (this.filterParam.journalCode != ''
+    || this.filterParam.accountingCategory != ''
+    || this.filterParam.orderJournalName != ''
+    || this.filterParam.other != '') {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * コンストラクタ
    *
@@ -234,30 +244,8 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
    * @param event 
    */
   public filterByJournalCode($event) {
-    
-    if (this.filterParam.accountingCategory != '' ||
-        this.filterParam.orderJournalName != '' ||
-        this.filterParam.other != '' ) {
-      return;
-    }
-    var maxLen: number = $event.target.maxLength;
-    var val = $event.target.value;
-    if (val.length > maxLen) {
-      val = val.substr(0, maxLen);
-    }
 
-    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
-    if (this.commonComponent.setValue(this.filterParam.journalCode) != '') {
-      var tempDt = source.filter((dt)=>{
-        if (this.commonComponent.setValue(dt.journalCode) == this.filterParam.journalCode) {
-          return dt;
-        }
-      })
-      this.datas = tempDt;
-    }
-    else{
-      this.datas = source; 
-    }
+    this.filterData();
     
   }
 
@@ -267,24 +255,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
    */
   public filterByJournalName($event) {
 
-    if (this.filterParam.accountingCategory != '' ||
-        this.filterParam.journalCode != '' ||
-        this.filterParam.other != '') {
-      return;
-    }
-
-    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
-    if (this.commonComponent.setValue(this.filterParam.orderJournalName) != '') {
-      var tempDt = source.filter((dt) => {
-        if (this.commonComponent.setValue(dt.orderJournalName).includes(this.filterParam.orderJournalName)) {
-          return dt;
-        }
-      })
-      this.datas = tempDt;
-    }
-    else{
-      this.datas = source;
-    }
+    this.filterData();
   }
 
   /**
@@ -293,33 +264,7 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
    */
   public filterByAccountantCode($event) {
 
-    if (this.filterParam.journalCode != '' ||
-        this.filterParam.orderJournalName != '' ||
-        this.filterParam.other != '') {
-      return;
-    }
-
-    if (!($event.target.value == '')) {
-      var maxLen: number = $event.target.maxLength;
-      var val = $event.target.value;
-      if (val.length > maxLen) {
-        val = val.substr(0, maxLen);
-      }
-    }
-
-    const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
-    if (this.commonComponent.setValue(this.filterParam.accountingCategory) != '') {
-      var tempDt = source.filter((dt) => {
-        if (this.commonComponent.setValue(dt.accountingCategory) == this.filterParam.accountingCategory) {
-          return dt;
-        }
-      })
-      this.datas = tempDt;
-    }
-    else {
-      this.datas = source;
-    }
-
+    this.filterData();
   }
 
   /**
@@ -328,25 +273,23 @@ export class OrderJournalSelectComponent implements OnInit, AfterViewInit{
    */
   public filterByOther($event) {
 
-    if (this.filterParam.journalCode != '' ||
-        this.filterParam.orderJournalName != '' ||
-        this.filterParam.accountingCategory != '') {
-      return;
-    }
+    this.filterData();
+  }
 
-    var maxLen: number = $event.target.maxLength;
-    var val = $event.target.value;
-    if (val.length > maxLen) {
-      val = val.substr(0, maxLen);
-    }
+  /** データ絞り込み */
+  private filterData(){
+
     const source: OrderJournalSelectType[] = JSON.parse(sessionStorage.getItem(Const.ScreenName.S0003EN));
-    if (this.commonComponent.setValue(this.filterParam.other) != '') {
-      var tempDt = source.filter((dt) => {
-        if (this.commonComponent.setValue(dt.other).includes(this.filterParam.other)) {
-          return dt;
-        }
-      })
-      this.datas = tempDt;
+    if(this.isFiltering){
+        var tempDt = source.filter((dt) => {
+          if (this.commonComponent.setValue(dt.journalCode).includes(this.filterParam.journalCode) 
+          && this.commonComponent.setValue(dt.accountingCategory).includes(this.filterParam.accountingCategory)
+          && this.commonComponent.setValue(dt.orderJournalName).includes(this.filterParam.orderJournalName)
+          && this.commonComponent.setValue(dt.other).includes(this.filterParam.other)) {
+            return dt;
+          }
+        })
+        this.datas = tempDt;
     }
     else{
       this.datas = source;
